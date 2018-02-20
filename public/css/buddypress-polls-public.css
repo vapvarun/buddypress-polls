@@ -1,0 +1,100 @@
+/**
+ * All of the CSS for your public-facing functionality should be
+ * included in this file.
+ */
+
+/* Poll icon pointer */
+ .bpolls-html-container .bpolls-icon {
+ 	cursor: pointer;
+ }
+ .bpolls-html-container {
+ 	margin-left: 2%;
+ }
+.bpolls-option {
+	display: flex;
+	width: 100%;
+	max-width: 350px;
+}
+.bpolls-input{
+	display: inline-block;
+	padding: 0 8.5px;
+	margin-top: 0;
+	margin-bottom: 0;
+	height: 35px;
+	border: 1px solid rgba(0,0,0,0.1);
+	color: #333;
+	font-size: 14px;
+	line-height: 18px;
+	background-color: #fff !important;
+	transition: all .25s ease-in-out;
+	box-shadow: none;
+}
+.bpolls-sortable-handle, .bpolls-option-delete{
+	display: inline-block;
+	width: auto;
+	padding: 7.2px 8.5px !important;
+	margin: 0;
+	background: #EFEFEF !important;
+	border: none !important;
+	color: #424242 !important;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 18px;
+	text-align: center;
+	text-decoration: none !important;
+	text-transform: none !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	word-wrap: normal;
+	-moz-hyphens: none;
+	cursor: pointer;
+}
+.bpolls-option-delete{
+	opacity: 0.3;
+}
+.bpolls-option-action {
+	padding-top: 8.5px;
+	padding-bottom: 8.5px;
+}
+.bpolls-add-option {
+	color: #FFF !important;
+	background: #00b0ff !important;
+	padding: 5px 8.5px !important;
+    font-size: 12px;
+    line-height: 16px;
+    display: inline-block;
+	width: auto;
+	padding: 7.2px 8.5px !important;
+	margin: 0;
+	border: none !important;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 18px;
+	text-align: center;
+	text-decoration: none !important;
+	text-transform: none !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	word-wrap: normal;
+	-moz-hyphens: none;
+	cursor: pointer;
+}
+.bpolls-option-action .bpolls-checkbox {
+	display: inline-block;
+	margin-top: 3px;
+	margin-left: 14px;
+	position: relative;
+	line-height: 22px;
+}
+.bpolls-checkbox label {
+	padding-left: 0;
+	display: inline;
+	margin: 0;
+	clear: none;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	cursor: pointer;
+	font-weight: 400;
+	color: #7E7E7E;
+    font-size: 12px;
+}

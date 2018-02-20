@@ -1,0 +1,10 @@
+/**
+ * All of the CSS for your admin-specific functionality should be
+ * included in this file.
+ */
+
+  /*----------  Active tab design  ----------*/
+ .nav-tab.active {
+  background: #f1f1f1;
+  color: #000;
+ }
