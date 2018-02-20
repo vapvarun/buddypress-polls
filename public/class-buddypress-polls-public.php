@@ -213,7 +213,91 @@ class Buddypress_Polls_Public {
 		if(isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])){
 			$activity->type = 'activity_poll';
 		}
+
 		
 	}
 
+	/**
+	 * Action performed to save the activity meta on poll update.
+	 *
+	 * @param string $content The actvity content.
+	 * @param int    $user_id User id.
+	 * @param int    $activity_id Activity id.
+	 * @since 1.0.0
+	 */
+	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id ){
+		global $wpdb;
+		$activity_tbl  = $wpdb->base_prefix . 'bp_activity';
+		if(isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])){
+
+			if( isset($_POST['bpolls_multiselect']) && $_POST['bpolls_multiselect'] == 'yes'){
+				$multiselect = 'yes';
+			}else{
+				$multiselect = 'no';
+			}
+
+			$poll_meta = array(
+				'poll_option' => $_POST['bpolls_input_options'],
+				'multiselect' => $multiselect,
+			);
+
+			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
+		}
+	}
+
+	/**
+	 * Filters the new poll activity content for current activity item.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $activity_content Activity content posted by user.
+	 */
+	public function bpolls_update_poll_activity_content() {
+		$activity_id = bp_get_activity_id();
+		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
+		if( 'activity_poll' == bp_get_activity_type() && isset($activity_meta['poll_option']) ){
+			
+			$poll_options = $activity_meta['poll_option'];
+			$activity_content = '';
+			if( !empty($poll_options) && is_array($poll_options) ){
+
+				$activity_content .="<div class='bpolls-options-attach-container'><div class='bpolls-options-attach-items' style='color:red;'>";
+					
+					foreach ($poll_options as $key => $value) {
+
+						$activity_content .= "<div class='bpolls-item'>";
+						$activity_content .= "<div class='bpolls-item-width' style='width:(no votes yet)%'></div>";
+						$activity_content .= "<span class='bpolls-votes'>( 0 of 0)</span>";
+						$activity_content .= "<div class='bpolls-check-radio-div'>";
+						$activity_content .= "<input name='bpolls_vote_optn' value='".$value."' type='radio'>";
+						$activity_content .= "<label class='bpolls-option-lbl'>".$value."</label>";
+						$activity_content .= "<span class='bpolls-percent'>(no votes yet)</span>";
+						$activity_content .= "</div>";
+						$activity_content .= "</div>";
+					}
+
+				$activity_content .="</div></div>";
+
+				echo $activity_content;
+			}
+
+		}
+	}
+
 }
+?>
+<!-- <div class="ps-poll__item">
+	<div class="ps-poll__fill" style="width: (no votes yet)%"></div>
+
+	<span class="ps-poll__votes">
+	(0 of 0)				</span>
+
+	<div class="ps-checkbox ps-checkbox--poll">
+		<input name="options_27[]" value="a" id="a" class="ace ace-switch ace-switch-2 ps-js-poll-item-option" type="radio">
+
+		<label class="lbl" for="a">A</label>
+
+		<span class="ps-poll__percent">
+		(no votes yet)				</span>
+	</div>
+</div> -->
