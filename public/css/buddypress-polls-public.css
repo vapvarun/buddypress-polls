@@ -7,9 +7,6 @@
  .bpolls-html-container .bpolls-icon {
  	cursor: pointer;
  }
- .bpolls-html-container {
- 	margin-left: 2%;
- }
 .bpolls-option {
 	display: flex;
 	width: 100%;
@@ -97,4 +94,14 @@
 	font-weight: 400;
 	color: #7E7E7E;
     font-size: 12px;
+}
+.bpolls-polls-option-html{
+	display: none;
+}
+.bpolls-cancel-div{
+	width:100%;
+	max-width:350px;
+}
+.bpolls-cancel{
+	float: right;
 }

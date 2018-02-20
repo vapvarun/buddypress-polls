@@ -123,20 +123,23 @@ class Buddypress_Polls_Public {
 		<div class="bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i><?php esc_html_e('&nbsp;Poll','buddypress-polls'); ?></span>
 			<div class="bpolls-polls-option-html">
+				<div class="bpolls-cancel-div">
+					<a class="bpolls-cancel" href="JavaScript:void(0);"><?php esc_html_e('Cancel Poll','buddypress-polls'); ?></a>
+				</div>
 				<div class="bpolls-sortable">
 					<div class="bpolls-option">
 						<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
-						<input name="bpolls_input_options[]" class="bpolls-input" placeholder="<?php esc_html_e('Option 1','buddypress-polls'); ?>" type="text">
-						<a class="bpolls-option-delete" title="Delete" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e('Option 1','buddypress-polls'); ?>" type="text">
+						<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					</div>
 					<div class="bpolls-option">
 						<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
-						<input name="bpolls_input_options[]" class="bpolls-input" placeholder="<?php esc_html_e('Option 2','buddypress-polls'); ?>" type="text">
-						<a class="bpolls-option-delete" title="Delete" href="#"><i class="fa fa-trash" aria-hidden="true"></i></a>
+						<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e('Option 2','buddypress-polls'); ?>" type="text">
+						<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					</div>
 				</div>
 				<div class="bpolls-option-action">
-					<a href="#" class="bpolls-add-option"><?php esc_html_e('Add new option','buddypress-polls'); ?></a>
+					<a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option','buddypress-polls'); ?></a>
 					<div class="bpolls-checkbox">
 						<input name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
 						<label class="lbl" for="allow-multiple"><?php esc_html_e('Allow multiple options selection','buddypress-polls'); ?></label>
@@ -171,7 +174,7 @@ class Buddypress_Polls_Public {
 			$bp->activity->id,
 			'activity_poll',
 			__( 'Polls Update', 'buddypress-polls' ),
-			'bp_activity_format_activity_action_activity_poll',
+			array( $this, 'bp_activity_format_activity_action_activity_poll' ),
 			__( 'Poll', 'buddypress-polls' ),
 			array( 'activity', 'group', 'member', 'member_groups' )
 		);
@@ -187,7 +190,7 @@ class Buddypress_Polls_Public {
 	 * @return string $action
 	 */
 	function bp_activity_format_activity_action_activity_poll( $action, $activity ) {
-		$action = sprintf( __( '%s asked a question', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
+		$action = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 
 		/**
 		 * Filters the formatted activity action update string.
@@ -198,6 +201,19 @@ class Buddypress_Polls_Public {
 		 * @param BP_Activity_Activity $activity Activity item object.
 		 */
 		return apply_filters( 'bp_activity_new_poll_action', $action, $activity );
+	}
+
+	/**
+	 * Function to set activity type activity_poll.
+	 *
+	 * @since 1.0.0
+	 * @param array $activity Activity object.
+	 */
+	public function bpolls_update_poll_type_activity( $activity ) {
+		if(isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])){
+			$activity->type = 'activity_poll';
+		}
+		
 	}
 
 }

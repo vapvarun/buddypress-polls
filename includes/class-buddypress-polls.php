@@ -184,6 +184,9 @@ class Buddypress_Polls {
 		/* register poll type activity action */
 		$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpolls_register_activity_actions' );
 
+		/* update poll type activity on post update */
+		$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
+
 	}
 
 	/**

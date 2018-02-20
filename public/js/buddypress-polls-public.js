@@ -28,13 +28,13 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-	 // var container = $('.bpolls-option');
-  //       container.sortable({
-  //           handle: '.bpolls-sortable-handle'
-  //       });
-
+	
      jQuery( document ).ready(
 		function(){
+
+			var poll_html = $( '.bpolls-polls-option-html' ).html();
+			var option_html = $('.bpolls-option').html();
+
 			$(
 				function() {
 					$('.bpolls-sortable').sortable({
@@ -43,6 +43,73 @@
 					$('.bpolls-sortable').disableSelection();
 				}
 			);
+
+			/*==============================================
+			=            add new poll option js            =
+			==============================================*/
+			
+			$( document ).on(
+				'click', '.bpolls-add-option', function(){
+					var clonedObj = $( this ).parent().siblings().find( '.bpolls-option:first' ).clone().insertAfter( $( this ).parent().siblings().find( '.bpolls-option:last' ) );
+					clonedObj.find( 'input' ).each(
+						function(){
+							this.value = '';
+							this.placeholder = '';
+						}
+					);
+					if (clonedObj.length == 0) {
+					  $('.bpolls-sortable').html('<div class="bpolls-option">'+option_html+'</div>');
+					}
+				}
+			);
+			
+			/*=====  End of add new poll option js  ======*/
+
+			/*==========================================
+			=            delete poll option            =
+			==========================================*/
+			
+			$( document ).on(
+				'click', '.bpolls-option-delete', function(){
+					$(this).parent('.bpolls-option').remove();
+				}
+			);
+			
+			/*=====  End of delete poll option  ======*/
+			
+			/*============================================
+			=            Show hide poll panel            =
+			============================================*/
+			
+			$( document ).on(
+				'click', '.bpolls-icon', function(){
+					$('.bpolls-polls-option-html').slideToggle( 500 );
+					// if ($( '.bpolls-option:first' )) {
+					// 	$( '.bpolls-option:first' ).find( '.bpolls-option-delete' ).hide();
+					// }
+				}
+			);
+			
+			/*=====  End of Show hide poll panel  ======*/
+
+			/*==================================================================
+			=            clear html and toggle on poll cancellation            =
+			==================================================================*/
+			
+			$( document ).on(
+				'click', '.bpolls-cancel', function(){
+					$( '.bpolls-polls-option-html' ).html(poll_html);
+					$('.bpolls-polls-option-html').slideUp( 500 );
+					$('.bpolls-sortable').sortable({
+						handle: '.bpolls-sortable-handle'
+					});
+					$('.bpolls-sortable').disableSelection();
+				}
+			);
+			
+			/*=====  End of clear html and toggle on poll cancellation  ======*/
+			
+					
 		}
 	 );	   
 
