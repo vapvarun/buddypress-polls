@@ -84,9 +84,6 @@
 			$( document ).on(
 				'click', '.bpolls-icon', function(){
 					$('.bpolls-polls-option-html').slideToggle( 500 );
-					// if ($( '.bpolls-option:first' )) {
-					// 	$( '.bpolls-option:first' ).find( '.bpolls-option-delete' ).hide();
-					// }
 				}
 			);
 			
@@ -109,7 +106,19 @@
 			
 			/*=====  End of clear html and toggle on poll cancellation  ======*/
 			
-					
+			/*==========================================================
+			=            solve glitch on post update submit            =
+			==========================================================*/
+			
+			$( "#aw-whats-new-submit" ).click(
+				function(){
+					if ($( '.bpolls-polls-option-html' ).is( ':visible' )) {
+						$( '.bpolls-polls-option-html' ).slideToggle( 500 );
+					}
+				}
+			);
+			
+			/*=====  End of solve glitch on post update submit  ======*/		
 		}
 	 );	   
 

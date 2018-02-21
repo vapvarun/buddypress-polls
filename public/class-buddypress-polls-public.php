@@ -253,15 +253,22 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_content Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content() {
+		$user_id = get_current_user_id();
 		$activity_id = bp_get_activity_id();
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
 		if( 'activity_poll' == bp_get_activity_type() && isset($activity_meta['poll_option']) ){
 			
 			$poll_options = $activity_meta['poll_option'];
 			$activity_content = '';
+
+			if( 'yes' == $activity_meta['multiselect'] ){
+				$optn_typ = 'checkbox';
+			}else {
+				$optn_typ = 'radio';
+			}
 			if( !empty($poll_options) && is_array($poll_options) ){
 
-				$activity_content .="<div class='bpolls-options-attach-container'><div class='bpolls-options-attach-items' style='color:red;'>";
+				$activity_content .="<div class='bpolls-options-attach-container'><div class='bpolls-options-attach-items'>";
 					
 					foreach ($poll_options as $key => $value) {
 
@@ -269,13 +276,14 @@ class Buddypress_Polls_Public {
 						$activity_content .= "<div class='bpolls-item-width' style='width:(no votes yet)%'></div>";
 						$activity_content .= "<span class='bpolls-votes'>( 0 of 0)</span>";
 						$activity_content .= "<div class='bpolls-check-radio-div'>";
-						$activity_content .= "<input name='bpolls_vote_optn' value='".$value."' type='radio'>";
+						$activity_content .= "<input name='bpolls_vote_optn' value='".$value."' type='".$optn_typ."'>";
 						$activity_content .= "<label class='bpolls-option-lbl'>".$value."</label>";
 						$activity_content .= "<span class='bpolls-percent'>(no votes yet)</span>";
 						$activity_content .= "</div>";
 						$activity_content .= "</div>";
 					}
-
+				$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' data-activityid='".$activity_id."' data-multiselect='".$activity_meta['multiselect']."' data-userid='".$user_id."'>".__('Submit','buddypress-polls')."</a>";
+				
 				$activity_content .="</div></div>";
 
 				echo $activity_content;
@@ -286,18 +294,3 @@ class Buddypress_Polls_Public {
 
 }
 ?>
-<!-- <div class="ps-poll__item">
-	<div class="ps-poll__fill" style="width: (no votes yet)%"></div>
-
-	<span class="ps-poll__votes">
-	(0 of 0)				</span>
-
-	<div class="ps-checkbox ps-checkbox--poll">
-		<input name="options_27[]" value="a" id="a" class="ace ace-switch ace-switch-2 ps-js-poll-item-option" type="radio">
-
-		<label class="lbl" for="a">A</label>
-
-		<span class="ps-poll__percent">
-		(no votes yet)				</span>
-	</div>
-</div> -->
