@@ -126,6 +126,8 @@
 			
 			$( document ).on( 'click', '.bpolls-vote-submit', function () {
 
+				var submit_event = $(this);
+				submit_event.html('Submitting vote <i class="fa fa-circle-o-notch" aria-hidden="true"></i>');
 				var poll_data = $(this).closest( '.bpolls-vote-submit-form' ).serialize();
 				var data = {
 					'action': 'bpolls_save_poll_vote',
@@ -134,6 +136,7 @@
 				};
 
 				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
+					submit_event.remove();
 					console.log(response);
 				} );
 			} );
