@@ -192,6 +192,9 @@ class Buddypress_Polls {
 
 		/* update poll activity content */
 		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
+
+		/* ajax request to save note */
+		$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
 	}
 
 	/**

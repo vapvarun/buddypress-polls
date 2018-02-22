@@ -118,7 +118,29 @@
 				}
 			);
 			
-			/*=====  End of solve glitch on post update submit  ======*/		
+			/*=====  End of solve glitch on post update submit  ======*/
+
+			/*======================================================
+			=            Ajax request to save poll vote            =
+			======================================================*/
+			
+			$( document ).on( 'click', '.bpolls-vote-submit', function () {
+
+				var poll_data = $(this).closest( '.bpolls-vote-submit-form' ).serialize();
+				var data = {
+					'action': 'bpolls_save_poll_vote',
+					'poll_data': poll_data,
+					'ajax_nonce': bpolls_ajax_object.ajax_nonce
+				};
+
+				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
+					console.log(response);
+				} );
+			} );
+			
+			/*=====  End of Ajax request to save poll vote  ======*/
+			
+							
 		}
 	 );	   
 
