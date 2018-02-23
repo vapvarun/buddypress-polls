@@ -77,7 +77,6 @@ class Buddypress_Polls_Public {
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
-
 		if ( in_array( 'font-awesome.css', $srcs ) || in_array( 'font-awesome.min.css', $srcs ) ) {
 			/* echo 'font-awesome.css registered'; */
 		} else {
@@ -108,8 +107,8 @@ class Buddypress_Polls_Public {
 		if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
-
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
+		
 		wp_localize_script( $this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_ajax_security' ), 'submit_text' => __('Submitting vote','buddypress-polls'),'optn_empty_text' => __('Please select your choice.','buddypress-polls') ) );
 
 	}
@@ -246,17 +245,21 @@ class Buddypress_Polls_Public {
 				$multiselect = 'no';
 			}
 
+			$poll_optn_arr = array();
 			foreach ($_POST['bpolls_input_options'] as $key => $value) {
-				if($value == ''){
-					unset($_POST['bpolls_input_options'][$key]);
+				if( $value != '' ){
+					$poll_key = sanitize_title($value);
+					$poll_optn_arr[$poll_key] = $value;
 				}
+				// if($value == ''){
+				// 	unset($_POST['bpolls_input_options'][$key]);
+				// }
 			}
 
 			$poll_meta = array(
-				'poll_option' => $_POST['bpolls_input_options'],
+				'poll_option' => $poll_optn_arr,
 				'multiselect' => $multiselect,
 			);
-
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 		}
 	}
@@ -317,8 +320,8 @@ class Buddypress_Polls_Public {
 							$total_votes = 0;
 						}
 						
-						if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $value, $activity_meta['poll_optn_votes'] ) ){
-							$this_optn_vote = $activity_meta['poll_optn_votes'][$value];
+						if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ){
+							$this_optn_vote = $activity_meta['poll_optn_votes'][$key];
 						}else{
 							$this_optn_vote = 0;
 						}
@@ -340,7 +343,7 @@ class Buddypress_Polls_Public {
 						$activity_content .= "<div class='bpolls-item-width' style='width:".$vote_percent."'></div>";
 						$activity_content .= "<span class='bpolls-votes'>".$bpolls_votes_txt."</span>";
 						$activity_content .= "<div class='bpolls-check-radio-div'>";
-						$activity_content .= "<input name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."'>";
+						$activity_content .= "<input id='".$key."' name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."'>";
 						$activity_content .= "<label class='bpolls-option-lbl'>".$value."</label>";
 						$activity_content .= "<span class='bpolls-percent'>".$vote_percent."</span>";
 						$activity_content .= "</div>";
@@ -378,8 +381,8 @@ class Buddypress_Polls_Public {
 			$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
 
 			if( array_key_exists('poll_optn_votes', $activity_meta) ){
-				foreach ($activity_meta['poll_optn_votes'] as $key => $value) {
-					if( in_array( $key, $poll_data['bpolls_vote_optn']) ){
+				foreach ($activity_meta['poll_option'] as $key => $value) {
+					if( in_array( $value, $poll_data['bpolls_vote_optn']) ){
 						$activity_meta['poll_optn_votes'][$key] = $activity_meta['poll_optn_votes'][$key] + 1;
 					}
 				}
@@ -390,7 +393,7 @@ class Buddypress_Polls_Public {
 					}else{
 						$ed = 0;
 					}
-					$poll_optn_votes[$value] = $ed;
+					$poll_optn_votes[$key] = $ed;
 				}
 				$activity_meta['poll_optn_votes'] = $poll_optn_votes;
 			}
@@ -404,13 +407,19 @@ class Buddypress_Polls_Public {
 
 			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote',true);
 			
+			$user_vote = array();
+			foreach ($activity_meta['poll_option'] as $key => $value) {
+				if( in_array( $value, $poll_data['bpolls_vote_optn']) ){
+					$user_vote[] = $key;
+				}
+			}
 			if( $bpoll_user_vote ){
 				if( !array_key_exists( $activity_id, $bpoll_user_vote ) ){
-					$bpoll_user_vote[$activity_id] = $poll_data['bpolls_vote_optn'];
+					$bpoll_user_vote[$activity_id] = $user_vote;
 					update_user_meta( $user_id, 'bpoll_user_vote', $bpoll_user_vote );
 				}
 			}else{		
-				$vote[$activity_id] = $poll_data['bpolls_vote_optn'];
+				$vote[$activity_id] = $user_vote;
 				update_user_meta( $user_id, 'bpoll_user_vote', $vote );
 			}
 
@@ -436,8 +445,8 @@ class Buddypress_Polls_Public {
 					$total_votes = 0;
 				}
 
-				if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $value, $activity_meta['poll_optn_votes'] ) ){
-					$this_optn_vote = $activity_meta['poll_optn_votes'][$value];
+				if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ){
+					$this_optn_vote = $activity_meta['poll_optn_votes'][$key];
 				}else{
 					$this_optn_vote = 0;
 				}
@@ -450,7 +459,7 @@ class Buddypress_Polls_Public {
 
 				$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
 
-				$uptd_votes[$value] = array(
+				$uptd_votes[$key] = array(
 					'vote_percent' => $vote_percent,
 					'bpolls_votes_txt' => $bpolls_votes_txt,
 

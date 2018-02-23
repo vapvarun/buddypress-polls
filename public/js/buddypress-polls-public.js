@@ -31,7 +31,7 @@
 
      jQuery( document ).ready(
 		function(){
-
+			
 			var poll_html = $( '.bpolls-polls-option-html' ).html();
 			var option_html = $('.bpolls-option').html();
 
@@ -153,7 +153,7 @@
 					var res = JSON.parse(response);
 
 					$.each(res, function(i, item) {
-						var input_obj = submit_event.closest( '.bpolls-vote-submit-form' ).find( "input[value="+i+"]" );
+						var input_obj = submit_event.closest( '.bpolls-vote-submit-form' ).find( "#"+i );
 
 						$(input_obj).parent('.bpolls-check-radio-div').siblings('.bpolls-item-width').animate(
 						{
