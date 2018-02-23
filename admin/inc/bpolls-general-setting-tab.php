@@ -31,11 +31,11 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 		    </td>
 	    </tr>
 	    <tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Show results', 'buddypress-profanity' ); ?></label></th>
-			<td><input name='bpolls_settings[show_results]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['show_results']))?checked($bpolls_settings['show_results'],'yes'):''; ?>/>
-			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can see poll results before voting.', 'buddypress-polls' ); ?>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-profanity' ); ?></label></th>
+			<td><input name='bpolls_settings[hide_results]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['hide_results']))?checked($bpolls_settings['hide_results'],'yes'):''; ?>/>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?>
 			</p>
-			<p class="description" id="tagline-description"><?php esc_html_e( 'Disabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Disabled: users can see poll results before voting.', 'buddypress-polls' ); ?>
 			</p>
 		    </td>
 	    </tr>

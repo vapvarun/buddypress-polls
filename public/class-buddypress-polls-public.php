@@ -120,6 +120,13 @@ class Buddypress_Polls_Public {
 	 * @since    1.0.0
 	 */
 	public function bpolls_polls_update_html() {
+		$bpolls_settings = get_option( 'bpolls_settings' );
+		
+		$multi_true = false;
+		if (isset ( $bpolls_settings['multiselect'] ) ){
+			$multi_true = true;
+		}
+
 		?>
 		<div class="bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i><?php esc_html_e('&nbsp;Poll','buddypress-polls'); ?></span>
@@ -141,10 +148,12 @@ class Buddypress_Polls_Public {
 				</div>
 				<div class="bpolls-option-action">
 					<a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option','buddypress-polls'); ?></a>
+					<?php if ( $multi_true ){ ?>
 					<div class="bpolls-checkbox">
 						<input name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
 						<label class="lbl" for="allow-multiple"><?php esc_html_e('Allow multiple options selection','buddypress-polls'); ?></label>
 					</div>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -260,17 +269,26 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_content Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content() {
+
 		$user_id = get_current_user_id();
 		$activity_id = bp_get_activity_id();
+		$bpolls_settings = get_option( 'bpolls_settings' );
 
-		$submit = true;
+		$submit = false;
+		$hide_results = false;
 		$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote',true);
 		if ( $bpoll_user_vote ){
 			if( !array_key_exists( $activity_id, $bpoll_user_vote ) ){
 				$submit = true;
+				if( isset( $bpolls_settings['hide_results'] ) ){
+					$hide_results = true;
+				}
 			}
 		}else{
 			$submit = true;
+			if( isset( $bpolls_settings['hide_results'] ) ){
+				$hide_results = true;
+			}
 		}
 
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
@@ -311,11 +329,16 @@ class Buddypress_Polls_Public {
 							$vote_percent = '(no votes yet)';
 						}
 
-						$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+						$bpolls_votes_txt = '(&nbsp;'. $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes . '&nbsp;)';
+
+						if( $hide_results ){
+							$vote_percent = '';
+							$bpolls_votes_txt = '';
+						}
 
 						$activity_content .= "<div class='bpolls-item'>";
 						$activity_content .= "<div class='bpolls-item-width' style='width:".$vote_percent."'></div>";
-						$activity_content .= "<span class='bpolls-votes'>( ".$bpolls_votes_txt." )</span>";
+						$activity_content .= "<span class='bpolls-votes'>".$bpolls_votes_txt."</span>";
 						$activity_content .= "<div class='bpolls-check-radio-div'>";
 						$activity_content .= "<input name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."'>";
 						$activity_content .= "<label class='bpolls-option-lbl'>".$value."</label>";
