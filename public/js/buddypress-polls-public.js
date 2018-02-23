@@ -28,7 +28,7 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
-	
+
      jQuery( document ).ready(
 		function(){
 
@@ -125,10 +125,24 @@
 			======================================================*/
 			
 			$( document ).on( 'click', '.bpolls-vote-submit', function () {
-
 				var submit_event = $(this);
-				submit_event.html('Submitting vote <i class="fa fa-circle-o-notch" aria-hidden="true"></i>');
+				var submit_event_text = $(this).html();
+				var s_array = $(this).closest( '.bpolls-vote-submit-form' ).serializeArray();
+				var len = s_array.length;
+				var dataObj = {};
+				for (var i=0; i<len; i++) {
+					dataObj[s_array[i].name] = s_array[i].value;
+				}
+				if(dataObj['bpolls_vote_optn[]'] == undefined ){
+					submit_event.html(bpolls_ajax_object.optn_empty_text+' <i class="fa fa-exclamation-triangle"></i>');
+					return;
+				}else{
+					submit_event.html(submit_event_text);
+				}
+
+				submit_event.html(bpolls_ajax_object.submit_text+' <i class="fa fa-refresh fa-spin"></i>');
 				var poll_data = $(this).closest( '.bpolls-vote-submit-form' ).serialize();
+				
 				var data = {
 					'action': 'bpolls_save_poll_vote',
 					'poll_data': poll_data,
@@ -136,8 +150,22 @@
 				};
 
 				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
+					var res = JSON.parse(response);
+
+					$.each(res, function(i, item) {
+						var input_obj = submit_event.closest( '.bpolls-vote-submit-form' ).find( "input[value="+i+"]" );
+
+						$(input_obj).parent('.bpolls-check-radio-div').siblings('.bpolls-item-width').animate(
+						{
+							width: item.vote_percent
+						}, 500
+						);
+
+						$(input_obj).siblings('.bpolls-percent').text(item.vote_percent);
+						$(input_obj).parent('.bpolls-check-radio-div').siblings('.bpolls-votes').html('(' + item.bpolls_votes_txt + ')');
+
+					});
 					submit_event.remove();
-					console.log(response);
 				} );
 			} );
 			
