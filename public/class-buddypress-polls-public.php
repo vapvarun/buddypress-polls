@@ -250,7 +250,10 @@ class Buddypress_Polls_Public {
 	 * @param int    $activity_id Activity id.
 	 * @since 1.0.0
 	 */
-	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id ){
+	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id, $g_activity_id = null){
+		if( isset( $g_activity_id ) ){
+			$activity_id = $g_activity_id;
+		}
 		global $wpdb;
 		$activity_tbl  = $wpdb->base_prefix . 'bp_activity';
 		if(isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])){

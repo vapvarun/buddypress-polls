@@ -188,7 +188,10 @@ class Buddypress_Polls {
 		$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
 
 		/* update poll activity meta */
-		$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 3 );
+		$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+
+		/* update group poll activity meta */
+		$this->loader->add_action( 'bp_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
 		/* update poll activity content */
 		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
