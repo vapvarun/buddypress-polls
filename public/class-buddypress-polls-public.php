@@ -295,9 +295,6 @@ class Buddypress_Polls_Public {
 		$user_id = get_current_user_id();
 		$activity_id = bp_get_activity_id();
 
-		$date_recorded = bp_get_activity_date_recorded();
-		$date_recorded =  new DateTime($date_recorded);
-
 		$bpolls_settings = get_option( 'bpolls_settings' );
 
 		$submit = false;
