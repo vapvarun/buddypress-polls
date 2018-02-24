@@ -39,6 +39,15 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 			</p>
 		    </td>
 	    </tr>
+	    <tr>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-profanity' ); ?></label></th>
+			<td><input name='bpolls_settings[close_date]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['close_date']))?checked($bpolls_settings['close_date'],'yes'):''; ?>/>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set poll closing date and time.', 'buddypress-polls' ); ?>
+			</p>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Disabled: polls will always remain open for voting', 'buddypress-polls' ); ?>
+			</p>
+		    </td>
+	    </tr>
 	</table>
 	<?php submit_button(); ?>
 </form>	

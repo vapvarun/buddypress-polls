@@ -77,6 +77,9 @@ class Buddypress_Polls_Public {
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
+
+		wp_enqueue_style( $this->plugin_name.'-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all' );
+
 		if ( in_array( 'font-awesome.css', $srcs ) || in_array( 'font-awesome.min.css', $srcs ) ) {
 			/* echo 'font-awesome.css registered'; */
 		} else {
@@ -107,6 +110,9 @@ class Buddypress_Polls_Public {
 		if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 			wp_enqueue_script( 'jquery-ui-sortable' );
 		}
+		wp_enqueue_script( $this->plugin_name.'-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
+		wp_enqueue_script( $this->plugin_name.'-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
+
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
 		
 		wp_localize_script( $this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_ajax_security' ), 'submit_text' => __('Submitting vote','buddypress-polls'),'optn_empty_text' => __('Please select your choice.','buddypress-polls') ) );
@@ -124,6 +130,11 @@ class Buddypress_Polls_Public {
 		$multi_true = false;
 		if (isset ( $bpolls_settings['multiselect'] ) ){
 			$multi_true = true;
+		}
+
+		$poll_cdate = false;
+		if (isset ( $bpolls_settings['close_date'] ) ){
+			$poll_cdate = true;
 		}
 
 		?>
@@ -151,6 +162,11 @@ class Buddypress_Polls_Public {
 					<div class="bpolls-checkbox">
 						<input name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
 						<label class="lbl" for="allow-multiple"><?php esc_html_e('Allow multiple options selection','buddypress-polls'); ?></label>
+					</div>
+					<?php } ?>
+					<?php if ( $poll_cdate ){ ?>
+					<div class="bpolls-date-time">
+						<input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time','buddypress-polls'); ?>">
 					</div>
 					<?php } ?>
 				</div>
@@ -245,20 +261,24 @@ class Buddypress_Polls_Public {
 				$multiselect = 'no';
 			}
 
+			if( isset($_POST['bpolls-close-date']) && !empty($_POST['bpolls-close-date'])){
+				$close_date = $_POST['bpolls-close-date'];
+			}else{
+				$close_date = 0;
+			}
+
 			$poll_optn_arr = array();
 			foreach ($_POST['bpolls_input_options'] as $key => $value) {
 				if( $value != '' ){
 					$poll_key = sanitize_title($value);
 					$poll_optn_arr[$poll_key] = $value;
 				}
-				// if($value == ''){
-				// 	unset($_POST['bpolls_input_options'][$key]);
-				// }
 			}
 
 			$poll_meta = array(
 				'poll_option' => $poll_optn_arr,
 				'multiselect' => $multiselect,
+				'close_date'  => $close_date
 			);
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 		}
@@ -272,9 +292,12 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_content Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content() {
-
 		$user_id = get_current_user_id();
 		$activity_id = bp_get_activity_id();
+
+		$date_recorded = bp_get_activity_date_recorded();
+		$date_recorded =  new DateTime($date_recorded);
+
 		$bpolls_settings = get_option( 'bpolls_settings' );
 
 		$submit = false;
@@ -295,6 +318,19 @@ class Buddypress_Polls_Public {
 		}
 
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
+		
+		$poll_closing = false;
+		if( isset($activity_meta['close_date']) && isset($bpolls_settings['close_date']) && $activity_meta['close_date'] != 0 ){
+			$current_time = new DateTime();
+			$close_date = $activity_meta['close_date'];
+			$close_date_time = new DateTime($close_date);
+			if( $close_date_time > $current_time ){
+				$poll_closing = true;
+			}
+
+		}else{
+			$poll_closing = true;
+		}
 
 		if( 'activity_poll' == bp_get_activity_type() && isset($activity_meta['poll_option']) ){
 			
@@ -353,7 +389,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='".$activity_meta['multiselect']."'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='".$user_id."'>";
 				
-				if($submit){
+				if($submit && $poll_closing){
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>".__('Submit','buddypress-polls')."</a>";
 				}
 				$activity_content .="</form></div></div>";

@@ -27,11 +27,10 @@
 	 * single DOM-ready or window-load handler for a particular page.
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
-	 */
-
+	 */ 
      jQuery( document ).ready(
 		function(){
-			
+			$('#bpolls-datetimepicker').datetimepicker();
 			var poll_html = $( '.bpolls-polls-option-html' ).html();
 			var option_html = $('.bpolls-option').html();
 
