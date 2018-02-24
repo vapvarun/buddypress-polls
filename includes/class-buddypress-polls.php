@@ -122,6 +122,12 @@ class Buddypress_Polls {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-buddypress-polls-public.php';
 
+		/**
+		 * The class responsible for initiating bp poll activity graph widget.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/bp-poll-activity-graph.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';
+
 		$this->loader = new Buddypress_Polls_Loader();
 
 	}
