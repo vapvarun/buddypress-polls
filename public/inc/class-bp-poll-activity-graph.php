@@ -189,10 +189,16 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			'type' => 'activity_poll'
 		);
 
+		if ( bp_has_activities( $act_args ) ) { 
+			$act_default = $activities_template->activities[0]->id; 
+		}else{
+			$act_default = '';
+		}
+
 		$defaults = array(
 			'title'            => __( 'Poll Activity Graph', 'buddypress-polls' ),
 			'max_activity'     => 5,
-			'activity_default' => '274'
+			'activity_default' => $act_default
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
