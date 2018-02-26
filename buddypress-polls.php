@@ -40,6 +40,7 @@ if ( ! defined( 'BP_ENABLE_MULTIBLOG' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'PLUGINNAME_VERSION', '1.0.0' );
+define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.
