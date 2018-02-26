@@ -31,7 +31,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		parent::__construct( false, _x( '(BuddyPress) Poll Activity Graph', 'widget name', 'buddypress-polls' ), $widget_ops );
 
 		if ( is_customize_preview() || is_active_widget( false, false, $this->id_base ) ) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ),10,1 );
+			add_action( 'bp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
 		}
 	}
 
@@ -40,41 +40,52 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 *
 	 * @since 2.6.0
 	 */
-	public function enqueue_scripts($activity_id) {
+	public function enqueue_scripts() {
+
+		$poll_wdgt = new BP_Poll_Activity_Graph_Widget();
+		$poll_wdgt_stngs = $poll_wdgt->get_settings();
 		
-		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
-
-		$poll_options = isset($activity_meta['poll_option'])?$activity_meta['poll_option']:'';
 		$uptd_votes = array();
-		if( !empty($poll_options) && is_array($poll_options) ){
-			foreach ($poll_options as $key => $value) {
-				if( isset( $activity_meta['poll_total_votes'] ) ){
-					$total_votes = $activity_meta['poll_total_votes'];
-				}else{
-					$total_votes = 0;
+
+		foreach ($poll_wdgt_stngs as $key => $value) {
+			$activity_id = $value['activity_default'];
+
+			$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
+
+			$poll_options = isset($activity_meta['poll_option'])?$activity_meta['poll_option']:'';
+			
+			if( !empty($poll_options) && is_array($poll_options) ){
+				foreach ($poll_options as $key => $value) {
+					if( isset( $activity_meta['poll_total_votes'] ) ){
+						$total_votes = $activity_meta['poll_total_votes'];
+					}else{
+						$total_votes = 0;
+					}
+
+					if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ){
+						$this_optn_vote = $activity_meta['poll_optn_votes'][$key];
+					}else{
+						$this_optn_vote = 0;
+					}
+
+					if( $total_votes != 0 ){
+						$vote_percent = round( $this_optn_vote/$total_votes*100, 2 );
+					}else{
+						$vote_percent = '(no votes yet)';
+					}
+
+					$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+
+					$uptd_votes[$activity_id][] = array(
+						'label' => $value,
+						'y' => $vote_percent,
+
+					);
 				}
-
-				if( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ){
-					$this_optn_vote = $activity_meta['poll_optn_votes'][$key];
-				}else{
-					$this_optn_vote = 0;
-				}
-
-				if( $total_votes != 0 ){
-					$vote_percent = round( $this_optn_vote/$total_votes*100, 2 );
-				}else{
-					$vote_percent = '(no votes yet)';
-				}
-
-				$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
-
-				$uptd_votes[] = array(
-					'label' => $value,
-					'y' => $vote_percent,
-
-				);
 			}
 		}
+		
+		
 		
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), time() );
 
@@ -92,7 +103,6 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		extract( $args );
-
 		if ( empty( $instance['activity_default'] ) ) {
 			$instance['activity_default'] = '226';
 		}
@@ -136,9 +146,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		
 		?>
-		<div class="bpolls-activity-chartContainer" style="height: 300px; width: 100%;"></div>
+		<div class="bpolls-activity-chartContainer" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" style="height: 300px; width: 100%;"></div>
 		<?php echo $after_widget;
-		$this->enqueue_scripts($instance['activity_default']);
 	}
 
 	/**
