@@ -148,6 +148,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		?>
 		<div class="bpolls-activity-chartContainer" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" style="height: 300px; width: 100%;"></div>
 		<?php echo $after_widget;
+
 	}
 
 	/**
@@ -178,11 +179,22 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function form( $instance ) {
+		global $activities_template;
+
+		// Back up the global.
+		$old_activities_template = $activities_template;
+
+		$act_args = array(
+			'action' => 'activity_poll',
+			'type' => 'activity_poll'
+		);
+
 		$defaults = array(
 			'title'            => __( 'Poll Activity Graph', 'buddypress-polls' ),
 			'max_activity'     => 5,
 			'activity_default' => '274'
 		);
+
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$title 	       = strip_tags( $instance['title'] );
@@ -196,14 +208,16 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		<p>
 			<label for="<?php echo $this->get_field_id( 'activity_default' ); ?>"><?php _e('Default activity to show:', 'buddypress'); ?></label>
-			<input class="widefat" id="<?php echo $this->get_field_id( 'activity_default' ); ?>" name="<?php echo $this->get_field_name( 'activity_default' ); ?>" type="text" value="<?php echo esc_attr( $activity_default ); ?>" style="width: 100%" />
-			<!-- <select name="<?php echo $this->get_field_name( 'activity_default' ); ?>" id="<?php echo $this->get_field_id( 'activity_default' ); ?>">
-				<option value="newest" <?php selected( $activity_default, 'newest' ); ?>><?php _e( 'Newest', 'buddypress' ) ?></option>
-				<option value="active" <?php selected( $activity_default, 'active' ); ?>><?php _e( 'Active', 'buddypress' ) ?></option>
-				<option value="popular"  <?php selected( $activity_default, 'popular' ); ?>><?php _e( 'Popular', 'buddypress' ) ?></option>
-				<option value="alphabetical" <?php selected( $activity_default, 'alphabetical' ); ?>><?php _e( 'Alphabetical', 'buddypress' ) ?></option>
-			</select> -->
+			<?php if ( bp_has_activities( $act_args ) ) { ?>
+				<select name="<?php echo $this->get_field_name( 'activity_default' ); ?>" id="<?php echo $this->get_field_id( 'activity_default' ); ?>">
+					<?php while ( bp_activities() ) : bp_the_activity(); ?>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>	
+			<?php endwhile; ?>
+				</select> 
+			<?php	} ?>
 		</p>
 	<?php
+	// Restore the global.
+	$activities_template = $old_activities_template;
 	}
 }
