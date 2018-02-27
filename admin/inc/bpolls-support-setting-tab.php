@@ -29,11 +29,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="bpolls-faq-row border">
 				<div class="bpolls-admin-col-12">
 					<button class="bpolls-accordion">
-						<?php esc_html_e( 'Does this plugin filter multiple keywords?', 'buddypress-polls' ); ?>
+						<?php esc_html_e( 'What to expect when installing and activating BuddyPress Polls?', 'buddypress-polls' ); ?>
 					</button>
 					<div class="bpolls-panel">
 						<p> 
-							<?php esc_html_e( 'Yes, multiple keywords can be set to filter with the setting [Keywords to remove] provied under general tab.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'After activating plugin a poll icon is added to the post box in activity stream, user profiles and even in groups.', 'buddypress-polls' ); ?>
 						</p>
 					</div>
 				</div>
@@ -41,11 +41,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="bpolls-faq-row border">	
 				<div class="bpolls-admin-col-12">
 					<button class="bpolls-accordion">
-						<?php esc_html_e( 'Does this change the content in BuddyPress database?' ); ?>
+						<?php esc_html_e( 'What is the use of Multi select polls setting provided under general settings section?' ); ?>
 					</button>
 					<div class="bpolls-panel">
 						<p> 
-							<?php esc_html_e( 'No, the plugin filters the content to display on screen, buddypress database is unaffected from plugin changes.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'When creating a poll users can set either a single select poll – users can pick just one answer or multiple select poll – users can pick more than one answer.', 'buddypress-polls' ); ?>
 						</p>
 					</div>
 				</div>
