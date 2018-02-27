@@ -148,14 +148,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		echo $before_title . $title . $after_title;
 
-		$max_activity = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : 5;
+		$max_activity = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
-
-		$group_args = array(
-			'type'            => $instance['activity_default'],
-			'per_page'        => $max_activity,
-			'max'             => $max_activity,
-		);
 
 		global $activities_template;
 
@@ -164,7 +158,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		$act_args = array(
 			'action' => 'activity_poll',
-			'type' => 'activity_poll'
+			'type' => 'activity_poll',
+			'per_page' => $max_activity,
 		);
 		?>
 		<p>
