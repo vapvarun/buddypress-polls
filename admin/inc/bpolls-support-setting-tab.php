@@ -35,6 +35,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<p> 
 							<?php esc_html_e( 'After activating plugin a poll icon is added to the post box in activity stream, user profiles and even in groups.', 'buddypress-polls' ); ?>
 						</p>
+						<p> 
+							<?php esc_html_e( 'Post a question for others to vote. BuddyPress Polls plugin allows you and your community to create polls in posts. The polls can be placed in the main activity stream, in users’ profiles and even in groups.', 'buddypress-polls' ); ?>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -53,33 +56,45 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="bpolls-faq-row border">	
 				<div class="bpolls-admin-col-12">
 					<button class="bpolls-accordion">
-						<?php esc_html_e( 'How is Case Matching setting useful?' ); ?>
+						<?php esc_html_e( 'What is the use of Hide results setting provided under general settings section?' ); ?>
 					</button>
 					<div class="bpolls-panel">
 						<p> 
-							<?php esc_html_e( 'The [Case Matching] setting provides two option Case Sensitive and Case Insensitive. Case Sensitive filters keywords with strich case matching and is not recommended while Case Insensitive setting capture more words while filtering.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'With hide results setting enabled users can\'t see the poll results before voting. They can see the results once they vote on the poll.', 'buddypress-polls' ); ?>
 						</p>
 						<p> 
-							<?php esc_html_e( 'We recommend users to use Case Insensitive matching.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'With hide results setting disabled users can see the poll results before voting.', 'buddypress-polls' ); ?>
 						</p>
 					</div>
 				</div>
-			</div>	
+			</div>
 			<div class="bpolls-faq-row border">	
 				<div class="bpolls-admin-col-12">
 					<button class="bpolls-accordion">
-						<?php esc_html_e( 'How is Strict Filtering setting useful?' ); ?>
+						<?php esc_html_e( 'What is the use of Poll closing date & time setting provided under general settings section?' ); ?>
 					</button>
 					<div class="bpolls-panel">
 						<p> 
-							<?php esc_html_e( 'The [Strict Filtering] with strict mode on does not filter embedded keywords.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'With Poll closing date & time setting enabled users can set poll closing date and time.', 'buddypress-polls' ); ?>
 						</p>
 						<p> 
-							<?php esc_html_e( 'We recommend users to use Strict Filtering ON mode.', 'buddypress-polls' ); ?>
+							<?php esc_html_e( 'With Poll closing date & time setting disabled polls will always remain open for voting.', 'buddypress-polls' ); ?>
 						</p>
 					</div>
 				</div>
-			</div>	
+			</div>
+			<div class="bpolls-faq-row border">	
+				<div class="bpolls-admin-col-12">
+					<button class="bpolls-accordion">
+						<?php esc_html_e( 'How to show poll activity graph in sidebar?' ); ?>
+					</button>
+					<div class="bpolls-panel">
+						<p> 
+							<?php esc_html_e( 'Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.', 'buddypress-polls' ); ?>
+						</p>
+					</div>
+				</div>
+			</div>
 			</div>
 		</div>
 	</div>
