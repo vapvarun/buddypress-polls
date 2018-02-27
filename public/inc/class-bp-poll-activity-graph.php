@@ -48,7 +48,17 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$uptd_votes = array();
 
 		foreach ($poll_wdgt_stngs as $key => $value) {
+
 			$activity_id = $value['activity_default'];
+
+			$activity_details = bp_activity_get_specific( $args = array('activity_ids'=>$activity_id) );
+
+			if(is_array($activity_details)){
+				$poll_title = $activity_details['activities'][0]->content;
+			}else{
+				$poll_title = '';
+			}
+			
 
 			$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
 
@@ -56,6 +66,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			
 			if( !empty($poll_options) && is_array($poll_options) ){
 				foreach ($poll_options as $key => $value) {
+			
 					if( isset( $activity_meta['poll_total_votes'] ) ){
 						$total_votes = $activity_meta['poll_total_votes'];
 					}else{
@@ -77,6 +88,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
 
 					$uptd_votes[$activity_id][] = array(
+						'poll_title' => $poll_title,
 						'label' => $value,
 						'y' => $vote_percent,
 
@@ -137,6 +149,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		echo $before_title . $title . $after_title;
 
 		$max_activity = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : 5;
+		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
 
 		$group_args = array(
 			'type'            => $instance['activity_default'],
@@ -144,10 +157,31 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			'max'             => $max_activity,
 		);
 
-		
+		global $activities_template;
+
+		// Back up the global.
+		$old_activities_template = $activities_template;
+
+		$act_args = array(
+			'action' => 'activity_poll',
+			'type' => 'activity_poll'
+		);
 		?>
+		<p>
+			<label for="bpolls-activities-list"><?php _e('Select activity to view poll results:', 'buddypress-polls'); ?></label>
+			<?php if ( bp_has_activities( $act_args ) ) { ?>
+				<select name="bpolls-show-activity-graph" class="bpolls-activities-list">
+					<?php while ( bp_activities() ) : bp_the_activity(); ?>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>	
+			<?php endwhile; ?>
+				</select> 
+			<?php	} ?>
+		</p>
+
 		<div class="bpolls-activity-chartContainer" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" style="height: 300px; width: 100%;"></div>
 		<?php echo $after_widget;
+		// Restore the global.
+		$activities_template = $old_activities_template;
 
 	}
 
