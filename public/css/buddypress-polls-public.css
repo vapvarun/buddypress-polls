@@ -146,8 +146,3 @@
 .bpolls-check-radio-div input, .bpolls-option-lbl, .bpolls-percent{
 	position: relative;
 }
-
-/*graph hide advertise text*/
-.bpolls-activity-chartContainer .canvasjs-chart-credit{
-	display: none !important;
-}
