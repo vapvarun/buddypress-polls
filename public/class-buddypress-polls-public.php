@@ -75,21 +75,21 @@ class Buddypress_Polls_Public {
 
 		global $wp_styles;
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
+		if ( bp_is_groups_component() || bp_is_activity_component() ){
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
 
-		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
+			if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
+				/* echo 'datetimepicker registered'; */
+			} else {
+				wp_enqueue_style( $this->plugin_name.'-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all' );
+			}
 
-		if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
-			/* echo 'datetimepicker registered'; */
-		} else {
-			wp_enqueue_style( $this->plugin_name.'-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all' );
+			if ( in_array( 'font-awesome.css', $srcs ) || in_array( 'font-awesome.min.css', $srcs ) ) {
+				/* echo 'font-awesome.css registered'; */
+			} else {
+				wp_enqueue_style( 'bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), $this->version, 'all' );
+			}
 		}
-
-		if ( in_array( 'font-awesome.css', $srcs ) || in_array( 'font-awesome.min.css', $srcs ) ) {
-			/* echo 'font-awesome.css registered'; */
-		} else {
-			wp_enqueue_style( 'bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), $this->version, 'all' );
-		}
-
 	}
 
 	/**
@@ -111,16 +111,17 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 
-		if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
-			wp_enqueue_script( 'jquery-ui-sortable' );
+		if ( bp_is_groups_component() || bp_is_activity_component() ){
+			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
+				wp_enqueue_script( 'jquery-ui-sortable' );
+			}
+			wp_enqueue_script( $this->plugin_name.'-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
+			wp_enqueue_script( $this->plugin_name.'-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
+
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
+
+			wp_localize_script( $this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_ajax_security' ), 'submit_text' => __('Submitting vote','buddypress-polls'),'optn_empty_text' => __('Please select your choice.','buddypress-polls') ) );
 		}
-		wp_enqueue_script( $this->plugin_name.'-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
-		wp_enqueue_script( $this->plugin_name.'-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
-
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
-		
-		wp_localize_script( $this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_ajax_security' ), 'submit_text' => __('Submitting vote','buddypress-polls'),'optn_empty_text' => __('Please select your choice.','buddypress-polls') ) );
-
 	}
 
 	/**
