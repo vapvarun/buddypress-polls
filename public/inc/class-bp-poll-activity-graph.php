@@ -153,7 +153,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		);
 		?>
 		
-		<p>
+		<p class="bpolls-activity-select">
 			<label for="bpolls-activities-list"><?php _e('Select activity to view poll results:', 'buddypress-polls'); ?></label>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
 				<select name="bpolls-show-activity-graph" class="bpolls-activities-list">
