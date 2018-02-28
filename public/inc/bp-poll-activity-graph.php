@@ -1,9 +1,9 @@
 <?php
 /**
- * BuddyPress Groups Widgets
+ * BuddyPress Poll Activity Graph Widget Instance and Ajax.
  *
- * @package BuddyPress
- * @subpackage GroupsWidgets
+ * @package Buddypress_Polls
+ * @subpackage Buddypress_Polls/public/inc
  * @since 1.0.0
  */
 
