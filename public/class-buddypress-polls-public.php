@@ -76,7 +76,7 @@ class Buddypress_Polls_Public {
 		global $wp_styles;
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
 		if ( bp_is_groups_component() || bp_is_activity_component() ){
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
 
 			if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
 				/* echo 'datetimepicker registered'; */
@@ -118,7 +118,7 @@ class Buddypress_Polls_Public {
 			wp_enqueue_script( $this->plugin_name.'-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
 			wp_enqueue_script( $this->plugin_name.'-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
 
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
+			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), $this->version, false );
 
 			wp_localize_script( $this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_ajax_security' ), 'submit_text' => __('Submitting vote','buddypress-polls'),'optn_empty_text' => __('Please select your choice.','buddypress-polls') ) );
 		}
