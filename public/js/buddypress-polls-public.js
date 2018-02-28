@@ -111,6 +111,7 @@
 			
 			$( "#aw-whats-new-submit" ).click(
 				function(){
+					$( '.bpolls-polls-option-html' ).html(poll_html);
 					if ($( '.bpolls-polls-option-html' ).is( ':visible' )) {
 						$( '.bpolls-polls-option-html' ).slideToggle( 500 );
 					}
