@@ -91,6 +91,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						'poll_title' => $poll_title,
 						'label' => $value,
 						'y' => $vote_percent,
+						'color' => bpolls_color()
 
 					);
 				}
@@ -102,9 +103,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), time() );
 
 		wp_localize_script( 'bpolls-poll-activity-graph-js', 'bpolls_wiget_obj', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_widget_security' ), 'votes' => json_encode($uptd_votes) ) );
-		wp_enqueue_script( 'bpolls-graph-canvas-js', "https://canvasjs.com/assets/script/jquery.canvasjs.min.js", array( 'jquery' ), bp_get_version() );
+		wp_enqueue_script( 'bpolls-graph-charts-js', "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js", array( 'jquery' ), time() );
 	}
-
+	
 	/**
 	 * Extends our front-end output method.
 	 *
@@ -162,6 +163,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			'per_page' => $max_activity,
 		);
 		?>
+		
 		<p>
 			<label for="bpolls-activities-list"><?php _e('Select activity to view poll results:', 'buddypress-polls'); ?></label>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
@@ -173,7 +175,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			<?php	} ?>
 		</p>
 
-		<div class="bpolls-activity-chartContainer" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" style="height: 300px; width: 100%;"></div>
+		<canvas class="poll-bar-chart" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" width="800" height="450"></canvas>
 		<?php echo $after_widget;
 		// Restore the global.
 		$activities_template = $old_activities_template;

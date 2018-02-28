@@ -65,6 +65,7 @@ function bpolls_activity_graph_ajax(){
 						'poll_title' => $poll_title,
 						'label' => $value,
 						'y' => $vote_percent,
+						'color' => bpolls_color()
 
 					);
 				}
@@ -75,3 +76,11 @@ function bpolls_activity_graph_ajax(){
 }
 add_action( 'wp_ajax_bpolls_activity_graph_ajax','bpolls_activity_graph_ajax' );
 add_action( 'wp_ajax_nopriv_bpolls_activity_graph_ajax', 'bpolls_activity_graph_ajax' );
+
+function bpolls_color(){
+	return '#'.random_color_part() . random_color_part() . random_color_part();
+}
+
+function random_color_part(){
+	return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT);
+}
