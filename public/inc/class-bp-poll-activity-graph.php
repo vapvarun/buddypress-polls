@@ -1,9 +1,9 @@
 <?php
 /**
- * BuddyPress Groups Widget.
+ * BuddyPress Poll Activity Graph Widget
  *
- * @package BuddyPress
- * @subpackage GroupsWidgets
+ * @package Buddypress_Polls
+ * @subpackage Buddypress_Polls/public/inc
  * @since 1.0.0
  */
 
@@ -11,16 +11,16 @@
 defined( 'ABSPATH' ) || exit;
 
 /**
- * Groups widget.
+ * Poll Activity Graph Widget.
  *
- * @since 1.0.3
+ * @since 1.0.0
  */
 class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 	/**
-	 * Working as a group, we get things done better.
+	 * Working as a poll activity, we get things done better.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 */
 	public function __construct() {
 		$widget_ops = array(
@@ -38,7 +38,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	/**
 	 * Enqueue scripts.
 	 *
-	 * @since 2.6.0
+	 * @since 1.0.0
 	 */
 	public function enqueue_scripts() {
 
@@ -98,18 +98,17 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			}
 		}
 		
-		
-		
-		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), time() );
+		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), PLUGINNAME_VERSION );
 
 		wp_localize_script( 'bpolls-poll-activity-graph-js', 'bpolls_wiget_obj', array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'ajax_nonce' => wp_create_nonce( 'bpolls_widget_security' ), 'votes' => json_encode($uptd_votes) ) );
-		wp_enqueue_script( 'bpolls-graph-charts-js', "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js", array( 'jquery' ), time() );
+		
+		wp_enqueue_script( 'bpolls-poll-activity-chart-js', BPOLLS_PLUGIN_URL . "/public/js/Chart.min.js", array( 'jquery' ), PLUGINNAME_VERSION );
 	}
 	
 	/**
 	 * Extends our front-end output method.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @param array $args     Array of arguments for the widget.
 	 * @param array $instance Widget instance data.
@@ -125,25 +124,15 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		}
 
 		/**
-		 * Filters the title of the Groups widget.
+		 * Filters the title of the Poll graph widget.
 		 *
-		 * @since 1.8.0
-		 * @since 2.3.0 Added 'instance' and 'id_base' to arguments passed to filter.
+		 * @since 1.0.0
 		 *
 		 * @param string $title    The widget title.
 		 * @param array  $instance The settings for the particular instance of the widget.
 		 * @param string $id_base  Root ID for all widgets of this type.
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
-
-		/**
-		 * Filters the separator of the group widget links.
-		 *
-		 * @since 2.4.0
-		 *
-		 * @param string $separator Separator string. Default '|'.
-		 */
-		$separator = apply_filters( 'bp_groups_widget_separator', '|' );
 
 		echo $before_widget;
 
@@ -185,7 +174,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	/**
 	 * Extends our update method.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @param array $new_instance New instance data.
 	 * @param array $old_instance Original instance data.
@@ -204,7 +193,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	/**
 	 * Extends our form method.
 	 *
-	 * @since 1.0.3
+	 * @since 1.0.0
 	 *
 	 * @param array $instance Current instance.
 	 * @return mixed
