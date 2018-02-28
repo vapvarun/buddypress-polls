@@ -76,7 +76,7 @@ class Buddypress_Polls_Public {
 		global $wp_styles;
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
 		if ( bp_is_groups_component() || bp_is_activity_component() ){
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
 
 			if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
 				/* echo 'datetimepicker registered'; */
@@ -161,14 +161,14 @@ class Buddypress_Polls_Public {
 						<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 					</div>
 				</div>
-				<div class="bpolls-option-action">
-					<a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option','buddypress-polls'); ?></a>
-					<?php if ( $multi_true ){ ?>
+				<?php if ( $multi_true ){ ?>
 					<div class="bpolls-checkbox">
-						<input name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
-						<label class="lbl" for="allow-multiple"><?php esc_html_e('Allow multiple options selection','buddypress-polls'); ?></label>
+						<input id="bpolls-alw-multi" name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
+						<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e('Allow multiple options selection','buddypress-polls'); ?></label>
 					</div>
 					<?php } ?>
+				<div class="bpolls-option-action">
+					<a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option','buddypress-polls'); ?></a>
 					<?php if ( $poll_cdate ){ ?>
 					<div class="bpolls-date-time">
 						<input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time','buddypress-polls'); ?>">
