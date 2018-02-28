@@ -1,6 +1,7 @@
 (function( $ ) {
 	'use strict';
-
+var load_Chart;
+var ajax_Chart;
 window.onload = function () {
 	
 	$('.poll-bar-chart').each(function(){
@@ -18,7 +19,7 @@ window.onload = function () {
 			arr_color.push(item.color);
 		});
 
-		new Chart($("#"+id), {
+		load_Chart = new Chart($("#"+id), {
 			type: 'pie',
 			data: {
 				labels: arr_label,
@@ -35,6 +36,7 @@ window.onload = function () {
 				}
 			}
 		});
+		
 
 	});
 }
@@ -59,7 +61,11 @@ $( document ).on(
 				arr2_per.push(item.y.toString());
 				arr2_color.push(item.color);
 			});
-			new Chart(clickd_obj.parents().siblings('.poll-bar-chart'), {
+			load_Chart.destroy();
+			if(typeof ajax_Chart != 'undefined'){
+				ajax_Chart.destroy();
+			}
+			ajax_Chart = new Chart(clickd_obj.parents().siblings('.poll-bar-chart'), {
 			type: 'pie',
 			data: {
 				labels: arr2_label,
