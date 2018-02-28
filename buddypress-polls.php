@@ -34,6 +34,10 @@ if ( ! defined( 'BP_ENABLE_MULTIBLOG' ) ) {
 	define( 'BP_ENABLE_MULTIBLOG', false );
 }
 
+if ( ! defined( 'BP_ROOT_BLOG' ) ) {
+	define( 'BP_ROOT_BLOG', 1 );
+}
+
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
@@ -47,35 +51,7 @@ define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
  * This action is documented in includes/class-buddypress-polls-activator.php
  */
 function activate_buddypress_polls() {
-	global $wpdb;
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
-		// check if it is a network activation - if so, run the activation function for each blog id.
-		if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) ) {
-			add_action( 'network_admin_notices', 'bpolls_network_admin_notices' );
-		}
-		//Get all blog id's.
-		$blogs = $wpdb->get_results(
-			"
-            SELECT blog_id
-            FROM {$wpdb->blogs}
-            WHERE site_id = '{$wpdb->siteid}'
-            AND archived = '0'
-            AND spam = '0'
-            AND deleted = '0'
-            "
-		);
-		foreach ( $blogs as $blog ) {
-			if ( ! defined( 'BP_ROOT_BLOG' ) ) {
-				define( 'BP_ROOT_BLOG', $blog->blog_id );
-			}
-			run_buddypress_polls();
-			add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
-			bpolls_update_blog( $blog->blog_id );
-		}
-	} else {
-		run_buddypress_polls();
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
-		bpolls_update_blog();
 	}
 }
 
@@ -113,6 +89,22 @@ function run_buddypress_polls() {
 
 }
 
+add_action( 'bp_include', 'bpolls_plugin_init' );
+/**
+ * Check plugin requirement on plugins loaded
+ * this plugin requires BuddyPress to be installed and active
+ */
+function bpolls_plugin_init() {
+
+	global $wpdb;
+
+	if ( is_multisite() && BP_ROOT_BLOG != $wpdb->blogid )
+		return;
+
+	run_buddypress_polls();
+	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
+}
+
 /**
  * Function to add plugin links.
  *
@@ -126,66 +118,43 @@ function bpolls_plugin_links( $links ) {
 	return array_merge( $links, $bpolls_links );
 }
 
+add_action('admin_notices','bpolls_plugin_admin_notice');
 /**
- * Function to update blog.
- *
- * @param int $blog_id Blog id.
- */
-function bpolls_update_blog( $blog_id = null ) {
-	if ( $blog_id ) {
-		switch_to_blog( $blog_id );
-	}
-	//do desired actions.
-	if ( $blog_id ) {
-		restore_current_blog();
-	}
-}
-
-/**
- * Plugin notice while activiting on multisite.
- */
-function bpolls_network_admin_notices() {
-	$bpolls_plugin = 'BuddyPress Polls';
-	$bp_plugin   = 'BuddyPress';
-
-	echo '<div class="error"><p>'
-	. sprintf( __( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . $bpolls_plugin . '</strong>', '<strong>' . $bp_plugin . '</strong>' )
-	. '</p></div>';
-	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
-	}
-}
-
-add_action( 'plugins_loaded', 'bpolls_plugin_init' );
-
-/**
- * Function to check buddypress is active to enable disable plugin functionality.
- */
-function bpolls_plugin_init() {
-	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-		require_once ABSPATH . '/wp-admin/includes/plugin.php';
-	}
-	if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) && ! in_array( 'buddypress/bp-loader.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
-		add_action( 'admin_notices', 'bpolls_plugin_admin_notice' );
-	} else {
-		run_buddypress_polls();
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
-	}
-}
-
-/**
- * Function to check buddypress is active to enable disable plugin functionality.
+ * Function to through admin notice if BuddyPress is not active.
  */
 function bpolls_plugin_admin_notice() {
 
-	$bpolls_plugin = 'BuddyPress Polls';
-	$bp_plugin   = 'BuddyPress';
-
-	echo '<div class="error"><p>'
-	. sprintf( __( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . $bpolls_plugin . '</strong>', '<strong>' . $bp_plugin . '</strong>' )
-	. '</p></div>';
-	if ( isset( $_GET['activate'] ) ) {
-		unset( $_GET['activate'] );
+	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
 	}
+	$check_active = false;
 
+	if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) && !in_array( 'buddypress/bp-loader.php', get_option( 'active_plugins' )) ) {
+		$check_active = true;
+	}
+	
+	if ( $check_active ){
+		$bpolls_plugin = 'BuddyPress Polls';
+		$bp_plugin   = 'BuddyPress';
+
+		echo '<div class="error"><p>'
+		. sprintf( esc_html( __( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-polls' ) ), '<strong>' . esc_html( $bpolls_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' )
+		. '</p></div>';
+	}
+}
+
+/**
+ * Is this BP_ROOT_BLOG?
+ *
+ * @return bool $is_root_blog Returns true if this is BP_ROOT_BLOG. Always true on non-MS
+ */
+function bpolls_is_root_blog() {
+	global $wpdb;
+
+	$is_root_blog = true;
+
+	if ( is_multisite() && $wpdb->blogid != BP_ROOT_BLOG )
+		$is_root_blog = false;
+
+	return apply_filters( 'bpolls_is_root_blog', $is_root_blog );
 }
