@@ -204,6 +204,9 @@ class Buddypress_Polls {
 
 		/* ajax request to save note */
 		$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
+		
+		/* set poll type activity action in groups */
+		$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
 	}
 
 	/**

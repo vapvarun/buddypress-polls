@@ -229,6 +229,21 @@ class Buddypress_Polls_Public {
 	}
 
 	/**
+	 * To set activity action for poll type activity in group.
+	 *
+	 * @param string $activity_action The group activity action.
+	 * @since 1.0.0
+	 */
+	public function bpolls_groups_activity_new_update_action( $activity_action ) {
+		global $bp;
+		$user_id       = bp_loggedin_user_id();
+		if(isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])){
+			$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
+		}
+		return $activity_action;
+	}
+
+	/**
 	 * Function to set activity type activity_poll.
 	 *
 	 * @since 1.0.0
