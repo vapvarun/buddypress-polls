@@ -78,7 +78,11 @@ class Buddypress_Polls_Public {
 
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
 
-		wp_enqueue_style( $this->plugin_name.'-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all' );
+		if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
+			/* echo 'datetimepicker registered'; */
+		} else {
+			wp_enqueue_style( $this->plugin_name.'-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all' );
+		}
 
 		if ( in_array( 'font-awesome.css', $srcs ) || in_array( 'font-awesome.min.css', $srcs ) ) {
 			/* echo 'font-awesome.css registered'; */
