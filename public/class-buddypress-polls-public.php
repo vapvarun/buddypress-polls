@@ -75,7 +75,7 @@ class Buddypress_Polls_Public {
 
 		global $wp_styles;
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		//if ( bp_is_groups_component() || bp_is_activity_component() ){
+		if ( bp_is_groups_component() || bp_is_activity_component() ){
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
 
 			if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
@@ -89,7 +89,7 @@ class Buddypress_Polls_Public {
 			} else {
 				wp_enqueue_style( 'bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), $this->version, 'all' );
 			}
-		//}
+		}
 	}
 
 	/**
