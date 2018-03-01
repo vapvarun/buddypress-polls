@@ -207,6 +207,9 @@ class Buddypress_Polls {
 		
 		/* set poll type activity action in groups */
 		$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+
+		/* set poll activity content in embed */
+		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
 	}
 
 	/**

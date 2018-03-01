@@ -75,7 +75,7 @@ class Buddypress_Polls_Public {
 
 		global $wp_styles;
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( bp_is_groups_component() || bp_is_activity_component() ){
+		//if ( bp_is_groups_component() || bp_is_activity_component() ){
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), $this->version, 'all' );
 
 			if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
@@ -89,7 +89,7 @@ class Buddypress_Polls_Public {
 			} else {
 				wp_enqueue_style( 'bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), $this->version, 'all' );
 			}
-		}
+		//}
 	}
 
 	/**
@@ -314,9 +314,13 @@ class Buddypress_Polls_Public {
 	 *
 	 * @param string $activity_content Activity content posted by user.
 	 */
-	public function bpolls_update_poll_activity_content() {
+	public function bpolls_update_poll_activity_content($act = null) {
+
 		$user_id = get_current_user_id();
 		$activity_id = bp_get_activity_id();
+		if( isset( $act ) && $act != null ){
+			$activity_id = $act;
+		}
 
 		$bpolls_settings = get_option( 'bpolls_settings' );
 
@@ -413,7 +417,12 @@ class Buddypress_Polls_Public {
 				}
 				$activity_content .="</form></div></div>";
 
-				echo $activity_content;
+				if( isset( $act ) && $act != null ){
+					return $activity_content;
+				}else{
+					echo $activity_content;
+				}
+				
 			}
 
 		}
@@ -523,6 +532,11 @@ class Buddypress_Polls_Public {
 		}
 
 		return $uptd_votes;
+	}
+
+	public function bpolls_bp_activity_get_embed_excerpt($content,$global_activity_content){
+		$activity_id = $GLOBALS['activities_template']->activity->id;
+		return $content.$this->bpolls_update_poll_activity_content($activity_id);
 	}
 
 }

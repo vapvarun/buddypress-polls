@@ -52,6 +52,8 @@ $( document ).on(
 				};
 
 		$.post( bpolls_wiget_obj.ajax_url, data, function ( response ) {
+			clickd_obj.parents().siblings('.poll-bar-chart').remove();
+			$('<canvas class="poll-bar-chart" data-id="'+actid+'" id="bpolls-activity-chart-'+actid+'"></canvas>').insertAfter( clickd_obj.parents('.bpolls-activity-select') );
 			var resp = JSON.parse(response);
 			var arr2_label = [];
 			var arr2_per = [];
@@ -61,10 +63,6 @@ $( document ).on(
 				arr2_per.push(item.y.toString());
 				arr2_color.push(item.color);
 			});
-			load_Chart.destroy();
-			if(typeof ajax_Chart != 'undefined'){
-				ajax_Chart.destroy();
-			}
 			ajax_Chart = new Chart(clickd_obj.parents().siblings('.poll-bar-chart'), {
 			type: 'pie',
 			data: {
