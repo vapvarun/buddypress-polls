@@ -492,6 +492,11 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+	/**
+	 * Calculate poll activity votes.
+	 *
+	 * @since 1.0.0
+	 */
 	function bpolls_ajax_calculate_votes( $activity_id ){
 		
 		$user_id = get_current_user_id();
@@ -534,9 +539,25 @@ class Buddypress_Polls_Public {
 		return $uptd_votes;
 	}
 
+	/**
+	 * Function to show poll activity entry content while embedding.
+	 *
+	 * @since 1.0.0
+	 */
 	public function bpolls_bp_activity_get_embed_excerpt($content,$global_activity_content){
 		$activity_id = $GLOBALS['activities_template']->activity->id;
 		return $content.$this->bpolls_update_poll_activity_content($activity_id);
+	}
+
+	/**
+	 * Function to add poll css for activity embedding.
+	 *
+	 * @since 1.0.0
+	 */
+	public function bpolls_activity_embed_add_inline_styles(){
+		$css = file_get_contents( BPOLLS_PLUGIN_PATH.'/public/css/buddypress-polls-public.css' );
+		$css = wp_kses( $css, array( "\'", '\"' ) );
+		printf( '<style type="text/css">%s</style>', $css );
 	}
 
 }

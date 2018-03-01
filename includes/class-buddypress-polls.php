@@ -210,6 +210,8 @@ class Buddypress_Polls {
 
 		/* set poll activity content in embed */
 		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
+		/* embed poll activity css */
+		$this->loader->add_action( 'embed_head', $plugin_public,'bpolls_activity_embed_add_inline_styles', 20 );
 	}
 
 	/**
