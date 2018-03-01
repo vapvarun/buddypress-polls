@@ -404,7 +404,7 @@ class Buddypress_Polls_Public {
 						$activity_content .= "<span class='bpolls-votes'>".$bpolls_votes_txt."</span>";
 						$activity_content .= "<div class='bpolls-check-radio-div'>";
 						$activity_content .= "<input id='".$key."' name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."'>";
-						$activity_content .= "<label class='bpolls-option-lbl'>".$value."</label>";
+						$activity_content .= "<label for='".$key."' class='bpolls-option-lbl'>".$value."</label>";
 						$activity_content .= "<span class='bpolls-percent'>".$vote_percent."</span>";
 						$activity_content .= "</div>";
 						$activity_content .= "</div>";
@@ -412,7 +412,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='".$activity_id."'>";
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='".$activity_meta['multiselect']."'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='".$user_id."'>";
-				if($submit && $poll_closing && is_user_logged_in()){
+				if($submit && $poll_closing && is_user_logged_in() && $act == null){
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>".__('Submit','buddypress-polls')."</a>";
 				}
 				$activity_content .="</form></div></div>";

@@ -159,6 +159,9 @@
 .bpolls-check-radio-div input, .bpolls-option-lbl, .bpolls-percent{
 	position: relative;
 }
+.bpolls-option-lbl{
+	cursor: pointer;
+}
 a.bpolls-cancel {
     display: block;
     border: 1px solid;
