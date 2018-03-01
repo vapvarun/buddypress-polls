@@ -98,7 +98,6 @@ class Buddypress_Polls_Public {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts() {
-
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -342,7 +341,7 @@ class Buddypress_Polls_Public {
 		}
 
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta');
-		
+
 		$poll_closing = false;
 		if( isset($activity_meta['close_date']) && isset($bpolls_settings['close_date']) && $activity_meta['close_date'] != 0 ){
 			$current_time = new DateTime();
@@ -354,6 +353,11 @@ class Buddypress_Polls_Public {
 
 		}else{
 			$poll_closing = true;
+		}
+
+		$u_meta = array();
+		if(isset($bpoll_user_vote[$activity_id])){
+			$u_meta = $bpoll_user_vote[$activity_id];
 		}
 
 		if( 'activity_poll' == bp_get_activity_type() && isset($activity_meta['poll_option']) ){
@@ -399,11 +403,17 @@ class Buddypress_Polls_Public {
 							$bpolls_votes_txt = '';
 						}
 
+						if(in_array($key, $u_meta)){
+							$checked = 'checked';
+						}else{
+							$checked = '';
+						}
+
 						$activity_content .= "<div class='bpolls-item'>";
 						$activity_content .= "<div class='bpolls-item-width' style='width:".$vote_percent."'></div>";
 						$activity_content .= "<span class='bpolls-votes'>".$bpolls_votes_txt."</span>";
 						$activity_content .= "<div class='bpolls-check-radio-div'>";
-						$activity_content .= "<input id='".$key."' name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."'>";
+						$activity_content .= "<input id='".$key."' name='bpolls_vote_optn[]' value='".$value."' type='".$optn_typ."' ".$checked.">";
 						$activity_content .= "<label for='".$key."' class='bpolls-option-lbl'>".$value."</label>";
 						$activity_content .= "<span class='bpolls-percent'>".$vote_percent."</span>";
 						$activity_content .= "</div>";

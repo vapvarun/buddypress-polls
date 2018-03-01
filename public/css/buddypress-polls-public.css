@@ -196,8 +196,7 @@ input#bpolls-datetimepicker {
 	}
 }
 
-/* sidebar select */
-
+/* sidebar poll activity graph widget select */
 p.bpolls-activity-select label {
     margin-bottom: 10px;
     display: block;
@@ -208,4 +207,12 @@ select.bpolls-activities-list {
     border-radius: 0;
     display: block;
     height: 38px;
+}
+
+/* poll item checkbox radio checked css */
+.bpolls-item input[type=checkbox]:checked + label {
+  font-style: italic;
+}
+.bpolls-item input[type=radio]:checked + label {
+  font-style: italic;
 }
