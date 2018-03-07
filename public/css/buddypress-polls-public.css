@@ -218,7 +218,7 @@ select.bpolls-activities-list {
 }
 
 /** Kleo theme specific css **/
-.activity .kleo-page #whats-new-options {
+.activity .kleo-page #buddypress #whats-new-options {
 	height: auto!important;
 }
 
@@ -244,10 +244,6 @@ select.bpolls-activities-list {
 @media( min-width: 350px) and (max-width: 376px ) {
 	.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
 		left: 180px;
-	}
-
-	.activity .kleo-page #whats-new-options {
-		height: auto!important;
 	}
 }
 
