@@ -241,6 +241,22 @@ select.bpolls-activities-list {
 	vertical-align: middle;
 }
 
+@media( min-width: 350px) and (max-width: 376px ) {
+	.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
+		left: 180px;
+	}
+
+	.activity .kleo-page #whats-new-options {
+		height: auto!important;
+	}
+}
+
+@media( max-width: 480px) {
+	.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
+		left: 5px;
+		margin-top: 0;
+	}
+}
 
 /** Boss theme specific css **/
 .directory.activity #panels .bpolls-html-container {
@@ -251,4 +267,3 @@ select.bpolls-activities-list {
 .directory.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox, .my-activity.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox{
 	text-align: left;
 }
-
