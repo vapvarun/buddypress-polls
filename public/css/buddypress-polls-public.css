@@ -216,3 +216,23 @@ select.bpolls-activities-list {
 .bpolls-item input[type=radio]:checked + label {
   font-style: italic;
 }
+
+/** Kleo theme specific css **/
+.kleo-page #whats-new-options {
+	height: auto!important;
+}
+
+.kleo-page .bpolls-html-container .bpolls-icon {
+    position: absolute;
+    left: 200px;
+    margin-top: -40px;
+}
+
+.kleo-page .bpolls-html-container input[type="text"] {
+	margin: 0!important;
+}
+
+.kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="radio"], .kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="checkbox"] {
+	margin: 5px!important;
+	vertical-align: middle;
+}
