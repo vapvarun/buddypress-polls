@@ -30,14 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-if ( ! defined( 'BP_ENABLE_MULTIBLOG' ) ) {
-	define( 'BP_ENABLE_MULTIBLOG', false );
-}
-
-if ( ! defined( 'BP_ROOT_BLOG' ) ) {
-	define( 'BP_ROOT_BLOG', 1 );
-}
-
 /**
  * Currently plugin version.
  * Start at version 1.0.0 and use SemVer - https://semver.org
@@ -46,7 +38,7 @@ if ( ! defined( 'BP_ROOT_BLOG' ) ) {
 define( 'PLUGINNAME_VERSION', '1.0.0' );
 define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BPOLLS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-
+define( 'BPOLLS_PLUGIN_BASENAME',  plugin_basename( __FILE__ ) );
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-buddypress-polls-activator.php
@@ -96,14 +88,79 @@ add_action( 'bp_include', 'bpolls_plugin_init' );
  * this plugin requires BuddyPress to be installed and active
  */
 function bpolls_plugin_init() {
+	if ( bp_polls_check_config() ){
+		run_buddypress_polls();
+		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
+	}
+}
+/**
+ * Function to check configurations.
+ */
+function bp_polls_check_config(){
+	global $bp;
+	$check =  array();
+	$config = array(
+		'blog_status'    => false, 
+		'network_active' => false, 
+		'network_status' => true 
+	);
+	if ( get_current_blog_id() == bp_get_root_blog_id() ) {
+		$config['blog_status'] = true;
+	}
+	
+	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
 
-	global $wpdb;
+	// No Network plugins
+	if ( empty( $network_plugins ) )
 
-	if ( is_multisite() && BP_ROOT_BLOG != $wpdb->blogid )
-		return;
+	// Looking for BuddyPress and bp-activity plugin
+	$check[] = $bp->basename;
+	$check[] = BPOLLS_PLUGIN_BASENAME;
 
-	run_buddypress_polls();
-	add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
+	// Are they active on the network ?
+	$network_active = array_diff( $check, array_keys( $network_plugins ) );
+	
+	// If result is 1, your plugin is network activated
+	// and not BuddyPress or vice & versa. Config is not ok
+	if ( count( $network_active ) == 1 )
+		$config['network_status'] = false;
+
+	// We need to know if the plugin is network activated to choose the right
+	// notice ( admin or network_admin ) to display the warning message.
+	$config['network_active'] = isset( $network_plugins[ BPOLLS_PLUGIN_BASENAME ] );
+
+	// if BuddyPress config is different than bp-activity plugin
+	if ( !$config['blog_status'] || !$config['network_status'] ) {
+
+		$warnings = array();
+		if ( !bp_core_do_network_admin() && !$config['blog_status'] ) {
+			add_action( 'admin_notices', 'bpolls_same_blog' );
+			$warnings[] = __( 'BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls' );
+		}
+
+		if ( bp_core_do_network_admin() && !$config['network_status'] ) {
+			add_action( 'admin_notices', 'bpolls_same_network_config' );
+			$warnings[] = __( 'BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls' );
+		}
+
+		if ( ! empty( $warnings ) ) :
+			return false;
+		endif;
+		// Display a warning message in network admin or admin
+	} 
+	return true;
+}
+
+function bpolls_same_blog(){
+	echo '<div class="error"><p>'
+	. esc_html( __( 'BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls' ) )
+	. '</p></div>';
+}
+
+function bpolls_same_network_config(){
+	echo '<div class="error"><p>'
+	. esc_html( __( 'BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls' ) )
+	. '</p></div>';
 }
 
 /**
@@ -117,45 +174,4 @@ function bpolls_plugin_links( $links ) {
 		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', 'buddypress-polls' ) . '</a>',
 	);
 	return array_merge( $links, $bpolls_links );
-}
-
-add_action('admin_notices','bpolls_plugin_admin_notice');
-/**
- * Function to through admin notice if BuddyPress is not active.
- */
-function bpolls_plugin_admin_notice() {
-
-	if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
-		require_once( ABSPATH . '/wp-admin/includes/plugin.php' );
-	}
-	$check_active = false;
-
-	if ( ! is_plugin_active_for_network( 'buddypress/bp-loader.php' ) && !in_array( 'buddypress/bp-loader.php', get_option( 'active_plugins' )) ) {
-		$check_active = true;
-	}
-	
-	if ( $check_active ){
-		$bpolls_plugin = 'BuddyPress Polls';
-		$bp_plugin   = 'BuddyPress';
-
-		echo '<div class="error"><p>'
-		. sprintf( esc_html( __( '%1$s is ineffective as it requires %2$s to be installed and active.', 'buddypress-polls' ) ), '<strong>' . esc_html( $bpolls_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' )
-		. '</p></div>';
-	}
-}
-
-/**
- * Is this BP_ROOT_BLOG?
- *
- * @return bool $is_root_blog Returns true if this is BP_ROOT_BLOG. Always true on non-MS
- */
-function bpolls_is_root_blog() {
-	global $wpdb;
-
-	$is_root_blog = true;
-
-	if ( is_multisite() && $wpdb->blogid != BP_ROOT_BLOG )
-		$is_root_blog = false;
-
-	return apply_filters( 'bpolls_is_root_blog', $is_root_blog );
 }

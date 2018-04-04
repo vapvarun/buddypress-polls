@@ -112,13 +112,7 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpolls_add_menu_buddypress_polls() {
-		if ( !bpolls_is_root_blog() )
-			switch_to_blog( BP_ROOT_BLOG );
-
 		add_menu_page( __( 'Buddypress Polls Settings Page', 'buddypress-polls' ), __( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress_polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-chart-bar', 60 );
-		// Only register on the root blog
-		if ( !bpolls_is_root_blog() )
-			restore_current_blog();
 	}
 
 	/**
@@ -154,7 +148,10 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpolls_admin_register_settings() {
-		register_setting( 'buddypress_polls_general', 'bpolls_settings' );
+	  	if(isset($_POST['bpolls_settings'])){
+	  		update_site_option('bpolls_settings',$_POST['bpolls_settings']);
+	  		wp_redirect($_POST['_wp_http_referer']);
+			exit();
+	  	}
 	}
-
 }

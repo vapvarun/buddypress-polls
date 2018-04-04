@@ -133,7 +133,7 @@ class Buddypress_Polls_Public
      */
     public function bpolls_polls_update_html()
     {
-        $bpolls_settings = get_option('bpolls_settings');
+        $bpolls_settings = get_site_option('bpolls_settings');
 
         $multi_true = false;
         if (isset($bpolls_settings['multiselect'])) {
@@ -329,7 +329,7 @@ class Buddypress_Polls_Public
             $activity_id = $act;
         }
 
-        $bpolls_settings = get_option('bpolls_settings');
+        $bpolls_settings = get_site_option('bpolls_settings');
 
         $submit = false;
         $hide_results = false;

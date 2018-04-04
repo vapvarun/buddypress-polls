@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ ) ) ) {
 	$bpolls_settings = get_site_option( 'bpolls_settings' );
 } else {
-	$bpolls_settings = get_option( 'bpolls_settings' );
+	$bpolls_settings = get_site_option( 'bpolls_settings' );
 }
 ?>
-<form method="post" action="options.php">
+<form method="post" action="admin.php?action=update_network_options">
 	<?php
 	settings_fields( 'buddypress_polls_general' );
 	do_settings_sections( 'buddypress_polls_general' );
@@ -50,4 +50,4 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 	    </tr>
 	</table>
 	<?php submit_button(); ?>
-</form>	
+</form>
