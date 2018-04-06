@@ -54,5 +54,8 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 1.0.1 =
+* Enhancement : Added support for multisite
+
 = 1.0.0 =
 * first version.
