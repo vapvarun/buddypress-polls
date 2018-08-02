@@ -54,6 +54,9 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 1.0.2 =
+* Enhancement : Added plugin license code.
+
 = 1.0.1 =
 * Enhancement : Added support for multisite
 
