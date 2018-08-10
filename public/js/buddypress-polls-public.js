@@ -30,6 +30,7 @@
 	 */ 
      jQuery( document ).ready(
 		function(){
+			var poll_html;
 			// $('#bpolls-datetimepicker').datetimepicker();
 			// var poll_html = $( '.bpolls-polls-option-html' ).html();
 			// var option_html = $('.bpolls-option').html();
