@@ -30,18 +30,18 @@
 	 */ 
      jQuery( document ).ready(
 		function(){
-			$('#bpolls-datetimepicker').datetimepicker();
-			var poll_html = $( '.bpolls-polls-option-html' ).html();
-			var option_html = $('.bpolls-option').html();
+			// $('#bpolls-datetimepicker').datetimepicker();
+			// var poll_html = $( '.bpolls-polls-option-html' ).html();
+			// var option_html = $('.bpolls-option').html();
 
-			$(
-				function() {
-					$('.bpolls-sortable').sortable({
-						handle: '.bpolls-sortable-handle'
-					});
-					$('.bpolls-sortable').disableSelection();
-				}
-			);
+			// $(
+			// 	function() {
+			// 		$('.bpolls-sortable').sortable({
+			// 			handle: '.bpolls-sortable-handle'
+			// 		});
+			// 		$('.bpolls-sortable').disableSelection();
+			// 	}
+			// );
 
 			/*==============================================
 			=            add new poll option js            =
@@ -83,6 +83,19 @@
 			$( document ).on(
 				'click', '.bpolls-icon', function(){
 					$('.bpolls-polls-option-html').slideToggle( 500 );
+
+					$('#bpolls-datetimepicker').datetimepicker();
+					var poll_html = $( '.bpolls-polls-option-html' ).html();
+					var option_html = $('.bpolls-option').html();
+
+					$(
+						function() {
+							$('.bpolls-sortable').sortable({
+								handle: '.bpolls-sortable-handle'
+							});
+							$('.bpolls-sortable').disableSelection();
+						}
+					);
 				}
 			);
 			

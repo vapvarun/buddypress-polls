@@ -86,11 +86,11 @@ class Buddypress_Polls_Public
                 wp_enqueue_style($this->plugin_name.'-time', plugin_dir_url(__FILE__) . 'css/jquery.datetimepicker.css', array(), $this->version, 'all');
             }
 
-            if (in_array('font-awesome.css', $srcs) || in_array('font-awesome.min.css', $srcs)) {
+            //if (in_array('font-awesome.css', $srcs) || in_array('font-awesome.min.css', $srcs)) {
                 /* echo 'font-awesome.css registered'; */
-            } else {
+            //} else {
                 wp_enqueue_style('bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), $this->version, 'all');
-            }
+           // }
         }
     }
 
