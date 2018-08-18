@@ -54,6 +54,9 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 1.0.4 =
+* Fix : Resolved translation issue.
+
 = 1.0.3 =
 * Fix : Poll options sortable issue with nouveau template packs.
 

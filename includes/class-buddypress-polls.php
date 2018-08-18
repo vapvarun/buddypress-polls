@@ -145,7 +145,7 @@ class Buddypress_Polls {
 
 		$plugin_i18n = new Buddypress_Polls_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action( 'wp', $plugin_i18n, 'load_plugin_textdomain' );
 
 	}
 
