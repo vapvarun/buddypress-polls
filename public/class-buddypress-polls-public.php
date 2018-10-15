@@ -249,7 +249,8 @@ class Buddypress_Polls_Public
     {
         global $bp;
         $user_id       = bp_loggedin_user_id();
-        if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])) {
+        
+        if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options']) && is_array($_POST['bpolls_input_options']) ) {
             $activity_action = sprintf(__('%1$s created a poll in the group %2$s', 'buddypress'), bp_core_get_userlink($user_id), '<a href="' . bp_get_group_permalink($bp->groups->current_group) . '">' . esc_attr($bp->groups->current_group->name) . '</a>');
         }
         return $activity_action;
@@ -263,7 +264,8 @@ class Buddypress_Polls_Public
      */
     public function bpolls_update_poll_type_activity($activity)
     {
-        if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])) {
+        if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options']) && is_array($_POST['bpolls_input_options']) ) {
+
             $activity->type = 'activity_poll';
         }
     }
