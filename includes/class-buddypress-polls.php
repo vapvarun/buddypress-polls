@@ -181,6 +181,8 @@ class Buddypress_Polls {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
+
 		/* adds polls html in whats new area */
 		$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpolls_polls_update_html' );
 
@@ -192,7 +194,7 @@ class Buddypress_Polls {
 
 		/* update poll type activity on post update */
 		$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
-
+		
 		/* update poll activity meta */
 		$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
@@ -212,6 +214,8 @@ class Buddypress_Polls {
 		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
 		/* embed poll activity css */
 		$this->loader->add_action( 'embed_head', $plugin_public,'bpolls_activity_embed_add_inline_styles', 20 );
+
+		
 	}
 
 	/**

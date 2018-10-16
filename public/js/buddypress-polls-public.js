@@ -118,7 +118,35 @@
 			);
 			
 			/*=====  End of clear html and toggle on poll cancellation  ======*/
-			
+
+			$( document ).on( 'change', 'input[name=bpolls_input_options]', function () {
+
+				var poll_option = [];
+				$("input[name='bpolls_input_options']").each(function() {
+					if( $(this).val() ){
+						poll_option.push($(this).val());
+					}
+				});
+				var is_poll;
+				if( poll_option.length !== 0 ){
+					is_poll = 'yes';
+				}else{
+					is_poll = 'no'
+				}
+
+				var data = {
+					'action': 'bpolls_set_poll_type_true',
+					'poll_option': poll_option,
+					'is_poll': is_poll,
+					'ajax_nonce': bpolls_ajax_object.ajax_nonce
+				};
+
+				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
+					console.log(response);
+				} );
+
+			});
+
 			/*==========================================================
 			=            solve glitch on post update submit            =
 			==========================================================*/
