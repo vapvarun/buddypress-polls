@@ -257,11 +257,35 @@ select.bpolls-activities-list {
 }
 
 /** Boss theme specific css **/
-.directory.activity #panels .bpolls-html-container {
+body.boss .bpolls-html-container {
     display: inline-block;
     float: left;
 }
 
-.directory.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox, .my-activity.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox{
-    text-align: left;
+body.boss .bpolls-polls-option-html .bpolls-checkbox {
+    display: flex;
+    align-items: center;
+    line-height: 6px;
+}
+
+body.boss .bpolls-icon {
+    height: 40px;
+    line-height: 36px;
+    display: block;
+    text-align: center;
+    width: 100%;
+    clear: both;
+    padding: 0 20px;
+    margin: 0;
+    font-size: 15px;
+    position: relative;
+    display: block;
+    background-color: transparent;
+    color: #4dcadd;
+    text-transform: uppercase;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    border: 2px solid #4dcadd;
+    box-sizing: border-box;
 }
