@@ -144,7 +144,9 @@ class Buddypress_Polls_Public
         ?>
         <div class="bpolls-html-container">
             <span class="bpolls-icon"><i class="fa fa-bar-chart"></i><?php esc_html_e('&nbsp;Poll', 'buddypress-polls'); ?></span>
-            <div class="bpolls-polls-option-html">
+            
+        </div>
+        <div class="bpolls-polls-option-html">
                 <div class="bpolls-cancel-div">
                     <a class="bpolls-cancel" href="JavaScript:void(0);"><?php esc_html_e('Cancel Poll', 'buddypress-polls'); ?></a>
                 </div>
@@ -175,7 +177,6 @@ class Buddypress_Polls_Public
                     <?php } ?>
                 </div>
             </div>
-        </div>
         <?php
     }
 
