@@ -4,163 +4,165 @@
  */
 
 /* Poll icon pointer */
- .bpolls-html-container .bpolls-icon {
- 	cursor: pointer;
- 	display: inline-block;
-    padding-top: 12px;
+.bpolls-html-container .bpolls-icon {
+    cursor: pointer;
+    display: inline-block;
+    /*    padding-top: 12px;*/
     padding-left: 12px;
- }
+}
 .bpolls-option {
-	display: flex;
-	width: 100%;
-	max-width: 350px;
-	margin-bottom: 5px;
+    display: flex;
+    width: 100%;
+    max-width: 350px;
+    margin-bottom: 5px;
 }
 .bpolls-input{
-	display: inline-block;
-	padding: 0 8.5px;
-	margin-top: 0;
-	margin-bottom: 0;
-	height: 35px;
-	border: 1px solid rgba(0,0,0,0.1);
-	color: #333;
-	font-size: 14px;
-	line-height: 18px;
-	background-color: #fff !important;
-	transition: all .25s ease-in-out;
-	box-shadow: none;
+    display: inline-block;
+    padding: 0 8.5px;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 35px;
+    border: 1px solid rgba(0,0,0,0.1);
+    color: #333;
+    font-size: 14px;
+    line-height: 18px;
+    background-color: #fff !important;
+    transition: all .25s ease-in-out;
+    box-shadow: none;
 }
 .bpolls-sortable-handle, .bpolls-option-delete{
-	display: inline-block;
-	width: auto;
-	padding: 7.2px 8.5px !important;
-	margin: 0;
-	background: #EFEFEF !important;
-	border: none !important;
-	color: #424242 !important;
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 18px;
-	text-align: center;
-	text-decoration: none !important;
-	text-transform: none !important;
-	text-shadow: none !important;
-	box-shadow: none !important;
-	word-wrap: normal;
-	-moz-hyphens: none;
-	cursor: pointer;
+    display: inline-block;
+    width: auto;
+    padding: 7.2px 8.5px !important;
+    margin: 0;
+    background: #EFEFEF !important;
+    border: none !important;
+    color: #424242 !important;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    word-wrap: normal;
+    -moz-hyphens: none;
+    cursor: pointer;
 }
 .bpolls-option-delete{
-	opacity: 0.3;
+    opacity: 0.3;
 }
 .bpolls-option-delete:hover {
     opacity: 1;
     color: red !important;
 }
 .bpolls-option-action {
-	padding-top: 8.5px;
-	/*padding-bottom: 8.5px;*/
+    padding-top: 8.5px;
+    /*padding-bottom: 8.5px;*/
 }
 .bpolls-add-option {
-	color: #FFF !important;
-	background: #00b0ff !important;
-	padding: 5px 8.5px !important;
+    color: #FFF !important;
+    background: #00b0ff !important;
+    padding: 5px 8.5px !important;
     font-size: 12px;
     line-height: 16px;
     display: inline-block;
-	width: auto;
-	padding: 7.2px 8.5px !important;
-	margin: 0;
-	border: none !important;
-	font-size: 14px;
-	font-weight: normal;
-	line-height: 18px;
-	text-align: center;
-	text-decoration: none !important;
-	text-transform: none !important;
-	text-shadow: none !important;
-	box-shadow: none !important;
-	word-wrap: normal;
-	-moz-hyphens: none;
-	cursor: pointer;
+    width: auto;
+    padding: 7.2px 8.5px !important;
+    margin: 0;
+    border: none !important;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 18px;
+    text-align: center;
+    text-decoration: none !important;
+    text-transform: none !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    word-wrap: normal;
+    -moz-hyphens: none;
+    cursor: pointer;
 }
 .bpolls-option-action .bpolls-checkbox {
-	display: inline-block;
-	margin-top: 3px;
-	margin-left: 14px;
-	position: relative;
-	line-height: 22px;
+    display: inline-block;
+    margin-top: 3px;
+    margin-left: 14px;
+    position: relative;
+    line-height: 22px;
 }
 .bpolls-checkbox label {
-	padding-left: 0;
-	display: inline;
-	margin: 0;
-	clear: none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	cursor: pointer;
-	font-weight: 400;
-	color: #7E7E7E;
+    padding-left: 0;
+    display: inline;
+    margin: 0;
+    clear: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    cursor: pointer;
+    font-weight: 400;
+    color: #7E7E7E;
     font-size: 12px;
 }
 .bpolls-polls-option-html{
-	display: none;
-	border: 1px solid #d1d1d1;
+    display: none;
+    width: 100%;
+    border: 1px solid #d1d1d1;
     margin-top: 12px;
+    margin-bottom: 12px;
     padding: 12px;
 }
 .bpolls-cancel-div{
-	width:100%;
-	/*max-width:350px;*/
+    width:100%;
+    /*max-width:350px;*/
 }
 .bpolls-cancel{
-	float: right;
+    float: right;
 }
 .bpolls-item {
-	width: 100%;
-	max-width: 75%;
-	position: relative;
+    width: 100%;
+    max-width: 75%;
+    position: relative;
 }
 .bpolls-item-width {
-	position: absolute;
-	background-color: #d6d6d6;
-	height: 100%;
+    position: absolute;
+    background-color: #d6d6d6;
+    height: 100%;
 }
 .bpolls-check-radio-div {
-	background-color: #f5f5f5;
-	margin-bottom: 10px;
+    background-color: #f5f5f5;
+    margin-bottom: 10px;
     padding: 5px 10px !important;
-	padding: 2px;
-	font-size: 12px;
-	color: #7E7E7E;
+    padding: 2px;
+    font-size: 12px;
+    color: #7E7E7E;
 }
 .bpolls-percent {
-	float: right;
-	position: relative;
+    float: right;
+    position: relative;
 }
 .bpolls-votes {
-	font-size: 12px;
-	color: #7E7E7E;
-	position: absolute;
-	left: 100%;
-	width: auto;
+    font-size: 12px;
+    color: #7E7E7E;
+    position: absolute;
+    left: 100%;
+    width: auto;
     padding: 5px 10px;
-	display: flex;
+    display: flex;
 }
 .bpolls-options-attach-items {
     margin-bottom: 5px;
 }
 .bpolls-vote-submit {
-	font-size: 12px;
-	background: #d6d6d6 !important;
-	padding: 5px 10px;
-	color: #424242 !important;
+    font-size: 12px;
+    background: #d6d6d6 !important;
+    padding: 5px 10px;
+    color: #424242 !important;
 }
 .bpolls-check-radio-div input, .bpolls-option-lbl, .bpolls-percent{
-	position: relative;
+    position: relative;
 }
 .bpolls-option-lbl{
-	cursor: pointer;
+    cursor: pointer;
 }
 a.bpolls-cancel {
     display: block;
@@ -171,11 +173,11 @@ a.bpolls-cancel {
     margin-bottom: 12px;
 }
 a.bpolls-cancel:hover {
-	border: 1px solid red;
-	color: red;
+    border: 1px solid red;
+    color: red;
 }
 .bpolls-option-action {
-	display: flex;
+    display: flex;
     align-items: center;
 }
 input#bpolls-datetimepicker {
@@ -184,16 +186,16 @@ input#bpolls-datetimepicker {
     padding-left: 12px;
 }
 @media(max-width: 479px) {
-	.bpolls-polls-option-html {
-		margin-top: 50px;
-	}
-	.bpolls-option-action {
-		display: block;
-	}
-	input#bpolls-datetimepicker {
-		margin-left: 0;
-		margin-top: 12px;
-	}
+    .bpolls-polls-option-html {
+        margin-top: 50px;
+    }
+    .bpolls-option-action {
+        display: block;
+    }
+    input#bpolls-datetimepicker {
+        margin-left: 0;
+        margin-top: 12px;
+    }
 }
 
 /* sidebar poll activity graph widget select */
@@ -211,15 +213,15 @@ select.bpolls-activities-list {
 
 /* poll item checkbox radio checked css */
 .bpolls-item input[type=checkbox]:checked + label {
-  font-style: italic;
+    font-style: italic;
 }
 .bpolls-item input[type=radio]:checked + label {
-  font-style: italic;
+    font-style: italic;
 }
 
 /** Kleo theme specific css **/
 .activity .kleo-page #buddypress #whats-new-options {
-	height: auto!important;
+    height: auto!important;
 }
 
 .directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
@@ -229,7 +231,7 @@ select.bpolls-activities-list {
 }
 
 .activity .kleo-page .bpolls-html-container input[type="text"] {
-	margin: 0!important;
+    margin: 0!important;
 }
 
 .activity .kleo-page .bpolls-checkbox label {
@@ -237,29 +239,29 @@ select.bpolls-activities-list {
 }
 
 .directory.activity .kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="radio"], .directory.activity .kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="checkbox"] {
-	margin: 5px!important;
-	vertical-align: middle;
+    margin: 5px!important;
+    vertical-align: middle;
 }
 
 @media( min-width: 350px) and (max-width: 376px ) {
-	.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
-		left: 180px;
-	}
+    .directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
+        left: 180px;
+    }
 }
 
 @media( max-width: 480px) {
-	.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
-		left: 5px;
-		margin-top: 0;
-	}
+    .directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
+        left: 5px;
+        margin-top: 0;
+    }
 }
 
 /** Boss theme specific css **/
 .directory.activity #panels .bpolls-html-container {
-	display: inline-block;
+    display: inline-block;
     float: left;
 }
 
 .directory.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox, .my-activity.activity #panels .bpolls-html-container .bpolls-polls-option-html .bpolls-checkbox{
-	text-align: left;
+    text-align: left;
 }
