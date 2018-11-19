@@ -33,7 +33,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
         parent::__construct(false, _x('(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls'), $widget_ops);
 
         if (is_customize_preview() || is_active_widget(false, false, $this->id_base)) {
-            add_action('bp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
+            add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
         }
     }
 
@@ -67,6 +67,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
 
                 $poll_options = isset($activity_meta['poll_option'])?$activity_meta['poll_option']:'';
 
+                if( !array_key_exists($activity_id, $uptd_votes)){
                 if (!empty($poll_options) && is_array($poll_options)) {
                     foreach ($poll_options as $key => $value) {
                         if (isset($activity_meta['poll_total_votes'])) {
@@ -89,6 +90,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
 
                         $bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
 
+                       
                         $uptd_votes[$activity_id][] = array(
                             'poll_title' => $poll_title,
                             'label' => $value,
@@ -96,7 +98,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
                             'color' => bpolls_color()
 
                         );
+                       
                     }
+                }
                 }
             }
         }

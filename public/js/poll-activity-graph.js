@@ -9,7 +9,7 @@ window.onload = function () {
 		var id = $(this).attr('id');
 
 		var res = JSON.parse(bpolls_wiget_obj.votes);
-
+		
 		if( res[act_id] ) {
 			var arr_label = [];
 			var arr_per = [];
