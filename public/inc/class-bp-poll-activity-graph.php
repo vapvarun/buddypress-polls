@@ -57,7 +57,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
                 $activity_details = bp_activity_get_specific($args = array('activity_ids'=>$activity_id));
 
                 if (is_array($activity_details)) {
-                    $poll_title = $activity_details['activities'][0]->content;
+                    $poll_title = isset( $activity_details['activities'][0]->content )?$activity_details['activities'][0]->content:'';
                 } else {
                     $poll_title = '';
                 }
