@@ -173,6 +173,7 @@ input.bpolls-input.bpolls-input {
 .bpolls-option-lbl{
     cursor: pointer;
     margin-left: 6px;
+    margin-bottom: 0;
 }
 a.bpolls-cancel {
     display: block;
@@ -196,9 +197,9 @@ input#bpolls-datetimepicker {
     padding: 0 12px;
 }
 @media(max-width: 479px) {
-    .bpolls-polls-option-html {
-        margin-top: 50px;
-    }
+    /*    .bpolls-polls-option-html {
+            margin-top: 50px;
+        }*/
     .bpolls-option-action {
         display: block;
     }
@@ -230,40 +231,26 @@ select.bpolls-activities-list {
 }
 
 /** Kleo theme specific css **/
-.activity .kleo-page #buddypress #whats-new-options {
+body.kleo #buddypress #whats-new-content #whats-new-options,
+body.kleo #buddypress #whats-new-content.active #whats-new-options {
     height: auto!important;
 }
 
-.directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
-    position: absolute;
-    left: 200px;
-    margin-top: -40px;
+body.kleo #buddypress #whats-new-options {
+    height: 100% !important;
 }
 
-.activity .kleo-page .bpolls-html-container input[type="text"] {
-    margin: 0!important;
-}
-
-.activity .kleo-page .bpolls-checkbox label {
-    padding-left: 5px;
-}
-
-.directory.activity .kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="radio"], .directory.activity .kleo-page .bpolls-options-attach-container .bpolls-check-radio-div input[type="checkbox"] {
-    margin: 5px!important;
-    vertical-align: middle;
-}
-
-@media( min-width: 350px) and (max-width: 376px ) {
-    .directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
-        left: 180px;
-    }
-}
-
-@media( max-width: 480px) {
-    .directory.activity .kleo-page .bpolls-html-container .bpolls-icon {
-        left: 5px;
-        margin-top: 0;
-    }
+body.kleo .bpolls-html-container .bpolls-icon {
+    padding: 4px 26px;
+    margin-top: 10px;
+    text-align: center;
+    height: 30px;
+    border-radius: 2px;
+    border-style: solid;
+    border-color: #a6a6a6;
+    border-width: 1px;
+    outline: none;
+    display: inline-block;
 }
 
 /** Boss theme specific css **/
@@ -302,6 +289,16 @@ body.boss .bpolls-icon {
 
 body.boss .bpolls-polls-option-html {
     width: auto;
+}
+
+@media (max-width: 479px) {
+    body.boss .bpolls-html-container {
+        margin-bottom: 12px;
+    }
+
+    body.boss .bpolls-polls-option-html {
+        clear: both;
+    }
 }
 
 /** Reign theme (nouveau) specific css **/
