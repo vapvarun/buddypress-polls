@@ -231,26 +231,18 @@ select.bpolls-activities-list {
 }
 
 /** Kleo theme specific css **/
-body.kleo #buddypress #whats-new-content #whats-new-options,
-body.kleo #buddypress #whats-new-content.active #whats-new-options {
+.kleo-page #buddypress #whats-new-content #whats-new-options,
+.kleo-page #buddypress #whats-new-content.active #whats-new-options {
     height: auto!important;
 }
 
-body.kleo #buddypress #whats-new-options {
+.kleo-page #buddypress #whats-new-options {
     height: 100% !important;
 }
 
-body.kleo .bpolls-html-container .bpolls-icon {
-    padding: 4px 26px;
-    margin-top: 10px;
-    text-align: center;
+.kleo-page .bpolls-html-container .bpolls-icon {
     height: 30px;
-    border-radius: 2px;
-    border-style: solid;
-    border-color: #a6a6a6;
-    border-width: 1px;
-    outline: none;
-    display: inline-block;
+    line-height: 30px;
 }
 
 /** Boss theme specific css **/
