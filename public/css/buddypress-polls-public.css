@@ -246,18 +246,18 @@ select.bpolls-activities-list {
 }
 
 /** Boss theme specific css **/
-body.boss .bpolls-html-container {
+.directory.activity #panels .bpolls-html-container {
     display: inline-block;
     float: left;
 }
 
-body.boss .bpolls-polls-option-html .bpolls-checkbox {
+.directory.activity #panels .bpolls-polls-option-html .bpolls-checkbox {
     display: flex;
     align-items: center;
     line-height: 6px;
 }
 
-body.boss .bpolls-icon {
+.directory.activity #panels .bpolls-icon {
     height: 40px;
     line-height: 36px;
     display: block;
@@ -279,16 +279,16 @@ body.boss .bpolls-icon {
     box-sizing: border-box;
 }
 
-body.boss .bpolls-polls-option-html {
+.directory.activity #panels .bpolls-polls-option-html {
     width: auto;
 }
 
 @media (max-width: 479px) {
-    body.boss .bpolls-html-container {
+    .directory.activity #panels .bpolls-html-container {
         margin-bottom: 12px;
     }
 
-    body.boss .bpolls-polls-option-html {
+    .directory.activity #panels .bpolls-polls-option-html {
         clear: both;
     }
 }
