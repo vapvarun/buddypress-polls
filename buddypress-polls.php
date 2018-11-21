@@ -16,7 +16,7 @@
  * Plugin Name:       BuddyPress Polls
  * Plugin URI:        http://www.wbcomdesigns.com/plugins/
  * Description:       BuddyPress Polls plugin allows you and your community to create polls in posts. The polls can be placed in the main activity stream, in users’ profiles and even in groups.
- * Version:           1.0.5
+ * Version:           1.0.6
  * Author:            wbcomdesigns
  * Author URI:        https://wbcomdesigns.com
  * License:           GPL-2.0+
@@ -35,7 +35,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'PLUGINNAME_VERSION', '1.0.3' );
+define( 'PLUGINNAME_VERSION', '1.0.6' );
 define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BPOLLS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BPOLLS_PLUGIN_BASENAME',  plugin_basename( __FILE__ ) );

@@ -54,6 +54,10 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 1.0.6 =
+* Fix : BP 3.0.2 compatibility.
+* Fix : Poll graph widget duplicate options fix.
+
 = 1.0.5 =
 * Fix : BP nouveau activity post issue.
 
