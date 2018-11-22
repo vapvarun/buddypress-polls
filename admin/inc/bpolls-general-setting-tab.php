@@ -22,7 +22,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 	?>
 	<table class="form-table">
 		<tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-profanity' ); ?></label></th>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label></th>
 			<td><input name='bpolls_settings[multiselect]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['multiselect']))?checked($bpolls_settings['multiselect'],'yes'):''; ?>/>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can cast more than one vote in each poll.', 'buddypress-polls' ); ?>
 			</p>
@@ -31,7 +31,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 		    </td>
 	    </tr>
 	    <tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-profanity' ); ?></label></th>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-polls' ); ?></label></th>
 			<td><input name='bpolls_settings[hide_results]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['hide_results']))?checked($bpolls_settings['hide_results'],'yes'):''; ?>/>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?>
 			</p>
@@ -40,7 +40,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 		    </td>
 	    </tr>
 	    <tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-profanity' ); ?></label></th>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?></label></th>
 			<td><input name='bpolls_settings[close_date]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['close_date']))?checked($bpolls_settings['close_date'],'yes'):''; ?>/>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set poll closing date and time.', 'buddypress-polls' ); ?>
 			</p>

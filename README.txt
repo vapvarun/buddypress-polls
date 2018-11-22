@@ -34,7 +34,7 @@ Yes, It needs you to have BuddyPress installed and activated.
 
 = What to expect when installing and activating BuddyPress Polls? =
 
-After activating plugin a poll icon is added to the post box in activity stream, user profiles and even in groups.Post a question for others to vote. BuddyPress Polls plugin allows you and your community to create polls in posts. The polls can be placed in the main activity stream, in users’ profiles and even in groups.
+After activating plugin a poll icon is added to the post box in activity stream, user profiles and even in groups. Post a question for others to vote. BuddyPress Polls plugin allows you and your community to create polls in posts. The polls can be placed in the main activity stream, in users’ profiles and even in groups.
 
 = What is the use of Multi select polls setting provided under general settings section? =
 
@@ -42,11 +42,11 @@ When creating a poll users can set either a single select poll – users can pic
 
 = What is the use of Hide results setting provided under general settings section? =
 
-With hide results setting enabled users can\'t see the poll results before voting. They can see the results once they vote on the poll.With hide results setting disabled users can see the poll results before voting.
+With hide results setting enabled users can\'t see the poll results before voting. They can see the results once they vote on the poll. With hide results setting disabled users can see the poll results before voting.
 
 = What is the use of Poll closing date & time setting provided under general settings section? =
 
-With Poll closing date & time setting enabled users can set poll closing date and time.With Poll closing date & time setting disabled polls will always remain open for voting.
+With Poll closing date & time setting enabled users can set poll closing date and time. With Poll closing date & time setting disabled polls will always remain open for voting.
 
 = How to show poll activity graph in sidebar? =
 
@@ -57,6 +57,7 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 = 1.0.6 =
 * Fix : BP 3.0.2 compatibility.
 * Fix : Poll graph widget duplicate options fix.
+* Enhancement - Added French translation files – credits to Jean Pierre Michaud
 
 = 1.0.5 =
 * Fix : BP nouveau activity post issue.
