@@ -44,6 +44,11 @@
 			// 	}
 			// );
 
+			$( document ).on(
+				'focus', '#whats-new', function(){
+					$('#whats-new-options').addClass('bpolls-rtm-class');
+			});
+
 			/*==============================================
 			=            add new poll option js            =
 			==============================================*/
