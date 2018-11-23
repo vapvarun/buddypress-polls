@@ -120,7 +120,7 @@ class Buddypress_Polls_Public
             echo wp_get_theme();
             echo '</br>';
             var_dump( 'REIGN' );
-            if( 'REIGN' == wp_get_theme() ){
+            if( 'REIGN' == wp_get_theme() || 'REIGN Child' == wp_get_theme() ){
                 $body_polls_class = true;
             }else{
                 $body_polls_class = false;
