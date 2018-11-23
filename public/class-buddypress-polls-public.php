@@ -117,15 +117,13 @@ class Buddypress_Polls_Public
             wp_enqueue_script($this->plugin_name.'-timefulljs', plugin_dir_url(__FILE__) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false);
 
             wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false);
-            echo wp_get_theme();
-            echo '</br>';
-            var_dump( 'REIGN' );
+           
             if( 'REIGN' == wp_get_theme() || 'REIGN Child' == wp_get_theme() ){
                 $body_polls_class = true;
             }else{
                 $body_polls_class = false;
             }
-            var_dump( $body_polls_class );
+            
             wp_localize_script($this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('bpolls_ajax_security'), 'submit_text' => __('Submitting vote', 'buddypress-polls'),'optn_empty_text' => __('Please select your choice.', 'buddypress-polls'), 'reign_polls' => $body_polls_class ));
         //}
     }
