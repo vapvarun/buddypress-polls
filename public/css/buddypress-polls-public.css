@@ -326,11 +326,11 @@ select.bpolls-activities-list {
         margin-left: 8.5%;
     }
 
-    .reign-typo.bp-nouveau .bpolls-html-container {
+    .reign-polls.bp-nouveau .bpolls-html-container {
         margin-left: 65px;
     }
 
-    .reign-typo.bp-nouveau .bpolls-polls-option-html {
+    .reign-polls.bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 65px);
         margin-left: 65px;
     }
