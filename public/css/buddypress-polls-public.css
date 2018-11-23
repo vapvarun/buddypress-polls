@@ -294,6 +294,11 @@ select.bpolls-activities-list {
 }
 
 /** Reign theme (nouveau) specific css **/
+.bp-nouveau #whats-new-options.bpolls-rtm-class {
+    display: block;
+    opacity: 1;
+}
+
 .bp-nouveau .bpolls-html-container {
     margin: 10px 0;
     display: inline-block;
