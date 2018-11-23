@@ -31,6 +31,12 @@
      jQuery( document ).ready(
 		function(){
 			var poll_html;
+			
+			if(bpolls_ajax_object.reign_polls){
+				var body = document.body;
+				body.classList.add("reign-polls");
+			}
+			
 			// $('#bpolls-datetimepicker').datetimepicker();
 			// var poll_html = $( '.bpolls-polls-option-html' ).html();
 			// var option_html = $('.bpolls-option').html();
