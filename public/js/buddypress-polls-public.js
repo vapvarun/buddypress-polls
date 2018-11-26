@@ -37,7 +37,7 @@
 				body.classList.add("reign-polls");
 			}
 
-			if( bpolls_ajax_object.rt_poll_fix){
+			if( bpolls_ajax_object.rt_poll_fix  && bpolls_ajax_object.reign_polls ){
 
 				// $( document ).on( 'click', '.bpolls-icon', function(){
 				// 	//if($('#rtmedia_uploader_filelist li').length != 0 ){
@@ -60,7 +60,7 @@
 						//alert($(".rtmedia-plupload-container .bpolls-html-container").length);
 						if ($(".rtmedia-plupload-container .bpolls-html-container").length == 0){ 
 							//$(".bpolls-html-container").detach();
-							$(".bpolls-html-container").appendTo("#rtmedia-action-update");
+							$(".bpolls-html-container").insertAfter("#rtmedia-action-update");
 						}
 						$('#whats-new-options .bpolls-html-container').hide();
 					});
