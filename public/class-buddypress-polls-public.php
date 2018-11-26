@@ -128,8 +128,15 @@ class Buddypress_Polls_Public
             if( class_exists( 'RTMedia' )){
                 $rt_poll_fix = true;
             }
+
+            $active_template = get_option('_bp_theme_package_id');
+            if( 'legacy' == $active_template ){
+                $nouveau = false;
+            }elseif( 'nouveau' == $active_template ){
+                $nouveau = true;
+            }
             
-            wp_localize_script($this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('bpolls_ajax_security'), 'submit_text' => __('Submitting vote', 'buddypress-polls'),'optn_empty_text' => __('Please select your choice.', 'buddypress-polls'), 'reign_polls' => $body_polls_class, 'rt_poll_fix' => $rt_poll_fix ));
+            wp_localize_script($this->plugin_name, 'bpolls_ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('bpolls_ajax_security'), 'submit_text' => __('Submitting vote', 'buddypress-polls'),'optn_empty_text' => __('Please select your choice.', 'buddypress-polls'), 'reign_polls' => $body_polls_class, 'rt_poll_fix' => $rt_poll_fix, 'nouveau'=> $nouveau ));
         //}
     }
 

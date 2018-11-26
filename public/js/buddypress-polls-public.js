@@ -37,7 +37,7 @@
 				body.classList.add("reign-polls");
 			}
 
-			if( bpolls_ajax_object.rt_poll_fix  && bpolls_ajax_object.reign_polls ){
+			if( bpolls_ajax_object.rt_poll_fix  && bpolls_ajax_object.reign_polls && bpolls_ajax_object.nouveau){
 
 				$( document ).on( 'click', '.bpolls-icon', function(){
 					//if($('#rtmedia_uploader_filelist li').length != 0 ){
