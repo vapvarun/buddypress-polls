@@ -36,6 +36,40 @@
 				var body = document.body;
 				body.classList.add("reign-polls");
 			}
+
+			if( bpolls_ajax_object.rt_poll_fix){
+
+				// $( document ).on( 'click', '.bpolls-icon', function(){
+				// 	//if($('#rtmedia_uploader_filelist li').length != 0 ){
+				// 		$('.rtmedia-container').hide();
+				// 	//} 
+				// });
+				// $( document ).on( 'click', '.bpolls-cancel', function(){
+				// 		$('.rtmedia-container').show();
+				// });
+
+
+				// $( document ).on( 'focus', '#whats-new', function(){
+				// 	if ($( '.rtmedia-container' ).is( ':hidden' )) {
+				// 		$( '.rtmedia-container' ).show();
+				// 	}
+				// });
+
+				$(document).ready(function(){
+					$( document ).on( 'focus', '#whats-new', function(){
+						//alert($(".rtmedia-plupload-container .bpolls-html-container").length);
+						if ($(".rtmedia-plupload-container .bpolls-html-container").length == 0){ 
+							//$(".bpolls-html-container").detach();
+							$(".bpolls-html-container").appendTo("#rtmedia-action-update");
+						}
+						$('#whats-new-options .bpolls-html-container').hide();
+					});
+				});
+				
+			}
+
+			
+				
 			
 			// $('#bpolls-datetimepicker').datetimepicker();
 			// var poll_html = $( '.bpolls-polls-option-html' ).html();

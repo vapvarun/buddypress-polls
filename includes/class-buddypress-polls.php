@@ -185,6 +185,7 @@ class Buddypress_Polls {
 
 		/* adds polls html in whats new area */
 		$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpolls_polls_update_html' );
+		//$this->loader->add_action( 'bp_after_activity_post_form', $plugin_public, 'bpolls_polls_update_html' );
 
 		/* adds new activity type poll */
 		$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpolls_add_polls_type_activity', 10, 1 );
