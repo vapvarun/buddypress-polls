@@ -316,6 +316,21 @@ select.bpolls-activities-list {
     margin-top: 0;
 }
 
+.reign-polls.bp-nouveau .activity-update-form .rtmedia-plupload-container {
+    width: 100%;
+}
+
+.reign-polls.bp-nouveau .bpolls-html-container {
+    margin: 0;
+    margin-left: 10px;
+}
+
+.reign-polls.bp-nouveau #rtmedia-uploader-form .rtm-plupload-list li,
+.reign-polls.bp-nouveau form .rtmedia-container .rtm-plupload-list li,
+.reign-polls.bp-nouveau #rtmedia_uploader_filelist li {
+    min-width: 110px;
+}
+
 @media (min-width: 46.8em) {
     .bp-nouveau .bpolls-html-container {
         margin-left: 8.5%;
@@ -324,10 +339,6 @@ select.bpolls-activities-list {
     .bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 8.5%);
         margin-left: 8.5%;
-    }
-
-    .reign-polls.bp-nouveau .bpolls-html-container {
-        margin-left: 65px;
     }
 
     .reign-polls.bp-nouveau .bpolls-polls-option-html {
