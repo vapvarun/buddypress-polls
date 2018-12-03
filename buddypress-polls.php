@@ -102,14 +102,14 @@ function bp_polls_check_config(){
 	global $bp;
 	$check =  array();
 	$config = array(
-		'blog_status'    => false, 
-		'network_active' => false, 
-		'network_status' => true 
+		'blog_status'    => false,
+		'network_active' => false,
+		'network_status' => true
 	);
 	if ( get_current_blog_id() == bp_get_root_blog_id() ) {
 		$config['blog_status'] = true;
 	}
-	
+
 	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
 
 	// No Network plugins
@@ -121,7 +121,7 @@ function bp_polls_check_config(){
 
 	// Are they active on the network ?
 	$network_active = array_diff( $check, array_keys( $network_plugins ) );
-	
+
 	// If result is 1, your plugin is network activated
 	// and not BuddyPress or vice & versa. Config is not ok
 	if ( count( $network_active ) == 1 )
@@ -149,7 +149,7 @@ function bp_polls_check_config(){
 			return false;
 		endif;
 		// Display a warning message in network admin or admin
-	} 
+	}
 	return true;
 }
 

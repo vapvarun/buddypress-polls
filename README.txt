@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 4.9.8
-Stable tag: 4.0.0
+Stable tag: 1.0.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -55,9 +55,12 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 == Changelog ==
 
 = 1.0.6 =
-* Fix : BP 3.0.2 compatibility.
+* Fix : BP Nouveau compatibility.
 * Fix : Poll graph widget duplicate options fix.
-* Enhancement - Added French translation files – credits to Jean Pierre Michaud
+* Enhancement: Better Compatibility with Default WordPress Themes
+* Enhancement: Dedicated support with Reign Theme
+* Enhancement: Better Compatibility with rtMedia
+* Enhancement: Added French translation files – credits to Jean Pierre Michaud
 
 = 1.0.5 =
 * Fix : BP nouveau activity post issue.
