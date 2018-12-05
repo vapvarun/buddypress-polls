@@ -128,6 +128,9 @@ class Buddypress_Polls {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/bp-poll-activity-graph.php';
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';
 
+		/* Enqueue wbcom plugin folder file. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
+
 		$this->loader = new Buddypress_Polls_Loader();
 
 	}

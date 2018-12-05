@@ -8,6 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 ?>
+<div class="wbcom-tab-content">
 <div class="bpolls-support-setting">
 	<div class="bpolls-tab-header">
 		<h3><?php esc_html_e( 'FAQ(s) ', 'buddypress-polls' ); ?></h3>
@@ -98,4 +99,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 	</div>
+</div>
 </div>

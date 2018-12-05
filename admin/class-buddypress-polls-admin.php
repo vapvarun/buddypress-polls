@@ -60,7 +60,7 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles($hook) {
-		if($hook != 'toplevel_page_buddypress_polls') {
+		if($hook != 'wbcom_page_buddypress-polls') {
             return;
          }
 
@@ -86,7 +86,7 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts($hook) {
-		if($hook != 'toplevel_page_buddypress_polls') {
+		if($hook != 'wbcom_page_buddypress-polls') {
             return;
          }
 
@@ -112,7 +112,13 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function bpolls_add_menu_buddypress_polls() {
-		add_menu_page( __( 'Buddypress Polls Settings Page', 'buddypress-polls' ), __( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress_polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-chart-bar', 60 );
+
+		if ( empty ( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
+				add_menu_page( esc_html__( 'WBCOM', 'buddypress-polls' ), __( 'WBCOM', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bulb.png', 59 );
+			}
+		add_submenu_page( 'wbcomplugins', esc_html__( 'Buddypress Polls Settings Page', 'buddypress-polls' ), esc_html__( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
+
+		// add_menu_page( __( 'Buddypress Polls Settings Page', 'buddypress-polls' ), __( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress_polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-chart-bar', 60 );
 	}
 
 	/**
@@ -124,22 +130,29 @@ class Buddypress_Polls_Admin {
 		$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general';
 		?>
 		<div class="wrap">
-			<h1> <?php esc_html_e( 'BuddyPress Polls Settings', 'buddypress-polls' ); ?></h1>
-		</div>
+			<div class="blpro-header">
+				<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+				<h1 class="wbcom-plugin-heading">
+					<?php esc_html_e( 'BuddyPress Polls Settings', 'buddypress-polls' ); ?>
+				</h1>
+			</div>
+			<div class="wbcom-admin-settings-page">
 		<?php
 		$bpolls_tabs = array(
 			'general'        => __( 'General', 'buddypress-polls' ),
 			'support'        => __( 'Support', 'buddypress-polls' ),
 		);
 
-    	$tab_html = '<h2 class="nav-tab-wrapper">';
+    	$tab_html = '<div class="wbcom-tabs-section"><h2 class="nav-tab-wrapper">';
 		foreach ( $bpolls_tabs as $bpolls_tab => $bpolls_name ) {
-			$class     = ( $bpolls_tab == $current ) ? 'active' : '';
-			$tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=buddypress_polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a>';
+			$class     = ( $bpolls_tab == $current ) ? 'nav-tab-active' : '';
+			$tab_html .= '<a class="nav-tab ' . $class . '" href="admin.php?page=buddypress-polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a>';
 		}
-		$tab_html .= '</h2>';
+		$tab_html .= '</h2></div>';
 		echo $tab_html;
 		include 'inc/bpolls-tabs-options.php';
+		echo '</div>';
+		echo '</div>';
 	}
 
 	/**
