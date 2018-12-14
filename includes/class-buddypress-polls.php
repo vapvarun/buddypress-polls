@@ -131,6 +131,9 @@ class Buddypress_Polls {
 		/* Enqueue wbcom plugin folder file. */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
 
+		/* Enqueue wbcom plugin folder file. */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-paid-plugin-settings.php';
+
 		$this->loader = new Buddypress_Polls_Loader();
 
 	}

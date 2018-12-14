@@ -7,7 +7,7 @@ define('EDD_BPOLLS_STORE_URL', 'https://wbcomdesigns.com/'); // you should use y
 define('EDD_BPOLLS_ITEM_NAME', 'buddypress-polls'); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 
 // the name of the settings page for the license input to be displayed
-define('EDD_BPOLLS_PLUGIN_LICENSE_PAGE', 'edd_BPOLLS_license_page');
+define('EDD_BPOLLS_PLUGIN_LICENSE_PAGE', 'wbcom-license-page');
 
 if (! class_exists('EDD_BPOLLS_Plugin_Updater')) {
     // load our custom updater.
@@ -245,7 +245,7 @@ function edd_wbcom_BPOLLS_deactivate_license()
 {
 
     // listen for our activate button to be clicked
-    if (isset($_POST['edd_license_deactivate'])) {
+    if (isset($_POST['edd_BPOLLS_license_deactivate'])) {
         // run a quick security check
         if (! check_admin_referer('edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce')) {
             return; // get out if we didn't click the Activate button
@@ -381,3 +381,149 @@ function edd_wbcom_BPOLLS_admin_notices()
     }
 }
 add_action('admin_notices', 'edd_wbcom_BPOLLS_admin_notices');
+
+add_action( 'wbcom_add_plugin_license_code', 'wbcom_bpolls_render_license_section' );
+function wbcom_bpolls_render_license_section(){
+
+    $license = get_option('edd_wbcom_BPOLLS_license_key', true);
+    $status  = get_option('edd_wbcom_BPOLLS_license_status');
+
+    $plugin_data = get_plugin_data( BPOLLS_PLUGIN_PATH.'/buddypress-polls.php', $markup = true, $translate = true );
+
+    if ( $status !== false && $status == 'valid' ) {
+        $status_class = 'active';
+        $status_text = 'Active';
+    }else{
+        $status_class = 'inactive';
+        $status_text = 'Inactive';
+    }
+    ?>
+    <form method="post" action="options.php">
+        <?php settings_fields( 'edd_wbcom_BPOLLS_license' ); ?>
+        <table class="form-table wb-license-form-table">
+            <tr>
+                <td class="wb-plugin-name"><?php esc_attr_e( $plugin_data['Name'], 'buddypress-polls' ); ?></td>
+                <td class="wb-plugin-version"><?php esc_attr_e( $plugin_data['Version'], 'buddypress-polls' ); ?></td>
+                <td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" class="regular-text" value="<?php esc_attr_e($license, 'buddypress-polls'); ?>" /></td>
+                <td class="wb-license-status <?php echo $status_class; ?>"><?php esc_attr_e( $status_text, 'buddypress-polls' ); ?></td>
+                <td class="wb-license-action">
+                    <?php if ($status !== false && $status == 'valid') {  
+                        wp_nonce_field('edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce'); ?>
+                         <input type="submit" class="button-secondary" name="edd_BPOLLS_license_deactivate" value="<?php _e('Deactivate License', 'buddypress-polls'); ?>"/>
+                        <?php
+                    } else {
+                        wp_nonce_field('edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce'); ?>
+                         <input type="submit" class="button-secondary" name="edd_bpolls_license_activate" value="<?php _e('Activate License', 'buddypress-polls'); ?>"/>
+                    <?php  } ?>
+                </td>
+                <td><?php submit_button(__('Save Changes', 'buddypress-polls'), 'primary', 'edd_BPOLLS_license_activate', true); ?></td>
+            </tr>
+        </table>
+    </form>
+    <?php   
+}
+
+function edd_wbcom_BPOLLS_activate_license_button()
+{
+
+    // listen for our activate button to be clicked
+    if (isset($_POST['edd_bpolls_license_activate'])) {
+        // run a quick security check
+        if (! check_admin_referer('edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce')) {
+            return; // get out if we didn't click the Activate button
+        }
+
+        // retrieve the license from the database
+        $license =  trim(get_option('edd_wbcom_BPOLLS_license_key'));
+
+        // data to send in our API request
+        $api_params = array(
+            'edd_action' => 'activate_license',
+            'license'    => $license,
+            'item_name'  => urlencode(EDD_BPOLLS_ITEM_NAME), // the name of our product in EDD
+            'url'        => home_url(),
+        );
+
+        // Call the custom API.
+        $response = wp_remote_post(
+            EDD_BPOLLS_STORE_URL,
+            array(
+                'timeout'   => 15,
+                'sslverify' => false,
+                'body'      => $api_params,
+            )
+        );
+
+        // make sure the response came back okay
+        if (is_wp_error($response) || 200 !== wp_remote_retrieve_response_code($response)) {
+            if (is_wp_error($response)) {
+                $message = $response->get_error_message();
+            } else {
+                $message = __('An error occurred, please try again.', 'buddypress-moderation-pro');
+            }
+        } else {
+            $license_data = json_decode(wp_remote_retrieve_body($response));
+
+            if (false === $license_data->success) {
+                switch ($license_data->error) {
+                    case 'expired':
+                        $message = sprintf(
+                            __('Your license key expired on %s.', 'buddypress-moderation-pro'),
+                            date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
+                        );
+                        break;
+
+                    case 'revoked':
+                        $message = __('Your license key has been disabled.', 'buddypress-moderation-pro');
+                        break;
+
+                    case 'missing':
+                        $message = __('Invalid license.', 'buddypress-moderation-pro');
+                        break;
+
+                    case 'invalid':
+                    case 'site_inactive':
+                        $message = __('Your license is not active for this URL.', 'buddypress-moderation-pro');
+                        break;
+
+                    case 'item_name_mismatch':
+                        $message = sprintf(__('This appears to be an invalid license key for %s.', 'buddypress-moderation-pro'), EDD_BPOLLS_ITEM_NAME);
+                        break;
+
+                    case 'no_activations_left':
+                        $message = __('Your license key has reached its activation limit.', 'buddypress-moderation-pro');
+                        break;
+
+                    default:
+                        $message = __('An error occurred, please try again.', 'buddypress-moderation-pro');
+                        break;
+                }
+            }
+        }
+
+        // Check if anything passed on a message constituting a failure
+        if (! empty($message)) {
+            $base_url = admin_url('admin.php?page=' . EDD_BPOLLS_PLUGIN_LICENSE_PAGE);
+            $redirect = add_query_arg(
+                array(
+                    'BMPRO_activation' => 'false',
+                    'message'       => urlencode($message),
+                ),
+                $base_url
+            );
+            $license = trim($license);
+            update_option('edd_wbcom_BPOLLS_license_key', $license);
+            update_option('edd_wbcom_BPOLLS_license_status', $license_data->license);
+            wp_redirect($redirect);
+            exit();
+        }
+
+        // $license_data->license will be either "valid" or "invalid"
+        $license = trim($license);
+        update_option('edd_wbcom_BPOLLS_license_key', $license);
+        update_option('edd_wbcom_BPOLLS_license_status', $license_data->license);
+        wp_redirect(admin_url('admin.php?page=' . EDD_BPOLLS_PLUGIN_LICENSE_PAGE));
+        exit();
+    }
+}
+add_action('admin_init', 'edd_wbcom_BPOLLS_activate_license_button');
