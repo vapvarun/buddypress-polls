@@ -60,7 +60,7 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_styles($hook) {
-		if($hook != 'wbcom_page_buddypress-polls') {
+		if($hook != 'wb-plugins_page_buddypress-polls') {
             return;
          }
 
@@ -86,7 +86,7 @@ class Buddypress_Polls_Admin {
 	 * @since    1.0.0
 	 */
 	public function enqueue_scripts($hook) {
-		if($hook != 'wbcom_page_buddypress-polls') {
+		if($hook != 'wb-plugins_page_buddypress-polls') {
             return;
          }
 
