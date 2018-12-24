@@ -114,7 +114,9 @@ class Buddypress_Polls_Admin {
 	public function bpolls_add_menu_buddypress_polls() {
 
 		if ( empty ( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-				add_menu_page( esc_html__( 'WBCOM', 'buddypress-polls' ), __( 'WBCOM', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bulb.png', 59 );
+				// add_menu_page( esc_html__( 'WBCOM', 'buddypress-polls' ), __( 'WBCOM', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bulb.png', 59 );
+			add_menu_page( esc_html__( 'WB Plugins', 'buddypress-polls' ), esc_html__( 'WB Plugins', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-lightbulb', 59 );
+		 	add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'buddypress-polls' ), esc_html__( 'General', 'buddypress-polls' ), 'manage_options', 'wbcomplugins' );
 			}
 		add_submenu_page( 'wbcomplugins', esc_html__( 'Buddypress Polls Settings Page', 'buddypress-polls' ), esc_html__( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
 
