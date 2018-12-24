@@ -326,6 +326,18 @@ function wbcom_bpolls_render_license_section(){
         $status_text = 'Inactive';
     }
     ?>
+    <table class="form-table wb-license-form-table mobile-license-headings">
+            <thead>
+                <tr>
+                    <th class="wb-product-th"><?php esc_html_e( 'Product', 'buddypress-polls' ); ?></th>
+                    <th class="wb-version-th"><?php esc_html_e( 'Version', 'buddypress-polls' ); ?></th>
+                    <th class="wb-key-th"><?php esc_html_e( 'Key', 'buddypress-polls' ); ?></th>
+                    <th class="wb-status-th"><?php esc_html_e( 'Status', 'buddypress-polls' ); ?></th>
+                    <th class="wb-action-th"><?php esc_html_e( 'Action', 'buddypress-polls' ); ?></th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
     <form method="post" action="options.php">
         <?php settings_fields( 'edd_wbcom_BPOLLS_license' ); ?>
         <table class="form-table wb-license-form-table">
