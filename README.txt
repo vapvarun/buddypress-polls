@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 5.0.1
-Stable tag: 1.07
+Tested up to: 5.0.2
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,8 +54,9 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
-= 1.0.7 =
+= 2.0.0 =
 * Enhancement: Plugin backend settings ui enhancement.
+* Enhancement: Compatibility with BP 4.0.1
 
 = 1.0.6 =
 * Fix : BP Nouveau compatibility.
