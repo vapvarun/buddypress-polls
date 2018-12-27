@@ -347,7 +347,7 @@ function wbcom_bpolls_render_license_section(){
                 <td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" class="regular-text" value="<?php esc_attr_e($license, 'buddypress-polls'); ?>" /></td>
                 <td class="wb-license-status <?php echo $status_class; ?>"><?php esc_attr_e( $status_text, 'buddypress-polls' ); ?></td>
                 <td class="wb-license-action">
-                    <?php if ($status !== false && $status == 'valid') {  
+                    <?php if ($status !== false && $status == 'valid') {
                         wp_nonce_field('edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce'); ?>
                          <input type="submit" class="button-secondary" name="edd_BPOLLS_license_deactivate" value="<?php _e('Deactivate License', 'buddypress-polls'); ?>"/>
                         <?php
@@ -360,8 +360,8 @@ function wbcom_bpolls_render_license_section(){
             </tr>
         </table>
     </form>
-    
-    <?php   
+
+    <?php
 }
 
 function edd_wbcom_BPOLLS_activate_license_button()
@@ -400,7 +400,7 @@ function edd_wbcom_BPOLLS_activate_license_button()
             if (is_wp_error($response)) {
                 $message = $response->get_error_message();
             } else {
-                $message = __('An error occurred, please try again.', 'buddypress-moderation-pro');
+                $message = __('An error occurred, please try again.', 'buddypress-polls');
             }
         } else {
             $license_data = json_decode(wp_remote_retrieve_body($response));
@@ -409,34 +409,34 @@ function edd_wbcom_BPOLLS_activate_license_button()
                 switch ($license_data->error) {
                     case 'expired':
                         $message = sprintf(
-                            __('Your license key expired on %s.', 'buddypress-moderation-pro'),
+                            __('Your license key expired on %s.', 'buddypress-polls'),
                             date_i18n(get_option('date_format'), strtotime($license_data->expires, current_time('timestamp')))
                         );
                         break;
 
                     case 'revoked':
-                        $message = __('Your license key has been disabled.', 'buddypress-moderation-pro');
+                        $message = __('Your license key has been disabled.', 'buddypress-polls');
                         break;
 
                     case 'missing':
-                        $message = __('Invalid license.', 'buddypress-moderation-pro');
+                        $message = __('Invalid license.', 'buddypress-polls');
                         break;
 
                     case 'invalid':
                     case 'site_inactive':
-                        $message = __('Your license is not active for this URL.', 'buddypress-moderation-pro');
+                        $message = __('Your license is not active for this URL.', 'buddypress-polls');
                         break;
 
                     case 'item_name_mismatch':
-                        $message = sprintf(__('This appears to be an invalid license key for %s.', 'buddypress-moderation-pro'), EDD_BPOLLS_ITEM_NAME);
+                        $message = sprintf(__('This appears to be an invalid license key for %s.', 'buddypress-polls'), EDD_BPOLLS_ITEM_NAME);
                         break;
 
                     case 'no_activations_left':
-                        $message = __('Your license key has reached its activation limit.', 'buddypress-moderation-pro');
+                        $message = __('Your license key has reached its activation limit.', 'buddypress-polls');
                         break;
 
                     default:
-                        $message = __('An error occurred, please try again.', 'buddypress-moderation-pro');
+                        $message = __('An error occurred, please try again.', 'buddypress-polls');
                         break;
                 }
             }
