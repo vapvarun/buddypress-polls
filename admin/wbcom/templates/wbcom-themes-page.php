@@ -61,7 +61,7 @@
 						<img src="<?php echo BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/storemate.jpg'; ?>" alt="Avatar" class="image" style="width:100%">
 					</div>
 					<div class="wbcom-demo-title">
-						<h2><?php esc_html_e( 'ShopMate Dokan', 'buddypress-polls' ); ?></h2>
+						<h2><?php esc_html_e( 'StoreMate Dokan', 'buddypress-polls' ); ?></h2>
 						<ul class="wbcom_theme_features_list">
                             <li><?php esc_html_e( 'Dokan Extra Widgets', 'buddypress-polls' ); ?></li>
                             <li><?php esc_html_e( 'Unique Single Product Page Customization', 'buddypress-polls' ); ?></li>

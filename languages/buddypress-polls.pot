@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-27 18:07:35+00:00\n"
+"POT-Creation-Date: 2018-12-27 18:16:22+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -368,7 +368,7 @@ msgid "StoreMate"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-themes-page.php:64
-msgid "ShopMate Dokan"
+msgid "StoreMate Dokan"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-themes-page.php:66
@@ -484,7 +484,7 @@ msgid "Custom Email Options"
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:236
-msgid "Override default email options of Worpdress."
+msgid "Override default email options of WordPress."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:242

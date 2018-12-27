@@ -233,7 +233,7 @@ if ( !class_exists( 'Wbcom_Admin_Settings' ) ) {
 				'7'	 => array(
 					'name'			 => esc_html__( 'Custom Email Options', 'buddypress-polls' ),
 					'slug'			 => 'custom-email-options',
-					'description'	 => esc_html__( 'Override default email options of Worpdress.', 'buddypress-polls' ),
+					'description'	 => esc_html__( 'Override default email options of WordPress.', 'buddypress-polls' ),
 					'status'		 => $this->wbcom_plugin_status( 'custom-email-options' ),
 					'wp_url'		 => 'https://wordpress.org/plugins/custom-email-options/',
 					'icon'			 => 'fas fa-2x fa-at'
