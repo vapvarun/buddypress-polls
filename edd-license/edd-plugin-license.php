@@ -18,19 +18,16 @@ function edd_BPOLLS_plugin_updater()
 {
 
     // retrieve our license key from the DB.
-    $license_key = trim(get_option('edd_wbcom_BPOLLS_license_key'));
+    $license_key = trim(get_option('edd_wbcom_BPOLLS_license_key', true));
 
     // setup the updater
-    $edd_updater = new EDD_BPOLLS_Plugin_Updater(
-        EDD_BPOLLS_STORE_URL,
-        __FILE__,
+    $edd_updater = new EDD_BPOLLS_Plugin_Updater(EDD_BPOLLS_STORE_URL, BPOLLS_PLUGIN_FILE,
         array(
             'version'   => BPOLLS_PLUGIN_VERSION,             // current version number.
             'license'   => $license_key,        // license key (used get_option above to retrieve from DB).
             'item_name' => EDD_BPOLLS_ITEM_NAME,  // name of this plugin
-			'item_id'     => 77506, 	// download ID on your site
             'author'    => 'wbcomdesigns',  // author of this plugin.
-            'beta'      => false,
+            'url'		=> home_url(),
         )
     );
 }
