@@ -4,7 +4,7 @@ define('EDD_BPOLLS_STORE_URL', 'https://wbcomdesigns.com/'); // you should use y
 
 // the name of your product. This should match the download name in EDD exactly
 //define('EDD_BPOLLS_ITEM_NAME', 'PeepSo bbPress Integration'); // you should use your own CONSTANT name, and be sure to replace it throughout this file
-define('EDD_BPOLLS_ITEM_NAME', 'buddypress-polls'); // you should use your own CONSTANT name, and be sure to replace it throughout this file
+define('EDD_BPOLLS_ITEM_NAME', 'BuddyPress_Polls'); // you should use your own CONSTANT name, and be sure to replace it throughout this file
 
 // the name of the settings page for the license input to be displayed
 define('EDD_BPOLLS_PLUGIN_LICENSE_PAGE', 'wbcom-license-page');
@@ -25,10 +25,10 @@ function edd_BPOLLS_plugin_updater()
         EDD_BPOLLS_STORE_URL,
         __FILE__,
         array(
-            'version'   => '2.0.1',             // current version number.
+            'version'   => BPOLLS_PLUGIN_VERSION,             // current version number.
             'license'   => $license_key,        // license key (used get_option above to retrieve from DB).
-            'item_name' => EDD_BPOLLS_ITEM_NAME,  // name of this plugin.
-            'download_id' => '77506', // Optional, used for generating a license renewal link
+            'item_name' => EDD_BPOLLS_ITEM_NAME,  // name of this plugin
+			'item_id'     => 77506, 	// download ID on your site
             'author'    => 'wbcomdesigns',  // author of this plugin.
             'beta'      => false,
         )
