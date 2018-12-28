@@ -25,7 +25,7 @@ function edd_BPOLLS_plugin_updater()
         EDD_BPOLLS_STORE_URL,
         __FILE__,
         array(
-            'version'   => '2.0.0',             // current version number.
+            'version'   => '2.0.1',             // current version number.
             'license'   => $license_key,        // license key (used get_option above to retrieve from DB).
             'item_name' => EDD_BPOLLS_ITEM_NAME,  // name of this plugin.
             'download_id' => '77506', // Optional, used for generating a license renewal link
