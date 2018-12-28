@@ -54,6 +54,9 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 2.0.1 =
+* Fix: Auto Updater Fix.
+
 = 2.0.0 =
 * Enhancement: Plugin backend settings ui enhancement.
 * Enhancement: Compatibility with BP 4.1.0
