@@ -35,7 +35,12 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'BPOLLS_PLUGIN_VERSION', '2.0.1' );
+ if( ! defined( 'BPOLLS_PLUGIN_VERSION' ) )
+			define( 'BPOLLS_PLUGIN_VERSION', '2.0.1' );
+			
+ if( ! defined( 'BPOLLS_PLUGIN_FILE' ) )
+			define( 'BPOLLS_PLUGIN_FILE', __FILE__ );
+			
 define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'BPOLLS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BPOLLS_PLUGIN_BASENAME',  plugin_basename( __FILE__ ) );
