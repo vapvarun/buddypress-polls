@@ -169,4 +169,70 @@ class Buddypress_Polls_Admin {
 			exit();
 	  	}
 	}
+
+	public function bpolls_add_dashboard_widgets() {
+		wp_add_dashboard_widget(
+                 'bpolls_stats_dashboard_widget',// Widget slug.
+                 __( 'Site Polls Data', 'buddypress-polls' ), // Title.
+                 array( $this, 'example_dashboard_widget_function' ) // Display function.
+        );	
+	}
+
+	/**
+	 * Function to output the contents of polls stats widgets.
+	 */
+	function example_dashboard_widget_function() {
+		$args = array(
+			'show_hidden' => true,
+			'action' => 'activity_poll',
+			'count_total' => true
+		);
+		$polls_created = 0;
+		if ( bp_has_activities( $args ) ) {
+			global $activities_template;
+			$polls_created = $activities_template->total_activity_count;
+		}
+		global $wpdb;
+		$results = $wpdb->get_row( "SELECT MAX(meta_value) AS max_voted, activity_id FROM {$wpdb->prefix}bp_activity_meta WHERE meta_key = 'bpolls_total_votes'", OBJECT );
+
+		$max_votes_act_link = "#";
+		if( $results->activity_id ){
+			$max_votes = $results->max_voted;
+			$max_votes_act_link = bp_activity_get_permalink( $results->activity_id );
+			$activity_obj = bp_activity_get( array( 'in'=> $results->activity_id, 'max'=>1 ) );
+			$title = $activity_content = $activity_obj['activities'][0]->content;
+			$length = strlen( $activity_content );
+			if( $length > 60 ) {
+				$title = bp_create_excerpt( $activity_content, '50', array(
+					'ending'            => '...',
+					'exact'             => false,
+					'html'              => true,
+					'filter_shortcodes' => '',
+					'strip_tags'        => false,
+					'remove_links'      => false,
+				) );
+			}
+		}
+
+		$recent_poll = $wpdb->get_row( "SELECT MAX(date_recorded) AS recent, item_id FROM {$wpdb->prefix}bp_activity WHERE type = 'activity_poll'", OBJECT );
+		var_dump( $recent_poll );
+		?>
+		<div class="bpolls_stats_wrapper">
+			<table class="form-table">
+				<tr>
+					<td><?php _e( 'Polls Created', 'buddypress-polls' ); ?></td>
+					<td><?php echo $polls_created; ?></td>
+				</tr>
+				<tr>
+					<td><?php _e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
+					<td><a href="<?php echo $max_votes_act_link; ?>"><?php echo $title; ?><a></td>
+				</tr>
+				<tr>
+					<td><?php _e( 'Recent Poll', 'buddypress-polls' ); ?></td>
+					<td></td>
+				</tr>
+			</table>
+		</div>
+		<?php
+	}
 }

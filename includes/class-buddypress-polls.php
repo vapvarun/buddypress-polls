@@ -170,6 +170,7 @@ class Buddypress_Polls {
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
+		$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 
 	}
 
@@ -222,6 +223,8 @@ class Buddypress_Polls {
 		/* embed poll activity css */
 		$this->loader->add_action( 'embed_head', $plugin_public,'bpolls_activity_embed_add_inline_styles', 20 );
 
+		/* update total poll votes */
+		$this->loader->add_action( 'bp_init', $plugin_public,'bpolls_update_prev_polls_total_votes', 20 );
 		
 	}
 

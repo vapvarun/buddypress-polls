@@ -378,7 +378,9 @@ class Buddypress_Polls_Public
             }
         }
 
-        $activity_meta = bp_activity_get_meta($activity_id, 'bpolls_meta');
+        $activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+
+        $total_votes = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
 
         $poll_closing = false;
         if (isset($activity_meta['close_date']) && isset($bpolls_settings['close_date']) && $activity_meta['close_date'] != 0) {
@@ -486,7 +488,12 @@ class Buddypress_Polls_Public
             $activity_id = $poll_data['bpoll_activity_id'];
 
             $activity_meta = bp_activity_get_meta($activity_id, 'bpolls_meta');
-
+            $total_votes   = bp_activity_get_meta($activity_id, 'bpolls_total_votes', true );
+            if( !$total_votes ){
+                $total_votes = (int) 1;
+            }else{
+                $total_votes = (int) $total_votes + (int) 1;
+            }
             if (array_key_exists('poll_optn_votes', $activity_meta)) {
                 foreach ($activity_meta['poll_option'] as $key => $value) {
                     if (in_array($value, $poll_data['bpolls_vote_optn'])) {
@@ -510,7 +517,9 @@ class Buddypress_Polls_Public
             } else {
                 $activity_meta['poll_total_votes'] = 1;
             }
-            bp_activity_update_meta($activity_id, 'bpolls_meta', $activity_meta);
+            bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
+
+            bp_activity_update_meta( $activity_id, 'bpolls_total_votes', $total_votes );
 
             $bpoll_user_vote = get_user_meta($user_id, 'bpoll_user_vote', true);
 
@@ -618,6 +627,26 @@ class Buddypress_Polls_Public
 
         }
         wp_die();
+    }
+
+    public function bpolls_update_prev_polls_total_votes()
+    {
+        $args = array(
+            'show_hidden' => true,
+            'action' => 'activity_poll',
+            'count_total' => true
+        );
+        if ( bp_has_activities( $args ) ) {
+            global $activities_template;
+            foreach ( $activities_template->activities as $key => $act_obj ) {
+                $activity_meta = bp_activity_get_meta( $act_obj->id, 'bpolls_meta' );
+                $total_votes   = bp_activity_get_meta( $act_obj->id, 'bpolls_total_votes', true );
+                if (array_key_exists('poll_total_votes', $activity_meta) && !$total_votes ) {
+                    bp_activity_update_meta( $act_obj->id, 'bpolls_total_votes', (int) $activity_meta['poll_total_votes'] );
+                }
+
+            }
+        }
     }
 
 }
