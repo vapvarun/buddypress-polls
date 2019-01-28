@@ -177,7 +177,7 @@ function bpolls_same_network_config(){
  */
 function bpolls_plugin_links( $links ) {
 	$bpolls_links = array(
-		'<a href="' . admin_url( 'admin.php?page=buddypress_polls' ) . '">' . __( 'Settings', 'buddypress-polls' ) . '</a>',
+		'<a href="' . admin_url( 'admin.php?page=buddypress-polls' ) . '">' . __( 'Settings', 'buddypress-polls' ) . '</a>',
 		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', 'buddypress-polls' ) . '</a>',
 	);
 	return array_merge( $links, $bpolls_links );
