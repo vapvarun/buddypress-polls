@@ -174,14 +174,20 @@ class Buddypress_Polls_Admin {
 		wp_add_dashboard_widget(
                  'bpolls_stats_dashboard_widget',// Widget slug.
                  __( 'Site Polls Data', 'buddypress-polls' ), // Title.
-                 array( $this, 'example_dashboard_widget_function' ) // Display function.
-        );	
+                 array( $this, 'bpolls_stats_dashboard_widget_function' ) // Display function.
+        );
+
+        wp_add_dashboard_widget(
+                 'bpolls_graph_dashboard_widget',// Widget slug.
+                 __( 'Poll Graph', 'buddypress-polls' ), // Title.
+                 array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
+        );		
 	}
 
 	/**
 	 * Function to output the contents of polls stats widgets.
 	 */
-	function example_dashboard_widget_function() {
+	function bpolls_stats_dashboard_widget_function() {
 		$args = array(
 			'show_hidden' => true,
 			'action' => 'activity_poll',
@@ -252,5 +258,19 @@ class Buddypress_Polls_Admin {
 			</table>
 		</div>
 		<?php
+	}
+
+	function bpolls_graph_dashboard_widget_function() {
+
+		global $wpdb;
+
+		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
+
+		$instance = array(
+            'title'            => __('Poll Graph', 'buddypress-polls'),
+            'max_activity'     => 5,
+            'activity_default' => ($results->activity_id)?$results->activity_id:''
+        );
+		 the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 	}
 }

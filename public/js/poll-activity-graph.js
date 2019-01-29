@@ -1,5 +1,6 @@
 (function( $ ) {
 	'use strict';
+	alert('here');
 var load_Chart;
 var ajax_Chart;
 window.onload = function () {

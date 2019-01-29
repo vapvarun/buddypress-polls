@@ -34,6 +34,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
 
         if (is_customize_preview() || is_active_widget(false, false, $this->id_base)) {
             add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
+            add_action('admin_enqueue_scripts', array( $this, 'enqueue_scripts' ));
         }
     }
 
@@ -42,7 +43,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
      *
      * @since 1.0.0
      */
-    public function enqueue_scripts()
+    public function enqueue_scripts( $hook )
     {
 
         $poll_wdgt = new BP_Poll_Activity_Graph_Widget();
@@ -105,11 +106,11 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
             }
         }
 
-        wp_enqueue_script('bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), PLUGINNAME_VERSION);
+        wp_enqueue_script('bpolls-poll-activity-graph-js'.$hook, BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), BPOLLS_PLUGIN_VERSION);
 
-        wp_localize_script('bpolls-poll-activity-graph-js', 'bpolls_wiget_obj', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('bpolls_widget_security'), 'votes' => json_encode($uptd_votes) ));
+        wp_localize_script('bpolls-poll-activity-graph-js'.$hook, 'bpolls_wiget_obj', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('bpolls_widget_security'), 'votes' => json_encode($uptd_votes) ));
 
-        wp_enqueue_script('bpolls-poll-activity-chart-js', BPOLLS_PLUGIN_URL . "/public/js/Chart.min.js", array( 'jquery' ), PLUGINNAME_VERSION);
+        wp_enqueue_script('bpolls-poll-activity-chart-js'.$hook, BPOLLS_PLUGIN_URL . "/public/js/Chart.min.js", array( 'jquery' ), BPOLLS_PLUGIN_VERSION);
     }
 
     /**

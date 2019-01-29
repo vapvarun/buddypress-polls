@@ -67,8 +67,8 @@ class Buddypress_Polls {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGINNAME_VERSION' ) ) {
-			$this->version = PLUGINNAME_VERSION;
+		if ( defined( 'BPOLLS_PLUGIN_VERSION' ) ) {
+			$this->version = BPOLLS_PLUGIN_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
