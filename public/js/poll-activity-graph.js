@@ -1,16 +1,12 @@
 (function( $ ) {
 	'use strict';
-	alert('here');
 var load_Chart;
 var ajax_Chart;
 window.onload = function () {
-
 	$('.poll-bar-chart').each(function(){
 		var act_id = $(this).data('id');
 		var id = $(this).attr('id');
-
 		var res = JSON.parse(bpolls_wiget_obj.votes);
-		
 		if( res[act_id] ) {
 			var arr_label = [];
 			var arr_per = [];

@@ -264,13 +264,17 @@ class Buddypress_Polls_Admin {
 
 		global $wpdb;
 
-		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
+		//$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
 
+		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
+		$poll_wdgt = new BP_Poll_Activity_Graph_Widget();
+        $poll_wdgt_stngs = $poll_wdgt->get_settings();
 		$instance = array(
             'title'            => __('Poll Graph', 'buddypress-polls'),
             'max_activity'     => 5,
-            'activity_default' => ($results->activity_id)?$results->activity_id:''
+            'activity_default' => ($results->id)?$results->id:''
         );
-		 the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
+		the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 	}
 }
