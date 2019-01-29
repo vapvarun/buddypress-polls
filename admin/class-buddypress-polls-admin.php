@@ -193,11 +193,12 @@ class Buddypress_Polls_Admin {
 			$polls_created = $activities_template->total_activity_count;
 		}
 		global $wpdb;
-		$results = $wpdb->get_row( "SELECT MAX(meta_value) AS max_voted, activity_id FROM {$wpdb->prefix}bp_activity_meta WHERE meta_key = 'bpolls_total_votes'", OBJECT );
 
+		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
+		
 		$max_votes_act_link = "#";
 		if( $results->activity_id ){
-			$max_votes = $results->max_voted;
+			$max_votes = $results->meta_value;
 			$max_votes_act_link = bp_activity_get_permalink( $results->activity_id );
 			$activity_obj = bp_activity_get( array( 'in'=> $results->activity_id, 'max'=>1 ) );
 			$title = $activity_content = $activity_obj['activities'][0]->content;
@@ -214,8 +215,25 @@ class Buddypress_Polls_Admin {
 			}
 		}
 
-		$recent_poll = $wpdb->get_row( "SELECT MAX(date_recorded) AS recent, item_id FROM {$wpdb->prefix}bp_activity WHERE type = 'activity_poll'", OBJECT );
-		var_dump( $recent_poll );
+		
+		$recent_poll = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
+		$recent_poll_link = "#";
+		if( $recent_poll->id ){
+			$recent_poll_link = bp_activity_get_permalink( $recent_poll->id );
+			$recent_title = $r_activity_content = $recent_poll->content;
+			$length = strlen( $r_activity_content );
+			if( $length > 60 ) {
+				$recent_title = bp_create_excerpt( $r_activity_content, '50', array(
+					'ending'            => '...',
+					'exact'             => false,
+					'html'              => true,
+					'filter_shortcodes' => '',
+					'strip_tags'        => false,
+					'remove_links'      => false,
+				) );
+			}
+		}		
 		?>
 		<div class="bpolls_stats_wrapper">
 			<table class="form-table">
@@ -229,7 +247,7 @@ class Buddypress_Polls_Admin {
 				</tr>
 				<tr>
 					<td><?php _e( 'Recent Poll', 'buddypress-polls' ); ?></td>
-					<td></td>
+					<td><a href="<?php echo $recent_poll_link; ?>"><?php echo $recent_title; ?><a></td>
 				</tr>
 			</table>
 		</div>
