@@ -31,10 +31,10 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
         );
         parent::__construct(false, _x('(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls'), $widget_ops);
 
-        if (is_customize_preview() || is_active_widget(false, false, $this->id_base)) {
+        //if (is_customize_preview() || is_active_widget(false, false, $this->id_base)) {
             add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
             add_action('admin_enqueue_scripts', array( $this, 'enqueue_scripts' ));
-        }
+        //}
     }
 
     /**
@@ -46,6 +46,15 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
     {
         $poll_wdgt = new BP_Poll_Activity_Graph_Widget();
         $poll_wdgt_stngs = $poll_wdgt->get_settings();
+
+        global $wpdb;
+        $results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+        $_instance = array(
+            'title'            => __('Poll Graph', 'buddypress-polls'),
+            'max_activity'     => 5,
+            'activity_default' => ($results->id)?$results->id:''
+        );
+        $poll_wdgt_stngs[time()] = $_instance;
         $uptd_votes = array();
 
         if (is_array($poll_wdgt_stngs)) {

@@ -15,10 +15,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-function bpolls_register_poll_graph_widgets() {
+//function bpolls_register_poll_graph_widgets() {
 	add_action( 'widgets_init', function() { register_widget( 'BP_Poll_Activity_Graph_Widget' ); } );
-}
-add_action( 'bp_register_widgets', 'bpolls_register_poll_graph_widgets' );
+//}
+//add_action( 'bp_register_widgets', 'bpolls_register_poll_graph_widgets' );
 
 function bpolls_activity_graph_ajax(){
 	if ( isset( $_POST[ 'action' ] ) && $_POST[ 'action' ] == 'bpolls_activity_graph_ajax' ) {

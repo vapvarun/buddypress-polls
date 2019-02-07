@@ -639,7 +639,7 @@ class Buddypress_Polls_Public
         if ( bp_has_activities( $args ) ) {
             global $activities_template;
             foreach ( $activities_template->activities as $key => $act_obj ) {
-                $activity_meta = bp_activity_get_meta( $act_obj->id, 'bpolls_meta' );
+                $activity_meta = (array) bp_activity_get_meta( $act_obj->id, 'bpolls_meta' );
                 $total_votes   = bp_activity_get_meta( $act_obj->id, 'bpolls_total_votes', true );
                 if (array_key_exists('poll_total_votes', $activity_meta) && !$total_votes ) {
                     bp_activity_update_meta( $act_obj->id, 'bpolls_total_votes', (int) $activity_meta['poll_total_votes'] );
