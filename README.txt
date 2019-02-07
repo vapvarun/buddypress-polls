@@ -54,9 +54,10 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
-= 2.1.1 =
+= 2.1.0 =
 * Enhancement: Added wp dashboard widget to list sitewide polls statistics.
 * Enhancement: Added wp dashboard widget to list polls graphical results.
+* Enhancement: Dedicated support for Kleo and Boss Theme
 
 = 2.0.1 =
 * Fix: Auto Updater Fix.
