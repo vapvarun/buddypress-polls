@@ -52,7 +52,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
         $_instance = array(
             'title'            => __('Poll Graph', 'buddypress-polls'),
             'max_activity'     => 5,
-            'activity_default' => ($results->id)?$results->id:''
+            'activity_default' => (isset($results->id))?$results->id:''
         );
         $poll_wdgt_stngs[time()] = $_instance;
         $uptd_votes = array();

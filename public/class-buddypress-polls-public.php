@@ -328,7 +328,7 @@ class Buddypress_Polls_Public
             }
 
             $poll_optn_arr = array();
-            foreach ($_POST['bpolls_input_options'] as $key => $value) {
+            foreach ( (array) $_POST['bpolls_input_options'] as $key => $value) {
                 if ($value != '') {
                     $poll_key = sanitize_title($value);
                     $poll_optn_arr[$poll_key] = $value;
@@ -636,7 +636,8 @@ class Buddypress_Polls_Public
             'action' => 'activity_poll',
             'count_total' => true
         );
-        if ( bp_has_activities( $args ) ) {
+
+        if ( function_exists( 'bp_has_activities' ) && bp_has_activities( $args ) ) {
             global $activities_template;
             foreach ( $activities_template->activities as $key => $act_obj ) {
                 $activity_meta = (array) bp_activity_get_meta( $act_obj->id, 'bpolls_meta' );
