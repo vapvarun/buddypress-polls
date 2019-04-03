@@ -345,6 +345,10 @@ select.bpolls-activities-list {
     margin-left: 10px;
 }
 
+.reign-polls.bp-nouveau div#whats-new-options {
+    margin-bottom: 5px;
+}
+
 .reign-polls.bp-nouveau #rtmedia-uploader-form .rtm-plupload-list li,
 .reign-polls.bp-nouveau form .rtmedia-container .rtm-plupload-list li,
 .reign-polls.bp-nouveau #rtmedia_uploader_filelist li {
