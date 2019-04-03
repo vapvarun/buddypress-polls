@@ -337,10 +337,11 @@ select.bpolls-activities-list {
 
 .reign-polls.bp-nouveau .bpolls-html-container {
     margin: 0;
-    margin-left: 65px;
+    margin-left: 0;
 }
 
 .reign-polls.bp-nouveau .rtmedia-plupload-container .bpolls-html-container {
+    margin: 0;
     margin-left: 10px;
 }
 
@@ -362,6 +363,11 @@ select.bpolls-activities-list {
 
     .reign-polls.bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 65px);
+        margin-left: 65px;
+    }
+
+    .reign-polls.bp-nouveau .bpolls-html-container {
+        margin: 0;
         margin-left: 65px;
     }
 }
