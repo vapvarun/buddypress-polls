@@ -10,13 +10,15 @@
     /*    padding-top: 12px;*/
     padding-left: 12px;
 }
+
 .bpolls-option {
     display: flex;
     width: 100%;
     max-width: 350px;
     margin-bottom: 5px;
 }
-.bpolls-input{
+
+.bpolls-input {
     display: inline-block;
     padding: 0 8.5px;
     margin-top: 0;
@@ -30,7 +32,8 @@
     transition: all .25s ease-in-out;
     box-shadow: none;
 }
-.bpolls-sortable-handle, .bpolls-option-delete{
+
+.bpolls-sortable-handle, .bpolls-option-delete {
     display: inline-block;
     width: auto;
     max-height: 38px;
@@ -51,22 +54,26 @@
     -moz-hyphens: none;
     cursor: pointer;
 }
+
 input.bpolls-input.bpolls-input {
     height: 38px;
     border-radius: 0;
 }
 
-.bpolls-option-delete{
+.bpolls-option-delete {
     opacity: 0.3;
 }
+
 .bpolls-option-delete:hover {
     opacity: 1;
     color: red !important;
 }
+
 .bpolls-option-action {
     padding-top: 8.5px;
     /*padding-bottom: 8.5px;*/
 }
+
 .bpolls-add-option {
     color: #FFF !important;
     background: #00b0ff !important;
@@ -90,6 +97,7 @@ input.bpolls-input.bpolls-input {
     -moz-hyphens: none;
     cursor: pointer;
 }
+
 .bpolls-option-action .bpolls-checkbox {
     display: inline-block;
     margin-top: 3px;
@@ -97,6 +105,7 @@ input.bpolls-input.bpolls-input {
     position: relative;
     line-height: 22px;
 }
+
 .bpolls-checkbox label {
     padding-left: 0;
     display: inline;
@@ -109,7 +118,8 @@ input.bpolls-input.bpolls-input {
     color: #7E7E7E;
     font-size: 12px;
 }
-.bpolls-polls-option-html{
+
+.bpolls-polls-option-html {
     display: none;
     width: 100%;
     border: 1px solid #d1d1d1;
@@ -117,23 +127,28 @@ input.bpolls-input.bpolls-input {
     margin-bottom: 12px;
     padding: 12px;
 }
-.bpolls-cancel-div{
+
+.bpolls-cancel-div {
     width:100%;
     /*max-width:350px;*/
 }
-.bpolls-cancel{
+
+.bpolls-cancel {
     float: right;
 }
+
 .bpolls-item {
     width: 100%;
     max-width: 75%;
     position: relative;
 }
+
 .bpolls-item-width {
     position: absolute;
     background-color: #d6d6d6;
     height: 100%;
 }
+
 .bpolls-check-radio-div {
     background-color: #f5f5f5;
     margin-bottom: 10px;
@@ -152,15 +167,18 @@ input.bpolls-input.bpolls-input {
     -ms-flex-pack: space-between;
     justify-content: space-between;
 }
+
 .bpolls-check-radio-div .bpolls-option-lbl {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
 }
+
 .bpolls-percent {
     float: right;
     position: relative;
 }
+
 .bpolls-votes {
     font-size: 12px;
     color: #7E7E7E;
@@ -170,26 +188,32 @@ input.bpolls-input.bpolls-input {
     padding: 5px 10px;
     display: flex;
 }
+
 .bpolls-options-attach-container {
     margin-top: 10px;
 }
+
 .bpolls-options-attach-items {
     margin-bottom: 5px;
 }
+
 .bpolls-vote-submit {
     font-size: 12px;
     background: #d6d6d6 !important;
     padding: 5px 10px;
     color: #424242 !important;
 }
-.bpolls-check-radio-div input, .bpolls-option-lbl, .bpolls-percent{
+
+.bpolls-check-radio-div input, .bpolls-option-lbl, .bpolls-percent {
     position: relative;
 }
-.bpolls-option-lbl{
+
+.bpolls-option-lbl {
     cursor: pointer;
     margin-left: 6px;
     margin-bottom: 0;
 }
+
 a.bpolls-cancel {
     display: block;
     border: 1px solid;
@@ -198,19 +222,23 @@ a.bpolls-cancel {
     border-radius: 3px;
     margin-bottom: 12px;
 }
+
 a.bpolls-cancel:hover {
     border: 1px solid red;
     color: red;
 }
+
 .bpolls-option-action {
     display: flex;
     align-items: center;
 }
+
 input#bpolls-datetimepicker {
     height: 32px;
     margin-left: 12px;
     padding: 0 12px;
 }
+
 @media(max-width: 479px) {
     /*    .bpolls-polls-option-html {
             margin-top: 50px;
@@ -218,6 +246,7 @@ input#bpolls-datetimepicker {
     .bpolls-option-action {
         display: block;
     }
+
     input#bpolls-datetimepicker {
         margin-left: 0;
         margin-top: 12px;
@@ -229,6 +258,7 @@ p.bpolls-activity-select label {
     margin-bottom: 10px;
     display: block;
 }
+
 select.bpolls-activities-list {
     box-shadow: none;
     background-image: none;
@@ -243,6 +273,26 @@ select.bpolls-activities-list {
 }
 .bpolls-item input[type=radio]:checked + label {
     font-style: italic;
+}
+
+/* bpolls-image-upload style */
+.bpolls-image-upload {
+    margin-top: 10px;
+}
+
+#bpolls-attach-image {
+    padding: 0;
+    width: 34px;
+    height: 34px;
+    font-size: 18px;
+}
+
+img#bpolls-image-preview {
+    margin-top: 10px;
+}
+
+.bpolls-image-container {
+    margin-bottom: 15px;
 }
 
 /** Kleo theme specific css **/
