@@ -199,15 +199,15 @@ class Buddypress_Polls_Public
                         <input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time', 'buddypress-polls'); ?>">
                     </div>
                     <?php } ?>
-                    <?php if ($image_attachment) { ?>
+                </div>
+                <?php if ($image_attachment) { ?>
                     <div class="bpolls-image-upload">
                         <!-- <input id="bpolls-attach-image" type="button" value="Attach Image" class="button"> -->
                         <i id="bpolls-attach-image" class="dashicons dashicons-admin-media"></i>
                         <img id="bpolls-image-preview" />
                         <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
                     </div>
-                    <?php } ?>
-                </div>
+                <?php } ?>
             </div>
         <?php
     }
