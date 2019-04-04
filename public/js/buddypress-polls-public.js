@@ -30,6 +30,9 @@
 	 */ 
      jQuery( document ).ready(
 		function(){
+
+			$( "form#whats-new-form" )
+			.attr( "enctype", "multipart/form-data" );
 			var poll_html;
 			
 			if(bpolls_ajax_object.reign_polls){
@@ -268,10 +271,46 @@
 				} );
 			} );
 			
-			/*=====  End of Ajax request to save poll vote  ======*/
-			
-							
-		}
-	 );	   
-
+			/*=====  End of Ajax request to save poll vote  ======*/						
+	 });	
 })( jQuery );
+
+(function($) {
+
+$(document).ready( function() {
+	var file_frame;
+	$( document ).on( 'click', '#bpolls-attach-image', function ( event ) {
+		event.preventDefault();
+
+		if ( file_frame ) {
+			file_frame.open();
+			return;
+		}
+
+		file_frame = wp.media.frames.file_frame = wp.media({
+			title: $( this ).data( 'uploader_title' ),
+			button: {
+				text: $( this ).data( 'uploader_button_text' ),
+			},
+			multiple: false
+		});
+
+		file_frame.on( 'select', function() {
+			attachment = file_frame.state().get('selection').first().toJSON();
+			//$( '#frontend-button' ).hide();
+			$( '#bpolls-image-preview' ).attr('src', attachment.url);
+			if( attachment.url ){
+				var data = {
+					'action': 'bpolls_save_image',
+					'image_url': attachment.url,
+					'ajax_nonce': bpolls_ajax_object.ajax_nonce
+				};
+				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
+
+				});
+			}
+		});
+		file_frame.open();
+	});
+});
+})(jQuery);

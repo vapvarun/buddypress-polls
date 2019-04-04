@@ -113,6 +113,7 @@ class Buddypress_Polls_Public
             if (! wp_script_is('jquery-ui-sortable', 'enqueued')) {
                 wp_enqueue_script('jquery-ui-sortable');
             }
+            wp_enqueue_media();
             wp_enqueue_script($this->plugin_name.'-timejs', plugin_dir_url(__FILE__) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false);
             wp_enqueue_script($this->plugin_name.'-timefulljs', plugin_dir_url(__FILE__) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false);
 
@@ -193,6 +194,11 @@ class Buddypress_Polls_Public
                         <input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time', 'buddypress-polls'); ?>">
                     </div>
                     <?php } ?>
+                    <div class="bpolls-image-upload">
+                        <input id="bpolls-attach-image" type="button" value="Attach Image" class="button">
+                        <img id="bpolls-image-preview" />
+                        <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
+                    </div>
                 </div>
             </div>
         <?php
@@ -314,6 +320,7 @@ class Buddypress_Polls_Public
         }
         global $wpdb;
         $activity_tbl  = $wpdb->base_prefix . 'bp_activity';
+
         if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options'])) {
             if (isset($_POST['bpolls_multiselect']) && $_POST['bpolls_multiselect'] == 'yes') {
                 $multiselect = 'yes';
@@ -341,7 +348,15 @@ class Buddypress_Polls_Public
                 'close_date'  => $close_date
             );
             bp_activity_update_meta($activity_id, 'bpolls_meta', $poll_meta);
+
+            $poll_image = get_option('temp_poll_image');
+            if( $poll_image ){
+                bp_activity_update_meta($activity_id, 'bpolls_image', $poll_image);
+                delete_option('temp_poll_image');
+            }
         }
+        delete_option('temp_poll_image');
+       
     }
 
     /**
@@ -382,6 +397,8 @@ class Buddypress_Polls_Public
 
         $total_votes = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
 
+        $poll_image = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
+        
         $poll_closing = false;
         if (isset($activity_meta['close_date']) && isset($bpolls_settings['close_date']) && $activity_meta['close_date'] != 0) {
             $current_time = new DateTime();
@@ -411,7 +428,14 @@ class Buddypress_Polls_Public
 
 
             if (!empty($poll_options) && is_array($poll_options)) {
-                $activity_content .="<div class='bpolls-options-attach-container'><div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";
+                $activity_content .="<div class='bpolls-options-attach-container'>";
+
+                if( $poll_image ) {
+                    $activity_content .="<div class='bpolls-image-container'>";
+                    $activity_content .="<img src='".$poll_image."'>";
+                    $activity_content .="</div>";
+                }
+                $activity_content .="<div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";
 
                 foreach ($poll_options as $key => $value) {
                     if (isset($activity_meta['poll_total_votes'])) {
@@ -647,6 +671,15 @@ class Buddypress_Polls_Public
                 }
 
             }
+        }
+    }
+
+    public function bpolls_save_image() {
+        if (isset($_POST[ 'action' ]) && $_POST[ 'action' ] == 'bpolls_save_image') {
+            check_ajax_referer('bpolls_ajax_security', 'ajax_nonce');
+            $image_url = $_POST['image_url'];
+            update_option( 'temp_poll_image', $image_url );
+            exit();
         }
     }
 

@@ -225,6 +225,8 @@ class Buddypress_Polls {
 
 		/* update total poll votes */
 		$this->loader->add_action( 'bp_init', $plugin_public,'bpolls_update_prev_polls_total_votes', 20 );
+
+		$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
 		
 	}
 
