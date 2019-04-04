@@ -129,8 +129,7 @@ input.bpolls-input.bpolls-input {
 }
 
 .bpolls-cancel-div {
-    width:100%;
-    /*max-width:350px;*/
+    width: 100%;
 }
 
 .bpolls-cancel {
@@ -229,8 +228,13 @@ a.bpolls-cancel:hover {
 }
 
 .bpolls-option-action {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    flex-flow: row wrap;
 }
 
 input#bpolls-datetimepicker {
@@ -250,6 +254,15 @@ input#bpolls-datetimepicker {
     input#bpolls-datetimepicker {
         margin-left: 0;
         margin-top: 12px;
+    }
+
+    a.bpolls-cancel {
+        float: none;
+        display: inline-block;
+    }
+
+    .bpolls-cancel-div {
+        text-align: right;
     }
 }
 
@@ -276,23 +289,47 @@ select.bpolls-activities-list {
 }
 
 /* bpolls-image-upload style */
+.polls-option-image-div {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.bpolls-sortable.ui-sortable {
+    width: 100%;
+    margin-right: 10px;
+}
+
 .bpolls-image-upload {
-    margin-top: 10px;
+    width: 100%;
 }
 
 #bpolls-attach-image {
+    margin: 0 10px 10px 0;
     padding: 0;
     width: 34px;
     height: 34px;
     font-size: 18px;
+    background: #44b0fb;
+    color: #fff;
 }
 
 img#bpolls-image-preview {
-    margin-top: 10px;
+    max-width: 200px;
 }
 
 .bpolls-image-container {
     margin-bottom: 15px;
+}
+
+@media (max-width: 767px) {
+    .polls-option-image-div {
+        flex-flow: row wrap;
+    }
+
+    .bpolls-option-action {
+        padding-bottom: 8.5px;
+    }
 }
 
 /** Kleo theme specific css **/
