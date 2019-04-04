@@ -61,6 +61,17 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 			</p>
 		    </td>
 	    </tr>
+	    <tr>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable image attachment', 'buddypress-polls' ); ?></label></th>
+			<td>
+			<label class="bpolls-switch">
+				<input name='bpolls_settings[enable_image]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['enable_image']))?checked($bpolls_settings['enable_image'],'yes'):''; ?>/>
+				<div class="bpolls-slider bpolls-round"></div>
+			</label>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set a image attachment with the poll.', 'buddypress-polls' ); ?>
+			</p>
+		    </td>
+	    </tr>
 	</table>
 	<?php submit_button(); ?>
 </form>

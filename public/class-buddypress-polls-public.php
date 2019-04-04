@@ -160,6 +160,11 @@ class Buddypress_Polls_Public
             $poll_cdate = true;
         }
 
+        $image_attachment = false;
+        if (isset($bpolls_settings['enable_image'])) {
+            $image_attachment = true;
+        }
+
         ?>
         <div class="bpolls-html-container">
             <span class="bpolls-icon"><i class="fa fa-bar-chart"></i><?php esc_html_e('&nbsp;Poll', 'buddypress-polls'); ?></span>
@@ -194,11 +199,13 @@ class Buddypress_Polls_Public
                         <input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time', 'buddypress-polls'); ?>">
                     </div>
                     <?php } ?>
+                    <?php if ($image_attachment) { ?>
                     <div class="bpolls-image-upload">
                         <input id="bpolls-attach-image" type="button" value="Attach Image" class="button">
                         <img id="bpolls-image-preview" />
                         <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
                     </div>
+                    <?php } ?>
                 </div>
             </div>
         <?php
@@ -398,7 +405,7 @@ class Buddypress_Polls_Public
         $total_votes = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
 
         $poll_image = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
-        
+
         $poll_closing = false;
         if (isset($activity_meta['close_date']) && isset($bpolls_settings['close_date']) && $activity_meta['close_date'] != 0) {
             $current_time = new DateTime();
