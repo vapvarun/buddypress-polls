@@ -203,7 +203,8 @@ class Buddypress_Polls_Public
                 <?php if ($image_attachment) { ?>
                     <div class="bpolls-image-upload">
                         <!-- <input id="bpolls-attach-image" type="button" value="Attach Image" class="button"> -->
-                        <i id="bpolls-attach-image" class="dashicons dashicons-admin-media"></i>
+                       <!--  <i id="bpolls-attach-image" class="dashicons dashicons-admin-media"></i> -->
+                        <button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
                         <img id="bpolls-image-preview" />
                         <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
                     </div>
