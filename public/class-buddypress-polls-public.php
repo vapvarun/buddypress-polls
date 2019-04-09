@@ -187,13 +187,14 @@ class Buddypress_Polls_Public
                                 <a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
                             </div>
                     </div>
-                </div>
-                <div class="bpolls-option-action">
-                    <a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option', 'buddypress-polls'); ?></a>
-                    <?php if ($poll_cdate) { ?>
-                    <div class="bpolls-date-time">
-                        <input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time', 'buddypress-polls'); ?>">
-                    </div>
+                    <?php if ($image_attachment) { ?>
+                        <div class="bpolls-image-upload">
+                            <!-- <input id="bpolls-attach-image" type="button" value="Attach Image" class="button"> -->
+                           <!--  <i id="bpolls-attach-image" class="dashicons dashicons-admin-media"></i> -->
+                            <button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
+                            <img id="bpolls-image-preview" />
+                            <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
+                        </div>
                     <?php } ?>
                 </div>
                 <?php if ($multi_true) { ?>
@@ -202,15 +203,14 @@ class Buddypress_Polls_Public
                         <label class="lbl" for="bpolls-alw-multi"><?php esc_html_e('Allow multiple options selection', 'buddypress-polls'); ?></label>
                     </div>
                 <?php } ?>
-                <?php if ($image_attachment) { ?>
-                    <div class="bpolls-image-upload">
-                        <!-- <input id="bpolls-attach-image" type="button" value="Attach Image" class="button"> -->
-                        <!--  <i id="bpolls-attach-image" class="dashicons dashicons-admin-media"></i> -->
-                        <button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
-                        <img id="bpolls-image-preview" />
-                        <input type="hidden" id="bpolls-attachment-url" name="bpolls-attachment-url">
+                <div class="bpolls-option-action">
+                    <a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e('Add new option', 'buddypress-polls'); ?></a>
+                    <?php if ($poll_cdate) { ?>
+                    <div class="bpolls-date-time">
+                        <input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e('Poll closing date & time', 'buddypress-polls'); ?>">
                     </div>
-                <?php } ?>
+                    <?php } ?>
+                </div>
             </div>
         <?php
     }
