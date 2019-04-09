@@ -71,7 +71,6 @@ input.bpolls-input.bpolls-input {
 
 .bpolls-option-action {
     padding-top: 8.5px;
-    /*padding-bottom: 8.5px;*/
 }
 
 .bpolls-add-option {
@@ -83,7 +82,7 @@ input.bpolls-input.bpolls-input {
     display: inline-block;
     width: auto;
     padding: 7.2px 8.5px !important;
-    margin: 0;
+    margin: 0 10px 10px 0;
     border: none !important;
     font-size: 14px;
     font-weight: normal;
@@ -239,21 +238,17 @@ a.bpolls-cancel:hover {
 
 input#bpolls-datetimepicker {
     height: 32px;
-    margin-left: 12px;
-    padding: 0 12px;
+    margin: 0 10px 10px 0;
+    padding: 0 10px;
 }
 
 @media(max-width: 479px) {
-    /*    .bpolls-polls-option-html {
-            margin-top: 50px;
-        }*/
     .bpolls-option-action {
         display: block;
     }
 
     input#bpolls-datetimepicker {
         margin-left: 0;
-        margin-top: 12px;
     }
 
     a.bpolls-cancel {
@@ -289,6 +284,10 @@ select.bpolls-activities-list {
 }
 
 /* bpolls-image-upload style */
+.bpolls-option-actions-wrap {
+    width: 100%;
+}
+
 .polls-option-image-div {
     display: -webkit-box;
     display: -ms-flexbox;
@@ -305,7 +304,7 @@ select.bpolls-activities-list {
 }
 
 #bpolls-attach-image {
-    margin: 0 10px 10px 0;
+    margin: 10px 10px 0 0;
     padding: 0;
     width: 34px;
     height: 34px;
@@ -327,8 +326,12 @@ img#bpolls-image-preview {
         flex-flow: row wrap;
     }
 
-    .bpolls-option-action {
-        padding-bottom: 8.5px;
+    #bpolls-attach-image {
+        margin-bottom: 10px;
+    }
+
+    .bpolls-image-upload {
+        width: auto;
     }
 }
 
