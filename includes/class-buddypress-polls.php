@@ -200,6 +200,8 @@ class Buddypress_Polls {
 		/* register poll type activity action */
 		$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpolls_register_activity_actions' );
 
+		$this->loader->add_filter( 'bp_get_activity_action_pre_meta' , $plugin_public,'bpolls_activity_action_wall_posts', 9999, 2 );
+
 		/* update poll type activity on post update */
 		$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
 		
@@ -208,6 +210,10 @@ class Buddypress_Polls {
 
 		/* update group poll activity meta */
 		$this->loader->add_action( 'bp_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+
+		/* ypuzer update activity meta */
+		$this->loader->add_action( 'yz_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+		$this->loader->add_action( 'yz_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
 		/* update poll activity content */
 		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );

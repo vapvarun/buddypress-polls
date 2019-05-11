@@ -249,6 +249,14 @@ class Buddypress_Polls_Public
         );
     }
 
+    public function bpolls_activity_action_wall_posts( $retval, $activity ) {
+        if ( 'activity_poll' !== $activity->type ) {
+            return $retval;
+        }
+        $retval = sprintf(__('%s created a poll', 'buddypress-polls'), bp_core_get_userlink($activity->user_id));
+        return $retval;
+    }
+
     /**
      * Format 'activity_poll' activity actions.
      *
@@ -508,7 +516,7 @@ class Buddypress_Polls_Public
             }
         }
     }
-
+    
     /**
      * Ajax request to save poll vote.
      *
