@@ -39,7 +39,7 @@ if ( !class_exists( 'Wbcom_Paid_Plugin_Settings' ) ) {
 			?>
 			<li class="wb_admin_nav_item <?php echo esc_attr( $license_page_active ); ?>">
 				<a href="<?php echo get_admin_url() . 'admin.php?page=wbcom-license-page'; ?>" id="wb_admin_nav_trigger_support">
-					<i class="fab fa-wpforms"></i>
+					<i class="fa fa-wpforms" aria-hidden="true"></i>
 					<h4><?php esc_html_e( 'License', 'buddypress-polls' ); ?></h4>
 				</a>
 			</li><?php

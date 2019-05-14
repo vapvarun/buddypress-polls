@@ -57,6 +57,7 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 = 2.3.0 =
 * Enhancement: bp 4.3.0 compatibility.
 * Enhancement: Youzer compatibility.
+* Fix: added fontawesome 4.7.0.
 
 = 2.2.0 =
 * Enhancement: Added option to attach image with poll posting.
