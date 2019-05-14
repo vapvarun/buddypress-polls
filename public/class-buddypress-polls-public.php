@@ -86,7 +86,7 @@ class Buddypress_Polls_Public
                 wp_enqueue_style($this->plugin_name.'-time', plugin_dir_url(__FILE__) . 'css/jquery.datetimepicker.css', array(), time(), 'all');
             }
             
-            wp_enqueue_style('bpolls-font-awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css', array(), time(), 'all');
+            wp_enqueue_style('bpolls-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), time(), 'all');
         //}
     }
 
