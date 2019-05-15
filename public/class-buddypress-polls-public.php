@@ -86,7 +86,9 @@ class Buddypress_Polls_Public
                 wp_enqueue_style($this->plugin_name.'-time', plugin_dir_url(__FILE__) . 'css/jquery.datetimepicker.css', array(), time(), 'all');
             }
             
-            wp_enqueue_style('bpolls-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css', array(), time(), 'all');
+            if( !wp_style_is( 'wb-font-awesome', 'enqueued' ) ){
+                wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
+            }
         //}
     }
 
