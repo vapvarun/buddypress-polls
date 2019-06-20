@@ -29,7 +29,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 					<input name='bpolls_settings[multiselect]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['multiselect']))?checked($bpolls_settings['multiselect'],'yes'):''; ?>/>
 					<div class="bpolls-slider bpolls-round"></div>
 				</label>
-				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can cast more than one vote in each poll.', 'buddypress-polls' ); ?>
+				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
 				</p>
 				<p class="description" id="tagline-description"><?php esc_html_e( 'Disabled: users can only vote for one option in each poll.', 'buddypress-polls' ); ?>
 				</p>
