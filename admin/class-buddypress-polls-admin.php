@@ -203,7 +203,7 @@ class Buddypress_Polls_Admin {
 		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
 		
 		$max_votes_act_link = "#";
-		if( $results->activity_id ){
+		if( isset($results->activity_id) ){
 			$max_votes = $results->meta_value;
 			$max_votes_act_link = bp_activity_get_permalink( $results->activity_id );
 			$activity_obj = bp_activity_get( array( 'in'=> $results->activity_id, 'max'=>1 ) );
@@ -225,7 +225,7 @@ class Buddypress_Polls_Admin {
 		$recent_poll = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
 		$recent_poll_link = "#";
-		if( $recent_poll->id ){
+		if( isset( $recent_poll->id ) ){
 			$recent_poll_link = bp_activity_get_permalink( $recent_poll->id );
 			$recent_title = $r_activity_content = $recent_poll->content;
 			$length = strlen( $r_activity_content );
@@ -239,25 +239,31 @@ class Buddypress_Polls_Admin {
 					'remove_links'      => false,
 				) );
 			}
-		}		
-		?>
-		<div class="bpolls_stats_wrapper">
-			<table class="form-table">
-				<tr>
-					<td><?php _e( 'Polls Created', 'buddypress-polls' ); ?></td>
-					<td><?php echo $polls_created; ?></td>
-				</tr>
-				<tr>
-					<td><?php _e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
-					<td><a href="<?php echo $max_votes_act_link; ?>"><?php echo $title; ?><a></td>
-				</tr>
-				<tr>
-					<td><?php _e( 'Recent Poll', 'buddypress-polls' ); ?></td>
-					<td><a href="<?php echo $recent_poll_link; ?>"><?php echo $recent_title; ?><a></td>
-				</tr>
-			</table>
-		</div>
-		<?php
+		}
+		if( $polls_created ) {	
+			?>
+			<div class="bpolls_stats_wrapper">
+				<table class="form-table">
+					<tr>
+						<td><?php _e( 'Polls Created', 'buddypress-polls' ); ?></td>
+						<td><?php echo $polls_created; ?></td>
+					</tr>
+					<tr>
+						<td><?php _e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
+						<td><a href="<?php echo $max_votes_act_link; ?>"><?php echo $title; ?><a></td>
+					</tr>
+					<tr>
+						<td><?php _e( 'Recent Poll', 'buddypress-polls' ); ?></td>
+						<td><a href="<?php echo $recent_poll_link; ?>"><?php echo $recent_title; ?><a></td>
+					</tr>
+				</table>
+			</div>
+			<?php
+		}else{
+			?>
+			<div class="bpolls-empty-messgae"><?php _e( 'No polls created.', 'buddypress-polls' ); ?></div>
+			<?php
+		}
 	}
 
 	function bpolls_graph_dashboard_widget_function() {
@@ -273,7 +279,7 @@ class Buddypress_Polls_Admin {
 		$instance = array(
             'title'            => __('Poll Graph', 'buddypress-polls'),
             'max_activity'     => 5,
-            'activity_default' => ($results->id)?$results->id:''
+            'activity_default' => (isset($results->id))?$results->id:''
         );
 		the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 	}

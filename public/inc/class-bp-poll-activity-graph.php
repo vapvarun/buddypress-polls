@@ -119,9 +119,12 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
      */
     public function widget($args, $instance)
     {
+        global $wpdb;
+        $results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
         extract($args);
         if (empty($instance['activity_default'])) {
-            $instance['activity_default'] = '226';
+            $instance['activity_default'] = (isset($results->id))?$results->id:'';
         }
 
         if (empty($instance['title'])) {
@@ -156,21 +159,26 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
             'type' => 'activity_poll',
             'per_page' => $max_activity,
         );
+       
+        if( bp_has_activities($act_args) ) {
         ?>
-
-        <p class="bpolls-activity-select">
-            <label for="bpolls-activities-list"><?php _e('Select activity to view poll results:', 'buddypress-polls'); ?></label>
-            <?php if (bp_has_activities($act_args)) { ?>
-                <select name="bpolls-show-activity-graph" class="bpolls-activities-list">
-                    <?php while (bp_activities()) :
-                        bp_the_activity(); ?>
-                        <option value="<?php bp_activity_id(); ?>" <?php selected($activity_default, bp_get_activity_id()); ?>><?php bp_activity_content_body(); ?></option>
-                    <?php endwhile; ?>
-                </select>
-            <?php	} ?>
-        </p>
-
-        <canvas class="poll-bar-chart" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" width="800" height="450"></canvas>
+            <p class="bpolls-activity-select">
+                <label for="bpolls-activities-list"><?php _e('Select activity to view poll results:', 'buddypress-polls'); ?></label>
+                <?php if (bp_has_activities($act_args)) { ?>
+                    <select name="bpolls-show-activity-graph" class="bpolls-activities-list">
+                        <?php while (bp_activities()) :
+                            bp_the_activity(); ?>
+                            <option value="<?php bp_activity_id(); ?>" <?php selected($activity_default, bp_get_activity_id()); ?>><?php bp_activity_content_body(); ?></option>
+                        <?php endwhile; ?>
+                    </select>
+                <?php	} ?>
+            </p>
+            <canvas class="poll-bar-chart" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" width="800" height="450"></canvas>
+        <?php }else{ ?>
+            <div class="bpolls-empty-messgae">
+                <?php _e( 'No polls created.', 'buddypress-polls' ); ?>
+            </div>
+        <?php } ?>
         <?php echo $after_widget;
         // Restore the global.
         $activities_template = $old_activities_template;
