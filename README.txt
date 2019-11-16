@@ -55,7 +55,7 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 == Changelog ==
 
 = 2.3.1 =
-* Fix: added fontawesome 4.7.0.
+* Fix: Blank poll results for fresh installation.
 
 = 2.3.0 =
 * Enhancement: bp 4.3.0 compatibility.
