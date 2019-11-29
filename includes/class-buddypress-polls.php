@@ -222,7 +222,11 @@ class Buddypress_Polls {
 		$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
 		
 		/* set poll type activity action in groups */
-		$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+		if ( BP_VERSION == '5.0.0' ) {
+			$this->loader->add_filter( 'bp_groups_format_activity_action_group_activity_update', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+		} else {
+			$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+		}
 
 		/* set poll activity content in embed */
 		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );

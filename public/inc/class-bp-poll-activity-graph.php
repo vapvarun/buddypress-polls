@@ -31,10 +31,10 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
         );
         parent::__construct(false, _x('(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls'), $widget_ops);
 
-        //if (is_customize_preview() || is_active_widget(false, false, $this->id_base)) {
+        if ( !is_customize_preview() ) {
             add_action('wp_enqueue_scripts', array( $this, 'enqueue_scripts' ));
             add_action('admin_enqueue_scripts', array( $this, 'enqueue_scripts' ));
-        //}
+        }
     }
 
     /**
@@ -59,47 +59,49 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget
 
         if (is_array($poll_wdgt_stngs)) {
             foreach ($poll_wdgt_stngs as $key => $value) {
-                $activity_id = $value['activity_default'];
-                $activity_details = bp_activity_get_specific($args = array('activity_ids'=>$activity_id));
-                if (is_array($activity_details)) {
-                    $poll_title = isset( $activity_details['activities'][0]->content )?$activity_details['activities'][0]->content:'';
-                } else {
-                    $poll_title = '';
-                }
-                $activity_meta = bp_activity_get_meta($activity_id, 'bpolls_meta');
-                $poll_options = isset($activity_meta['poll_option'])?$activity_meta['poll_option']:'';
-                
-                if( !array_key_exists($activity_id, $uptd_votes)){
-                    if (!empty($poll_options) && is_array($poll_options)) {
-                        foreach ($poll_options as $key => $value) {
-                            if (isset($activity_meta['poll_total_votes'])) {
-                                $total_votes = $activity_meta['poll_total_votes'];
-                            } else {
-                                $total_votes = 0;
-                            }
-                            if (isset($activity_meta['poll_optn_votes']) && array_key_exists($key, $activity_meta['poll_optn_votes'])) {
-                                $this_optn_vote = $activity_meta['poll_optn_votes'][$key];
-                            } else {
-                                $this_optn_vote = 0;
-                            }
+                if ( isset( $value['activity_default'] ) ) {
+                    $activity_id = $value['activity_default'];
+                    $activity_details = bp_activity_get_specific($args = array('activity_ids'=>$activity_id));
+                    if (is_array($activity_details)) {
+                        $poll_title = isset( $activity_details['activities'][0]->content )?$activity_details['activities'][0]->content:'';
+                    } else {
+                        $poll_title = '';
+                    }
+                    $activity_meta = bp_activity_get_meta($activity_id, 'bpolls_meta');
+                    $poll_options = isset($activity_meta['poll_option'])?$activity_meta['poll_option']:'';
+                    
+                    if( !array_key_exists($activity_id, $uptd_votes)){
+                        if (!empty($poll_options) && is_array($poll_options)) {
+                            foreach ($poll_options as $key => $value) {
+                                if (isset($activity_meta['poll_total_votes'])) {
+                                    $total_votes = $activity_meta['poll_total_votes'];
+                                } else {
+                                    $total_votes = 0;
+                                }
+                                if (isset($activity_meta['poll_optn_votes']) && array_key_exists($key, $activity_meta['poll_optn_votes'])) {
+                                    $this_optn_vote = $activity_meta['poll_optn_votes'][$key];
+                                } else {
+                                    $this_optn_vote = 0;
+                                }
 
-                            if ($total_votes != 0) {
-                                $vote_percent = round($this_optn_vote/$total_votes*100, 2);
-                            } else {
-                                $vote_percent = '(no votes yet)';
+                                if ($total_votes != 0) {
+                                    $vote_percent = round($this_optn_vote/$total_votes*100, 2);
+                                } else {
+                                    $vote_percent = '(no votes yet)';
+                                }
+
+                                $bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+                                $uptd_votes[$activity_id][] = array(
+                                    'poll_title' => $poll_title,
+                                    'label' => $value,
+                                    'y' => $vote_percent,
+                                    'color' => bpolls_color()
+
+                                );
                             }
-
-                            $bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
-                            $uptd_votes[$activity_id][] = array(
-                                'poll_title' => $poll_title,
-                                'label' => $value,
-                                'y' => $vote_percent,
-                                'color' => bpolls_color()
-
-                            );
                         }
                     }
-                }
+                }    
             }
         }
         wp_enqueue_script('bpolls-poll-activity-graph-js'.$hook, BPOLLS_PLUGIN_URL . "/public/js/poll-activity-graph.js", array( 'jquery' ), BPOLLS_PLUGIN_VERSION);
