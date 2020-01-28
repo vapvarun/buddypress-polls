@@ -204,7 +204,7 @@ class Buddypress_Polls {
 
 		/* update poll type activity on post update */
 		$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
-		
+
 		/* update poll activity meta */
 		$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
@@ -220,14 +220,15 @@ class Buddypress_Polls {
 
 		/* ajax request to save note */
 		$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
-		
-		/* set poll type activity action in groups */
-		if ( BP_VERSION == '5.0.0' ) {
-			$this->loader->add_filter( 'bp_groups_format_activity_action_group_activity_update', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
-		} else {
-			$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
-		}
 
+		/* set poll type activity action in groups */
+		if ( defined( 'BP_VERSION' ) ) {
+			if ( version_compare( BP_VERSION, '5.0.0', '>=' ) )  {
+				$this->loader->add_filter( 'bp_groups_format_activity_action_group_activity_update', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+			} else {
+				$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+			}
+	 }
 		/* set poll activity content in embed */
 		$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
 		/* embed poll activity css */
@@ -237,7 +238,7 @@ class Buddypress_Polls {
 		$this->loader->add_action( 'bp_init', $plugin_public,'bpolls_update_prev_polls_total_votes', 20 );
 
 		$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
-		
+
 	}
 
 	/**
