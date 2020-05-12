@@ -54,6 +54,10 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 
 == Changelog ==
 
+= 2.6.0 =
+* Fix: Call Admin CSS and JS file in buddypress polls setting page
+* Fix: Load front end js and css on plugin pages
+
 = 2.5.0 =
 * Fix: Compatibility with BuddyPres Check-ins and BuddyPress Quotes
 * Fix: Buddypres Poll UI Fixes with BoddyBoss Theme
