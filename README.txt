@@ -53,7 +53,10 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
-
+= 2.7.0 =
+ * Fix: (#49) Fixed dashicon conflict with bb
+ * Fix: (#48) Fixed datetimepicker UI issue
+ 
 = 2.6.0 =
 * Fix: Call Admin CSS and JS file in buddypress polls setting page
 * Fix: Load front end js and css on plugin pages
