@@ -498,7 +498,7 @@ img#bpolls-image-preview {
     margin-left: 15px;
 }
 
-.dashicons-admin-media:before {
+#bpolls-attach-image.dashicons-admin-media:before {
     content: "\f104";
     font-family: dashicons;
 }
