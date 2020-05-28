@@ -270,7 +270,7 @@ p.bpolls-activity-select label {
 
 select.bpolls-activities-list {
     box-shadow: none;
-    background-image: none;
+    /*background-image: none;*/
     border-radius: 0;
     display: block;
     width: 100%;
@@ -439,7 +439,6 @@ img#bpolls-image-preview {
 
 .reign-polls.bp-nouveau .rtmedia-plupload-container .bpolls-html-container {
     margin: 0;
-    margin-left: 10px;
 }
 
 .reign-polls.bp-nouveau div#whats-new-options {
