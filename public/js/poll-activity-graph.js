@@ -7,6 +7,7 @@
       var act_id = $(this).data('id');
       var id = $(this).attr('id');
       var res = JSON.parse(bpolls_wiget_obj.votes);
+      console.log(res);
       if (res[act_id]) {
         var arr_label = [];
         var arr_per = [];
@@ -33,6 +34,38 @@
               text: res[act_id][0].poll_title
             }
           }
+        });
+      }
+
+    });
+
+
+
+    $('.poll-activity-chart').each(function() {
+      var act_id = $(this).data('id');
+      var id = $(this).attr('id');
+      var res = JSON.parse(bpolls_wiget_obj.votes);
+      console.log(res);
+      if (res[act_id]) {
+        var arr_label = [];
+        var arr_per = [];
+        var arr_color = [];
+        $.each(res[act_id], function(i, item) {
+          arr_label.push(item.label.toString());
+          arr_per.push(item.y.toString());
+          arr_color.push(item.color);
+        });
+
+        load_Chart = new Chart($("#" + id), {
+          type: 'pie',
+          data: {
+            labels: arr_label,
+            datasets: [{
+              label: "Poll Activity Graph (%)",
+              backgroundColor: arr_color,
+              data: arr_per
+            }]
+          },
         });
       }
 
