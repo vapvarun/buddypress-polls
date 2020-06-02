@@ -133,6 +133,11 @@ class Buddypress_Polls {
 		 */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity.php';
 
+		/**
+		 * The class responsible for initiating bp poll create poll widget.
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-create-poll.php';
+
 		/* Enqueue wbcom plugin folder file. */
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
 
@@ -222,6 +227,9 @@ class Buddypress_Polls {
 
 		/* update poll activity content */
 		$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
+
+		/* update widget poll activity content */
+		$this->loader->add_action( 'bp_polls_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
 
 		/* ajax request to save note */
 		$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );

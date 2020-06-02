@@ -24,7 +24,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		 $widget_ops = array(
-			 'description'                 => __( 'A poll result widget', 'buddypress-polls' ),
+			 'description'                 => __( 'Display the polls result of your choice polls. ', 'buddypress-polls' ),
 			 'classname'                   => 'widget_bp_poll_activity_widget buddypress widget',
 			 'customize_selective_refresh' => true,
 		 );
