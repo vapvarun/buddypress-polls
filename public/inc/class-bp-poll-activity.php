@@ -240,8 +240,8 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$title    = strip_tags( $instance['title'] );
-		$activity = strip_tags( $instance['activity'] );
+		$title    = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$activity = isset( $instance['activity'] ) ? strip_tags( $instance['activity'] ) : '';
 		?>
 
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>

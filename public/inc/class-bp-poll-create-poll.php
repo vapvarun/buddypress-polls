@@ -117,8 +117,8 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']    = strip_tags( $new_instance['title'] );
-		$instance['activity'] = strip_tags( $new_instance['activity'] );
+		$instance['title']    = isset( $new_instance['title'] ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['activity'] = isset( $new_instance['title'] ) ? strip_tags( $new_instance['activity'] ) : '';
 
 		return $instance;
 	}
@@ -155,8 +155,8 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$title    = strip_tags( $instance['title'] );
-		$activity = strip_tags( $instance['activity'] );
+		$title    = isset( $instance['title'] ) ? strip_tags( $instance['title'] ) : '';
+		$activity = isset( $instance['activity'] ) ? strip_tags( $instance['activity'] ) : '';
 		?>
 
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
