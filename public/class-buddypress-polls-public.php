@@ -357,7 +357,7 @@ class Buddypress_Polls_Public {
 			$poll_optn_arr = array();
 			foreach ( (array) $_POST['bpolls_input_options'] as $key => $value ) {
 				if ( $value != '' ) {
-					$poll_key                   = sanitize_title( $value );
+					$poll_key                   = str_replace( '%', '', sanitize_title( $value ) );
 					$poll_optn_arr[ $poll_key ] = $value;
 				}
 			}
