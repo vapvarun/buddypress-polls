@@ -246,8 +246,8 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 
 		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'Select Poll activity to display:', 'buddypress' ); ?></label>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
+				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'Select Poll activity to display:', 'buddypress' ); ?></label>
 				<select name="<?php echo $this->get_field_name( 'activity' ); ?>" id="<?php echo $this->get_field_id( 'activity' ); ?>">
 					<?php
 					while ( bp_activities() ) :
@@ -256,7 +256,10 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
 					<?php endwhile; ?>
 				</select>
+			<?php } else {?>
+				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress' ); ?></label>
 			<?php	} ?>
+			
 		</p>
 		<?php
 		// Restore the global.

@@ -281,8 +281,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		<p><label for="<?php echo $this->get_field_id( 'max_activity' ); ?>"><?php _e( 'Max Poll to show:', 'buddypress' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'max_activity' ); ?>" name="<?php echo $this->get_field_name( 'max_activity' ); ?>" type="text" value="<?php echo esc_attr( $max_activity ); ?>" style="width: 30%" /></label></p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'activity_default' ); ?>"><?php _e( 'Default Poll to display:', 'buddypress' ); ?></label>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
+				<label for="<?php echo $this->get_field_id( 'activity_default' ); ?>"><?php _e( 'Default Poll to display:', 'buddypress' ); ?></label>
 				<select name="<?php echo $this->get_field_name( 'activity_default' ); ?>" id="<?php echo $this->get_field_id( 'activity_default' ); ?>">
 					<?php
 					while ( bp_activities() ) :
@@ -291,6 +291,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
 					<?php endwhile; ?>
 				</select>
+			<?php } else { ?>
+				<label for="<?php echo $this->get_field_id( 'activity_default' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress' ); ?></label>
 			<?php	} ?>
 		</p>
 		<?php
