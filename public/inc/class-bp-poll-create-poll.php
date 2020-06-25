@@ -24,11 +24,11 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	 */
 	public function __construct() {
 		 $widget_ops = array(
-			 'description'                 => __( 'A dynamic poll system. User can give votes. ', 'buddypress-polls' ),
+			 'description'                 => __( 'A dynamic poll system. Users can give votes dynamically via widget.', 'buddypress-polls' ),
 			 'classname'                   => 'widget_bp_poll_create_poll_widget buddypress widget',
 			 'customize_selective_refresh' => true,
 		 );
-		 parent::__construct( false, _x( '(BuddyPress) Create Poll', 'widget name', 'buddypress-polls' ), $widget_ops );
+		 parent::__construct( false, _x( '(BuddyPress) Dynamic Poll Widget', 'widget name', 'buddypress-polls' ), $widget_ops );
 
 	}
 
