@@ -192,6 +192,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 				$act_args = array(
 					'action'   => 'activity_poll',
 					'type'     => 'activity_poll',
+					'include'  => true,
 					'per_page' => $max_activity,
 				);
 			}
