@@ -46,17 +46,24 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$poll_wdgt_stngs = $poll_wdgt->get_settings();
 
 		global $wpdb;
-		$results                   = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		$activity_ids = array();
+		if ( !empty($results) ) {
+			foreach( $results as  $result) {
+				$activity_ids[]['activity_default'] = $result->id;
+			}
+		}
+		
 		$_instance                 = array(
 			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
 			'max_activity'     => 5,
-			'activity_default' => ( isset( $results->id ) ) ? $results->id : '',
+			'activity_default' => ( !empty($activity_ids) ) ? $activity_ids : array(),
 		);
-		$poll_wdgt_stngs[ time() ] = $_instance;
-		$uptd_votes                = array();
-
+		$time = time();
+		$poll_wdgt_stngs[ $time ] = $_instance;
+		$uptd_votes                = array();		
 		if ( is_array( $poll_wdgt_stngs ) ) {
-			foreach ( $poll_wdgt_stngs as $key => $value ) {
+			foreach ( $poll_wdgt_stngs[$time]['activity_default'] as $key => $value ) {
 				if ( isset( $value['activity_default'] ) ) {
 					$activity_id      = $value['activity_default'];
 					$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );

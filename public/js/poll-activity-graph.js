@@ -7,7 +7,7 @@
       var act_id = $(this).data('id');
       var id = $(this).attr('id');
       var res = JSON.parse(bpolls_wiget_obj.votes);
-      console.log(res);
+      
       if (res[act_id]) {
         var arr_label = [];
         var arr_per = [];
@@ -45,7 +45,7 @@
       var act_id = $(this).data('id');
       var id = $(this).attr('id');
       var res = JSON.parse(bpolls_wiget_obj.votes);
-      console.log(res);
+      
       if (res[act_id]) {
         var arr_label = [];
         var arr_per = [];
