@@ -386,6 +386,7 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_content Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content( $act = null ) {
+		global $current_user;		
 		$user_id     = get_current_user_id();
 		$activity_id = bp_get_activity_id();
 		if ( isset( $act ) && $act != null ) {
@@ -475,7 +476,7 @@ class Buddypress_Polls_Public {
 
 					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes . '&nbsp;)';
 
-					if ( $hide_results ) {
+					if ( $hide_results && ! in_array( 'administrator', (array) $current_user->roles )) {
 						$vote_percent     = '';
 						$bpolls_votes_txt = '';
 					}
