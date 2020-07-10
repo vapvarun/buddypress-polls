@@ -172,7 +172,7 @@ class Buddypress_Polls_Public {
 		}
 		?>
 		<div class="bpolls-html-container">
-			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i><?php esc_html_e( '&nbsp;Poll', 'buddypress-polls' ); ?></span>
+			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
 
 		</div>
 		<div class="bpolls-polls-option-html">
