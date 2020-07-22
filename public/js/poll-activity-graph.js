@@ -71,7 +71,10 @@
 
     });
   }
-
+  
+  if ( $( ".bpolls-activities-list option:selected" ).val() != '' )
+	  $('.bpolls-activities-list').trigger("change");
+  }
   $(document).on(
     'change', '.bpolls-activities-list',
     function() {
