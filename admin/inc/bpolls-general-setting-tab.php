@@ -17,6 +17,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 ?>
 <div class="wbcom-tab-content">
 <form method="post" action="admin.php?action=update_network_options">
+	<input name='bpolls_settings[hidden]' type='hidden' value=""/>
 	<?php
 	settings_fields( 'buddypress_polls_general' );
 	do_settings_sections( 'buddypress_polls_general' );

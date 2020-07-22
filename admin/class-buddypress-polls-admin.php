@@ -165,8 +165,9 @@ class Buddypress_Polls_Admin {
 	 *
 	 * @since    1.0.0
 	 */
-	public function bpolls_admin_register_settings() {
+	public function bpolls_admin_register_settings() {		
 	  	if(isset($_POST['bpolls_settings'])){
+			unset($_POST['bpolls_settings']['hidden']);
 	  		update_site_option('bpolls_settings',$_POST['bpolls_settings']);
 	  		wp_redirect($_POST['_wp_http_referer']);
 			exit();
