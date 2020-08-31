@@ -282,7 +282,7 @@ class Buddypress_Polls_Admin {
         $poll_wdgt_stngs = $poll_wdgt->get_settings();
 		$instance = array(
             'title'            => __('Poll Graph', 'buddypress-polls'),
-            'max_activity'     => 5,
+            'max_activity'     => 50,
             'activity_default' => (isset($results->id))?$results->id:''
         );
 		the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
