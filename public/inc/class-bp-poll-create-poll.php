@@ -181,9 +181,11 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	}
 }
 
+/*
 add_action(
 	'widgets_init',
 	function() {
 		register_widget( 'BP_Poll_Create_Poll_Widget' );
 	}
 );
+*/
