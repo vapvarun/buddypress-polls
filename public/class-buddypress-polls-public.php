@@ -397,6 +397,8 @@ class Buddypress_Polls_Public {
 
 		$submit          = false;
 		$hide_results    = false;
+		
+		$poll_style = 'style="display:none;"';
 		$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
 		if ( $bpoll_user_vote ) {
 			if ( ! array_key_exists( $activity_id, $bpoll_user_vote ) ) {
@@ -404,14 +406,18 @@ class Buddypress_Polls_Public {
 				if ( isset( $bpolls_settings['hide_results'] ) ) {
 					$hide_results = true;
 				}
+				$poll_style		 = '';
 			}
 		} else {
 			$submit = true;
 			if ( isset( $bpolls_settings['hide_results'] ) ) {
 				$hide_results = true;
 			}
+			$poll_style		 = '';
 		}
-
+		
+		
+		
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
 		$total_votes = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
@@ -491,7 +497,7 @@ class Buddypress_Polls_Public {
 					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "'></div>";
 					$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 					$activity_content .= "<div class='bpolls-check-radio-div'>";
-					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $value . "' type='" . $optn_typ . "' " . $checked . '>';
+					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $value . "' type='" . $optn_typ . "' " . $checked . ' '. $poll_style.'>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
 					$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
 					$activity_content .= '</div>';
@@ -499,7 +505,8 @@ class Buddypress_Polls_Public {
 				}
 				$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='" . $activity_id . "'>";
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
-				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
+				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";				
+				
 				if ( $submit && $poll_closing && is_user_logged_in() && $act == null ) {
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>" . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}

@@ -234,6 +234,8 @@
 				for (var i=0; i<len; i++) {
 					dataObj[s_array[i].name] = s_array[i].value;
 				}
+				var bpoll_activity_id = dataObj['bpoll_activity_id'];				
+				
 				if(dataObj['bpolls_vote_optn[]'] == undefined ){
 					submit_event.html(bpolls_ajax_object.optn_empty_text+' <i class="fa fa-exclamation-triangle"></i>');
 					return;
@@ -267,6 +269,7 @@
 						$(input_obj).parents('.bpolls-check-radio-div').siblings('.bpolls-votes').html('(' + item.bpolls_votes_txt + ')');
 
 					});
+					$('#activity-' + bpoll_activity_id +' .bpolls-item input').hide();
 					submit_event.remove();
 				} );
 			} );
