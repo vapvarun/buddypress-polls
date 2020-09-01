@@ -77,6 +77,10 @@ class Buddypress_Polls_Admin {
 		 */
 		
 		if ( isset($_GET['page']) && $_GET['page'] == 'buddypress-polls' ) {
+			if ( ! wp_style_is( 'polls-selectize-css', 'enqueued' ) ) {
+				wp_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
+			}
+			
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 		}
 
@@ -104,6 +108,10 @@ class Buddypress_Polls_Admin {
 		 * class.
 		 */
 		if ( isset($_GET['page']) && $_GET['page'] == 'buddypress-polls' ) {
+			if ( ! wp_script_is( 'polls-selectize-js', 'enqueued' ) ) {
+				wp_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
+			}
+			
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
 		}
 

@@ -14,6 +14,11 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 } else {
 	$bpolls_settings = get_site_option( 'bpolls_settings' );
 }
+if ( !isset($bpolls_settings['limit_poll_activity']) ) {
+	$bpolls_settings['limit_poll_activity'] = 'no';
+}
+
+global $wp_roles;
 ?>
 <div class="wbcom-tab-content">
 <form method="post" action="admin.php?action=update_network_options">
@@ -73,6 +78,60 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 			</p>
 		    </td>
 	    </tr>
+		
+		<tr>
+			<th scope="row"><label><?php esc_html_e( 'Limit Poll Activities', 'buddypress-polls' ); ?></label></th>
+			<td>
+				<label>
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='no' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'no'):''; ?>/>&nbsp; <?php esc_html_e( 'No Limit', 'buddypress-polls' ); ?>
+				</label>
+				<label>
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='user_role' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'user_role'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by User Role', 'buddypress-polls' ); ?>
+				</label>
+				<label>
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='member_type' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'member_type'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>				
+				</label>
+				<p class="description"><?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
+			</p>
+		    </td>
+	    </tr>
+		<tr id="bpolls_user_role" <?php if ( isset($bpolls_settings['limit_poll_activity']) && $bpolls_settings['limit_poll_activity'] != 'user_role'):?> style="display:none" <?php endif;?>>
+			<th scope="row"><label><?php esc_html_e( 'Select User Roles', 'buddypress-polls' ); ?></label></th>
+			
+			<td>
+				<select class="multi-selectize" name="bpolls_settings[poll_user_role][]" multiple>
+					<?php
+					$roles = $wp_roles->get_names();
+					foreach( $roles as $role => $role_name ) {
+						$selected = ( !empty( $bpolls_settings['poll_user_role'] ) && in_array( $role, $bpolls_settings['poll_user_role'] ) ) ? 'selected' : '';
+					?>
+					   <option value="<?php echo esc_attr( $role ); ?>" <?php echo $selected; ?>><?php echo esc_attr( $role_name ); ?></option>
+					<?php } ?>
+				</select>
+				<p class="description"><?php esc_html_e( 'Select user role which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>
+			</td>
+		</tr>
+		
+		<tr id="bpolls_member_type" <?php if ( isset($bpolls_settings['limit_poll_activity']) && $bpolls_settings['limit_poll_activity'] != 'member_type'):?> style="display:none" <?php endif;?>>
+			<th scope="row"><label><?php esc_html_e( 'Select Member Type', 'buddypress-polls' ); ?></label></th>
+			
+			<td>
+				<?php $types        = bp_get_member_types( array(), 'objects' );
+					if ( $types ) { ?>
+						<select class="multi-selectize" name="bpolls_settings[poll_member_type][]" multiple>
+						
+						<?php foreach ( $types as $type ) {
+							$selected = ( !empty( $bpolls_settings['poll_member_type'] ) && in_array( $type->name, $bpolls_settings['poll_member_type'] ) ) ? 'selected' : '';
+							?>
+							<option value="<?php echo esc_attr( $type->name ); ?>" <?php echo $selected;?>><?php echo esc_html( $type->labels['singular_name'] ); ?></option>
+						<?php } ?>
+						</select>
+					<?php }?>
+			
+				<p class="description"><?php esc_html_e( 'Select member type which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>
+			</td>
+		</tr>
+		
 	</table>
 	<?php submit_button(); ?>
 </form>

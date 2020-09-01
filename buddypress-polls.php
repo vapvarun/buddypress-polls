@@ -51,6 +51,13 @@ define( 'BPOLLS_PLUGIN_BASENAME',  plugin_basename( __FILE__ ) );
 function activate_buddypress_polls() {
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	}
+	global $wp_roles;
+	$bpolls_settings['limit_poll_activity'] = 'no';
+	$roles = $wp_roles->get_names();
+	foreach( $roles as $role => $role_name ) {
+		$bpolls_settings['poll_user_role'][] = $role;
+	}	
+	update_option('bpolls_settings', $bpolls_settings);
 }
 
 /**

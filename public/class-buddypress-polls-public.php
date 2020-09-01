@@ -155,7 +155,7 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_polls_update_html() {
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
-
+		global $current_user;
 		$multi_true = false;
 		if ( isset( $bpolls_settings['multiselect'] ) ) {
 			$multi_true = true;
@@ -170,6 +170,23 @@ class Buddypress_Polls_Public {
 		if ( isset( $bpolls_settings['enable_image'] ) ) {
 			$image_attachment = true;
 		}
+		
+		if ( isset($bpolls_settings['limit_poll_activity']) && $bpolls_settings['limit_poll_activity'] == 'user_role') {
+			$bpolls_settings['poll_user_role'] = (isset($bpolls_settings['poll_user_role'])) ? $bpolls_settings['poll_user_role'] : array();
+			$user_roles = array_intersect($current_user->roles, $bpolls_settings['poll_user_role']);
+			if ( empty($user_roles)) {
+				return true;
+			}
+		}
+		
+		if ( isset($bpolls_settings['limit_poll_activity']) && $bpolls_settings['limit_poll_activity'] == 'member_type') {
+			$member_type = bp_get_member_type( $current_user->ID );
+			
+			if ( !isset($bpolls_settings['poll_member_type']) || !in_array( $member_type, $bpolls_settings['poll_member_type'])) {
+				return true;
+			}			
+		}
+		
 		?>
 		<div class="bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
