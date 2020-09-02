@@ -172,37 +172,14 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		// Back up the global.
 		$old_activities_template = $activities_template;
-
-		$bpolls_settings = get_site_option( 'bpolls_settings' );
 		$act_args        = array();
-		if ( isset( $bpolls_settings['hide_results'] ) && 'yes' == $bpolls_settings['hide_results'] ) {
 
-			$bpoll_user_votes = get_user_meta( get_current_user_id(), 'bpoll_user_vote', true );
-
-			if ( is_array( $bpoll_user_votes ) ) {
-				$include_activity_ID = join( ',', array_keys( $bpoll_user_votes ) );
-
-				$act_args = array(
-					'action'   => 'activity_poll',
-					'type'     => 'activity_poll',
-					'include'  => $include_activity_ID,
-					'per_page' => $max_activity,
-				);
-			} else {
-				$act_args = array(
-					'action'   => 'activity_poll',
-					'type'     => 'activity_poll',
-					'include'  => true,
-					'per_page' => $max_activity,
-				);
-			}
-		} else {
-			$act_args = array(
-				'action'   => 'activity_poll',
-				'type'     => 'activity_poll',
-				'per_page' => $max_activity,
-			);
-		}
+		$act_args = array(
+			'action'   => 'activity_poll',
+			'type'     => 'activity_poll',
+			'per_page' => $max_activity,
+		);
+		
 		if ( bp_has_activities( $act_args ) ) {
 			?>
 			<p class="bpolls-activity-select">
