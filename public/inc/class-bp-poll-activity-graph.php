@@ -68,7 +68,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					$activity_id      = $value['activity_default'];
 					$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );
 					if ( is_array( $activity_details ) ) {
-						$poll_title = isset( $activity_details['activities'][0]->content ) ? $activity_details['activities'][0]->content : '';
+						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words($activity_details['activities'][0]->content, 10, '...' ) : '';
 					} else {
 						$poll_title = '';
 					}
@@ -110,7 +110,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			}
 		}
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph.js', array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
-
+		
 		wp_localize_script(
 			'bpolls-poll-activity-graph-js' . $hook,
 			'bpolls_wiget_obj',

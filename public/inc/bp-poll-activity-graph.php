@@ -35,7 +35,7 @@ defined( 'ABSPATH' ) || exit;
 			$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );
 
 			if ( is_array( $activity_details ) ) {
-				$poll_title = wp_trim_words( $activity_details['activities'][0]->content, 5, '...' );
+				$poll_title = wp_trim_words( $activity_details['activities'][0]->content, 10, '...' );
 			} else {
 				$poll_title = '';
 			}
