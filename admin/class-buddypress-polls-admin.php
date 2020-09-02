@@ -20,7 +20,7 @@
  * @subpackage Buddypress_Polls/admin
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
-if ( !class_exists(Buddypress_Polls_Admin) ) {
+if ( !class_exists('Buddypress_Polls_Admin') ) {
 	class Buddypress_Polls_Admin {
 
 		/**

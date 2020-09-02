@@ -21,7 +21,7 @@
  * @subpackage Buddypress_Polls/includes
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
-if ( !class_exists(Buddypress_Polls_Loader) ) {
+if ( !class_exists('Buddypress_Polls_Loader') ) {
 	class Buddypress_Polls_Loader {
 
 		/**
