@@ -24,24 +24,23 @@
  * @subpackage Buddypress_Polls/includes
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
-class Buddypress_Polls_i18n {
+if ( !class_exists(Buddypress_Polls_i18n) ) {
+	class Buddypress_Polls_i18n {
 
 
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.0.0
-	 */
-	public function load_plugin_textdomain() {
+		/**
+		 * Load the plugin text domain for translation.
+		 *
+		 * @since    1.0.0
+		 */
+		public function load_plugin_textdomain() {
 
-		load_plugin_textdomain(
-			'buddypress-polls',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
+			load_plugin_textdomain(
+				'buddypress-polls',
+				false,
+				dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			);
 
+		}
 	}
-
-
-
 }
