@@ -99,7 +99,7 @@ function edd_wbcom_BPOLLS_activate_license() {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = __( 'An error occurred, please try again.', 'peepso-learndash' );
+				$message = __( 'An error occurred, please try again.', 'buddypress-polls' );
 			}
 		} else {
 			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
@@ -108,34 +108,34 @@ function edd_wbcom_BPOLLS_activate_license() {
 				switch ( $license_data->error ) {
 					case 'expired':
 						$message = sprintf(
-							__( 'Your license key expired on %s.', 'peepso-learndash' ),
+							__( 'Your license key expired on %s.', 'buddypress-polls' ),
 							date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
 						);
 						break;
 
 					case 'revoked':
-						$message = __( 'Your license key has been disabled.', 'peepso-learndash' );
+						$message = __( 'Your license key has been disabled.', 'buddypress-polls' );
 						break;
 
 					case 'missing':
-						$message = __( 'Invalid license.', 'peepso-learndash' );
+						$message = __( 'Invalid license.', 'buddypress-polls' );
 						break;
 
 					case 'invalid':
 					case 'site_inactive':
-						$message = __( 'Your license is not active for this URL.', 'peepso-learndash' );
+						$message = __( 'Your license is not active for this URL.', 'buddypress-polls' );
 						break;
 
 					case 'item_name_mismatch':
-						$message = sprintf( __( 'This appears to be an invalid license key for %s.', 'peepso-learndash' ), EDD_BPOLLS_ITEM_NAME );
+						$message = sprintf( __( 'This appears to be an invalid license key for %s.', 'buddypress-polls' ), EDD_BPOLLS_ITEM_NAME );
 						break;
 
 					case 'no_activations_left':
-						$message = __( 'Your license key has reached its activation limit.', 'peepso-learndash' );
+						$message = __( 'Your license key has reached its activation limit.', 'buddypress-polls' );
 						break;
 
 					default:
-						$message = __( 'An error occurred, please try again.', 'peepso-learndash' );
+						$message = __( 'An error occurred, please try again.', 'buddypress-polls' );
 						break;
 				}
 			}
@@ -208,7 +208,7 @@ function edd_wbcom_BPOLLS_deactivate_license() {
 			if ( is_wp_error( $response ) ) {
 				$message = $response->get_error_message();
 			} else {
-				$message = __( 'An error occurred, please try again.', 'peepso-learndash' );
+				$message = __( 'An error occurred, please try again.', 'buddypress-polls' );
 			}
 
 			$base_url = admin_url( 'admin.php?page=' . EDD_BPOLLS_PLUGIN_LICENSE_PAGE );
@@ -328,11 +328,11 @@ function wbcom_BPOLLS_render_license_section() {
 	<table class="form-table wb-license-form-table mobile-license-headings">
 		<thead>
 			<tr>
-				<th class="wb-product-th"><?php esc_html_e( 'Product', 'peepso-learndash' ); ?></th>
-				<th class="wb-version-th"><?php esc_html_e( 'Version', 'peepso-learndash' ); ?></th>
-				<th class="wb-key-th"><?php esc_html_e( 'Key', 'peepso-learndash' ); ?></th>
-				<th class="wb-status-th"><?php esc_html_e( 'Status', 'peepso-learndash' ); ?></th>
-				<th class="wb-action-th"><?php esc_html_e( 'Action', 'peepso-learndash' ); ?></th>
+				<th class="wb-product-th"><?php esc_html_e( 'Product', 'buddypress-polls' ); ?></th>
+				<th class="wb-version-th"><?php esc_html_e( 'Version', 'buddypress-polls' ); ?></th>
+				<th class="wb-key-th"><?php esc_html_e( 'Key', 'buddypress-polls' ); ?></th>
+				<th class="wb-status-th"><?php esc_html_e( 'Status', 'buddypress-polls' ); ?></th>
+				<th class="wb-action-th"><?php esc_html_e( 'Action', 'buddypress-polls' ); ?></th>
 			</tr>
 		</thead>
 	</table>
@@ -342,21 +342,21 @@ function wbcom_BPOLLS_render_license_section() {
 			<tr>
 				<td class="wb-plugin-name"><?php echo esc_html( EDD_BPOLLS_ITEM_NAME ); ?></td>
 				<td class="wb-plugin-version"><?php echo esc_html( BPOLLS_PLUGIN_VERSION ); ?></td>
-				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license, 'peepso-learndash' ); ?>" /></td>
-				<td class="wb-license-status <?php echo $status_class; ?>"><?php esc_attr_e( $status_text, 'peepso-learndash' ); ?></td>
+				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license, 'buddypress-polls' ); ?>" /></td>
+				<td class="wb-license-status <?php echo $status_class; ?>"><?php esc_attr_e( $status_text, 'buddypress-polls' ); ?></td>
 				<td class="wb-license-action">
 					<?php
 					if ( $status !== false && $status == 'valid' ) {
 						wp_nonce_field( 'edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce' );
 						?>
-						 <input type="submit" class="button-secondary" name="edd_BPOLLS_license_deactivate" value="<?php _e( 'Deactivate License', 'peepso-learndash' ); ?>"/>
+						 <input type="submit" class="button-secondary" name="edd_BPOLLS_license_deactivate" value="<?php _e( 'Deactivate License', 'buddypress-polls' ); ?>"/>
 						<?php
 					} else {
 						$other_attributes = array( 'class' => 'button-secondary' );
 						wp_nonce_field( 'edd_wbcom_BPOLLS_nonce', 'edd_wbcom_BPOLLS_nonce' );
-						// submit_button( __( 'Save Changes', 'peepso-learndash' ), 'primary', 'edd_WPLI_license_activate', true, $other_attributes );
+						// submit_button( __( 'Save Changes', 'buddypress-polls' ), 'primary', 'edd_WPLI_license_activate', true, $other_attributes );
 						?>
-						 <input type="submit" class="button-secondary" name="edd_BPOLLS_license_activate" value="<?php _e( 'Activate License', 'peepso-learndash' ); ?>"/>
+						 <input type="submit" class="button-secondary" name="edd_BPOLLS_license_activate" value="<?php _e( 'Activate License', 'buddypress-polls' ); ?>"/>
 					<?php } ?>
 				</td>				
 			</tr>
