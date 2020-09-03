@@ -45,8 +45,16 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
 		$poll_wdgt_stngs = $poll_wdgt->get_settings();
 
-		global $wpdb;
-		$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		global $wpdb,$current_user;
+		
+		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
+			$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID. " group by id having date_recorded=max(date_recorded) order by date_recorded desc" );			
+		} else {
+			$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		}			
+		
+		
+		
 		$activity_ids = array();
 		if ( !empty($results) ) {
 			foreach( $results as  $result) {
@@ -133,12 +141,18 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @param array $instance Widget instance data.
 	 */
 	public function widget( $args, $instance ) {
-		global $wpdb;
+		global $wpdb, $current_user;
 
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
-		$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		
+		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
+			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID. " group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		} else {
+			
+			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		}
 
 		extract( $args );
 
@@ -168,7 +182,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
 
-		global $activities_template;
+		global $activities_template, $current_user;		
 
 		// Back up the global.
 		$old_activities_template = $activities_template;
@@ -179,7 +193,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			'type'     => 'activity_poll',
 			'per_page' => $max_activity,
 		);
-		
+		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
+			$act_args['user_id'] = $current_user->ID;		
+		}	
 		if ( bp_has_activities( $act_args ) ) {
 			?>
 			<p class="bpolls-activity-select">
