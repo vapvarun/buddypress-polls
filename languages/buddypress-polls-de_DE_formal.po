@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: BuddyPress Polls\n"
-"POT-Creation-Date: 2020-02-19 20:32+0100\n"
-"PO-Revision-Date: 2020-02-19 20:34+0100\n"
+"Project-Id-Version: BuddyPress Polls v3.0.1\n"
+"POT-Creation-Date: 2020-09-16 06:57+0200\n"
+"PO-Revision-Date: 2020-09-16 07:04+0200\n"
 "Last-Translator: Thorsten Wollenhöfer <thorsten.wollenhoefer@gmail.com>\n"
 "Language-Team: Thorsten Wollenhöfer <thorsten.wollenhoefer@gmail.com>\n"
 "Language: de_DE@formal\n"
@@ -10,7 +10,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Flags-xgettext: --add-comments=translators:\n"
 "X-Poedit-WPHeader: buddypress-polls.php\n"
@@ -21,117 +21,161 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.min.js\n"
 
-#: admin/class-buddypress-polls-admin.php:118
+#: admin/class-buddypress-polls-admin.php:130
 msgid "WB Plugins"
 msgstr "WB-Plugins"
 
-#: admin/class-buddypress-polls-admin.php:119
-#: admin/class-buddypress-polls-admin.php:144
+#: admin/class-buddypress-polls-admin.php:131
+#: admin/class-buddypress-polls-admin.php:156
 msgid "General"
 msgstr "Allgemein"
 
-#: admin/class-buddypress-polls-admin.php:121
+#: admin/class-buddypress-polls-admin.php:133
 msgid "Buddypress Polls Settings Page"
 msgstr "BuddyPress Umfragen Einstellungsseite"
 
 #. Plugin Name of the plugin/theme
-#: admin/class-buddypress-polls-admin.php:121
-#: admin/wbcom/wbcom-admin-settings.php:372 buddypress-polls.php:211
+#: admin/class-buddypress-polls-admin.php:133
+#: admin/wbcom/wbcom-admin-settings.php:372 buddypress-polls.php:222
 msgid "BuddyPress Polls"
 msgstr "BuddyPress Umfragen"
 
-#: admin/class-buddypress-polls-admin.php:138
+#: admin/class-buddypress-polls-admin.php:150
 msgid "BuddyPress Polls Settings"
 msgstr "BuddyPress Umfragen Einstellungen"
 
-#: admin/class-buddypress-polls-admin.php:145
+#: admin/class-buddypress-polls-admin.php:157
 #: admin/wbcom/templates/wbcom-support-page.php:3
 #: admin/wbcom/wbcom-admin-settings.php:535
-#: admin/wbcom/wbcom-admin-settings.php:620 buddypress-polls.php:181
+#: admin/wbcom/wbcom-admin-settings.php:620 buddypress-polls.php:192
 msgid "Support"
 msgstr "Support"
 
-#: admin/class-buddypress-polls-admin.php:176
+#: admin/class-buddypress-polls-admin.php:189
 msgid "Site Polls Data"
 msgstr "Website Umfragedaten"
 
-#: admin/class-buddypress-polls-admin.php:182
-#: admin/class-buddypress-polls-admin.php:280
-#: public/inc/class-bp-poll-activity-graph.php:53
-#: public/inc/class-bp-poll-activity-graph.php:133
-#: public/inc/class-bp-poll-activity-graph.php:236
+#: admin/class-buddypress-polls-admin.php:195
+#: admin/class-buddypress-polls-admin.php:293
+#: public/inc/class-bp-poll-activity-graph.php:66
+#: public/inc/class-bp-poll-activity-graph.php:164
+#: public/inc/class-bp-poll-activity-graph.php:273
 msgid "Poll Graph"
 msgstr "Umfragediagramm"
 
-#: admin/class-buddypress-polls-admin.php:248
+#: admin/class-buddypress-polls-admin.php:261
 msgid "Polls Created"
 msgstr "Erstellte Umfragen"
 
-#: admin/class-buddypress-polls-admin.php:252
+#: admin/class-buddypress-polls-admin.php:265
 msgid "Highest Voted Poll"
 msgstr "Höchste bewertete Umfrage"
 
-#: admin/class-buddypress-polls-admin.php:256
+#: admin/class-buddypress-polls-admin.php:269
 msgid "Recent Poll"
 msgstr "Aktuelle Umfrage"
 
-#: admin/class-buddypress-polls-admin.php:264
-#: public/inc/class-bp-poll-activity-graph.php:181
+#: admin/class-buddypress-polls-admin.php:277
+#: public/inc/class-bp-poll-activity-graph.php:219
+#: public/inc/class-bp-poll-activity.php:192
+#: public/inc/class-bp-poll-create-poll.php:99
 msgid "No polls created."
 msgstr "Es wurden keine Umfragen erstellt."
 
-#: admin/inc/bpolls-general-setting-tab.php:26
+#: admin/inc/bpolls-general-setting-tab.php:32
 msgid "Multi select polls"
 msgstr "Umfragen mit Mehrfachauswahl"
 
-#: admin/inc/bpolls-general-setting-tab.php:32
+#: admin/inc/bpolls-general-setting-tab.php:38
 msgid "Enabled: users can vote for multiple options in each poll."
 msgstr ""
 "Aktiviert: Benutzer können in jeder Umfrage für mehrere Optionen stimmen."
 
-#: admin/inc/bpolls-general-setting-tab.php:34
+#: admin/inc/bpolls-general-setting-tab.php:40
 msgid "Disabled: users can only vote for one option in each poll."
 msgstr ""
 "Deaktiviert: Benutzer können in jeder Umfrage nur für eine Option abstimmen."
 
-#: admin/inc/bpolls-general-setting-tab.php:39
+#: admin/inc/bpolls-general-setting-tab.php:45
 msgid "Hide results"
 msgstr "Ergebnisse ausblenden"
 
-#: admin/inc/bpolls-general-setting-tab.php:45
+#: admin/inc/bpolls-general-setting-tab.php:51
 msgid "Enabled: results are hidden from users who have not voted yet."
 msgstr ""
 "Aktiviert: Die Ergebnisse werden für Benutzer ausgeblendet, die noch nicht "
 "abgestimmt haben."
 
-#: admin/inc/bpolls-general-setting-tab.php:47
+#: admin/inc/bpolls-general-setting-tab.php:53
 msgid "Disabled: users can see poll results before voting."
 msgstr ""
 "Deaktiviert: Benutzer können die Umfrageergebnisse sehen, bevor sie "
 "abstimmen."
 
-#: admin/inc/bpolls-general-setting-tab.php:52
-#: public/class-buddypress-polls-public.php:197
+#: admin/inc/bpolls-general-setting-tab.php:58
+#: public/class-buddypress-polls-public.php:217
 msgid "Poll closing date & time"
 msgstr "Umfrageschluss"
 
-#: admin/inc/bpolls-general-setting-tab.php:58
+#: admin/inc/bpolls-general-setting-tab.php:64
 msgid "Enabled: users can set poll closing date and time."
 msgstr ""
 "Aktiviert: Benutzer können das Enddatum und die Uhrzeit der Umfrage "
 "festlegen."
 
-#: admin/inc/bpolls-general-setting-tab.php:60
+#: admin/inc/bpolls-general-setting-tab.php:66
 msgid "Disabled: polls will always remain open for voting"
 msgstr "Deaktiviert: Umfragen bleiben immer offen für Abstimmungen"
 
-#: admin/inc/bpolls-general-setting-tab.php:65
+#: admin/inc/bpolls-general-setting-tab.php:71
 msgid "Enable image attachment"
 msgstr "Bildanhang aktivieren"
 
-#: admin/inc/bpolls-general-setting-tab.php:71
+#: admin/inc/bpolls-general-setting-tab.php:77
 msgid "Enabled: users can set a image attachment with the poll."
 msgstr "Aktiviert: Benutzer können bei der Umfrage einen Bildanhang anfügen."
+
+#: admin/inc/bpolls-general-setting-tab.php:83
+msgid "Limit Poll Activities"
+msgstr "Umfrageaktivitäten begrenzen"
+
+#: admin/inc/bpolls-general-setting-tab.php:86
+msgid "No Limit"
+msgstr "Keine Begrenzung"
+
+#: admin/inc/bpolls-general-setting-tab.php:89
+msgid "Limit by User Role"
+msgstr "Begrenzung nach Benutzerrolle"
+
+#: admin/inc/bpolls-general-setting-tab.php:92
+msgid "Limit by Member Type"
+msgstr "Begrenzung nach Mitgliedertyp"
+
+#: admin/inc/bpolls-general-setting-tab.php:94
+msgid "Limit by user role or member type to publish poll type activities"
+msgstr ""
+"Begrenzung nach Benutzerrolle oder Mitgliedertyp zur Veröffentlichung von "
+"Aktivitäten vom Umfragetyp"
+
+#: admin/inc/bpolls-general-setting-tab.php:99
+msgid "Select User Roles"
+msgstr "Benutzerrollen auswählen"
+
+#: admin/inc/bpolls-general-setting-tab.php:111
+msgid "Select user role which are allowed to publish poll type activities."
+msgstr ""
+"Wählen Sie die Benutzerrolle, die zur Veröffentlichung von Aktivitäten vom "
+"Umfragetyp berechtigt ist."
+
+#: admin/inc/bpolls-general-setting-tab.php:116
+msgid "Select Member Type"
+msgstr "Mitgliedertyp auswählen"
+
+#: admin/inc/bpolls-general-setting-tab.php:131
+msgid "Select member type which are allowed to publish poll type activities."
+msgstr ""
+"Wählen Sie die Mitgliedertypen aus, die Aktivitäten vom Umfragetyp "
+"veröffentlichen dürfen."
 
 #: admin/inc/bpolls-support-setting-tab.php:14
 msgid "FAQ(s) "
@@ -256,31 +300,31 @@ msgstr "Plugin-Lizenzeinstellungen"
 
 #: admin/wbcom/templates/wbcom-license-page.php:8
 #: admin/wbcom/templates/wbcom-license-page.php:21
-#: edd-license/edd-plugin-license.php:330
+#: edd-license/edd-plugin-license.php:331
 msgid "Product"
 msgstr "Produkt"
 
 #: admin/wbcom/templates/wbcom-license-page.php:9
 #: admin/wbcom/templates/wbcom-license-page.php:22
-#: edd-license/edd-plugin-license.php:331
+#: edd-license/edd-plugin-license.php:332
 msgid "Version"
 msgstr "Version"
 
 #: admin/wbcom/templates/wbcom-license-page.php:10
 #: admin/wbcom/templates/wbcom-license-page.php:23
-#: edd-license/edd-plugin-license.php:332
+#: edd-license/edd-plugin-license.php:333
 msgid "Key"
 msgstr "Schlüssel"
 
 #: admin/wbcom/templates/wbcom-license-page.php:11
 #: admin/wbcom/templates/wbcom-license-page.php:24
-#: edd-license/edd-plugin-license.php:333
+#: edd-license/edd-plugin-license.php:334
 msgid "Status"
 msgstr "Status"
 
 #: admin/wbcom/templates/wbcom-license-page.php:12
 #: admin/wbcom/templates/wbcom-license-page.php:25
-#: edd-license/edd-plugin-license.php:334
+#: edd-license/edd-plugin-license.php:335
 msgid "Action"
 msgstr "Aktion"
 
@@ -870,7 +914,7 @@ msgstr "Komponenten"
 msgid "Themes"
 msgstr "Themes"
 
-#: admin/wbcom/wbcom-admin-settings.php:602 buddypress-polls.php:180
+#: admin/wbcom/wbcom-admin-settings.php:602 buddypress-polls.php:191
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -879,7 +923,7 @@ msgstr "Einstellungen"
 msgid "License"
 msgstr "Lizenz"
 
-#: buddypress-polls.php:145 buddypress-polls.php:163
+#: buddypress-polls.php:156 buddypress-polls.php:174
 msgid ""
 "BuddyPress Polls requires to be activated on the blog where BuddyPress is "
 "activated."
@@ -887,18 +931,18 @@ msgstr ""
 "BuddyPress-Umfragen müssen in dem Blog aktiviert sein, in dem BuddyPress "
 "aktiviert ist."
 
-#: buddypress-polls.php:150 buddypress-polls.php:169
+#: buddypress-polls.php:161 buddypress-polls.php:180
 msgid ""
 "BuddyPress Polls and BuddyPress need to share the same network configuration."
 msgstr ""
 "BuddyPress Umfragen und BuddyPress müssen dieselbe Netzwerkkonfiguration "
 "verwenden."
 
-#: buddypress-polls.php:212
+#: buddypress-polls.php:223
 msgid "BuddyPress"
 msgstr "BuddyPress"
 
-#: buddypress-polls.php:214
+#: buddypress-polls.php:225
 #, php-format
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr "%1$s ist jetzt unwirksam, da %2$s installiert und aktiv sein muss."
@@ -928,58 +972,47 @@ msgstr "Sie haben keine Berechtigung, Plugin-Updates zu installieren"
 msgid "Error"
 msgstr "Fehler"
 
-#: edd-license/edd-plugin-license.php:95 edd-license/edd-plugin-license.php:131
-#: edd-license/edd-plugin-license.php:206
-#: edd-license/edd-plugin-license.php:401
-#: edd-license/edd-plugin-license.php:437
+#: edd-license/edd-plugin-license.php:102
+#: edd-license/edd-plugin-license.php:138
+#: edd-license/edd-plugin-license.php:211
 msgid "An error occurred, please try again."
 msgstr "Ein Fehler ist aufgetreten, bitte versuchen Sie es erneut."
 
-#: edd-license/edd-plugin-license.php:104
-#: edd-license/edd-plugin-license.php:410
+#: edd-license/edd-plugin-license.php:111
 #, php-format
 msgid "Your license key expired on %s."
 msgstr "Ihr Lizenzschlüssel ist am %s abgelaufen."
 
-#: edd-license/edd-plugin-license.php:110
-#: edd-license/edd-plugin-license.php:416
+#: edd-license/edd-plugin-license.php:117
 msgid "Your license key has been disabled."
 msgstr "Ihr Lizenzschlüssel wurde deaktiviert."
 
-#: edd-license/edd-plugin-license.php:114
-#: edd-license/edd-plugin-license.php:420
+#: edd-license/edd-plugin-license.php:121
 msgid "Invalid license."
 msgstr "Ungültige Lizenz."
 
-#: edd-license/edd-plugin-license.php:119
-#: edd-license/edd-plugin-license.php:425
+#: edd-license/edd-plugin-license.php:126
 msgid "Your license is not active for this URL."
 msgstr "Ihre Lizenz ist für diese URL nicht aktiv."
 
-#: edd-license/edd-plugin-license.php:123
-#: edd-license/edd-plugin-license.php:429
+#: edd-license/edd-plugin-license.php:130
 #, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr "Dies scheint ein ungültiger Lizenzschlüssel für %s zu sein."
 
-#: edd-license/edd-plugin-license.php:127
-#: edd-license/edd-plugin-license.php:433
+#: edd-license/edd-plugin-license.php:134
 msgid "Your license key has reached its activation limit."
 msgstr "Ihr Lizenzschlüssel hat sein Aktivierungslimit erreicht."
 
-#: edd-license/edd-plugin-license.php:350
+#: edd-license/edd-plugin-license.php:352
 msgid "Deactivate License"
 msgstr "Lizenz deaktivieren"
 
-#: edd-license/edd-plugin-license.php:354
+#: edd-license/edd-plugin-license.php:359
 msgid "Activate License"
 msgstr "Lizenz aktivieren"
 
-#: edd-license/edd-plugin-license.php:357
-msgid "Save Changes"
-msgstr "Änderungen speichern"
-
-#: public/class-buddypress-polls-public.php:142
+#: public/class-buddypress-polls-public.php:141
 msgid "Submitting vote"
 msgstr "Übermittlung der abgegebenen Stimme"
 
@@ -987,77 +1020,117 @@ msgstr "Übermittlung der abgegebenen Stimme"
 msgid "Please select your choice."
 msgstr "Bitte wählen Sie Ihre Wahl."
 
-#: public/class-buddypress-polls-public.php:172
-msgid "&nbsp;Poll"
-msgstr "&nbsp;Umfrage"
-
-#: public/class-buddypress-polls-public.php:177
+#: public/class-buddypress-polls-public.php:197
 msgid "Cancel Poll"
 msgstr "Umfrage abbrechen"
 
-#: public/class-buddypress-polls-public.php:184
+#: public/class-buddypress-polls-public.php:204
 msgid "Option 1"
 msgstr "Option 1"
 
-#: public/class-buddypress-polls-public.php:189
+#: public/class-buddypress-polls-public.php:209
 msgid "Option 2"
 msgstr "Option 2"
 
-#: public/class-buddypress-polls-public.php:194
+#: public/class-buddypress-polls-public.php:214
 msgid "Add new option"
 msgstr "Neue Option hinzufügen"
 
-#: public/class-buddypress-polls-public.php:204
+#: public/class-buddypress-polls-public.php:224
 msgid "Allow multiple options selection"
 msgstr "Auswahl mehrerer Optionen zulassen"
 
-#: public/class-buddypress-polls-public.php:247
+#: public/class-buddypress-polls-public.php:265
 msgid "Polls Update"
 msgstr "Umfragen aktualisieren"
 
-#: public/class-buddypress-polls-public.php:249
+#: public/class-buddypress-polls-public.php:267
 msgid "Poll"
 msgstr "Umfrage"
 
-#: public/class-buddypress-polls-public.php:258
-#: public/class-buddypress-polls-public.php:273
+#: public/class-buddypress-polls-public.php:276
+#: public/class-buddypress-polls-public.php:290
 #, php-format
 msgid "%s created a poll"
 msgstr "%s hat eine Umfrage erstellt"
 
-#: public/class-buddypress-polls-public.php:305
+#: public/class-buddypress-polls-public.php:321
 #, php-format
 msgid "%1$s created a poll in the group %2$s"
 msgstr "%1$s hat eine Umfrage in der Gruppe %2$s erstellt"
 
-#: public/class-buddypress-polls-public.php:509
+#: public/class-buddypress-polls-public.php:528
 msgid "Submit"
 msgstr "Senden"
 
-#: public/inc/class-bp-poll-activity-graph.php:28
+#: public/inc/class-bp-poll-activity-graph.php:27
 msgid "A poll graph widget"
 msgstr "Ein Umfragediagramm-Widget"
 
-#: public/inc/class-bp-poll-activity-graph.php:32
+#: public/inc/class-bp-poll-activity-graph.php:31
 msgctxt "widget name"
 msgid "(BuddyPress) Poll Graph"
 msgstr "(BuddyPress) Umfragediagramm"
 
-#: public/inc/class-bp-poll-activity-graph.php:168
+#: public/inc/class-bp-poll-activity-graph.php:202
 msgid "Select activity to view poll results:"
 msgstr "Aktivität auswählen, um Umfrageergebnisse anzuzeigen:"
 
-#: public/inc/class-bp-poll-activity-graph.php:248
+#: public/inc/class-bp-poll-activity-graph.php:285
+#: public/inc/class-bp-poll-activity.php:255
+#: public/inc/class-bp-poll-create-poll.php:162
 msgid "Title:"
 msgstr "Überschrift:"
 
-#: public/inc/class-bp-poll-activity-graph.php:250
+#: public/inc/class-bp-poll-activity-graph.php:287
 msgid "Max Poll to show:"
 msgstr "Max Umfragen zum Anzeigen:"
 
-#: public/inc/class-bp-poll-activity-graph.php:253
+#: public/inc/class-bp-poll-activity-graph.php:291
 msgid "Default Poll to display:"
 msgstr "Anzuzeigende Standardumfrage:"
+
+#: public/inc/class-bp-poll-activity-graph.php:301
+#: public/inc/class-bp-poll-activity.php:268
+#: public/inc/class-bp-poll-create-poll.php:175
+msgid "No polls are created yet."
+msgstr "Es wurden noch keine Umfragen erstellt."
+
+#: public/inc/class-bp-poll-activity.php:27
+msgid "Display the results for the polls of your choice."
+msgstr "Zeigen Sie die Ergebnisse für die Umfragen Ihrer Wahl an."
+
+#: public/inc/class-bp-poll-activity.php:31
+msgctxt "widget name"
+msgid "(BuddyPress) Poll Results"
+msgstr "(BuddyPress) Umfrageergebnisse"
+
+#: public/inc/class-bp-poll-activity.php:57
+#: public/inc/class-bp-poll-activity.php:147
+#: public/inc/class-bp-poll-activity.php:245
+msgid "Poll Activity"
+msgstr "Umfrageaktivität"
+
+#: public/inc/class-bp-poll-activity.php:258
+#: public/inc/class-bp-poll-create-poll.php:165
+msgid "Select Poll activity to display:"
+msgstr "Wählen Sie Umfrageaktivität zum Anzeigen:"
+
+#: public/inc/class-bp-poll-create-poll.php:27
+msgid "A dynamic poll system. Users can give votes dynamically via widget."
+msgstr ""
+"Ein dynamisches Umfragesystem. Benutzer können ihre Stimme dynamisch über "
+"ein Widget abgeben."
+
+#: public/inc/class-bp-poll-create-poll.php:31
+msgctxt "widget name"
+msgid "(BuddyPress) Dynamic Poll Widget"
+msgstr "(BuddyPress) Dynamisches Umfrage-Widget"
+
+#: public/inc/class-bp-poll-create-poll.php:53
+#: public/inc/class-bp-poll-create-poll.php:152
+msgid "Create Poll"
+msgstr "Umfrage erstellen"
 
 #. Plugin URI of the plugin/theme
 msgid "http://www.wbcomdesigns.com/plugins/"
@@ -1081,3 +1154,9 @@ msgstr "wbcomdesigns"
 #. Author URI of the plugin/theme
 msgid "https://wbcomdesigns.com"
 msgstr "https://wbcomdesigns.com"
+
+#~ msgid "Save Changes"
+#~ msgstr "Änderungen speichern"
+
+#~ msgid "&nbsp;Poll"
+#~ msgstr "&nbsp;Umfrage"
