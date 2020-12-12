@@ -506,3 +506,9 @@ body.bp-nouveau .bpolls-html-container {
 body.buddyboss-theme #whats-new-options {
     margin-bottom: 30px;
 }
+.buddyboss-theme .bpolls-item .bpolls-check-radio-div .bpolls-option-lbl {
+    font-size: 14px;
+}
+.buddyboss-theme .bpolls-item .bpolls-check-radio-div {
+    font-size: 12px;
+}
