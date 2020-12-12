@@ -512,3 +512,10 @@ body.buddyboss-theme #whats-new-options {
 .buddyboss-theme .bpolls-item .bpolls-check-radio-div {
     font-size: 12px;
 }
+
+.buddyboss-theme .bpolls-item input[type=checkbox]:checked + label {
+    font-style: normal;
+}
+.buddyboss-theme .bpolls-item input[type=radio]:checked + label {
+    font-style: normal;
+}
