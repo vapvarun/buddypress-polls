@@ -488,27 +488,26 @@ body.bp-nouveau .bpolls-html-container {
     margin: 15px;
 }
 
-/* Buddyboss theme specific */
-.bp-nouveau .bs-bp-container .bpolls-polls-option-html {
+/* BuddyBoss theme specific */
+body.buddyboss-theme .bpolls-polls-option-html {
     width: calc(100% - 30px);
     margin: 15px;
 }
 
-.bp-nouveau .bs-bp-container .bpolls-html-container {
+body.buddyboss-theme .bpolls-html-container {
     margin-left: 15px;
+    margin-bottom: 0;
 }
 
 #bpolls-attach-image.dashicons-admin-media:before {
     content: "\f104";
     font-family: dashicons;
 }
-/* BuddyBoss theme specific */
-body.buddyboss-theme #whats-new-options {
-    margin-bottom: 30px;
-}
+
 .buddyboss-theme .bpolls-item .bpolls-check-radio-div .bpolls-option-lbl {
     font-size: 14px;
 }
+
 .buddyboss-theme .bpolls-item .bpolls-check-radio-div {
     font-size: 12px;
 }
@@ -516,6 +515,7 @@ body.buddyboss-theme #whats-new-options {
 .buddyboss-theme .bpolls-item input[type=checkbox]:checked + label {
     font-style: normal;
 }
+
 .buddyboss-theme .bpolls-item input[type=radio]:checked + label {
     font-style: normal;
 }
