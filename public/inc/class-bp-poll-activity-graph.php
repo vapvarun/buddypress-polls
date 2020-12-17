@@ -200,16 +200,14 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			?>
 			<p class="bpolls-activity-select">
 				<label for="bpolls-activities-list"><?php _e( 'Select activity to view poll results:', 'buddypress-polls' ); ?></label>
-				<?php if ( bp_has_activities( $act_args ) ) { ?>
-					<select name="bpolls-show-activity-graph" class="bpolls-activities-list">
-						<?php
-						while ( bp_activities() ) :
-							bp_the_activity();
-							?>
-							<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
-						<?php endwhile; ?>
-					</select>
-				<?php	} ?>
+				<select name="bpolls-show-activity-graph" class="bpolls-activities-list">
+					<?php
+					while ( bp_activities() ) :
+						bp_the_activity();
+						?>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
+					<?php endwhile; ?>
+				</select>
 			</p>
 			<canvas class="poll-bar-chart" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" width="800" height="450"></canvas>
 			<?php
