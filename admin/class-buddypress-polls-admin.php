@@ -219,7 +219,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 			if( isset($results->activity_id) ){
 				$max_votes = $results->meta_value;
 				$max_votes_act_link = bp_activity_get_permalink( $results->activity_id );
-				$activity_obj = bp_activity_get( array( 'in'=> $results->activity_id, 'max'=>1 ) );
+				$activity_obj = bp_activity_get( array( 'in'=> $results->activity_id, 'max'=>1,'action'   => 'activity_poll','type'     => 'activity_poll', ) );
 				$title = $activity_content = $activity_obj['activities'][0]->content;
 				$length = strlen( $activity_content );
 				if( $length > 60 ) {
