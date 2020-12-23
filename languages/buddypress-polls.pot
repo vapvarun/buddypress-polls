@@ -1,25 +1,28 @@
-#, fuzzy
+# Copyright (C) 2020
+# This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
-"Project-Id-Version: BuddyPress Polls\n"
-"POT-Creation-Date: 2020-09-16 06:57+0200\n"
-"PO-Revision-Date: 2020-09-16 06:57+0200\n"
-"Last-Translator: Thorsten Wollenhöfer <thorsten.wollenhoefer@gmail.com>\n"
-"Language-Team: Thorsten Wollenhöfer <thorsten.wollenhoefer@gmail.com>\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-12-23 13:06:04+00:00\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.1\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
-"X-Poedit-WPHeader: buddypress-polls.php\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Varun Dubey\n"
+"Language-Team: Wbcom Designs\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
-"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+"X-Generator: grunt-wp-i18n1.0.2\n"
 
 #: admin/class-buddypress-polls-admin.php:130
 msgid "WB Plugins"
@@ -34,7 +37,6 @@ msgstr ""
 msgid "Buddypress Polls Settings Page"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
 #: admin/class-buddypress-polls-admin.php:133
 #: admin/wbcom/wbcom-admin-settings.php:372 buddypress-polls.php:222
 msgid "BuddyPress Polls"
@@ -57,9 +59,9 @@ msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:195
 #: admin/class-buddypress-polls-admin.php:293
-#: public/inc/class-bp-poll-activity-graph.php:66
-#: public/inc/class-bp-poll-activity-graph.php:164
-#: public/inc/class-bp-poll-activity-graph.php:273
+#: public/inc/class-bp-poll-activity-graph.php:64
+#: public/inc/class-bp-poll-activity-graph.php:162
+#: public/inc/class-bp-poll-activity-graph.php:269
 msgid "Poll Graph"
 msgstr ""
 
@@ -76,7 +78,7 @@ msgid "Recent Poll"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:277
-#: public/inc/class-bp-poll-activity-graph.php:219
+#: public/inc/class-bp-poll-activity-graph.php:215
 #: public/inc/class-bp-poll-activity.php:192
 #: public/inc/class-bp-poll-create-poll.php:99
 msgid "No polls created."
@@ -188,8 +190,8 @@ msgstr ""
 #: admin/inc/bpolls-support-setting-tab.php:40
 msgid ""
 "Post a question for others to vote. BuddyPress Polls plugin allows you and "
-"your community to create polls in posts. The polls can be placed in the main "
-"activity stream, in users’ profiles and even in groups."
+"your community to create polls in posts. The polls can be placed in the "
+"main activity stream, in users’ profiles and even in groups."
 msgstr ""
 
 #: admin/inc/bpolls-support-setting-tab.php:48
@@ -237,8 +239,8 @@ msgstr ""
 
 #: admin/inc/bpolls-support-setting-tab.php:82
 msgid ""
-"With Poll closing date & time setting disabled polls will always remain open "
-"for voting."
+"With Poll closing date & time setting disabled polls will always remain "
+"open for voting."
 msgstr ""
 
 #: admin/inc/bpolls-support-setting-tab.php:90
@@ -328,9 +330,9 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:20
 msgid ""
-"Open a ticket on our helpdesk, we don't guarantee a fast response but within "
-"a week. Except if you've purchased one of our product we'll reply within 24 "
-"hours."
+"Open a ticket on our helpdesk, we don't guarantee a fast response but "
+"within a week. Except if you've purchased one of our product we'll reply "
+"within 24 hours."
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:24
@@ -344,9 +346,9 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-support-page.php:40
 msgid ""
-"Create a new thread on our plugin page, participation is open to anyone from "
-"all around the world. We'll be there to help as well but can't guarantee any "
-"delay."
+"Create a new thread on our plugin page, participation is open to anyone "
+"from all around the world. We'll be there to help as well but can't "
+"guarantee any delay."
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-themes-page.php:4
@@ -499,8 +501,7 @@ msgid "BuddyPress Activity Filter"
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:188
-msgid ""
-"Admin can set default and customised activities to be listed on front-end."
+msgid "Admin can set default and customised activities to be listed on front-end."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:194
@@ -549,7 +550,8 @@ msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:228
 msgid ""
-"BuddyPress Favorite Notification adds a notification for BuddyPress activity."
+"BuddyPress Favorite Notification adds a notification for BuddyPress "
+"activity."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:234
@@ -587,8 +589,8 @@ msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:260
 msgid ""
-"This plugin allows you to create your personal task list with timestamp. You "
-"can mark them complete when you are done with them. It will also send "
+"This plugin allows you to create your personal task list with timestamp. "
+"You can mark them complete when you are done with them. It will also send "
 "reminder when you have any overdue task."
 msgstr ""
 
@@ -599,8 +601,8 @@ msgstr ""
 #: admin/wbcom/wbcom-admin-settings.php:268
 msgid ""
 "This plugin will add an extended feature to the big name “BuddyPress” that "
-"will generate Shortcode for Listing Activity Streams , Members and Groups on "
-"any post/page in website."
+"will generate Shortcode for Listing Activity Streams , Members and Groups "
+"on any post/page in website."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:274
@@ -655,9 +657,9 @@ msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:308
 msgid ""
-"This plugin will generate shortcode and widgets for post updates section for "
-"activities so you can post update from anywhere, it might be sidebar, some "
-"page or any template file."
+"This plugin will generate shortcode and widgets for post updates section "
+"for activities so you can post update from anywhere, it might be sidebar, "
+"some page or any template file."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:314
@@ -703,8 +705,8 @@ msgstr ""
 #: admin/wbcom/wbcom-admin-settings.php:348
 msgid ""
 "This plugin is designed for the SPLIT TESTING, you can check performance of "
-"your ads layout and on the basis of them you can select one of them for your "
-"regular use."
+"your ads layout and on the basis of them you can select one of them for "
+"your regular use."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:366
@@ -714,8 +716,8 @@ msgstr ""
 #: admin/wbcom/wbcom-admin-settings.php:367
 msgid ""
 "BuddyPress Community Moderation offers a solution for site owners to keep "
-"their communities straight. With community policing strategy, members of the "
-"community have an option for moderation sitewide by attaching flags to "
+"their communities straight. With community policing strategy, members of "
+"the community have an option for moderation sitewide by attaching flags to "
 "content created within the various components."
 msgstr ""
 
@@ -732,9 +734,10 @@ msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:379
 msgid ""
-"BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a user’s "
-"BuddyPress Profile Page to display individual member resume. We have added "
-"predefined fields for the resumes and site admin and enable and disable them."
+"BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a "
+"user’s BuddyPress Profile Page to display individual member resume. We have "
+"added predefined fields for the resumes and site admin and enable and "
+"disable them."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:384
@@ -754,8 +757,8 @@ msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:391
 msgid ""
-"This plugin offers a lockdown for BuddyPress Component and will ask users to "
-"log in go further to check profile or any other protected details."
+"This plugin offers a lockdown for BuddyPress Component and will ask users "
+"to log in go further to check profile or any other protected details."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:396
@@ -765,8 +768,8 @@ msgstr ""
 #: admin/wbcom/wbcom-admin-settings.php:397
 msgid ""
 "This plugin gives you the power to extend BuddyPress Profiles with repeater "
-"fields and groups. You can easily add multiple field groups and display them "
-"at member’s profile."
+"fields and groups. You can easily add multiple field groups and display "
+"them at member’s profile."
 msgstr ""
 
 #: admin/wbcom/wbcom-admin-settings.php:529
@@ -796,7 +799,8 @@ msgstr ""
 
 #: buddypress-polls.php:161 buddypress-polls.php:180
 msgid ""
-"BuddyPress Polls and BuddyPress need to share the same network configuration."
+"BuddyPress Polls and BuddyPress need to share the same network "
+"configuration."
 msgstr ""
 
 #: buddypress-polls.php:223
@@ -804,18 +808,14 @@ msgid "BuddyPress"
 msgstr ""
 
 #: buddypress-polls.php:225
-#, php-format
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:206
-#, php-format
-msgid ""
-"There is a new version of %1$s available. %2$sView version %3$s details%4$s."
+msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:214
-#, php-format
 msgid ""
 "There is a new version of %1$s available. %2$sView version %3$s details%4$s "
 "or %5$supdate now%6$s."
@@ -836,7 +836,6 @@ msgid "An error occurred, please try again."
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:111
-#, php-format
 msgid "Your license key expired on %s."
 msgstr ""
 
@@ -853,7 +852,6 @@ msgid "Your license is not active for this URL."
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:130
-#, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
@@ -907,16 +905,22 @@ msgstr ""
 
 #: public/class-buddypress-polls-public.php:276
 #: public/class-buddypress-polls-public.php:290
-#, php-format
 msgid "%s created a poll"
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:321
-#, php-format
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:528
+#: public/class-buddypress-polls-public.php:495
+#: public/class-buddypress-polls-public.php:641
+#: public/inc/bp-poll-activity-graph.php:65
+#: public/inc/class-bp-poll-activity-graph.php:101
+#: public/inc/class-bp-poll-activity.php:96
+msgid "(no votes yet)"
+msgstr ""
+
+#: public/class-buddypress-polls-public.php:526
 msgid "Submit"
 msgstr ""
 
@@ -924,30 +928,25 @@ msgstr ""
 msgid "A poll graph widget"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:31
-msgctxt "widget name"
-msgid "(BuddyPress) Poll Graph"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:202
+#: public/inc/class-bp-poll-activity-graph.php:200
 msgid "Select activity to view poll results:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:285
+#: public/inc/class-bp-poll-activity-graph.php:281
 #: public/inc/class-bp-poll-activity.php:255
 #: public/inc/class-bp-poll-create-poll.php:162
 msgid "Title:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:287
+#: public/inc/class-bp-poll-activity-graph.php:283
 msgid "Max Poll to show:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:291
+#: public/inc/class-bp-poll-activity-graph.php:287
 msgid "Default Poll to display:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:301
+#: public/inc/class-bp-poll-activity-graph.php:297
 #: public/inc/class-bp-poll-activity.php:268
 #: public/inc/class-bp-poll-create-poll.php:175
 msgid "No polls are created yet."
@@ -955,11 +954,6 @@ msgstr ""
 
 #: public/inc/class-bp-poll-activity.php:27
 msgid "Display the results for the polls of your choice."
-msgstr ""
-
-#: public/inc/class-bp-poll-activity.php:31
-msgctxt "widget name"
-msgid "(BuddyPress) Poll Results"
 msgstr ""
 
 #: public/inc/class-bp-poll-activity.php:57
@@ -977,31 +971,22 @@ msgstr ""
 msgid "A dynamic poll system. Users can give votes dynamically via widget."
 msgstr ""
 
-#: public/inc/class-bp-poll-create-poll.php:31
-msgctxt "widget name"
-msgid "(BuddyPress) Dynamic Poll Widget"
-msgstr ""
-
 #: public/inc/class-bp-poll-create-poll.php:53
 #: public/inc/class-bp-poll-create-poll.php:152
 msgid "Create Poll"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
-msgid "http://www.wbcomdesigns.com/plugins/"
+#: public/inc/class-bp-poll-activity-graph.php:31
+msgctxt "widget name"
+msgid "(BuddyPress) Poll Graph"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"BuddyPress Polls plugin allows you and your community to create polls in "
-"posts. The polls can be placed in the main activity stream, in users’ "
-"profiles and even in groups."
+#: public/inc/class-bp-poll-activity.php:31
+msgctxt "widget name"
+msgid "(BuddyPress) Poll Results"
 msgstr ""
 
-#. Author of the plugin/theme
-msgid "wbcomdesigns"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "https://wbcomdesigns.com"
+#: public/inc/class-bp-poll-create-poll.php:31
+msgctxt "widget name"
+msgid "(BuddyPress) Dynamic Poll Widget"
 msgstr ""

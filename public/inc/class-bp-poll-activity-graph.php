@@ -46,37 +46,35 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$poll_wdgt_stngs = $poll_wdgt->get_settings();
 
 		global $wpdb,$current_user;
-		
-		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
-			$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID. " group by id having date_recorded=max(date_recorded) order by date_recorded desc" );			
+
+		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
+			$results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
 		} else {
-			$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
-		}			
-		
-		
-		
+			$results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		}
+
 		$activity_ids = array();
-		if ( !empty($results) ) {
-			foreach( $results as  $result) {
+		if ( ! empty( $results ) ) {
+			foreach ( $results as  $result ) {
 				$activity_ids[]['activity_default'] = $result->id;
 			}
 		}
-		
-		$_instance                 = array(
+
+		$_instance                = array(
 			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
 			'max_activity'     => 5,
-			'activity_default' => ( !empty($activity_ids) ) ? $activity_ids : array(),
+			'activity_default' => ( ! empty( $activity_ids ) ) ? $activity_ids : array(),
 		);
-		$time = time();
+		$time                     = time();
 		$poll_wdgt_stngs[ $time ] = $_instance;
-		$uptd_votes                = array();		
+		$uptd_votes               = array();
 		if ( is_array( $poll_wdgt_stngs ) ) {
-			foreach ( $poll_wdgt_stngs[$time]['activity_default'] as $key => $value ) {
+			foreach ( $poll_wdgt_stngs[ $time ]['activity_default'] as $key => $value ) {
 				if ( isset( $value['activity_default'] ) ) {
 					$activity_id      = $value['activity_default'];
 					$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );
 					if ( is_array( $activity_details ) ) {
-						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words($activity_details['activities'][0]->content, 10, '...' ) : '';
+						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words( $activity_details['activities'][0]->content, 10, '...' ) : '';
 					} else {
 						$poll_title = '';
 					}
@@ -100,7 +98,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 								if ( $total_votes != 0 ) {
 									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 								} else {
-									$vote_percent = '(no votes yet)';
+									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 								}
 
 								$bpolls_votes_txt             = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
@@ -118,7 +116,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			}
 		}
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph.js', array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
-		
+
 		wp_localize_script(
 			'bpolls-poll-activity-graph-js' . $hook,
 			'bpolls_wiget_obj',
@@ -146,11 +144,11 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
-		
-		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID. " group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
+		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
+			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
 		} else {
-			
+
 			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 		}
 
@@ -182,20 +180,20 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
 
-		global $activities_template, $current_user;		
+		global $activities_template, $current_user;
 
 		// Back up the global.
 		$old_activities_template = $activities_template;
-		$act_args        = array();
+		$act_args                = array();
 
 		$act_args = array(
 			'action'   => 'activity_poll',
 			'type'     => 'activity_poll',
 			'per_page' => $max_activity,
 		);
-		if ( ! in_array( 'administrator', (array) $current_user->roles )) {
-			$act_args['user_id'] = $current_user->ID;		
-		}	
+		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
+			$act_args['user_id'] = $current_user->ID;
+		}
 		if ( bp_has_activities( $act_args ) ) {
 			?>
 			<p class="bpolls-activity-select">
