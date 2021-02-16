@@ -68,9 +68,29 @@ class Buddypress_Polls_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		global $wp_styles;
+		global $wp_styles, $post;
+		
+		$current_component = '';
+		if ( isset($post->ID) && $post->ID != '' && $post->ID != '0') {
+			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
+			if (  !empty($_elementor_controls_usage)) {
+				foreach($_elementor_controls_usage as $key=>$value) {
+					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+						$current_component = 'activity';
+						break;
+					}
+				}
+			}
+		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( is_buddypress() || is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) || is_active_widget( false, false, 'bp_poll_create_poll_widget', true ) ) {
+		if ( is_buddypress() 
+			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
+			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
+			|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+			|| $current_component == 'activity'
+			) {
+			
+			
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
 
 			// if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
@@ -104,7 +124,26 @@ class Buddypress_Polls_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		if ( is_buddypress() || is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) || is_active_widget( false, false, 'bp_poll_create_poll_widget', true ) ) {
+		global $post;
+		$current_component = '';
+		if ( isset($post->ID) && $post->ID != '' && $post->ID != '0') {
+			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
+			if (  !empty($_elementor_controls_usage)) {
+				foreach($_elementor_controls_usage as $key=>$value) {
+					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+						$current_component = 'activity';
+						break;
+					}
+				}
+			}
+		}
+		
+		if ( is_buddypress() 
+				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
+				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true ) 
+				|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+				|| $current_component == 'activity'
+				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
