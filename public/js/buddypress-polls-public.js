@@ -275,7 +275,7 @@
 			} );
 			
 			/*=====  End of Ajax request to save poll vote  ======*/		
-		$('#whats-new').focus( function(){
+		$('#whats-new,#bppfa-whats-new').focus( function(){
 			jQuery('.bpolls-icon').click(function(){
 				jQuery( '.bpquotes-bg-selection-div' ).hide();
 				jQuery( '.bp-checkin-panel' ).hide();				
