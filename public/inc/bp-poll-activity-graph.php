@@ -15,17 +15,17 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-	
+
 	add_action(
 		'widgets_init',
 		function() {
-			global $pagenow;			
+			global $pagenow;
 			if ( $pagenow != 'widgets.php' ) {
 				register_widget( 'BP_Poll_Activity_Graph_Widget' );
 			}
 		}
 	);
-	
+
 
 	function bpolls_activity_graph_ajax() {
 		if ( isset( $_POST['action'] ) && $_POST['action'] == 'bpolls_activity_graph_ajax' ) {
@@ -62,7 +62,7 @@ defined( 'ABSPATH' ) || exit;
 					if ( $total_votes != 0 ) {
 						$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 					} else {
-						$vote_percent = '(no votes yet)';
+						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 					}
 
 					$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;

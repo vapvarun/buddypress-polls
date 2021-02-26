@@ -45,26 +45,26 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 	public function enqueue_scripts( $hook ) {
 
 		global $wpdb;
-		$results                   = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		$results      = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 		$activity_ids = array();
-		if ( !empty($results) ) {
-			foreach( $results as  $result) {
+		if ( ! empty( $results ) ) {
+			foreach ( $results as  $result ) {
 				$activity_ids[]['activity_id'] = $result->id;
 			}
 		}
-		
-		$_instance                 = array(
+
+		$_instance                = array(
 			'title'       => __( 'Poll Activity', 'buddypress-polls' ),
-			'activity_id' => ( !empty($activity_ids) ) ? $activity_ids : array(),
+			'activity_id' => ( ! empty( $activity_ids ) ) ? $activity_ids : array(),
 		);
-		$poll_wdgt                 = new BP_Poll_Activity_Widget();
-		$poll_wdgt_stngs           = $poll_wdgt->get_settings();
-		$time = time();
+		$poll_wdgt                = new BP_Poll_Activity_Widget();
+		$poll_wdgt_stngs          = $poll_wdgt->get_settings();
+		$time                     = time();
 		$poll_wdgt_stngs[ $time ] = $_instance;
-		$uptd_votes                = array();
-		
+		$uptd_votes               = array();
+
 		if ( is_array( $poll_wdgt_stngs ) ) {
-			foreach ( $poll_wdgt_stngs[$time]['activity_id'] as $key => $value ) {
+			foreach ( $poll_wdgt_stngs[ $time ]['activity_id'] as $key => $value ) {
 				if ( isset( $value['activity_id'] ) ) {
 					$activity_id      = $value['activity_id'];
 					$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );
@@ -93,7 +93,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 								if ( $total_votes != 0 ) {
 									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 								} else {
-									$vote_percent = '(no votes yet)';
+									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 								}
 
 								$bpolls_votes_txt             = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
@@ -264,10 +264,10 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
 					<?php endwhile; ?>
 				</select>
-			<?php } else {?>
+			<?php } else { ?>
 				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress' ); ?></label>
 			<?php	} ?>
-			
+
 		</p>
 		<?php
 		// Restore the global.
