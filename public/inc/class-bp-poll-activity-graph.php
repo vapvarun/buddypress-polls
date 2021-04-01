@@ -31,8 +31,11 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		 parent::__construct( false, _x( '(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls' ), $widget_ops );
 
 		 if ( ! is_customize_preview() ) {
+			 global $pagenow;
 			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			 if ( is_admin() && $pagenow == 'index.php' ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			 }
 		 }
 	}
 
