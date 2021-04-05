@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -13,21 +12,22 @@
  * @subpackage Buddypress_Polls/includes
  */
 
-/**
- * The core plugin class.
- *
- * This is used to define internationalization, admin-specific hooks, and
- * public-facing site hooks.
- *
- * Also maintains the unique identifier of this plugin as well as the current
- * version of the plugin.
- *
- * @since      1.0.0
- * @package    Buddypress_Polls
- * @subpackage Buddypress_Polls/includes
- * @author     wbcomdesigns <admin@wbcomdesigns.com>
- */
-if ( !class_exists('Buddypress_Polls') ) {
+if ( ! class_exists( 'Buddypress_Polls' ) ) {
+
+	/**
+	 * The core plugin class.
+	 *
+	 * This is used to define internationalization, admin-specific hooks, and
+	 * public-facing site hooks.
+	 *
+	 * Also maintains the unique identifier of this plugin as well as the current
+	 * version of the plugin.
+	 *
+	 * @since      1.0.0
+	 * @package    Buddypress_Polls
+	 * @subpackage Buddypress_Polls/includes
+	 * @author     wbcomdesigns <admin@wbcomdesigns.com>
+	 */
 	class Buddypress_Polls {
 
 		/**
@@ -127,8 +127,7 @@ if ( !class_exists('Buddypress_Polls') ) {
 			 * The class responsible for initiating bp poll activity graph widget.
 			 */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/bp-poll-activity-graph.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';		
-			
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';
 
 			/* Enqueue wbcom plugin folder file. */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';

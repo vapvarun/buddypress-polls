@@ -69,13 +69,13 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $wp_styles, $post;
-		
+
 		$current_component = '';
-		if ( isset($post->ID) && $post->ID != '' && $post->ID != '0') {
-			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
-			if (  !empty($_elementor_controls_usage)) {
-				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
+			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
+			if ( ! empty( $_elementor_controls_usage ) ) {
+				foreach ( $_elementor_controls_usage as $key => $value ) {
+					if ( 'buddypress_shortcode_activity_widget' === $key ) {
 						$current_component = 'activity';
 						break;
 					}
@@ -83,15 +83,14 @@ class Buddypress_Polls_Public {
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( is_buddypress() 
-			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
+		if ( is_buddypress()
+			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
-			|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
-			|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-			|| $current_component == 'activity'
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
+			|| 'activity' === $current_component
 			) {
-			
-			
+
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
 
 			// if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
@@ -127,24 +126,24 @@ class Buddypress_Polls_Public {
 		 */
 		global $post;
 		$current_component = '';
-		if ( isset($post->ID) && $post->ID != '' && $post->ID != '0') {
-			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
-			if (  !empty($_elementor_controls_usage)) {
-				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
+			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
+			if ( ! empty( $_elementor_controls_usage ) ) {
+				foreach ( $_elementor_controls_usage as $key => $value ) {
+					if ( 'buddypress_shortcode_activity_widget' === $key ) {
 						$current_component = 'activity';
 						break;
 					}
 				}
 			}
 		}
-		
-		if ( is_buddypress() 
-				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
-				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true ) 
-				|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
-				|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-				|| $current_component == 'activity'
+
+		if ( is_buddypress()
+				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
+				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
+				|| 'activity' === $current_component
 				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
@@ -155,7 +154,7 @@ class Buddypress_Polls_Public {
 
 			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
 
-			if ( 'REIGN' == wp_get_theme() || 'REIGN Child' == wp_get_theme() ) {
+			if ( 'REIGN' === wp_get_theme() || 'REIGN Child' === wp_get_theme() ) {
 				$body_polls_class = true;
 			} else {
 				$body_polls_class = false;
@@ -167,9 +166,9 @@ class Buddypress_Polls_Public {
 			}
 
 			$active_template = get_option( '_bp_theme_package_id' );
-			if ( 'legacy' == $active_template ) {
+			if ( 'legacy' === $active_template ) {
 				$nouveau = false;
-			} elseif ( 'nouveau' == $active_template ) {
+			} elseif ( 'nouveau' === $active_template ) {
 				$nouveau = true;
 			}
 
@@ -212,7 +211,7 @@ class Buddypress_Polls_Public {
 			$image_attachment = true;
 		}
 
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && $bpolls_settings['limit_poll_activity'] == 'user_role' ) {
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
 			$bpolls_settings['poll_user_role'] = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
 			$user_roles                        = array_intersect( $current_user->roles, $bpolls_settings['poll_user_role'] );
 			if ( empty( $user_roles ) ) {
@@ -220,7 +219,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && $bpolls_settings['limit_poll_activity'] == 'member_type' ) {
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'membe_type' === $bpolls_settings['limit_poll_activity'] ) {
 			$member_type = bp_get_member_type( $current_user->ID );
 
 			if ( ! isset( $bpolls_settings['poll_member_type'] ) || ! in_array( $member_type, $bpolls_settings['poll_member_type'] ) ) {
@@ -309,11 +308,14 @@ class Buddypress_Polls_Public {
 			array( 'activity', 'group', 'member', 'member_groups' )
 		);
 	}
-
+	/**
+	 * Buddypress activity wall post content.
+	 */
 	public function bpolls_activity_action_wall_posts( $retval, $activity ) {
 		if ( 'activity_poll' !== $activity->type ) {
 			return $retval;
 		}
+		/* Translators: %s: User Name */
 		$retval = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 		return $retval;
 	}
@@ -327,7 +329,8 @@ class Buddypress_Polls_Public {
 	 * @param object $activity Activity data object.
 	 * @return string $action
 	 */
-	function bp_activity_format_activity_action_activity_poll( $action, $activity ) {
+	public function bp_activity_format_activity_action_activity_poll( $action, $activity ) {
+		/* Translators: %s: User Name */
 		$action = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 
 		/**
@@ -358,7 +361,8 @@ class Buddypress_Polls_Public {
 		$_check_type = '';
 		$_check_type = get_option( 'temp_poll_type' );
 
-		if ( $_check_type && $_check_type == 'yes' ) {
+		if ( $_check_type && 'yes' === $_check_type ) {
+			/* Translators: %1$s: User Name, %2$s: Group Name */
 			$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
 		}
 		return $activity_action;
@@ -378,7 +382,7 @@ class Buddypress_Polls_Public {
 		$_check_type = '';
 		$_check_type = get_option( 'temp_poll_type' );
 
-		if ( $_check_type && $_check_type == 'yes' ) {
+		if ( $_check_type && 'yes' === $_check_type ) {
 			$activity->type = 'activity_poll';
 			delete_option( 'temp_poll_type' );
 		}
@@ -400,7 +404,7 @@ class Buddypress_Polls_Public {
 		$activity_tbl = $wpdb->base_prefix . 'bp_activity';
 
 		if ( isset( $_POST['bpolls_input_options'] ) && ! empty( $_POST['bpolls_input_options'] ) ) {
-			if ( isset( $_POST['bpolls_multiselect'] ) && $_POST['bpolls_multiselect'] == 'yes' ) {
+			if ( isset( $_POST['bpolls_multiselect'] ) && 'yes' === $_POST['bpolls_multiselect'] ) {
 				$multiselect = 'yes';
 			} else {
 				$multiselect = 'no';
@@ -414,7 +418,7 @@ class Buddypress_Polls_Public {
 
 			$poll_optn_arr = array();
 			foreach ( (array) $_POST['bpolls_input_options'] as $key => $value ) {
-				if ( $value != '' ) {
+				if ( '' !== $value ) {
 					$poll_key                   = str_replace( '%', '', sanitize_title( $value ) );
 					$poll_optn_arr[ $poll_key ] = $value;
 				}
@@ -447,7 +451,7 @@ class Buddypress_Polls_Public {
 		global $current_user;
 		$user_id     = get_current_user_id();
 		$activity_id = bp_get_activity_id();
-		if ( isset( $act ) && $act != null ) {
+		if ( isset( $act ) && null !== $act ) {
 			$activity_id = $act;
 		}
 
@@ -481,7 +485,7 @@ class Buddypress_Polls_Public {
 		$poll_image = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
 
 		$poll_closing = false;
-		if ( isset( $activity_meta['close_date'] ) && isset( $bpolls_settings['close_date'] ) && $activity_meta['close_date'] != 0 ) {
+		if ( isset( $activity_meta['close_date'] ) && isset( $bpolls_settings['close_date'] ) && 0 !== $activity_meta['close_date'] ) {
 			$current_time    = new DateTime();
 			$close_date      = $activity_meta['close_date'];
 			$close_date_time = new DateTime( $close_date );
@@ -497,11 +501,11 @@ class Buddypress_Polls_Public {
 			$u_meta = $bpoll_user_vote[ $activity_id ];
 		}
 
-		if ( 'activity_poll' == bp_get_activity_type() && isset( $activity_meta['poll_option'] ) ) {
+		if ( 'activity_poll' === bp_get_activity_type() && isset( $activity_meta['poll_option'] ) ) {
 			$poll_options     = $activity_meta['poll_option'];
 			$activity_content = '';
 
-			if ( 'yes' == $activity_meta['multiselect'] ) {
+			if ( 'yes' === $activity_meta['multiselect'] ) {
 				$optn_typ = 'checkbox';
 			} else {
 				$optn_typ = 'radio';
@@ -530,7 +534,7 @@ class Buddypress_Polls_Public {
 						$this_optn_vote = 0;
 					}
 
-					if ( $total_votes != 0 ) {
+					if ( 0 !== $total_votes ) {
 						$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
 					} else {
 						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
@@ -563,12 +567,12 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
-				if ( $submit && $poll_closing && is_user_logged_in() && $act == null ) {
+				if ( $submit && $poll_closing && is_user_logged_in() && null === $act ) {
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>" . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
 
-				if ( isset( $act ) && $act != null ) {
+				if ( isset( $act ) && null !== $act ) {
 					return $activity_content;
 				} else {
 					echo $activity_content;
@@ -583,7 +587,7 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_save_poll_vote() {
-		if ( isset( $_POST['action'] ) && $_POST['action'] == 'bpolls_save_poll_vote' ) {
+		if ( isset( $_POST['action'] ) && $_POST['action'] === 'bpolls_save_poll_vote' ) {
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 			$user_id = get_current_user_id();
 			parse_str( $_POST['poll_data'], $poll_data ); // This will convert the string to array
@@ -654,7 +658,7 @@ class Buddypress_Polls_Public {
 	 *
 	 * @since 1.0.0
 	 */
-	function bpolls_ajax_calculate_votes( $activity_id ) {
+	public function bpolls_ajax_calculate_votes( $activity_id ) {
 		$user_id = get_current_user_id();
 
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
@@ -676,7 +680,7 @@ class Buddypress_Polls_Public {
 					$this_optn_vote = 0;
 				}
 
-				if ( $total_votes != 0 ) {
+				if ( 0 !== $total_votes ) {
 					$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
 				} else {
 					$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
@@ -716,7 +720,7 @@ class Buddypress_Polls_Public {
 	}
 
 	public function bpolls_set_poll_type_true() {
-		if ( isset( $_POST['action'] ) && $_POST['action'] == 'bpolls_set_poll_type_true' ) {
+		if ( isset( $_POST['action'] ) && 'bpolls_set_poll_type_true' === $_POST['action'] ) {
 
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 
@@ -746,7 +750,7 @@ class Buddypress_Polls_Public {
 	}
 
 	public function bpolls_save_image() {
-		if ( isset( $_POST['action'] ) && $_POST['action'] == 'bpolls_save_image' ) {
+		if ( isset( $_POST['action'] ) && 'bpolls_save_image' === $_POST['action'] ) {
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 			$image_url = $_POST['image_url'];
 			update_option( 'temp_poll_image', $image_url );

@@ -3,6 +3,8 @@
  *
  * This template file is used for fetching desired options page file at admin settings.
  *
+ * @package buddypress-polls
+ * @subpackage  admin\inc
  */
 
 // Exit if accessed directly.

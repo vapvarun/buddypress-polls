@@ -13,18 +13,18 @@
  * @subpackage Buddypress_Polls/includes
  */
 
-/**
- * Define the internationalization functionality.
- *
- * Loads and defines the internationalization files for this plugin
- * so that it is ready for translation.
- *
- * @since      1.0.0
- * @package    Buddypress_Polls
- * @subpackage Buddypress_Polls/includes
- * @author     wbcomdesigns <admin@wbcomdesigns.com>
- */
-if ( !class_exists('Buddypress_Polls_i18n') ) {
+if ( ! class_exists( 'Buddypress_Polls_i18n' ) ) {
+	/**
+	 * Define the internationalization functionality.
+	 *
+	 * Loads and defines the internationalization files for this plugin
+	 * so that it is ready for translation.
+	 *
+	 * @since      1.0.0
+	 * @package    Buddypress_Polls
+	 * @subpackage Buddypress_Polls/includes
+	 * @author     wbcomdesigns <admin@wbcomdesigns.com>
+	 */
 	class Buddypress_Polls_i18n {
 
 

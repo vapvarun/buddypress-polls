@@ -23,12 +23,12 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	 * @since 2.8.0
 	 */
 	public function __construct() {
-		 $widget_ops = array(
-			 'description'                 => __( 'A dynamic poll system. Users can give votes dynamically via widget.', 'buddypress-polls' ),
-			 'classname'                   => 'widget_bp_poll_create_poll_widget buddypress widget',
-			 'customize_selective_refresh' => true,
-		 );
-		 parent::__construct( false, _x( '(BuddyPress) Dynamic Poll Widget', 'widget name', 'buddypress-polls' ), $widget_ops );
+		$widget_ops = array(
+			'description'                 => __( 'A dynamic poll system. Users can give votes dynamically via widget.', 'buddypress-polls' ),
+			'classname'                   => 'widget_bp_poll_create_poll_widget buddypress widget',
+			'customize_selective_refresh' => true,
+		);
+		parent::__construct( false, _x( '(BuddyPress) Dynamic Poll Widget', 'widget name', 'buddypress-polls' ), $widget_ops );
 
 	}
 
@@ -64,9 +64,9 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		echo $before_widget;
+		echo wp_kses_post( $before_widget );
 
-		echo $before_title . $title . $after_title;
+		echo wp_kses_post( $before_title . $title . $after_title );
 
 		$activity = ! empty( $instance['activity'] ) ? (int) $instance['activity'] : '';
 
@@ -96,11 +96,11 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 			} else {
 				?>
 				<div class="bpolls-empty-messgae">
-					<?php _e( 'No polls created.', 'buddypress-polls' ); ?>
+					<?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?>
 				</div>
 			<?php } ?>
 		<?php
-		echo $after_widget;
+		echo wp_kses_post( $after_widget );
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}
@@ -132,9 +132,9 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function form( $instance ) {
-		 global $activities_template;
+		global $activities_template;
 
-		 // Back up the global.
+		// Back up the global.
 		$old_activities_template = $activities_template;
 
 		$act_args = array(
@@ -159,11 +159,11 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 		$activity = isset( $instance['activity'] ) ? strip_tags( $instance['activity'] ) : '';
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 		<p>			
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
-				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'Select Poll activity to display:', 'buddypress-polls' ); ?></label>
-				<select name="<?php echo $this->get_field_name( 'activity' ); ?>" id="<?php echo $this->get_field_id( 'activity' ); ?>">
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>"><?php esc_html_e( 'Select Poll activity to display:', 'buddypress-polls' ); ?></label>
+				<select name="<?php echo esc_attr( $this->get_field_name( 'activity' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>">
 					<?php
 					while ( bp_activities() ) :
 						bp_the_activity();
@@ -172,8 +172,8 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 					<?php endwhile; ?>
 				</select>
 			<?php	} else { ?>
-				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress-polls' ); ?></label>
-			<?php }?>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress-polls' ); ?></label>
+			<?php } ?>
 		</p>
 		<?php
 		// Restore the global.
@@ -181,11 +181,16 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	}
 }
 
-/*
-add_action(
+/**
+ * Register widgets for poll activity graph.
+ *
+ * @since 1.0.0
+ */
+function bppoll_create_poll_widget_load() {
+	add_action(
 	'widgets_init',
 	function() {
 		register_widget( 'BP_Poll_Create_Poll_Widget' );
 	}
-);
-*/
+}
+add_action( 'widgets_init', 'bppoll_create_poll_widget_load' );
