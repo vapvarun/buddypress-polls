@@ -474,7 +474,7 @@ class Buddypress_Polls_Public {
 					if ( $total_votes != 0 ) {
 						$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
 					} else {
-						$vote_percent = '(no votes yet)';
+						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 					}
 
 					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes . '&nbsp;)';
