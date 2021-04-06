@@ -173,19 +173,19 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 				</select>
 			<?php	} else { ?>
 				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress-polls' ); ?></label>
-			<?php }?>
+			<?php } ?>
 		</p>
 		<?php
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}
 }
-
-/*
-add_action(
-	'widgets_init',
-	function() {
-		register_widget( 'BP_Poll_Create_Poll_Widget' );
-	}
-);
-*/
+/**
+ * Register the bp poll create poll widget.
+ *
+ * @see 'widgets_init'
+ */
+function bp_poll_create_poll_widget_register() {
+	register_widget( 'BP_Poll_Create_Poll_Widget' );
+}
+add_action( 'widgets_init', 'bp_poll_create_poll_widget_register' );

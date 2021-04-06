@@ -34,7 +34,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 			 global $pagenow;
 			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 if ( is_admin() && $pagenow == 'index.php' ) {
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+				 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 }
 		 }
 	}
@@ -278,11 +278,14 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 	}
 }
 
-/*
-add_action(
-	'widgets_init',
-	function() {
-		register_widget( 'BP_Poll_Activity_Widget' );
-	}
-);
-*/
+
+/**
+ * Register the bp poll activity widget.
+ *
+ * @see 'widgets_init'
+ */
+function bp_poll_activity_widget_register() {
+	register_widget( 'BP_Poll_Activity_Widget' );
+}
+add_action( 'widgets_init', 'bp_poll_activity_widget_register' );
+
