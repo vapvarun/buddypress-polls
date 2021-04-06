@@ -15,16 +15,10 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-
-	add_action(
-		'widgets_init',
-		function() {
-			global $pagenow;
-			if ( $pagenow != 'widgets.php' ) {
-				register_widget( 'BP_Poll_Activity_Graph_Widget' );
-			}
-		}
-	);
+function BP_Poll_Activity_Graph_Widget_register() {
+    register_widget( 'BP_Poll_Activity_Graph_Widget' );
+}
+add_action( 'widgets_init', 'BP_Poll_Activity_Graph_Widget_register' );	
 
 
 	function bpolls_activity_graph_ajax() {
