@@ -23,20 +23,20 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		 $widget_ops = array(
-			 'description'                 => __( 'A poll graph widget', 'buddypress-polls' ),
-			 'classname'                   => 'widget_bp_poll_graph_widget buddypress widget',
-			 'customize_selective_refresh' => true,
-		 );
-		 parent::__construct( false, _x( '(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls' ), $widget_ops );
+		$widget_ops = array(
+			'description'                 => __( 'A poll graph widget', 'buddypress-polls' ),
+			'classname'                   => 'widget_bp_poll_graph_widget buddypress widget',
+			'customize_selective_refresh' => true,
+		);
+		parent::__construct( false, _x( '(BuddyPress) Poll Graph', 'widget name', 'buddypress-polls' ), $widget_ops );
 
-		 if ( ! is_customize_preview() ) {
-			 global $pagenow;
-			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			 if ( is_admin() && $pagenow == 'index.php' ) {
+		if ( ! is_customize_preview() ) {
+			global $pagenow;
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			if ( is_admin() && 'index.php' === $pagenow ) {
 				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			 }
-		 }
+			}
+		}
 	}
 
 	/**
@@ -98,7 +98,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 									$this_optn_vote = 0;
 								}
 
-								if ( $total_votes != 0 ) {
+								if ( 0 !== $total_votes ) {
 									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 								} else {
 									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
@@ -252,7 +252,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function form( $instance ) {
-		 global $activities_template;
+		global $activities_template;
 
 		// Back up the global.
 		$old_activities_template = $activities_template;

@@ -23,12 +23,12 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	 * @since 2.8.0
 	 */
 	public function __construct() {
-		 $widget_ops = array(
-			 'description'                 => __( 'A dynamic poll system. Users can give votes dynamically via widget.', 'buddypress-polls' ),
-			 'classname'                   => 'widget_bp_poll_create_poll_widget buddypress widget',
-			 'customize_selective_refresh' => true,
-		 );
-		 parent::__construct( false, _x( '(BuddyPress) Dynamic Poll Widget', 'widget name', 'buddypress-polls' ), $widget_ops );
+		$widget_ops = array(
+			'description'                 => __( 'A dynamic poll system. Users can give votes dynamically via widget.', 'buddypress-polls' ),
+			'classname'                   => 'widget_bp_poll_create_poll_widget buddypress widget',
+			'customize_selective_refresh' => true,
+		);
+		parent::__construct( false, _x( '(BuddyPress) Dynamic Poll Widget', 'widget name', 'buddypress-polls' ), $widget_ops );
 
 	}
 
@@ -132,9 +132,9 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function form( $instance ) {
-		 global $activities_template;
+		global $activities_template;
 
-		 // Back up the global.
+		// Back up the global.
 		$old_activities_template = $activities_template;
 
 		$act_args = array(
@@ -185,7 +185,8 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
  *
  * @see 'widgets_init'
  */
+/*
 function bp_poll_create_poll_widget_register() {
 	register_widget( 'BP_Poll_Create_Poll_Widget' );
 }
-add_action( 'widgets_init', 'bp_poll_create_poll_widget_register' );
+add_action( 'widgets_init', 'bp_poll_create_poll_widget_register' );*/

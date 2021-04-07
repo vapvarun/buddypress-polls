@@ -1,8 +1,9 @@
 <?php
 /**
- *
  * This template file is used for fetching desired options page file at admin settings.
  *
+ * @package Buddypress_Polls
+ * @subpackage admin\inc
  */
 
 // Exit if accessed directly.

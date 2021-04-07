@@ -15,14 +15,22 @@ defined( 'ABSPATH' ) || exit;
  *
  * @since 1.0.0
  */
-function bp_poll_activity_graph_widget_register() {
-	register_widget( 'BP_Poll_Activity_Graph_Widget' );
-}
-add_action( 'widgets_init', 'bp_poll_activity_graph_widget_register' );
-
-
+add_action(
+	'widgets_init',
+	function() {
+		global $pagenow;
+		if ( 'widgets.php' !== $pagenow ) {
+			register_widget( 'BP_Poll_Activity_Graph_Widget' );
+		}
+	}
+);
+/**
+ * BuddyPress Polls activity graph.
+ *
+ * @since 1.0.0
+ */
 function bpolls_activity_graph_ajax() {
-	if ( isset( $_POST['action'] ) && $_POST['action'] == 'bpolls_activity_graph_ajax' ) {
+	if ( isset( $_POST['action'] ) && 'bpolls_activity_graph_ajax' === $_POST['action'] ) {
 		check_ajax_referer( 'bpolls_widget_security', 'ajax_nonce' );
 		$activity_id = $_POST['actid'];
 
@@ -53,7 +61,7 @@ function bpolls_activity_graph_ajax() {
 					$this_optn_vote = 0;
 				}
 
-				if ( $total_votes != 0 ) {
+				if ( 0 !== $total_votes ) {
 					$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 				} else {
 					$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
@@ -77,11 +85,19 @@ function bpolls_activity_graph_ajax() {
 }
 	add_action( 'wp_ajax_bpolls_activity_graph_ajax', 'bpolls_activity_graph_ajax' );
 	add_action( 'wp_ajax_nopriv_bpolls_activity_graph_ajax', 'bpolls_activity_graph_ajax' );
-
+/**
+ * BuddyPress Polls random colors.
+ *
+ * @since 1.0.0
+ */
 function bpolls_color() {
 	return '#' . random_color_part() . random_color_part() . random_color_part();
 }
-
+/**
+ * BuddyPress Polls color part.
+ *
+ * @since 1.0.0
+ */
 function random_color_part() {
 	return str_pad( dechex( mt_rand( 0, 255 ) ), 2, '0', STR_PAD_LEFT );
 }

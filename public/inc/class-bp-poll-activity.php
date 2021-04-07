@@ -284,8 +284,9 @@ class BP_Poll_Activity_Widget extends WP_Widget {
  *
  * @see 'widgets_init'
  */
+/*
 function bp_poll_activity_widget_register() {
 	register_widget( 'BP_Poll_Activity_Widget' );
 }
-add_action( 'widgets_init', 'bp_poll_activity_widget_register' );
+add_action( 'widgets_init', 'bp_poll_activity_widget_register' );*/
 

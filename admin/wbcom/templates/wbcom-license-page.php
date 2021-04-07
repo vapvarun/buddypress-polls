@@ -1,7 +1,19 @@
+<?php
+/**
+ * Wbcom admin License page template.
+ *
+ * @link       http://www.wbcomdesigns.com
+ * @since      1.0.0
+ *
+ * @package    Buddypress_Polls
+ * @subpackage Buddypress_Polls/admin/wbcom
+ */
+
+?>
 <div class="wrap">
 	<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-    <h1 class="wbcom-plugin-heading"><?php esc_html_e( 'Plugin License Settings', 'buddypress-polls' ); ?></h1>
-    <div class="wb-plugins-license-tables-wrap">
+	<h1 class="wbcom-plugin-heading"><?php esc_html_e( 'Plugin License Settings', 'buddypress-polls' ); ?></h1>
+	<div class="wb-plugins-license-tables-wrap">
 		<table class="form-table wb-license-form-table desktop-license-headings">
 			<thead>
 				<tr>
