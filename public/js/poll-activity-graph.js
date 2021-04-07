@@ -122,4 +122,11 @@
       });
     }
   );
+	
+	$( document ).ready(function(){
+		$(document).on( 'change', '.bpolls-activities-list', function(e) {
+			e.preventDefault();
+			$('#export-poll-data').attr( 'href', '?export_csv=1&buddypress_poll=1&activity_id=' + $(this).val() );
+		});
+	});
 })(jQuery);

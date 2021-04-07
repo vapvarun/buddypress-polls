@@ -173,7 +173,7 @@ if ( !class_exists('Buddypress_Polls') ) {
 			$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
-
+			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 		}
 
 		/**

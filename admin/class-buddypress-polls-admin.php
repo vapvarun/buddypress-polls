@@ -296,5 +296,87 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 			);
 			the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 		}
+		
+		public function bpolls_activity_polls_data_export() {
+			
+			if ( isset($_REQUEST['export_csv']) && $_REQUEST['export_csv'] == 1 && isset($_REQUEST['buddypress_poll']) && $_REQUEST['buddypress_poll'] == 1 && isset($_REQUEST['activity_id'])) {
+				$activity_id = isset($_REQUEST['activity_id']) ? $_REQUEST['activity_id'] : 0 ;
+				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );		
+				
+				$file = "buddypress-activity-poll-info.csv";
+				$uploads_path = ABSPATH. 'wp-content/uploads/'; 
+				$fp = fopen($uploads_path.$file, "a")or die("Error Couldn't open $file for writing!");
+				
+				$csv_header = array( 'User ID','UserName' );
+				foreach($activity_meta['poll_option'] as $key=>$value) {
+					$csv_header[$key] = $value;
+				}
+				fputcsv($fp, $csv_header);
+				
+				$usermeta_query = array();
+				$usermeta_query['relation'] = 'AND';
+				$usermeta_query[] = array(
+						'key'     => 'bpoll_user_vote',
+						'value'   => '.*i:'. $activity_id .';a:[0-9]+:{.*i:[0-9]+;s:[0-9]+:*',
+						'compare' => 'REGEXP',
+					);
+				
+				$args = array(
+					'meta_query' => $usermeta_query
+				);
+									
+				$users = new WP_User_Query( $args  );
+				$users_found = $users->get_results();
+				foreach($users_found as $user) {
+					$results['users'][] = $user->ID;
+					$user_id 			= $user->ID;		
+					$user_display_name 	= $user->display_name;
+					
+					$user_polls_data 	= get_user_meta( $user_id, 'bpoll_user_vote', true );
+					$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();		
+					
+					$fields = array($user_id, $user_display_name);
+					
+					foreach($activity_meta['poll_option'] as $key=>$value) {
+						if ( in_array($key, $user_activity_poll_data )) {
+							$fields[] = 'true';
+						} else {
+							$fields[] = '-';
+						}
+					}
+					fputcsv($fp, $fields);
+					
+				}
+				
+				fclose($fp); 
+
+				ignore_user_abort(true);
+				set_time_limit(0); // disable the time limit for this script			
+				
+				// change the path to fit your websites document structure
+				$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})", '', $file); // simple file name validation
+				$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
+				
+				$uploads_path = ABSPATH. 'wp-content/uploads/'; // change the path to fit your websites document structure
+				$fullPath = $uploads_path.$dl_file;
+
+				if ($fd = fopen ($fullPath, "r")) {
+					$path_parts = pathinfo($fullPath);
+
+					header("Content-type: application/csv");
+					header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 
+					header("Cache-control: private"); //use this to open files directly
+					while(!feof($fd)) {
+						$buffer = fread($fd, 2048);
+						echo $buffer;
+					}
+				}
+				fclose ($fd);
+				unlink($uploads_path.$file);		
+				exit;	
+			}
+		}
 	}
+	
+	
 }
