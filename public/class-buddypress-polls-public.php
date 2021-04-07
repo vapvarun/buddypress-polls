@@ -75,10 +75,10 @@ class Buddypress_Polls_Public {
 			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
 			if (  !empty($_elementor_controls_usage)) {
 				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' ) {
 						$current_component = 'activity';
 						break;
-					}
+					}					
 				}
 			}
 		}
@@ -131,10 +131,10 @@ class Buddypress_Polls_Public {
 			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
 			if (  !empty($_elementor_controls_usage)) {
 				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' ) {
+					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' ) {
 						$current_component = 'activity';
 						break;
-					}
+					}					
 				}
 			}
 		}
