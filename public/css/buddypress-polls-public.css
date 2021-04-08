@@ -519,3 +519,11 @@ body.buddyboss-theme .bpolls-html-container {
 .buddyboss-theme .bpolls-item input[type=radio]:checked + label {
     font-style: normal;
 }
+
+/* Hide Media library tab */
+#menu-item-browse, .attachments-browser .media-toolbar, .attachments-browser .attachment.save-ready  {
+	display: none;
+}
+.attachments-browser .attachment.save-ready.selected {
+	display: block;
+}

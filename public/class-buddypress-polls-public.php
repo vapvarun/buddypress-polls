@@ -105,6 +105,9 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
 			}
+			
+			add_filter('media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab') );
+			add_filter('media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab'));
 		}
 	}
 
@@ -753,6 +756,42 @@ class Buddypress_Polls_Public {
 			exit();
 		}
 	}
+	
+	
+	/**
+	 * Function to unset media library when user upload image using wp-media on fronted
+	 *
+	 * @since 3.3.0
+	 */
+	public function bpolls_remove_media_library_tab( $tabs ) {		
+		
+		if ( current_user_can( 'subscriber' ) || current_user_can( 'contributor' ) ) {
+			unset($tabs['library']);
+			
+			$contributor = get_role('contributor');
+			$contributor->add_cap('upload_files');
+			
+			$subscriber = get_role('subscriber');
+			$subscriber->add_cap('upload_files');
+			
+		}
+		return $tabs;
+	}
+	
+	/**
+	 * Function to unset media library title when user upload image using wp-media on fronted
+	 *
+	 * @since 3.3.0
+	 */
+	
+	public function bpolls_remove_medialibrary_tab( $strings ) {
+		if ( current_user_can( 'subscriber' ) || current_user_can( 'contributor' ) ) {
+			unset($strings["mediaLibraryTitle"]);
+			return $strings;
+		} else {
+			return $strings;
+		}
+	}
 
 }
-?>
+
