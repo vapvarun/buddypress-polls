@@ -494,10 +494,7 @@ class Buddypress_Polls_Public {
 			$close_date      = $activity_meta['close_date'];
 			$close_date_time = new DateTime( $close_date );
 			if ( $close_date_time > $current_time ) {
-				echo 'yes';
 				$poll_closing = true;
-			} else {
-				echo 'no';
 			}
 		} else {
 			$poll_closing = true;
