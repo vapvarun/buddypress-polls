@@ -433,6 +433,7 @@ class Buddypress_Polls_Public {
 				'multiselect' => $multiselect,
 				'close_date'  => $close_date,
 			);
+			print_r( $poll_optn_arr );
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 
 			$poll_image = get_option( 'temp_poll_image' );
@@ -526,6 +527,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";
 
 				foreach ( $poll_options as $key => $value ) {
+					print_r( $poll_options );
 					if ( isset( $activity_meta['poll_total_votes'] ) ) {
 						$total_votes = $activity_meta['poll_total_votes'];
 					} else {
@@ -579,7 +581,7 @@ class Buddypress_Polls_Public {
 				if ( isset( $act ) && $act != null ) {
 					return $activity_content;
 				} else {
-					echo wp_kses_post( $activity_content );
+					echo $activity_content;
 				}
 			}
 		}

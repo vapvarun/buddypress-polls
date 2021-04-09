@@ -201,7 +201,7 @@
 				};
 
 				$.post( bpolls_ajax_object.ajax_url, data, function ( response ) {
-					console.log(response);
+					//console.log(response);
 				} );
 
 			});
