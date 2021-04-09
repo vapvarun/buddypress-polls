@@ -579,7 +579,7 @@ class Buddypress_Polls_Public {
 				if ( isset( $act ) && $act != null ) {
 					return $activity_content;
 				} else {
-					echo wp_kses_post( $activity_content );
+					echo $activity_content;
 				}
 			}
 		}
