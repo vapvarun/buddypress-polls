@@ -311,6 +311,8 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 				foreach($activity_meta['poll_option'] as $key=>$value) {
 					$csv_header[$key] = $value;
 				}
+				fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+				
 				fputcsv($fp, $csv_header);
 				
 				$usermeta_query = array();
@@ -344,6 +346,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 							$fields[] = '-';
 						}
 					}
+					$fields = array_map("utf8_decode", $fields);
 					fputcsv($fp, $fields);
 					
 				}
@@ -366,6 +369,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					header("Content-type: application/csv");
 					header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 
 					header("Cache-control: private"); //use this to open files directly
+					header('Content-Transfer-Encoding: binary');
 					while(!feof($fd)) {
 						$buffer = fread($fd, 2048);
 						echo $buffer;
