@@ -556,7 +556,7 @@ class Buddypress_Polls_Public {
 					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "'></div>";
 					$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 					$activity_content .= "<div class='bpolls-check-radio-div'>";
-					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $value . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key. "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
 					$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
 					$activity_content .= '</div>';
@@ -603,13 +603,13 @@ class Buddypress_Polls_Public {
 			}
 			if ( array_key_exists( 'poll_optn_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
-					if ( in_array( $value, $poll_data['bpolls_vote_optn'] ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 						$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
 					}
 				}
 			} else {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
-					if ( in_array( $value, $poll_data['bpolls_vote_optn'], true ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
 						$ed = 1;
 					} else {
 						$ed = 0;
@@ -632,7 +632,7 @@ class Buddypress_Polls_Public {
 
 			$user_vote = array();
 			foreach ( $activity_meta['poll_option'] as $key => $value ) {
-				if ( in_array( $value, $poll_data['bpolls_vote_optn'] ) ) {
+				if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 					$user_vote[] = $key;
 				}
 			}
