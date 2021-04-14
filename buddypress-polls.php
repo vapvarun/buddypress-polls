@@ -228,3 +228,74 @@ function bpolls_required_plugin_admin_notice()
         unset($_GET['activate']);
     }
 }
+
+/**
+ * Update existing polls user data into polls activity meta.
+ *
+ * @author wbcomdesigns
+ * @since  3.2.1
+ */
+
+add_action( 'admin_init', 'buddypress_polls_migration', 20);
+
+function buddypress_polls_migration(){
+	global $wpdb, $pagenow;
+	
+	$buddypress_polls_migration_3_2_1 = get_option( 'buddypress_polls_migration_3_2_1' );
+	
+	if ( ( $pagenow == 'plugins.php' || $pagenow == 'update-core.php' ) && $buddypress_polls_migration_3_2_1 != 'update') {
+		$polls_activity_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+		
+		
+		
+		if ( ! empty( $polls_activity_results ) ) {
+			foreach ( $polls_activity_results as  $activity ) {
+				$activity_id = $activity->id;
+				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+				
+				$usermeta_query = array();
+				$usermeta_query['relation'] = 'AND';
+				$usermeta_query[] = array(
+						'key'     => 'bpoll_user_vote',
+						'value'   => '.*i:'. $activity_id .';a:[0-9]+:*',
+						'compare' => 'REGEXP',
+					);
+
+				$args = array(
+					'meta_query' => $usermeta_query
+				);
+				$users = new WP_User_Query( $args  );
+				$users_found = $users->get_results();
+				foreach($users_found as $user) {
+					$user_id 			= $user->ID;
+					$user_polls_data 	= get_user_meta( $user_id, 'bpoll_user_vote', true );
+					if ( isset($user_polls_data[ $activity_id ]) && !empty($user_polls_data[ $activity_id ])) {
+						
+						$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();
+						
+						foreach($activity_meta['poll_option'] as $key=>$value) {
+							if ( in_array($key, $user_activity_poll_data )) {
+
+								$polls_existing_useid = isset($activity_meta['poll_optn_user_votes'][ $key ]) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
+								$activity_meta['poll_optn_user_votes'][ $key ] = array_unique(array_merge( $polls_existing_useid, array($user_id) ) );
+							} 
+						}
+						
+						
+						/* saved User id in activity meta */
+						$existing_useid = isset($activity_meta['poll_users']) ? $activity_meta['poll_users'] : array();
+						$activity_meta['poll_users'] =  array_unique(array_merge( $existing_useid, array($user_id) ) );
+											
+						bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
+					}
+					
+				}
+				
+				
+			}
+			
+			update_option( 'buddypress_polls_migration_3_2_1', 'update' );
+		}		
+	}	
+	
+}

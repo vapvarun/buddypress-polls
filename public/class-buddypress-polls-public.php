@@ -624,6 +624,31 @@ class Buddypress_Polls_Public {
 			} else {
 				$activity_meta['poll_total_votes'] = 1;
 			}
+			
+			/* Saved user id in poll option wise */
+			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
+				foreach ( $activity_meta['poll_option'] as $key => $value ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
+						
+						$polls_existing_useid = isset($activity_meta['poll_optn_user_votes'][ $key ]) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
+						$activity_meta['poll_optn_user_votes'][ $key ] = array_merge( $polls_existing_useid, array($user_id) );
+					}
+				}
+			} else {
+				$poll_optn_user_votes = array();
+				foreach ( $activity_meta['poll_option'] as $key => $value ) {
+					$poll_optn_user_votes[ $key ] = array();
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+						$poll_optn_user_votes[ $key ] = array($user_id) ;
+					}
+				}
+				$activity_meta['poll_optn_user_votes'] = $poll_optn_user_votes;
+			}
+			
+			/* saved User id in activity meta */
+			$existing_useid = isset($activity_meta['poll_users']) ? $activity_meta['poll_users'] : array();
+			$activity_meta['poll_users'] =  array_merge( $existing_useid, array($user_id) );
+			
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
 
 			bp_activity_update_meta( $activity_id, 'bpolls_total_votes', $total_votes );

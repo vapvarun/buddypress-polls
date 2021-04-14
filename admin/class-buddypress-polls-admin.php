@@ -76,12 +76,12 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			
+
 			if ( isset($_GET['page']) && $_GET['page'] == 'buddypress-polls' ) {
 				if ( ! wp_style_is( 'polls-selectize-css', 'enqueued' ) ) {
 					wp_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				}
-				
+
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
 
@@ -112,7 +112,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 				if ( ! wp_script_is( 'polls-selectize-js', 'enqueued' ) ) {
 					wp_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				}
-				
+
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
 			}
 
@@ -174,7 +174,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function bpolls_admin_register_settings() {		
+		public function bpolls_admin_register_settings() {
 			if(isset($_POST['bpolls_settings'])){
 				unset($_POST['bpolls_settings']['hidden']);
 				update_site_option('bpolls_settings',$_POST['bpolls_settings']);
@@ -194,7 +194,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					 'bpolls_graph_dashboard_widget',// Widget slug.
 					 __( 'Poll Graph', 'buddypress-polls' ), // Title.
 					 array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
-			);		
+			);
 		}
 
 		/**
@@ -214,7 +214,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 			global $wpdb;
 
 			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
-			
+
 			$max_votes_act_link = "#";
 			if( isset($results->activity_id) ){
 				$max_votes = $results->meta_value;
@@ -234,7 +234,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 				}
 			}
 
-			
+
 			$recent_poll = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
 			$recent_poll_link = "#";
@@ -253,7 +253,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					) );
 				}
 			}
-			if( $polls_created ) {	
+			if( $polls_created ) {
 				?>
 				<div class="bpolls_stats_wrapper">
 					<table class="form-table">
@@ -296,25 +296,25 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 			);
 			the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 		}
-		
-		public function bpolls_activity_polls_data_export() {
-			
+
+		public function bpolls_activity_polls_data_export_from_user() {
+
 			if ( isset($_REQUEST['export_csv']) && $_REQUEST['export_csv'] == 1 && isset($_REQUEST['buddypress_poll']) && $_REQUEST['buddypress_poll'] == 1 && isset($_REQUEST['activity_id'])) {
 				$activity_id = isset($_REQUEST['activity_id']) ? $_REQUEST['activity_id'] : 0 ;
-				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );		
-				
+				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+
 				$file = "buddypress-activity-poll-info.csv";
-				$uploads_path = ABSPATH. 'wp-content/uploads/'; 
+				$uploads_path = ABSPATH. 'wp-content/uploads/';
 				$fp = fopen($uploads_path.$file, "a")or die("Error Couldn't open $file for writing!");
-				
+
 				$csv_header = array( 'User ID','UserName' );
 				foreach($activity_meta['poll_option'] as $key=>$value) {
 					$csv_header[$key] = $value;
 				}
 				fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
-				
+
 				fputcsv($fp, $csv_header);
-				
+
 				$usermeta_query = array();
 				$usermeta_query['relation'] = 'AND';
 				$usermeta_query[] = array(
@@ -322,23 +322,23 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 						'value'   => '.*i:'. $activity_id .';a:[0-9]+:{.*i:[0-9]+;s:[0-9]+:*',
 						'compare' => 'REGEXP',
 					);
-				
+
 				$args = array(
 					'meta_query' => $usermeta_query
 				);
-									
+
 				$users = new WP_User_Query( $args  );
 				$users_found = $users->get_results();
 				foreach($users_found as $user) {
 					$results['users'][] = $user->ID;
-					$user_id 			= $user->ID;		
+					$user_id 			= $user->ID;
 					$user_display_name 	= $user->display_name;
-					
+
 					$user_polls_data 	= get_user_meta( $user_id, 'bpoll_user_vote', true );
-					$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();		
-					
+					$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();
+
 					$fields = array($user_id, $user_display_name);
-					
+
 					foreach($activity_meta['poll_option'] as $key=>$value) {
 						if ( in_array($key, $user_activity_poll_data )) {
 							$fields[] = 'true';
@@ -348,18 +348,18 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					}
 					$fields = array_map("utf8_decode", $fields);
 					fputcsv($fp, $fields);
-					
+
 				}
-				
-				fclose($fp); 
+
+				fclose($fp);
 
 				ignore_user_abort(true);
-				set_time_limit(0); // disable the time limit for this script			
-				
+				set_time_limit(0); // disable the time limit for this script
+
 				// change the path to fit your websites document structure
 				$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})", '', $file); // simple file name validation
 				$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
-				
+
 				$uploads_path = ABSPATH. 'wp-content/uploads/'; // change the path to fit your websites document structure
 				$fullPath = $uploads_path.$dl_file;
 
@@ -367,7 +367,7 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					$path_parts = pathinfo($fullPath);
 
 					header("Content-type: application/csv");
-					header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 
+					header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use
 					header("Cache-control: private"); //use this to open files directly
 					header('Content-Transfer-Encoding: binary');
 					while(!feof($fd)) {
@@ -376,11 +376,87 @@ if ( !class_exists('Buddypress_Polls_Admin') ) {
 					}
 				}
 				fclose ($fd);
-				unlink($uploads_path.$file);		
-				exit;	
+				unlink($uploads_path.$file);
+				exit;
+			}
+		}
+
+		public function bpolls_activity_polls_data_export() {
+
+			if ( isset($_REQUEST['export_csv']) && $_REQUEST['export_csv'] == 1 && isset($_REQUEST['buddypress_poll']) && $_REQUEST['buddypress_poll'] == 1 && isset($_REQUEST['activity_id'])) {
+				$activity_id = isset($_REQUEST['activity_id']) ? $_REQUEST['activity_id'] : 0 ;
+				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+
+				$file = "buddypress-activity-poll-info.csv";
+				$uploads_path = ABSPATH. 'wp-content/uploads/';
+				$fp = fopen($uploads_path.$file, "a")or die("Error Couldn't open $file for writing!");
+
+				$csv_header = array( 'User ID','UserName' );
+				foreach($activity_meta['poll_option'] as $key=>$value) {
+					$csv_header[$key] = $value;
+				}
+				fputs($fp, $bom =( chr(0xEF) . chr(0xBB) . chr(0xBF) ));
+				fputcsv($fp, $csv_header);
+				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+				$users = $activity_meta['poll_users'];
+				$args = array(
+					'include' => $users,
+				);
+
+				$users = new WP_User_Query( $args  );
+				$users_found = $users->get_results();
+				foreach($users_found as $user) {
+					$results['users'][] = $user->ID;
+					$user_id 			= $user->ID;
+					$user_display_name 	= $user->display_name;
+
+					$user_polls_data 	= get_user_meta( $user_id, 'bpoll_user_vote', true );
+					$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();
+
+					$fields = array($user_id, $user_display_name);
+
+					foreach($activity_meta['poll_option'] as $key=>$value) {
+						if ( in_array($key, $user_activity_poll_data )) {
+							$fields[] = 'true';
+						} else {
+							$fields[] = '-';
+						}
+					}
+					$fields = array_map("utf8_decode", $fields);
+					fputcsv($fp, $fields);
+
+				}
+
+				fclose($fp);
+
+				ignore_user_abort(true);
+				set_time_limit(0); // disable the time limit for this script
+
+				// change the path to fit your websites document structure
+				$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})", '', $file); // simple file name validation
+				$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
+
+				$uploads_path = ABSPATH. 'wp-content/uploads/'; // change the path to fit your websites document structure
+				$fullPath = $uploads_path.$dl_file;
+
+				if ($fd = fopen ($fullPath, "r")) {
+					$path_parts = pathinfo($fullPath);
+
+					header("Content-type: application/csv");
+					header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use
+					header("Cache-control: private"); //use this to open files directly
+					header('Content-Transfer-Encoding: binary');
+					while(!feof($fd)) {
+						$buffer = fread($fd, 2048);
+						echo $buffer;
+					}
+				}
+				fclose ($fd);
+				unlink($uploads_path.$file);
+				exit;
 			}
 		}
 	}
-	
-	
+
+
 }
