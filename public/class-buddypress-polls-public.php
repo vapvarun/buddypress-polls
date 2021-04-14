@@ -485,7 +485,7 @@ class Buddypress_Polls_Public {
 
 		$poll_closing = false;
 		if ( isset( $activity_meta['close_date'] ) && isset( $bpolls_settings['close_date'] ) && $activity_meta['close_date'] != 0 ) {
-			$current_time    = new DateTime();
+			$current_time    = new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) );
 			$close_date      = $activity_meta['close_date'];
 			$close_date_time = new DateTime( $close_date );
 			if ( $close_date_time > $current_time ) {
