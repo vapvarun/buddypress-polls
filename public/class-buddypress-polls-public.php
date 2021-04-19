@@ -317,7 +317,8 @@ class Buddypress_Polls_Public {
 		if ( 'activity_poll' !== $activity->type ) {
 			return $retval;
 		}
-		$retval = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
+		
+		//$retval = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 		return $retval;
 	}
 
