@@ -27,12 +27,12 @@ global $wp_roles;
 	settings_fields( 'buddypress_polls_general' );
 	do_settings_sections( 'buddypress_polls_general' );
 	?>
-	<table class="form-table">
+	<table class="form-table polls-general-options">
 		<tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label></th>
 			<td>
 				<label class="bpolls-switch">
-					<input name='bpolls_settings[multiselect]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['multiselect']))?checked($bpolls_settings['multiselect'],'yes'):''; ?>/>
+					<input name='bpolls_settings[multiselect]' type='checkbox' value='yes' <?php (isset($bpolls_settings['multiselect']))?checked($bpolls_settings['multiselect'],'yes'):''; ?>/>
 					<div class="bpolls-slider bpolls-round"></div>
 				</label>
 				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
@@ -45,7 +45,7 @@ global $wp_roles;
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label class="bpolls-switch">
-				<input name='bpolls_settings[hide_results]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['hide_results']))?checked($bpolls_settings['hide_results'],'yes'):''; ?>/>
+				<input name='bpolls_settings[hide_results]' type='checkbox' value='yes' <?php (isset($bpolls_settings['hide_results']))?checked($bpolls_settings['hide_results'],'yes'):''; ?>/>
 				<div class="bpolls-slider bpolls-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?>
@@ -58,7 +58,7 @@ global $wp_roles;
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label class="bpolls-switch">
-				<input name='bpolls_settings[close_date]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['close_date']))?checked($bpolls_settings['close_date'],'yes'):''; ?>/>
+				<input name='bpolls_settings[close_date]' type='checkbox' value='yes' <?php (isset($bpolls_settings['close_date']))?checked($bpolls_settings['close_date'],'yes'):''; ?>/>
 				<div class="bpolls-slider bpolls-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set poll closing date and time.', 'buddypress-polls' ); ?>
@@ -71,7 +71,7 @@ global $wp_roles;
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable image attachment', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label class="bpolls-switch">
-				<input name='bpolls_settings[enable_image]' type='checkbox' class="regular-text" value='yes' <?php (isset($bpolls_settings['enable_image']))?checked($bpolls_settings['enable_image'],'yes'):''; ?>/>
+				<input name='bpolls_settings[enable_image]' type='checkbox' value='yes' <?php (isset($bpolls_settings['enable_image']))?checked($bpolls_settings['enable_image'],'yes'):''; ?>/>
 				<div class="bpolls-slider bpolls-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set a image attachment with the poll.', 'buddypress-polls' ); ?>
@@ -83,13 +83,13 @@ global $wp_roles;
 			<th scope="row"><label><?php esc_html_e( 'Limit Poll Activities', 'buddypress-polls' ); ?></label></th>
 			<td>
 				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='no' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'no'):''; ?>/>&nbsp; <?php esc_html_e( 'No Limit', 'buddypress-polls' ); ?>
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='no' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'no'):''; ?>/>&nbsp; <?php esc_html_e( 'No Limit', 'buddypress-polls' ); ?>
 				</label>
 				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='user_role' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'user_role'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by User Role', 'buddypress-polls' ); ?>
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='user_role' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'user_role'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by User Role', 'buddypress-polls' ); ?>
 				</label>
 				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' class="regular-text" value='member_type' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'member_type'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>				
+				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='member_type' <?php (isset($bpolls_settings['limit_poll_activity']))?checked($bpolls_settings['limit_poll_activity'],'member_type'):''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>				
 				</label>
 				<p class="description"><?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
 			</p>

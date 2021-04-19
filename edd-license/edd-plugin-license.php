@@ -342,7 +342,7 @@ function wbcom_BPOLLS_render_license_section() {
 			<tr>
 				<td class="wb-plugin-name"><?php echo esc_html( EDD_BPOLLS_ITEM_NAME ); ?></td>
 				<td class="wb-plugin-version"><?php echo esc_html( BPOLLS_PLUGIN_VERSION ); ?></td>
-				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" class="regular-text" value="<?php esc_attr_e( $license, 'buddypress-polls' ); ?>" /></td>
+				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" value="<?php esc_attr_e( $license, 'buddypress-polls' ); ?>" /></td>
 				<td class="wb-license-status <?php echo $status_class; ?>"><?php esc_attr_e( $status_text, 'buddypress-polls' ); ?></td>
 				<td class="wb-license-action">
 					<?php
