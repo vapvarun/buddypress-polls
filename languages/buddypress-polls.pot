@@ -1,14 +1,14 @@
-# Copyright (C) 2020
+# Copyright (C) 2021
 # This file is distributed under the same license as the  package.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-12-23 13:06:04+00:00\n"
+"POT-Creation-Date: 2021-04-22 10:48:05+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Varun Dubey\n"
 "Language-Team: Wbcom Designs\n"
 "Language: en\n"
@@ -58,28 +58,28 @@ msgid "Site Polls Data"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:195
-#: admin/class-buddypress-polls-admin.php:293
-#: public/inc/class-bp-poll-activity-graph.php:64
-#: public/inc/class-bp-poll-activity-graph.php:162
-#: public/inc/class-bp-poll-activity-graph.php:269
+#: admin/class-buddypress-polls-admin.php:307
+#: public/inc/class-bp-poll-activity-graph.php:67
+#: public/inc/class-bp-poll-activity-graph.php:165
+#: public/inc/class-bp-poll-activity-graph.php:276
 msgid "Poll Graph"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:261
+#: admin/class-buddypress-polls-admin.php:275
 msgid "Polls Created"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:265
+#: admin/class-buddypress-polls-admin.php:279
 msgid "Highest Voted Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:269
+#: admin/class-buddypress-polls-admin.php:283
 msgid "Recent Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:277
-#: public/inc/class-bp-poll-activity-graph.php:215
-#: public/inc/class-bp-poll-activity.php:192
+#: admin/class-buddypress-polls-admin.php:291
+#: public/inc/class-bp-poll-activity-graph.php:222
+#: public/inc/class-bp-poll-activity.php:195
 #: public/inc/class-bp-poll-create-poll.php:99
 msgid "No polls created."
 msgstr ""
@@ -109,7 +109,7 @@ msgid "Disabled: users can see poll results before voting."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:58
-#: public/class-buddypress-polls-public.php:217
+#: public/class-buddypress-polls-public.php:261
 msgid "Poll closing date & time"
 msgstr ""
 
@@ -867,60 +867,59 @@ msgstr ""
 msgid "Activate License"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:141
+#: public/class-buddypress-polls-public.php:185
 msgid "Submitting vote"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:142
+#: public/class-buddypress-polls-public.php:186
 msgid "Please select your choice."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:197
+#: public/class-buddypress-polls-public.php:241
 msgid "Cancel Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:204
+#: public/class-buddypress-polls-public.php:248
 msgid "Option 1"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:209
+#: public/class-buddypress-polls-public.php:253
 msgid "Option 2"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:214
+#: public/class-buddypress-polls-public.php:258
 msgid "Add new option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:224
+#: public/class-buddypress-polls-public.php:268
 msgid "Allow multiple options selection"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:265
+#: public/class-buddypress-polls-public.php:309
 msgid "Polls Update"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:267
+#: public/class-buddypress-polls-public.php:311
 msgid "Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:276
-#: public/class-buddypress-polls-public.php:290
+#: public/class-buddypress-polls-public.php:335
 msgid "%s created a poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:321
+#: public/class-buddypress-polls-public.php:366
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:495
-#: public/class-buddypress-polls-public.php:641
+#: public/class-buddypress-polls-public.php:540
+#: public/class-buddypress-polls-public.php:711
 #: public/inc/bp-poll-activity-graph.php:65
-#: public/inc/class-bp-poll-activity-graph.php:101
-#: public/inc/class-bp-poll-activity.php:96
+#: public/inc/class-bp-poll-activity-graph.php:104
+#: public/inc/class-bp-poll-activity.php:99
 msgid "(no votes yet)"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:526
+#: public/class-buddypress-polls-public.php:571
 msgid "Submit"
 msgstr ""
 
@@ -928,26 +927,30 @@ msgstr ""
 msgid "A poll graph widget"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:200
+#: public/inc/class-bp-poll-activity-graph.php:203
 msgid "Select activity to view poll results:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:281
-#: public/inc/class-bp-poll-activity.php:255
+#: public/inc/class-bp-poll-activity-graph.php:215
+msgid "Export CSV"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:288
+#: public/inc/class-bp-poll-activity.php:258
 #: public/inc/class-bp-poll-create-poll.php:162
 msgid "Title:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:283
+#: public/inc/class-bp-poll-activity-graph.php:290
 msgid "Max Poll to show:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:287
+#: public/inc/class-bp-poll-activity-graph.php:294
 msgid "Default Poll to display:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:297
-#: public/inc/class-bp-poll-activity.php:268
+#: public/inc/class-bp-poll-activity-graph.php:304
+#: public/inc/class-bp-poll-activity.php:271
 #: public/inc/class-bp-poll-create-poll.php:175
 msgid "No polls are created yet."
 msgstr ""
@@ -956,13 +959,13 @@ msgstr ""
 msgid "Display the results for the polls of your choice."
 msgstr ""
 
-#: public/inc/class-bp-poll-activity.php:57
-#: public/inc/class-bp-poll-activity.php:147
-#: public/inc/class-bp-poll-activity.php:245
+#: public/inc/class-bp-poll-activity.php:60
+#: public/inc/class-bp-poll-activity.php:150
+#: public/inc/class-bp-poll-activity.php:248
 msgid "Poll Activity"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity.php:258
+#: public/inc/class-bp-poll-activity.php:261
 #: public/inc/class-bp-poll-create-poll.php:165
 msgid "Select Poll activity to display:"
 msgstr ""
