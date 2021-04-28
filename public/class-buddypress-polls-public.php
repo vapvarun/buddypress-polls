@@ -69,29 +69,29 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $wp_styles, $post;
-		
+
 		$current_component = '';
 		if ( isset($post->ID) && $post->ID != '' && $post->ID != '0') {
 			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
 			if (  !empty($_elementor_controls_usage)) {
 				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' ) {
+					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' || $key == 'bbp-activity' ) {
 						$current_component = 'activity';
 						break;
-					}					
+					}
 				}
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( is_buddypress() 
-			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
+		if ( is_buddypress()
+			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 			|| $current_component == 'activity'
 			) {
-			
-			
+
+
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
 
 			// if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
@@ -105,7 +105,7 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
 			}
-			
+
 			add_filter('media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab') );
 			add_filter('media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab'));
 		}
@@ -134,17 +134,17 @@ class Buddypress_Polls_Public {
 			$_elementor_controls_usage = get_post_meta($post->ID, '_elementor_controls_usage', true);
 			if (  !empty($_elementor_controls_usage)) {
 				foreach($_elementor_controls_usage as $key=>$value) {
-					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' ) {
+					if ( $key == 'buddypress_shortcode_activity_widget' || $key == 'bp_newsfeed_element_widget' || $key == 'bbp-activity') {
 						$current_component = 'activity';
 						break;
-					}					
+					}
 				}
 			}
 		}
-		
-		if ( is_buddypress() 
-				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true ) 
-				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true ) 
+
+		if ( is_buddypress()
+				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
+				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 				|| ( isset($post->post_content) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 				|| $current_component == 'activity'
@@ -317,7 +317,7 @@ class Buddypress_Polls_Public {
 		if ( 'activity_poll' !== $activity->type ) {
 			return $retval;
 		}
-		
+
 		//$retval = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 		return $retval;
 	}
@@ -625,12 +625,12 @@ class Buddypress_Polls_Public {
 			} else {
 				$activity_meta['poll_total_votes'] = 1;
 			}
-			
+
 			/* Saved user id in poll option wise */
 			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
-						
+
 						$polls_existing_useid = isset($activity_meta['poll_optn_user_votes'][ $key ]) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
 						$activity_meta['poll_optn_user_votes'][ $key ] = array_merge( $polls_existing_useid, array($user_id) );
 					}
@@ -645,11 +645,11 @@ class Buddypress_Polls_Public {
 				}
 				$activity_meta['poll_optn_user_votes'] = $poll_optn_user_votes;
 			}
-			
+
 			/* saved User id in activity meta */
 			$existing_useid = isset($activity_meta['poll_users']) ? $activity_meta['poll_users'] : array();
 			$activity_meta['poll_users'] =  array_merge( $existing_useid, array($user_id) );
-			
+
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
 
 			bp_activity_update_meta( $activity_id, 'bpolls_total_votes', $total_votes );
@@ -782,34 +782,34 @@ class Buddypress_Polls_Public {
 			exit();
 		}
 	}
-	
-	
+
+
 	/**
 	 * Function to unset media library when user upload image using wp-media on fronted
 	 *
 	 * @since 3.3.0
 	 */
-	public function bpolls_remove_media_library_tab( $tabs ) {		
-		
+	public function bpolls_remove_media_library_tab( $tabs ) {
+
 		if ( current_user_can( 'subscriber' ) || current_user_can( 'contributor' ) ) {
 			unset($tabs['library']);
-			
+
 			$contributor = get_role('contributor');
 			$contributor->add_cap('upload_files');
-			
+
 			$subscriber = get_role('subscriber');
 			$subscriber->add_cap('upload_files');
-			
+
 		}
 		return $tabs;
 	}
-	
+
 	/**
 	 * Function to unset media library title when user upload image using wp-media on fronted
 	 *
 	 * @since 3.3.0
 	 */
-	
+
 	public function bpolls_remove_medialibrary_tab( $strings ) {
 		if ( current_user_can( 'subscriber' ) || current_user_can( 'contributor' ) ) {
 			unset($strings["mediaLibraryTitle"]);
@@ -820,4 +820,3 @@ class Buddypress_Polls_Public {
 	}
 
 }
-
