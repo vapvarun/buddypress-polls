@@ -299,3 +299,17 @@ function buddypress_polls_migration(){
 	}	
 	
 }
+
+
+/**
+ * redirect to plugin settings page after activated
+ */
+
+add_action( 'activated_plugin', 'buddypress_polls_activation_redirect_settings' );
+function buddypress_polls_activation_redirect_settings( $plugin ){
+
+	if( $plugin == plugin_basename( __FILE__ ) ) {
+		wp_redirect( admin_url( 'admin.php?page=buddypress-polls' ) ) ;
+		exit;
+	}
+}

@@ -141,7 +141,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function bpolls_buddypress_polls_settings_page() {
-			$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general';
+			$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'welcome';
 			?>
 			<div class="wrap">
 				<div class="blpro-header">
@@ -153,6 +153,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-admin-settings-page">
 			<?php
 			$bpolls_tabs = array(
+				'welcome' => __( 'Welcome', 'buddypress-polls' ),
 				'general' => __( 'General', 'buddypress-polls' ),
 				'support' => __( 'Support', 'buddypress-polls' ),
 			);

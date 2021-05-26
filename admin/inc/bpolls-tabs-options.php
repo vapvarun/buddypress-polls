@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( isset( $_GET['tab'] ) ) {
 	$bpolls_tab = sanitize_text_field( $_GET['tab'] );
 } else {
-	$bpolls_tab = 'general';
+	$bpolls_tab = 'welcome';
 }
 
 bpolls_include_setting_tabs( $bpolls_tab );
@@ -27,6 +27,9 @@ bpolls_include_setting_tabs( $bpolls_tab );
 function bpolls_include_setting_tabs( $bpolls_tab ) {
 
 	switch ( $bpolls_tab ) {
+		case 'welcome':
+			include 'bpolls-welcome-page.php';
+			break;
 		case 'general':
 			include 'bpolls-general-setting-tab.php';
 			break;
@@ -34,7 +37,7 @@ function bpolls_include_setting_tabs( $bpolls_tab ) {
 			include 'bpolls-support-setting-tab.php';
 			break;
 		default:
-			include 'bpolls-general-setting-tab.php';
+			include 'bpolls-welcome-page.php';
 			break;
 	}
 
