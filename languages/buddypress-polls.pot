@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-05-25 07:08:51+00:00\n"
+"POT-Creation-Date: 2021-05-28 13:02:35+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -109,7 +109,7 @@ msgid "Disabled: users can see poll results before voting."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:58
-#: public/class-buddypress-polls-public.php:261
+#: public/class-buddypress-polls-public.php:260
 msgid "Poll closing date & time"
 msgstr ""
 
@@ -867,59 +867,59 @@ msgstr ""
 msgid "Activate License"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:185
+#: public/class-buddypress-polls-public.php:184
 msgid "Submitting vote"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:186
+#: public/class-buddypress-polls-public.php:185
 msgid "Please select your choice."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:241
+#: public/class-buddypress-polls-public.php:240
 msgid "Cancel Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:248
+#: public/class-buddypress-polls-public.php:247
 msgid "Option 1"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:253
+#: public/class-buddypress-polls-public.php:252
 msgid "Option 2"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:258
+#: public/class-buddypress-polls-public.php:257
 msgid "Add new option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:268
+#: public/class-buddypress-polls-public.php:267
 msgid "Allow multiple options selection"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:309
+#: public/class-buddypress-polls-public.php:308
 msgid "Polls Update"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:311
+#: public/class-buddypress-polls-public.php:310
 msgid "Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:335
+#: public/class-buddypress-polls-public.php:334
 msgid "%s created a poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:366
+#: public/class-buddypress-polls-public.php:365
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:540
-#: public/class-buddypress-polls-public.php:711
+#: public/class-buddypress-polls-public.php:539
+#: public/class-buddypress-polls-public.php:710
 #: public/inc/bp-poll-activity-graph.php:65
 #: public/inc/class-bp-poll-activity-graph.php:104
 #: public/inc/class-bp-poll-activity.php:99
 msgid "(no votes yet)"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:571
+#: public/class-buddypress-polls-public.php:570
 msgid "Submit"
 msgstr ""
 
