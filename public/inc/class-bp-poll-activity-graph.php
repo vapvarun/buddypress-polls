@@ -104,7 +104,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 								}
 
-								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
+								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
 
 								$uptd_votes[ $activity_id ][] = array(
 									'poll_title' => $poll_title,
