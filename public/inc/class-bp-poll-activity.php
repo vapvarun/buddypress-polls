@@ -34,7 +34,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 			 global $pagenow;
 			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 if ( is_admin() && $pagenow == 'index.php' ) {
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+				 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 }
 		 }
 	}
@@ -99,14 +99,15 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 								}
 
-								$bpolls_votes_txt             = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
-								$uptd_votes[ $activity_id ][] = array(
-									'poll_title' => $poll_title,
-									'label'      => $value,
-									'y'          => $vote_percent,
-									'color'      => bpolls_color(),
+								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
 
-								);
+								 $uptd_votes[ $activity_id ][] = array(
+									 'poll_title' => $poll_title,
+									 'label'      => $value,
+									 'y'          => $vote_percent,
+									 'color'      => bpolls_color(),
+
+								 );
 							}
 						}
 					}

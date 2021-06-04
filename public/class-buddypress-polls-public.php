@@ -539,7 +539,7 @@ class Buddypress_Polls_Public {
 						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 					}
 
-					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes . '&nbsp;)';
+					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
 
 					if ( $hide_results && ! in_array( 'administrator', (array) $current_user->roles ) ) {
 						$vote_percent     = '';
@@ -710,7 +710,7 @@ class Buddypress_Polls_Public {
 					$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 				}
 
-				$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+				$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
 
 				$uptd_votes[ $key ] = array(
 					'vote_percent'     => $vote_percent,

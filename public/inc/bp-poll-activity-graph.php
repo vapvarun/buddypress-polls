@@ -65,7 +65,7 @@ defined( 'ABSPATH' ) || exit;
 						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 					}
 
-					$bpolls_votes_txt = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity Graph', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
 
 					$uptd_votes[ $activity_id ][] = array(
 						'poll_title' => $poll_title,

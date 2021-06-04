@@ -34,7 +34,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			 global $pagenow;
 			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 if ( is_admin() && $pagenow == 'index.php' ) {
-				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+				 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 			 }
 		 }
 	}
@@ -104,7 +104,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 								}
 
-								$bpolls_votes_txt             = $this_optn_vote . '&nbsp;of&nbsp;' . $total_votes;
+								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . 'f&nbsp;' . $total_votes . '&nbsp;)';
+
 								$uptd_votes[ $activity_id ][] = array(
 									'poll_title' => $poll_title,
 									'label'      => $value,
@@ -198,7 +199,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			$act_args['user_id'] = $current_user->ID;
 		}
 		if ( bp_has_activities( $act_args ) ) { ?>
-			
+
 			<p class="bpolls-activity-select">
 				<label for="bpolls-activities-list"><?php _e( 'Select activity to view poll results:', 'buddypress-polls' ); ?></label>
 				<select name="bpolls-show-activity-graph" class="bpolls-activities-list">
@@ -211,11 +212,11 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 				</select>
 			</p>
 			<canvas class="poll-bar-chart" data-id="<?php echo $instance['activity_default']; ?>" id="bpolls-activity-chart-<?php echo $instance['activity_default']; ?>" width="800" height="450"></canvas>
-			<?php if ( is_admin() ) :?>
-				<a href="<?php echo admin_url()."?export_csv=1&buddypress_poll=1&activity_id=" . $activity_default;?>" target="_blank" id="export-poll-data" class="button button-primary" ><?php esc_html_e( 'Export CSV', 'buddypress-polls' );?></a>
-			<?php
+			<?php if ( is_admin() ) : ?>
+				<a href="<?php echo admin_url() . '?export_csv=1&buddypress_poll=1&activity_id=' . $activity_default; ?>" target="_blank" id="export-poll-data" class="button button-primary" ><?php esc_html_e( 'Export CSV', 'buddypress-polls' ); ?></a>
+				<?php
 			endif;
-			
+
 		} else {
 			?>
 			<div class="bpolls-empty-messgae">
