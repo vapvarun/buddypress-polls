@@ -31,9 +31,9 @@ global $wp_roles;
 		<tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label></th>
 			<td>
-				<label class="bpolls-switch">
+				<label class="wb-switch">
 					<input name='bpolls_settings[multiselect]' type='checkbox' value='yes' <?php (isset($bpolls_settings['multiselect']))?checked($bpolls_settings['multiselect'],'yes'):''; ?>/>
-					<div class="bpolls-slider bpolls-round"></div>
+					<div class="wb-slider wb-round"></div>
 				</label>
 				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
 				</p>
@@ -44,9 +44,9 @@ global $wp_roles;
 	    <tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-polls' ); ?></label></th>
 			<td>
-			<label class="bpolls-switch">
+			<label class="wb-switch">
 				<input name='bpolls_settings[hide_results]' type='checkbox' value='yes' <?php (isset($bpolls_settings['hide_results']))?checked($bpolls_settings['hide_results'],'yes'):''; ?>/>
-				<div class="bpolls-slider bpolls-round"></div>
+				<div class="wb-slider wb-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?>
 			</p>
@@ -57,9 +57,9 @@ global $wp_roles;
 	    <tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?></label></th>
 			<td>
-			<label class="bpolls-switch">
+			<label class="wb-switch">
 				<input name='bpolls_settings[close_date]' type='checkbox' value='yes' <?php (isset($bpolls_settings['close_date']))?checked($bpolls_settings['close_date'],'yes'):''; ?>/>
-				<div class="bpolls-slider bpolls-round"></div>
+				<div class="wb-slider wb-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set poll closing date and time.', 'buddypress-polls' ); ?>
 			</p>
@@ -70,9 +70,9 @@ global $wp_roles;
 	    <tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable image attachment', 'buddypress-polls' ); ?></label></th>
 			<td>
-			<label class="bpolls-switch">
+			<label class="wb-switch">
 				<input name='bpolls_settings[enable_image]' type='checkbox' value='yes' <?php (isset($bpolls_settings['enable_image']))?checked($bpolls_settings['enable_image'],'yes'):''; ?>/>
-				<div class="bpolls-slider bpolls-round"></div>
+				<div class="wb-slider wb-round"></div>
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set a image attachment with the poll.', 'buddypress-polls' ); ?>
 			</p>
