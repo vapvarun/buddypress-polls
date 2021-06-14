@@ -55,6 +55,8 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 == Changelog ==
 
 = 3.4.0 =
+* Fixed - (#98) Fixed translation issue
+* Fixed - Update plugin backend UI
 
 = 3.2.0 =
 * Fixed - #88 - poll and buddyform conflict
