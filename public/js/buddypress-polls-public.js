@@ -289,8 +289,7 @@
 	$(document).ready(function() {
 		var file_frame;
 		$(document).on('click', '#bpolls-attach-image', function(event) {
-			event.preventDefault();
-
+			event.preventDefault();			
 			if (file_frame) {
 				file_frame.open();
 				return;
@@ -320,6 +319,7 @@
 				}
 			});
 			file_frame.open();
+			$('.media-router button:first-child').click();
 		});
 	});
 })(jQuery);
