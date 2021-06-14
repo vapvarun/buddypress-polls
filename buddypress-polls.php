@@ -13,7 +13,7 @@
  * @package           Buddypress_Polls
  *
  * @wordpress-plugin
- * Plugin Name:       BuddyPress Polls
+ * Plugin Name:       Wbcom Designs – BuddyPress Polls
  * Plugin URI:        http://www.wbcomdesigns.com/plugins/
  * Description:       BuddyPress Polls plugin allows you and your community to create polls in posts. The polls can be placed in the main activity stream, in users’ profiles and even in groups.
  * Version:           3.4.0
