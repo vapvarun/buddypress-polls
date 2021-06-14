@@ -1,4 +1,4 @@
-=== BuddyPress Polls ===
+=== Wbcom Designs – BuddyPress Polls ===
 Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
