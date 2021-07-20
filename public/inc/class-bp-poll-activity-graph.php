@@ -206,8 +206,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					<?php
 					while ( bp_activities() ) :
 						bp_the_activity();
+						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; ?></option>
 					<?php endwhile; ?>
 				</select>
 			</p>
