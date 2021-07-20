@@ -61,6 +61,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function enqueue_styles( $hook ) {
+			
+			if ( isset($_GET['page']) && $_GET['page'] == 'bp-activity' ) {
+				wp_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css/buddypress-polls-public.css', array(), time(), 'all' );
+			}
+			
 			if ( $hook != 'wb-plugins_page_buddypress-polls' ) {
 				return;
 			}
@@ -84,6 +89,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
+			
+			
 
 		}
 
