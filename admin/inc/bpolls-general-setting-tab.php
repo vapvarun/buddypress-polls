@@ -78,6 +78,17 @@ global $wp_roles;
 			</p>
 		    </td>
 	    </tr>
+		<tr>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable thank you message', 'buddypress-polls' ); ?></label></th>
+			<td>
+			<label class="wb-switch">
+				<input name='bpolls_settings[enable_thank_you_message]' type='checkbox' value='yes' <?php (isset($bpolls_settings['enable_thank_you_message']))?checked($bpolls_settings['enable_thank_you_message'],'yes'):''; ?>/>
+				<div class="wb-slider wb-round"></div>
+			</label>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can add thank you message with the poll.', 'buddypress-polls' ); ?>
+			</p>
+		    </td>
+	    </tr>
 		
 		<tr>
 			<th scope="row"><label><?php esc_html_e( 'Limit Poll Activities', 'buddypress-polls' ); ?></label></th>

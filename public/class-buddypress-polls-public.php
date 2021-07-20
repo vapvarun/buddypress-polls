@@ -267,11 +267,13 @@ class Buddypress_Polls_Public {
 							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow multiple options selection', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
-					<div class="bpolls-checkbox bpolls-feedback">
-						<span><?php esc_html_e( 'Feedback', 'buddypress-polls' );?></span>
-						<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Please add thank you feedback after submit polls.', 'buddypress-polls' )?>">
-						
-					</div>
+					<?php if ( isset( $bpolls_settings['enable_thank_you_message'] ) ) { ?>
+						<div class="bpolls-checkbox bpolls-feedback">
+							<span><?php esc_html_e( 'Feedback', 'buddypress-polls' );?></span>
+							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Please add thank you feedback after submit polls.', 'buddypress-polls' )?>">
+							
+						</div>
+					<?php } ?>
 					<?php if ( $image_attachment ) { ?>
 						<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 					<?php } ?>
