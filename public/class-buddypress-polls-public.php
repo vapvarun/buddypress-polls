@@ -307,8 +307,7 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_register_activity_actions() {
-		$bp = buddypress();
-
+		$bp = buddypress();		
 		bp_activity_set_action(
 			$bp->activity->id,
 			'activity_poll',
@@ -458,13 +457,18 @@ class Buddypress_Polls_Public {
 	 *
 	 * @param string $activity_content Activity content posted by user.
 	 */
-	public function bpolls_update_poll_activity_content( $act = null ) {
+	public function bpolls_update_poll_activity_content( $act = null, $activity_obj ) {
 		global $current_user;		
 		$user_id     = get_current_user_id();
 		$activity_id = bp_get_activity_id();
 		if ( isset( $act ) && $act != null ) {
 			$activity_id = $act;
 		}
+		$activity_poll_type = '';
+		
+		if ( !empty($activity_obj) && $activity_obj->type != '') {
+			$activity_poll_type = $activity_obj->type;
+		}		
 
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
 
@@ -511,7 +515,7 @@ class Buddypress_Polls_Public {
 		if ( isset( $bpoll_user_vote[ $activity_id ] ) ) {
 			$u_meta = $bpoll_user_vote[ $activity_id ];
 		}		
-		if ( 'activity_poll' == bp_get_activity_type() || isset( $activity_meta['poll_option'] ) ) {
+		if ( 'activity_poll' == $activity_poll_type || isset( $activity_meta['poll_option'] ) ) {
 			$poll_options     = $activity_meta['poll_option'];
 			$activity_content = '';
 
@@ -741,7 +745,7 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_bp_activity_get_embed_excerpt( $content, $global_activity_content ) {
 		$activity_id = $GLOBALS['activities_template']->activity->id;
-		return $content . $this->bpolls_update_poll_activity_content( $activity_id );
+		return $content . $this->bpolls_update_poll_activity_content( $activity_id, '' );
 	}
 	
 	/**
@@ -750,8 +754,8 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpquotes_update_pols_activity_content( $activity_content, $activity_obj ) {
-		$activity_id = $activity_obj->id;		
-		return $activity_content . $this->bpolls_update_poll_activity_content( $activity_id );
+		$activity_id = $activity_obj->id;
+		return $activity_content . $this->bpolls_update_poll_activity_content( $activity_id, $activity_obj );
 	}
 
 	/**
