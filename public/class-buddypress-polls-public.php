@@ -267,6 +267,11 @@ class Buddypress_Polls_Public {
 							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow multiple options selection', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
+					<div class="bpolls-checkbox bpolls-feedback">
+						<span><?php esc_html_e( 'Feedback', 'buddypress-polls' );?></span>
+						<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Please add thank you feedback after submit polls.', 'buddypress-polls' )?>">
+						
+					</div>
 					<?php if ( $image_attachment ) { ?>
 						<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 					<?php } ?>
@@ -422,11 +427,16 @@ class Buddypress_Polls_Public {
 					$poll_optn_arr[ $poll_key ] = $value;
 				}
 			}
-
+			
+			$bpolls_thankyou_feedback = '';
+			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) {
+				$bpolls_thankyou_feedback = $_POST['bpolls_thankyou_feedback'];
+			} 
 			$poll_meta = array(
 				'poll_option' => $poll_optn_arr,
 				'multiselect' => $multiselect,
 				'close_date'  => $close_date,
+				'bpolls_thankyou_feedback'  => $bpolls_thankyou_feedback,
 			);
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 
@@ -714,10 +724,11 @@ class Buddypress_Polls_Public {
 
 				$uptd_votes[ $key ] = array(
 					'vote_percent'     => $vote_percent,
-					'bpolls_votes_txt' => $bpolls_votes_txt,
+					'bpolls_votes_txt' => $bpolls_votes_txt,					
 				);
 			}
 		}
+		$uptd_votes['bpolls_thankyou_feedback'] = ( isset($activity_meta['bpolls_thankyou_feedback']) && $activity_meta['bpolls_thankyou_feedback'] != '' ) ? $activity_meta['bpolls_thankyou_feedback'] : '';
 
 		return $uptd_votes;
 	}

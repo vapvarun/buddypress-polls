@@ -255,8 +255,12 @@
 				$.post(bpolls_ajax_object.ajax_url, data, function(response) {
 
 					var res = JSON.parse(response);
-
+					if (res.bpolls_thankyou_feedback != '' ) {
+						submit_event.after('<p class="bpolls-feedback-message">'+ res.bpolls_thankyou_feedback +'</p>');
+					}
+					
 					$.each(res, function(i, item) {
+						
 						var input_obj = submit_event.closest('.bpolls-vote-submit-form').find("#" + i);
 
 						$(input_obj).parents('.bpolls-check-radio-div').siblings('.bpolls-item-width').animate(
