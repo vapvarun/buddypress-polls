@@ -269,8 +269,8 @@ class Buddypress_Polls_Public {
 					<?php } ?>
 					<?php if ( isset( $bpolls_settings['enable_thank_you_message'] ) ) { ?>
 						<div class="bpolls-checkbox bpolls-feedback">
-							<span><?php esc_html_e( 'After Poll Message', 'buddypress-polls' );?></span>
-							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Thanks for voting message.', 'buddypress-polls' )?>">
+							<span><?php esc_html_e( 'Follow-up', 'buddypress-polls' );?></span>
+							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Enter Message', 'buddypress-polls' )?>">
 
 						</div>
 					<?php } ?>
