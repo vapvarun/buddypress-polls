@@ -269,9 +269,9 @@ class Buddypress_Polls_Public {
 					<?php } ?>
 					<?php if ( isset( $bpolls_settings['enable_thank_you_message'] ) ) { ?>
 						<div class="bpolls-checkbox bpolls-feedback">
-							<span><?php esc_html_e( 'Feedback', 'buddypress-polls' );?></span>
-							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Please add thank you feedback after submit polls.', 'buddypress-polls' )?>">
-							
+							<span><?php esc_html_e( 'After Poll Message', 'buddypress-polls' );?></span>
+							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e('Thanks for voting message.', 'buddypress-polls' )?>">
+
 						</div>
 					<?php } ?>
 					<?php if ( $image_attachment ) { ?>
@@ -307,7 +307,7 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_register_activity_actions() {
-		$bp = buddypress();		
+		$bp = buddypress();
 		bp_activity_set_action(
 			$bp->activity->id,
 			'activity_poll',
@@ -428,11 +428,11 @@ class Buddypress_Polls_Public {
 					$poll_optn_arr[ $poll_key ] = $value;
 				}
 			}
-			
+
 			$bpolls_thankyou_feedback = '';
 			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) {
 				$bpolls_thankyou_feedback = $_POST['bpolls_thankyou_feedback'];
-			} 
+			}
 			$poll_meta = array(
 				'poll_option' => $poll_optn_arr,
 				'multiselect' => $multiselect,
@@ -458,17 +458,17 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_content Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content( $act = null, $activity_obj ) {
-		global $current_user;		
+		global $current_user;
 		$user_id     = get_current_user_id();
 		$activity_id = bp_get_activity_id();
 		if ( isset( $act ) && $act != null ) {
 			$activity_id = $act;
 		}
 		$activity_poll_type = '';
-		
+
 		if ( !empty($activity_obj) && $activity_obj->type != '') {
 			$activity_poll_type = $activity_obj->type;
-		}		
+		}
 
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
 
@@ -514,7 +514,7 @@ class Buddypress_Polls_Public {
 		$u_meta = array();
 		if ( isset( $bpoll_user_vote[ $activity_id ] ) ) {
 			$u_meta = $bpoll_user_vote[ $activity_id ];
-		}		
+		}
 		if ( 'activity_poll' == $activity_poll_type || isset( $activity_meta['poll_option'] ) ) {
 			$poll_options     = $activity_meta['poll_option'];
 			$activity_content = '';
@@ -586,7 +586,7 @@ class Buddypress_Polls_Public {
 				}
 				$activity_content .= '</form></div></div>';
 
-				if ( isset( $act ) && $act != null ) {					
+				if ( isset( $act ) && $act != null ) {
 					return $activity_content;
 				} else {
 					echo $activity_content;
@@ -729,7 +729,7 @@ class Buddypress_Polls_Public {
 
 				$uptd_votes[ $key ] = array(
 					'vote_percent'     => $vote_percent,
-					'bpolls_votes_txt' => $bpolls_votes_txt,					
+					'bpolls_votes_txt' => $bpolls_votes_txt,
 				);
 			}
 		}
@@ -747,7 +747,7 @@ class Buddypress_Polls_Public {
 		$activity_id = $GLOBALS['activities_template']->activity->id;
 		return $content . $this->bpolls_update_poll_activity_content( $activity_id, '' );
 	}
-	
+
 	/**
 	 * Function to show poll activity entry content while embedding.
 	 *
