@@ -457,7 +457,7 @@ class Buddypress_Polls_Public {
 	 *
 	 * @param string $activity_content Activity content posted by user.
 	 */
-	public function bpolls_update_poll_activity_content( $act = null, $activity_obj ) {
+	public function bpolls_update_poll_activity_content( $act = null, $activity_obj = array() ) {
 		global $current_user;
 		$user_id     = get_current_user_id();
 		$activity_id = bp_get_activity_id();
@@ -516,7 +516,7 @@ class Buddypress_Polls_Public {
 			$u_meta = $bpoll_user_vote[ $activity_id ];
 		}
 		if ( 'activity_poll' == $activity_poll_type || isset( $activity_meta['poll_option'] ) ) {
-			$poll_options     = $activity_meta['poll_option'];
+			$poll_options     = ( isset($activity_meta['poll_option'])) ? $activity_meta['poll_option'] : array();
 			$activity_content = '';
 
 			if ( 'yes' == $activity_meta['multiselect'] ) {
