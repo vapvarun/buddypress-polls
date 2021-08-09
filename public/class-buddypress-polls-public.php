@@ -254,7 +254,7 @@ class Buddypress_Polls_Public {
 						</div>
 					</div>
 					<div class="bpolls-option-action">
-						<a href="JavaScript:void(0);" class="bpolls-add-option"><?php esc_html_e( 'Add new option', 'buddypress-polls' ); ?></a>
+						<a href="JavaScript:void(0);" class="bpolls-add-option button"><?php esc_html_e( 'Add new option', 'buddypress-polls' ); ?></a>
 						<?php if ( $poll_cdate ) { ?>
 							<div class="bpolls-date-time">
 								<input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?>">

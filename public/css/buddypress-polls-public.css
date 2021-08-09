@@ -76,7 +76,7 @@ input.bpolls-input.bpolls-input {
     padding-top: 8.5px;
 }
 
-.bpolls-add-option {
+/* .bpolls-add-option {
     color: #FFF !important;
     background: #00b0ff !important;
     padding: 5px 8.5px !important;
@@ -98,7 +98,7 @@ input.bpolls-input.bpolls-input {
     word-wrap: normal;
     -moz-hyphens: none;
     cursor: pointer;
-}
+} */
 
 .bpolls-option-action .bpolls-checkbox {
     display: inline-block;
@@ -564,4 +564,40 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
         width: calc(100% - 14.5%);
         margin-left: 12.5%;
     }
+}
+
+
+
+
+
+/** beehive theme specific css */
+
+.theme-beehive.bp-nouveau .bpolls-html-container .bpolls-icon{
+	width: 30px;
+    height: 30px;
+    padding: 0;
+    display: inline-block;
+    background-color: #f7f7f7;
+    border-radius: 1.25rem;
+    line-height: inherit;
+	color: #5561e2;
+    font-size: 12px;
+	margin-left: 0.25rem;
+    border: none;
+}
+
+.theme-beehive.bp-nouveau .bpolls-polls-option-html{
+	width:100%;
+	margin-left:0px;
+	padding: 0;
+    border: none;
+}
+
+.theme-beehive .activity-update-form form#whats-new-form.activity-form-expanded button#rtmedia-add-media-button-post-update{
+	display:block !important;
+}
+
+.theme-beehive .bpolls-option{
+	width:98%;
+	max-width:100%;
 }
