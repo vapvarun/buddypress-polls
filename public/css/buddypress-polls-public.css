@@ -1,11 +1,24 @@
-/**
- * All of the CSS for your public-facing functionality should be
- * included in this file.
- */
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Poll Icon Pointer
+# Activity Graph Widget Select
+# Poll Item Checkbox
+# Bpolls Image Upload
+# Themes Specific
+    # Kleo
+    # Boss
+    # Reign
+    # BuddyX
+    # BuddyBoss
+    # Thrive
+    # Beehive
+# Hide Media Library Tab
+--------------------------------------------------------------*/
 
-
-/* Poll icon pointer */
-
+/*--------------------------------------------------------------
+# Poll Icon Pointer
+--------------------------------------------------------------*/
 .bpolls-html-container .bpolls-icon {
     cursor: pointer;
     display: inline-block;
@@ -263,9 +276,9 @@ input#bpolls-datetimepicker {
     }
 }
 
-
-/* sidebar poll activity graph widget select */
-
+/*--------------------------------------------------------------
+# Activity Graph Widget Select
+--------------------------------------------------------------*/
 p.bpolls-activity-select label {
     margin-bottom: 10px;
     display: block;
@@ -281,8 +294,9 @@ select.bpolls-activities-list {
 }
 
 
-/* poll item checkbox radio checked css */
-
+/*--------------------------------------------------------------
+# Poll Item Checkbox
+--------------------------------------------------------------*/
 .bpolls-item input[type=checkbox]:checked+label {
     font-style: italic;
 }
@@ -291,9 +305,9 @@ select.bpolls-activities-list {
     font-style: italic;
 }
 
-
-/* bpolls-image-upload style */
-
+/*--------------------------------------------------------------
+# Bpolls Image Upload
+--------------------------------------------------------------*/
 .bpolls-option-actions-wrap {
     width: 100%;
     text-align: left;
@@ -345,9 +359,9 @@ img#bpolls-image-preview {
     }
 }
 
-
-/** Kleo theme specific css **/
-
+/*--------------------------------------------------------------
+# Kleo
+--------------------------------------------------------------*/
 .kleo-page #buddypress #whats-new-content #whats-new-options,
 .kleo-page #buddypress #whats-new-content.active #whats-new-options {
     height: auto!important;
@@ -362,9 +376,9 @@ img#bpolls-image-preview {
     line-height: 30px;
 }
 
-
-/** Boss theme specific css **/
-
+/*--------------------------------------------------------------
+# Boss
+--------------------------------------------------------------*/
 #right-panel #buddypress form#whats-new-form #whats-new-additional {
     display: block;
 }
@@ -414,9 +428,9 @@ img#bpolls-image-preview {
     }
 }
 
-
-/** Reign theme (nouveau) specific css **/
-
+/*--------------------------------------------------------------
+# Reign
+--------------------------------------------------------------*/
 .bp-nouveau #whats-new-options.bpolls-rtm-class {
     display: block;
     opacity: 1;
@@ -481,9 +495,9 @@ body.bp-nouveau .bpolls-html-container {
     }
 }
 
-
-/* BuddyX theme specific */
-
+/*--------------------------------------------------------------
+# BuddyX
+--------------------------------------------------------------*/
 .bp-nouveau .site-wrapper .bpolls-html-container {
     margin-left: 0;
     margin-right: 10px;
@@ -498,9 +512,9 @@ body.bp-nouveau .bpolls-html-container {
     margin: 15px;
 }
 
-
-/* BuddyBoss theme specific */
-
+/*--------------------------------------------------------------
+# BuddyBoss
+--------------------------------------------------------------*/
 body.buddyboss-theme .bpolls-polls-option-html {
     width: calc(100% - 30px);
     margin: 15px;
@@ -532,22 +546,9 @@ body.buddyboss-theme .bpolls-html-container {
     font-style: normal;
 }
 
-
-/* Hide Media library tab */
-
-#menu-item-browse,
-.attachments-browser .media-toolbar,
-.attachments-browser .attachment.save-ready {
-    display: none;
-}
-
-.attachments-browser .attachment.save-ready.selected {
-    display: block;
-}
-
-
-/** thrive intranet community theme specific css **/
-
+/*--------------------------------------------------------------
+# Thrive
+--------------------------------------------------------------*/
 body.bp-nouveau.thrive-inline .bpolls-html-container {
     margin-left: 12.5%;
 }
@@ -566,38 +567,48 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     }
 }
 
-
-
-
-
-/** beehive theme specific css */
-
+/*--------------------------------------------------------------
+# Beehive
+--------------------------------------------------------------*/
 .theme-beehive.bp-nouveau .bpolls-html-container .bpolls-icon{
-	width: 30px;
+    width: 30px;
     height: 30px;
     padding: 0;
     display: inline-block;
     background-color: #f7f7f7;
     border-radius: 1.25rem;
     line-height: inherit;
-	color: #5561e2;
+    color: #5561e2;
     font-size: 12px;
-	margin-left: 0.25rem;
+    margin-left: 0.25rem;
     border: none;
 }
 
 .theme-beehive.bp-nouveau .bpolls-polls-option-html{
-	width:100%;
-	margin-left:0px;
-	padding: 0;
+    width:100%;
+    margin-left:0px;
+    padding: 0;
     border: none;
 }
 
 .theme-beehive .activity-update-form form#whats-new-form.activity-form-expanded button#rtmedia-add-media-button-post-update{
-	display:block !important;
+    display:block !important;
 }
 
 .theme-beehive .bpolls-option{
-	width:98%;
-	max-width:100%;
+    width:98%;
+    max-width:100%;
+}
+
+/*--------------------------------------------------------------
+# Hide Media Library Tab
+--------------------------------------------------------------*/
+#menu-item-browse,
+.attachments-browser .media-toolbar,
+.attachments-browser .attachment.save-ready {
+    display: none;
+}
+
+.attachments-browser .attachment.save-ready.selected {
+    display: block;
 }
