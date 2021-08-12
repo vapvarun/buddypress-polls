@@ -360,7 +360,7 @@ img#bpolls-image-preview {
 }
 
 /*--------------------------------------------------------------
-# Kleo
+## Kleo
 --------------------------------------------------------------*/
 .kleo-page #buddypress #whats-new-content #whats-new-options,
 .kleo-page #buddypress #whats-new-content.active #whats-new-options {
@@ -377,7 +377,7 @@ img#bpolls-image-preview {
 }
 
 /*--------------------------------------------------------------
-# Boss
+## Boss
 --------------------------------------------------------------*/
 #right-panel #buddypress form#whats-new-form #whats-new-additional {
     display: block;
@@ -429,7 +429,7 @@ img#bpolls-image-preview {
 }
 
 /*--------------------------------------------------------------
-# Reign
+## Reign
 --------------------------------------------------------------*/
 .bp-nouveau #whats-new-options.bpolls-rtm-class {
     display: block;
@@ -496,7 +496,7 @@ body.bp-nouveau .bpolls-html-container {
 }
 
 /*--------------------------------------------------------------
-# BuddyX
+## BuddyX
 --------------------------------------------------------------*/
 .bp-nouveau .site-wrapper .bpolls-html-container {
     margin-left: 0;
@@ -513,7 +513,7 @@ body.bp-nouveau .bpolls-html-container {
 }
 
 /*--------------------------------------------------------------
-# BuddyBoss
+## BuddyBoss
 --------------------------------------------------------------*/
 body.buddyboss-theme .bpolls-polls-option-html {
     width: calc(100% - 30px);
@@ -547,7 +547,7 @@ body.buddyboss-theme .bpolls-html-container {
 }
 
 /*--------------------------------------------------------------
-# Thrive
+## Thrive
 --------------------------------------------------------------*/
 body.bp-nouveau.thrive-inline .bpolls-html-container {
     margin-left: 12.5%;
@@ -568,7 +568,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 }
 
 /*--------------------------------------------------------------
-# Beehive
+## Beehive
 --------------------------------------------------------------*/
 .theme-beehive.bp-nouveau .bpolls-html-container .bpolls-icon{
     width: 30px;
