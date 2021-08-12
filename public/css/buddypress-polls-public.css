@@ -13,6 +13,8 @@
     # BuddyBoss
     # Thrive
     # Beehive
+    # Aardvark
+    # Gwangi
 # Hide Media Library Tab
 --------------------------------------------------------------*/
 
@@ -376,6 +378,10 @@ img#bpolls-image-preview {
     line-height: 30px;
 }
 
+.buddypress-giphy-active .kleo-page .bpolls-html-container {
+    display: inline-block;
+}
+
 /*--------------------------------------------------------------
 ## Boss
 --------------------------------------------------------------*/
@@ -598,6 +604,32 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 .theme-beehive .bpolls-option{
     width:98%;
     max-width:100%;
+}
+
+/*--------------------------------------------------------------
+## Aardvark
+--------------------------------------------------------------*/
+.gp-theme .bpolls-html-container .bpolls-icon {
+    padding-left: 0;
+}
+
+.gp-theme .bp-giphy-html-container + .bpolls-html-container,
+.gp-theme.wb-quote .bpolls-html-container {
+    margin-top: 10px;
+    display: inline-block;
+}
+
+/*--------------------------------------------------------------
+## Gwangi
+--------------------------------------------------------------*/
+.grimlock .bpolls-html-container,
+.grimlock .bpolls-polls-option-html {
+    order: 1;
+}
+
+.grimlock #buddypress #item-body form#whats-new-form #whats-new-options #whats-new-submit,
+.grimlock #buddypress form#whats-new-form #whats-new-options #whats-new-submit {
+    order: 5;
 }
 
 /*--------------------------------------------------------------
