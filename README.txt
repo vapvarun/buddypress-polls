@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 5.8.0
-Stable tag: 3.6.0
+Stable tag: 3.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 3.7.0 =
+* Fixed - Fixed UI issue with Aardvark, Gwangi themes
+* Fixed - beehive theme specific UI managed
 
 = 3.6.0 =
 * Fixed - #100 - poll % result issue with numbers
