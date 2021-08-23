@@ -91,29 +91,18 @@ input.bpolls-input.bpolls-input {
     padding-top: 8.5px;
 }
 
-/* .bpolls-add-option {
-    color: #FFF !important;
-    background: #00b0ff !important;
-    padding: 5px 8.5px !important;
-    font-size: 12px;
-    line-height: 16px;
-    display: inline-block;
-    width: auto;
-    padding: 7.2px 8.5px !important;
+ .bpolls-add-option {
     margin: 0 10px 10px 0;
-    border: none !important;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 18px;
-    text-align: center;
-    text-decoration: none !important;
-    text-transform: none !important;
-    text-shadow: none !important;
-    box-shadow: none !important;
-    word-wrap: normal;
-    -moz-hyphens: none;
     cursor: pointer;
-} */
+}
+
+.bpolls-checkbox.bpolls-feedback {
+    margin: 10px 0 0;
+}
+
+.bpolls-checkbox.bpolls-feedback span {
+    font-size: 14px;
+}
 
 .bpolls-option-action .bpolls-checkbox {
     display: inline-block;
@@ -477,6 +466,10 @@ body.bp-nouveau .bpolls-html-container {
     margin-bottom: 5px;
 }
 
+.reign-polls.bp-nouveau .bpolls-polls-option-html {
+    margin-top: 10px;
+}
+
 .reign-polls.bp-nouveau #rtmedia-uploader-form .rtm-plupload-list li,
 .reign-polls.bp-nouveau form .rtmedia-container .rtm-plupload-list li,
 .reign-polls.bp-nouveau #rtmedia_uploader_filelist li {
@@ -516,6 +509,10 @@ body.bp-nouveau .bpolls-html-container {
 
 .site-wrapper form.bpolls-vote-submit-form {
     margin: 15px;
+}
+
+.site-wrapper input#bpolls-datetimepicker {
+    height: 38px;
 }
 
 /*--------------------------------------------------------------
