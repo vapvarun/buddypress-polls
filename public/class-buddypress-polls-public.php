@@ -844,4 +844,19 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+	/**
+	 * Function added the edit acivity or not with BB Plateform.
+	 *
+	 * @since 3.7.2
+	 *
+	 * @param bool   $can_edit Whether the user can edit the item.
+	 * @param object $activity Current activity item object.
+	 */
+	public function bpolls_activity_can_edit( $can_edit, $activity ) {
+		if ( 'activity_poll' === $activity->type ) {
+			$can_edit = true;
+		}
+		return $activity;
+	}
+
 }
