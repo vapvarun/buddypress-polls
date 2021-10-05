@@ -253,9 +253,9 @@ input#bpolls-datetimepicker {
 }
 
 @media(max-width: 479px) {
-    .bpolls-option-action {
+/*    .bpolls-option-action {
         display: block;
-    }
+    }*/
     input#bpolls-datetimepicker {
         margin-left: 0;
     }
@@ -366,6 +366,8 @@ img#bpolls-image-preview {
 .kleo-page .bpolls-html-container .bpolls-icon {
     height: 30px;
     line-height: 30px;
+    border: 1px solid #d1d1d1;
+    padding: 0 12px;
 }
 
 .buddypress-giphy-active .kleo-page .bpolls-html-container {
@@ -657,13 +659,6 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     font-size: 13px;
 }
 
-@media (max-width: 479px) {
-    .youzify .bpolls-option-action {
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-    }
-}
 
 @media screen and (max-width: 475px) {
     .youzify .bpolls-html-container {
