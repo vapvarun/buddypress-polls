@@ -16,6 +16,7 @@
     # Aardvark
     # Gwangi
 # Hide Media Library Tab
+# Youzify
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -91,7 +92,7 @@ input.bpolls-input.bpolls-input {
     padding-top: 8.5px;
 }
 
- .bpolls-add-option {
+.bpolls-add-option {
     margin: 0 10px 10px 0;
     cursor: pointer;
 }
@@ -640,4 +641,34 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 
 .attachments-browser .attachment.save-ready.selected {
     display: block;
+}
+
+/*--------------------------------------------------------------
+# Youzify
+--------------------------------------------------------------*/
+.youzify .bpolls-html-container .bpolls-icon {
+    padding-top: 12px;
+}
+
+.youzify .bpolls-add-option {
+    border: 1px solid;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+@media (max-width: 479px) {
+    .youzify .bpolls-option-action {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+    }
+}
+
+@media screen and (max-width: 475px) {
+    .youzify .bpolls-html-container {
+        margin: auto;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 }
