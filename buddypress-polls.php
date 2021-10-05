@@ -308,7 +308,7 @@ function buddypress_polls_migration(){
 add_action( 'activated_plugin', 'buddypress_polls_activation_redirect_settings' );
 function buddypress_polls_activation_redirect_settings( $plugin ){
 
-	if( $plugin == plugin_basename( __FILE__ ) ) {
+	if( $plugin == plugin_basename( __FILE__ ) && class_exists( 'Buddypress' )) {
 		wp_redirect( admin_url( 'admin.php?page=buddypress-polls' ) ) ;
 		exit;
 	}
