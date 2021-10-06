@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 5.8.0
-Stable tag: 3.7.1
+Tested up to: 5.8.1
+Stable tag: 3.7.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,13 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+
+= 3.7.2 =
+* Fixed - (#75) Update UI with kleo theme.
+* Fixed - (#85) Managed UI with youzify theme.
+* Fixed - (#106) Fixed poll visibility with BB Plateform.
+* Fixed - Fixed - Plugin activation issues.
+
 = 3.7.1 =
 * Fixed - Update datetimepicker spacing with reign, buddyx
 
