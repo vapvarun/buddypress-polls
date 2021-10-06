@@ -23,28 +23,28 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 	 * @since 2.8.0
 	 */
 	public function __construct() {
-		 $widget_ops = array(
-			 'description'                 => __( 'Display the results for the polls of your choice.', 'buddypress-polls' ),
-			 'classname'                   => 'widget_bp_poll_activity_widget buddypress widget',
-			 'customize_selective_refresh' => true,
-		 );
-		 parent::__construct( false, _x( '(BuddyPress) Poll Results', 'widget name', 'buddypress-polls' ), $widget_ops );
+		$widget_ops = array(
+			'description'                 => __( 'Display the results for the polls of your choice.', 'buddypress-polls' ),
+			'classname'                   => 'widget_bp_poll_activity_widget buddypress widget',
+			'customize_selective_refresh' => true,
+		);
+		parent::__construct( false, _x( '(BuddyPress) Poll Results', 'widget name', 'buddypress-polls' ), $widget_ops );
 
-		 if ( ! is_customize_preview() ) {
-			 global $pagenow;
-			 add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			 if ( is_admin() && $pagenow == 'index.php' ) {
-				 add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-			 }
-		 }
+		if ( ! is_customize_preview() ) {
+			global $pagenow;
+			add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			if ( is_admin() && 'index.php' === $pagenow ) {
+				add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+			}
+		}
 	}
 
 	/**
 	 * Enqueue scripts.
 	 *
 	 * @since 2.8.0
+	 * @param hook $hook hook.
 	 */
-
 	public function enqueue_scripts( $hook ) {
 
 		global $wpdb;
@@ -70,7 +70,8 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 			foreach ( $poll_wdgt_stngs[ $time ]['activity_id'] as $key => $value ) {
 				if ( isset( $value['activity_id'] ) ) {
 					$activity_id      = $value['activity_id'];
-					$activity_details = bp_activity_get_specific( $args = array( 'activity_ids' => $activity_id ) );
+					$args             = array( 'activity_ids' => $activity_id );
+					$activity_details = bp_activity_get_specific( $args );
 					if ( is_array( $activity_details ) ) {
 						$poll_title = isset( $activity_details['activities'][0]->content ) ? $activity_details['activities'][0]->content : '';
 					} else {
@@ -93,7 +94,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 									$this_optn_vote = 0;
 								}
 
-								if ( $total_votes != 0 ) {
+								if ( 0 != $total_votes ) {
 									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
 								} else {
 									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
@@ -101,13 +102,13 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 
 								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
 
-								 $uptd_votes[ $activity_id ][] = array(
-									 'poll_title' => $poll_title,
-									 'label'      => $value,
-									 'y'          => $vote_percent,
-									 'color'      => bpolls_color(),
+								$uptd_votes[ $activity_id ][] = array(
+									'poll_title' => $poll_title,
+									'label'      => $value,
+									'y'          => $vote_percent,
+									'color'      => bpolls_color(),
 
-								 );
+								);
 							}
 						}
 					}
@@ -164,7 +165,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 
 		echo $before_widget;
 
-		echo $before_title . $title . $after_title;
+		echo $before_title . esc_html( $title ) . $after_title;
 
 		$activity = ! empty( $instance['activity'] ) ? (int) $instance['activity'] : '';
 
@@ -188,12 +189,12 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 							<?php bp_activity_content_body(); ?>
 						<?php endwhile; ?>
 			</div>
-			<canvas class="poll-activity-chart" data-id="<?php echo $activity; ?>" id="bpolls-activity-chart-<?php echo $activity; ?>" width="800" height="450"></canvas>
+			<canvas class="poll-activity-chart" data-id="<?php echo esc_attr( $activity ); ?>" id="bpolls-activity-chart-<?php echo esc_attr( $activity ); ?>" width="800" height="450"></canvas>
 				<?php
 			} else {
 				?>
 				<div class="bpolls-empty-messgae">
-					<?php _e( 'No polls created.', 'buddypress-polls' ); ?>
+					<?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?>
 				</div>
 			<?php } ?>
 		<?php
@@ -229,9 +230,9 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 	 * @return mixed
 	 */
 	public function form( $instance ) {
-		 global $activities_template;
+		global $activities_template;
 
-		 // Back up the global.
+		// Back up the global.
 		$old_activities_template = $activities_template;
 
 		$act_args = array(
@@ -256,11 +257,11 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 		$activity = isset( $instance['activity'] ) ? strip_tags( $instance['activity'] ) : '';
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 		<p>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
-				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'Select Poll activity to display:', 'buddypress' ); ?></label>
-				<select name="<?php echo $this->get_field_name( 'activity' ); ?>" id="<?php echo $this->get_field_id( 'activity' ); ?>">
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>"><?php esc_html_e( 'Select Poll activity to display:', 'buddypress' ); ?></label>
+				<select name="<?php echo esc_attr( $this->get_field_name( 'activity' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>">
 					<?php
 					while ( bp_activities() ) :
 						bp_the_activity();
@@ -269,7 +270,7 @@ class BP_Poll_Activity_Widget extends WP_Widget {
 					<?php endwhile; ?>
 				</select>
 			<?php } else { ?>
-				<label for="<?php echo $this->get_field_id( 'activity' ); ?>"><?php _e( 'No polls are created yet.', 'buddypress' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress' ); ?></label>
 			<?php	} ?>
 
 		</p>

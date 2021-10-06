@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The admin-specific functionality of the plugin.
  *
@@ -21,6 +20,8 @@
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
 if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
+
+	/** Buddypress_Polls_Admin class */
 	class Buddypress_Polls_Admin {
 
 		/**
@@ -59,14 +60,15 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * Register the stylesheets for the admin area.
 		 *
 		 * @since    1.0.0
+		 * @param hook $hook hook.
 		 */
 		public function enqueue_styles( $hook ) {
-			
-			if ( isset($_GET['page']) && $_GET['page'] == 'bp-activity' ) {
+
+			if ( isset( $_GET['page'] ) && 'bp-activity' === sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) {
 				wp_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css/buddypress-polls-public.css', array(), time(), 'all' );
 			}
-			
-			if ( $hook != 'wb-plugins_page_buddypress-polls' ) {
+
+			if ( 'wb-plugins_page_buddypress-polls' !== $hook ) {
 				return;
 			}
 
@@ -82,15 +84,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 * class.
 			 */
 
-			if ( isset( $_GET['page'] ) && $_GET['page'] == 'buddypress-polls' ) {
+			if ( isset( $_GET['page'] ) && 'buddypress-polls' === sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) {
 				if ( ! wp_style_is( 'polls-selectize-css', 'enqueued' ) ) {
 					wp_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				}
 
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
-			
-			
 
 		}
 
@@ -98,9 +98,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * Register the JavaScript for the admin area.
 		 *
 		 * @since    1.0.0
+		 * @param hook $hook hook.
 		 */
 		public function enqueue_scripts( $hook ) {
-			if ( $hook != 'wb-plugins_page_buddypress-polls' ) {
+			if ( 'wb-plugins_page_buddypress-polls' !== $hook ) {
 				return;
 			}
 
@@ -115,7 +116,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
-			if ( isset( $_GET['page'] ) && $_GET['page'] == 'buddypress-polls' ) {
+			if ( isset( $_GET['page'] ) && 'buddypress-polls' === sanitize_text_field( wp_unslash( $_GET['page'] ) ) ) {
 				if ( ! wp_script_is( 'polls-selectize-js', 'enqueued' ) ) {
 					wp_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				}
@@ -133,13 +134,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function bpolls_add_menu_buddypress_polls() {
 
 			if ( empty( $GLOBALS['admin_page_hooks']['wbcomplugins'] ) ) {
-					// add_menu_page( esc_html__( 'WBCOM', 'buddypress-polls' ), __( 'WBCOM', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bulb.png', 59 );
+
 				add_menu_page( esc_html__( 'WB Plugins', 'buddypress-polls' ), esc_html__( 'WB Plugins', 'buddypress-polls' ), 'manage_options', 'wbcomplugins', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-lightbulb', 59 );
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'buddypress-polls' ), esc_html__( 'General', 'buddypress-polls' ), 'manage_options', 'wbcomplugins' );
 			}
 			add_submenu_page( 'wbcomplugins', esc_html__( 'Buddypress Polls Settings Page', 'buddypress-polls' ), esc_html__( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
 
-			// add_menu_page( __( 'Buddypress Polls Settings Page', 'buddypress-polls' ), __( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress_polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-chart-bar', 60 );
 		}
 
 		/**
@@ -148,11 +148,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function bpolls_buddypress_polls_settings_page() {
-			$current = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'welcome';
+			$current = isset( $_GET['tab'] ) ? sanitize_text_field( wp_unslash( $_GET['tab'] ) ) : 'welcome';
 			?>
 			<div class="wrap">
-                            <hr class="wp-header-end">
-                            <div class="wbcom-wrap">
+							<hr class="wp-header-end">
+							<div class="wbcom-wrap">
 				<div class="blpro-header">
 					<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 					<h1 class="wbcom-plugin-heading">
@@ -188,12 +188,17 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function bpolls_admin_register_settings() {
 			if ( isset( $_POST['bpolls_settings'] ) ) {
 				unset( $_POST['bpolls_settings']['hidden'] );
-				update_site_option( 'bpolls_settings', $_POST['bpolls_settings'] );
+				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) );
 				wp_redirect( $_POST['_wp_http_referer'] );
 				exit();
 			}
 		}
 
+		/**
+		 * Bpolls_add_dashboard_widgets
+		 *
+		 * @since    1.0.0
+		 */
 		public function bpolls_add_dashboard_widgets() {
 			wp_add_dashboard_widget(
 				'bpolls_stats_dashboard_widget', // Widget slug.
@@ -211,7 +216,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		/**
 		 * Function to output the contents of polls stats widgets.
 		 */
-		function bpolls_stats_dashboard_widget_function() {
+		public function bpolls_stats_dashboard_widget_function() {
 			$args          = array(
 				'show_hidden' => true,
 				'action'      => 'activity_poll',
@@ -283,32 +288,33 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="bpolls_stats_wrapper">
 					<table class="form-table">
 						<tr>
-							<td><?php _e( 'Polls Created', 'buddypress-polls' ); ?></td>
-							<td><?php echo $polls_created; ?></td>
+							<td><?php esc_html_e( 'Polls Created', 'buddypress-polls' ); ?></td>
+							<td><?php echo esc_html( $polls_created ); ?></td>
 						</tr>
 						<tr>
-							<td><?php _e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
-							<td><a href="<?php echo $max_votes_act_link; ?>"><?php echo $title; ?><a></td>
+							<td><?php esc_html_e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
+							<td><a href="<?php echo esc_url( $max_votes_act_link ); ?>"><?php echo esc_html( $title ); ?><a></td>
 						</tr>
 						<tr>
-							<td><?php _e( 'Recent Poll', 'buddypress-polls' ); ?></td>
-							<td><a href="<?php echo $recent_poll_link; ?>"><?php echo $recent_title; ?><a></td>
+							<td><?php esc_html_e( 'Recent Poll', 'buddypress-polls' ); ?></td>
+							<td><a href="<?php echo esc_url( $recent_poll_link ); ?>"><?php echo esc_html( $recent_title ); ?><a></td>
 						</tr>
 					</table>
 				</div>
 				<?php
 			} else {
 				?>
-				<div class="bpolls-empty-messgae"><?php _e( 'No polls created.', 'buddypress-polls' ); ?></div>
+				<div class="bpolls-empty-messgae"><?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?></div>
 				<?php
 			}
 		}
 
-		function bpolls_graph_dashboard_widget_function() {
+		/**
+		 * Bpolls_graph_dashboard_widget_function
+		 */
+		public function bpolls_graph_dashboard_widget_function() {
 
 			global $wpdb;
-
-			// $results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
 
 			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
@@ -322,11 +328,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 		}
 
-
+		/**
+		 * Bpolls_activity_polls_data_export
+		 */
 		public function bpolls_activity_polls_data_export() {
 
-			if ( isset( $_REQUEST['export_csv'] ) && $_REQUEST['export_csv'] == 1 && isset( $_REQUEST['buddypress_poll'] ) && $_REQUEST['buddypress_poll'] == 1 && isset( $_REQUEST['activity_id'] ) ) {
-				$activity_id   = isset( $_REQUEST['activity_id'] ) ? $_REQUEST['activity_id'] : 0;
+			if ( isset( $_REQUEST['export_csv'] ) && 1 == $_REQUEST['export_csv'] && isset( $_REQUEST['buddypress_poll'] ) && 1 == $_REQUEST['buddypress_poll'] && isset( $_REQUEST['activity_id'] ) ) {
+				$activity_id   = isset( $_REQUEST['activity_id'] ) ? wp_unslash( $_REQUEST['activity_id'] ) : 0;
 				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
 				$file         = 'buddypress-activity-poll-info.csv';
@@ -358,7 +366,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$fields = array( $user_id, $user_display_name );
 
 					foreach ( $activity_meta['poll_option'] as $key => $value ) {
-						if ( in_array( $key, $user_activity_poll_data ) ) {
+						if ( in_array( $key, $user_activity_poll_data, true ) ) {
 							$fields[] = 'true';
 						} else {
 							$fields[] = '-';
@@ -372,21 +380,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				fclose( $fp );
 
 				ignore_user_abort( true );
-				set_time_limit( 0 ); // disable the time limit for this script
+				set_time_limit( 0 ); // disable the time limit for this script.
 
-				// change the path to fit your websites document structure
-				$dl_file = preg_replace( '([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})', '', $file ); // simple file name validation
-				$dl_file = filter_var( $dl_file, FILTER_SANITIZE_URL ); // Remove (more) invalid characters
+				// change the path to fit your websites document structure.
+				$dl_file = preg_replace( '([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})', '', $file ); // simple file name validation.
+				$dl_file = filter_var( $dl_file, FILTER_SANITIZE_URL ); // Remove (more) invalid characters.
 
-				$uploads_path = ABSPATH . 'wp-content/uploads/'; // change the path to fit your websites document structure
-				$fullPath     = $uploads_path . $dl_file;
+				$uploads_path = ABSPATH . 'wp-content/uploads/'; // change the path to fit your websites document structure.
+				$full_path    = $uploads_path . $dl_file;
 
-				if ( $fd = fopen( $fullPath, 'r' ) ) {
-					$path_parts = pathinfo( $fullPath );
+				if ( $fd = fopen( $full_path, 'r' ) ) {
+					$path_parts = pathinfo( $full_path );
 
 					header( 'Content-type: application/csv' );
-					header( 'Content-Disposition: attachment; filename="' . $path_parts['basename'] . '"' ); // use
-					header( 'Cache-control: private' ); // use this to open files directly
+					header( 'Content-Disposition: attachment; filename="' . $path_parts['basename'] . '"' ); // use.
+					header( 'Cache-control: private' ); // use this to open files directly.
 					header( 'Content-Transfer-Encoding: binary' );
 					while ( ! feof( $fd ) ) {
 						$buffer = fread( $fd, 2048 );

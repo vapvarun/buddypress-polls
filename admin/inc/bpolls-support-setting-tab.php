@@ -1,9 +1,11 @@
 <?php
 /**
  * Faqs support template file.
+ *
+ * @package    Buddypress_Polls
  */
 
-// Exit if accessed directly
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }

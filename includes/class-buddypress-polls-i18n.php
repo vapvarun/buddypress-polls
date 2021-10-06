@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Define the internationalization functionality
  *
@@ -24,9 +23,10 @@
  * @subpackage Buddypress_Polls/includes
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
-if ( !class_exists('Buddypress_Polls_i18n') ) {
-	class Buddypress_Polls_i18n {
+if ( ! class_exists( 'Buddypress_Polls_i18n' ) ) {
 
+	/** Buddypress_Polls_i18n class */
+	class Buddypress_Polls_i18n {
 
 		/**
 		 * Load the plugin text domain for translation.

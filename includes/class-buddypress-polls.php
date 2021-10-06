@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The file that defines the core plugin class
  *
@@ -27,7 +26,9 @@
  * @subpackage Buddypress_Polls/includes
  * @author     wbcomdesigns <admin@wbcomdesigns.com>
  */
-if ( !class_exists('Buddypress_Polls') ) {
+if ( ! class_exists( 'Buddypress_Polls' ) ) {
+
+	/** Buddypress_Polls */
 	class Buddypress_Polls {
 
 		/**
@@ -127,8 +128,7 @@ if ( !class_exists('Buddypress_Polls') ) {
 			 * The class responsible for initiating bp poll activity graph widget.
 			 */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/bp-poll-activity-graph.php';
-			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';		
-			
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';
 
 			/* Enqueue wbcom plugin folder file. */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
@@ -217,13 +217,13 @@ if ( !class_exists('Buddypress_Polls') ) {
 			$this->loader->add_action( 'yz_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 			$this->loader->add_action( 'yz_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
-			/* update poll activity content */
-			//$this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
-			
+			/* Update poll activity content */
+
+			// $this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
+
 			$this->loader->add_filter( 'bp_get_activity_content_body', $plugin_public, 'bpquotes_update_pols_activity_content', 10, 2 );
 			/* update widget poll activity content */
 			$this->loader->add_action( 'bp_polls_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
-
 
 			/* ajax request to save note */
 			$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
@@ -245,9 +245,8 @@ if ( !class_exists('Buddypress_Polls') ) {
 			$this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
 
 			$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
-			
+
 			$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
-			
 
 		}
 
