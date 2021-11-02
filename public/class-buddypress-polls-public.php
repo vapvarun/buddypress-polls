@@ -633,7 +633,7 @@ class Buddypress_Polls_Public {
 				}
 			} else {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
-					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 						$ed = 1;
 					} else {
 						$ed = 0;
