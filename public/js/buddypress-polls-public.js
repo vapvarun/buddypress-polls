@@ -74,9 +74,9 @@
 						if ($(".rtmedia-plupload-container .bpolls-html-container").length == 0) {
 							//$(".bpolls-html-container").detach();
 							// $(".bpolls-html-container").insertAfter("#rtmedia-action-update");
-							$(".bpolls-html-container").appendTo(".rtmedia-plupload-container");
+							// $(".bpolls-html-container").appendTo(".rtmedia-plupload-container");
 						}
-						$('#whats-new-options .bpolls-html-container').hide();
+						// $('#whats-new-options .bpolls-html-container').hide();
 					});
 				});
 
