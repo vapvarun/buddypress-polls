@@ -82,6 +82,14 @@
 
 			}
 
+			//Manage Poll icon with Buddyboss Plateform
+			$(document).on('click', '#whats-new', function(){
+				if (bpolls_ajax_object.buddyboss ){
+					$('#whats-new-toolbar').append($('.bpolls-html-container'));
+					$('#whats-new-attachments').append($('.bpolls-polls-option-html'));				
+				}
+			});
+
 
 
 

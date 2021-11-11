@@ -186,6 +186,7 @@ class Buddypress_Polls_Public {
 					'reign_polls'     => $body_polls_class,
 					'rt_poll_fix'     => $rt_poll_fix,
 					'nouveau'         => $nouveau,
+					'buddyboss'       => buddypress()->buddyboss,
 				)
 			);
 		}
@@ -197,6 +198,25 @@ class Buddypress_Polls_Public {
 	 * @since    1.0.0
 	 */
 	public function bpolls_polls_update_html() {
+		$poll_icon_class = '';
+		if ( function_exists( 'buddypress' ) && buddypress()->buddyboss ) {
+			$poll_icon_class = 'hidden';
+		}
+		?>
+		<div class="bpolls-html-container <?php echo esc_attr( $poll_icon_class ); ?>">
+			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
+		</div>
+		<?php
+	}
+
+	/**
+	 * Function to render poll options html
+	 *
+	 * @since 3.7.3
+	 * @return void
+	 */
+	public function bppolls_polls_options_container() {
+
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
 		global $current_user;
 		$multi_true = false;
@@ -229,12 +249,7 @@ class Buddypress_Polls_Public {
 				return true;
 			}
 		}
-
 		?>
-		<div class="bpolls-html-container">
-			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
-
-		</div>
 		<div class="bpolls-polls-option-html">
 			<div class="bpolls-cancel-div">
 				<a class="bpolls-cancel" href="JavaScript:void(0);"><?php esc_html_e( 'Cancel Poll', 'buddypress-polls' ); ?></a>
