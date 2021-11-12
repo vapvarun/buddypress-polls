@@ -17,6 +17,7 @@
     # Gwangi
 # Hide Media Library Tab
 # Youzify
+# BB Platform
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -25,8 +26,31 @@
 .bpolls-html-container .bpolls-icon {
     cursor: pointer;
     display: inline-block;
-    /*    padding-top: 12px;*/
+/*        padding-top: 12px;*/
     padding-left: 12px;
+}
+
+#whats-new-options .post-elements-buttons-item {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+}
+
+#whats-new-submit {
+    clear: both;
+}
+
+#whats-new-toolbar .post-elements-buttons-item {
+    margin-right: 10px;
+    position: relative;
+}
+
+@media screen and (min-width: 46.8em) {
+    #whats-new-options .post-elements-buttons-item:first-child {
+        margin-left: 65px;
+    }
 }
 
 .bpolls-option {
@@ -253,9 +277,9 @@ input#bpolls-datetimepicker {
 }
 
 @media(max-width: 479px) {
-/*    .bpolls-option-action {
-        display: block;
-    }*/
+    /*    .bpolls-option-action {
+            display: block;
+        }*/
     input#bpolls-datetimepicker {
         margin-left: 0;
     }
@@ -434,10 +458,10 @@ img#bpolls-image-preview {
     opacity: 1;
 }
 
-body.bp-nouveau .bpolls-html-container {
+/*body.bp-nouveau .bpolls-html-container {
     margin: 0 10px 10px 0;
     display: inline-block;
-}
+}*/
 
 .bp-nouveau .bpolls-html-container .bpolls-icon {
     font-size: 14px;
@@ -456,14 +480,14 @@ body.bp-nouveau .bpolls-html-container {
     width: 100%;
 }
 
-.reign-polls.bp-nouveau .bpolls-html-container {
+/*.reign-polls.bp-nouveau .bpolls-html-container {
     margin: 0;
     margin-left: 0;
 }
 
 .reign-polls.bp-nouveau .rtmedia-plupload-container .bpolls-html-container {
     margin: 0 10px 10px 0;
-}
+}*/
 
 .reign-polls.bp-nouveau div#whats-new-options {
     margin-bottom: 5px;
@@ -480,29 +504,29 @@ body.bp-nouveau .bpolls-html-container {
 }
 
 @media (min-width: 46.8em) {
-    .bp-nouveau .bpolls-html-container {
-        margin-left: 8.5%;
-    }
+    /*    .bp-nouveau .bpolls-html-container {
+            margin-left: 8.5%;
+        }*/
+
+    /*    .bp-nouveau .bpolls-polls-option-html {
+            width: calc(100% - 8.5%);
+            margin-left: 8.5%;
+        }*/
     .bp-nouveau .bpolls-polls-option-html {
-        width: calc(100% - 8.5%);
-        margin-left: 8.5%;
-    }
-    .reign-polls.bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 65px);
         margin-left: 65px;
     }
-    .reign-polls.bp-nouveau .bpolls-html-container {
-        margin: 0;
-        margin-left: 65px;
-    }
+    /*    .reign-polls.bp-nouveau .bpolls-html-container {
+            margin: 0;
+            margin-left: 65px;
+        }*/
 }
 
 /*--------------------------------------------------------------
 ## BuddyX
 --------------------------------------------------------------*/
 .bp-nouveau .site-wrapper .bpolls-html-container {
-    margin-left: 0;
-    margin-right: 10px;
+    margin: 0;
 }
 
 .bp-nouveau .site-wrapper .bpolls-polls-option-html {
@@ -521,16 +545,6 @@ body.bp-nouveau .bpolls-html-container {
 /*--------------------------------------------------------------
 ## BuddyBoss
 --------------------------------------------------------------*/
-body.buddyboss-theme .bpolls-polls-option-html {
-    width: calc(100% - 30px);
-    margin: 15px;
-}
-
-body.buddyboss-theme .bpolls-html-container {
-    margin-left: 15px;
-    margin-bottom: 0;
-}
-
 #bpolls-attach-image.dashicons-admin-media:before {
     content: "\f104";
     font-family: dashicons;
@@ -576,7 +590,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 /*--------------------------------------------------------------
 ## Beehive
 --------------------------------------------------------------*/
-.theme-beehive.bp-nouveau .bpolls-html-container .bpolls-icon{
+.theme-beehive.bp-nouveau .bpolls-html-container .bpolls-icon {
     width: 30px;
     height: 30px;
     padding: 0;
@@ -666,4 +680,26 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
         text-align: center;
         margin-bottom: 10px;
     }
+}
+
+/*--------------------------------------------------------------
+# BB Platform
+--------------------------------------------------------------*/
+#whats-new-toolbar .post-elements-buttons-item {
+    min-width: 24px;
+}
+
+.bp-nouveau #whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon {
+    padding: 0;
+    border: 0;
+    text-align: left;
+}
+
+#whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon .fa {
+    font-size: 18px;
+}
+
+.activity-update-form #whats-new-attachments .bpolls-polls-option-html {
+    width: calc(100% - 30px);
+    margin: 0 15px 15px;
 }
