@@ -198,6 +198,23 @@ class Buddypress_Polls_Public {
 	 * @since    1.0.0
 	 */
 	public function bpolls_polls_update_html() {
+                $bpolls_settings = get_site_option( 'bpolls_settings' );
+		global $current_user;
+                if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
+			$bpolls_settings['poll_user_role'] = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
+			$user_roles                        = array_intersect( $current_user->roles, $bpolls_settings['poll_user_role'] );
+			if ( empty( $user_roles ) ) {
+				return true;
+			}
+		}
+                
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' === $bpolls_settings['limit_poll_activity'] ) {
+			$member_type = bp_get_member_type( $current_user->ID );
+
+			if ( ! isset( $bpolls_settings['poll_member_type'] ) || ! in_array( $member_type, $bpolls_settings['poll_member_type'], true ) ) {
+				return true;
+			}
+		}
 		?>
 		<div class="post-elements-buttons-item bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
@@ -228,22 +245,6 @@ class Buddypress_Polls_Public {
 		$image_attachment = false;
 		if ( isset( $bpolls_settings['enable_image'] ) ) {
 			$image_attachment = true;
-		}
-
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
-			$bpolls_settings['poll_user_role'] = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
-			$user_roles                        = array_intersect( $current_user->roles, $bpolls_settings['poll_user_role'] );
-			if ( empty( $user_roles ) ) {
-				return true;
-			}
-		}
-
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' === $bpolls_settings['limit_poll_activity'] ) {
-			$member_type = bp_get_member_type( $current_user->ID );
-
-			if ( ! isset( $bpolls_settings['poll_member_type'] ) || ! in_array( $member_type, $bpolls_settings['poll_member_type'], true ) ) {
-				return true;
-			}
 		}
 		?>
 		<div class="bpolls-polls-option-html">
