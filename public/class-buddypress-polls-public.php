@@ -192,44 +192,52 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+	public function bpolls_is_user_allowed_polls() {
+		$bpolls_settings = get_site_option( 'bpolls_settings' );
+		global $current_user;
+
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
+			$allowed_user_roles = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
+			$user_roles         = array_intersect( $current_user->roles, $allowed_user_roles );
+			if ( empty( $user_roles ) || ! empty( array_diff( $current_user->roles, $user_roles ) ) ) {
+				return false;
+			}
+		}
+
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' === $bpolls_settings['limit_poll_activity'] ) {
+			$member_type = bp_get_member_type( $current_user->ID );
+			if ( ! isset( $bpolls_settings['poll_member_type'] ) || ! in_array( $member_type, $bpolls_settings['poll_member_type'], true ) ) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	/**
 	 * Function to render polls html.
 	 *
 	 * @since    1.0.0
 	 */
 	public function bpolls_polls_update_html() {
-                $bpolls_settings = get_site_option( 'bpolls_settings' );
-		global $current_user;
-                if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
-			$bpolls_settings['poll_user_role'] = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
-			$user_roles                        = array_intersect( $current_user->roles, $bpolls_settings['poll_user_role'] );
-			if ( empty( $user_roles ) ) {
-				return true;
-			}
-		}
-                
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' === $bpolls_settings['limit_poll_activity'] ) {
-			$member_type = bp_get_member_type( $current_user->ID );
-
-			if ( ! isset( $bpolls_settings['poll_member_type'] ) || ! in_array( $member_type, $bpolls_settings['poll_member_type'], true ) ) {
-				return true;
-			}
-		}
-		?>
+		if ( $this->bpolls_is_user_allowed_polls() ) {
+			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
 		</div>
-		<?php
+			<?php
+		}
 	}
 
 	/**
 	 * Function to render poll options html
 	 *
 	 * @since 3.7.3
-	 * @return void
 	 */
 	public function bppolls_polls_options_container() {
 
+		if ( ! $this->bpolls_is_user_allowed_polls() ) {
+			return false;
+		}
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
 		global $current_user;
 		$multi_true = false;
