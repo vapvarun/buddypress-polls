@@ -192,14 +192,26 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+	/**
+	 * Bpolls_is_user_allowed_polls
+	 */
 	public function bpolls_is_user_allowed_polls() {
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
 		global $current_user;
 
 		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
+			$exists             = false;
 			$allowed_user_roles = ( isset( $bpolls_settings['poll_user_role'] ) ) ? $bpolls_settings['poll_user_role'] : array();
-			$user_roles         = array_intersect( $current_user->roles, $allowed_user_roles );
-			if ( empty( $user_roles ) || ! empty( array_diff( $current_user->roles, $user_roles ) ) ) {
+			if ( count( $allowed_user_roles ) > 0 ) {
+				foreach ( $current_user->roles as $role ) {
+					if ( in_array( $role, $allowed_user_roles, true ) ) {
+						$exists = true;
+					}
+				}
+				if ( ! $exists ) {
+					return false;
+				}
+			} else {
 				return false;
 			}
 		}
