@@ -150,6 +150,44 @@
 
 			$(document).on(
 				'click', '.bpolls-icon', function() {
+					if ( $('.quote-btn').length != 0 ) {
+						$( '.bg-type-input' ).val( '' );
+						$( '.bg-type-value' ).val( '' );
+						$( '#whats-new, #bppfa-whats-new' ).removeClass( 'quotesimg-bg-selected' );
+						$( '#whats-new, #bppfa-whats-new' ).removeClass( 'quotescolors-bg-selected' );
+						$( "#whats-new, #bppfa-whats-new" ).css( "background-image", '' );
+						$( "#whats-new, #bppfa-whats-new" ).css( "background", '' );
+						$( "#whats-new, #bppfa-whats-new" ).css( "color", '' );
+						$( '.bpquotes-selection' ).css( 'pointerEvents', 'auto' );
+					}
+					
+					if ( $('.bpchk-allow-checkin').length != 0  ) {
+						if (typeof bpchk_public_js_obj !== 'undefined' )  {
+							var data = {
+								'action': 'bpchk_cancel_checkin'
+							}
+							$.ajax({
+								dataType: "JSON",
+								url: bpchk_public_js_obj.ajaxurl,
+								type: 'POST',
+								data: data,
+								success: function (response) {								
+									$('.bpchk-checkin-temp-location').remove();								
+								},
+							});
+						}
+						$('#bpchk-autocomplete-place').val('');
+						$('#bpchk-checkin-place-lat').val('');
+						$('#bpchk-checkin-place-lng').val('');
+						
+						if ( typeof BPCHKPRO !== 'undefined' ){
+							BPCHKPRO.delete_cookie( 'bpchkpro_lat' );
+							BPCHKPRO.delete_cookie( 'bpchkpro_lng' );
+							BPCHKPRO.delete_cookie( 'bpchkpro_place' );
+							BPCHKPRO.delete_cookie( 'add_place' );
+						}
+					}
+					
 					$('.bpolls-polls-option-html').slideToggle(500);
 
 					$('#bpolls-datetimepicker').datetimepicker();
@@ -175,6 +213,10 @@
 
 			$(document).on(
 				'click', '.bpolls-cancel', function() {
+					$( "#aw-whats-new-reset" ).trigger( "click" );
+					$( '.bpolls-input').each(function(){
+						$(this).val('');						
+					});
 					$('.bpolls-polls-option-html').html(poll_html);
 					$('.bpolls-polls-option-html').slideUp(500);
 					$('.bpolls-sortable').sortable({
