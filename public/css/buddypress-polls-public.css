@@ -701,5 +701,5 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 
 .activity-update-form #whats-new-attachments .bpolls-polls-option-html {
     width: calc(100% - 30px);
-    margin: 0 15px 15px;
+    margin: 15px;
 }
