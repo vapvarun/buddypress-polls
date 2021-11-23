@@ -558,9 +558,10 @@ class Buddypress_Polls_Public {
 		}
 		if ( 'activity_poll' === $activity_poll_type || isset( $activity_meta['poll_option'] ) ) {
 			$poll_options     = ( isset( $activity_meta['poll_option'] ) ) ? $activity_meta['poll_option'] : array();
-			$activity_content = '';
+			$activity_content = '';			
+			
 
-			if ( 'yes' === $activity_meta['multiselect'] ) {
+			if ( isset($activity_meta['multiselect']) && 'yes' === $activity_meta['multiselect'] ) {
 				$optn_typ = 'checkbox';
 			} else {
 				$optn_typ = 'radio';
