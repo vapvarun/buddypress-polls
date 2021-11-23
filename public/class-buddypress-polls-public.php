@@ -915,10 +915,57 @@ class Buddypress_Polls_Public {
 	 * @param object $activity Current activity item object.
 	 */
 	public function bpolls_activity_can_edit( $can_edit, $activity ) {
-		if ( 'activity_poll' === $activity->type ) {
-			$can_edit = true;
+			global $activities_template;
+
+		// Try to use current activity if none was passed.
+		if ( empty( $activity ) && ! empty( $activities_template->activity ) ) {
+			$activity = $activities_template->activity;
 		}
-		return $activity;
+
+		// If current_comment is set, we'll use that in place of the main activity.
+		if ( isset( $activity->current_comment ) ) {
+			$activity = $activity->current_comment;
+		}
+
+		// Assume the user cannot edit the activity item.
+		$can_edit = false;
+
+		// Only logged in users can edit activity and Activity must be of type 'activity_update', 'activity_comment', 'activity_poll'
+		if ( is_user_logged_in() && in_array( $activity->type, array( 'activity_update', 'activity_comment', 'activity_poll' ) ) ) {
+
+			// Users are allowed to edit their own activity.
+			if ( isset( $activity->user_id ) && ( bp_loggedin_user_id() === $activity->user_id ) ) {
+				$can_edit = true;
+			}
+
+			// Viewing a single item, and this user is an admin of that item.
+			if ( bp_is_single_item() && bp_is_item_admin() ) {
+				$can_edit = true;
+			}
+		}
+
+		if ( $can_edit && ! $privacy_edit ) {
+
+			// Check activity edit time expiration.
+			$activity_edit_time        = (int) bp_get_activity_edit_time(); // for 10 minutes, 600
+			$bp_dd_get_time            = bp_core_current_time( true, 'timestamp' );
+			$activity_edit_expire_time = strtotime( $activity->date_recorded ) + $activity_edit_time;
+
+			// Checking if expire time still greater than current time.
+			if ( - 1 !== $activity_edit_time && $activity_edit_expire_time <= $bp_dd_get_time ) {
+				$can_edit = false;
+			}
+		}
+
+		/**
+		 * Filters whether the current user can edit an activity item.
+		 *
+		 * @param bool   $can_edit Whether the user can edit the item.
+		 * @param object $activity Current activity item object.
+		 *
+		 * @since BP Polls 3.9.0
+		 */
+		return (bool) apply_filters( 'bppolls_activity_user_can_edit', $can_edit, $activity );
 	}
 
 }
