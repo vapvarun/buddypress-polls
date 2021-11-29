@@ -543,14 +543,17 @@ class Buddypress_Polls_Public {
 			$activity_poll_type = $activity_obj->type;
 		}
 
-		$bpolls_settings = get_site_option( 'bpolls_settings' );
+		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		$poll_options_result = (isset($bpolls_settings['poll_options_result'])) ? true : false;
+		$poll_revoting = (isset($bpolls_settings['poll_revoting'])) ? true : false;
 		
 
 		$submit       = false;
 		$hide_results = false;
-
-		$poll_style      = 'style="display:none;"';
+		
+		if ( !$poll_revoting)  {
+			$poll_style      = 'style="display:none;"';
+		}
 		$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
 		if ( $bpoll_user_vote ) {
 			if ( ! array_key_exists( $activity_id, $bpoll_user_vote ) ) {
@@ -674,7 +677,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
-				if ( $submit && $poll_closing && is_user_logged_in() ) {
+				if ( ( $submit && $poll_closing && is_user_logged_in() ) || $poll_revoting ) {
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>" . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
@@ -736,41 +739,61 @@ class Buddypress_Polls_Public {
 			/* Saved user id in poll option wise */
 			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
+					
+					if ( in_array($user_id , $activity_meta['poll_optn_user_votes'][$key])) {						
+						if (($ukey = array_search($user_id, $activity_meta['poll_optn_user_votes'][$key])) !== false) {
+							unset($activity_meta['poll_optn_user_votes'][$key][$ukey]);
+						}
+					}					
+					
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
 
 						$polls_existing_useid                          = isset( $activity_meta['poll_optn_user_votes'][ $key ] ) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
-						$activity_meta['poll_optn_user_votes'][ $key ] = array_merge( $polls_existing_useid, array( $user_id ) );
+						$activity_meta['poll_optn_user_votes'][ $key ] = array_unique(array_merge( $polls_existing_useid, array( $user_id ) ) );
 					}
 				}
 			} else {
 				$poll_optn_user_votes = array();
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 					$poll_optn_user_votes[ $key ] = array();
+					if ( in_array($user_id , $activity_meta['poll_optn_user_votes'][$key])) {
+						if (($key = array_search($user_id, $activity_meta['poll_optn_user_votes'][$key])) !== false) {
+							unset($activity_meta['poll_optn_user_votes'][$key][$key]);
+						}
+					}
+					
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
 						$poll_optn_user_votes[ $key ] = array( $user_id );
 					}
-				}
+				}				
+				
 				$activity_meta['poll_optn_user_votes'] = $poll_optn_user_votes;
 			}
 
 			/* saved User id in activity meta */
 			$existing_useid              = isset( $activity_meta['poll_users'] ) ? $activity_meta['poll_users'] : array();
-			$activity_meta['poll_users'] = array_merge( $existing_useid, array( $user_id ) );
+			$activity_meta['poll_users'] = array_unique(array_merge( $existing_useid, array( $user_id ) ));
+
 
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
 
 			bp_activity_update_meta( $activity_id, 'bpolls_total_votes', $total_votes );
 
 			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
+			
+			
 
 			$user_vote = array();
 			foreach ( $activity_meta['poll_option'] as $key => $value ) {
+				
 				if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
 					$user_vote[] = $key;
 				}
 			}
+			
 			if ( $bpoll_user_vote ) {
-				if ( ! array_key_exists( $activity_id, $bpoll_user_vote ) ) {
+				//if ( ! array_key_exists( $activity_id, $bpoll_user_vote ) ) 
+				{
 					$bpoll_user_vote[ $activity_id ] = $user_vote;
 					update_user_meta( $user_id, 'bpoll_user_vote', $bpoll_user_vote );
 				}
