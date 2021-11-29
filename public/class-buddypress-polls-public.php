@@ -615,9 +615,7 @@ class Buddypress_Polls_Public {
 					$activity_content .= "<img src='" . $poll_image . "'>";
 					$activity_content .= '</div>';
 				}
-				$activity_content .= "<div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";
-				
-				
+				$activity_content .= "<div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";						
 
 				foreach ( $poll_options as $key => $value ) {					
 				
@@ -700,10 +698,13 @@ class Buddypress_Polls_Public {
 		if ( isset( $_POST['action'] ) && 'bpolls_save_poll_vote' === $_POST['action'] ) {
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 			$user_id = get_current_user_id();
+			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
+						
+			
 			parse_str( $_POST['poll_data'], $poll_data ); // This will convert the string to array.
 			$poll_data = filter_var_array( $poll_data, FILTER_SANITIZE_STRING );
 
-			$activity_id = $poll_data['bpoll_activity_id'];
+			$activity_id = $poll_data['bpoll_activity_id'];  
 
 			$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 			$total_votes   = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
@@ -714,6 +715,13 @@ class Buddypress_Polls_Public {
 			}
 			if ( array_key_exists( 'poll_optn_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
+					
+					if ( in_array($user_id , $activity_meta['poll_optn_user_votes'][$key])) {						
+						if (($ukey = array_search($user_id, $activity_meta['poll_optn_user_votes'][$key])) !== false) {
+							$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] - 1;
+						}
+					}	
+					
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
 						$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
 					}
@@ -728,14 +736,17 @@ class Buddypress_Polls_Public {
 					$poll_optn_votes[ $key ] = $ed;
 				}
 				$activity_meta['poll_optn_votes'] = $poll_optn_votes;
-			}
-
+			}	
+			
+		
 			if ( array_key_exists( 'poll_total_votes', $activity_meta ) ) {
-				$activity_meta['poll_total_votes'] = $activity_meta['poll_total_votes'] + 1;
+				if ( !isset( $bpoll_user_vote[$activity_id] )) {
+					$activity_meta['poll_total_votes'] = $activity_meta['poll_total_votes'] + 1;
+				}
 			} else {
 				$activity_meta['poll_total_votes'] = 1;
-			}
-
+			}			
+			
 			/* Saved user id in poll option wise */
 			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
@@ -756,7 +767,7 @@ class Buddypress_Polls_Public {
 				$poll_optn_user_votes = array();
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 					$poll_optn_user_votes[ $key ] = array();
-					if ( in_array($user_id , $activity_meta['poll_optn_user_votes'][$key])) {
+					if ( isset($activity_meta['poll_optn_user_votes'][$key]) && in_array($user_id , $activity_meta['poll_optn_user_votes'][$key])) {
 						if (($key = array_search($user_id, $activity_meta['poll_optn_user_votes'][$key])) !== false) {
 							unset($activity_meta['poll_optn_user_votes'][$key][$key]);
 						}
@@ -778,9 +789,6 @@ class Buddypress_Polls_Public {
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
 
 			bp_activity_update_meta( $activity_id, 'bpolls_total_votes', $total_votes );
-
-			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
-			
 			
 
 			$user_vote = array();
