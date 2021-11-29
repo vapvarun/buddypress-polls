@@ -5,6 +5,7 @@
 # Activity Graph Widget Select
 # Poll Item Checkbox
 # Bpolls Image Upload
+# Dialog Box
 # Themes Specific
     # Kleo
     # Boss
@@ -373,6 +374,132 @@ img#bpolls-image-preview {
     .bpolls-image-upload {
         width: auto;
     }
+}
+
+/*--------------------------------------------------------------
+# Dialog Box
+--------------------------------------------------------------*/
+.bpolls-icon-dialog {
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    position: fixed;
+    visibility: hidden;
+    background-color: rgba(0,0,0,.3);
+    -webkit-transition: opacity .3s 0s,visibility 0s .3s;
+    -moz-transition: opacity .3s 0s,visibility 0s .3s;
+    transition: opacity .3s 0s,visibility 0s .3s;
+}
+
+.bpolls-icon-dialog.is-visible {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity .3s 0s,visibility 0s 0s;
+    -moz-transition: opacity .3s 0s,visibility 0s 0s;
+    transition: opacity .3s 0s,visibility 0s 0s;
+}
+
+.bpolls-icon-dialog-container {
+    width: 90%;
+    max-width: 400px;
+    margin: 4em auto;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+
+}
+
+.bpolls-icon-dialog-container {
+    box-shadow: 0 15px 50px rgba(0,0,0,.15);
+    -webkit-transform: translateY(-40px);
+    -moz-transform: translateY(-40px);
+    -ms-transform: translateY(-40px);
+    -o-transform: translateY(-40px);
+    transform: translateY(-40px);
+    -webkit-transition-property: -webkit-transform;
+    -moz-transition-property: -moz-transform;
+    transition-property: transform;
+    -webkit-transition-duration: .3s;
+    -moz-transition-duration: .3s;
+    transition-duration: .3s;
+}
+
+.bpolls-icon-dialog.is-visible .bpolls-icon-dialog-container {
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    -o-transform: translateY(0);
+    transform: translateY(0);
+}
+
+.bpolls-icon-dialog-header {
+    background-color: #8bc34a;
+    padding: 35px 0;
+}
+
+.bpolls-icon-dialog-header .fa {
+    color: #fff;
+    font-size: 30px;
+}
+
+.bpolls-icon-dialog-desc {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 26px;
+    padding: 30px 25px;
+}
+
+.bpolls-icon-dialog-title {
+    display: block;
+    color: #6e7071;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    text-transform: capitalize;
+}
+
+.bpolls-icon-dialog-title .bpolls-icon-div img {
+    max-width: 90px;
+}
+
+ul.bpolls-icon-dialog-buttons {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+ul.bpolls-icon-dialog-buttons li {
+    display: inline;
+}
+
+ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-set,
+ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
+    font-size: 14px;
+    border: 2px solid #eee;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 8px 25px;
+    margin-bottom: 35px;
+    display: inline-block;
+    text-transform: capitalize;
+    -webkit-transition: all .3s ease-in-out;
+    -moz-transition: all .3s ease-in-out;
+    -o-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
 }
 
 /*--------------------------------------------------------------
