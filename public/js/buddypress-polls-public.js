@@ -114,18 +114,31 @@
 			/*==============================================
 			=            add new poll option js            =
 			==============================================*/
-
+			$(document).on(
+				'click', '.bpolls-icon-dialog-cancel', function() {
+					$( '.bpolls-icon-dialog' ).removeClass( 'is-visible' );
+				});
 			$(document).on(
 				'click', '.bpolls-add-option', function() {
-					var clonedObj = $(this).parent().siblings().find('.bpolls-option:first').clone().insertAfter($(this).parent().siblings().find('.bpolls-option:last'));
-					clonedObj.find('input').each(
-						function() {
-							this.value = '';
-							this.placeholder = '';
-						}
-					);
-					if (clonedObj.length == 0) {
-						$('.bpolls-sortable').html('<div class="bpolls-option">' + option_html + '</div>');
+					var max_options = bpolls_ajax_object.polls_option_lmit;
+					console.log( $( '.bpolls-option' ).length + " == "+ max_options + " == ");
+					if ( $( '.bpolls-option' ).length >= max_options ) {
+						$( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
+						console.log(bpolls_ajax_object.poll_max_options);
+					} else {
+					
+						var clonedObj = $(this).parent().siblings().find('.bpolls-option:first').clone().insertAfter($(this).parent().siblings().find('.bpolls-option:last'));
+						
+						clonedObj.find('input').each(
+							function() {
+								this.value = '';
+								this.placeholder = '';
+							}
+						);
+						
+						if (clonedObj.length == 0 ) {
+							$('.bpolls-sortable').html('<div class="bpolls-option">' + option_html + '</div>');
+						} 
 					}
 				}
 			);

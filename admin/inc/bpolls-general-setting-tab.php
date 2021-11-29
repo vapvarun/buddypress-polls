@@ -79,6 +79,62 @@ global $wp_roles;
 			</td>
 		</tr>
 		<tr>
+			<th scope="row"><label for="options_limit"><?php esc_html_e( 'Poll Options Limit', 'buddypress-polls' ); ?></label></th>
+			<td>
+			
+			<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : '5'; ?>'/>			
+			
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Set the limit of the poll options.', 'buddypress-polls' ); ?>
+			</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="poll_options_result"><?php esc_html_e( 'Enable Poll Result', 'buddypress-polls' ); ?></label></th>
+			<td>
+			<label class="wb-switch">
+				<input id="poll_options_result" name='bpolls_settings[poll_options_result]' type='checkbox' value='yes' <?php ( isset( $bpolls_settings['poll_options_result'] ) ) ? checked( $bpolls_settings['poll_options_result'], 'yes' ) : ''; ?>/>
+				<div class="wb-slider wb-round"></div>
+			</label>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to view poll results.', 'buddypress-polls' ); ?>
+			</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="poll_revoting"><?php esc_html_e( 'Enable Revoting', 'buddypress-polls' ); ?></label></th>
+			<td>
+			<label class="wb-switch">
+				<input id="poll_revoting" name='bpolls_settings[poll_revoting]' type='checkbox' value='yes' <?php ( isset( $bpolls_settings['poll_revoting'] ) ) ? checked( $bpolls_settings['poll_revoting'], 'yes' ) : ''; ?>/>
+				<div class="wb-slider wb-round"></div>
+			</label>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to change their votes after voting.', 'buddypress-polls' ); ?>
+			</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row"><label for="poll_list_voters"><?php esc_html_e( 'Show Voters List', 'buddypress-polls' ); ?></label></th>
+			<td>
+			<label class="wb-switch">
+				<input id="poll_list_voters" name='bpolls_settings[poll_list_voters]' type='checkbox' value='yes' <?php ( isset( $bpolls_settings['poll_list_voters'] ) ) ? checked( $bpolls_settings['poll_list_voters'], 'yes' ) : ''; ?>/>
+				<div class="wb-slider wb-round"></div>
+			</label>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to view list of voters.', 'buddypress-polls' ); ?>
+			</p>
+			</td>
+		</tr>
+		
+		<tr>
+			<th scope="row"><label for="poll_limit_voters"><?php esc_html_e( 'Max Voters Number', 'buddypress-polls' ); ?></label></th>
+			<td>
+			
+			<input id="poll_limit_voters" name='bpolls_settings[poll_limit_voters]' type='number' value='<?php echo ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : '3'; ?>'/>			
+			
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Max voters to show.', 'buddypress-polls' ); ?>
+			</p>
+			</td>
+		</tr>
+		
+		<tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable after poll message', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label class="wb-switch">

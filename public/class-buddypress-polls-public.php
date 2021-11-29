@@ -174,6 +174,8 @@ class Buddypress_Polls_Public {
 			} elseif ( 'nouveau' === $active_template ) {
 				$nouveau = true;
 			}
+			
+			$bpolls_settings = get_site_option( 'bpolls_settings' );
 
 			wp_localize_script(
 				$this->plugin_name,
@@ -187,6 +189,9 @@ class Buddypress_Polls_Public {
 					'rt_poll_fix'     => $rt_poll_fix,
 					'nouveau'         => $nouveau,
 					'buddyboss'       => buddypress()->buddyboss,
+					'polls_option_lmit'=> (isset($bpolls_settings['options_limit'])) ? $bpolls_settings['options_limit'] : 5,
+					'poll_limit_voters'=> (isset($bpolls_settings['poll_limit_voters'])) ? $bpolls_settings['poll_limit_voters'] : 3,
+					'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
 				)
 			);
 		}
@@ -232,9 +237,36 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_polls_update_html() {
 		if ( $this->bpolls_is_user_allowed_polls() ) {
+			$bpolls_settings = get_site_option( 'bpolls_settings' );
+			$polls_option_lmit = (isset($bpolls_settings['options_limit'])) ? $bpolls_settings['options_limit'] : 5;
+			
 			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
 			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
+			<div class="bpolls-icon-dialog">
+				<div class="bpolls-icon-dialog-container">
+					<div class="bpolls-icon-dialog-header">
+						<i class="fas fa-exclamation-triangle"></i>
+					</div>
+					<div class="bpolls-icon-dialog-msg">
+						<div class="bpolls-icon-dialog-desc">
+							<div class="bpsts-icon-dialog-title">
+
+							</div>
+							<div class="bpolls-icon-dialog-content">
+								<?php echo sprintf(esc_html__( 'The max number of allowed options is %d.', 'buddypress-polls' ), $polls_option_lmit ); ?>
+							</div
+						</div>
+					</div>
+					<ul class="bpolls-icon-dialog-buttons">						
+						<li>
+							<a class="bpolls-icon-dialog-cancel">
+								<?php esc_html_e( 'Got it!', 'buddypress-polls' ); ?>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
 			<?php
 		}
