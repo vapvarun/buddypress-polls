@@ -643,7 +643,7 @@ class Buddypress_Polls_Public {
 						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 					}
 
-					$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
+					$bpolls_votes_txt = '(' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . ')';
 
 					if ( $hide_results && ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
 						$vote_percent     = '';
@@ -658,16 +658,19 @@ class Buddypress_Polls_Public {
 
 					$activity_content .= "<div class='bpolls-item'>";
 					
-					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "'></div>";
+					
 					if ( $poll_options_result ) {
 						$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 					}
+					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
+					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'>";
 					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
 					if ( $poll_options_result ) {
 						$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
 					}
+					$activity_content .= '</div>';
 					$activity_content .= '</div>';
 					$activity_content .= '</div>';
 				}
@@ -864,7 +867,7 @@ class Buddypress_Polls_Public {
 					$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 				}
 
-				$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
+				$bpolls_votes_txt = '(' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . ')';
 
 				$uptd_votes[ $key ] = array(
 					'vote_percent'     => $vote_percent,
