@@ -246,7 +246,7 @@ class Buddypress_Polls_Public {
 			<div class="bpolls-icon-dialog">
 				<div class="bpolls-icon-dialog-container">
 					<div class="bpolls-icon-dialog-header">
-						<i class="fas fa-exclamation-triangle"></i>
+						<i class="fa fa-exclamation-triangle"></i>
 					</div>
 					<div class="bpolls-icon-dialog-msg">
 						<div class="bpolls-icon-dialog-desc">
