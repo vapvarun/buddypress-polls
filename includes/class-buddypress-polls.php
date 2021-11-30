@@ -247,6 +247,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
 
 			$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
+			
+			$this->loader->add_action( 'wp_ajax_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
+			$this->loader->add_action( 'wp_ajax_nopriv_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 
 		}
 
