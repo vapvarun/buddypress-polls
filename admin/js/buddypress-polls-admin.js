@@ -61,6 +61,8 @@
 					$( '#bpolls_member_type' ).hide();
 				}
 			});
+			
+			$('#polls_background_color').wpColorPicker();
 	   });
 
 })( jQuery );

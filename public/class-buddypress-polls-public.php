@@ -543,9 +543,15 @@ class Buddypress_Polls_Public {
 			$activity_poll_type = $activity_obj->type;
 		}
 
-		$bpolls_settings = get_site_option( 'bpolls_settings' );
+		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		$poll_options_result = (isset($bpolls_settings['poll_options_result'])) ? true : false;
 		$poll_revoting = (isset($bpolls_settings['poll_revoting'])) ? true : false;
+		$polls_background_color = (isset($bpolls_settings['polls_background_color'])) ? $bpolls_settings['polls_background_color'] : '#d6d6d6';
+		
+		$polls_bg_style = '';
+		if ( $polls_background_color != '' ) {
+			$polls_bg_style      = 'style="background: ' . $polls_background_color . ';"';
+		}
 
 
 		$submit       = false;
@@ -702,7 +708,7 @@ class Buddypress_Polls_Public {
 
 					}
 					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
-					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "'></div>";
+					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "; background-color: " . $polls_background_color . "'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'>";
 					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
@@ -718,7 +724,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
 				if ( ( $submit && $poll_closing && is_user_logged_in() ) || $poll_revoting ) {
-					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)'>" . __( 'Submit', 'buddypress-polls' ) . '</a>';
+					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_bg_style . ">" . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
 
