@@ -661,7 +661,7 @@ class Buddypress_Polls_Public {
 					$output = '';
 					$count = 0;
 					if ( $poll_options_result ) {
-						$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
+						//$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 						$poll_optn_user_votes = isset($activity_meta['poll_optn_user_votes'][$key]) ? $activity_meta['poll_optn_user_votes'][$key] : array();
 
 						if ( !empty($poll_optn_user_votes) && isset($bpolls_settings['poll_list_voters'])) {
@@ -692,7 +692,7 @@ class Buddypress_Polls_Public {
 									$output .='<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id. '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
 								}
 
-								$activity_content .= '<div class="bpolls-result-votes"><div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span></div>';
+								$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes"><div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span></div>';
 
 							}
 						}
