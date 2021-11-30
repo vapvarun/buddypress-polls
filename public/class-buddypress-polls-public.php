@@ -904,10 +904,55 @@ class Buddypress_Polls_Public {
 				}
 
 				$bpolls_votes_txt = '(' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . ')';
+				
+				
+				
+				$output = '';
+				$vote_content = '';
+				$count = 0;
+				if ( $poll_options_result ) {
+					//$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
+					$poll_optn_user_votes = isset($activity_meta['poll_optn_user_votes'][$key]) ? $activity_meta['poll_optn_user_votes'][$key] : array();
+
+					if ( !empty($poll_optn_user_votes) && isset($bpolls_settings['poll_list_voters'])) {
+
+						$count = count($poll_optn_user_votes );
+						$liked_count = $count - $bpolls_settings['poll_limit_voters'];
+						foreach( $poll_optn_user_votes as $userkey => $user_id) {
+							// Get Users Image.
+							$img_path = bp_core_fetch_avatar(
+								array(
+									'item_id' => $user_id,
+									'type'	  => 'thumb',
+									'html' => true
+								)
+							);
+							// How Much User Visible.
+							if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
+
+								// Get User Image Code.
+								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain ( $user_id ) . '">' . bp_core_fetch_avatar( array( 'html' => true, 'type' => 'thumb', 'item_id' => $user_id ) ) .'</a>';
+							}
+						}
+
+						if ( isset( $output ) ) {
+
+							if ( $liked_count > 0 ){
+								// Display Show More.
+								$output .='<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id. '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
+							}
+
+							$vote_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
+
+						}
+					}
+
+				}
 
 				$uptd_votes[ $key ] = array(
 					'vote_percent'     => $vote_percent,
 					'bpolls_votes_txt' => $bpolls_votes_txt,
+					'bpolls_votes_content' => $vote_content,
 				);
 			}
 		}
