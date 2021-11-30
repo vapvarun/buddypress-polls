@@ -708,7 +708,7 @@ class Buddypress_Polls_Public {
 
 					}
 					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
-					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . "; background-color: " . $polls_background_color . "'></div>";
+					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'>";
 					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
