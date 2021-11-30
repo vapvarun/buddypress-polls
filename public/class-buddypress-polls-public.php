@@ -546,7 +546,7 @@ class Buddypress_Polls_Public {
 		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		$poll_options_result = (isset($bpolls_settings['poll_options_result'])) ? true : false;
 		$poll_revoting = (isset($bpolls_settings['poll_revoting'])) ? true : false;
-		$polls_background_color = (isset($bpolls_settings['polls_background_color'])) ? $bpolls_settings['polls_background_color'] : '#d6d6d6';
+		$polls_background_color = (isset($bpolls_settings['polls_background_color'])) ? $bpolls_settings['polls_background_color'] : '#555';
 		
 		$polls_bg_style = '';
 		if ( $polls_background_color != '' ) {

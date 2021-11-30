@@ -176,7 +176,7 @@ input.bpolls-input.bpolls-input {
 
 .bpolls-item-width {
     position: absolute;
-    background-color: #d6d6d6;
+    background-color: #c0d9e5;
     height: 100%;
     border-radius: 8px !important;
 }
@@ -186,13 +186,13 @@ input.bpolls-input.bpolls-input {
 }
 
 .bpolls-check-radio-div {
-    background-color: #f5f5f5;
+    background-color: #eee;
     margin: 0;
     padding: 12px 20px !important;
     font-size: 14px;
     font-weight: 600;
     line-height: 24px;
-    color: #7E7E7E;
+    color: #333;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -212,8 +212,14 @@ input.bpolls-input.bpolls-input {
 }
 
 .bpolls-percent {
-    float: right;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: normal;
     position: relative;
+    background: rgba(0,0,0,.5);
+    color: #fff;
+    padding: 0 10px;
+    border-radius: 100px;
 }
 
 .bpolls-votes {
@@ -238,15 +244,15 @@ input.bpolls-input.bpolls-input {
 .bpolls-vote-submit {
     display: inline-block;
     font-size: 14px;
-    background: #d6d6d6 !important;
+    background: #555;
     padding: 10px 20px;
-    color: #424242 !important;
+    color: #fff !important;
     text-decoration: none;
     border-radius: 3px !important;
 }
 
 .bpolls-vote-submit:hover {
-    background: #bababa !important;
+    box-shadow: inset 0px 0px 1000px rgba(0, 0, 0, 0.1);
 }
 
 .bpolls-item .bpolls-result-votes {
@@ -572,7 +578,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 
 /* Votors List */
 .bpolls-user-votes-dialog .bpolls-modal-title {
-    background-color: #8bc34a;
+    background-color: #303041;
     margin: 0;
     padding: 15px;
     color: #fff;
