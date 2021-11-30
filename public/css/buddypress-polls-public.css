@@ -27,7 +27,7 @@
 .bpolls-html-container .bpolls-icon {
     cursor: pointer;
     display: inline-block;
-/*        padding-top: 12px;*/
+    /*        padding-top: 12px;*/
     padding-left: 12px;
 }
 
@@ -247,6 +247,60 @@ input.bpolls-input.bpolls-input {
 
 .bpolls-vote-submit:hover {
     background: #bababa !important;
+}
+
+.bpolls-item .bpolls-result-votes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.bpolls-item .bpolls-result-votes .bpolls-post-voted {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.bpolls-item .bpolls-result-votes .bpolls-post-voted a {
+    display: inline-block;
+    line-height: 1;
+    margin-left: -8px;
+}
+
+.bpolls-item .bpolls-result-votes .bpolls-post-voted img,
+.bpolls-item .bpolls-result-votes .bpolls-post-voted .bp-polls-view-all {
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border: 3px solid #fff;
+    display: inline-block;
+    border-radius: 100% !important;
+    -webkit-border-radius: 100% !important;
+    -moz-border-radius: 100% !important;
+    -ms-border-radius: 100% !important;
+    -o-border-radius: 100% !important;
+}
+
+.bpolls-item .bpolls-result-votes .bpolls-post-voted .bp-polls-view-all {
+    color: #8a8a8a;
+    width: auto;
+    min-width: 30px;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: center;
+    background-color: #eee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bpolls-item .bpolls-result-votes .bp-polls-voters {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 10px;
 }
 
 .bpolls-check-radio-div input,
@@ -514,6 +568,48 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
+}
+
+/* Votors List */
+.bpolls-user-votes-dialog .bpolls-modal-title {
+    background-color: #8bc34a;
+    margin: 0;
+    padding: 15px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+}
+
+.bpolls-user-votes-dialog .bpolls-modal-title .fa-users {
+    margin-right: 10px;
+}
+
+.bpolls-user-votes-dialog .bpolls-modal-close-icon {
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.bpolls-user-votes-dialog .bpolls-icon-dialog-msg {
+    padding: 15px;
+}
+
+.bpolls-users-who-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.bpolls-users-who-list .bpolls-list-item {
+    display: flex;
+    margin: 0 0 15px;
+    text-align: left;
+}
+
+.bpolls-users-who-list .bpolls-list-item:last-child {
+    margin-bottom: 0;
+}
+
+.bpolls-users-who-list .bpolls-item-data {
+    margin-left: 15px;
 }
 
 /*--------------------------------------------------------------

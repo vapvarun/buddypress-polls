@@ -1117,8 +1117,10 @@ class Buddypress_Polls_Public {
 
 			if ( !empty( $poll_optn_user_votes ) ) {
 				echo '<div class="bpolls-icon-dialog bpolls-user-votes-dialog is-visible">';
+                                
+				echo '<div class="bpolls-icon-dialog-container">';
 
-				echo '<div class="bpolls-modal-title"><i class="fa fa-user-tag"></i>'. esc_html__( 'People who voted for this option','buddypress-polls') . '<i class="fa fa-times bpolls-modal-close bpolls-modal-close-icon"></i></div>';
+				echo '<div class="bpolls-modal-title"><i class="fa fa-users"></i>'. esc_html__( 'People who voted for this option','buddypress-polls') . '<i class="fa fa-times bpolls-modal-close bpolls-modal-close-icon"></i></div>';
 
 				echo '<div class="bpolls-icon-dialog-msg">';
 				echo '<div class="bpolls-users-who-list">';
@@ -1137,6 +1139,7 @@ class Buddypress_Polls_Public {
 
 				<?php }
 
+				echo '</div>';
 				echo '</div>';
 				echo '</div>';
 				echo '</div>';
