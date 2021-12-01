@@ -255,7 +255,7 @@ class Buddypress_Polls_Public {
 							</div>
 							<div class="bpolls-icon-dialog-content">
 								<?php echo sprintf(esc_html__( 'The max number of allowed options is %d.', 'buddypress-polls' ), $polls_option_lmit ); ?>
-							</div
+							</div>
 						</div>
 					</div>
 					<ul class="bpolls-icon-dialog-buttons">
