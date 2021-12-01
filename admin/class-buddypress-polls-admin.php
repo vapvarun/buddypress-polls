@@ -236,6 +236,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
 
 			$max_votes_act_link = '#';
+			$title = '';
 			if ( isset( $results->activity_id ) ) {
 				$max_votes          = $results->meta_value;
 				$max_votes_act_link = bp_activity_get_permalink( $results->activity_id );

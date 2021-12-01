@@ -556,7 +556,8 @@ class Buddypress_Polls_Public {
 
 		$submit       = false;
 		$hide_results = false;
-
+		
+		$poll_style = '';
 		if ( !$poll_revoting)  {
 			$poll_style      = 'style="display:none;"';
 		}
