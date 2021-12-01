@@ -251,10 +251,10 @@ class Buddypress_Polls_Public {
 					<div class="bpolls-icon-dialog-msg">
 						<div class="bpolls-icon-dialog-desc">
 							<div class="bpsts-icon-dialog-title">
-
+								<strong><?php esc_html_e( 'Oops!', 'buddypress-polls' ); ?></strong>
 							</div>
 							<div class="bpolls-icon-dialog-content">
-								<?php echo sprintf(esc_html__( 'The max number of allowed options is %d.', 'buddypress-polls' ), $polls_option_lmit ); ?>
+								<?php echo sprintf(esc_html__( 'You are not allowed to enter more than ', 'buddypress-polls' ) . $polls_option_lmit . esc_html__( ' options.', 'buddypress-polls' ) ); ?>
 							</div>
 						</div>
 					</div>
