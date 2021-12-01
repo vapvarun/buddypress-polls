@@ -639,11 +639,11 @@ class Buddypress_Polls_Public {
 
 
 
-					if ( 0 != $total_votes  && $poll_options_result ) {
+					if ( 0 != $total_votes  ) {
 						$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
-					} else if ( isset($activity_meta['poll_optn_user_votes'][$key]) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][$key] )  && !$poll_options_result ) {
+					} else if ( isset($activity_meta['poll_optn_user_votes'][$key]) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][$key] )   ) {
 						$vote_percent = '100%';
-					}  else if ( isset($activity_meta['poll_optn_user_votes'][$key]) && !in_array( $user_id, $activity_meta['poll_optn_user_votes'][$key] )  && !$poll_options_result ) {
+					}  else if ( isset($activity_meta['poll_optn_user_votes'][$key]) && !in_array( $user_id, $activity_meta['poll_optn_user_votes'][$key] )  ) {
 						$vote_percent = '0%';
 					} else {
 						$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
