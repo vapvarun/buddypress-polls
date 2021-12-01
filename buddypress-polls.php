@@ -104,7 +104,22 @@ require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
  * @since    1.0.0
  */
 function run_buddypress_polls() {
-
+	global $pagenow;
+	
+	if ( !get_option( 'bpolls_update_3_8_2' ) && ( isset($_GET['page']) && $_GET['page'] == 'buddypress-polls' || $pagenow == 'plugins.php' ) ) {
+		$bpolls_settings = get_option( 'bpolls_settings' );
+		$bpolls_settings['options_limit'] = '5';
+		$bpolls_settings['poll_options_result'] = 'yes';
+		$bpolls_settings['poll_list_voters'] = 'yes';
+		$bpolls_settings['poll_limit_voters'] = '3';
+		$bpolls_settings['polls_background_color'] = '#555';
+		update_option( 'bpolls_settings', $bpolls_settings );
+		
+		update_option( 'bpolls_update_3_8_2', 1 );
+	
+	}
+	
+	
 	$plugin = new Buddypress_Polls();
 	$plugin->run();
 
