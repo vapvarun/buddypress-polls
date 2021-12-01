@@ -672,7 +672,7 @@ class Buddypress_Polls_Public {
 					//$activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 					$poll_optn_user_votes = isset($activity_meta['poll_optn_user_votes'][$key]) ? $activity_meta['poll_optn_user_votes'][$key] : array();
 
-					if ( !empty($poll_optn_user_votes) && isset($bpolls_settings['poll_list_voters'])) {
+					if ( !empty($poll_optn_user_votes) && isset($bpolls_settings['poll_list_voters']) && !$hide_results) {
 
 						$count = count($poll_optn_user_votes );
 						$liked_count = $count - $bpolls_settings['poll_limit_voters'];
