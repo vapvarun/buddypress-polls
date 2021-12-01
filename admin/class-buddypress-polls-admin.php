@@ -298,7 +298,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						</tr>
 						<tr>
 							<td><?php esc_html_e( 'Highest Voted Poll', 'buddypress-polls' ); ?></td>
-							<td><a href="<?php echo esc_url( $max_votes_act_link ); ?>"><?php echo esc_html( $title ); ?><a></td>
+							<td><a href="<?php echo esc_url( $max_votes_act_link ); ?>"><?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><a></td>
 						</tr>
 						<tr>
 							<td><?php esc_html_e( 'Recent Poll', 'buddypress-polls' ); ?></td>
