@@ -67,8 +67,7 @@
 .bpolls-input {
     display: inline-block;
     padding: 0 8.5px;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0 !important;
     height: 35px;
     border: 1px solid rgba(0, 0, 0, 0.1) !important;
     color: #333;
@@ -370,7 +369,7 @@ body:not(.logged-in) .bpolls-vote-submit {
     appearance: none;
     cursor: pointer;
     display: inline-block;
-    margin-right: 12px;
+    margin: 0 12px 0 0 !important;
     outline: 0;
     position: relative;
     border: 2px solid #555;
