@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 5.8.2
-Stable tag: 3.8.1
+Stable tag: 3.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,18 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 3.9.0 =
+* (#118) Update UI with kleo, Olympus
+* Removed <p> tag from Highest Voted Poll data
+* Fixed #118 - Hide reults enable then hide other user votes for unvoted
+* (#118) Update dialog message
+* Fixed - PHP warning indefined variable $title in admin side and $poll
+* Fixed #118 - Close one div
+* Fixed #118 - Fixed disable Polls Results issue after submit poll
+* Fixed - Disable poll results then only Hide percentage and Disabled
+* Fixed #118 - Add Revoting option
+* Fixed (#118) Managed dialog box UI
+
 = 3.8.1 =
 * Fixed - (#119)Fixed enabling users to edit other users activities
 
