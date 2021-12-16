@@ -298,6 +298,7 @@ body:not(.logged-in) .bpolls-vote-submit {
 .bpolls-item .bpolls-result-votes .bpolls-post-voted a {
     display: inline-block;
     line-height: 1;
+    margin: 0;
     margin-left: -5px;
 }
 
