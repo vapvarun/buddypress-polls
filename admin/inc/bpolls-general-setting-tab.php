@@ -135,13 +135,13 @@ global $wp_roles;
 		</tr>
 		
 		<tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Submit button background color', 'buddypress-polls' ); ?></label></th>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label for>
 				<input id="polls_background_color" name='bpolls_settings[polls_background_color]' type='text' value='<?php  echo isset( $bpolls_settings['polls_background_color'] )  ?  $bpolls_settings['polls_background_color'] : '#4caf50'; ?>' />
 				
 			</label>
-			<p class="description" id="tagline-description"><?php esc_html_e( 'Set submit button background color.', 'buddypress-polls' ); ?>
+			<p class="description" id="tagline-description"><?php esc_html_e( 'Allow users to set color scheme for progress bar and submit button.', 'buddypress-polls' ); ?>
 			</p>
 			</td>
 		</tr>

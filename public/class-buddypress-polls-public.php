@@ -550,7 +550,12 @@ class Buddypress_Polls_Public {
 		
 		$polls_bg_style = '';
 		if ( $polls_background_color != '' ) {
-			$polls_bg_style      = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
+			$polls_bg_style      = ";background-color:$polls_background_color";
+		}
+                
+                $polls_btn_style = '';
+		if ( $polls_background_color != '' ) {
+			$polls_btn_style      = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
 		}
 
 
@@ -713,7 +718,8 @@ class Buddypress_Polls_Public {
 					$activity_content .= '</div>';
 
 					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
-					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
+					//$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
+					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . $polls_bg_style . ";'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'></div>";
 					$activity_content .= '</div>';
 					if ( $poll_options_result ) {
@@ -726,7 +732,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
 				if ( ( $submit && $poll_closing && is_user_logged_in() ) || $poll_revoting ) {
-					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_bg_style . ">" . __( 'Submit', 'buddypress-polls' ) . '</a>';
+					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_btn_style . ">" . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
 
