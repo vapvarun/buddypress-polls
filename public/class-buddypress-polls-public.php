@@ -546,11 +546,11 @@ class Buddypress_Polls_Public {
 		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		$poll_options_result = (isset($bpolls_settings['poll_options_result'])) ? true : false;
 		$poll_revoting = (isset($bpolls_settings['poll_revoting'])) ? true : false;
-		$polls_background_color = (isset($bpolls_settings['polls_background_color'])) ? $bpolls_settings['polls_background_color'] : '#555';
+		$polls_background_color = (isset($bpolls_settings['polls_background_color'])) ? $bpolls_settings['polls_background_color'] : '#4caf50';
 		
 		$polls_bg_style = '';
 		if ( $polls_background_color != '' ) {
-			$polls_bg_style      = 'style="background: ' . $polls_background_color . ';"';
+			$polls_bg_style      = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
 		}
 
 
@@ -707,17 +707,18 @@ class Buddypress_Polls_Public {
 					
 					$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
-					
-					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
-					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
-					$activity_content .= "<div class='bpolls-check-radio-div'>";
+					$activity_content .= '<div class="bpolls-check-radio-wrap">';
 					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
+					$activity_content .= '</div>';
+
+					$activity_content .= "<div class='bpolls-item-width-wrapper'>";
+					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
+					$activity_content .= "<div class='bpolls-check-radio-div'></div>";
+					$activity_content .= '</div>';
 					if ( $poll_options_result ) {
 						$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
 					}
-					$activity_content .= '</div>';
-					$activity_content .= '</div>';
 					$activity_content .= '</div>';
 				}
 				$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='" . $activity_id . "'>";

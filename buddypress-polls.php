@@ -66,7 +66,7 @@ function activate_buddypress_polls() {
 	$bpolls_settings['poll_options_result'] = 'yes';
 	$bpolls_settings['poll_list_voters'] = 'yes';
 	$bpolls_settings['poll_limit_voters'] = '3';
-	$bpolls_settings['polls_background_color'] = '#555';
+	$bpolls_settings['polls_background_color'] = '#4caf50';
 	$roles                                  = $wp_roles->get_names();
 	foreach ( $roles as $role => $role_name ) {
 		$bpolls_settings['poll_user_role'][] = $role;
@@ -112,7 +112,7 @@ function run_buddypress_polls() {
 		$bpolls_settings['poll_options_result'] = 'yes';
 		$bpolls_settings['poll_list_voters'] = 'yes';
 		$bpolls_settings['poll_limit_voters'] = '3';
-		$bpolls_settings['polls_background_color'] = '#555';
+		$bpolls_settings['polls_background_color'] = '#4caf50';
 		update_option( 'bpolls_settings', $bpolls_settings );
 		
 		update_option( 'bpolls_update_3_8_2', 1 );

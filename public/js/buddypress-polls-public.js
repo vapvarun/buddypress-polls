@@ -326,13 +326,13 @@
 
 						var input_obj = submit_event.closest('.bpolls-vote-submit-form').find("#" + i);
 
-						$(input_obj).parents('.bpolls-check-radio-div').siblings('.bpolls-item-width').animate(
+						$(input_obj).parents('.bpolls-item').find('.bpolls-item-width').animate(
 							{
 								width: item.vote_percent
 							}, 500
 						);
 
-						$(input_obj).parents('.bpolls-check-radio-div').find('.bpolls-percent').text(item.vote_percent);
+						$(input_obj).parents('.bpolls-item').find('.bpolls-percent').text(item.vote_percent);
 						$(input_obj).parents('.bpolls-check-radio-div').siblings('.bpolls-votes').html(item.bpolls_votes_txt);
 						$(input_obj).parents().parents('.bpolls-item').find('.bpolls-result-votes').html(item.bpolls_votes_content);
 
