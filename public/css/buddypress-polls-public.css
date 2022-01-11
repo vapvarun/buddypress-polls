@@ -1103,6 +1103,10 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 # RTL Support
 --------------------------------------------------------------*/
 @media screen and (min-width: 46.8em) {
+    [dir='rtl'] #whats-new-options .post-elements-buttons-item {
+        margin-right: 0;
+        margin-left: 10px;
+    }
     [dir='rtl'] #whats-new-options .post-elements-buttons-item:first-child {
         margin-left: 0;
         margin-right: 65px;
@@ -1111,6 +1115,10 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
         margin-left: 0;
         margin-right: 65px;
     }
+}
+
+[dir='rtl'] .bp-nouveau #whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon {
+    text-align: right;
 }
 
 [dir='rtl'] .bpolls-cancel-div {
