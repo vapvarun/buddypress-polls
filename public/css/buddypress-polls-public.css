@@ -1107,6 +1107,29 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
         margin-left: 0;
         margin-right: 65px;
     }
+    [dir='rtl'] .bp-nouveau .bpolls-polls-option-html {
+        margin-left: 0;
+        margin-right: 65px;
+    }
+}
+
+[dir='rtl'] .bpolls-cancel-div {
+    text-align: left;
+}
+
+[dir='rtl'] .bpolls-option-actions-wrap,
+[dir='rtl'] .bpolls-image-upload {
+    text-align: right;
+}
+
+[dir='rtl'] .bpolls-sortable.ui-sortable {
+    margin-right: 0;
+    margin-left: 10px;
+}
+
+[dir='rtl'] .bpolls-add-option,
+[dir='rtl'] input#bpolls-datetimepicker {
+    margin: 0 0 10px 10px;
 }
 
 [dir='rtl'] .bpolls-item .bpolls-result-votes {
