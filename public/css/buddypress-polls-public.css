@@ -1127,6 +1127,10 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     margin-left: 10px;
 }
 
+[dir='rtl'] #bpolls-attach-image {
+    margin: 10px 0 0 10px;
+}
+
 [dir='rtl'] .bpolls-add-option,
 [dir='rtl'] input#bpolls-datetimepicker {
     margin: 0 0 10px 10px;
