@@ -82,17 +82,31 @@
 
 			}
 
+			setTimeout( function() {
+				if (bpolls_ajax_object.buddyboss ){
+					$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+					$('#bp-nouveau-activity-form-placeholder #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+				}
+
+			}, 200);
 			//Manage Poll icon with Buddyboss Plateform
-			$(document).on('click', '#whats-new', function(){
+			$(document).on('click focus', '#whats-new', function(){
 				if (bpolls_ajax_object.buddyboss ){
 					$('#whats-new-toolbar').append($('.bpolls-html-container'));
 					$('#whats-new-attachments').append($('.bpolls-polls-option-html'));
+					
 					if ( $('.whats-new-form-footer #whats-new-toolbar .bp-quote-icon-wrapper').length == 0 ) {
 						$('.bpolls-html-container').appendTo($('.whats-new-form-footer #whats-new-toolbar'));
 					}
 				}
 			});
-
+			
+			$(document).on('click', '.bb-model-close-button, .activity-update-form-overlay', function(){				
+				setTimeout( function() {					
+					$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+					$('#bp-nouveau-activity-form-placeholder #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+				}, 100);
+			});
 
 
 
