@@ -80,7 +80,7 @@
 		function bb_pools_icon_push() {
 			
 			if (bpolls_ajax_object.buddyboss ){				
-				$('#whats-new-form > #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+				$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
 				//$('#bp-nouveau-activity-form-placeholder #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
 			}
 			
@@ -89,7 +89,9 @@
 		bb_pools_icon_push();
 		
 		$(document).on('click', '.bb-model-close-button, .activity-update-form-overlay', function(){				
-			bb_pools_icon_push();
+			setTimeout( function() {
+				bb_pools_icon_push();
+			}, 500);
 		});
 		
 		/* jQuery Ajax prefilter*/
