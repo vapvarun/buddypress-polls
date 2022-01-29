@@ -80,7 +80,7 @@
 		function bb_pools_icon_push() {
 			
 			if (bpolls_ajax_object.buddyboss ){				
-				$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
+				$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="fa fa-bar-chart"></i></span></div>');
 				//$('#bp-nouveau-activity-form-placeholder #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
 			}
 			

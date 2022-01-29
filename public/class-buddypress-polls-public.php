@@ -242,7 +242,7 @@ class Buddypress_Polls_Public {
 
 			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
-			<span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span>
+			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="fa fa-bar-chart"></i></span>
 			<div class="bpolls-icon-dialog">
 				<div class="bpolls-icon-dialog-container">
 					<div class="bpolls-icon-dialog-header">

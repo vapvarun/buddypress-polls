@@ -1080,6 +1080,13 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 /*--------------------------------------------------------------
 # BB Platform
 --------------------------------------------------------------*/
+#whats-new-toolbar .bpolls-icon {
+    cursor: pointer;
+    display: inline-block;
+    min-width: 24px;
+    text-align: center;
+}
+
 #whats-new-toolbar .post-elements-buttons-item {
     min-width: 24px;
 }
@@ -1087,7 +1094,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 .bp-nouveau #whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon {
     padding: 0;
     border: 0;
-    text-align: left;
+    text-align: center;
 }
 
 #whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon .fa {
