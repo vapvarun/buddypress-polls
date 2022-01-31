@@ -1075,6 +1075,10 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     font-size: 18px;
 }
 
+#whats-new-toolbar .wb-icons:before {
+    margin: 0;
+}
+
 #whats-new-toolbar .bpolls-icon {
     cursor: pointer;
     display: inline-block;
