@@ -76,22 +76,24 @@
 				}
 			}
 		});
-			
+		
+		var bb_polls_Interval;
+		
 		function bb_pools_icon_push() {
 			
-			if (bpolls_ajax_object.buddyboss ){				
-				$('#whats-new-form #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="fa fa-bar-chart"></i></span></div>');
-				//$('#bp-nouveau-activity-form-placeholder #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon"><i class="fa fa-bar-chart"></i></span></div>');
-			}
+			bb_polls_Interval = setInterval( function() {
+				if (bpolls_ajax_object.buddyboss && $('#whats-new-form:not(.focus-in) #whats-new-toolbar .bpolls-html-container-placeholder').length == 0 ){				
+					$('#whats-new-form:not(.focus-in) #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="fa fa-bar-chart"></i></span></div>');					
+				}
+			}, 1000);
 			
 		}
 			
 		bb_pools_icon_push();
 		
-		$(document).on('click', '.bb-model-close-button, .activity-update-form-overlay', function(){				
-			setTimeout( function() {
-				bb_pools_icon_push();
-			}, 500);
+		$(document).on('click', '.bb-model-close-button, .activity-update-form-overlay', function(){			
+			clearInterval(bb_polls_Interval);
+			bb_pools_icon_push();
 		});
 		
 		/* jQuery Ajax prefilter*/
@@ -105,9 +107,8 @@
 			}
 			
 			if ( originalOptions.data.action == 'post_update' ) {
-				setTimeout( function() {		
-					bb_pools_icon_push();
-				}, 1500);
+				clearInterval(bb_polls_Interval);
+				bb_pools_icon_push();				
 			}
 			
 		} );
