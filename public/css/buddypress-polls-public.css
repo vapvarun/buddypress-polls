@@ -24,6 +24,18 @@
 /*--------------------------------------------------------------
 # Poll Icon Pointer
 --------------------------------------------------------------*/
+.wb-icons {
+    font-size: 18px;
+    min-width: 24px;
+    height: 24px;
+    line-height: 24px;
+    display: inline-block;
+}
+
+.wb-icons:before {
+    margin: 0;
+}
+
 .bpolls-html-container .bpolls-icon {
     cursor: pointer;
     display: inline-block;
@@ -1073,10 +1085,6 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 #whats-new-toolbar .wb-icons {
     color: rgba(18,43,70,.5);
     font-size: 18px;
-}
-
-#whats-new-toolbar .wb-icons:before {
-    margin: 0;
 }
 
 #whats-new-toolbar .bpolls-icon {
