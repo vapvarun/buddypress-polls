@@ -27,7 +27,6 @@
 .bpolls-html-container .bpolls-icon {
     cursor: pointer;
     display: inline-block;
-    padding-left: 12px;
 }
 
 #whats-new-options .post-elements-buttons-item {
@@ -878,15 +877,6 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     opacity: 1;
 }
 
-.bp-nouveau .bpolls-html-container .bpolls-icon {
-    font-size: 14px;
-    border: 1px solid #e3e3e3;
-    padding: 4px 12px;
-    line-height: 1.5;
-    text-align: center;
-    border-radius: 3px;
-}
-
 .bp-nouveau .bpolls-polls-option-html {
     margin-top: 0;
 }
@@ -1080,6 +1070,11 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 /*--------------------------------------------------------------
 # BB Platform
 --------------------------------------------------------------*/
+#whats-new-toolbar .wb-icons {
+    color: rgba(18,43,70,.5);
+    font-size: 18px;
+}
+
 #whats-new-toolbar .bpolls-icon {
     cursor: pointer;
     display: inline-block;

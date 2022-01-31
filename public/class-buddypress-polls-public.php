@@ -104,6 +104,17 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
 			}
+                        
+			wp_register_style(
+				$handle = 'wb-icons',
+				$src    = plugin_dir_url( __FILE__ ) . 'css/wb-icons.css',
+				$deps   = array(),
+				$ver    = time(),
+				$media  = 'all'
+			);
+			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
+				wp_enqueue_style( 'wb-icons' );
+			}
 
 			add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
 			add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
@@ -242,7 +253,7 @@ class Buddypress_Polls_Public {
 
 			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
-			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="fa fa-bar-chart"></i></span>
+			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="Add a poll"><i class="wb-icons wb-icon-bar-chart"></i></span>
 			<div class="bpolls-icon-dialog">
 				<div class="bpolls-icon-dialog-container">
 					<div class="bpolls-icon-dialog-header">
