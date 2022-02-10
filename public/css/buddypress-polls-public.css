@@ -1135,6 +1135,14 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     text-align: left;
 }
 
+[dir='rtl'] .bpolls-option-delete {
+    border-radius: 5px 0 0 5px;
+}
+
+[dir='rtl'] .bpolls-sortable-handle {
+    border-radius: 0 5px 5px 0;
+}
+
 [dir='rtl'] .bpolls-option-actions-wrap,
 [dir='rtl'] .bpolls-image-upload {
     text-align: right;
