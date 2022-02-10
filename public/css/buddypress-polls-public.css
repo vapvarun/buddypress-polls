@@ -53,11 +53,6 @@
     clear: both;
 }
 
-#whats-new-toolbar .post-elements-buttons-item {
-    margin-right: 10px;
-    position: relative;
-}
-
 @media screen and (min-width: 46.8em) {
     #whats-new-options .post-elements-buttons-item:first-child {
         margin-left: 65px;
@@ -1132,8 +1127,8 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     }
 }
 
-[dir='rtl'] .bp-nouveau #whats-new-toolbar .post-elements-buttons-item.bpolls-html-container .bpolls-icon {
-    text-align: right;
+[dir='rtl'] #whats-new-toolbar .post-elements-buttons-item {
+    margin-right: 0;
 }
 
 [dir='rtl'] .bpolls-cancel-div {
