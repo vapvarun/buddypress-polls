@@ -242,6 +242,9 @@ input.bpolls-input.bpolls-input {
 .bpolls-date-time {
     padding: 10px 0px 0px 0px;
 }
+a.bpolls-add-option.button {
+    margin-right: 10px;
+}
 .bpolls-options-attach-container {
     margin-top: 20px;
 }
