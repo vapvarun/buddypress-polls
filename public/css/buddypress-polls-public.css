@@ -692,6 +692,10 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     margin-left: 15px;
 }
 
+.buddypress .supports-drag-drop .media-modal{
+    z-index: 1600000 !important;
+}
+
 /* Tooltip */
 [data-polls-tooltip] {
     position: relative;
