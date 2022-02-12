@@ -108,7 +108,7 @@
     border-width: 1px;
     border-style: solid;
     border-color: #eaeaea;
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .bpolls-sortable-handle {
@@ -239,6 +239,9 @@ input.bpolls-input.bpolls-input {
     word-break: normal;
 }
 
+.bpolls-date-time {
+    padding: 10px 0px 0px 0px;
+}
 .bpolls-options-attach-container {
     margin-top: 20px;
 }
