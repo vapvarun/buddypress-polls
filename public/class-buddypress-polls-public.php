@@ -788,7 +788,7 @@ class Buddypress_Polls_Public {
 						}
 					}
 
-					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 						$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
 					}
 				}
@@ -822,7 +822,7 @@ class Buddypress_Polls_Public {
 						}
 					}
 
-					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 
 						$polls_existing_useid                          = isset( $activity_meta['poll_optn_user_votes'][ $key ] ) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
 						$activity_meta['poll_optn_user_votes'][ $key ] = array_unique( array_merge( $polls_existing_useid, array( $user_id ) ) );
@@ -838,7 +838,7 @@ class Buddypress_Polls_Public {
 						}
 					}
 
-					if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 						$poll_optn_user_votes[ $key ] = array( $user_id );
 					}
 				}
@@ -857,7 +857,7 @@ class Buddypress_Polls_Public {
 			$user_vote = array();
 			foreach ( $activity_meta['poll_option'] as $key => $value ) {
 
-				if ( in_array( $key, $poll_data['bpolls_vote_optn'], true ) ) {
+				if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 					$user_vote[] = $key;
 				}
 			}
