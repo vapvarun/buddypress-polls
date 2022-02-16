@@ -1048,14 +1048,6 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     order: 5;
 }
 
-/*--------------------------------------------------------------
-# Hide Media Library Tab
---------------------------------------------------------------*/
-.attachments-browser .media-toolbar,
-.attachments-browser .attachment.save-ready {
-    display: none;
-}
-
 .attachments-browser .attachment.save-ready.selected {
     display: block;
 }
