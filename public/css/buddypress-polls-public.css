@@ -1051,7 +1051,6 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 /*--------------------------------------------------------------
 # Hide Media Library Tab
 --------------------------------------------------------------*/
-#menu-item-browse,
 .attachments-browser .media-toolbar,
 .attachments-browser .attachment.save-ready {
     display: none;

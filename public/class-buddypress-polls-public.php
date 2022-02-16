@@ -116,8 +116,8 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 
-			add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
-			add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
+			//add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
+			//add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
 		}
 	}
 

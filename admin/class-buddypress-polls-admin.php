@@ -337,7 +337,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * Bpolls_activity_polls_data_export
 		 */
 		public function bpolls_activity_polls_data_export() {
+			
+			$contributor = get_role( 'contributor' );
+			$subscriber  = get_role( 'subscriber' );
 
+			if ( ! empty( $contributor ) ) {
+				$contributor->add_cap( 'upload_files' );
+			}
+
+			if ( ! empty( $subscriber ) ) {
+				$subscriber->add_cap( 'upload_files' );
+			}
+			
 			if ( isset( $_REQUEST['export_csv'] ) && 1 == $_REQUEST['export_csv'] && isset( $_REQUEST['buddypress_poll'] ) && 1 == $_REQUEST['buddypress_poll'] && isset( $_REQUEST['activity_id'] ) ) {
 				$activity_id   = isset( $_REQUEST['activity_id'] ) ? wp_unslash( $_REQUEST['activity_id'] ) : 0;
 				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
