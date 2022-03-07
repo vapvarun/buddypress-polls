@@ -8,6 +8,60 @@
     background: #f1f1f1;
     color: #000;
 }
+.nav-tab-wrapper ul li.Support a.nav-tab:before{
+    content: "\f125";
+}
+.nav-tab-wrapper ul li.General a.nav-tab:before {
+    content: "\f111";
+}
+.wbcom-welcome-head h2.wbcom-welcome-title {
+    padding: 18px 25px;
+    font-size: 15px;
+    background: #2094F3;
+    color: #fff;
+    margin: 0 -15px 20px;
+}
+.wbcom-welcome-main-wrapper {
+    position: relative;
+    font-size: 15px;
+    background: #f6f6f6;
+    padding: 0 15px 15px;
+    margin: 25px 0;
+}
+.wbcom-video-link-wrapper {
+    flex-wrap: wrap;
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    align-items: center;
+    background: #fff;
+    padding:10px;
+}
+.wbcom-video-link-wrapper iframe,
+.wbcom-video-link-wrapper .col-right {
+    width: 48%;
+    padding:1%;
+}
+.wbcom-admin-title-section h3 {
+    padding: 18px 25px;
+    font-size: 15px;
+    background: #2094F3;
+    color: #fff;
+    margin: 0 -15px 20px;
+}
+.wbcom-wrapper-admin {
+    position: relative;
+    font-size: 15px;
+    background: #f6f6f6;
+    padding: 0 15px 15px;
+    margin: 25px 0;
+}
+.wbcom-admin-option-wrap{
+    background-color: #fff;
+}
+.wbcom-admin-option-wrap .form-table th {
+    padding: 20px;
+}
 
 /*----------  General tab design  ----------*/
 @media screen and (max-width: 782px) {
@@ -20,34 +74,30 @@
 
 /*----------  Support tab css  ----------*/
 .bpolls-support-setting{
-    float: left;
-    width: 90%;
+    width:100%;
 }
 .bpolls-faq-row{
-    border-top: 1px solid #ddd;
     clear: both;
     overflow: hidden;
     padding-bottom: 5px;
 }
 .bpolls-admin-col-12 {
     float: left;
-    padding: 10px 0;
+    padding:5px 0;
     width: 100%;
 }
 button.bpolls-accordion {
     background-color: hsl(0, 0%, 87%);
     border: medium none;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
     color: hsl(0, 0%, 27%);
     cursor: pointer;
     font-size: 15px;
-    margin: 0 5%;
+    font-weight: 500;
     outline: medium none;
     padding: 15px 20px;
     text-align: left;
     transition: all 0.4s ease 0s;
-    width: 90%;
+    width: 100%;
 }
 button.bpolls-accordion.active, button.bpolls-accordion:hover {
     background-color: hsl(207, 90%, 54%);
@@ -55,7 +105,6 @@ button.bpolls-accordion.active, button.bpolls-accordion:hover {
 }
 div.bpolls-panel {
     background-color: white;
-    margin:0px 5%;
     max-height: 0;
     overflow: hidden;
     padding: 0 18px;
@@ -65,7 +114,7 @@ button.bpolls-accordion::after {
     color: hsl(0, 0%, 47%);
     content: "+";
     float: right;
-    font-size: 13px;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 5px;
 }
@@ -79,3 +128,12 @@ button.bpolls-accordion.active::after {
 .bpolls_excluding_member{
     width:70%;
 }
+.bpolls-faqs-block-contain {
+    padding: 15px;
+    background: #fff;
+}
+
+
+
+
+

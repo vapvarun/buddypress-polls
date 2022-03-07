@@ -11,10 +11,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 ?>
 <div class="wbcom-tab-content">
+<div class="wbcom-wrapper-admin">
+	<div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'FAQ(s) ', 'buddypress-polls' ); ?></h3>
+</div>	
 <div class="bpolls-support-setting">
-	<div class="bpolls-tab-header">
-		<h3><?php esc_html_e( 'FAQ(s) ', 'buddypress-polls' ); ?></h3>
-	</div>
 	<div class="bpolls-faqs-block-parent-contain">
 		<div class="bpolls-faqs-block-contain">
 			<div class="bpolls-faq-row border">
