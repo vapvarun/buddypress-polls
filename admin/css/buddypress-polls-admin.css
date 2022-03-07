@@ -132,8 +132,18 @@ button.bpolls-accordion.active::after {
     padding: 15px;
     background: #fff;
 }
+.wbcom-welcome-support-info {
+    box-shadow: none;
+}
+.wbcom-welcome-support-info .col p {
+    height:70px;
+}
 
+@media only screen and (max-width: 600px) {
+.wbcom-video-link-wrapper iframe, .wbcom-video-link-wrapper .col-right {
+    width:100%;
+}
 
-
+}
 
 
