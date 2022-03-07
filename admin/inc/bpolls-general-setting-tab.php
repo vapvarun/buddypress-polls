@@ -22,7 +22,7 @@ global $wp_roles;
 ?>
 <div class="wbcom-tab-content">
 <div class="wbcom-wrapper-admin">
-	<div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'Polls General Settings', 'buddypress-polls' ); ?></h3>
+<div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'Polls General Settings', 'buddypress-polls' ); ?></h3>
 </div>
 <form method="post" action="admin.php?action=update_network_options">
 	<div class="wbcom-admin-option-wrap">
@@ -177,7 +177,6 @@ global $wp_roles;
 				<p class="description">
 					<?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
 				</p>
-			</p>
 			</td>
 		</tr>
 		<tr id="bpolls_user_role" 
@@ -235,4 +234,5 @@ global $wp_roles;
 </div>
 	<?php submit_button(); ?>
 </form>
+</div>
 </div>
