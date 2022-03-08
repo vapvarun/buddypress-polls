@@ -1100,7 +1100,9 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 .youzify .ui-datepicker {
     background: #fff;
 }
-
+.youzify-wall-actions .post-elements-buttons-item.bpolls-html-container {
+    float: left;
+}
 
 
 
