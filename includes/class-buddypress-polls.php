@@ -251,6 +251,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 			$this->loader->add_action( 'wp_ajax_nopriv_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 
+			/* Embed polls activity data in rest api */
+			$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpolls_activity_data_embed_rest_api', 10, 3 );
+
 		}
 
 		/**

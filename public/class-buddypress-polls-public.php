@@ -1236,4 +1236,18 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+	/**
+	 * Embed polls activity data in rest api activity endpoint.
+	 *
+	 * @param  object $response get response data.
+	 * @param  object $request get request data.
+	 * @param  array  $activity get activity data.
+	 * @return $response
+	 */
+	public function bpolls_activity_data_embed_rest_api( $response, $request, $activity ) {
+		$data                       = bp_activity_get_meta( $activity->id, 'bpolls_meta', true );
+		$response->data['bp_polls'] = $data;
+		return $response;
+	}
+
 }
