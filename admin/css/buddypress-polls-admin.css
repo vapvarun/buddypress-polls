@@ -38,9 +38,14 @@
     padding:10px;
 }
 .wbcom-video-link-wrapper iframe,
-.wbcom-video-link-wrapper .col-right {
+.wbcom-video-link-wrapper .col-right,
+.wbcom-video-link-wrapper .fluid-width-video-wrapper {
     width: 48%;
     padding:1%;
+}
+.wbcom-video-link-wrapper .fluid-width-video-wrapper {
+    padding-top: 0 !important;
+    height: 380px;
 }
 .wbcom-admin-title-section h3 {
     padding: 18px 25px;
