@@ -116,8 +116,8 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 
-			//add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
-			//add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
+			// add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
+			// add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
 		}
 	}
 
@@ -1151,7 +1151,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( $can_edit && ! $privacy_edit ) {
+		if ( $can_edit ) {
 
 			// Check activity edit time expiration.
 			$activity_edit_time        = (int) bp_get_activity_edit_time(); // for 10 minutes, 600
