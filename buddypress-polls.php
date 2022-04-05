@@ -61,13 +61,13 @@ function activate_buddypress_polls() {
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	}
 	global $wp_roles;
-	$bpolls_settings['limit_poll_activity'] = 'no';
-	$bpolls_settings['options_limit'] = '5';
-	$bpolls_settings['poll_options_result'] = 'yes';
-	$bpolls_settings['poll_list_voters'] = 'yes';
-	$bpolls_settings['poll_limit_voters'] = '3';
+	$bpolls_settings['limit_poll_activity']    = 'no';
+	$bpolls_settings['options_limit']          = '5';
+	$bpolls_settings['poll_options_result']    = 'yes';
+	$bpolls_settings['poll_list_voters']       = 'yes';
+	$bpolls_settings['poll_limit_voters']      = '3';
 	$bpolls_settings['polls_background_color'] = '#4caf50';
-	$roles                                  = $wp_roles->get_names();
+	$roles                                     = $wp_roles->get_names();
 	foreach ( $roles as $role => $role_name ) {
 		$bpolls_settings['poll_user_role'][] = $role;
 	}
@@ -105,21 +105,20 @@ require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
  */
 function run_buddypress_polls() {
 	global $pagenow;
-	
-	if ( !get_option( 'bpolls_update_3_8_2' ) && ( isset($_GET['page']) && $_GET['page'] == 'buddypress-polls' || $pagenow == 'plugins.php' ) ) {
-		$bpolls_settings = get_option( 'bpolls_settings' );
-		$bpolls_settings['options_limit'] = '5';
-		$bpolls_settings['poll_options_result'] = 'yes';
-		$bpolls_settings['poll_list_voters'] = 'yes';
-		$bpolls_settings['poll_limit_voters'] = '3';
+
+	if ( ! get_option( 'bpolls_update_3_8_2' ) && ( isset( $_GET['page'] ) && $_GET['page'] == 'buddypress-polls' || $pagenow == 'plugins.php' ) ) {
+		$bpolls_settings                           = get_option( 'bpolls_settings' );
+		$bpolls_settings['options_limit']          = '5';
+		$bpolls_settings['poll_options_result']    = 'yes';
+		$bpolls_settings['poll_list_voters']       = 'yes';
+		$bpolls_settings['poll_limit_voters']      = '3';
 		$bpolls_settings['polls_background_color'] = '#4caf50';
 		update_option( 'bpolls_settings', $bpolls_settings );
-		
+
 		update_option( 'bpolls_update_3_8_2', 1 );
-	
+
 	}
-	
-	
+
 	$plugin = new Buddypress_Polls();
 	$plugin->run();
 
@@ -330,7 +329,9 @@ add_action( 'activated_plugin', 'buddypress_polls_activation_redirect_settings' 
  * @param plugin $plugin plugin.
  */
 function buddypress_polls_activation_redirect_settings( $plugin ) {
-
+	if ( ! isset( $_GET['plugin'] ) ) {
+		return;
+	}
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'Buddypress' ) ) {
 		wp_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
 		exit;
@@ -338,17 +339,16 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 }
 
 
-add_filter( 'ajax_query_attachments_args',  'bpolls_ajax_query_attachments_args' );
+add_filter( 'ajax_query_attachments_args', 'bpolls_ajax_query_attachments_args' );
 
 function bpolls_ajax_query_attachments_args( $query ) {
-	if( is_user_logged_in() ) { // check if there is a logged in user 
-		
-		$user = wp_get_current_user(); // getting & setting the current user 
-		$roles = ( array ) $user->roles; // obtaining the role 
-		if ( !in_array( 'administrator', $roles)) {
+	if ( is_user_logged_in() ) { // check if there is a logged in user
+
+		$user  = wp_get_current_user(); // getting & setting the current user
+		$roles = (array) $user->roles; // obtaining the role
+		if ( ! in_array( 'administrator', $roles ) ) {
 			$query['author'] = get_current_user_id();
 		}
-	
 	}
 	return $query;
 }

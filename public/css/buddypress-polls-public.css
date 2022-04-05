@@ -1056,7 +1056,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 # Youzify
 --------------------------------------------------------------*/
 .youzify .bpolls-html-container .bpolls-icon {
-    padding-top: 12px;
+    margin-top: -25px;
 }
 
 .youzify .bpolls-add-option {
@@ -1065,6 +1065,46 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     border-radius: 4px;
     font-size: 13px;
 }
+
+.youzify-wall-actions .bpolls-polls-option-html {
+    margin: 20px 0 0 !important;
+}
+.youzify-active .bpolls-polls-option-html {
+    margin:10px 25px;
+    width: auto;
+}
+.youzify .bpolls-cancel-div a.bpolls-cancel {
+    background: #ef5455;
+    color: #fff;
+    border-color: #ef5455;
+    padding: 4px 12px;
+    font-size: 11px;
+}
+.youzify .bpolls-option-action a.bpolls-add-option.button {
+    margin: 0 12px 0 0;
+    background: #4fc1e9;
+    color: #fff;
+    border-color: #4fc1e9;
+    line-height: 20px;
+    display: inline-block;
+}
+.youzify .bpolls-date-time input#bpolls-datetimepicker {
+    border: 1px solid #ccc;
+    font-size: 13px;
+}
+.youzify .bpolls-checkbox.bpolls-feedback input#bpolls-thankyou-feedback {
+    height: 38px;
+    width: 100%;
+    margin-top: 8px;
+}
+.youzify .ui-datepicker {
+    background: #fff;
+}
+.youzify-wall-actions .post-elements-buttons-item.bpolls-html-container {
+    float: left;
+}
+
+
 
 
 @media screen and (max-width: 475px) {

@@ -15,15 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 <div class="wbcom-tab-content">
 	<div class="wbcom-welcome-main-wrapper">
 		<div class="wbcom-welcome-head">
-			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?></h2>
-			<p class="wbcom-welcome-description"><?php esc_html_e( 'Use BuddyPress Polls plugin to create polls inside the activity, let your user response to your polls. Members can create polls inside activities, easily votes on them.', 'buddypress-polls' ); ?></p>
+			<h2 class="wbcom-welcome-title"><?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?></h2>			
 		</div><!-- .wbcom-welcome-head -->
 
 		<div class="wbcom-welcome-content">
 
 			<div class="wbcom-video-link-wrapper">
 			<iframe src="https://player.vimeo.com/video/562748687" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-<p><a href="https://vimeo.com/562748687">BuddyPress Polls for Member Activities</a> from <a href="https://vimeo.com/wbcom">Wbcom Designs</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+			<div class="col-right">
+			<h2><?php esc_html_e( 'BuddyPress Polls for Member Activities', 'buddypress-polls' ); ?></h2>
+			<p class="wbcom-welcome-description"><?php esc_html_e( 'Use BuddyPress Polls plugin to create polls inside the activity, let your user response to your polls. Members can create polls inside activities, easily votes on them.', 'buddypress-polls' ); ?></p>
+			<p><a href="https://vimeo.com/562748687">BuddyPress Polls for Member Activities</a> from <a href="https://vimeo.com/wbcom">Wbcom Designs</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+			</div>
 			</div>
 
 			<div class="wbcom-welcome-support-info">

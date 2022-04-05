@@ -116,8 +116,8 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 
-			//add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
-			//add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
+			// add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
+			// add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
 		}
 	}
 
@@ -724,7 +724,9 @@ class Buddypress_Polls_Public {
 					$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
 					$activity_content .= '<div class="bpolls-check-radio-wrap">';
-					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+					if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
+						$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+					}
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
 					$activity_content .= '</div>';
 
@@ -742,7 +744,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
-				if ( ( $submit && $poll_closing && is_user_logged_in() ) || $poll_revoting ) {
+				if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_btn_style . '>' . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
@@ -1151,7 +1153,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( $can_edit && ! $privacy_edit ) {
+		if ( $can_edit ) {
 
 			// Check activity edit time expiration.
 			$activity_edit_time        = (int) bp_get_activity_edit_time(); // for 10 minutes, 600
@@ -1234,6 +1236,20 @@ class Buddypress_Polls_Public {
 			wp_send_json_success( $result_html );
 
 		}
+	}
+
+	/**
+	 * Embed polls activity data in rest api activity endpoint.
+	 *
+	 * @param  object $response get response data.
+	 * @param  object $request get request data.
+	 * @param  array  $activity get activity data.
+	 * @return $response
+	 */
+	public function bpolls_activity_data_embed_rest_api( $response, $request, $activity ) {
+		$data                       = bp_activity_get_meta( $activity->id, 'bpolls_meta', true );
+		$response->data['bp_polls'] = $data;
+		return $response;
 	}
 
 }

@@ -21,7 +21,11 @@ if ( ! isset( $bpolls_settings['limit_poll_activity'] ) ) {
 global $wp_roles;
 ?>
 <div class="wbcom-tab-content">
+<div class="wbcom-wrapper-admin">
+<div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'Polls General Settings', 'buddypress-polls' ); ?></h3>
+</div>
 <form method="post" action="admin.php?action=update_network_options">
+	<div class="wbcom-admin-option-wrap">
 	<input name='bpolls_settings[hidden]' type='hidden' value=""/>
 	<?php
 	settings_fields( 'buddypress_polls_general' );
@@ -170,8 +174,9 @@ global $wp_roles;
 				<label>
 				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='member_type' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'member_type' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>
 				</label>
-				<p class="description"><?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
-			</p>
+				<p class="description">
+					<?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
+				</p>
 			</td>
 		</tr>
 		<tr id="bpolls_user_role" 
@@ -191,7 +196,9 @@ global $wp_roles;
 					<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
 					<?php } ?>
 				</select>
-				<p class="description"><?php esc_html_e( 'Select user role which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>
+				<p class="description">
+					<?php esc_html_e( 'Select user role which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>
+				</p>
 			</td>
 		</tr>
 
@@ -218,11 +225,14 @@ global $wp_roles;
 						</select>
 					<?php } ?>
 
-				<p class="description"><?php esc_html_e( 'Select member type which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>
+				<p class="description">
+					<?php esc_html_e( 'Select member type which are allowed to publish poll type activities.', 'buddypress-polls' ); ?>					
+				</p>
 			</td>
-		</tr>
-
+		</tr>		
 	</table>
+</div>
 	<?php submit_button(); ?>
 </form>
+</div>
 </div>
