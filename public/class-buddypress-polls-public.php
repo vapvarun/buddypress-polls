@@ -724,7 +724,9 @@ class Buddypress_Polls_Public {
 					$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
 					$activity_content .= '<div class="bpolls-check-radio-wrap">';
-					$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+					if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
+						$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+					}
 					$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
 					$activity_content .= '</div>';
 
