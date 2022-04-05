@@ -742,7 +742,7 @@ class Buddypress_Polls_Public {
 				$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
 				$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
 
-				if ( ( $submit && $poll_closing && is_user_logged_in() ) || $poll_revoting ) {
+				if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
 					$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_btn_style . '>' . __( 'Submit', 'buddypress-polls' ) . '</a>';
 				}
 				$activity_content .= '</form></div></div>';
