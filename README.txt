@@ -53,6 +53,13 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 3.9.5 =
+* Fixed - #129 - Polls Closing Date time then hide checkbox or radio button
+* Fixed - #129 - Poll closing date & time setting
+* Fixed - #132 - Fixed php notice with private group poll activity
+* Fixed - managed backend welcome page
+* Fixed - Embed polls activity data in rest api activity endpoint
+
 = 3.9.4 =
 * Fixed - Activity poll media uploader popup fixed
 * Fixed - Managed 'Add a poll' language transferable and fixes
