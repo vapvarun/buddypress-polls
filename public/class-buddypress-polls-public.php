@@ -91,7 +91,9 @@ class Buddypress_Polls_Public {
 			|| 'activity' === $current_component
 			) {
 
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-public.css', array(), time(), 'all' );
+			$rtl_css = is_rtl() ? '-rtl' : '';
+
+			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public.css', array(), time(), 'all' );
 
 			// if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
 			// * echo 'datetimepicker registered'; */

@@ -43,7 +43,7 @@
 }
 
 #whats-new-options .post-elements-buttons-item {
-    margin-right: 10px;
+    margin-left: 10px;
     margin-bottom: 10px;
     display: inline-block;
     position: relative;
@@ -56,7 +56,7 @@
 
 @media screen and (min-width: 46.8em) {
     #whats-new-options .post-elements-buttons-item:first-child {
-        margin-left: 65px;
+        margin-right: 65px;
     }
 }
 
@@ -113,11 +113,11 @@
 }
 
 .bpolls-sortable-handle {
-    border-radius: 5px 0 0 5px;
+    border-radius: 0 5px 5px 0;
 }
 
 .bpolls-option-delete {
-    border-radius: 0 5px 5px 0;
+    border-radius: 5px 0 0 5px;
 }
 
 input.bpolls-input.bpolls-input {
@@ -136,7 +136,7 @@ input.bpolls-input.bpolls-input {
 }
 
 .bpolls-add-option {
-    margin: 0 10px 10px 0;
+    margin: 0 0 10px 10px;
     cursor: pointer;
 }
 
@@ -151,13 +151,13 @@ input.bpolls-input.bpolls-input {
 .bpolls-option-action .bpolls-checkbox {
     display: inline-block;
     margin-top: 3px;
-    margin-left: 14px;
+    margin-right: 14px;
     position: relative;
     line-height: 22px;
 }
 
 .bpolls-checkbox label {
-    padding-left: 0;
+    padding-right: 0;
     display: inline;
     margin: 0;
     clear: none;
@@ -180,7 +180,7 @@ input.bpolls-input.bpolls-input {
 
 .bpolls-cancel-div {
     width: 100%;
-    text-align: right;
+    text-align: left;
 }
 
 .bpolls-item {
@@ -221,7 +221,7 @@ input.bpolls-input.bpolls-input {
     font-size: 16px;
     line-height: 22px;
     color: #3a3a3a;
-    text-align: right;
+    text-align: left;
     display: block;
 }
 
@@ -241,7 +241,7 @@ input.bpolls-input.bpolls-input {
 }
 
 a.bpolls-add-option.button {
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .bpolls-options-attach-container {
@@ -275,7 +275,7 @@ a.bpolls-add-option.button {
 }
 
 .bpolls-vote-submit .fa {
-    margin-left: 5px;
+    margin-right: 5px;
 }
 
 body:not(.logged-in) .bpolls-vote-submit {
@@ -292,7 +292,7 @@ body:not(.logged-in) .bpolls-vote-submit {
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
-    float: right;
+    float: left;
 }
 
 .bpolls-item .bpolls-result-votes .bpolls-post-voted {
@@ -311,7 +311,7 @@ body:not(.logged-in) .bpolls-vote-submit {
     display: inline-block;
     line-height: 1;
     margin: 0;
-    margin-left: -5px;
+    margin-right: -5px;
 }
 
 .bpolls-item .bpolls-result-votes .bpolls-post-voted img,
@@ -351,7 +351,7 @@ body:not(.logged-in) .bpolls-vote-submit {
     display: inline-block;
     font-size: 11px;
     font-weight: 600;
-    margin-left: 8px;
+    margin-right: 8px;
 }
 
 .bpolls-check-radio-wrap {
@@ -365,7 +365,7 @@ body:not(.logged-in) .bpolls-vote-submit {
 
 .bpolls-check-radio-wrap input {
     display: inline-block;
-    margin: 3px 7px 0 0 !important;
+    margin: 3px 0 0 7px !important;
     outline: 0;
     position: relative;
     border-radius: 100px;
@@ -424,13 +424,13 @@ a.bpolls-cancel:hover {
 
 input#bpolls-datetimepicker {
     height: 32px;
-    margin: 0 10px 10px 0;
+    margin: 0 0 10px 10px;
     padding: 0 10px;
 }
 
 @media(max-width: 479px) {
     input#bpolls-datetimepicker {
-        margin-left: 0;
+        margin-right: 0;
     }
 }
 
@@ -460,7 +460,7 @@ select.bpolls-activities-list {
 
 .bpolls-option-actions-wrap {
     width: 100%;
-    text-align: left;
+    text-align: right;
 }
 
 .polls-option-image-div {
@@ -475,17 +475,17 @@ select.bpolls-activities-list {
 
 .bpolls-sortable.ui-sortable {
     width: 100%;
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .bpolls-image-upload {
     width: 100%;
-    text-align: left;
+    text-align: right;
     margin-top: 10px;
 }
 
 #bpolls-attach-image {
-    margin: 10px 10px 0 0;
+    margin: 10px 0 0 10px;
     padding: 0;
     width: 34px;
     height: 34px;
@@ -525,7 +525,7 @@ img#bpolls-image-preview {
 
 .bpolls-icon-dialog {
     top: 0;
-    left: 0;
+    right: 0;
     opacity: 0;
     width: 100%;
     height: 100%;
@@ -662,11 +662,11 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 .bpolls-user-votes-dialog .bpolls-modal-title .fa-users {
-    margin-right: 10px;
+    margin-left: 10px;
 }
 
 .bpolls-user-votes-dialog .bpolls-modal-close-icon {
-    margin-left: auto;
+    margin-right: auto;
     cursor: pointer;
 }
 
@@ -684,7 +684,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     display: -ms-flexbox;
     display: flex;
     margin: 0 0 15px;
-    text-align: left;
+    text-align: right;
 }
 
 .bpolls-users-who-list .bpolls-list-item img {
@@ -701,7 +701,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 .bpolls-users-who-list .bpolls-item-data {
-    margin-left: 15px;
+    margin-right: 15px;
 }
 
 .buddypress .supports-drag-drop .media-modal {
@@ -790,17 +790,17 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 [data-polls-tooltip]:before,
 [data-polls-tooltip]:after {
     bottom: 100%;
-    left: 50%;
+    right: 50%;
 }
 
 [data-polls-tooltip]:before {
-    left: calc(50% - 6px);
+    right: calc(50% - 6px);
 }
 
 [data-polls-tooltip]:after {
-    -webkit-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    transform: translateX(-50%);
+    -webkit-transform: translateX(50%);
+    -moz-transform: translateX(50%);
+    transform: translateX(50%);
 }
 
 [data-polls-tooltip]:hover:before {
@@ -810,9 +810,9 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 [data-polls-tooltip]:hover:after {
-    -webkit-transform: translateX(-50%) translateY(-8px);
-    -moz-transform: translateX(-50%) translateY(-8px);
-    transform: translateX(-50%) translateY(-8px);
+    -webkit-transform: translateX(50%) translateY(-8px);
+    -moz-transform: translateX(50%) translateY(-8px);
+    transform: translateX(50%) translateY(-8px);
 }
 
 
@@ -933,7 +933,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 @media (min-width: 46.8em) {
     .bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 65px);
-        margin-left: 65px;
+        margin-right: 65px;
     }
 }
 
@@ -948,7 +948,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 
 .bp-nouveau .site-wrapper .bpolls-polls-option-html {
     width: 100%;
-    margin-left: 0;
+    margin-right: 0;
     border-radius: 4px;
 }
 
@@ -992,12 +992,12 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 --------------------------------------------------------------*/
 
 body.bp-nouveau.thrive-inline .bpolls-html-container {
-    margin-left: 12.5%;
+    margin-right: 12.5%;
 }
 
 @media (max-width: 748px) {
     body.bp-nouveau.thrive-inline .bpolls-html-container {
-        margin-left: 0px;
+        margin-right: 0px;
         margin-top: 10px;
     }
 }
@@ -1005,7 +1005,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 @media (min-width: 46.8em) {
     .thrive-inline.bp-nouveau .bpolls-polls-option-html {
         width: calc(100% - 14.5%);
-        margin-left: 12.5%;
+        margin-right: 12.5%;
     }
 }
 
@@ -1024,13 +1024,13 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     line-height: inherit;
     color: #5561e2;
     font-size: 12px;
-    margin-left: 0.25rem;
+    margin-right: 0.25rem;
     border: none;
 }
 
 .theme-beehive.bp-nouveau .bpolls-polls-option-html {
     width: 100%;
-    margin-left: 0px;
+    margin-right: 0px;
     padding: 0;
     border: none;
 }
@@ -1050,7 +1050,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 --------------------------------------------------------------*/
 
 .gp-theme .bpolls-html-container .bpolls-icon {
-    padding-left: 0;
+    padding-right: 0;
 }
 
 .gp-theme .bp-giphy-html-container+.bpolls-html-container,
@@ -1112,7 +1112,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 }
 
 .youzify .bpolls-option-action a.bpolls-add-option.button {
-    margin: 0 12px 0 0;
+    margin: 0 0 0 12px;
     background: #4fc1e9;
     color: #fff;
     border-color: #4fc1e9;
@@ -1136,7 +1136,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 }
 
 .youzify-wall-actions .post-elements-buttons-item.bpolls-html-container {
-    float: left;
+    float: right;
 }
 
 @media screen and (max-width: 475px) {
@@ -1182,3 +1182,4 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     width: calc(100% - 30px);
     margin: 15px;
 }
+/*# sourceMappingURL=buddypress-polls-public.css.map */
