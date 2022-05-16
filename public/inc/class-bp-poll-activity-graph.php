@@ -196,6 +196,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			'action'   => 'activity_poll',
 			'type'     => 'activity_poll',
 			'per_page' => $max_activity,
+			'show_hidden' => true,
 		);
 		if ( ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
 			$act_args['user_id'] = $current_user->ID;
