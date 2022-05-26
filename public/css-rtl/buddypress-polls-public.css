@@ -5,6 +5,7 @@
 # Activity Graph Widget Select
 # Bpolls Image Upload
 # Dialog Box
+# Shortcode
 # Themes Specific
     # Kleo
     # Boss
@@ -813,6 +814,22 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     -webkit-transform: translateX(50%) translateY(-8px);
     -moz-transform: translateX(50%) translateY(-8px);
     transform: translateX(50%) translateY(-8px);
+}
+
+
+/*--------------------------------------------------------------
+# Shortcode
+--------------------------------------------------------------*/
+
+.bpolls-options-attach-shortcode-wrapper {
+    background: #fff;
+    padding: 1rem;
+    box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
+}
+
+.widget .bpolls-options-attach-shortcode-wrapper {
+    padding: 0;
+    box-shadow: none;
 }
 
 
