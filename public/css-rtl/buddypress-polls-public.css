@@ -827,6 +827,10 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
 }
 
+.bpolls-options-attach-shortcode-wrapper .bpolls-options-attach-container {
+    margin-top: 0;
+}
+
 .widget .bpolls-options-attach-shortcode-wrapper {
     padding: 0;
     box-shadow: none;
@@ -973,6 +977,10 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     margin: 15px;
 }
 
+.site-wrapper .widget form.bpolls-vote-submit-form {
+    margin: 0;
+}
+
 .site-wrapper input#bpolls-datetimepicker {
     height: 38px;
 }
@@ -1001,6 +1009,10 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 
 .buddyboss-theme .bpolls-item input[type=radio]:checked+label {
     font-style: normal;
+}
+
+.widget .bpolls-options-attach-shortcode-wrapper label.bpolls-option-lbl {
+    margin-bottom: 0 !important;
 }
 
 
