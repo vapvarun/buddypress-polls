@@ -1274,7 +1274,7 @@ class Buddypress_Polls_Public {
 		$activity_id      = $atts['activity_id'];
 		$activity_content = '';
 		ob_start();
-		echo '<div id="buddypress">';
+		$activity_content .= '<div id="buddypress">';
 		if ( function_exists( 'bp_is_active' ) ) {
 			global $current_user;
 			$user_id                = get_current_user_id();
@@ -1481,10 +1481,10 @@ class Buddypress_Polls_Public {
 
 				}
 			} else {
-				echo esc_html( 'This is not a poll activity', 'buddypress-polls' );
+				$activity_content .= esc_html( 'This is not a poll activity', 'buddypress-polls' );
 			}
 		}
-		echo '</div>';
+		$activity_content .='</div>';
 		$activity_content .= ob_get_clean();
 		return $activity_content;
 	}
