@@ -827,6 +827,10 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     box-shadow: 0 0 0 1px rgb(0 0 0 / 5%);
 }
 
+.bpolls-options-attach-shortcode-wrapper .bpolls-options-attach-container {
+    margin-top: 0;
+}
+
 .widget .bpolls-options-attach-shortcode-wrapper {
     padding: 0;
     box-shadow: none;
