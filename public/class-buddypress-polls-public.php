@@ -69,7 +69,23 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $wp_styles, $post;
-
+		
+		$rtl_css = is_rtl() ? '-rtl' : '';
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public.css', array(), time(), 'all' );
+		wp_register_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), time(), 'all' );
+		
+		if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
+			wp_register_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
+		}
+		
+		wp_register_style(
+				$handle = 'wb-icons',
+				$src    = plugin_dir_url( __FILE__ ) . 'css/wb-icons.css',
+				$deps   = array(),
+				$ver    = time(),
+				$media  = 'all'
+			);
+		
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
 			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
@@ -92,35 +108,14 @@ class Buddypress_Polls_Public {
 			|| 'activity' === $current_component
 			) {
 
-			$rtl_css = is_rtl() ? '-rtl' : '';
-
-			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public.css', array(), time(), 'all' );
-
-			// if ( in_array( 'jquery.datetimepicker.css', $srcs ) || in_array( 'jquery.datetimepicker.min.css', $srcs ) ) {
-			// * echo 'datetimepicker registered'; */
-			// } else {
-			// wp_enqueue_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), time(), 'all' );
-			// }.
-
-			wp_enqueue_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), time(), 'all' );
-
+			wp_enqueue_style( $this->plugin_name );
+			wp_enqueue_style( $this->plugin_name . '-time' );
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
-				wp_enqueue_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
+				wp_enqueue_style( 'wb-font-awesome' );
 			}
-
-			wp_register_style(
-				$handle = 'wb-icons',
-				$src    = plugin_dir_url( __FILE__ ) . 'css/wb-icons.css',
-				$deps   = array(),
-				$ver    = time(),
-				$media  = 'all'
-			);
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}
-
-			// add_filter( 'media_upload_tabs', array( $this, 'bpolls_remove_media_library_tab' ) );
-			// add_filter( 'media_view_strings', array( $this, 'bpolls_remove_medialibrary_tab' ) );
 		}
 	}
 
@@ -142,6 +137,52 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $post;
+		
+		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
+		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
+
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
+		
+		
+		if ( 'REIGN' === wp_get_theme() || 'REIGN Child' === wp_get_theme() ) {
+			$body_polls_class = true;
+		} else {
+			$body_polls_class = false;
+		}
+
+		$rt_poll_fix = false;
+		if ( class_exists( 'RTMedia' ) ) {
+			$rt_poll_fix = true;
+		}
+
+		$active_template = get_option( '_bp_theme_package_id' );
+		if ( 'legacy' === $active_template ) {
+			$nouveau = false;
+		} elseif ( 'nouveau' === $active_template ) {
+			$nouveau = true;
+		}
+
+		$bpolls_settings = get_site_option( 'bpolls_settings' );
+
+		wp_localize_script(
+			$this->plugin_name,
+			'bpolls_ajax_object',
+			array(
+				'ajax_url'          => admin_url( 'admin-ajax.php' ),
+				'ajax_nonce'        => wp_create_nonce( 'bpolls_ajax_security' ),
+				'submit_text'       => __( 'Submitting vote', 'buddypress-polls' ),
+				'optn_empty_text'   => __( 'Please select your choice.', 'buddypress-polls' ),
+				'reign_polls'       => $body_polls_class,
+				'rt_poll_fix'       => $rt_poll_fix,
+				'nouveau'           => $nouveau,
+				'buddyboss'         => buddypress()->buddyboss,
+				'polls_option_lmit' => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
+				'poll_limit_voters' => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
+				'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
+				'add_poll_text'     => __( 'Add a poll', 'buddypress-polls' ),
+			)
+		);		
+		
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
 			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
@@ -167,49 +208,12 @@ class Buddypress_Polls_Public {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 			wp_enqueue_media();
-			wp_enqueue_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
-			wp_enqueue_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
+			wp_enqueue_script( $this->plugin_name . '-timejs');
+			wp_enqueue_script( $this->plugin_name . '-timefulljs');
 
-			wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
+			wp_enqueue_script( $this->plugin_name );
 
-			if ( 'REIGN' === wp_get_theme() || 'REIGN Child' === wp_get_theme() ) {
-				$body_polls_class = true;
-			} else {
-				$body_polls_class = false;
-			}
-
-			$rt_poll_fix = false;
-			if ( class_exists( 'RTMedia' ) ) {
-				$rt_poll_fix = true;
-			}
-
-			$active_template = get_option( '_bp_theme_package_id' );
-			if ( 'legacy' === $active_template ) {
-				$nouveau = false;
-			} elseif ( 'nouveau' === $active_template ) {
-				$nouveau = true;
-			}
-
-			$bpolls_settings = get_site_option( 'bpolls_settings' );
-
-			wp_localize_script(
-				$this->plugin_name,
-				'bpolls_ajax_object',
-				array(
-					'ajax_url'          => admin_url( 'admin-ajax.php' ),
-					'ajax_nonce'        => wp_create_nonce( 'bpolls_ajax_security' ),
-					'submit_text'       => __( 'Submitting vote', 'buddypress-polls' ),
-					'optn_empty_text'   => __( 'Please select your choice.', 'buddypress-polls' ),
-					'reign_polls'       => $body_polls_class,
-					'rt_poll_fix'       => $rt_poll_fix,
-					'nouveau'           => $nouveau,
-					'buddyboss'         => buddypress()->buddyboss,
-					'polls_option_lmit' => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
-					'poll_limit_voters' => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
-					'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
-					'add_poll_text'     => __( 'Add a poll', 'buddypress-polls' ),
-				)
-			);
+			
 		}
 	}
 
@@ -1276,6 +1280,19 @@ class Buddypress_Polls_Public {
 		ob_start();
 		$activity_content .= '<div id="buddypress">';
 		if ( function_exists( 'bp_is_active' ) ) {
+			wp_enqueue_style( $this->plugin_name );
+			wp_enqueue_style( $this->plugin_name . '-time' );
+			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
+				wp_enqueue_style( 'wb-font-awesome' );
+			}
+			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
+				wp_enqueue_style( 'wb-icons' );
+			}
+			wp_enqueue_script( $this->plugin_name . '-timejs');
+			wp_enqueue_script( $this->plugin_name . '-timefulljs');
+			wp_enqueue_script( $this->plugin_name );
+			
+			
 			global $current_user;
 			$user_id                = get_current_user_id();
 			$bpolls_settings        = get_site_option( 'bpolls_settings' );
