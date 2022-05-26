@@ -253,6 +253,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			/* Embed polls activity data in rest api */
 			$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpolls_activity_data_embed_rest_api', 10, 3 );
+			
+			$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
+			$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
 
 		}
 

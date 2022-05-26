@@ -88,6 +88,7 @@ class Buddypress_Polls_Public {
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 			|| 'activity' === $current_component
 			) {
 
@@ -159,6 +160,7 @@ class Buddypress_Polls_Public {
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 				|| 'activity' === $current_component
 				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
@@ -1249,9 +1251,274 @@ class Buddypress_Polls_Public {
 	 * @return $response
 	 */
 	public function bpolls_activity_data_embed_rest_api( $response, $request, $activity ) {
-		$data                       = bp_activity_get_meta( $activity->id, 'bpolls_meta', true );
-		$response->data['bp_polls'] = $data;
+		$bppolls_meta                                     = bp_activity_get_meta( $activity->id, 'bpolls_meta', true );
+		$bppolls_vote                                     = bp_activity_get_meta( $activity->id, 'bpolls_total_votes', true );
+		$response->data['bp_polls']['bpolls_meta']        = $bppolls_meta;
+		$response->data['bp_polls']['bpolls_total_votes'] = $bppolls_vote;
 		return $response;
+	}
+	
+	/**
+	 * Show the Polls Activity Data using shortcode.	 	 
+	 *
+	 * @since BP Polls 4.0.0
+	 */
+	public function bppolls_rest_api_shortcode( $atts, $content = null ) {
+		global $wpdb;
+		$atts             = shortcode_atts(
+			array(
+				'activity_id' => null,
+			),
+			$atts,
+		);
+		$activity_id      = $atts['activity_id'];
+		$activity_content = '';
+		ob_start();
+		echo '<div id="buddypress">';
+		if ( function_exists( 'bp_is_active' ) ) {
+			global $current_user;
+			$user_id                = get_current_user_id();
+			$bpolls_settings        = get_site_option( 'bpolls_settings' );
+			$poll_options_result    = ( isset( $bpolls_settings['poll_options_result'] ) ) ? true : false;
+			$poll_revoting          = ( isset( $bpolls_settings['poll_revoting'] ) ) ? true : false;
+			$polls_background_color = ( isset( $bpolls_settings['polls_background_color'] ) ) ? $bpolls_settings['polls_background_color'] : '#4caf50';
+			$polls_bg_style         = '';
+			if ( $polls_background_color != '' ) {
+				$polls_bg_style = ";background-color:$polls_background_color";
+			}
+
+			$polls_btn_style = '';
+			if ( $polls_background_color != '' ) {
+				$polls_btn_style = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
+			}
+
+			$submit       	= false;
+			$hide_results 	= false;
+			$poll_style 	= '';
+			if ( ! $poll_revoting ) {
+				$poll_style = 'style="display:none;"';
+			}
+			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
+			if ( $bpoll_user_vote ) {
+				if ( ! array_key_exists( $activity_id, $bpoll_user_vote ) ) {
+					$submit = true;
+					if ( isset( $bpolls_settings['hide_results'] ) ) {
+						$hide_results = true;
+					}
+					$poll_style = '';
+				}
+			} else {
+				$submit = true;
+				if ( isset( $bpolls_settings['hide_results'] ) ) {
+					$hide_results = true;
+				}
+				$poll_style = '';
+			}
+			$activity_data     = bp_activity_get_specific(
+				array(
+					'activity_ids' => $activity_id,
+					'show_hidden'  => true,
+					'spam'         => 'all',
+				)
+			);
+			
+			
+			$polls_act_content = stripslashes_deep($activity_data['activities'][0]->content);			
+			$activity_type 	   = $activity_data['activities'][0]->type;
+
+			$activity_meta     = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+			$total_votes       = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
+			$poll_image        = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
+			$poll_closing      = false;
+
+			if ( isset( $activity_meta['close_date'] ) && isset( $bpolls_settings['close_date'] ) && $activity_meta['close_date'] != 0 ) {
+				$current_time    = new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) );
+				$close_date      = $activity_meta['close_date'];
+				$close_date_time = new DateTime( $close_date );
+				if ( $close_date_time > $current_time ) {
+					$poll_closing = true;
+				}
+			} else {
+				$poll_closing = true;
+			}
+					$u_meta = array();
+			if ( isset( $bpoll_user_vote[ $activity_id ] ) ) {
+				$u_meta = $bpoll_user_vote[ $activity_id ];
+			}
+			
+			if ( isset( $activity_meta['poll_option'] ) && $activity_type == 'activity_poll' ) {
+				$poll_options = ( isset( $activity_meta['poll_option'] ) ) ? $activity_meta['poll_option'] : array();
+
+				if ( isset( $activity_meta['multiselect'] ) && 'yes' === $activity_meta['multiselect'] ) {
+					$optn_typ = 'checkbox';
+				} else {
+					$optn_typ = 'radio';
+				}
+
+				if ( ! empty( $poll_options ) && is_array( $poll_options ) ) {
+					$activity_content .= "<div class='bpolls-options-attach-container'>";
+					$activity_content .= '<p>';
+					$activity_content .= $polls_act_content;
+					$activity_content .= '</p>';
+					if ( $poll_image ) {
+						$activity_content .= "<div class='bpolls-image-container'>";
+						$activity_content .= "<img src='" . $poll_image . "'>";
+						$activity_content .= '</div>';
+					}
+					$activity_content .= "<div class='bpolls-options-attach-items'><form class='bpolls-vote-submit-form' method='post' action=''>";
+					foreach ( $poll_options as $key => $value ) {
+
+						if ( isset( $activity_meta['poll_total_votes'] ) ) {
+							$total_votes = $activity_meta['poll_total_votes'];
+						} else {
+							$total_votes = 0;
+						}
+
+						if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
+							$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
+						} else {
+							$this_optn_vote = 0;
+						}
+
+						if ( 0 != $total_votes ) {
+							$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
+						} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
+							$vote_percent = '100%';
+						} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && ! in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
+							$vote_percent = '0%';
+						} else {
+							$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
+						}
+
+						$bpolls_votes_txt = '(' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Activity', 'buddypress-polls' ) . '&nbsp;' . $total_votes . ')';
+
+						if ( $hide_results && ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
+							$vote_percent     = '';
+							$bpolls_votes_txt = '';
+						}
+
+						if ( in_array( $key, $u_meta, true ) ) {
+							$checked = 'checked';
+						} else {
+							$checked = '';
+						}
+
+						$activity_content .= "<div class='bpolls-item'>";
+
+						$output                 = '';
+						$activity_votes_content = '';
+						$count                  = 0;
+
+						// $activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
+						$poll_optn_user_votes = isset( $activity_meta['poll_optn_user_votes'][ $key ] ) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
+
+						if ( ! empty( $poll_optn_user_votes ) && isset( $bpolls_settings['poll_list_voters'] ) && ! $hide_results ) {
+
+							$count       = count( $poll_optn_user_votes );
+							$liked_count = $count - $bpolls_settings['poll_limit_voters'];
+							foreach ( $poll_optn_user_votes as $userkey => $user_id ) {
+								// Get Users Image.
+								$img_path = bp_core_fetch_avatar(
+									array(
+										'item_id' => $user_id,
+										'type'    => 'thumb',
+										'html'    => true,
+									)
+								);
+								// How Much User Visible.
+								if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
+
+									// Get User Image Code.
+									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
+										array(
+											'html'    => true,
+											'type'    => 'thumb',
+											'item_id' => $user_id,
+										)
+									) . '</a>';
+								}
+							}
+
+							if ( isset( $output ) ) {
+
+								if ( $liked_count > 0 ) {
+									// Display Show More.
+									$output .= '<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id . '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
+								}
+
+								$activity_votes_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
+
+							}
+						}
+
+						$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
+
+						$activity_content .= '<div class="bpolls-check-radio-wrap">';
+						if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
+							$activity_content .= "<input id='" . $key . "' name='bpolls_vote_optn[]' value='" . $key . "' type='" . $optn_typ . "' " . $checked . ' ' . $poll_style . '>';
+						}
+						$activity_content .= "<label for='" . $key . "' class='bpolls-option-lbl'>" . $value . '</label>';
+						$activity_content .= '</div>';
+
+						$activity_content .= "<div class='bpolls-item-width-wrapper'>";
+						// $activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . ";'></div>";
+						$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . $polls_bg_style . ";'></div>";
+						$activity_content .= "<div class='bpolls-check-radio-div'></div>";
+						$activity_content .= '</div>';
+						if ( $poll_options_result ) {
+							$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
+						}
+						$activity_content .= '</div>';
+					}
+					$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='" . $activity_id . "'>";
+					$activity_content .= "<input type='hidden' name='bpoll_multi' value='" . $activity_meta['multiselect'] . "'>";
+					$activity_content .= "<input type='hidden' name='bpoll_user_id' value='" . $user_id . "'>";
+
+					if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
+						$activity_content .= "<a class='bpolls-vote-submit' href='javascript:void(0)' " . $polls_btn_style . '>' . __( 'Submit', 'buddypress-polls' ) . '</a>';
+					}
+					$activity_content .= '</form></div></div>';
+
+				}
+			} else {
+				echo esc_html( 'This is not a poll activity', 'buddypress-polls' );
+			}
+		}
+		echo '</div>';
+		$activity_content .= ob_get_clean();
+		return $activity_content;
+	}
+
+	/**
+	 * Fires when preparing to serve a REST API request.
+	 *
+	 * @return void
+	 *
+	 * @since BP Polls 4.0.0
+	 */
+	public function bppolls_register_user_meta() {
+		register_rest_field(
+			'user',
+			'bp_polls_user_data',
+			array(
+				'get_callback' => array( $this, 'bp_polls_user_meta_callback' ),
+				'schema'       => null,
+			)
+		);
+
+	}
+
+	/**
+	 * Get callback fuction of rest API.
+	 *
+	 * @param  int    $user User ID.
+	 * @param  string $field_name Field Name.
+	 * @param  data   $request API Request.
+	 *
+	 * @since BP Polls 4.0.0
+	 */
+	public function bp_polls_user_meta_callback( $user, $field_name, $request ) {
+		return get_user_meta( $user['id'], 'bpoll_user_vote', true );
 	}
 
 }
