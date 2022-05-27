@@ -1276,6 +1276,10 @@ class Buddypress_Polls_Public {
 			$atts,
 		);
 		$activity_id      = $atts['activity_id'];
+		/* activity id is not integer then return */
+		if ( !is_int($activity_id) ) {
+			$activity_id = 0;
+		}
 		$activity_content = '';
 		ob_start();
 		$activity_content .= '<div id="buddypress">';
