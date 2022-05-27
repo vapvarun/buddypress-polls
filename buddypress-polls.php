@@ -356,16 +356,16 @@ function bpolls_ajax_query_attachments_args( $query ) {
 
 
 /**
- * Display Polls Activity in bbpress reply using shortcode 
+ * Display Polls Activity in bbpress reply using shortcode
  *
  * @param content $content
  *
  * @ Since 4.0.0
  */
-add_filter('bbp_get_reply_content', 'bpolls_bbp_get_reply_content');
+add_filter( 'bbp_get_reply_content', 'bpolls_bbp_get_reply_content' );
 
 function bpolls_bbp_get_reply_content( $content ) {
-	
+
 	return do_shortcode( $content );
 }
 
@@ -375,12 +375,12 @@ function bpolls_bbp_get_reply_content( $content ) {
  * @ Since 4.0.0
  */
 function bpolls_add_quicktags() {
-    if ( wp_script_is('quicktags') && ( bbp_is_single_forum() ||bbp_is_single_topic() || bbp_is_single_reply() ) ){
-	?>
-    <script type="text/javascript">    
-		QTags.addButton( 'bp_polls', 'Polls', '[bp_polls activity_id="add your polls activity id"]', '', 'h', 'Horizontal rule line', 201 );
-    </script>
-	<?php
-    }
+	if ( wp_script_is( 'quicktags' ) && ( bbp_is_single_forum() || bbp_is_single_topic() || bbp_is_single_reply() ) ) {
+		?>
+	<script type="text/javascript">    
+		QTags.addButton( 'bp_polls', 'Polls', '[bp_polls activity_id="add your polls activity id"]', '', 'h', 'Add your polls activity', 201 );
+	</script>
+		<?php
+	}
 }
-add_action( 'wp_footer', 'bpolls_add_quicktags',99999 );
+add_action( 'wp_footer', 'bpolls_add_quicktags', 99999 );
