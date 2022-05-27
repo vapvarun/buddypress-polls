@@ -837,6 +837,28 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 
+/* Forums */
+
+#bbpress-forums div.bbp-topic-content .bpolls-options-attach-shortcode-wrapper a,
+#bbpress-forums div.bbp-reply-content .bpolls-options-attach-shortcode-wrapper a {
+    padding: 7px 20px;
+    text-decoration: none;
+}
+
+#bbpress-forums div.bbp-topic-content .bpolls-options-attach-shortcode-wrapper .bpolls-post-voted a,
+#bbpress-forums div.bbp-reply-content .bpolls-options-attach-shortcode-wrapper .bpolls-post-voted a {
+    padding: 0;
+}
+
+.bpolls-options-attach-shortcode-wrapper .bpolls-options-attach-container>p {
+    margin: 0 0 15px;
+}
+
+.bpolls-options-attach-shortcode-wrapper p {
+    margin: 0;
+}
+
+
 /*--------------------------------------------------------------
 ## Kleo
 --------------------------------------------------------------*/
