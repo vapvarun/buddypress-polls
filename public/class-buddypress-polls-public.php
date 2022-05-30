@@ -1275,10 +1275,12 @@ class Buddypress_Polls_Public {
 			),
 			$atts,
 		);
-		$activity_id      = (int)$atts['activity_id'];
+		$activity_id      = $atts['activity_id'];
+		$activity_id      = is_numeric( $activity_id ) ? (int) $activity_id : $activity_id;;
 		/* activity id is not integer then return */
 		if ( !is_int($activity_id) ) {
 			$activity_id = 0;
+			return $content;
 		}
 		$activity_content = '';
 		ob_start();
