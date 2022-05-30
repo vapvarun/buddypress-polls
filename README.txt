@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 5.9.2
-Stable tag: 3.9.5
+Tested up to: 6.0.0
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,15 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 4.0.0 =
+* New Feature : Added Shortcode to display Poll activity at any page or CPT
+* New Feature : #150 - Added Polls Quick Tag for bbPress Topics editor
+* Fixed - (#150) Managed polls shortcode UI in forum
+* New Feature #150 - Enqueue script and style in shortcode and register global
+* Fixed - (#133)Fixed unable to see the result of poll inside the hidden groups
+* Fixed - Reduced setInterval timeout with bb platform
+* Fixed - (#148) Added RTL support
+
 = 3.9.5 =
 * Fixed - #129 - Polls Closing Date time then hide checkbox or radio button
 * Fixed - #129 - Poll closing date & time setting
