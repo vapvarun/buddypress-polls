@@ -241,19 +241,19 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			/* embed poll activity css */
 			$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_activity_embed_add_inline_styles', 20 );
 
-			/* update total poll votes */
-			//$this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
+			// update total poll votes.
+			// $this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
 
 			$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
 
 			$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
-			
+
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 			$this->loader->add_action( 'wp_ajax_nopriv_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 
 			/* Embed polls activity data in rest api */
 			$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpolls_activity_data_embed_rest_api', 10, 3 );
-			
+
 			$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
 

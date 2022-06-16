@@ -85,9 +85,7 @@ global $wp_roles;
 		<tr>
 			<th scope="row"><label for="options_limit"><?php esc_html_e( 'Poll Options Limit', 'buddypress-polls' ); ?></label></th>
 			<td>
-			
-			<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : '5'; ?>'/>			
-			
+			<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? esc_attr( $bpolls_settings['options_limit'] ) : '5'; ?>'/>			
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Set the limit of the poll options.', 'buddypress-polls' ); ?>
 			</p>
 			</td>
@@ -114,7 +112,6 @@ global $wp_roles;
 			</p>
 			</td>
 		</tr>
-		
 		<tr>
 			<th scope="row"><label for="poll_list_voters"><?php esc_html_e( 'Show Voters List', 'buddypress-polls' ); ?></label></th>
 			<td>
@@ -126,30 +123,24 @@ global $wp_roles;
 			</p>
 			</td>
 		</tr>
-		
 		<tr>
 			<th scope="row"><label for="poll_limit_voters"><?php esc_html_e( 'Max Voters Number', 'buddypress-polls' ); ?></label></th>
 			<td>
-			
-			<input id="poll_limit_voters" name='bpolls_settings[poll_limit_voters]' type='number' value='<?php echo ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : '3'; ?>'/>			
-			
+			<input id="poll_limit_voters" name='bpolls_settings[poll_limit_voters]' type='number' value='<?php echo ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? esc_attr( $bpolls_settings['poll_limit_voters'] ) : '3'; ?>'/>			
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Max voters to show.', 'buddypress-polls' ); ?>
 			</p>
 			</td>
 		</tr>
-		
 		<tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label></th>
 			<td>
 			<label for>
-				<input id="polls_background_color" name='bpolls_settings[polls_background_color]' type='text' value='<?php  echo isset( $bpolls_settings['polls_background_color'] )  ?  $bpolls_settings['polls_background_color'] : '#4caf50'; ?>' />
-				
+				<input id="polls_background_color" name='bpolls_settings[polls_background_color]' type='text' value='<?php echo isset( $bpolls_settings['polls_background_color'] ) ? esc_attr( $bpolls_settings['polls_background_color'] ) : '#4caf50'; ?>' />
 			</label>
 			<p class="description" id="tagline-description"><?php esc_html_e( 'Allow users to set color scheme for progress bar and submit button.', 'buddypress-polls' ); ?>
 			</p>
 			</td>
 		</tr>
-		
 		<tr>
 			<th scope="row"><label for="blogname"><?php esc_html_e( 'Enable after poll message', 'buddypress-polls' ); ?></label></th>
 			<td>
@@ -181,7 +172,7 @@ global $wp_roles;
 		</tr>
 		<tr id="bpolls_user_role" 
 		<?php
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && $bpolls_settings['limit_poll_activity'] != 'user_role' ) :
+		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' !== $bpolls_settings['limit_poll_activity'] ) :
 			?>
 			style="display:none" <?php endif; ?>>
 			<th scope="row"><label><?php esc_html_e( 'Select User Roles', 'buddypress-polls' ); ?></label></th>

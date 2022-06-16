@@ -69,23 +69,23 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $wp_styles, $post;
-		
+
 		$rtl_css = is_rtl() ? '-rtl' : '';
 		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public.css', array(), time(), 'all' );
 		wp_register_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/jquery.datetimepicker.css', array(), time(), 'all' );
-		
+
 		if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 			wp_register_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
 		}
-		
+
 		wp_register_style(
-				$handle = 'wb-icons',
-				$src    = plugin_dir_url( __FILE__ ) . 'css/wb-icons.css',
-				$deps   = array(),
-				$ver    = time(),
-				$media  = 'all'
-			);
-		
+			$handle = 'wb-icons',
+			$src    = plugin_dir_url( __FILE__ ) . 'css/wb-icons.css',
+			$deps   = array(),
+			$ver    = time(),
+			$media  = 'all'
+		);
+
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
 			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
@@ -137,13 +137,12 @@ class Buddypress_Polls_Public {
 		 * class.
 		 */
 		global $post;
-		
+
 		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
 		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
-		
-		
+
 		if ( 'REIGN' === wp_get_theme() || 'REIGN Child' === wp_get_theme() ) {
 			$body_polls_class = true;
 		} else {
@@ -178,11 +177,12 @@ class Buddypress_Polls_Public {
 				'buddyboss'         => buddypress()->buddyboss,
 				'polls_option_lmit' => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
 				'poll_limit_voters' => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
+				/* translators: %d: Polls Max Options */
 				'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
 				'add_poll_text'     => __( 'Add a poll', 'buddypress-polls' ),
 			)
-		);		
-		
+		);
+
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
 			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
@@ -208,12 +208,11 @@ class Buddypress_Polls_Public {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 			wp_enqueue_media();
-			wp_enqueue_script( $this->plugin_name . '-timejs');
-			wp_enqueue_script( $this->plugin_name . '-timefulljs');
+			wp_enqueue_script( $this->plugin_name . '-timejs' );
+			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 
 			wp_enqueue_script( $this->plugin_name );
 
-			
 		}
 	}
 
@@ -274,7 +273,7 @@ class Buddypress_Polls_Public {
 								<strong><?php esc_html_e( 'Oops!', 'buddypress-polls' ); ?></strong>
 							</div>
 							<div class="bpolls-icon-dialog-content">
-								<?php echo sprintf( esc_html__( 'You are not allowed to enter more than ', 'buddypress-polls' ) . $polls_option_lmit . esc_html__( ' options.', 'buddypress-polls' ) ); ?>
+								<?php echo sprintf( esc_html__( 'You are not allowed to enter more than ', 'buddypress-polls' ) . esc_attr( $polls_option_lmit ) . esc_html__( ' options.', 'buddypress-polls' ) ); ?>
 							</div>
 						</div>
 					</div>
@@ -492,9 +491,11 @@ class Buddypress_Polls_Public {
 	 * @param string $content The actvity content.
 	 * @param int    $user_id User id.
 	 * @param int    $activity_id Activity id.
+	 * @param int    $g_activity_id Group Activity id.
 	 * @since 1.0.0
 	 */
 	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id, $g_activity_id = null ) {
+		check_admin_referer( 'post_update', '_wpnonce_post_update' );
 		if ( isset( $g_activity_id ) ) {
 			$activity_id = $g_activity_id;
 		}
@@ -509,13 +510,13 @@ class Buddypress_Polls_Public {
 			}
 
 			if ( isset( $_POST['bpolls-close-date'] ) && ! empty( $_POST['bpolls-close-date'] ) ) {
-				$close_date = $_POST['bpolls-close-date'];
+				$close_date = isset( $_POST['bpolls-close-date'] ) ? $_POST['bpolls-close-date'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			} else {
 				$close_date = 0;
 			}
 
 			$poll_optn_arr = array();
-			foreach ( (array) $_POST['bpolls_input_options'] as $key => $value ) {
+			foreach ( (array) $_POST['bpolls_input_options'] as $key => $value ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				if ( '' !== $value ) {
 					$poll_key                   = str_replace( '%', '', sanitize_title( $value ) );
 					$poll_optn_arr[ $poll_key ] = $value;
@@ -524,7 +525,7 @@ class Buddypress_Polls_Public {
 
 			$bpolls_thankyou_feedback = '';
 			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) {
-				$bpolls_thankyou_feedback = $_POST['bpolls_thankyou_feedback'];
+				$bpolls_thankyou_feedback = isset( $_POST['bpolls_thankyou_feedback'] ) ? $_POST['bpolls_thankyou_feedback'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
 			$poll_meta = array(
 				'poll_option'              => $poll_optn_arr,
@@ -723,7 +724,7 @@ class Buddypress_Polls_Public {
 								// Display Show More.
 								$output .= '<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id . '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
 							}
-
+							/* translators: %s: Vote Count */
 							$activity_votes_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
 
 						}
@@ -760,7 +761,7 @@ class Buddypress_Polls_Public {
 				if ( isset( $act ) && $act != null ) {
 					return $activity_content;
 				} else {
-					echo $activity_content;
+					echo $activity_content; // phpcs:ignore WordPress.Security.EscapeOutput
 				}
 			}
 		}
@@ -777,7 +778,7 @@ class Buddypress_Polls_Public {
 			$user_id         = get_current_user_id();
 			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
 
-			parse_str( $_POST['poll_data'], $poll_data ); // This will convert the string to array.
+			parse_str( $_POST['poll_data'], $poll_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			$poll_data = filter_var_array( $poll_data, FILTER_SANITIZE_STRING );
 
 			$activity_id = $poll_data['bpoll_activity_id'];
@@ -979,7 +980,7 @@ class Buddypress_Polls_Public {
 							// Display Show More.
 							$output .= '<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id . '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
 						}
-
+						/* translators: %s: Vote Count */
 						$vote_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
 
 					}
@@ -1029,7 +1030,7 @@ class Buddypress_Polls_Public {
 	public function bpolls_activity_embed_add_inline_styles() {
 		$css = file_get_contents( BPOLLS_PLUGIN_PATH . '/public/css/buddypress-polls-public.css' );
 		$css = wp_kses( $css, array( "\'", '\"' ) );
-		printf( '<style type="text/css">%s</style>', $css );
+		printf( '<style type="text/css">%s</style>', esc_attr( $css ) );
 	}
 
 	/**
@@ -1042,7 +1043,7 @@ class Buddypress_Polls_Public {
 
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 
-			$is_poll = ( isset( $_POST['is_poll'] ) ) ? wp_unslash( $_POST['is_poll'] ) : '';
+			$is_poll = ( isset( $_POST['is_poll'] ) ) ? wp_unslash( $_POST['is_poll'] ) : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			update_option( 'temp_poll_type', $is_poll );
 		}
 		wp_die();
@@ -1080,7 +1081,7 @@ class Buddypress_Polls_Public {
 	public function bpolls_save_image() {
 		if ( isset( $_POST['action'] ) && 'bpolls_save_image' === $_POST['action'] ) {
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
-			$image_url = ( isset( $_POST['image_url'] ) ) ? wp_unslash( $_POST['image_url'] ) : ' ';
+			$image_url = ( isset( $_POST['image_url'] ) ) ? wp_unslash( $_POST['image_url'] ) : ' '; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			update_option( 'temp_poll_image', $image_url );
 			exit();
 		}
@@ -1147,7 +1148,7 @@ class Buddypress_Polls_Public {
 		// Assume the user cannot edit the activity item.
 		$can_edit = false;
 
-		// Only logged in users can edit activity and Activity must be of type 'activity_update', 'activity_comment', 'activity_poll'
+		// Only logged in users can edit activity and Activity must be of type 'activity_update', 'activity_comment', 'activity_poll'.
 		if ( is_user_logged_in() && in_array( $activity->type, array( 'activity_update', 'activity_comment', 'activity_poll' ) ) ) {
 
 			// Users are allowed to edit their own activity.
@@ -1164,7 +1165,7 @@ class Buddypress_Polls_Public {
 		if ( $can_edit ) {
 
 			// Check activity edit time expiration.
-			$activity_edit_time        = (int) bp_get_activity_edit_time(); // for 10 minutes, 600
+			$activity_edit_time        = (int) bp_get_activity_edit_time(); // for 10 minutes, 600.
 			$bp_dd_get_time            = bp_core_current_time( true, 'timestamp' );
 			$activity_edit_expire_time = strtotime( $activity->date_recorded ) + $activity_edit_time;
 
@@ -1185,12 +1186,17 @@ class Buddypress_Polls_Public {
 		return (bool) apply_filters( 'bppolls_activity_user_can_edit', $can_edit, $activity );
 	}
 
+	/**
+	 *  Display all voters of activity polls.
+	 *
+	 * @return void
+	 */
 	public function bpolls_activity_all_voters() {
 		if ( isset( $_POST['action'] ) && 'bpolls_activity_all_voters' === $_POST['action'] ) {
 			check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 
-			$activity_id          = $_POST['activity_id'];
-			$option_id            = $_POST['option_id'];
+			$activity_id          = isset( $_POST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_POST['activity_id'] ) ) : '';
+			$option_id            = isset( $_POST['option_id'] ) ? sanitize_text_field( wp_unslash( $_POST['option_id'] ) ) : '';
 			$activity_meta        = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 			$poll_optn_user_votes = isset( $activity_meta['poll_optn_user_votes'][ $option_id ] ) ? $activity_meta['poll_optn_user_votes'][ $option_id ] : array();
 
@@ -1211,9 +1217,9 @@ class Buddypress_Polls_Public {
 					?>
 
 					<div class="bpolls-list-item">
-						<a href="<?php echo bp_core_get_user_domain( $user_id ); ?>" class="bpolls-item-avatar">
+						<a href="<?php echo esc_url( bp_core_get_user_domain( $user_id ) ); ?>" class="bpolls-item-avatar">
 											<?php
-											echo bp_core_fetch_avatar(
+											echo bp_core_fetch_avatar( // phpcs:ignore WordPress.Security.EscapeOutput
 												array(
 													'type' => 'thumb',
 													'item_id' => $user_id,
@@ -1222,8 +1228,8 @@ class Buddypress_Polls_Public {
 											?>
 									</a>
 						<div class="bpolls-item-data">
-							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ); ?></div>
-							<div class="bpolls-item-meta">@<?php echo bp_core_get_username( $user_id ); ?></div>
+							<div class="bpolls-item-name"><?php echo esc_html( bp_core_get_userlink( $user_id ) ); ?></div>
+							<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
 						</div>
 					</div>
 
@@ -1265,20 +1271,23 @@ class Buddypress_Polls_Public {
 	/**
 	 * Show the Polls Activity Data using shortcode.
 	 *
+	 * @param array  $atts Shortcode Attributes.
+	 * @param string $content Shortcode content.
 	 * @since BP Polls 4.0.0
 	 */
 	public function bppolls_rest_api_shortcode( $atts, $content = null ) {
 		global $wpdb;
-		$atts             = shortcode_atts(
+		$atts        = shortcode_atts(
 			array(
 				'activity_id' => null,
 			),
 			$atts,
 		);
-		$activity_id      = $atts['activity_id'];
-		$activity_id      = is_numeric( $activity_id ) ? (int) $activity_id : $activity_id;;
+		$activity_id = $atts['activity_id'];
+		$activity_id = is_numeric( $activity_id ) ? (int) $activity_id : $activity_id;
+
 		/* activity id is not integer then return */
-		if ( !is_int($activity_id) ) {
+		if ( ! is_int( $activity_id ) ) {
 			$activity_id = 0;
 			return $content;
 		}
@@ -1294,11 +1303,10 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}
-			wp_enqueue_script( $this->plugin_name . '-timejs');
-			wp_enqueue_script( $this->plugin_name . '-timefulljs');
+			wp_enqueue_script( $this->plugin_name . '-timejs' );
+			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 			wp_enqueue_script( $this->plugin_name );
-			
-			
+
 			global $current_user;
 			$user_id                = get_current_user_id();
 			$bpolls_settings        = get_site_option( 'bpolls_settings' );
@@ -1468,7 +1476,7 @@ class Buddypress_Polls_Public {
 									// Display Show More.
 									$output .= '<a class="bp-polls-show-voters bp-polls-view-all" data-activity-id="' . $activity_id . '" data-option-id="' . $key . '" data-polls-tooltip="' . __( 'View All', 'buddypress-polls' ) . '">+' . $liked_count . '</a>';
 								}
-
+								/* translators: %s: Vote Count */
 								$activity_votes_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
 
 							}

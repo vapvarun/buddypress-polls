@@ -10,9 +10,9 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-if ( isset( $_GET['tab'] ) ) {
-	$bpolls_tab = sanitize_text_field( $_GET['tab'] );
+$admin_tabs = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
+if ( isset( $admin_tabs ) ) {
+	$bpolls_tab = $admin_tabs;
 } else {
 	$bpolls_tab = 'welcome';
 }
