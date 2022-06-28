@@ -382,7 +382,7 @@
 						user_count++;
 					}
 				});
-				if ( user_count >= max_options ) {
+				if ( user_count > max_options ) {
 					console.log(max_options + " =="+ user_count);
 					$( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
 					
@@ -422,7 +422,7 @@
 				}
 			});
 			
-			if ( user_count >= max_options ) {
+			if ( user_count > max_options ) {
 				console.log(max_options + " =="+ user_count);
 				$( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
 				
