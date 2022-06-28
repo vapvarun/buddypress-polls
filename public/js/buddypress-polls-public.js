@@ -410,8 +410,8 @@
 		$( document ).on('click', '.bpoll-add-option', function(e){			
 			e.preventDefault();			
 			var max_options 		= bpolls_ajax_object.polls_option_lmit;			
-			var user_option 		= $('.bpoll-add-user-option').val();			
 			var bpoll_activity_id 	= $(this).data('activity-id');
+			var user_option 		= $('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
 			var bpoll_user_id 		= $(this).data('user-id');
 			
 			var user_count = 1;
@@ -440,8 +440,8 @@
 						$(response.add_poll_option).insertBefore(add_option);
 						$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
 					}
-				});
-				$('.bpoll-add-user-option').val('');
+				});				
+				$('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
 			}
 					
 		});
@@ -477,8 +477,7 @@
 						$(input_obj).parents('.bpolls-check-radio-div').siblings('.bpolls-votes').html(item.bpolls_votes_txt);
 						$(input_obj).parents().parents('.bpolls-item').find('.bpolls-result-votes').html(item.bpolls_votes_content);
 
-					});
-					$('#activity-' + bpoll_activity_id + ' .bpolls-item input').hide();
+					});					
 				});
 			}
 				
