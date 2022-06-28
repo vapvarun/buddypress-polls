@@ -260,6 +260,8 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_add_user_option', $plugin_public, 'bpolls_activity_add_user_option' );
 			
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
+			
+			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer',999 );
 
 		}
 

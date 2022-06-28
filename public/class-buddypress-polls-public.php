@@ -265,31 +265,7 @@ class Buddypress_Polls_Public {
 
 			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
-			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
-			<div class="bpolls-icon-dialog">
-				<div class="bpolls-icon-dialog-container">
-					<div class="bpolls-icon-dialog-header">
-						<i class="fa fa-exclamation-triangle"></i>
-					</div>
-					<div class="bpolls-icon-dialog-msg">
-						<div class="bpolls-icon-dialog-desc">
-							<div class="bpsts-icon-dialog-title">
-								<strong><?php esc_html_e( 'Oops!', 'buddypress-polls' ); ?></strong>
-							</div>
-							<div class="bpolls-icon-dialog-content">
-								<?php echo sprintf( esc_html__( 'You are not allowed to enter more than ', 'buddypress-polls' ) . esc_attr( $polls_option_lmit ) . esc_html__( ' options.', 'buddypress-polls' ) ); ?>
-							</div>
-						</div>
-					</div>
-					<ul class="bpolls-icon-dialog-buttons">
-						<li>
-							<a class="bpolls-icon-dialog-cancel">
-								<?php esc_html_e( 'Got it!', 'buddypress-polls' ); ?>
-							</a>
-						</li>
-					</ul>
-				</div>
-			</div>
+			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>			
 		</div>
 			<?php
 		}
@@ -808,7 +784,7 @@ class Buddypress_Polls_Public {
 
 					$activity_content .= '</div>';
 					if ( isset( $user_polls_option[ 'activity-id-' . $activity_id . '-' . $key ] ) ) {
-						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "'><i class='wb-icons wb-icon-x'></i></a>";
+						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "' data-user-id='".$user_id."'><i class='wb-icons wb-icon-x'></i></a>";
 					}
 					$activity_content .= '</div>';
 				}
@@ -816,8 +792,8 @@ class Buddypress_Polls_Public {
 				/* Add option from user end */
 				if ( $user_additional_option == 'yes' ) {
 					$activity_content .= "<div class='bpolls-add-user-item'>";
-					$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '"/>';
-					$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '"/>';
+					$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
+					$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
 					$activity_content .= '</div>';
 				}
 
@@ -1700,7 +1676,7 @@ class Buddypress_Polls_Public {
 				</div>
 				<span class="bpolls-percent"></span>
 			</div>
-			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>"><i class="wb-icons wb-icon-x"></i></a>
+			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?p[hp echo $user_id;?>"><i class="wb-icons wb-icon-x"></i></a>
 		</div>
 		<?php
 		$add_poll_option = ob_get_clean();
@@ -1767,6 +1743,39 @@ class Buddypress_Polls_Public {
 
 		echo wp_json_encode( $updated_votes );
 		wp_die();
+	}
+	
+	public function bpolls_wp_footer() {		
+		if ( $this->bpolls_is_user_allowed_polls() ) {
+			$bpolls_settings   = get_site_option( 'bpolls_settings' );
+			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
+			?>			
+			<div class="bpolls-icon-dialog">
+				<div class="bpolls-icon-dialog-container">
+					<div class="bpolls-icon-dialog-header">
+						<i class="fa fa-exclamation-triangle"></i>
+					</div>
+					<div class="bpolls-icon-dialog-msg">
+						<div class="bpolls-icon-dialog-desc">
+							<div class="bpsts-icon-dialog-title">
+								<strong><?php esc_html_e( 'Oops!', 'buddypress-polls' ); ?></strong>
+							</div>
+							<div class="bpolls-icon-dialog-content">
+								<?php echo sprintf( esc_html__( 'You are not allowed to enter more than ', 'buddypress-polls' ) . esc_attr( $polls_option_lmit ) . esc_html__( ' options.', 'buddypress-polls' ) ); ?>
+							</div>
+						</div>
+					</div>
+					<ul class="bpolls-icon-dialog-buttons">
+						<li>
+							<a class="bpolls-icon-dialog-cancel">
+								<?php esc_html_e( 'Got it!', 'buddypress-polls' ); ?>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<?php
+		}
 	}
 
 }
