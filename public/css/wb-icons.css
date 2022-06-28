@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'wb-icons';
-  src: url('../icons/wb-icons.eot?94615661');
-  src: url('../icons/wb-icons.eot?94615661#iefix') format('embedded-opentype'),
-       url('../icons/wb-icons.woff2?94615661') format('woff2'),
-       url('../icons/wb-icons.woff?94615661') format('woff'),
-       url('../icons/wb-icons.ttf?94615661') format('truetype'),
-       url('../icons/wb-icons.svg?94615661#wb-icons') format('svg');
+  src: url('../icons/wb-icons.eot?98111266');
+  src: url('../icons/wb-icons.eot?98111266#iefix') format('embedded-opentype'),
+       url('../icons/wb-icons.woff2?98111266') format('woff2'),
+       url('../icons/wb-icons.woff?98111266') format('woff'),
+       url('../icons/wb-icons.ttf?98111266') format('truetype'),
+       url('../icons/wb-icons.svg?98111266#wb-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'wb-icons';
-    src: url('../font/wb-icons.svg?94615661#wb-icons') format('svg');
+    src: url('../font/wb-icons.svg?98111266#wb-icons') format('svg');
   }
 }
 */
@@ -58,4 +58,5 @@
 .wb-icon-gif:before { content: '\e811'; } /* '' */
 .wb-icon-bar-chart:before { content: '\e868'; } /* '' */
 .wb-icon-map-pin:before { content: '\e893'; } /* '' */
+.wb-icon-x:before { content: '\e8f6'; } /* '' */
 .wb-icon-smile:before { content: '\f118'; } /* '' */

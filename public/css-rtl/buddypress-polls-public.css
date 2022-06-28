@@ -82,6 +82,7 @@
     font-size: 14px;
     line-height: 18px;
     background-color: #fff !important;
+    -webkit-transition: all .25s ease-in-out;
     transition: all .25s ease-in-out;
     box-shadow: none;
 }
@@ -188,6 +189,43 @@ input.bpolls-input.bpolls-input {
     width: 100%;
     position: relative;
     margin-bottom: 10px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.bpolls-item-inner {
+    width: 100%;
+}
+
+a.bpolls-delete-user-option {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    text-align: center;
+    background: rgba(0, 0, 0, .05);
+    border-radius: 100px;
+    font-size: 12px;
+    margin-right: 15px;
+}
+
+a.bpolls-delete-user-option:hover {
+    background: rgba(0, 0, 0, .1);
+}
+
+a.bpolls-delete-user-option .wb-icon-x {
+    font-size: 15px;
 }
 
 .bpolls-item:after {
@@ -253,6 +291,14 @@ a.bpolls-add-option.button {
     margin-bottom: 5px;
 }
 
+.bpolls-add-user-item {
+    margin: 20px 0 15px;
+}
+
+.bpolls-add-user-item input[type="text"] {
+    width: 100%;
+}
+
 .bpolls-vote-submit {
     display: inline-block;
     font-size: 14px;
@@ -266,12 +312,15 @@ a.bpolls-add-option.button {
     border-radius: 4px !important;
     background: #fff;
     border: 2px solid #4caf50 !important;
+    -webkit-transition: all .3s;
     transition: all .3s;
 }
 
 .bpolls-vote-submit:hover,
 .bpolls-vote-submit:focus {
     box-shadow: 0 0.5em 0.5em -0.4em #3a3a3a !important;
+    -webkit-transform: translateY(-0.1em);
+    -ms-transform: translateY(-0.1em);
     transform: translateY(-0.1em);
 }
 
@@ -345,6 +394,8 @@ body:not(.logged-in) .bpolls-vote-submit {
     -webkit-box-align: center;
     -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
 }
 
@@ -378,6 +429,7 @@ body:not(.logged-in) .bpolls-vote-submit {
     -ms-flex: 0 0 auto;
     flex: 0 0 auto;
     cursor: pointer;
+    -webkit-transition: all .15s ease-out 0s;
     transition: all .15s ease-out 0s;
 }
 
@@ -535,7 +587,6 @@ img#bpolls-image-preview {
     visibility: hidden;
     background-color: rgba(0, 0, 0, .3);
     -webkit-transition: opacity .3s 0s, visibility 0s .3s;
-    -moz-transition: opacity .3s 0s, visibility 0s .3s;
     transition: opacity .3s 0s, visibility 0s .3s;
 }
 
@@ -543,7 +594,6 @@ img#bpolls-image-preview {
     opacity: 1;
     visibility: visible;
     -webkit-transition: opacity .3s 0s, visibility 0s 0s;
-    -moz-transition: opacity .3s 0s, visibility 0s 0s;
     transition: opacity .3s 0s, visibility 0s 0s;
 }
 
@@ -565,23 +615,17 @@ img#bpolls-image-preview {
 .bpolls-icon-dialog-container {
     box-shadow: 0 15px 50px rgba(0, 0, 0, .15);
     -webkit-transform: translateY(-40px);
-    -moz-transform: translateY(-40px);
     -ms-transform: translateY(-40px);
-    -o-transform: translateY(-40px);
     transform: translateY(-40px);
     -webkit-transition-property: -webkit-transform;
-    -moz-transition-property: -moz-transform;
     transition-property: transform;
     -webkit-transition-duration: .3s;
-    -moz-transition-duration: .3s;
     transition-duration: .3s;
 }
 
 .bpolls-icon-dialog.is-visible .bpolls-icon-dialog-container {
     -webkit-transform: translateY(0);
-    -moz-transform: translateY(0);
     -ms-transform: translateY(0);
-    -o-transform: translateY(0);
     transform: translateY(0);
 }
 
@@ -636,8 +680,6 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     display: inline-block;
     text-transform: capitalize;
     -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
     transition: all .3s ease-in-out;
     border-radius: 30px;
     -webkit-border-radius: 30px;
@@ -718,10 +760,6 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 [data-polls-tooltip]:after {
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    -ms-border-radius: 3px;
-    -o-border-radius: 3px;
     border-radius: 3px;
 }
 
@@ -729,17 +767,14 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 [data-polls-tooltip]:after {
     position: absolute;
     -webkit-transform: translate3d(0, 0, 0);
-    -moz-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     visibility: hidden;
     opacity: 0;
     z-index: 1000000;
     pointer-events: none;
     -webkit-transition: 0.3s ease;
-    -moz-transition: 0.3s ease;
     transition: 0.3s ease;
     -webkit-transition-delay: 0ms;
-    -moz-transition-delay: 0ms;
     transition-delay: 0ms;
 }
 
@@ -752,7 +787,6 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 [data-polls-tooltip]:hover:before,
 [data-polls-tooltip]:hover:after {
     -webkit-transition-delay: 100ms;
-    -moz-transition-delay: 100ms;
     transition-delay: 100ms;
 }
 
@@ -795,24 +829,25 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 }
 
 [data-polls-tooltip]:before {
+    right: -webkit-calc(50% - 6px);
     right: calc(50% - 6px);
 }
 
 [data-polls-tooltip]:after {
     -webkit-transform: translateX(50%);
-    -moz-transform: translateX(50%);
+    -ms-transform: translateX(50%);
     transform: translateX(50%);
 }
 
 [data-polls-tooltip]:hover:before {
     -webkit-transform: translateY(-8px);
-    -moz-transform: translateY(-8px);
+    -ms-transform: translateY(-8px);
     transform: translateY(-8px);
 }
 
 [data-polls-tooltip]:hover:after {
     -webkit-transform: translateX(50%) translateY(-8px);
-    -moz-transform: translateX(50%) translateY(-8px);
+    -ms-transform: translateX(50%) translateY(-8px);
     transform: translateX(50%) translateY(-8px);
 }
 
@@ -921,8 +956,6 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     background-color: transparent;
     color: #4dcadd;
     text-transform: uppercase;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
     border-radius: 4px;
     border: 2px solid #4dcadd;
     box-sizing: border-box;
@@ -975,6 +1008,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 
 @media (min-width: 46.8em) {
     .bp-nouveau .bpolls-polls-option-html {
+        width: -webkit-calc(100% - 65px);
         width: calc(100% - 65px);
         margin-right: 65px;
     }
@@ -1055,6 +1089,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 
 @media (min-width: 46.8em) {
     .thrive-inline.bp-nouveau .bpolls-polls-option-html {
+        width: -webkit-calc(100% - 14.5%);
         width: calc(100% - 14.5%);
         margin-right: 12.5%;
     }
@@ -1117,11 +1152,15 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 
 .grimlock .bpolls-html-container,
 .grimlock .bpolls-polls-option-html {
+    -webkit-box-ordinal-group: 2;
+    -ms-flex-order: 1;
     order: 1;
 }
 
 .grimlock #buddypress #item-body form#whats-new-form #whats-new-options #whats-new-submit,
 .grimlock #buddypress form#whats-new-form #whats-new-options #whats-new-submit {
+    -webkit-box-ordinal-group: 6;
+    -ms-flex-order: 5;
     order: 5;
 }
 
@@ -1230,6 +1269,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 }
 
 .activity-update-form #whats-new-attachments .bpolls-polls-option-html {
+    width: -webkit-calc(100% - 30px);
     width: calc(100% - 30px);
     margin: 15px;
 }

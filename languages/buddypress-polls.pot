@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-27 10:23:25+00:00\n"
+"POT-Creation-Date: 2022-06-28 08:41:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,65 +24,66 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: admin/class-buddypress-polls-admin.php:142
+#: admin/class-buddypress-polls-admin.php:143
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:143
-#: admin/class-buddypress-polls-admin.php:170
+#: admin/class-buddypress-polls-admin.php:144
+#: admin/class-buddypress-polls-admin.php:171
 msgid "General"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:145
+#: admin/class-buddypress-polls-admin.php:146
 msgid "Buddypress Polls Settings Page"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:145
+#: admin/class-buddypress-polls-admin.php:146
 #: admin/inc/bpolls-welcome-page.php:18
-#: admin/wbcom/wbcom-admin-settings.php:327 buddypress-polls.php:249
+#: admin/wbcom/wbcom-admin-settings.php:334 buddypress-polls.php:251
 msgid "BuddyPress Polls"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:163
+#: admin/class-buddypress-polls-admin.php:164
 msgid "BuddyPress Polls Settings"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:169
+#: admin/class-buddypress-polls-admin.php:170
 msgid "Welcome"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:171
+#: admin/class-buddypress-polls-admin.php:172
 #: admin/wbcom/templates/wbcom-support-page.php:5
-#: admin/wbcom/wbcom-admin-settings.php:490
-#: admin/wbcom/wbcom-admin-settings.php:575 buddypress-polls.php:224
+#: admin/wbcom/wbcom-admin-settings.php:514
+#: admin/wbcom/wbcom-admin-settings.php:515
+#: admin/wbcom/wbcom-admin-settings.php:608 buddypress-polls.php:224
 msgid "Support"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:209
+#: admin/class-buddypress-polls-admin.php:210
 msgid "Site Polls Data"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:215
-#: admin/class-buddypress-polls-admin.php:329
+#: admin/class-buddypress-polls-admin.php:216
+#: admin/class-buddypress-polls-admin.php:330
 #: public/inc/class-bp-poll-activity-graph.php:68
 #: public/inc/class-bp-poll-activity-graph.php:168
 #: public/inc/class-bp-poll-activity-graph.php:281
 msgid "Poll Graph"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:296
+#: admin/class-buddypress-polls-admin.php:297
 msgid "Polls Created"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:300
+#: admin/class-buddypress-polls-admin.php:301
 msgid "Highest Voted Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:304
+#: admin/class-buddypress-polls-admin.php:305
 msgid "Recent Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:312
+#: admin/class-buddypress-polls-admin.php:313
 #: public/inc/class-bp-poll-activity-graph.php:227
 #: public/inc/class-bp-poll-activity.php:197
 #: public/inc/class-bp-poll-create-poll.php:99
@@ -106,127 +107,135 @@ msgid "Disabled: users can only vote for one option in each poll."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:49
-msgid "Hide results"
+msgid "Can user add additional option?"
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:55
+msgid "Enabled: users can allow to add additional option in each poll."
+msgstr ""
+
+#: admin/inc/bpolls-general-setting-tab.php:60
+msgid "Hide results"
+msgstr ""
+
+#: admin/inc/bpolls-general-setting-tab.php:66
 msgid "Enabled: results are hidden from users who have not voted yet."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:57
+#: admin/inc/bpolls-general-setting-tab.php:68
 msgid "Disabled: users can see poll results before voting."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:62
-#: public/class-buddypress-polls-public.php:344
+#: admin/inc/bpolls-general-setting-tab.php:73
+#: public/class-buddypress-polls-public.php:347
 msgid "Poll closing date & time"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:68
+#: admin/inc/bpolls-general-setting-tab.php:79
 msgid "Enabled: users can set poll closing date and time."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:70
+#: admin/inc/bpolls-general-setting-tab.php:81
 msgid "Disabled: polls will always remain open for voting"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:75
+#: admin/inc/bpolls-general-setting-tab.php:86
 msgid "Enable image attachment"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:81
+#: admin/inc/bpolls-general-setting-tab.php:92
 msgid "Enabled: users can set a image attachment with the poll."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:86
+#: admin/inc/bpolls-general-setting-tab.php:97
 msgid "Poll Options Limit"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:91
+#: admin/inc/bpolls-general-setting-tab.php:100
 msgid "Set the limit of the poll options."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:96
+#: admin/inc/bpolls-general-setting-tab.php:105
 msgid "Enable Poll Result"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:102
+#: admin/inc/bpolls-general-setting-tab.php:111
 msgid "Enabled: Allow users to view poll results."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:107
+#: admin/inc/bpolls-general-setting-tab.php:116
 msgid "Enable Revoting"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:113
+#: admin/inc/bpolls-general-setting-tab.php:122
 msgid "Enabled: Allow users to change their votes after voting."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:119
+#: admin/inc/bpolls-general-setting-tab.php:127
 msgid "Show Voters List"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:125
+#: admin/inc/bpolls-general-setting-tab.php:133
 msgid "Enabled: Allow users to view list of voters."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:131
+#: admin/inc/bpolls-general-setting-tab.php:138
 msgid "Max Voters Number"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:136
+#: admin/inc/bpolls-general-setting-tab.php:141
 msgid "Max voters to show."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:142
+#: admin/inc/bpolls-general-setting-tab.php:146
 msgid "Color Scheme"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:148
+#: admin/inc/bpolls-general-setting-tab.php:151
 msgid "Allow users to set color scheme for progress bar and submit button."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:154
+#: admin/inc/bpolls-general-setting-tab.php:156
 msgid "Enable after poll message"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:160
+#: admin/inc/bpolls-general-setting-tab.php:162
 msgid "Enabled: users can add thank you message with the poll."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:166
+#: admin/inc/bpolls-general-setting-tab.php:168
 msgid "Limit Poll Activities"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:169
+#: admin/inc/bpolls-general-setting-tab.php:171
 msgid "No Limit"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:172
+#: admin/inc/bpolls-general-setting-tab.php:174
 msgid "Limit by User Role"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:175
+#: admin/inc/bpolls-general-setting-tab.php:177
 msgid "Limit by Member Type"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:178
+#: admin/inc/bpolls-general-setting-tab.php:180
 msgid "Limit by user role or member type to publish poll type activities"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:187
+#: admin/inc/bpolls-general-setting-tab.php:189
 msgid "Select User Roles"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:200
+#: admin/inc/bpolls-general-setting-tab.php:202
 msgid "Select user role which are allowed to publish poll type activities."
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:210
+#: admin/inc/bpolls-general-setting-tab.php:212
 msgid "Select Member Type"
 msgstr ""
 
-#: admin/inc/bpolls-general-setting-tab.php:229
+#: admin/inc/bpolls-general-setting-tab.php:231
 msgid "Select member type which are allowed to publish poll type activities."
 msgstr ""
 
@@ -388,31 +397,31 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:10
 #: admin/wbcom/templates/wbcom-license-page.php:22
-#: edd-license/edd-plugin-license.php:331
+#: edd-license/edd-plugin-license.php:349
 msgid "Product"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:11
 #: admin/wbcom/templates/wbcom-license-page.php:23
-#: edd-license/edd-plugin-license.php:332
+#: edd-license/edd-plugin-license.php:350
 msgid "Version"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:12
 #: admin/wbcom/templates/wbcom-license-page.php:24
-#: edd-license/edd-plugin-license.php:333
+#: edd-license/edd-plugin-license.php:351
 msgid "Key"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:13
 #: admin/wbcom/templates/wbcom-license-page.php:25
-#: edd-license/edd-plugin-license.php:334
+#: edd-license/edd-plugin-license.php:352
 msgid "Status"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:14
 #: admin/wbcom/templates/wbcom-license-page.php:26
-#: edd-license/edd-plugin-license.php:335
+#: edd-license/edd-plugin-license.php:353
 msgid "Action"
 msgstr ""
 
@@ -630,141 +639,141 @@ msgstr ""
 msgid "Create Knowledge base"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:133
+#: admin/wbcom/wbcom-admin-settings.php:140
 msgid "Custom Font Uploader"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:135
+#: admin/wbcom/wbcom-admin-settings.php:142
 msgid ""
 "It also allows you to upload your own custom font to your site and use them "
 "using custom css."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:141
+#: admin/wbcom/wbcom-admin-settings.php:148
 msgid "BuddyPress Activity Filter"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:143
+#: admin/wbcom/wbcom-admin-settings.php:150
 msgid "Admin can set default and customised activities to be listed on front-end."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:149
+#: admin/wbcom/wbcom-admin-settings.php:156
 msgid "BuddyPress Activity Social Share"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:151
+#: admin/wbcom/wbcom-admin-settings.php:158
 msgid ""
 "This plugin allows anyone easily share BuddyPress Activites on major social "
 "media (Facebook, Twitter, Google+, Linkedin )."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:157
+#: admin/wbcom/wbcom-admin-settings.php:164
 msgid "BuddyPress Create Group Type"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:159
+#: admin/wbcom/wbcom-admin-settings.php:166
 msgid "It will help to create group type for BuddyPress Groups."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:165
+#: admin/wbcom/wbcom-admin-settings.php:172
 msgid "BuddyPress Member Reviews"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:167
+#: admin/wbcom/wbcom-admin-settings.php:174
 msgid ""
 "This plugin allows only site members to add reviews to the buddypress "
 "members on the site and even rate the member’s profile out of 5 points with "
 "multiple review criteria."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:173
+#: admin/wbcom/wbcom-admin-settings.php:180
 msgid "BuddyPress Group Reviews"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:175
+#: admin/wbcom/wbcom-admin-settings.php:182
 msgid ""
 "This plugin allows the BuddyPress Members to give reviews to the BuddyPress "
 "groups on the site. The review form allows the users to give text review, "
 "even rate the group on the basis of multiple criterias."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:181
+#: admin/wbcom/wbcom-admin-settings.php:188
 msgid "BuddyPress Favorite Notification"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:183
+#: admin/wbcom/wbcom-admin-settings.php:190
 msgid ""
 "BuddyPress Favorite Notification adds a notification for BuddyPress "
 "activity."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:189
+#: admin/wbcom/wbcom-admin-settings.php:196
 msgid "Custom Email Options"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:191
+#: admin/wbcom/wbcom-admin-settings.php:198
 msgid "Override default email options of WordPress."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:197
+#: admin/wbcom/wbcom-admin-settings.php:204
 msgid "BuddyPress Checkins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:199
+#: admin/wbcom/wbcom-admin-settings.php:206
 msgid ""
 "This plugin allows BuddyPress members to share their location when they are "
 "posting activities, you can add places where you visited, nearby locations "
 "based on google places."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:205
+#: admin/wbcom/wbcom-admin-settings.php:212
 msgid "BuddyPress Job Manager"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:207
+#: admin/wbcom/wbcom-admin-settings.php:214
 msgid ""
 "Incorporates BuddyPress with the WP Job Manager plugin by creating specific "
 "tabs in employer’s and candidate’s profiles."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:213
+#: admin/wbcom/wbcom-admin-settings.php:220
 msgid "BuddyPress user ToDo List"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:215
+#: admin/wbcom/wbcom-admin-settings.php:222
 msgid ""
 "This plugin allows you to create your personal task list with timestamp. "
 "You can mark them complete when you are done with them. It will also send "
 "reminder when you have any overdue task."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:221
+#: admin/wbcom/wbcom-admin-settings.php:228
 msgid "Shortcodes for BuddyPress"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:223
+#: admin/wbcom/wbcom-admin-settings.php:230
 msgid ""
 "This plugin will add an extended feature to the big name “BuddyPress” that "
 "will generate Shortcode for Listing Activity Streams , Members and Groups "
 "on any post/page in website."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:229
+#: admin/wbcom/wbcom-admin-settings.php:236
 msgid "Woo Open Graph"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:231
+#: admin/wbcom/wbcom-admin-settings.php:238
 msgid ""
 "This plugin will add an extended feature to the big name “WooCommerce” that "
 "will adds well executed and accurate Open Graph Meta Tags to your site with "
 "title,description and WooCommerce featured image."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:237
+#: admin/wbcom/wbcom-admin-settings.php:244
 msgid "BuddyPress Lock"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:239
+#: admin/wbcom/wbcom-admin-settings.php:246
 msgid ""
 "This plugin allows the administrator to lock the certain parts of their "
 "site. It help to create private BuddyPress community by locking certain "
@@ -772,22 +781,22 @@ msgid ""
 "without using any membership plugin."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:245
+#: admin/wbcom/wbcom-admin-settings.php:252
 msgid "Woo Audio Preview"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:247
+#: admin/wbcom/wbcom-admin-settings.php:254
 msgid ""
 "This plugin Allows playing the audio files in sample mode to prevent "
 "unauthorized downloading of the audio files. It helps to display sample "
 "files at single product page."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:253
+#: admin/wbcom/wbcom-admin-settings.php:260
 msgid "WordPress System Log"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:255
+#: admin/wbcom/wbcom-admin-settings.php:262
 msgid ""
 "This plugin helps administrators of the site see their environment on which "
 "the site is currently running that includes WordPress environment, tha "
@@ -795,69 +804,69 @@ msgid ""
 "activated on the site."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:261
+#: admin/wbcom/wbcom-admin-settings.php:268
 msgid "BP Post From Anywhere"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:263
+#: admin/wbcom/wbcom-admin-settings.php:270
 msgid ""
 "This plugin will generate shortcode and widgets for post updates section "
 "for activities so you can post update from anywhere, it might be sidebar, "
 "some page or any template file."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:269
+#: admin/wbcom/wbcom-admin-settings.php:276
 msgid "Woo Document Preview"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:271
+#: admin/wbcom/wbcom-admin-settings.php:278
 msgid ""
 "This will allow you to add document preview at single product page. Which "
 "helps to offer more better idea when you are selling ebooks, pdf or some "
 "documents."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:277
+#: admin/wbcom/wbcom-admin-settings.php:284
 msgid "WordPress Media Category"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:279
-#: admin/wbcom/wbcom-admin-settings.php:295
+#: admin/wbcom/wbcom-admin-settings.php:286
+#: admin/wbcom/wbcom-admin-settings.php:302
 msgid ""
 "This plugin helps administrators of the site categorize their wordpress "
 "media."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:285
+#: admin/wbcom/wbcom-admin-settings.php:292
 msgid "Woo Price Quotes"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:287
+#: admin/wbcom/wbcom-admin-settings.php:294
 msgid ""
 "This plugin helps in quoting the products that admin wishes to hide its "
 "purchasing details."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:293
+#: admin/wbcom/wbcom-admin-settings.php:300
 msgid "EDD Service Extended"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:301
+#: admin/wbcom/wbcom-admin-settings.php:308
 msgid "WB Ads Rotator with Split Test"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:303
+#: admin/wbcom/wbcom-admin-settings.php:310
 msgid ""
 "This plugin is designed for the SPLIT TESTING, you can check performance of "
 "your ads layout and on the basis of them you can select one of them for "
 "your regular use."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:321
+#: admin/wbcom/wbcom-admin-settings.php:328
 msgid "BuddyPress Moderation Pro"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:322
+#: admin/wbcom/wbcom-admin-settings.php:329
 msgid ""
 "BuddyPress Community Moderation offers a solution for site owners to keep "
 "their communities straight. With community policing strategy, members of "
@@ -865,18 +874,18 @@ msgid ""
 "content created within the various components."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:328
+#: admin/wbcom/wbcom-admin-settings.php:335
 msgid ""
 "Use BuddyPress Polls plugin to create polls inside the activity, let your "
 "user response to your polls. Members can create pools like activities, "
 "easily votes on them."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:333
+#: admin/wbcom/wbcom-admin-settings.php:340
 msgid "BuddyPress Resume Manager"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:334
+#: admin/wbcom/wbcom-admin-settings.php:341
 msgid ""
 "BuddyPress Resume Manager adds a separate BuddyPress Resume menu at a "
 "user’s BuddyPress Profile Page to display individual member resume. We have "
@@ -884,57 +893,59 @@ msgid ""
 "disable them."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:339
+#: admin/wbcom/wbcom-admin-settings.php:346
 msgid "BuddyPress Profanity"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:340
+#: admin/wbcom/wbcom-admin-settings.php:347
 msgid ""
 "Use BuddyPress Profanity plugin to censor content in your community! Easily "
 "Censor all the unwanted words in activities, private messages contents by "
 "specifying a list of keywords to be filtered."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:345
+#: admin/wbcom/wbcom-admin-settings.php:352
 msgid "BuddyPress Private Community Pro"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:346
+#: admin/wbcom/wbcom-admin-settings.php:353
 msgid ""
 "This plugin offers a lockdown for BuddyPress Component and will ask users "
 "to log in go further to check profile or any other protected details."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:351
+#: admin/wbcom/wbcom-admin-settings.php:358
 msgid "BuddyPress Profile Pro"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:352
+#: admin/wbcom/wbcom-admin-settings.php:359
 msgid ""
 "This plugin gives you the power to extend BuddyPress Profiles with repeater "
 "fields and groups. You can easily add multiple field groups and display "
 "them at member’s profile."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:442
+#: admin/wbcom/wbcom-admin-settings.php:455
 msgid "Activate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:443
+#: admin/wbcom/wbcom-admin-settings.php:456
 msgid "Deactivate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:484
-#: admin/wbcom/wbcom-admin-settings.php:563
+#: admin/wbcom/wbcom-admin-settings.php:498
+#: admin/wbcom/wbcom-admin-settings.php:499
+#: admin/wbcom/wbcom-admin-settings.php:596
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:487
-#: admin/wbcom/wbcom-admin-settings.php:569
+#: admin/wbcom/wbcom-admin-settings.php:506
+#: admin/wbcom/wbcom-admin-settings.php:507
+#: admin/wbcom/wbcom-admin-settings.php:602
 msgid "Our Themes"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:557 buddypress-polls.php:223
+#: admin/wbcom/wbcom-admin-settings.php:590 buddypress-polls.php:223
 msgid "Settings"
 msgstr ""
 
@@ -956,180 +967,196 @@ msgid ""
 "configuration."
 msgstr ""
 
-#: buddypress-polls.php:250
+#: buddypress-polls.php:252
 msgid "BuddyPress"
 msgstr ""
 
-#: buddypress-polls.php:253
+#: buddypress-polls.php:255
 #. translators: %s:
 msgid "%1$s is ineffective now as it requires %2$s to be installed and active."
 msgstr ""
 
-#: edd-license/EDD_BPOLLS_Plugin_Updater.php:206
+#: edd-license/EDD_BPOLLS_Plugin_Updater.php:252
+#. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version
+#. Info
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
-#: edd-license/EDD_BPOLLS_Plugin_Updater.php:214
+#: edd-license/EDD_BPOLLS_Plugin_Updater.php:261
+#. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version
+#. Info
 msgid ""
 "There is a new version of %1$s available. %2$sView version %3$s details%4$s "
 "or %5$supdate now%6$s."
 msgstr ""
 
-#: edd-license/EDD_BPOLLS_Plugin_Updater.php:408
+#: edd-license/EDD_BPOLLS_Plugin_Updater.php:454
 msgid "You do not have permission to install plugin updates"
 msgstr ""
 
-#: edd-license/EDD_BPOLLS_Plugin_Updater.php:408
+#: edd-license/EDD_BPOLLS_Plugin_Updater.php:454
 msgid "Error"
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:102
-#: edd-license/edd-plugin-license.php:138
-#: edd-license/edd-plugin-license.php:211
+#: edd-license/edd-plugin-license.php:119
+#: edd-license/edd-plugin-license.php:157
+#: edd-license/edd-plugin-license.php:230
 msgid "An error occurred, please try again."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:111
+#: edd-license/edd-plugin-license.php:129
+#. translators: %1$s: Expire Time
 msgid "Your license key expired on %s."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:117
+#: edd-license/edd-plugin-license.php:135
 msgid "Your license key has been disabled."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:121
+#: edd-license/edd-plugin-license.php:139
 msgid "Invalid license."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:126
+#: edd-license/edd-plugin-license.php:144
 msgid "Your license is not active for this URL."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:130
+#: edd-license/edd-plugin-license.php:149
+#. translators: %1$s: Item Name
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:134
+#: edd-license/edd-plugin-license.php:153
 msgid "Your license key has reached its activation limit."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:352
+#: edd-license/edd-plugin-license.php:370
 msgid "Deactivate License"
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:359
+#: edd-license/edd-plugin-license.php:376
 msgid "Activate License"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:173
+#: public/class-buddypress-polls-public.php:172
 msgid "Submitting vote"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:174
+#: public/class-buddypress-polls-public.php:173
 msgid "Please select your choice."
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:181
+#. translators: %d: Polls Max Options
 msgid "The max number of allowed options is %d."
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:182
-#: public/class-buddypress-polls-public.php:265
+#: public/class-buddypress-polls-public.php:264
 msgid "Add a poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:274
+#: public/class-buddypress-polls-public.php:273
 msgid "Oops!"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:277
+#: public/class-buddypress-polls-public.php:276
 msgid "You are not allowed to enter more than "
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:277
+#: public/class-buddypress-polls-public.php:276
 msgid " options."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:284
+#: public/class-buddypress-polls-public.php:283
 msgid "Got it!"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:324
+#: public/class-buddypress-polls-public.php:327
 msgid "Cancel Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:331
+#: public/class-buddypress-polls-public.php:334
 msgid "Option 1"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:336
+#: public/class-buddypress-polls-public.php:339
 msgid "Option 2"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:341
+#: public/class-buddypress-polls-public.php:344
 msgid "Add new option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:351
+#: public/class-buddypress-polls-public.php:354
 msgid "Allow multiple options selection"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:356
+#: public/class-buddypress-polls-public.php:361
+msgid "Allow to user can add them option."
+msgstr ""
+
+#: public/class-buddypress-polls-public.php:367
 msgid "Follow-up"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:357
+#: public/class-buddypress-polls-public.php:368
 msgid "Enter Message"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:398
+#: public/class-buddypress-polls-public.php:409
 msgid "Polls Update"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:400
+#: public/class-buddypress-polls-public.php:411
 msgid "Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:432
+#: public/class-buddypress-polls-public.php:443
 #. translators: %s:
 msgid "%s created a poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:464
+#: public/class-buddypress-polls-public.php:475
 #. translators: %s:
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:668
-#: public/class-buddypress-polls-public.php:927
-#: public/class-buddypress-polls-public.php:937
-#: public/class-buddypress-polls-public.php:1407
+#: public/class-buddypress-polls-public.php:700
+#: public/class-buddypress-polls-public.php:976
+#: public/class-buddypress-polls-public.php:986
+#: public/class-buddypress-polls-public.php:1469
 #: public/inc/bp-poll-activity-graph.php:63
 #: public/inc/class-bp-poll-activity-graph.php:106
 #: public/inc/class-bp-poll-activity.php:100
 msgid "(no votes yet)"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:724
-#: public/class-buddypress-polls-public.php:980
-#: public/class-buddypress-polls-public.php:1463
+#: public/class-buddypress-polls-public.php:757
+#: public/class-buddypress-polls-public.php:1029
+#: public/class-buddypress-polls-public.php:1525
 msgid "View All"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:727
-#: public/class-buddypress-polls-public.php:983
-#: public/class-buddypress-polls-public.php:1466
+#: public/class-buddypress-polls-public.php:760
+#: public/class-buddypress-polls-public.php:1032
+#: public/class-buddypress-polls-public.php:1528
+#. translators: %s: Vote Count
 msgid "%s Vote"
 msgid_plural "%s Votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: public/class-buddypress-polls-public.php:756
-#: public/class-buddypress-polls-public.php:1495
+#: public/class-buddypress-polls-public.php:793
+msgid "Add poll option..."
+msgstr ""
+
+#: public/class-buddypress-polls-public.php:802
+#: public/class-buddypress-polls-public.php:1557
 msgid "Submit"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:1204
+#: public/class-buddypress-polls-public.php:1258
 msgid "People who voted for this option"
 msgstr ""
 
@@ -1159,7 +1186,7 @@ msgstr ""
 msgid "Default Poll to display:"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:309
+#: public/inc/class-bp-poll-activity-graph.php:310
 #: public/inc/class-bp-poll-activity.php:273
 #: public/inc/class-bp-poll-create-poll.php:175
 msgid "No polls are created yet."
@@ -1189,9 +1216,9 @@ msgstr ""
 msgid "Create Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:671
-#: public/class-buddypress-polls-public.php:940
-#: public/class-buddypress-polls-public.php:1410
+#: public/class-buddypress-polls-public.php:703
+#: public/class-buddypress-polls-public.php:989
+#: public/class-buddypress-polls-public.php:1472
 #: public/inc/class-bp-poll-activity.php:103
 msgctxt "Poll Activity"
 msgid "of"
