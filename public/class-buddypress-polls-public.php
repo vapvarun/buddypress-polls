@@ -791,10 +791,12 @@ class Buddypress_Polls_Public {
 
 				/* Add option from user end */
 				if ( $user_additional_option == 'yes' ) {
-					$activity_content .= "<div class='bpolls-add-user-item'>";
-					$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
-					$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
-					$activity_content .= '</div>';
+					if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
+						$activity_content .= "<div class='bpolls-add-user-item'>";
+						$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
+						$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
+						$activity_content .= '</div>';
+					}
 				}
 
 				$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='" . $activity_id . "'>";
