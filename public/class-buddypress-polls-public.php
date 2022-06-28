@@ -305,7 +305,7 @@ class Buddypress_Polls_Public {
 		if ( ! $this->bpolls_is_user_allowed_polls() ) {
 			return false;
 		}
-		$bpolls_settings = get_site_option( 'bpolls_settings' );
+		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		global $current_user;
 		$multi_true = false;
 		if ( isset( $bpolls_settings['multiselect'] ) ) {
@@ -314,6 +314,10 @@ class Buddypress_Polls_Public {
 		$add_option_true = false;
 		if ( isset( $bpolls_settings['user_additional_option'] ) ) {
 			$add_option_true = true;
+		}
+		$hide_results = true;
+		if ( isset( $bpolls_settings['hide_results'] ) ) {
+			$hide_results = false;
 		}
 
 		$poll_cdate = false;
@@ -361,8 +365,15 @@ class Buddypress_Polls_Public {
 					
 					<?php if ( $add_option_true ) { ?>
 						<div class="bpolls-checkbox">
-							<input id="bpolls-alw-multi" name="bpolls_user_additional_option" class="bpolls-allow-user-additional-option" type="checkbox" value="yes">
-							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow to user can add them option.', 'buddypress-polls' ); ?></label>
+							<input id="bpolls-alw-user-additional-option" name="bpolls_user_additional_option" class="bpolls-allow-user-additional-option" type="checkbox" value="yes">
+							<label class="lbl" for="bpolls-alw-user-additional-option"><?php esc_html_e( 'Allow to user can add them option.', 'buddypress-polls' ); ?></label>
+						</div>
+					<?php } ?>
+					
+					<?php if ( $hide_results ) { ?>
+						<div class="bpolls-checkbox">
+							<input id="bpolls-alw-user-hide-results" name="bpolls_user_hide_results" class="bpolls-allow-user-hide-results" type="checkbox" value="yes">
+							<label class="lbl" for="bpolls-alw-user-hide-results"><?php esc_html_e( 'Allow to user can hide results from users who have not voted yet. ', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
 					
@@ -536,6 +547,12 @@ class Buddypress_Polls_Public {
 			} else {
 				$user_additional_option = 'no';
 			}
+			
+			if ( isset( $_POST['bpolls_user_hide_results'] ) && 'yes' === $_POST['bpolls_user_hide_results'] ) {
+				$user_hide_results = 'yes';
+			} else {
+				$user_hide_results = 'no';
+			}
 
 			if ( isset( $_POST['bpolls-close-date'] ) && ! empty( $_POST['bpolls-close-date'] ) ) {
 				$close_date = isset( $_POST['bpolls-close-date'] ) ? $_POST['bpolls-close-date'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
@@ -556,11 +573,12 @@ class Buddypress_Polls_Public {
 				$bpolls_thankyou_feedback = isset( $_POST['bpolls_thankyou_feedback'] ) ? $_POST['bpolls_thankyou_feedback'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
 			$poll_meta = array(
-				'poll_option'              => $poll_optn_arr,
-				'multiselect'              => $multiselect,
-				'user_additional_option'   => $user_additional_option,
-				'close_date'               => $close_date,
-				'bpolls_thankyou_feedback' => $bpolls_thankyou_feedback,
+				'poll_option'              	=> $poll_optn_arr,
+				'multiselect'              	=> $multiselect,
+				'user_additional_option'   	=> $user_additional_option,
+				'user_hide_results'   	   	=> $user_hide_results,
+				'close_date'               	=> $close_date,
+				'bpolls_thankyou_feedback' 	=> $bpolls_thankyou_feedback,
 			);
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 
@@ -607,7 +625,11 @@ class Buddypress_Polls_Public {
 		if ( $polls_background_color != '' ) {
 			$polls_btn_style = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
 		}
-
+		$activity_meta 	= bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+		$total_votes 	= bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
+		$poll_image 	= bp_activity_get_meta( $activity_id, 'bpolls_image', true );
+		
+		
 		$submit       = false;
 		$hide_results = false;
 
@@ -622,6 +644,9 @@ class Buddypress_Polls_Public {
 				if ( isset( $bpolls_settings['hide_results'] ) ) {
 					$hide_results = true;
 				}
+				if ( isset( $activity_meta['user_hide_results'] ) ) {
+					$hide_results = true;
+				}
 				$poll_style = '';
 			}
 		} else {
@@ -629,14 +654,11 @@ class Buddypress_Polls_Public {
 			if ( isset( $bpolls_settings['hide_results'] ) ) {
 				$hide_results = true;
 			}
+			if ( isset( $activity_meta['user_hide_results'] ) ) {
+				$hide_results = true;
+			}
 			$poll_style = '';
 		}
-
-		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
-
-		$total_votes = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
-
-		$poll_image = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
 
 		$poll_closing = false;
 		if ( isset( $activity_meta['close_date'] ) && isset( $bpolls_settings['close_date'] ) && $activity_meta['close_date'] != 0 ) {

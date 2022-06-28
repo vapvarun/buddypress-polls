@@ -367,10 +367,10 @@
 		});
 		
 		/* Add User Option */
-		$( document ).on('keydown', '.bpoll-add-user-option', function(e){
-			if (e.keyCode == 13) {
-				e.preventDefault();
-				var user_option = $(this).val();
+		$( document ).on('keydown', '.bpoll-add-user-option', function(e){			
+			if ( e.keyCode == 13) {
+				e.preventDefault();				
+				var user_option = $(this).val();				
 				var bpoll_activity_id = $(this).data('activity-id');
 				var data = {
 					'action': 'bpolls_activity_add_user_option',
@@ -388,6 +388,28 @@
 				});
 				$(this).val('');
 			}			
+		});
+		
+		$( document ).on('click', '.bpoll-add-option', function(e){			
+			e.preventDefault();			
+			var user_option = $('.bpoll-add-user-option').val();			
+			var bpoll_activity_id = $(this).data('activity-id');
+			var data = {
+				'action': 'bpolls_activity_add_user_option',
+				'activity_id': bpoll_activity_id,
+				'user_option': user_option,
+				'ajax_nonce': bpolls_ajax_object.ajax_nonce
+			};
+			var add_option = $(this).parent();				
+			$.post(bpolls_ajax_object.ajax_url, data, function(response) {
+				response = $.parseJSON(response);
+				if (response.add_poll_option !== "" ) {											
+					$(response.add_poll_option).insertBefore(add_option);
+					$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+				}
+			});
+			$('.bpoll-add-user-option').val('');
+					
 		});
 		
 		/* Delete user Option */
