@@ -292,11 +292,18 @@ a.bpolls-add-option.button {
 }
 
 .bpolls-add-user-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     margin: 20px 0 15px;
 }
 
 .bpolls-add-user-item input[type="text"] {
     width: 100%;
+}
+
+.bpolls-add-user-item input.bpoll-add-option {
+    margin-right: 10px;
 }
 
 .bpolls-vote-submit {
