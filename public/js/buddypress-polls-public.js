@@ -393,6 +393,7 @@
 		/* Delete user Option */
 		$( document ).on('click', '.bpolls-delete-user-option', function(e){
 			e.preventDefault();
+			if (confirm(bpolls_ajax_object.delete_polls_msg) == true) {
 				var user_option = $(this).data('option');;
 				var bpoll_activity_id = $(this).data('activity-id');
 				var data = {
@@ -423,6 +424,7 @@
 					});
 					$('#activity-' + bpoll_activity_id + ' .bpolls-item input').hide();
 				});
+			}
 				
 		});
 	});

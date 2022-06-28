@@ -180,6 +180,10 @@ class Buddypress_Polls_Public {
 				/* translators: %d: Polls Max Options */
 				'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
 				'add_poll_text'     => __( 'Add a poll', 'buddypress-polls' ),
+				'delete_polls_title'=> __( 'Delete option', 'buddypress-polls' ),
+				'delete_polls_msg'  => __( 'Are you sure that you want to delete this option from the poll?', 'buddypress-polls' ),
+				'cancel_polls_btn'  => __( 'Cancel', 'buddypress-polls' ),
+				'delete_polls_btn'  => __( 'Delete', 'buddypress-polls' ),
 			)
 		);
 
