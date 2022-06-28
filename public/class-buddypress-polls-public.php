@@ -1356,7 +1356,7 @@ class Buddypress_Polls_Public {
 			array(
 				'activity_id' => null,
 			),
-			$atts,
+			$atts
 		);
 		$activity_id = $atts['activity_id'];
 		$activity_id = is_numeric( $activity_id ) ? (int) $activity_id : $activity_id;

@@ -335,6 +335,7 @@
 
 				});
 				$('#activity-' + bpoll_activity_id + ' .bpolls-item input').hide();
+				$('#activity-' + bpoll_activity_id + ' .bpolls-add-user-item').remove();
 				submit_event.remove();
 			});
 		});
