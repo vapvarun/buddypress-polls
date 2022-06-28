@@ -1676,7 +1676,7 @@ class Buddypress_Polls_Public {
 				</div>
 				<span class="bpolls-percent"></span>
 			</div>
-			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?p[hp echo $user_id;?>"><i class="wb-icons wb-icon-x"></i></a>
+			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?php echo $user_id;?>"><i class="wb-icons wb-icon-x"></i></a>
 		</div>
 		<?php
 		$add_poll_option = ob_get_clean();
