@@ -256,6 +256,10 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
+			
+			$this->loader->add_action( 'wp_ajax_bpolls_activity_add_user_option', $plugin_public, 'bpolls_activity_add_user_option' );
+			
+			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
 		}
 
