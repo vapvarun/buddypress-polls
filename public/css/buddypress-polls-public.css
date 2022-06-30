@@ -306,6 +306,15 @@ a.bpolls-add-option.button {
     margin-left: 10px;
 }
 
+.bpolls-add-option-error {
+    font-size: 14px !important;
+    color: #fff !important;
+    background-color: #ef3e46;
+    margin: 0 0 15px !important;
+    padding: 10px;
+    border-radius: 3px;
+}
+
 .bpolls-vote-submit {
     display: inline-block;
     font-size: 14px;
