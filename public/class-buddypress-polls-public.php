@@ -799,7 +799,7 @@ class Buddypress_Polls_Public {
 						$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
 						$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
 						$activity_content .= '</div>';
-						$activity_content .= '<p class="bpolls-add-option-error" style="display:none">' . esc_html__( 'Option field is empty and try to add an option.', 'buddypress-polls') . '</p>';
+						$activity_content .= '<p class="bpolls-add-option-error" style="display:none">' . esc_html__( 'Poll option field is empty.', 'buddypress-polls') . '</p>';
 					}
 				}
 
