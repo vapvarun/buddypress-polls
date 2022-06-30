@@ -370,7 +370,12 @@
 		/* Add User Option */
 		$( document ).on('keydown', '.bpoll-add-user-option', function(e){	
 			if ( e.keyCode == 13 && $(this).val() == '' ) {
-				e.preventDefault();		
+				e.preventDefault();
+				var bpoll_activity_id 	= $(this).data('activity-id');
+				$('#activity-'+bpoll_activity_id+' .bpolls-add-option-error').show();
+				setTimeout(function() {					
+					$('#activity-'+bpoll_activity_id+' .bpolls-add-option-error').hide(500);
+				}, 5000);
 			}
 			if ( e.keyCode == 13 && $(this).val() != '' ) {
 				e.preventDefault();
@@ -452,6 +457,11 @@
 					});				
 					$('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
 				}
+			} else {
+				$('#activity-'+bpoll_activity_id+' .bpolls-add-option-error').show();
+				setTimeout(function() {
+					$('#activity-'+bpoll_activity_id+' .bpolls-add-option-error').hide(500);
+				}, 5000);
 			}
 					
 		});
