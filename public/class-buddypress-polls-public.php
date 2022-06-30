@@ -161,8 +161,7 @@ class Buddypress_Polls_Public {
 			$nouveau = true;
 		}
 
-		$bpolls_settings = get_site_option( 'bpolls_settings' );
-
+		$bpolls_settings = get_site_option( 'bpolls_settings' );		
 		wp_localize_script(
 			$this->plugin_name,
 			'bpolls_ajax_object',
@@ -184,6 +183,7 @@ class Buddypress_Polls_Public {
 				'delete_polls_msg'  => __( 'Are you sure that you want to delete this option from the poll?', 'buddypress-polls' ),
 				'cancel_polls_btn'  => __( 'Cancel', 'buddypress-polls' ),
 				'delete_polls_btn'  => __( 'Delete', 'buddypress-polls' ),
+				'poll_revoting'  	=> ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
 			)
 		);
 

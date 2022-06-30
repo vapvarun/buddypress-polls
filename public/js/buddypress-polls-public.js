@@ -402,7 +402,9 @@
 						response = $.parseJSON(response);
 						if (response.add_poll_option !== "" ) {											
 							$(response.add_poll_option).insertBefore(add_option);
-							$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+							if (bpolls_ajax_object.poll_revoting != 'yes') {
+								$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+							}
 						}
 					});
 					$(this).val('');
@@ -443,7 +445,9 @@
 						response = $.parseJSON(response);
 						if (response.add_poll_option !== "" ) {											
 							$(response.add_poll_option).insertBefore(add_option);
-							$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+							if (bpolls_ajax_object.poll_revoting != 'yes') {
+								$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+							}
 						}
 					});				
 					$('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
