@@ -1093,11 +1093,11 @@ msgid "Allow multiple options selection"
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:348
-msgid "Allow to user can add them option."
+msgid "Allow members to add their poll options."
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:355
-msgid "Allow to user can hide results from users who have not voted yet. "
+msgid "Hide poll results from members who have not voted yet. "
 msgstr ""
 
 #: public/class-buddypress-polls-public.php:361

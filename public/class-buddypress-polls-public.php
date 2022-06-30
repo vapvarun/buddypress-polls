@@ -161,7 +161,7 @@ class Buddypress_Polls_Public {
 			$nouveau = true;
 		}
 
-		$bpolls_settings = get_site_option( 'bpolls_settings' );		
+		$bpolls_settings = get_site_option( 'bpolls_settings' );
 		wp_localize_script(
 			$this->plugin_name,
 			'bpolls_ajax_object',
@@ -265,7 +265,7 @@ class Buddypress_Polls_Public {
 
 			?>
 		<div class="post-elements-buttons-item bpolls-html-container">
-			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>			
+			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
 		</div>
 			<?php
 		}
@@ -281,8 +281,8 @@ class Buddypress_Polls_Public {
 		if ( ! $this->bpolls_is_user_allowed_polls() ) {
 			return false;
 		}
-		$bpolls_settings = get_site_option( 'bpolls_settings' );		
-		
+		$bpolls_settings = get_site_option( 'bpolls_settings' );
+
 		global $current_user;
 		$multi_true = false;
 		if ( isset( $bpolls_settings['multiselect'] ) ) {
@@ -341,21 +341,21 @@ class Buddypress_Polls_Public {
 							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow multiple options selection', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
-					
+
 					<?php if ( $add_option_true ) { ?>
 						<div class="bpolls-checkbox">
 							<input id="bpolls-alw-user-additional-option" name="bpolls_user_additional_option" class="bpolls-allow-user-additional-option" type="checkbox" value="yes">
-							<label class="lbl" for="bpolls-alw-user-additional-option"><?php esc_html_e( 'Allow to user can add them option.', 'buddypress-polls' ); ?></label>
+							<label class="lbl" for="bpolls-alw-user-additional-option"><?php esc_html_e( 'Allow members to add their poll options.', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
-					
+
 					<?php if ( $hide_results ) { ?>
 						<div class="bpolls-checkbox">
 							<input id="bpolls-alw-user-hide-results" name="bpolls_user_hide_results" class="bpolls-allow-user-hide-results" type="checkbox" value="yes">
-							<label class="lbl" for="bpolls-alw-user-hide-results"><?php esc_html_e( 'Allow to user can hide results from users who have not voted yet. ', 'buddypress-polls' ); ?></label>
+							<label class="lbl" for="bpolls-alw-user-hide-results"><?php esc_html_e( 'Hide poll results from members who have not voted yet. ', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
-					
+
 					<?php if ( isset( $bpolls_settings['enable_thank_you_message'] ) ) { ?>
 						<div class="bpolls-checkbox bpolls-feedback">
 							<span><?php esc_html_e( 'Follow-up', 'buddypress-polls' ); ?></span>
@@ -526,7 +526,7 @@ class Buddypress_Polls_Public {
 			} else {
 				$user_additional_option = 'no';
 			}
-			
+
 			if ( isset( $_POST['bpolls_user_hide_results'] ) && 'yes' === $_POST['bpolls_user_hide_results'] ) {
 				$user_hide_results = 'yes';
 			} else {
@@ -582,8 +582,8 @@ class Buddypress_Polls_Public {
 		$user_id     	= get_current_user_id();
 		$poll_user_id	= $activity_obj->user_id;
 		$activity_id 	= $activity_obj->id;
-		
-		
+
+
 		if ( isset( $act ) && null !== $act ) {
 			$activity_id = $act;
 		}
@@ -610,8 +610,8 @@ class Buddypress_Polls_Public {
 		$activity_meta 	= bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 		$total_votes 	= bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
 		$poll_image 	= bp_activity_get_meta( $activity_id, 'bpolls_image', true );
-		
-		
+
+
 		$submit       = false;
 		$hide_results = false;
 
@@ -1753,12 +1753,12 @@ class Buddypress_Polls_Public {
 		echo wp_json_encode( $updated_votes );
 		wp_die();
 	}
-	
-	public function bpolls_wp_footer() {		
+
+	public function bpolls_wp_footer() {
 		if ( $this->bpolls_is_user_allowed_polls() ) {
 			$bpolls_settings   = get_site_option( 'bpolls_settings' );
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
-			?>			
+			?>
 			<div class="bpolls-icon-dialog">
 				<div class="bpolls-icon-dialog-container">
 					<div class="bpolls-icon-dialog-header">
