@@ -94,7 +94,7 @@ msgstr ""
 "Aktivitäten, Benutzerprofilen und sogar in Gruppen hinzugefügt."
 
 #: public/class-buddypress-polls-public.php:224
-msgid "Allow multiple options selection"
+msgid "Allow members to choose multiple poll options."
 msgstr "Auswahl mehrerer Optionen zulassen"
 
 #: edd-license/edd-plugin-license.php:102

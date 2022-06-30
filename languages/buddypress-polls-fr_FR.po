@@ -957,7 +957,7 @@ msgid "Option 2"
 msgstr "Option 2"
 
 #: public/class-buddypress-polls-public.php:186
-msgid "Allow multiple options selection"
+msgid "Allow members to choose multiple poll options."
 msgstr "Autoriser plusieurs options de sélection"
 
 #: public/class-buddypress-polls-public.php:190

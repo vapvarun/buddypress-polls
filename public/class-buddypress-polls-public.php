@@ -338,7 +338,7 @@ class Buddypress_Polls_Public {
 					<?php if ( $multi_true ) { ?>
 						<div class="bpolls-checkbox">
 							<input id="bpolls-alw-multi" name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
-							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow multiple options selection', 'buddypress-polls' ); ?></label>
+							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow members to choose multiple poll options.', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
 

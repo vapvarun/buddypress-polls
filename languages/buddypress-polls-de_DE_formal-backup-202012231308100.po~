@@ -1037,7 +1037,7 @@ msgid "Add new option"
 msgstr "Neue Option hinzufügen"
 
 #: public/class-buddypress-polls-public.php:224
-msgid "Allow multiple options selection"
+msgid "Allow members to choose multiple poll options."
 msgstr "Auswahl mehrerer Optionen zulassen"
 
 #: public/class-buddypress-polls-public.php:265
