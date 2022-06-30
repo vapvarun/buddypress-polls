@@ -107,11 +107,11 @@ msgid "Disabled: users can only vote for one option in each poll."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:49
-msgid "Can user add additional option?"
+msgid "Allow members to add poll options."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:55
-msgid "Enabled: users can allow to add additional option in each poll."
+msgid "Enabled: It will allow other members to all poll options to a poll which are created by others like Facebook."
 msgstr ""
 
 #: admin/inc/bpolls-general-setting-tab.php:60

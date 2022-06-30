@@ -46,13 +46,13 @@ global $wp_roles;
 			</td>
 		</tr>
 		<tr>
-			<th scope="row"><label for="blogname"><?php esc_html_e( 'Can user add additional option?', 'buddypress-polls' ); ?></label></th>
+			<th scope="row"><label for="blogname"><?php esc_html_e( 'Allow members to add poll options.', 'buddypress-polls' ); ?></label></th>
 			<td>
 				<label class="wb-switch">
 					<input name='bpolls_settings[user_additional_option]' type='checkbox' value='yes' <?php ( isset( $bpolls_settings['user_additional_option'] ) ) ? checked( $bpolls_settings['user_additional_option'], 'yes' ) : ''; ?>/>
 					<div class="wb-slider wb-round"></div>
 				</label>
-				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can allow to add additional option in each poll.', 'buddypress-polls' ); ?>
+				<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: It will allow other members to all poll options to a poll which are created by others like Facebook.', 'buddypress-polls' ); ?>
 				</p>								
 			</td>
 		</tr>
