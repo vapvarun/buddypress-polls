@@ -579,8 +579,11 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_update_poll_activity_content( $act = null, $activity_obj = array() ) {
 		global $current_user;
-		$user_id     = get_current_user_id();
-		$activity_id = $activity_obj->id;
+		$user_id     	= get_current_user_id();
+		$poll_user_id	= $activity_obj->user_id;
+		$activity_id 	= $activity_obj->id;
+		
+		
 		if ( isset( $act ) && null !== $act ) {
 			$activity_id = $act;
 		}
@@ -793,7 +796,7 @@ class Buddypress_Polls_Public {
 				}
 
 				/* Add option from user end */
-				if ( $user_additional_option == 'yes' ) {
+				if ( $user_additional_option == 'yes' && $poll_user_id != $user_id ) {
 					if ( ( $submit && $poll_closing && is_user_logged_in() ) || ( $poll_revoting && $poll_closing && is_user_logged_in() ) ) {
 						$activity_content .= "<div class='bpolls-add-user-item'>";
 						$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
