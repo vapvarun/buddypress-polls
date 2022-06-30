@@ -368,8 +368,11 @@
 		});
 		
 		/* Add User Option */
-		$( document ).on('keydown', '.bpoll-add-user-option', function(e){			
-			if ( e.keyCode == 13) {
+		$( document ).on('keydown', '.bpoll-add-user-option', function(e){	
+			if ( e.keyCode == 13 && $(this).val() == '' ) {
+				e.preventDefault();		
+			}
+			if ( e.keyCode == 13 && $(this).val() != '' ) {
 				e.preventDefault();
 				var max_options 		= bpolls_ajax_object.polls_option_lmit;			
 				var user_option 		= $(this).val();				
@@ -412,36 +415,39 @@
 			var max_options 		= bpolls_ajax_object.polls_option_lmit;			
 			var bpoll_activity_id 	= $(this).data('activity-id');
 			var user_option 		= $('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
-			var bpoll_user_id 		= $(this).data('user-id');
 			
-			var user_count = 1;
-			$( '#activity-'+bpoll_activity_id+' .bpolls-item .bpolls-delete-user-option').each(function() {
+			if (user_option != '' ) {
+				var bpoll_user_id 		= $(this).data('user-id');
 				
-				if ( bpoll_user_id == $(this).data( 'user-id')){
-					user_count++;
-				}
-			});
-			
-			if ( user_count > max_options ) {
-				console.log(max_options + " =="+ user_count);
-				$( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
-				
-			} else {
-				var data = {
-					'action': 'bpolls_activity_add_user_option',
-					'activity_id': bpoll_activity_id,
-					'user_option': user_option,
-					'ajax_nonce': bpolls_ajax_object.ajax_nonce
-				};
-				var add_option = $(this).parent();				
-				$.post(bpolls_ajax_object.ajax_url, data, function(response) {
-					response = $.parseJSON(response);
-					if (response.add_poll_option !== "" ) {											
-						$(response.add_poll_option).insertBefore(add_option);
-						$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+				var user_count = 1;
+				$( '#activity-'+bpoll_activity_id+' .bpolls-item .bpolls-delete-user-option').each(function() {
+					
+					if ( bpoll_user_id == $(this).data( 'user-id')){
+						user_count++;
 					}
-				});				
-				$('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
+				});
+				
+				if ( user_count > max_options ) {
+					console.log(max_options + " =="+ user_count);
+					$( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
+					
+				} else {
+					var data = {
+						'action': 'bpolls_activity_add_user_option',
+						'activity_id': bpoll_activity_id,
+						'user_option': user_option,
+						'ajax_nonce': bpolls_ajax_object.ajax_nonce
+					};
+					var add_option = $(this).parent();				
+					$.post(bpolls_ajax_object.ajax_url, data, function(response) {
+						response = $.parseJSON(response);
+						if (response.add_poll_option !== "" ) {											
+							$(response.add_poll_option).insertBefore(add_option);
+							$('#activity-'+bpoll_activity_id+' .bpolls-vote-submit').trigger('click');
+						}
+					});				
+					$('#activity-'+bpoll_activity_id+' .bpoll-add-user-option').val();
+				}
 			}
 					
 		});
