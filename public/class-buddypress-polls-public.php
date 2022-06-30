@@ -282,6 +282,7 @@ class Buddypress_Polls_Public {
 			return false;
 		}
 		$bpolls_settings = get_site_option( 'bpolls_settings' );		
+		
 		global $current_user;
 		$multi_true = false;
 		if ( isset( $bpolls_settings['multiselect'] ) ) {
@@ -318,11 +319,13 @@ class Buddypress_Polls_Public {
 							<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e( 'Option 1', 'buddypress-polls' ); ?>" type="text">
 							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</div>
+						<?php if ( isset($bpolls_settings['options_limit']) && $bpolls_settings['options_limit'] > 1) :?>
 						<div class="bpolls-option">
 							<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
 							<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e( 'Option 2', 'buddypress-polls' ); ?>" type="text">
 							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</div>
+						<?php endif;?>
 					</div>
 					<div class="bpolls-option-action">
 						<a href="JavaScript:void(0);" class="bpolls-add-option button"><?php esc_html_e( 'Add new option', 'buddypress-polls' ); ?></a>
