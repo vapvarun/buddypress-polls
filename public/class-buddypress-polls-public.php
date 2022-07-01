@@ -506,10 +506,7 @@ class Buddypress_Polls_Public {
 			$activity_id = $g_activity_id;
 		}
 
-		/* Edit activity then return */
-		if ( isset( $_REQUEST['edit_activity'] ) && $_REQUEST['edit_activity'] == true ) {
-			return;
-		}
+
 		global $wpdb;
 
 		$activity_tbl = $wpdb->base_prefix . 'bp_activity';
