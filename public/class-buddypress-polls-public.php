@@ -166,24 +166,24 @@ class Buddypress_Polls_Public {
 			$this->plugin_name,
 			'bpolls_ajax_object',
 			array(
-				'ajax_url'          => admin_url( 'admin-ajax.php' ),
-				'ajax_nonce'        => wp_create_nonce( 'bpolls_ajax_security' ),
-				'submit_text'       => __( 'Submitting vote', 'buddypress-polls' ),
-				'optn_empty_text'   => __( 'Please select your choice.', 'buddypress-polls' ),
-				'reign_polls'       => $body_polls_class,
-				'rt_poll_fix'       => $rt_poll_fix,
-				'nouveau'           => $nouveau,
-				'buddyboss'         => buddypress()->buddyboss,
-				'polls_option_lmit' => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
-				'poll_limit_voters' => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
+				'ajax_url'           => admin_url( 'admin-ajax.php' ),
+				'ajax_nonce'         => wp_create_nonce( 'bpolls_ajax_security' ),
+				'submit_text'        => __( 'Submitting vote', 'buddypress-polls' ),
+				'optn_empty_text'    => __( 'Please select your choice.', 'buddypress-polls' ),
+				'reign_polls'        => $body_polls_class,
+				'rt_poll_fix'        => $rt_poll_fix,
+				'nouveau'            => $nouveau,
+				'buddyboss'          => buddypress()->buddyboss,
+				'polls_option_lmit'  => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
+				'poll_limit_voters'  => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
 				/* translators: %d: Polls Max Options */
-				'poll_max_options'  => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
-				'add_poll_text'     => __( 'Add a poll', 'buddypress-polls' ),
-				'delete_polls_title'=> __( 'Delete option', 'buddypress-polls' ),
-				'delete_polls_msg'  => __( 'Are you sure that you want to delete this option from the poll?', 'buddypress-polls' ),
-				'cancel_polls_btn'  => __( 'Cancel', 'buddypress-polls' ),
-				'delete_polls_btn'  => __( 'Delete', 'buddypress-polls' ),
-				'poll_revoting'  	=> ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
+				'poll_max_options'   => __( 'The max number of allowed options is %d.', 'buddypress-polls' ),
+				'add_poll_text'      => __( 'Add a poll', 'buddypress-polls' ),
+				'delete_polls_title' => __( 'Delete option', 'buddypress-polls' ),
+				'delete_polls_msg'   => __( 'Are you sure that you want to delete this option from the poll?', 'buddypress-polls' ),
+				'cancel_polls_btn'   => __( 'Cancel', 'buddypress-polls' ),
+				'delete_polls_btn'   => __( 'Delete', 'buddypress-polls' ),
+				'poll_revoting'      => ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
 			)
 		);
 
@@ -319,13 +319,13 @@ class Buddypress_Polls_Public {
 							<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e( 'Option 1', 'buddypress-polls' ); ?>" type="text">
 							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</div>
-						<?php if ( isset($bpolls_settings['options_limit']) && $bpolls_settings['options_limit'] > 1) :?>
+						<?php if ( isset( $bpolls_settings['options_limit'] ) && $bpolls_settings['options_limit'] > 1 ) : ?>
 						<div class="bpolls-option">
 							<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
 							<input name="bpolls_input_options" class="bpolls-input" placeholder="<?php esc_html_e( 'Option 2', 'buddypress-polls' ); ?>" type="text">
 							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
 						</div>
-						<?php endif;?>
+						<?php endif; ?>
 					</div>
 					<div class="bpolls-option-action">
 						<a href="JavaScript:void(0);" class="bpolls-add-option button"><?php esc_html_e( 'Add new option', 'buddypress-polls' ); ?></a>
@@ -552,12 +552,12 @@ class Buddypress_Polls_Public {
 				$bpolls_thankyou_feedback = isset( $_POST['bpolls_thankyou_feedback'] ) ? $_POST['bpolls_thankyou_feedback'] : ''; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 			}
 			$poll_meta = array(
-				'poll_option'              	=> $poll_optn_arr,
-				'multiselect'              	=> $multiselect,
-				'user_additional_option'   	=> $user_additional_option,
-				'user_hide_results'   	   	=> $user_hide_results,
-				'close_date'               	=> $close_date,
-				'bpolls_thankyou_feedback' 	=> $bpolls_thankyou_feedback,
+				'poll_option'              => $poll_optn_arr,
+				'multiselect'              => $multiselect,
+				'user_additional_option'   => $user_additional_option,
+				'user_hide_results'        => $user_hide_results,
+				'close_date'               => $close_date,
+				'bpolls_thankyou_feedback' => $bpolls_thankyou_feedback,
 			);
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 
@@ -579,10 +579,9 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_update_poll_activity_content( $act = null, $activity_obj = array() ) {
 		global $current_user;
-		$user_id     	= get_current_user_id();
-		$poll_user_id	= $activity_obj->user_id;
-		$activity_id 	= $activity_obj->id;
-
+		$user_id      = get_current_user_id();
+		$poll_user_id = $activity_obj->user_id;
+		$activity_id  = $activity_obj->id;
 
 		if ( isset( $act ) && null !== $act ) {
 			$activity_id = $act;
@@ -607,10 +606,9 @@ class Buddypress_Polls_Public {
 		if ( $polls_background_color != '' ) {
 			$polls_btn_style = 'style="color: ' . $polls_background_color . '!important;border-color: ' . $polls_background_color . '!important"';
 		}
-		$activity_meta 	= bp_activity_get_meta( $activity_id, 'bpolls_meta' );
-		$total_votes 	= bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
-		$poll_image 	= bp_activity_get_meta( $activity_id, 'bpolls_image', true );
-
+		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+		$total_votes   = bp_activity_get_meta( $activity_id, 'bpolls_total_votes', true );
+		$poll_image    = bp_activity_get_meta( $activity_id, 'bpolls_image', true );
 
 		$submit       = false;
 		$hide_results = false;
@@ -790,7 +788,7 @@ class Buddypress_Polls_Public {
 
 					$activity_content .= '</div>';
 					if ( isset( $user_polls_option[ 'activity-id-' . $activity_id . '-' . $key ] ) ) {
-						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "' data-user-id='".$user_id."'><i class='wb-icons wb-icon-x'></i></a>";
+						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "' data-user-id='" . $user_id . "'><i class='wb-icons wb-icon-x'></i></a>";
 					}
 					$activity_content .= '</div>';
 				}
@@ -802,7 +800,7 @@ class Buddypress_Polls_Public {
 						$activity_content .= '<input type="text" class="bpoll-add-user-option" name="bpoll_user_option" value="" placeholder="' . esc_html__( 'Add poll option...', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
 						$activity_content .= '<input type="button" class="bpoll-add-option" name="bpoll_add_option" value="' . esc_html__( 'Add option', 'buddypress-polls' ) . '" data-activity-id="' . $activity_id . '" data-user-id="' . $user_id . '"/>';
 						$activity_content .= '</div>';
-						$activity_content .= '<p class="bpolls-add-option-error" style="display:none">' . esc_html__( 'Poll option field is empty.', 'buddypress-polls') . '</p>';
+						$activity_content .= '<p class="bpolls-add-option-error" style="display:none">' . esc_html__( 'Poll option field is empty.', 'buddypress-polls' ) . '</p>';
 					}
 				}
 
@@ -1685,7 +1683,7 @@ class Buddypress_Polls_Public {
 				</div>
 				<span class="bpolls-percent"></span>
 			</div>
-			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?php echo $user_id;?>"><i class="wb-icons wb-icon-x"></i></a>
+			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?php echo $user_id; ?>"><i class="wb-icons wb-icon-x"></i></a>
 		</div>
 		<?php
 		$add_poll_option = ob_get_clean();
@@ -1755,7 +1753,7 @@ class Buddypress_Polls_Public {
 	}
 
 	public function bpolls_wp_footer() {
-		if ( $this->bpolls_is_user_allowed_polls() ) {
+		if ( $this->bpolls_is_user_allowed_polls() && ( bp_is_activity_component() || bp_is_group_activity() ) ) {
 			$bpolls_settings   = get_site_option( 'bpolls_settings' );
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
 			?>
