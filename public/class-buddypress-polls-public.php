@@ -501,7 +501,7 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id, $g_activity_id = null ) {
-		check_admin_referer( 'post_update', '_wpnonce_post_update' );
+		
 		if ( isset( $g_activity_id ) ) {
 			$activity_id = $g_activity_id;
 		}
