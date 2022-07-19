@@ -1286,7 +1286,7 @@ class Buddypress_Polls_Public {
 											?>
 									</a>
 						<div class="bpolls-item-data">
-							<div class="bpolls-item-name"><?php echo esc_html( bp_core_get_userlink( $user_id ) ); ?></div>
+							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ) ; ?></div>
 							<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
 						</div>
 					</div>
