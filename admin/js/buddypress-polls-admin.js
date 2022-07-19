@@ -30,7 +30,7 @@
 	 */
 
 	   $(function() {
-	 		var bpolls_elmt = document.getElementsByClassName( "bpolls-accordion" );
+	 		var bpolls_elmt = document.getElementsByClassName( "wbcom-faq-accordion" );
 			var k;
 			var bpolls_elmt_len = bpolls_elmt.length;
 			for (k = 0; k < bpolls_elmt_len; k++) {
@@ -44,7 +44,7 @@
 					}
 				}
 			}
-			
+
 			$('.multi-selectize').selectize({
 				plugins			: ['remove_button']
 			});
@@ -61,7 +61,7 @@
 					$( '#bpolls_member_type' ).hide();
 				}
 			});
-			
+
 			$('#polls_background_color').wpColorPicker();
 	   });
 

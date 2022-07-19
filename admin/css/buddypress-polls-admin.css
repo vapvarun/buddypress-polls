@@ -14,60 +14,15 @@
 .nav-tab-wrapper ul li.General a.nav-tab:before {
     content: "\f111";
 }
-.wbcom-welcome-head h2.wbcom-welcome-title {
-    padding: 18px 25px;
-    font-size: 15px;
-    background: #2094F3;
-    color: #fff;
-    margin: 0 -15px 20px;
-}
-.wbcom-welcome-main-wrapper {
-    position: relative;
-    font-size: 15px;
-    background: #f6f6f6;
-    padding: 0 15px 15px;
-    margin: 25px 0;
-}
-.wbcom-video-link-wrapper {
-    flex-wrap: wrap;
-    display: flex;
-    margin-bottom: 20px;
-    border: 1px solid #ddd;
-    align-items: center;
-    background: #fff;
-    padding:10px;
-}
-.wbcom-video-link-wrapper iframe,
-.wbcom-video-link-wrapper .col-right,
-.wbcom-video-link-wrapper .fluid-width-video-wrapper {
-    width: 48%;
-    padding:1%;
-}
-.wbcom-video-link-wrapper .fluid-width-video-wrapper {
-    padding-top: 0 !important;
-    height: 380px;
-}
-.wbcom-admin-title-section h3 {
-    padding: 18px 25px;
-    font-size: 15px;
-    background: #2094F3;
-    color: #fff;
-    margin: 0 -15px 20px;
-}
-.wbcom-wrapper-admin {
-    position: relative;
-    font-size: 15px;
-    background: #f6f6f6;
-    padding: 0 15px 15px;
-    margin: 25px 0;
-}
-.wbcom-admin-option-wrap{
-    background-color: #fff;
-}
-.wbcom-admin-option-wrap .form-table th {
-    padding: 20px;
+.wb-plugins-license-tables-wrap{
+    margin: 0 !important;
 }
 
+.wbcom-settings-section-options .selectize-input {
+    height: auto;
+    box-shadow: none;
+    padding: 0px 10px !important;
+}
 /*----------  General tab design  ----------*/
 @media screen and (max-width: 782px) {
     .form-table.polls-general-options label {

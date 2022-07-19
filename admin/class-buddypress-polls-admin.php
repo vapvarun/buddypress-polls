@@ -98,6 +98,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		}
 
 		/**
+		 * Hide all notices from the setting page.
+		 *
+		 * @return void
+		 */
+		public function wbcom_hide_all_admin_notices_from_setting_page() {
+			$wbcom_pages_array  = array( 'wbcomplugins', 'wbcom-plugins-page', 'wbcom-support-page', 'buddypress-polls' );
+			$wbcom_setting_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+
+			if ( in_array( $wbcom_setting_page, $wbcom_pages_array, true ) ) {
+				remove_all_actions( 'admin_notices' );
+				remove_all_actions( 'all_admin_notices' );
+			}
+		}
+
+		/**
 		 * Register the JavaScript for the admin area.
 		 *
 		 * @since    1.0.0
@@ -155,15 +170,25 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function bpolls_buddypress_polls_settings_page() {
 			$current = filter_input( INPUT_GET, 'tab' ) ? filter_input( INPUT_GET, 'tab' ) : 'welcome';
 			?>
+
 			<div class="wrap">
-				<hr class="wp-header-end">
-				<div class="wbcom-wrap">
-					<div class="blpro-header">
-						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
-						<h1 class="wbcom-plugin-heading">
-							<?php esc_html_e( 'BuddyPress Polls Settings', 'buddypress-polls' ); ?>
-						</h1>
-					</div>
+			<div class="wbcom-bb-plugins-offer-wrapper">
+				<div id="wb_admin_logo">
+					<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+						<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+					</a>
+				</div>
+			</div>
+				<div class="wbcom-wrap buddyPress-polls-header">					
+				<div class="blpro-header">
+					<div class="wbcom_admin_header-wrapper">
+			            <div id="wb_admin_plugin_name">
+							<?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?>
+							<span><?php printf( __( 'Version %s', 'buddypress-polls' ), BPOLLS_PLUGIN_VERSION ); ?></span>
+						</div>
+			            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
+			        </div>
+				</div>
 				<div class="wbcom-admin-settings-page">
 			<?php
 			$bpolls_tabs = array(
