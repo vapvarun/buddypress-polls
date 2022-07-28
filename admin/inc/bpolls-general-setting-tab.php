@@ -24,6 +24,7 @@ global $wp_roles;
 <div class="wbcom-wrapper-admin">
 <div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'Polls General Settings', 'buddypress-polls' ); ?></h3>
 </div>
+<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 <form method="post" action="admin.php?action=update_network_options">
 	<div class="wbcom-admin-option-wrap">
 	<input name='bpolls_settings[hidden]' type='hidden' value=""/>
@@ -253,12 +254,13 @@ global $wp_roles;
 						<option value="<?php echo esc_attr( $typ->name ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $typ->labels['singular_name'] ); ?></option>
 					<?php } ?>
 					</select>
-				<?php } ?>				
+				<?php } ?>
 			</div>
 		</div>		
 	</div>
 </div>
 	<?php submit_button(); ?>
 </form>
+</div>
 </div>
 </div>
