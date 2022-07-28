@@ -229,10 +229,14 @@ global $wp_roles;
 				</select>				
 			</div>		
 		</div>
-		<div class="wbcom-settings-section-wrap" id="bpolls_member_type" 
 		<?php
-		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' !== $bpolls_settings['limit_poll_activity'] ) :
+		$types = bp_get_member_types( array(), 'objects' );
+		if ( $types ) {
 			?>
+		<div class="wbcom-settings-section-wrap" id="bpolls_member_type" 
+			<?php
+			if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'member_type' !== $bpolls_settings['limit_poll_activity'] ) :
+				?>
 			style="display:none" <?php endif; ?>>
 			<div class="wbcom-settings-section-options-heading">
 				<label><?php esc_html_e( 'Select Member Type', 'buddypress-polls' ); ?></label>
@@ -241,10 +245,6 @@ global $wp_roles;
 				</p>
 			</div>
 			<div class="wbcom-settings-section-options">
-			<?php
-			$types = bp_get_member_types( array(), 'objects' );
-			if ( $types ) {
-				?>
 					<select class="multi-selectize" name="bpolls_settings[poll_member_type][]" multiple>
 
 					<?php
@@ -254,9 +254,9 @@ global $wp_roles;
 						<option value="<?php echo esc_attr( $typ->name ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_html( $typ->labels['singular_name'] ); ?></option>
 					<?php } ?>
 					</select>
-				<?php } ?>
-			</div>
-		</div>		
+				</div>
+			</div>		
+			<?php } ?>
 	</div>
 </div>
 	<?php submit_button(); ?>
