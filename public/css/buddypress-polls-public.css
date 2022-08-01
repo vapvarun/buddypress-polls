@@ -871,7 +871,9 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 /*--------------------------------------------------------------
 # Shortcode
 --------------------------------------------------------------*/
-
+.bpolls-options-attach-shortcode-wrapper .bpolls-item {
+    display: block;
+}
 .bpolls-options-attach-shortcode-wrapper {
     background: #fff;
     padding: 1rem;
