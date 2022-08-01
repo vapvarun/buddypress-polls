@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<div class="wbcom-support-info-widgets">
 						<div class="wbcom-support-inner">
 						<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'buddypress-polls' ); ?></h3>
-						<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Members Blog to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-polls' ); ?></p>
+						<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Poll to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-polls' ); ?></p>
 						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-paid-addons/buddypress-polls/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'buddypress-polls' ); ?></a>
 						</div>
 					</div>

@@ -26,7 +26,7 @@ global $wp_roles;
 </div>
 <div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 <form method="post" action="admin.php?action=update_network_options">
-	<div class="wbcom-admin-option-wrap">
+	<div class="wbcom-admin-option-wrap-bp-poll">
 	<input name='bpolls_settings[hidden]' type='hidden' value=""/>
 	<?php
 	settings_fields( 'buddypress_polls_general' );

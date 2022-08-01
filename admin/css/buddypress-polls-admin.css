@@ -27,6 +27,15 @@
     padding: 0px 10px !important;
 }
 
+.wbcom-admin-option-wrap{
+    overflow: inherit;
+}
+
+.wp-picker-container input#polls_background_color {
+    height: auto;
+    border-radius: 5px;
+}
+
 /*----------  General tab design  ----------*/
 @media screen and (max-width: 782px) {
     .form-table.polls-general-options label {
