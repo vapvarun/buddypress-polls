@@ -366,7 +366,7 @@ add_filter( 'bbp_get_reply_content', 'bpolls_bbp_get_reply_content' );
  * @ Since 4.0.0
  */
 function bpolls_add_quicktags() {
-	if ( wp_script_is( 'quicktags' ) && bbp_is_single_forum() ) {
+	if ( wp_script_is( 'quicktags' ) && ( function_exists( 'bbp_is_single_forum' ) && bbp_is_single_forum() ) ) {
 		?>
 	<script type="text/javascript">    
 		QTags.addButton( 'bp_polls', 'Polls', '[bp_polls activity_id="add your polls activity id"]', '', 'h', 'Add your polls activity', 201 );
