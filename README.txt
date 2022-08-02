@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 6.0.0
-Stable tag: 4.1.3
+Tested up to: 6.0.1
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,14 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 4.2.0 =
+* Fix: (#174) Poll UI fixed with shortcode
+* Fix: (#177)Fixed fatal error with bp member blog pro
+* Fix: Conflict with member blog plugin
+* Fix: Admin UI tab option managed
+* Fix: Remove view more extension button
+* Fix: Updated admin UI
+
 = 4.1.3 =
 * Fix: #173 - View all votes issue
 
