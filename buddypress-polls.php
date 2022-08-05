@@ -58,20 +58,20 @@ if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
  * This action is documented in includes/class-buddypress-polls-activator.php
  */
 function activate_buddypress_polls() {
-	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+	if ( false === get_option( 'bpolls_settings' ) ) {
+		global $wp_roles;
+		$bpolls_settings['limit_poll_activity']    = 'no';
+		$bpolls_settings['options_limit']          = '5';
+		$bpolls_settings['poll_options_result']    = 'yes';
+		$bpolls_settings['poll_list_voters']       = 'yes';
+		$bpolls_settings['poll_limit_voters']      = '3';
+		$bpolls_settings['polls_background_color'] = '#4caf50';
+		$roles                                     = $wp_roles->get_names();
+		foreach ( $roles as $role => $role_name ) {
+			$bpolls_settings['poll_user_role'][] = $role;
+		}
+		update_option( 'bpolls_settings', $bpolls_settings );
 	}
-	global $wp_roles;
-	$bpolls_settings['limit_poll_activity']    = 'no';
-	$bpolls_settings['options_limit']          = '5';
-	$bpolls_settings['poll_options_result']    = 'yes';
-	$bpolls_settings['poll_list_voters']       = 'yes';
-	$bpolls_settings['poll_limit_voters']      = '3';
-	$bpolls_settings['polls_background_color'] = '#4caf50';
-	$roles                                     = $wp_roles->get_names();
-	foreach ( $roles as $role => $role_name ) {
-		$bpolls_settings['poll_user_role'][] = $role;
-	}
-	update_option( 'bpolls_settings', $bpolls_settings );
 }
 
 /**
