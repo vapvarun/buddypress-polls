@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 6.0.1
-Stable tag: 4.2.0
+Stable tag: 4.2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,9 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 4.2.1 =
+* Fix: (#179)Fixed setting reset when we deactivate the plugin
+
 = 4.2.0 =
 * Fix: (#174) Poll UI fixed with shortcode
 * Fix: (#177)Fixed fatal error with bp member blog pro
@@ -197,16 +200,16 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 * Fixed #64 - Admin will see all the result irrespective he has voted on any poll activity or not.
 * Fixed - No polls voting in user then not need to display any pols in Polls Graph dropdown
 * Fixed #58 - widget withspecific poll result
-* Fixed #62 - poll graph widget 
-* Fixed #63 - Change name of the widget 
+* Fixed #62 - poll graph widget
+* Fixed #63 - Change name of the widget
 * Fixed #59 - Poll issue with BuddyBoss
-* Fixed #56 - Fixed notices and warnings on widget 
-* Fixed #55 - Create widget to make a dynamic poll system 
+* Fixed #56 - Fixed notices and warnings on widget
+* Fixed #55 - Create widget to make a dynamic poll system
 
 = 2.7.0 =
  * Fix: (#49) Fixed dashicon conflict with bb
  * Fix: (#48) Fixed datetimepicker UI issue
- 
+
 = 2.6.0 =
 * Fix: Call Admin CSS and JS file in buddypress polls setting page
 * Fix: Load front end js and css on plugin pages
@@ -217,7 +220,7 @@ Poll activity graph can be listed in sidebar with the help of widget (BuddyPress
 * Fix: Admin notice for buddypress activation
 
 = 2.4.0 =
-* Fix: (#28) Fixed 'groups_activity_new_update_action' hook 
+* Fix: (#28) Fixed 'groups_activity_new_update_action' hook
 * Enhancement: Added German translation Files contributed by Thorsten Wollenhoefer
 
 = 2.3.1 =
