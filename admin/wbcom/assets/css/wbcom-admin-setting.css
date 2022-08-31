@@ -13,6 +13,11 @@ Wbcom Admin Wrapper Style
     width: 100%;
 }
 
+.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
+.wbcom-wrap .notice.notice-error{
+    display: none !important;
+}
+
 .wbcom-admin-title-section h3,
 h4.wbcom-support-section {
     margin-top: 0;

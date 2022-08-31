@@ -137,3 +137,8 @@ button.bpolls-accordion.active::after {
 .wbcom-settings-section-wrap {
     overflow: inherit;
 }
+.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
+.wbcom-wrap .notice.notice-error,
+#wpwrap .notice.notice-error{
+    display: none !important;
+}
