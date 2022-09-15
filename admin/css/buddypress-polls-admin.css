@@ -137,8 +137,35 @@ button.bpolls-accordion.active::after {
 .wbcom-settings-section-wrap {
     overflow: inherit;
 }
-.wbcom-wrap .notice.notice-error.is-dismissible.learndash-license-is-dismissible,
-.wbcom-wrap .notice.notice-error,
-#wpwrap .notice.notice-error{
+
+.wb-plugins_page_wbcom-license-page .update-nag,
+.wb-plugins_page_wbcom-license-page .updated,
+.wb-plugins_page_wbcom-license-page .error,
+.wb-plugins_page_wbcom-license-page .notice-error,
+.wb-plugins_page_wbcom-license-page .is-dismissible {
+    display: none !important;
+}
+.wb-plugins_page_buddypress-polls .update-nag,
+.wb-plugins_page_buddypress-polls .updated,
+.wb-plugins_page_buddypress-polls .error,
+.wb-plugins_page_buddypress-polls .notice-error,
+.wb-plugins_page_buddypress-polls .is-dismissible,
+.toplevel_page_wbcomplugins .update-nag,
+.toplevel_page_wbcomplugins .updated,
+.toplevel_page_wbcomplugins .error,
+.toplevel_page_wbcomplugins .notice-error,
+.toplevel_page_wbcomplugins .is-dismissible{
+    display: none !important;
+}
+.wb-plugins_page_wbcom-support-page .update-nag,
+.wb-plugins_page_wbcom-support-page .updated,
+.wb-plugins_page_wbcom-support-page .error,
+.wb-plugins_page_wbcom-support-page .notice-error,
+.wb-plugins_page_wbcom-support-page .is-dismissible,
+.wb-plugins_page_wbcom-plugins-page .update-nag,
+.wb-plugins_page_wbcom-plugins-page .updated,
+.wb-plugins_page_wbcom-plugins-page .error,
+.wb-plugins_page_wbcom-plugins-page .notice-error,
+.wb-plugins_page_wbcom-plugins-page .is-dismissible {
     display: none !important;
 }
