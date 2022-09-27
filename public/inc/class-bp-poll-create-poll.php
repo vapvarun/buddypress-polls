@@ -167,8 +167,9 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 					<?php
 					while ( bp_activities() ) :
 						bp_the_activity();
+						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity, bp_get_activity_id() ); ?>><?php bp_activity_content_body(); ?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; ?></option>
 					<?php endwhile; ?>
 				</select>
 			<?php	} else { ?>
@@ -181,11 +182,11 @@ class BP_Poll_Create_Poll_Widget extends WP_Widget {
 	}
 }
 
-/*
+
 add_action(
 	'widgets_init',
 	function() {
 		register_widget( 'BP_Poll_Create_Poll_Widget' );
 	}
 );
-*/
+

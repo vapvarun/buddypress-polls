@@ -578,10 +578,10 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_obj Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content( $act = null, $activity_obj = array() ) {
-		global $current_user;
+		global $current_user;		
 		$user_id      = get_current_user_id();
-		$poll_user_id = $activity_obj->user_id;
-		$activity_id  = $activity_obj->id;
+		$poll_user_id = isset( $activity_obj->user_id ) ? $activity_obj->user_id : '';
+		$activity_id  = isset( $activity_obj->id ) ? $activity_obj->id : '';
 
 		if ( isset( $act ) && null !== $act ) {
 			$activity_id = $act;

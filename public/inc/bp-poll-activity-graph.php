@@ -13,10 +13,7 @@ defined( 'ABSPATH' ) || exit;
 add_action(
 	'widgets_init',
 	function() {
-		global $pagenow;
-		if ( 'widgets.php' !== $pagenow ) {
 			register_widget( 'BP_Poll_Activity_Graph_Widget' );
-		}
 	}
 );
 
