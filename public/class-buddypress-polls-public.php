@@ -624,7 +624,7 @@ class Buddypress_Polls_Public {
 				if ( isset( $bpolls_settings['hide_results'] ) ) {
 					$hide_results = true;
 				}
-				if ( isset( $activity_meta['user_hide_results'] ) ) {
+				if ( isset( $activity_meta['user_hide_results'] ) && $activity_meta['user_hide_results'] == 'yes' ) {
 					$hide_results = true;
 				}
 				$poll_style = '';
@@ -634,7 +634,7 @@ class Buddypress_Polls_Public {
 			if ( isset( $bpolls_settings['hide_results'] ) ) {
 				$hide_results = true;
 			}
-			if ( isset( $activity_meta['user_hide_results'] ) ) {
+			if ( isset( $activity_meta['user_hide_results'] ) && $activity_meta['user_hide_results'] == 'yes'  ) {
 				$hide_results = true;
 			}
 			$poll_style = '';
