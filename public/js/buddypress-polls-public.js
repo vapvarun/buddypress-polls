@@ -521,7 +521,10 @@
 				button: {
 					text: $(this).data('uploader_button_text'),
 				},
-				multiple: false
+				multiple: false,
+				library: {
+					author: bpolls_ajax_object.poll_user
+				}
 			});
 
 			file_frame.on('select', function() {

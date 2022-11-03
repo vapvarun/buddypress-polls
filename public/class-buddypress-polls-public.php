@@ -184,6 +184,7 @@ class Buddypress_Polls_Public {
 				'cancel_polls_btn'   => __( 'Cancel', 'buddypress-polls' ),
 				'delete_polls_btn'   => __( 'Delete', 'buddypress-polls' ),
 				'poll_revoting'      => ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
+				'poll_user'          => get_current_user_id(),
 			)
 		);
 

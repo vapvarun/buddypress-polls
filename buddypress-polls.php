@@ -332,24 +332,6 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 }
 
 /**
- * Polls attachment query arguments.
- *
- * @param  array $query Attachment Query Arguments.
- */
-function bpolls_ajax_query_attachments_args( $query ) {
-	if ( is_user_logged_in() ) { // check if there is a logged in user.
-
-		$user  = wp_get_current_user(); // getting & setting the current user.
-		$roles = (array) $user->roles; // obtaining the role.
-		if ( ! in_array( 'administrator', $roles ) ) {
-			$query['author'] = get_current_user_id();
-		}
-	}
-	return $query;
-}
-add_filter( 'ajax_query_attachments_args', 'bpolls_ajax_query_attachments_args' );
-
-/**
  * Display Polls Activity in bbpress reply using shortcode.
  *
  * @param content $content bbPress reply content.
