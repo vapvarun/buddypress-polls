@@ -883,7 +883,7 @@ class Buddypress_Polls_Public {
 			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 
-					if ( is_array( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
+					if ( isset($activity_meta['poll_optn_user_votes'][ $key ]) && is_array( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
 						if ( ( $ukey = array_search( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) !== false ) {
 							unset( $activity_meta['poll_optn_user_votes'][ $key ][ $ukey ] );
 						}
@@ -1620,6 +1620,7 @@ class Buddypress_Polls_Public {
 	public function bpolls_activity_add_user_option() {
 		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$user_id     = get_current_user_id();
+		$bpoll_user_vote  = get_user_meta( $user_id, 'bpoll_user_vote', true );
 		$activity_id = isset( $_POST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_POST['activity_id'] ) ) : '';
 		$user_option = isset( $_POST['user_option'] ) ? sanitize_text_field( wp_unslash( $_POST['user_option'] ) ) : '';
 
