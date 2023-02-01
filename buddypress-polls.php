@@ -343,6 +343,30 @@ function bpolls_bbp_get_reply_content( $content ) {
 add_filter( 'bbp_get_reply_content', 'bpolls_bbp_get_reply_content' );
 
 /**
+ * Display Polls Activity in bbpress forum using shortcode.
+ *
+ * @param content $content bbPress forum content.
+ */
+function bpolls_bbp_get_forum_content( $content ) {
+
+	return do_shortcode( $content );
+}
+
+/**
+ * Display Polls Activity in bbpress topic using shortcode.
+ *
+ * @param content $content bbPress topic content.
+ */
+function bpolls_bbp_get_topic_content( $content ) {
+
+	return do_shortcode( $content );
+}
+if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+	add_filter( 'bbp_get_forum_content', 'bpolls_bbp_get_forum_content' );
+	add_filter( 'bbp_get_topic_content', 'bpolls_bbp_get_topic_content' );
+}
+
+/**
  * Display Polls Quick tag in bbpress topics and reply editor
  *
  * @ Since 4.0.0
