@@ -326,8 +326,10 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 		return;
 	}
 	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'Buddypress' ) ) {
-		wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
-		exit;
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
+			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
+			exit;
+		}
 	}
 }
 
