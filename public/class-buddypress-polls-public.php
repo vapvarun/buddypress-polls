@@ -1287,7 +1287,7 @@ class Buddypress_Polls_Public {
 											?>
 									</a>
 						<div class="bpolls-item-data">
-							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ); ?></div>
+							<div class="bpolls-item-name"><?php echo esc_html( bp_core_get_userlink( $user_id )); ?></div>
 							<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
 						</div>
 					</div>
@@ -1674,10 +1674,10 @@ class Buddypress_Polls_Public {
 		?>
 		<div class="bpolls-item">
 			<div class='bpolls-item-inner'>
-				<div id="activity-id-<?php echo $activity_id; ?>-<?php echo $poll_key; ?>" class="bpolls-result-votes"></div>
+				<div id="activity-id-<?php echo esc_attr( $activity_id ); ?>-<?php echo esc_attr( $poll_key ); ?>" class="bpolls-result-votes"></div>
 				<div class="bpolls-check-radio-wrap">
-					<input id="<?php echo $poll_key; ?>" name="bpolls_vote_optn[]" value="<?php echo $poll_key; ?>" type="<?php echo $optn_typ; ?>" checked>
-					<label for="option-2" class="bpolls-option-lbl"><?php echo $user_option; ?></label>
+					<input id="<?php echo esc_attr( $poll_key ); ?>" name="bpolls_vote_optn[]" value="<?php echo esc_attr( $poll_key ); ?>" type="<?php echo esc_attr( $optn_typ ) ; ?>" checked>
+					<label for="option-2" class="bpolls-option-lbl"><?php echo esc_attr( $user_option ); ?></label>
 				</div>
 				<div class="bpolls-item-width-wrapper">
 					<div class="bpolls-item-width"></div>
@@ -1685,7 +1685,7 @@ class Buddypress_Polls_Public {
 				</div>
 				<span class="bpolls-percent"></span>
 			</div>
-			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo $activity_id; ?>" data-option="<?php echo $poll_key; ?>" data-user-id="<?php echo $user_id; ?>"><i class="wb-icons wb-icon-x"></i></a>
+			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo esc_attr( $activity_id ); ?>" data-option="<?php echo esc_attr( $poll_key ); ?>" data-user-id="<?php echo esc_attr( $user_id ); ?>"><i class="wb-icons wb-icon-x"></i></a>
 		</div>
 		<?php
 		$add_poll_option = ob_get_clean();

@@ -146,6 +146,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 		}
 
+		// /**
+		//  * Register admin polls menu for plugin.
+		//  *
+		//  * @since    1.0.0
+		//  */
+
+		// public function bpolls_add_menu_wb_polls(){
+		// 	if ( empty( $GLOBALS['admin_page_hooks']['polls'] ) ) {
+
+		// 		add_menu_page( esc_html__( 'WB Polls', 'buddypress-polls' ), esc_html__( 'WB Polls', 'wp-polls' ), 'manage_options', 'polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-lightbulb', 59 );
+		// 		add_submenu_page( 'polls', esc_html__( 'All Polls', 'all-polls' ), esc_html__( 'All Polls', 'all-polls' ), 'manage_options', 'polls' );
+		// 	}
+		// 	add_submenu_page( 'polls', esc_html__( 'Add Polls', 'add-polls' ), esc_html__( 'Add Polls', 'add-polls' ), 'manage_options', 'add-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
+		// }
+
 		/**
 		 * Register admin menu for plugin.
 		 *
@@ -184,7 +199,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<div class="wbcom_admin_header-wrapper">
 						<div id="wb_admin_plugin_name">
 							<?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?>
-							<span><?php printf( __( 'Version %s', 'buddypress-polls' ), BPOLLS_PLUGIN_VERSION ); ?></span>
+							<span><?php printf( esc_html__( 'Version %s', 'buddypress-polls' ), esc_attr(BPOLLS_PLUGIN_VERSION) ); ?></span>
 						</div>
 						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 					</div>
@@ -192,9 +207,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-admin-settings-page">
 			<?php
 			$bpolls_tabs = array(
-				'welcome' => __( 'Welcome', 'buddypress-polls' ),
-				'general' => __( 'General', 'buddypress-polls' ),
-				'support' => __( 'Support', 'buddypress-polls' ),
+				'welcome' => esc_html__( 'Welcome', 'buddypress-polls' ),
+				'general' => esc_html__( 'General', 'buddypress-polls' ),
+				'support' => esc_html__( 'Support', 'buddypress-polls' ),
 			);
 
 			$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
@@ -232,13 +247,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function bpolls_add_dashboard_widgets() {
 			wp_add_dashboard_widget(
 				'bpolls_stats_dashboard_widget', // Widget slug.
-				__( 'Site Polls Data', 'buddypress-polls' ), // Title.
+				esc_html__( 'Site Polls Data', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_stats_dashboard_widget_function' ) // Display function.
 			);
 
 			wp_add_dashboard_widget(
 				'bpolls_graph_dashboard_widget', // Widget slug.
-				__( 'Poll Graph', 'buddypress-polls' ), // Title.
+				esc_html__( 'Poll Graph', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
 			);
 		}
@@ -352,7 +367,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
 			$poll_wdgt_stngs = $poll_wdgt->get_settings();
 			$instance        = array(
-				'title'            => __( 'Poll Graph', 'buddypress-polls' ),
+				'title'            => esc_html__( 'Poll Graph', 'buddypress-polls' ),
 				'max_activity'     => 50,
 				'activity_default' => ( isset( $results->id ) ) ? $results->id : '',
 			);
