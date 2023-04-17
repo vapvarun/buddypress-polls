@@ -16,7 +16,7 @@ if ( ! defined( 'EDD_BPOLLS_STORE_URL' ) ) {
 
 // the name of your product. This should match the download name in EDD exactly.
 if ( ! defined( 'EDD_BPOLLS_ITEM_NAME' ) ) {
-	define( 'EDD_BPOLLS_ITEM_NAME', 'BuddyPress Polls' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file.
+	define( 'EDD_BPOLLS_ITEM_NAME', 'Wbcom Designs - BuddyPress Polls' ); // you should use your own CONSTANT name, and be sure to replace it throughout this file.
 }
 
 // the name of the settings page for the license input to be displayed.
