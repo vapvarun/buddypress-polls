@@ -182,12 +182,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-wrap buddyPress-polls-header">					
 				<div class="blpro-header">
 					<div class="wbcom_admin_header-wrapper">
-			            <div id="wb_admin_plugin_name">
+						<div id="wb_admin_plugin_name">
 							<?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?>
 							<span><?php printf( __( 'Version %s', 'buddypress-polls' ), BPOLLS_PLUGIN_VERSION ); ?></span>
 						</div>
-			            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
-			        </div>
+						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+					</div>
 				</div>
 				<div class="wbcom-admin-settings-page">
 			<?php

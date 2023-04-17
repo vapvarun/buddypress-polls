@@ -502,15 +502,15 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id, $g_activity_id = null ) {
-		
+
 		if ( isset( $g_activity_id ) ) {
 			$activity_id = $g_activity_id;
 		}
 
-		/* Edit activity then return */		
+		/* Edit activity then return */
 		if ( isset( $_REQUEST['edit_activity'] ) && $_REQUEST['edit_activity'] == 'true' ) {
 			return;
-		}	
+		}
 		global $wpdb;
 
 		$activity_tbl = $wpdb->base_prefix . 'bp_activity';
@@ -579,7 +579,7 @@ class Buddypress_Polls_Public {
 	 * @param string $activity_obj Activity content posted by user.
 	 */
 	public function bpolls_update_poll_activity_content( $act = null, $activity_obj = array() ) {
-		global $current_user;		
+		global $current_user;
 		$user_id      = get_current_user_id();
 		$poll_user_id = isset( $activity_obj->user_id ) ? $activity_obj->user_id : '';
 		$activity_id  = isset( $activity_obj->id ) ? $activity_obj->id : '';
@@ -635,7 +635,7 @@ class Buddypress_Polls_Public {
 			if ( isset( $bpolls_settings['hide_results'] ) ) {
 				$hide_results = true;
 			}
-			if ( isset( $activity_meta['user_hide_results'] ) && $activity_meta['user_hide_results'] == 'yes'  ) {
+			if ( isset( $activity_meta['user_hide_results'] ) && $activity_meta['user_hide_results'] == 'yes' ) {
 				$hide_results = true;
 			}
 			$poll_style = '';
@@ -883,7 +883,7 @@ class Buddypress_Polls_Public {
 			if ( array_key_exists( 'poll_optn_user_votes', $activity_meta ) ) {
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 
-					if ( isset($activity_meta['poll_optn_user_votes'][ $key ]) && is_array( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
+					if ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && is_array( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
 						if ( ( $ukey = array_search( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) !== false ) {
 							unset( $activity_meta['poll_optn_user_votes'][ $key ][ $ukey ] );
 						}
@@ -1287,7 +1287,7 @@ class Buddypress_Polls_Public {
 											?>
 									</a>
 						<div class="bpolls-item-data">
-							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ) ; ?></div>
+							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ); ?></div>
 							<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
 						</div>
 					</div>
@@ -1619,10 +1619,10 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_activity_add_user_option() {
 		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
-		$user_id     = get_current_user_id();
-		$bpoll_user_vote  = get_user_meta( $user_id, 'bpoll_user_vote', true );
-		$activity_id = isset( $_POST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_POST['activity_id'] ) ) : '';
-		$user_option = isset( $_POST['user_option'] ) ? sanitize_text_field( wp_unslash( $_POST['user_option'] ) ) : '';
+		$user_id         = get_current_user_id();
+		$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
+		$activity_id     = isset( $_POST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_POST['activity_id'] ) ) : '';
+		$user_option     = isset( $_POST['user_option'] ) ? sanitize_text_field( wp_unslash( $_POST['user_option'] ) ) : '';
 
 		$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
