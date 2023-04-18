@@ -170,14 +170,33 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+			 //add js and css in admin end
+			 $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+			 $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 			$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 		
-			//$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_wb_polls' );
+			/** Polls hooks **/
+
+			 // init cookie and custom post types
+			$this->loader->add_action('init', $plugin_admin, 'init_wbpoll_type');
+			$this->loader->add_filter('manage_posts_columns', $plugin_admin, 'add_new_poll_columns');
+			$this->loader->add_action('manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2);
+			$this->loader->add_filter('manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort');
+			
+			//adding shortcode
+			$this->loader->add_action('init', $plugin_admin, 'init_shortcodes');
+			// add meta box and hook save meta box
+			$this->loader->add_action('add_meta_boxes', $plugin_admin, 'metaboxes_display');
+			$this->loader->add_action('save_post', $plugin_admin, 'metabox_save');
+			$this->loader->add_action("wp_ajax_wbpoll_get_answer_template", $plugin_admin, 'wbpoll_get_answer_template');
+				
 		}
+
+
 
 		/**
 		 * Register all of the hooks related to the public-facing functionality
@@ -192,6 +211,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+			 //add js and css in admin end
+			 $this->loader->add_action('admin_enqueue_scripts', $plugin_public, 'enqueue_styles');
+			 $this->loader->add_action('admin_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
 			$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
@@ -265,6 +287,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
+			
 
 		}
 

@@ -56,7 +56,7 @@ class Buddypress_Polls_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_styles() {
+	public function enqueue_styles( $hook) {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -68,7 +68,7 @@ class Buddypress_Polls_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		global $wp_styles, $post;
+		global $wp_styles, $post,  $post_type, $page;;
 
 		$rtl_css = is_rtl() ? '-rtl' : '';
 		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public.css', array(), time(), 'all' );
@@ -117,6 +117,69 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 		}
+
+		/********** polls *************/
+
+		wp_register_style('select2', plugin_dir_url( __FILE__ ) . 'admin/assets/js/select2/css/select2.min.css', array(),
+            $this->version);
+
+			wp_register_style('wbpoll-ui-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/ui-lightness/jquery-ui.min.css',
+				array(), BPOLLS_PLUGIN_VERSION);
+			wp_register_style('wbpoll-ui-styles-timepicker',
+			plugin_dir_url( __FILE__ ) . 'admin/assets/js/jquery-ui-timepicker-addon.min.css', array(), BPOLLS_PLUGIN_VERSION);
+
+			wp_register_style('wbpoll-ply-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/ply.css', array(),
+				BPOLLS_PLUGIN_VERSION);
+			wp_register_style('wbpoll-switchery-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/switchery.min.css', array(),
+				BPOLLS_PLUGIN_VERSION);
+
+			//poll admin edit and listing
+
+			wp_register_style('wbpoll-admin-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/wbpoll_admin.css', array(
+				'select2',
+				'wbpoll-ui-styles',
+				'wbpoll-ui-styles-timepicker',
+				'wbpoll-ply-styles',
+				'wbpoll-switchery-styles'
+			), BPOLLS_PLUGIN_VERSION);
+
+
+			if (in_array($hook, array('edit.php', 'post.php', 'post-new.php')) && 'wbpoll' == $post_type) {
+				//now enqueue css files
+				//wp_enqueue_style( 'wbpoll-chosen' );
+				wp_enqueue_style('select2');
+				wp_enqueue_style('wbpoll-ui-styles');
+				wp_enqueue_style('wbpoll-ui-styles-timepicker');
+
+				wp_enqueue_style('wbpoll-ply-styles');
+				wp_enqueue_style('wbpoll-switchery-styles');
+
+				wp_enqueue_style('thickbox');
+
+				wp_enqueue_style('wbpoll-admin-styles');
+
+				do_action('wbpolladmin_custom_style');
+			}
+
+			//poll setting
+			wp_register_style('wbpoll-admin-setting', plugin_dir_url( __FILE__ ) . 'admin/assets/css/wbpoll-admin-setting.css',
+				array(
+					'wp-color-picker',
+					'select2',
+					'wbpoll-ui-styles',
+					'wbpoll-ui-styles-timepicker'
+				), BPOLLS_PLUGIN_VERSION);
+			if ($page == 'wbpollsetting') {
+
+				wp_enqueue_style('wp-color-picker');
+				wp_enqueue_style('select2');
+				wp_enqueue_style('wbpoll-ui-styles');
+				wp_enqueue_style('wbpoll-ui-styles-timepicker');
+
+
+				wp_enqueue_style('wbpoll-admin-setting');
+			}
+
 	}
 
 	/**
@@ -124,7 +187,7 @@ class Buddypress_Polls_Public {
 	 *
 	 * @since    1.0.0
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts($hook) {
 		/**
 		 * This function is provided for demonstration purposes only.
 		 *
@@ -136,7 +199,7 @@ class Buddypress_Polls_Public {
 		 * between the defined hooks and the functions defined in this
 		 * class.
 		 */
-		global $post;
+		global $post, $post_type, $page;
 
 		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
 		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
@@ -219,6 +282,173 @@ class Buddypress_Polls_Public {
 			wp_enqueue_script( $this->plugin_name );
 
 		}
+
+		/*********** poll *************/
+
+		$page = isset($_GET['page']) ? esc_attr(wp_unslash($_GET['page'])) : '';
+
+		wp_register_script('wbpoll-jseventManager', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpolljsactionandfilter.js',
+			array(), BPOLLS_PLUGIN_VERSION, true);
+
+		//wp_register_script( 'wbpoll-choosen-script', plugins_url( '/admin/assets/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), BPOLLS_PLUGIN_VERSION, true );
+		wp_register_script('select2', plugin_dir_url( __FILE__ ) . 'admin/assets/js/select2/js/select2.min.js',
+			array('jquery'), $this->version, true);
+
+
+		wp_register_script('wbpoll-ui-time-script',
+		plugin_dir_url( __FILE__ ) . 'admin/assets/js/jquery-ui-timepicker-addon.js', array(
+				'jquery',
+				'jquery-ui-datepicker'
+			), BPOLLS_PLUGIN_VERSION, true);
+
+		wp_register_script('wbpoll-plyjs', plugin_dir_url( __FILE__ ) . 'admin/assets/js/ply.min.js', array('jquery'),
+			BPOLLS_PLUGIN_VERSION, true);
+		wp_register_script('wbpoll-switcheryjs', plugin_dir_url( __FILE__ ) . 'admin/assets/js/switchery.min.js',
+			array('jquery'), BPOLLS_PLUGIN_VERSION, true);
+
+		//admin poll listing
+		wp_register_script('wbpolladminlisting', plugin_dir_url( __FILE__ ) . '/admin/assets/js/wbpoll_admin_listing.js', array(
+			'wbpoll-jseventManager',
+			'jquery',
+			'wbpoll-switcheryjs',
+			'wbpoll-plyjs',
+			'wbpoll-switcheryjs',
+		), BPOLLS_PLUGIN_VERSION, true);
+
+		if (in_array($hook, array('edit.php')) && 'wbpoll' == $post_type) {
+			//adding translation and other variables from php to js for single post edit screen
+			$admin_listing_arr = array(
+				'copy'                => esc_html__('Click to copy', 'wbpoll'),
+				'copied'              => esc_html__('Copied to clipboard', 'wbpoll'),
+				'remove_label'        => esc_html__('Remove', 'wbpoll'),
+				'move_label'          => esc_html__('Move', 'wbpoll'),
+				'move_title'          => esc_html__('Drag and Drop to reorder answers', 'wbpoll'),
+				'deleteconfirm'       => esc_html__('Are you sure to delete this item?', 'wbpoll'),
+				'deleteconfirmok'     => esc_html__('Sure', 'wbpoll'),
+				'deleteconfirmcancel' => esc_html__('Oh! No', 'wbpoll'),
+				'ajaxurl'             => admin_url('admin-ajax.php'),
+				'nonce'               => wp_create_nonce('wbpoll'),
+				'please_select'       => esc_html__('Please select', 'wbpoll')
+			);
+
+			wp_localize_script('wbpolladminlisting', 'wbpolladminlistingObj', $admin_listing_arr);
+
+			wp_enqueue_script('wbpoll-jseventManager');
+			wp_enqueue_script('jquery');
+
+			wp_enqueue_script('wbpoll-plyjs');
+			wp_enqueue_script('wbpoll-switcheryjs');
+
+			wp_enqueue_script('wbpolladminlisting');
+
+			do_action('wbpolladmin_custom_script');
+		}
+
+
+		//admin poll single edit
+		wp_register_script('wbpolladminsingle', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-admin-single.js', array(
+			'wbpoll-jseventManager',
+			'jquery',
+			'wp-color-picker',
+			//'media-upload',
+			'jquery-ui-core',
+			'jquery-ui-datepicker',
+			'jquery-ui-sortable',
+			'select2',
+			'wbpoll-ui-time-script',
+			'wbpoll-plyjs',
+			'wbpoll-switcheryjs',
+		), BPOLLS_PLUGIN_VERSION, true);
+
+		if (in_array($hook, array('post.php', 'post-new.php')) && 'wbpoll' == $post_type) {
+
+			if (!class_exists('_WP_Editors', false)) {
+				require(ABSPATH.WPINC.'/class-wp-editor.php');
+			}
+
+			wp_enqueue_script('wbpoll-jseventManager');
+			wp_enqueue_script('jquery');
+			//wp_enqueue_style( 'wp-color-picker' );
+			//wp_enqueue_style( 'thickbox' );
+			wp_enqueue_script('wp-color-picker');
+			//wp_enqueue_script( 'media-upload' );
+			wp_enqueue_media();
+
+			wp_enqueue_style('jquery-ui-core'); //jquery ui core
+			wp_enqueue_style('jquery-ui-datepicker'); //jquery ui datepicker
+			wp_enqueue_style('jquery-ui-sortable'); //jquery ui sortable
+
+			//wp_enqueue_script( 'wbpoll-choosen-script' );
+			wp_enqueue_script('select2');
+			wp_enqueue_script('wbpoll-ui-time-script');
+
+			wp_enqueue_script('wbpoll-plyjs');
+			wp_enqueue_script('wbpoll-switcheryjs');
+
+
+			//adding translation and other variables from php to js for single post edit screen
+			$admin_single_arr = array(
+				'copy'                  => esc_html__('Click to copy', 'wbpoll'),
+				'copied'                => esc_html__('Copied to clipboard', 'wbpoll'),
+				'remove_label'          => esc_html__('Remove', 'wbpoll'),
+				'move_label'            => esc_html__('Move', 'wbpoll'),
+				'move_title'            => esc_html__('Drag and Drop to reorder answers', 'wbpoll'),
+				'answer_label'          => esc_html__('Answer', 'wbpoll'),
+				'deleteconfirm'         => esc_html__('Are you sure to delete this item?', 'wbpoll'),
+				'deleteconfirmok'       => esc_html__('Sure', 'wbpoll'),
+				'deleteconfirmcancel'   => esc_html__('Oh! No', 'wbpoll'),
+				'ajaxurl'               => admin_url('admin-ajax.php'),
+				'nonce'                 => wp_create_nonce('wbpoll'),
+				'teeny_editor_settings' => array(
+					'teeny'         => true,
+					'textarea_name' => '',
+					'textarea_rows' => 10,
+					'media_buttons' => false,
+					'editor_class'  => ''
+				),
+				'please_select'         => esc_html__('Please select', 'wbpoll')
+			);
+
+			wp_localize_script('wbpolladminsingle', 'wbpolladminsingleObj', $admin_single_arr);
+
+			wp_enqueue_script('wbpolladminsingle');
+
+			do_action('wbpolladmin_single_custom_script');
+		}
+
+		//poll setting
+		wp_register_script('wbpoll-admin-setting', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-admin-setting.js',
+			array(
+				'jquery',
+				'select2',
+				'wp-color-picker'
+			), BPOLLS_PLUGIN_VERSION);
+
+		if ($page == 'wbpollsetting') {
+
+			wp_enqueue_script('jquery');
+			wp_enqueue_script('select2');
+			wp_enqueue_script('wp-color-picker');
+			wp_enqueue_media();
+
+
+			$wbpoll_admin_setting_arr = array(
+				'ajaxurl'       => admin_url('admin-ajax.php'),
+				'nonce'         => wp_create_nonce('wbpoll'),
+				'please_select' => esc_html__('Please select', 'wbpoll')
+			);
+			wp_localize_script('wbpoll-admin-setting', 'wbpolladminsettingObj', $wbpoll_admin_setting_arr);
+			wp_enqueue_script('wbpoll-admin-setting');
+		}
+
+		//header scroll
+		wp_register_script('wbpoll-scroll', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-scroll.js', array('jquery'),
+			BPOLLS_PLUGIN_VERSION);
+		if ($page == 'wbpollsetting' || $page == 'wbpoll-help-support') {
+			wp_enqueue_script('jquery');
+			wp_enqueue_script('wbpoll-scroll');
+		}
+
 	}
 
 	/**

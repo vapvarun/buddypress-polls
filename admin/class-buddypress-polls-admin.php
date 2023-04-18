@@ -94,7 +94,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
-
 		}
 
 		/**
@@ -143,23 +142,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				wp_enqueue_script( 'wp-color-picker' );
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
 			}
-
 		}
-
-		// /**
-		//  * Register admin polls menu for plugin.
-		//  *
-		//  * @since    1.0.0
-		//  */
-
-		// public function bpolls_add_menu_wb_polls(){
-		// 	if ( empty( $GLOBALS['admin_page_hooks']['polls'] ) ) {
-
-		// 		add_menu_page( esc_html__( 'WB Polls', 'buddypress-polls' ), esc_html__( 'WB Polls', 'wp-polls' ), 'manage_options', 'polls', array( $this, 'bpolls_buddypress_polls_settings_page' ), 'dashicons-lightbulb', 59 );
-		// 		add_submenu_page( 'polls', esc_html__( 'All Polls', 'all-polls' ), esc_html__( 'All Polls', 'all-polls' ), 'manage_options', 'polls' );
-		// 	}
-		// 	add_submenu_page( 'polls', esc_html__( 'Add Polls', 'add-polls' ), esc_html__( 'Add Polls', 'add-polls' ), 'manage_options', 'add-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
-		// }
 
 		/**
 		 * Register admin menu for plugin.
@@ -190,7 +173,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-bb-plugins-offer-wrapper">
 					<div id="wb_admin_logo">
 						<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . '/admin/assets/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
 						</a>
 					</div>
 				</div>
@@ -238,7 +221,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				exit();
 			}
 		}
+		
 
+		
 		/**
 		 * Bpolls_add_dashboard_widgets
 		 *
@@ -463,6 +448,715 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				exit;
 			}
 		}
+
+		/****** Polls functions *******/
+
+		public function init_wbpoll_type()
+		{
+			WBPollHelper::create_wbpoll_post_type();
+	
+		}//end method init_wbpoll_type
+
+		/**
+		 * wbpoll type post listing extra cols
+		 *
+		 * @param $wbpoll_columns
+		 *
+		 * @return mixed
+		 *
+		 */
+		public function add_new_poll_columns($wbpoll_columns)
+		{
+			$wbpoll_columns['title']      = esc_html__('Poll Title', 'wbpoll');
+			$wbpoll_columns['pollstatus'] = esc_html__('Status', 'wbpoll');
+			$wbpoll_columns['startdate']  = esc_html__('Start Date', 'wbpoll');
+			$wbpoll_columns['enddate']    = esc_html__('End Date', 'wbpoll');
+			$wbpoll_columns['date']       = esc_html__('Created', 'wbpoll');
+			$wbpoll_columns['pollvotes']  = esc_html__('Votes', 'wbpoll');
+			$wbpoll_columns['shortcode']  = esc_html__('Shortcode', 'wbpoll');
+
+			return $wbpoll_columns;
+		}//end method add_new_poll_columns
+
+		/**
+		 * wbpoll type post listing extra col values
+		 *
+		 * @param $column_name
+		 *
+		 */
+		public function manage_poll_columns($column_name, $post_id)
+		{
+
+			global $post;
+
+			//$post_id = $post->ID;
+
+			$end_date     = get_post_meta($post_id, '_wbpoll_end_date', true);
+			$start_date   = get_post_meta($post_id, '_wbpoll_start_date', true);
+			$never_expire = intval(get_post_meta($post_id, '_wbpoll_never_expire', true));
+			$total_votes  = absint(get_post_meta($post_id, '_wbpoll_total_votes', true));
+
+			switch ($column_name) {
+
+				case 'pollstatus':
+					// Get number of images in gallery
+					if ($never_expire == 1) {
+						if (new DateTime($start_date) > new DateTime()) {
+							echo '<span class="dashicons dashicons-calendar"></span> '.esc_html__('Yet to Start',
+									'wppoll'); //
+						} else {
+							echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wppoll');
+						}
+
+					} else {
+						if (new DateTime($start_date) > new DateTime()) {
+							echo '<span class="dashicons dashicons-calendar"></span> '.__('Yet to Start', 'wppoll'); //
+						} else {
+							if (new DateTime($start_date) <= new DateTime() && new DateTime($end_date) > new DateTime()) {
+								echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wppoll');
+							} else {
+								if (new DateTime($end_date) <= new DateTime()) {
+									echo '<span class="dashicons dashicons-lock"></span> '.esc_html__('Expired', 'wppoll');
+								}
+							}
+						}
+					}
+					break;
+				case 'startdate':
+					echo $start_date;
+					break;
+				case 'enddate':
+					echo $end_date;
+					break;
+				case 'pollvotes':
+					echo apply_filters('wppoll_admin_listing_votes', $total_votes, $post_id);
+					break;
+				case 'shortcode':
+					echo '<span id="wbpollhortcode-'.$post_id.'" class="wbpollhortcode wbpollhortcode-'.$post_id.'">[wppoll id="'.$post_id.'"]</span><span class="wppoll_ctp" aria-label="'.esc_html__('Click to copy',
+							'wppoll').'" data-balloon-pos="down">&nbsp;</span>';
+
+					break;
+				default:
+					break;
+			} // end switch
+
+		}//end method manage_poll_columns
+
+		 /**
+		 * wbpoll type post liting extra col sortable
+		 *
+		 * make poll table columns sortable
+		 */
+		function wbpoll_columnsort($columns)
+		{
+			$columns['startdate']  = 'startdate';
+			$columns['enddate']    = 'enddate';
+			$columns['pollstatus'] = 'pollstatus';
+			$columns['pollvotes']  = 'pollvotes';
+
+			return $columns;
+		}//end method wbpoll_columnsort
+
+		/**
+		 * Inits all shortcodes
+		 */
+		public function init_shortcodes()
+		{
+			add_shortcode('wbpoll', array($this, 'wbpoll_shortcode')); //single poll shortcode
+			add_shortcode('wbpoll', array($this, 'wbpolls_shortcode')); //all polls shortcode
+		}//end method init_shortcodes
+
+		 /**
+		 * Shortcode callback function to display all polls or poll archive
+		 *
+		 * @param $atts
+		 *
+		 * @return string
+		 */
+		public static function wbpolls_shortcode($atts)
+		{
+			// normalize attribute keys, lowercase
+			$atts = array_change_key_case((array) $atts, CASE_LOWER);
+
+			//$global_result_chart_type = isset($setting_api['result_chart_type']) ? $setting_api['result_chart_type'] : 'text';
+			$global_result_chart_type = 'text';
+			$global_answer_grid_list  = 1; //0 = list 1 = grid
+
+
+			$nonce          = wp_create_nonce('wbpollslisting');
+			$show_load_more = true;
+
+			$options = shortcode_atts(array(
+				'per_page'    => 5,
+				'chart_type'  => $global_result_chart_type, //chart type, default will be always 'text' if not defined
+				//'chart_type'  => '', //chart type, default will be always 'text' if not defined
+				'grid'        => $global_answer_grid_list, //show grid or list as answer
+				'description' => 1, //show poll description,
+				'user_id'     => 0 //if we want to show polls from any user
+			), $atts);
+
+			$per_page            = (int) $options['per_page']; //just for check now its 2 after get from args
+			$current_page_number = 1;
+
+			$description      = intval($options['description']);
+			$chart_type       = $options['chart_type'];
+			$answer_grid_list = intval($options['grid']);
+			$user_id          = intval($options['user_id']);
+
+			$content = '<div class="wbpoll-listing-wrap">';
+			$content .= '<div class="wbpoll-listing">';
+
+			$poll_list_output = WBPollHelper::poll_list($user_id, $per_page, $current_page_number, $chart_type,
+				$answer_grid_list, $description, 'shortcode');
+
+
+			if (intval($poll_list_output['found'])) {
+				$content .= $poll_list_output['content'];
+			} else {
+				$content        .= esc_html__('No poll found', 'wbpoll');
+				$show_load_more = false;
+			}
+
+			$content .= '</div>';
+
+			$current_page_number++;
+
+			if ($show_load_more && $poll_list_output['max_num_pages'] == 1) {
+				$show_load_more = false;
+			}
+
+
+			if ($show_load_more && (int) $options['per_page'] != -1 && $options['per_page'] != '') {
+				$content .= '<p class="wbpoll-listing-more"><a class="wbpoll-listing-trig" href="#" data-user_id="'.intval($user_id).'" data-security="'.$nonce.'" data-page-no="'.$current_page_number.'"  data-busy ="0" data-per-page="'.$per_page.'">'.esc_html__('View More Polls',
+						'wbpoll').'<span class="cbvoteajaximage cbvoteajaximagecustom"></span></a></p>';
+			}
+
+			$content .= '</div>';
+
+			return $content;
+		}//end method wbpolls_shortcode
+
+		/**
+		 * Shortcode callback function to display single poll [wbpoll id="comma separated poll id"]
+		 *
+		 * @param $atts
+		 *
+		 * @return string
+		 * @throws Exception
+		 */
+		public function wbpoll_shortcode($atts)
+		{
+
+			// normalize attribute keys, lowercase
+			$atts = array_change_key_case((array) $atts, CASE_LOWER);
+
+
+			//$global_result_chart_type = isset($setting_api['result_chart_type']) ? $setting_api['result_chart_type'] : 'text';
+			$global_result_chart_type = 'text';
+			$global_answer_grid_list  = 1; //0 = list 1 = grid
+
+			$options = shortcode_atts(array(
+				'id'          => '',
+				'reference'   => 'shortcode',
+				'description' => '', //show poll description in shortcode
+				'chart_type'  => $global_result_chart_type,
+				'grid'        => $global_answer_grid_list
+			), $atts, 'wbpoll');
+
+			$reference   = esc_attr($options['reference']);
+			$chart_type  = esc_attr($options['chart_type']);
+			$description = esc_attr($options['description']);
+			$grid        = intval($options['grid']);
+
+
+			$poll_ids = array_map('trim', explode(',', $options['id']));
+
+
+			$output = '';
+			if (is_array($poll_ids) && sizeof($poll_ids) > 0) {
+				foreach ($poll_ids as $poll_id) {
+					$output .= wbpollHelper::wbpoll_single_display($poll_id, $reference, $chart_type, $grid,
+						$description);
+				}
+			}
+
+
+			return $output;
+		}//end method wbpoll_shortcode
+
+		 /**
+		 * Hook custom meta box
+		 */
+		function metaboxes_display()
+		{
+
+			//add meta box in left side to show poll setting
+			add_meta_box('pollcustom_meta_box',                              // $id
+				esc_html__('Poll Options', 'wbpoll'),  // $title
+				array($this, 'metabox_setting_display'),           // $callback
+				'wbpoll',                                      // $page
+				'normal',                                           // $context
+				'high');                                            // $priority
+
+			// //add meta box in right col to show the result
+			// add_meta_box('pollresult_meta_box',                              // $id
+			// 	esc_html__('Poll Result', 'wbpoll'),  // $title
+			// 	array($this, 'metabox_result_display'),           // $callback
+			// 	'wbpoll',                                      // $page
+			// 	'side',                                           // $context
+			// 	'low');
+
+			//add meta box in right col to show the result
+			add_meta_box('pollshortcode_meta_box',                              // $id
+				esc_html__('Shortcode', 'wbpoll'),  // $title
+				array($this, 'metabox_shortcode_display'),           // $callback
+				'wbpoll',                                      // $page
+				'side',                                           // $context
+				'low');
+		}//end method metaboxes_display
+
+		/**
+		 * Renders metabox in right col to show  shortcode with copy to clipboard
+		 */
+		function metabox_shortcode_display()
+		{
+			global $post;
+			$post_id = $post->ID;
+
+			echo '<span  id="wbpollshortcode-'.intval($post_id).'" class="wbpollshortcode wbpollshortcode-single wbpollshortcode-'.intval($post_id).'">[wbpoll id="'.intval($post_id).'"]</span><span class="wbpoll_ctp" aria-label="'.esc_html__('Click to copy',
+					'wbpoll').'" data-balloon-pos="down">&nbsp;</span>';
+			echo '<div class="wbpollclear"></div>';
+		}//end method metabox_shortcode_display
+
+		/**
+		 * Renders metabox in right col to show result
+		 */
+		function metabox_result_display()
+		{
+
+			global $post;
+			$poll_postid = $post->ID;
+
+			$poll_output = WBPollHelper::show_single_poll_result($poll_postid, 'shortcode', 'text');
+
+			echo $poll_output;
+		}//end method metabox_result_display
+
+		/**
+		 * Meta box display: Setting
+		 */
+		function metabox_setting_display()
+		{
+
+			global $post;
+			$post_meta_fields = WBPollHelper::get_meta_fields();
+
+
+			$poll_postid = isset($post->ID) ? intval($post->ID) : 0;
+
+			$prefix = '_wbpoll_';
+
+			//$answer_counter = 0;
+			$new_index = 0;
+
+			$is_voted     = 0;
+			$poll_answers = array();
+			$poll_colors  = array();
+
+			if ($poll_postid > 0):
+				//$is_voted           = intval( get_post_meta( $poll_postid, '_wbpoll_is_voted', true ) );
+				$is_voted = WBPollHelper::is_poll_voted($poll_postid);
+
+				$poll_answers       = get_post_meta($poll_postid, '_wbpoll_answer', true);
+				$poll_colors        = get_post_meta($poll_postid, '_wbpoll_answer_color', true);
+				$poll_answers_extra = get_post_meta($poll_postid, '_wbpoll_answer_extra', true);
+
+				$new_index = isset($poll_answers_extra['answercount']) ? intval($poll_answers_extra['answercount']) : 0;
+
+
+				if (is_array($poll_answers)) {
+					if ($new_index == 0 && sizeof($poll_answers) > 0) {
+						$old_index = $new_index;
+						foreach ($poll_answers as $index => $poll_answer) {
+							if ($index > $old_index) {
+								$old_index = $index;
+							} //find the greater index
+						}
+
+						if ($old_index > $new_index) {
+							$new_index = intval($old_index) + 1;
+						}
+					}
+				} else {
+					$poll_answers = array();
+				}
+
+
+				wp_nonce_field('wbpoll_meta_box', 'wbpoll_meta_box_nonce');
+
+				echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="'.$poll_postid.'">';
+				echo '<h4>'.esc_html__('Poll Answers', 'wbpoll').'</h4>';
+				echo __('<p>[<strong>Note : </strong>  <span>Please select different color for each field.]</span></p>',
+					'wbpoll');
+
+
+				echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_'.$post->ID.'">';
+
+
+				if (sizeof($poll_answers) > 0) {
+
+					foreach ($poll_answers as $index => $poll_answer) {
+
+						if (isset($poll_answer)) {
+							$poll_answers_extra[$index] = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : array();
+							echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index],
+								$is_voted, $poll_answers_extra[$index], $poll_postid);
+						}
+					}
+				}
+				//else {
+
+
+				//$answer_counter         = 3;
+				if (!$is_voted && sizeof($poll_answers) == 0) {
+					$default_answers_titles = array(
+						esc_html__('Yes', 'wbpoll'),
+						esc_html__('No', 'wbpoll'),
+						esc_html__('No comments', 'wbpoll')
+					);
+
+					$default_answers_colors = array(
+						'#2f7022',
+						'#dd6363',
+						'#e4e4e4'
+					);
+
+					$answers_extra = array('type' => 'default');
+
+					foreach ($default_answers_titles as $index => $answers_title) {
+						echo WBPollHelper::wbpoll_answer_field_template(intval($index) + $new_index,
+							$default_answers_titles[$index], $default_answers_colors[$index], $is_voted, $answers_extra,
+							$poll_postid);
+					}
+
+					$new_index = intval($index) + $new_index + 1;
+				}
+
+
+				//}
+				echo '</ul>';
+				?>
+				<input type="hidden" id="wbpoll_answer_extra_answercount" value="<?php echo intval($new_index); ?>"
+					name="_wbpoll_answer_extra[answercount]"/>
+				<?php //if ( ! $is_voted ){
+				?>
+				<div class="add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+					<a data-type="default" id="add-wb-poll-answer-default"
+					class=" button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>"><i
+								style="line-height: 25px;"
+								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Text Answer',
+							'wbpoll'); ?>
+					</a>
+					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				</div>
+				<?php //}
+				?>
+				<br/>
+
+				<?php
+				echo '</div>';
+
+
+				echo '<table class="form-table">';
+
+				foreach ($post_meta_fields as $field) {
+
+					$meta = get_post_meta($poll_postid, $field['id'], true);
+
+
+					if ($meta == '' && isset($field['default'])) {
+
+						$meta = $field['default'];
+					}
+
+					$label = isset($field['label']) ? $field['label'] : '';
+
+					echo '<tr>';
+					echo '<th><label for="'.$field['id'].'">'.$label.'</label></th>';
+					echo '<td>';
+
+
+					switch ($field['type']) {
+
+						case 'text':
+							echo '<input type="text" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-text-'.$poll_postid.'" value="'.$meta.'" size="30" />
+							<span class="description">'.$field['desc'].'</span>';
+							break;
+						case 'number':
+							echo '<input type="number" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-number-'.$poll_postid.'" value="'.$meta.'" size="30" />
+							<span class="description">'.$field['desc'].'</span>';
+							break;
+
+						case 'date':
+
+							echo '<input type="text" class="wbpollmetadatepicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
+							<span class="description">'.$field['desc'].'</span>';
+							break;
+
+						case 'colorpicker':
+
+
+							echo '<input type="text" class="wbpoll-colorpicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
+							<span class="description">'.$field['desc'].'</span>';
+							break;
+
+						case 'multiselect':
+							echo '<select name="'.$field['id'].'[]" id="'.$field['id'].'-chosen-'.$poll_postid.'" class="selecttwo-select" multiple="multiple">';
+							if (isset($field['optgroup']) && intval($field['optgroup'])) {
+
+								foreach ($field['options'] as $optlabel => $data) {
+									echo '<optgroup label="'.$optlabel.'">';
+									foreach ($data as $key => $val) {
+										echo '<option value="'.$key.'"', is_array($meta) && in_array($key,
+											$meta) ? ' selected="selected"' : '', ' >'.$val.'</option>';
+									}
+									echo '<optgroup>';
+								}
+
+							} else {
+								foreach ($field['options'] as $key => $val) {
+									echo '<option value="'.$key.'"', is_array($meta) && in_array($key,
+										$meta) ? ' selected="selected"' : '', ' >'.$val.'</option>';
+								}
+							}
+
+
+							echo '</select><span class="description">'.$field['desc'].'</span>';
+							break;
+
+						case 'select':
+							echo '<select name="'.$field['id'].'" id="'.$field['id'].'-select-'.$poll_postid.'" class="cb-select select-'.$poll_postid.'">';
+
+							if (isset($field['optgroup']) && intval($field['optgroup'])) {
+
+								foreach ($field['options'] as $optlabel => $data) {
+									echo '<optgroup label="'.$optlabel.'">';
+									foreach ($data as $index => $option) {
+										echo '<option '.(($meta == $index) ? ' selected="selected"' : '').' value="'.$index.'">'.$option.'</option>';
+									}
+
+								}
+							} else {
+								foreach ($field['options'] as $index => $option) {
+									echo '<option '.(($meta == $index) ? ' selected="selected"' : '').' value="'.$index.'">'.$option.'</option>';
+								}
+							}
+
+
+							echo '</select><br/><span class="description">'.$field['desc'].'</span>';
+							break;
+						case 'radio':
+
+							echo '<fieldset class="radio_fields">
+									<legend class="screen-reader-text"><span>input type="radio"</span></legend>';
+							foreach ($field['options'] as $key => $value) {
+								echo '<label title="g:i a" for="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'">
+											<input id="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'" type="radio" name="'.$field['id'].'" value="'.$key.'" '.(($meta == $key) ? '  checked="checked" ' : '').'  />
+											<span>'.$value.'</span>
+										</label>';
+
+
+							}
+							echo '</fieldset>';
+							echo '<br/><span class="description">'.$field['desc'].'</span>';
+							break;
+
+						case 'checkbox':
+							echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'-checkbox-'.$poll_postid.'" class="cb-checkbox checkbox-'.$poll_postid.'" ', $meta ? ' checked="checked"' : '', '/>
+						<span for="'.$field['id'].'">'.$field['desc'].'</span>';
+							break;
+						case 'checkbox_group':
+							if ($meta == '') {
+								$meta = array();
+								foreach ($field['options'] as $option) {
+									array_push($meta, $option['value']);
+								}
+							}
+
+							foreach ($field['options'] as $option) {
+								echo '<input type="checkbox" value="'.$option['value'].'" name="'.$field['id'].'[]" id="'.$option['value'].'-mult-chk-'.$poll_postid.'-field-'.$field['id'].'" class="cb-multi-check mult-check-'.$poll_postid.'"', $meta && in_array($option['value'],
+									$meta) ? ' checked="checked"' : '', ' />
+							<label for="'.$option['value'].'">'.$option['label'].'</label><br/>';
+							}
+
+							echo '<span class="description">'.$field['desc'].'</span>';
+							break;
+
+					}
+					echo '</td>';
+					echo '</tr>';
+				}
+				echo '</table>';
+
+			else:
+				echo esc_html__('Please save the post once to enter poll answers.', 'wbpoll');
+			endif;
+
+		}//end method metabox_setting_display
+
+		
+		/**
+		 * Save wbpoll metabox
+		 *
+		 * @param $post_id
+		 *
+		 * @return bool
+		 */
+		function metabox_save($post_id)
+		{
+			// Check if our nonce is set.
+			if (!isset($_POST['wbpoll_meta_box_nonce'])) {
+				return;
+			}
+
+			// Verify that the nonce is valid.
+			if (!wp_verify_nonce($_POST['wbpoll_meta_box_nonce'], 'wbpoll_meta_box')) {
+				return;
+			}
+
+			if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+				return;
+			}
+
+
+			// Check the user's permissions.
+			if (isset($_POST['post_type']) && 'wbpoll' == $_POST['post_type']) {
+
+				if (!current_user_can('edit_post', $post_id)) {
+					return;
+				}
+			}
+
+
+			global $post;
+			$post   = get_post($post_id);
+			$status = $post->post_status;
+
+			$prefix = '_wbpoll_';
+
+			//handle answer colors
+			if (isset($_POST[$prefix.'answer_color'])) {
+
+				$colors = $_POST[$prefix.'answer_color'];
+				foreach ($colors as $index => $color) {
+					$colors[$index] = WBPollHelper::sanitize_hex_color($color);
+				}
+
+				$unique_color = array_unique($colors);
+
+				if ((count($unique_color)) == (count($colors))) {
+					update_post_meta($post_id, $prefix.'answer_color', $colors);
+				} else {
+					$error = '<div class="error"><p>'.esc_html__('Error: Answer Color repeat error',
+							'wbpoll').'</p></div>';
+
+					return false;
+				}
+			} else {
+				delete_post_meta($post_id, $prefix.'answer_color');
+			}
+
+			//handling extra fields
+			if (isset($_POST[$prefix.'answer_extra'])) {
+				$extra = $_POST[$prefix.'answer_extra'];
+				update_post_meta($post_id, $prefix.'answer_extra', $extra);
+
+			} else {
+				delete_post_meta($post_id, $prefix.'answer_extra');
+			}
+
+			//handle answer titles
+			if (isset($_POST[$prefix.'answer'])) {
+				$titles = $_POST[$prefix.'answer'];
+
+				foreach ($titles as $index => $title) {
+					$titles[$index] = sanitize_text_field($title);
+				}
+
+				update_post_meta($post_id, $prefix.'answer', $titles);
+			} else {
+				delete_post_meta($post_id, $prefix.'answer');
+			}
+
+			$this->metabox_extra_save($post_id);
+		}//end method metabox_save
+
+		/**
+		 * Save wbpoll meta fields except poll color and titles
+		 *
+		 * @param $post_id
+		 *
+		 * @return bool|void
+		 */
+		function metabox_extra_save($post_id)
+		{
+			//global $post_meta_fields;
+			$post_meta_fields = WBPollHelper::get_meta_fields();
+
+			$prefix = '_wbpoll_';
+
+
+			$cb_date_array = array();
+			foreach ($post_meta_fields as $field) {
+
+				$old = get_post_meta($post_id, $field['id'], true);
+				$new = $_POST[$field['id']];
+
+				if (($prefix.'start_date' == $field['id'] && $new == '') || ($prefix.'end_date' == $field['id'] && $new == '')) {
+
+					$cbpollerror = '<div class="notice notice-error inline"><p>'.esc_html__('Error:: Start or End date any one empty',
+							'wbpoll').'</p></div>';
+
+
+					return false; //might stop processing here
+				} else {
+
+
+					update_post_meta($post_id, $field['id'], $new);
+
+				}
+			}
+		}//end method metabox_extra_save
+
+		 /**
+     * Get Text answer templte
+     */
+    public function wbpoll_get_answer_template()
+    {
+
+        //security check
+        check_ajax_referer('wbpoll', 'security');
+
+        //get the fields
+
+        $index        = intval($_POST['answer_counter']);
+        $answer_color = esc_attr($_POST['answer_color']);
+        $is_voted     = intval($_POST['is_voted']);
+        $poll_postid  = intval($_POST['poll_postid']);
+        $answer_type  = esc_attr($_POST['answer_type']);
+
+        $answers_extra = array('type' => $answer_type);
+
+        $poll_answer = sprintf(esc_html__('Answer %d', 'wbpoll'), ($index + 1));
+
+        $template = WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $answer_color, $is_voted,
+            $answers_extra, $poll_postid);
+
+        echo json_encode($template);
+        die();
+    }//end method wbpoll_get_answer_template
+		
+
 	}
 
 

@@ -58,6 +58,7 @@ if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
  * This action is documented in includes/class-buddypress-polls-activator.php
  */
 function activate_buddypress_polls() {
+
 	if ( false === get_option( 'bpolls_settings' ) ) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
@@ -86,6 +87,10 @@ function deactivate_buddypress_polls() {
 register_activation_hook( __FILE__, 'activate_buddypress_polls' );
 register_deactivation_hook( __FILE__, 'deactivate_buddypress_polls' );
 
+/**
+* This class responsible for help methods
+*/
+require_once plugin_dir_path(__FILE__).'includes/class-wbpoll-helper.php';
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
