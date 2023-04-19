@@ -84,7 +84,7 @@
 			function bb_pools_icon_push() {
 				
 				bb_polls_Interval = setInterval( function() {
-					if (bpolls_ajax_object.buddyboss && $('#whats-new-form:not(.focus-in) #whats-new-toolbar .bpolls-html-container-placeholder').length == 0 ){				
+					if (bpolls_ajax_object.buddyboss && $('#whats-new-form:not(.focus-in) #whats-new-toolbar .bpolls-html-container-placeholder').length == 0 && bpolls_ajax_object.allowed_polls == 1){				
 						$('#whats-new-form:not(.focus-in) #whats-new-toolbar').append('<div class="post-elements-buttons-item bpolls-html-container-placeholder"><span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="' + bpolls_ajax_object.add_poll_text + '"><i class="wb-icons wb-icon-bar-chart"></i></span></div>');					
 					}
 				}, 10);

@@ -104,7 +104,7 @@ class Buddypress_Polls_Public {
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )			
 			|| 'activity' === $current_component
 			) {
 
@@ -185,6 +185,7 @@ class Buddypress_Polls_Public {
 				'delete_polls_btn'   => __( 'Delete', 'buddypress-polls' ),
 				'poll_revoting'      => ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
 				'poll_user'          => get_current_user_id(),
+				'allowed_polls'      => $this->bpolls_is_user_allowed_polls(),
 			)
 		);
 
@@ -206,7 +207,7 @@ class Buddypress_Polls_Public {
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )				
 				|| 'activity' === $current_component
 				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
@@ -226,7 +227,11 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_is_user_allowed_polls() {
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
-		global $current_user;
+		global $current_user;		
+		
+		if ( !empty($current_user->roles) && in_array( 'administrator', $current_user->roles)) {
+			return true;
+		}
 
 		if ( isset( $bpolls_settings['limit_poll_activity'] ) && 'user_role' === $bpolls_settings['limit_poll_activity'] ) {
 			$exists             = false;
@@ -265,9 +270,9 @@ class Buddypress_Polls_Public {
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
 
 			?>
-		<div class="post-elements-buttons-item bpolls-html-container">
-			<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
-		</div>
+			<div class="post-elements-buttons-item bpolls-html-container">
+				<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
+			</div>
 			<?php
 		}
 	}
