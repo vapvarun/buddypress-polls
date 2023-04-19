@@ -104,7 +104,8 @@ class Buddypress_Polls_Public {
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )			
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
+			|| ( is_single() && get_post_type() == 'business' )
 			|| 'activity' === $current_component
 			) {
 
@@ -207,7 +208,8 @@ class Buddypress_Polls_Public {
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )				
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
+				|| ( is_single() && get_post_type() == 'business' )
 				|| 'activity' === $current_component
 				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
