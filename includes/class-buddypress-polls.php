@@ -173,6 +173,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 //add js and css in admin end
 			 $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 			 $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
 			$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
@@ -189,8 +190,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			
 			//adding shortcode
 			$this->loader->add_action('init', $plugin_admin, 'init_shortcodes');
+			$this->loader->add_filter('wbpoll_display_options', $plugin_admin, 'poll_display_methods_text');
 			// add meta box and hook save meta box
-			$this->loader->add_action('add_meta_boxes', $plugin_admin, 'metaboxes_display');
+			$this->loader->add_action('add_meta_boxes', $plugin_admin, 'metaboxes_display');  
 			$this->loader->add_action('save_post', $plugin_admin, 'metabox_save');
 			$this->loader->add_action("wp_ajax_wbpoll_get_answer_template", $plugin_admin, 'wbpoll_get_answer_template');
 				

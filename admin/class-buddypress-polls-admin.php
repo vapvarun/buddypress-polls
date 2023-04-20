@@ -503,20 +503,20 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					if ($never_expire == 1) {
 						if (new DateTime($start_date) > new DateTime()) {
 							echo '<span class="dashicons dashicons-calendar"></span> '.esc_html__('Yet to Start',
-									'wppoll'); //
+									'wbpoll'); //
 						} else {
-							echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wppoll');
+							echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wbpoll');
 						}
 
 					} else {
 						if (new DateTime($start_date) > new DateTime()) {
-							echo '<span class="dashicons dashicons-calendar"></span> '.__('Yet to Start', 'wppoll'); //
+							echo '<span class="dashicons dashicons-calendar"></span> '.__('Yet to Start', 'wbpoll'); //
 						} else {
 							if (new DateTime($start_date) <= new DateTime() && new DateTime($end_date) > new DateTime()) {
-								echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wppoll');
+								echo '<span class="dashicons dashicons-yes"></span> '.esc_html__('Active', 'wbpoll');
 							} else {
 								if (new DateTime($end_date) <= new DateTime()) {
-									echo '<span class="dashicons dashicons-lock"></span> '.esc_html__('Expired', 'wppoll');
+									echo '<span class="dashicons dashicons-lock"></span> '.esc_html__('Expired', 'wbpoll');
 								}
 							}
 						}
@@ -529,11 +529,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					echo $end_date;
 					break;
 				case 'pollvotes':
-					echo apply_filters('wppoll_admin_listing_votes', $total_votes, $post_id);
+					echo apply_filters('wbpoll_admin_listing_votes', $total_votes, $post_id);
 					break;
 				case 'shortcode':
-					echo '<span id="wbpollhortcode-'.$post_id.'" class="wbpollhortcode wbpollhortcode-'.$post_id.'">[wppoll id="'.$post_id.'"]</span><span class="wppoll_ctp" aria-label="'.esc_html__('Click to copy',
-							'wppoll').'" data-balloon-pos="down">&nbsp;</span>';
+					echo '<span id="wbpollhortcode-'.$post_id.'" class="wbpollhortcode wbpollhortcode-'.$post_id.'">[wbpoll id="'.$post_id.'"]</span><span class="wbpoll_ctp" aria-label="'.esc_html__('Click to copy',
+							'wbpoll').'" data-balloon-pos="down">&nbsp;</span>';
 
 					break;
 				default:
@@ -691,27 +691,27 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		{
 
 			//add meta box in left side to show poll setting
-			add_meta_box('pollcustom_meta_box',                              // $id
-				esc_html__('Poll Options', 'wbpoll'),  // $title
-				array($this, 'metabox_setting_display'),           // $callback
-				'wbpoll',                                      // $page
-				'normal',                                           // $context
-				'high');                                            // $priority
-
-			// //add meta box in right col to show the result
-			// add_meta_box('pollresult_meta_box',                              // $id
-			// 	esc_html__('Poll Result', 'wbpoll'),  // $title
-			// 	array($this, 'metabox_result_display'),           // $callback
-			// 	'wbpoll',                                      // $page
-			// 	'side',                                           // $context
-			// 	'low');
+			add_meta_box('pollcustom_meta_box',
+				esc_html__('Poll Options', 'wbpoll'), 
+				array($this, 'metabox_setting_display'), 
+				'wbpoll',                                   
+				'normal',                                          
+				'high');                                           
 
 			//add meta box in right col to show the result
-			add_meta_box('pollshortcode_meta_box',                              // $id
-				esc_html__('Shortcode', 'wbpoll'),  // $title
-				array($this, 'metabox_shortcode_display'),           // $callback
-				'wbpoll',                                      // $page
-				'side',                                           // $context
+			add_meta_box('pollresult_meta_box',                              
+				esc_html__('Poll Result', 'wbpoll'),  
+				array($this, 'metabox_result_display'),           
+				'wbpoll',                                      
+				'side',                                          
+				'low');
+
+			//add meta box in right col to show the result
+			add_meta_box('pollshortcode_meta_box', 
+				esc_html__('Shortcode', 'wbpoll'),
+				array($this, 'metabox_shortcode_display'),
+				'wbpoll', 
+				'side', 
 				'low');
 		}//end method metaboxes_display
 
@@ -759,9 +759,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			//$answer_counter = 0;
 			$new_index = 0;
 
-			$is_voted     = 0;
+			$is_voted = 0;
 			$poll_answers = array();
-			$poll_colors  = array();
+			$poll_colors = array();
+			$full_size_image  = array();
+			$thumbnail_size_image = array();
+			$video_url = array();
+			$video_thumbnail_image = array();
+			$audio_url = array();
+			$audio_thumbnail_image = array();
+			$html_code = array();
 
 			if ($poll_postid > 0):
 				//$is_voted           = intval( get_post_meta( $poll_postid, '_wbpoll_is_voted', true ) );
@@ -770,6 +777,41 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$poll_answers       = get_post_meta($poll_postid, '_wbpoll_answer', true);
 				$poll_colors        = get_post_meta($poll_postid, '_wbpoll_answer_color', true);
 				$poll_answers_extra = get_post_meta($poll_postid, '_wbpoll_answer_extra', true);
+				
+				$full_size_images = get_post_meta($poll_postid, '_wbpoll_full_size_image_answer', true);
+				if (isset($full_size_images) && !empty($full_size_images)){
+					$full_size_image = $full_size_images;
+				} 
+
+				$thumbnail_size_images = get_post_meta($poll_postid, '_wbpoll_full_thumbnail_image_answer', true);
+				if (isset($thumbnail_size_images) && !empty($thumbnail_size_images)){
+					$thumbnail_size_image = $thumbnail_size_images;
+				} 
+
+				$video_urls = get_post_meta($poll_postid, '_wbpoll_video_answer_url', true);
+				if (isset($video_urls) && !empty($video_urls)){
+					$video_url = $video_urls;
+				} 
+
+				$video_thumbnail_images = get_post_meta($poll_postid, '_wbpoll_video_thumbnail_image_url', true);
+				if (isset($video_thumbnail_images) && !empty($video_thumbnail_images)){
+					$video_thumbnail_image = $video_thumbnail_images;
+				}
+
+				$audio_urls = get_post_meta($poll_postid, '_wbpoll_audio_answer_url', true);
+				if (isset($audio_urls) && !empty($audio_urls)){
+					$audio_url = $audio_urls;
+				} 
+
+				$audio_thumbnail_images = get_post_meta($poll_postid, '_wbpoll_audio_thumbnail_image_url', true);
+				if (isset($audio_thumbnail_images) && !empty($audio_thumbnail_images)){
+					$audio_thumbnail_image = $audio_thumbnail_images;
+				}
+
+				$html_codes = get_post_meta($poll_postid, '_wbpoll_html_answer', true);
+				if (isset($html_codes) && !empty($html_codes)){
+					$html_code = $html_codes;
+				}
 
 				$new_index = isset($poll_answers_extra['answercount']) ? intval($poll_answers_extra['answercount']) : 0;
 
@@ -802,15 +844,31 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_'.$post->ID.'">';
 
-
 				if (sizeof($poll_answers) > 0) {
 
 					foreach ($poll_answers as $index => $poll_answer) {
 
 						if (isset($poll_answer)) {
-							$poll_answers_extra[$index] = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : array();
-							echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index],
-								$is_voted, $poll_answers_extra[$index], $poll_postid);
+							$poll_answers_extra[$index] = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : '';
+							$poll_colors[$index] = isset($poll_colors[$index]) ? $poll_colors[$index] : '';
+
+							//image
+							$thumbnail_size_image[$index] = isset($thumbnail_size_image[$index]) ? $thumbnail_size_image[$index] : array();
+							$full_size_image[$index] = isset($full_size_image[$index]) ? $full_size_image[$index] : array();
+
+							//video
+							$video_url[$index] = isset($video_url[$index]) ? $video_url[$index] : array();
+							$video_thumbnail_image[$index] = isset($video_thumbnail_image[$index]) ? $video_thumbnail_image[$index] : array();
+
+							//audio
+							
+							$audio_url[$index] = isset($audio_url[$index]) ? $audio_url[$index] : array();
+							$audio_thumbnail_image[$index] = isset($audio_thumbnail_image[$index]) ? $audio_thumbnail_image[$index] : array();
+
+							//HTML
+							$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
+							
+							echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index]);
 						}
 					}
 				}
@@ -832,11 +890,36 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					);
 
 					$answers_extra = array('type' => 'default');
+					$thumbnail_size_image = array();
+					$full_size_image = array();
+					$video_url = array();
+					$video_thumbnail_image = array();
+					$audio_url = array();
+					$audio_thumbnail_image = array();
+					$html_code = array();
 
+					$thumbnail_size_image = array();
 					foreach ($default_answers_titles as $index => $answers_title) {
+						
+						//image
+						$thumbnail_size_image[$index] = isset($thumbnail_size_image[$index]) ? $thumbnail_size_image[$index] : array();
+						$full_size_image[$index] = isset($full_size_image[$index]) ? $full_size_image[$index] : array();
+
+
+						//video
+						$video_url[$index] = isset($video_url[$index]) ? $video_url[$index] : array();
+						$video_thumbnail_image[$index] = isset($video_thumbnail_image[$index]) ? $video_thumbnail_image[$index] : array();
+
+						//audio
+						$audio_url[$index] = isset($audio_url[$index]) ? $audio_url[$index] : array();
+						$audio_thumbnail_image[$index] = isset($audio_thumbnail_image[$index]) ? $audio_thumbnail_image[$index] : array();
+
+						//HTML
+						$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
+
 						echo WBPollHelper::wbpoll_answer_field_template(intval($index) + $new_index,
 							$default_answers_titles[$index], $default_answers_colors[$index], $is_voted, $answers_extra,
-							$poll_postid);
+							$poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index]);
 					}
 
 					$new_index = intval($index) + $new_index + 1;
@@ -852,9 +935,45 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				?>
 				<div class="add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
 					<a data-type="default" id="add-wb-poll-answer-default"
-					class=" button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>"><i
+					class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>"><i
 								style="line-height: 25px;"
 								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Text Answer',
+							'wbpoll'); ?>
+					</a>
+					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				</div>
+				<div class="add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+					<a data-type="image" id="add-wb-poll-image-answer"
+					class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>"><i
+								style="line-height: 25px;"
+								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Image Answer',
+							'wbpoll'); ?>
+					</a>
+					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				</div>
+				<div class="add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+					<a data-type="video" id="add-wb-poll-video-answer"
+					class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>"><i
+								style="line-height: 25px;"
+								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Video Answer',
+							'wbpoll'); ?>
+					</a>
+					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				</div>
+				<div class="add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+					<a data-type="audio" id="add-wb-poll-audio-answer"
+					class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>"><i
+								style="line-height: 25px;"
+								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Audio Answer',
+							'wbpoll'); ?>
+					</a>
+					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				</div>
+				<div class="add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+					<a data-type="html" id="add-wb-poll-html-answer"
+					class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>"><i
+								style="line-height: 25px;"
+								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add HTML Answer',
 							'wbpoll'); ?>
 					</a>
 					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
@@ -1084,8 +1203,108 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				}
 
 				update_post_meta($post_id, $prefix.'answer', $titles);
+				
 			} else {
 				delete_post_meta($post_id, $prefix.'answer');
+			}
+
+			//Full size image answer
+			if (isset($_POST[$prefix.'full_size_image_answer'])) {
+				$images = $_POST[$prefix.'full_size_image_answer'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'full_size_image_answer', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'full_size_image_answer');
+			}
+
+
+			//thumbnail size image answer
+			if (isset($_POST[$prefix.'full_thumbnail_image_answer'])) {
+				$images = $_POST[$prefix.'full_thumbnail_image_answer'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'full_thumbnail_image_answer', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'full_thumbnail_image_answer');
+			}
+
+			//video url
+			if (isset($_POST[$prefix.'video_answer_url'])) {
+				$images = $_POST[$prefix.'video_answer_url'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'video_answer_url', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'video_answer_url');
+			}
+
+			//Video thumbnail size image answer
+			if (isset($_POST[$prefix.'video_thumbnail_image_url'])) {
+				$images = $_POST[$prefix.'video_thumbnail_image_url'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'video_thumbnail_image_url', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'video_thumbnail_image_url');
+			}
+
+			//Audio url
+			if (isset($_POST[$prefix.'audio_answer_url'])) {
+				$images = $_POST[$prefix.'audio_answer_url'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'audio_answer_url', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'audio_answer_url');
+			}
+
+			//Audio thumbnail size image answer
+			if (isset($_POST[$prefix.'audio_thumbnail_image_url'])) {
+				$images = $_POST[$prefix.'audio_thumbnail_image_url'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'audio_thumbnail_image_url', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'audio_thumbnail_image_url');
+			}
+
+			//HTML textarea answer
+			if (isset($_POST[$prefix.'html_answer'])) {
+				$images = $_POST[$prefix.'html_answer'];
+
+				foreach ($images as $index => $url) {
+					$images[$index] = sanitize_text_field($url);
+				}
+
+				update_post_meta($post_id, $prefix.'html_answer', $images);
+				
+			} else {
+				delete_post_meta($post_id, $prefix.'html_answer');
 			}
 
 			$this->metabox_extra_save($post_id);
@@ -1129,33 +1348,115 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		}//end method metabox_extra_save
 
 		 /**
-     * Get Text answer templte
-     */
-    public function wbpoll_get_answer_template()
-    {
+		 * Get Text answer templte
+		 */
+		public function wbpoll_get_answer_template()
+		{
 
-        //security check
-        check_ajax_referer('wbpoll', 'security');
+			//security check
+			check_ajax_referer('wbpoll', 'security');
 
-        //get the fields
+			//get the fields
 
-        $index        = intval($_POST['answer_counter']);
-        $answer_color = esc_attr($_POST['answer_color']);
-        $is_voted     = intval($_POST['is_voted']);
-        $poll_postid  = intval($_POST['poll_postid']);
-        $answer_type  = esc_attr($_POST['answer_type']);
+			$index        = intval($_POST['answer_counter']);
+			$answer_color = esc_attr($_POST['answer_color']);
+			$is_voted     = intval($_POST['is_voted']);
+			$poll_postid  = intval($_POST['poll_postid']);
+			$answer_type  = esc_attr($_POST['answer_type']);
 
-        $answers_extra = array('type' => $answer_type);
+			$answers_extra = array('type' => $answer_type);
 
-        $poll_answer = sprintf(esc_html__('Answer %d', 'wbpoll'), ($index + 1));
+			$poll_answer = sprintf(esc_html__('Answer %d', 'wbpoll'), ($index + 1));
 
-        $template = WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $answer_color, $is_voted,
-            $answers_extra, $poll_postid);
+			$template = WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $answer_color, $is_voted,
+				$answers_extra, $poll_postid);
 
-        echo json_encode($template);
-        die();
-    }//end method wbpoll_get_answer_template
-		
+			echo json_encode($template);
+			die();
+		}//end method wbpoll_get_answer_template
+
+		 /**
+		 *  Add Text type poll result display method
+		 *
+		 * @param  array  $methods
+		 *
+		 * @return array
+		 */
+		public function poll_display_methods_text($methods)
+		{
+			$methods['text'] = array(
+				'title'  => esc_html__('Text', 'wbpoll'),
+				'method' => array($this, 'poll_display_methods_text_result')
+			);
+
+			return $methods;
+		}//end method poll_display_methods_text
+
+		/**
+		 * Display poll result as text method
+		 *
+		 * @param  int  $poll_id
+		 * @param  string  $reference
+		 *
+		 * @param  string  $poll_result
+		 */
+		public function poll_display_methods_text_result($poll_id, $reference = 'shortcode', $poll_result)
+		{
+
+			$total  = intval($poll_result['total']);
+			$colors = $poll_result['colors'];
+
+			$answers = isset($poll_result['answer']) ? $poll_result['answer'] : array();
+
+
+			$output_result = '';
+
+			if ($total > 0) {
+				$output = '<p>'.sprintf(__('Total votes: %d', 'wbpoll'), number_format_i18n($total)).'</p>';
+				$output .= '<ul>';
+
+
+				$total_percent = 0;
+
+				foreach ($poll_result['weighted_index'] as $index => $vote_count) {
+					$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
+						'cbxpoll');
+					$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
+
+					$percent       = ($vote_count * 100) / $total;
+					$total_percent += $percent;
+					$output_result .= '<li style="'.$color_style.'"><strong>'.$answer_title.': '.$vote_count.' ('.number_format_i18n($percent,
+							2).'%)</strong></li>';
+
+				}
+
+
+				if ($total_percent > 0) {
+					$output_result = '';
+
+					foreach ($poll_result['weighted_index'] as $index => $vote_count) {
+						$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
+							'cbxpoll');
+						$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
+
+						$percent    = ($vote_count * 100) / $total;
+						$re_percent = ($percent * 100) / $total_percent;
+
+						$output_result .= '<li style="'.$color_style.'"><strong>'.$answer_title.': '.$vote_count.' ('.number_format_i18n($re_percent,
+								2).'%)</strong></li>';
+
+					}
+				}
+
+				$output .= $output_result;
+				$output .= '</ul>';
+			} else {
+				$output = '<p>'.esc_html__('No approved vote yet', 'cbxpoll').'</p>';
+			}
+
+			echo $output;
+		}//end method poll_display_methods_text_result
+			
 
 	}
 

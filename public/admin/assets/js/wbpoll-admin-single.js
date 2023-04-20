@@ -137,6 +137,273 @@ jQuery(document).ready(function ($) {
 
     });
 
+     // add new answer image
+     $('#wbpoll_answer_wrap').on('click', '.add-wb-poll-image-answer', function (event) {
+        event.preventDefault();
+
+        var $this            = $(this);
+        var $answer_wrap     = $this.closest('#wbpoll_answer_wrap');
+        var $answer_add_wrap = $this.parent('.add-wb-poll-answer-image-wrap');
+
+        var $post_id = Number($answer_add_wrap.data('postid'));
+        //var $index               = Number($answer_add_wrap.data('answercount'));
+        var $index   = Number($('#wbpoll_answer_extra_answercount').val());
+        var $busy    = Number($answer_add_wrap.data('busy'));
+        var $type    = $this.data('type');
+
+
+        //get random answer color
+        var answer_color = '#' + '0123456789abcdef'.split('').map(function (v, i, a) {
+            return i > 5 ? null : a[Math.floor(Math.random() * 16)];
+        }).join('');
+
+
+        //sending ajax request to get the field template
+
+        if ($busy === 0) {
+            $answer_add_wrap.data('busy', 1);
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: wbpolladminsingleObj.ajaxurl,
+                data: {
+                    action: 'wbpoll_get_answer_template',
+                    answer_counter: $index,
+                    answer_color: answer_color,
+                    is_voted: 0,
+                    poll_postid: $post_id,
+                    answer_type: $type,
+                    security: wbpolladminsingleObj.nonce
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wb_poll_answers_items').append(data);
+                    $answer_wrap.find('.wbpoll_answer_color').last().wpColorPicker(colorOptions);
+
+
+                    //helps to render the  editor properly
+                    //quicktags({id : '_wbpoll_answer_extra_'+$count+'_html'});
+                    //tinyMCE.execCommand('mceAddEditor', false, '_wbpoll_answer_extra_'+$count+'_html');
+
+                    wp.wbpolljshooks.doAction('wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $);
+
+                    $index++;
+                    //$answer_add_wrap.data('answercount', $index);
+                    $('#wbpoll_answer_extra_answercount').val($index);
+                    $answer_add_wrap.data('busy', 0);
+                }
+            });
+        }
+
+    });
+
+     // add new answer video
+     $('#wbpoll_answer_wrap').on('click', '.add-wb-poll-video-answer', function (event) {
+        event.preventDefault();
+
+        var $this            = $(this);
+        var $answer_wrap     = $this.closest('#wbpoll_answer_wrap');
+        var $answer_add_wrap = $this.parent('.add-wb-poll-answer-video-wrap');
+
+        var $post_id = Number($answer_add_wrap.data('postid'));
+        //var $index               = Number($answer_add_wrap.data('answercount'));
+        var $index   = Number($('#wbpoll_answer_extra_answercount').val());
+        var $busy    = Number($answer_add_wrap.data('busy'));
+        var $type    = $this.data('type');
+
+
+        //get random answer color
+        var answer_color = '#' + '0123456789abcdef'.split('').map(function (v, i, a) {
+            return i > 5 ? null : a[Math.floor(Math.random() * 16)];
+        }).join('');
+
+
+        //sending ajax request to get the field template
+
+        if ($busy === 0) {
+            $answer_add_wrap.data('busy', 1);
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: wbpolladminsingleObj.ajaxurl,
+                data: {
+                    action: 'wbpoll_get_answer_template',
+                    answer_counter: $index,
+                    answer_color: answer_color,
+                    is_voted: 0,
+                    poll_postid: $post_id,
+                    answer_type: $type,
+                    security: wbpolladminsingleObj.nonce
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wb_poll_answers_items').append(data);
+                    $answer_wrap.find('.wbpoll_answer_color').last().wpColorPicker(colorOptions);
+
+
+                    //helps to render the  editor properly
+                    //quicktags({id : '_wbpoll_answer_extra_'+$count+'_html'});
+                    //tinyMCE.execCommand('mceAddEditor', false, '_wbpoll_answer_extra_'+$count+'_html');
+
+                    wp.wbpolljshooks.doAction('wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $);
+
+                    $index++;
+                    //$answer_add_wrap.data('answercount', $index);
+                    $('#wbpoll_answer_extra_answercount').val($index);
+                    $answer_add_wrap.data('busy', 0);
+                }
+            });
+        }
+
+    });
+
+     // add new answer Audio
+     $('#wbpoll_answer_wrap').on('click', '.add-wb-poll-audio-answer', function (event) {
+        event.preventDefault();
+
+        var $this            = $(this);
+        var $answer_wrap     = $this.closest('#wbpoll_answer_wrap');
+        var $answer_add_wrap = $this.parent('.add-wb-poll-answer-audio-wrap');
+
+        var $post_id = Number($answer_add_wrap.data('postid'));
+        //var $index               = Number($answer_add_wrap.data('answercount'));
+        var $index   = Number($('#wbpoll_answer_extra_answercount').val());
+        var $busy    = Number($answer_add_wrap.data('busy'));
+        var $type    = $this.data('type');
+
+
+        //get random answer color
+        var answer_color = '#' + '0123456789abcdef'.split('').map(function (v, i, a) {
+            return i > 5 ? null : a[Math.floor(Math.random() * 16)];
+        }).join('');
+
+
+        //sending ajax request to get the field template
+
+        if ($busy === 0) {
+            $answer_add_wrap.data('busy', 1);
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: wbpolladminsingleObj.ajaxurl,
+                data: {
+                    action: 'wbpoll_get_answer_template',
+                    answer_counter: $index,
+                    answer_color: answer_color,
+                    is_voted: 0,
+                    poll_postid: $post_id,
+                    answer_type: $type,
+                    security: wbpolladminsingleObj.nonce
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wb_poll_answers_items').append(data);
+                    $answer_wrap.find('.wbpoll_answer_color').last().wpColorPicker(colorOptions);
+
+
+                    //helps to render the  editor properly
+                    //quicktags({id : '_wbpoll_answer_extra_'+$count+'_html'});
+                    //tinyMCE.execCommand('mceAddEditor', false, '_wbpoll_answer_extra_'+$count+'_html');
+
+                    wp.wbpolljshooks.doAction('wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $);
+
+                    $index++;
+                    //$answer_add_wrap.data('answercount', $index);
+                    $('#wbpoll_answer_extra_answercount').val($index);
+                    $answer_add_wrap.data('busy', 0);
+                }
+            });
+        }
+
+    });
+
+     // add new answer HTML
+     $('#wbpoll_answer_wrap').on('click', '.add-wb-poll-html-answer', function (event) {
+        event.preventDefault();
+
+        var $this            = $(this);
+        var $answer_wrap     = $this.closest('#wbpoll_answer_wrap');
+        var $answer_add_wrap = $this.parent('.add-wb-poll-answer-html-wrap');
+
+        var $post_id = Number($answer_add_wrap.data('postid'));
+        //var $index               = Number($answer_add_wrap.data('answercount'));
+        var $index   = Number($('#wbpoll_answer_extra_answercount').val());
+        var $busy    = Number($answer_add_wrap.data('busy'));
+        var $type    = $this.data('type');
+
+
+        //get random answer color
+        var answer_color = '#' + '0123456789abcdef'.split('').map(function (v, i, a) {
+            return i > 5 ? null : a[Math.floor(Math.random() * 16)];
+        }).join('');
+
+
+        //sending ajax request to get the field template
+
+        if ($busy === 0) {
+            $answer_add_wrap.data('busy', 1);
+
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                url: wbpolladminsingleObj.ajaxurl,
+                data: {
+                    action: 'wbpoll_get_answer_template',
+                    answer_counter: $index,
+                    answer_color: answer_color,
+                    is_voted: 0,
+                    poll_postid: $post_id,
+                    answer_type: $type,
+                    security: wbpolladminsingleObj.nonce
+                },
+                success: function (data, textStatus, XMLHttpRequest) {
+                    $('#wb_poll_answers_items').append(data);
+                    $answer_wrap.find('.wbpoll_answer_color').last().wpColorPicker(colorOptions);
+
+
+                    //helps to render the  editor properly
+                    //quicktags({id : '_wbpoll_answer_extra_'+$count+'_html'});
+                    //tinyMCE.execCommand('mceAddEditor', false, '_wbpoll_answer_extra_'+$count+'_html');
+
+                    wp.wbpolljshooks.doAction('wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $);
+
+                    $index++;
+                    //$answer_add_wrap.data('answercount', $index);
+                    $('#wbpoll_answer_extra_answercount').val($index);
+                    $answer_add_wrap.data('busy', 0);
+                }
+            });
+        }
+
+    });
+
+    //image uploader
+        
+    $('#wbpoll_answer_wrap').on('click', '#upload-btn', function (e){
+            var mediaUploader;
+            var imgclass = $(this).data('text');
+            e.preventDefault();
+            if (mediaUploader) {
+                mediaUploader.open();
+                return;
+            }
+            mediaUploader = wp.media.frames.file_frame = wp.media({
+                title: 'Choose Image',
+                button: {
+                    text: 'Choose Image'
+                },
+                multiple: false
+            });
+            mediaUploader.on('select', function() {
+                var attachment = mediaUploader.state().get('selection').first().toJSON();
+                $('.'+imgclass).val(attachment.url);
+                $('.image_'+imgclass).html('<img width="266" height="266" src="'+attachment.url+'">');
+            });
+            mediaUploader.open();
+        });
+
+    
+
 
     //remove an answer
     $('#wbpoll_answer_wrap').on('click', '.wb_pollremove', function (event) {
