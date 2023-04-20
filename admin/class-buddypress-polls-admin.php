@@ -65,7 +65,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function enqueue_styles( $hook ) {
 			$activity_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-activity';
 			if ( isset( $activity_page ) && 'bp-activity' === $activity_page ) {
-				wp_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css/buddypress-polls-public.css', array(), time(), 'all' );
+				wb_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css/buddypress-polls-public.css', array(), time(), 'all' );
 			}
 
 			if ( 'wb-plugins_page_buddypress-polls' !== $hook ) {
@@ -86,13 +86,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
 			if ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) {
 
-				wp_enqueue_style( 'wp-color-picker' );
+				wb_enqueue_style( 'wb-color-picker' );
 
-				if ( ! wp_style_is( 'polls-selectize-css', 'enqueued' ) ) {
-					wp_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
+				if ( ! wb_style_is( 'polls-selectize-css', 'enqueued' ) ) {
+					wb_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				}
 
-				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
+				wb_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
 		}
 
@@ -135,12 +135,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 */
 			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
 			if ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) {
-				if ( ! wp_script_is( 'polls-selectize-js', 'enqueued' ) ) {
-					wp_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
+				if ( ! wb_script_is( 'polls-selectize-js', 'enqueued' ) ) {
+					wb_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				}
 
-				wp_enqueue_script( 'wp-color-picker' );
-				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
+				wb_enqueue_script( 'wb-color-picker' );
+				wb_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
 			}
 		}
 
@@ -201,7 +201,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$tab_html .= '<li class="' . $bpolls_name . '"><a class="nav-tab ' . $class . '" href="admin.php?page=buddypress-polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a></li>';
 			}
 			$tab_html .= '</div></ul></div>';
-			echo wp_kses_post( $tab_html );
+			echo wb_kses_post( $tab_html );
 			include 'inc/bpolls-tabs-options.php';
 			echo '</div>';
 			echo '</div>';
@@ -216,8 +216,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function bpolls_admin_register_settings() {
 			if ( isset( $_POST['bpolls_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				unset( $_POST['bpolls_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				update_site_option( 'bpolls_settings', wb_unslash( $_POST['bpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				wb_safe_redirect( $_POST['_wb_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				exit();
 			}
 		}
@@ -230,13 +230,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function bpolls_add_dashboard_widgets() {
-			wp_add_dashboard_widget(
+			wb_add_dashboard_widget(
 				'bpolls_stats_dashboard_widget', // Widget slug.
 				esc_html__( 'Site Polls Data', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_stats_dashboard_widget_function' ) // Display function.
 			);
 
-			wp_add_dashboard_widget(
+			wb_add_dashboard_widget(
 				'bpolls_graph_dashboard_widget', // Widget slug.
 				esc_html__( 'Poll Graph', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
@@ -257,9 +257,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				global $activities_template;
 				$polls_created = $activities_template->total_activity_count;
 			}
-			global $wpdb;
+			global $wbdb;
 
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
+			$results = $wbdb->get_row( "SELECT * from {$wbdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
 
 			$max_votes_act_link = '#';
 			$title              = '';
@@ -292,7 +292,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				}
 			}
 
-			$recent_poll = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+			$recent_poll = $wbdb->get_row( "SELECT * from {$wbdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
 			$recent_poll_link = '#';
 			if ( isset( $recent_poll->id ) ) {
@@ -345,9 +345,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function bpolls_graph_dashboard_widget_function() {
 
-			global $wpdb;
+			global $wbdb;
 
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+			$results = $wbdb->get_row( "SELECT * from {$wbdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
 			$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
 			$poll_wdgt_stngs = $poll_wdgt->get_settings();
@@ -376,11 +376,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			if ( isset( $_REQUEST['export_csv'] ) && 1 == $_REQUEST['export_csv'] && isset( $_REQUEST['buddypress_poll'] ) && 1 == $_REQUEST['buddypress_poll'] && isset( $_REQUEST['activity_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				$activity_id   = isset( $_REQUEST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['activity_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+				$activity_id   = isset( $_REQUEST['activity_id'] ) ? sanitize_text_field( wb_unslash( $_REQUEST['activity_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
 				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
 				$file         = 'buddypress-activity-poll-info.csv';
-				$uploads_path = ABSPATH . 'wp-content/uploads/';
+				$uploads_path = ABSPATH . 'wb-content/uploads/';
 				$fp           = fopen( $uploads_path . $file, 'a' ) or die( "Error Couldn't open $file for writing!" ); // phpcs:ignore WordPress.Security.EscapeOutput
 
 				$csv_header = array( 'User ID', 'UserName' );
@@ -395,7 +395,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'include' => $users,
 				);
 
-				$users       = new WP_User_Query( $args );
+				$users       = new wb_User_Query( $args );
 				$users_found = $users->get_results();
 				foreach ( $users_found as $user ) {
 					$results['users'][] = $user->ID;
@@ -428,7 +428,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$dl_file = preg_replace( '([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})', '', $file ); // simple file name validation.
 				$dl_file = filter_var( $dl_file, FILTER_SANITIZE_URL ); // Remove (more) invalid characters.
 
-				$uploads_path = ABSPATH . 'wp-content/uploads/'; // change the path to fit your websites document structure.
+				$uploads_path = ABSPATH . 'wb-content/uploads/'; // change the path to fit your websites document structure.
 				$full_path    = $uploads_path . $dl_file;
 
 				if ( $fd = fopen( $full_path, 'r' ) ) {
@@ -583,7 +583,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$global_answer_grid_list  = 1; //0 = list 1 = grid
 
 
-			$nonce          = wp_create_nonce('wbpollslisting');
+			$nonce          = wb_create_nonce('wbpollslisting');
 			$show_load_more = true;
 
 			$options = shortcode_atts(array(
@@ -834,7 +834,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				}
 
 
-				wp_nonce_field('wbpoll_meta_box', 'wbpoll_meta_box_nonce');
+				wb_nonce_field('wbpoll_meta_box', 'wbpoll_meta_box_nonce');
 
 				echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="'.$poll_postid.'">';
 				echo '<h4>'.esc_html__('Poll Answers', 'wbpoll').'</h4>';
@@ -1139,7 +1139,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Verify that the nonce is valid.
-			if (!wp_verify_nonce($_POST['wbpoll_meta_box_nonce'], 'wbpoll_meta_box')) {
+			if (!wb_verify_nonce($_POST['wbpoll_meta_box_nonce'], 'wbpoll_meta_box')) {
 				return;
 			}
 

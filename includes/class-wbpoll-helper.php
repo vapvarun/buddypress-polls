@@ -9,7 +9,7 @@
  * @subpackage wbpoll/includes
  */
 
-if (!defined('WPINC')) {
+if (!defined('wbINC')) {
     die;
 }
 
@@ -18,8 +18,8 @@ if (!defined('WPINC')) {
  *
  * lots of micro methods that help get set
  *
- * @package    WPPoll
- * @subpackage WPPoll/includes
+ * @package    wbPoll
+ * @subpackage wbPoll/includes
  * @author     codeboxr <info@codeboxr.com>
  */
 class WBPollHelper
@@ -30,7 +30,7 @@ class WBPollHelper
     public static function init_cookie()
     {
 
-        $current_user = wp_get_current_user();
+        $current_user = wb_get_current_user();
         $user_id      = $current_user->ID;
 
 
@@ -41,22 +41,22 @@ class WBPollHelper
 
             } else {
 
-                $cookie_value = 'guest-'.rand(WP_POLL_RAND_MIN, WP_POLL_RAND_MAX);
+                $cookie_value = 'guest-'.rand(wb_POLL_RAND_MIN, wb_POLL_RAND_MAX);
             }
 
-            if (!isset($_COOKIE[WP_POLL_COOKIE_NAME]) && empty($_COOKIE[WP_POLL_COOKIE_NAME])) {
+            if (!isset($_COOKIE[wb_POLL_COOKIE_NAME]) && empty($_COOKIE[wb_POLL_COOKIE_NAME])) {
 
-                setcookie(WP_POLL_COOKIE_NAME, $cookie_value, WP_POLL_COOKIE_EXPIRATION_14DAYS, SITECOOKIEPATH,
+                setcookie(wb_POLL_COOKIE_NAME, $cookie_value, wb_POLL_COOKIE_EXPIRATION_14DAYS, SITECOOKIEPATH,
                     COOKIE_DOMAIN);
-                $_COOKIE[WP_POLL_COOKIE_NAME] = $cookie_value;
+                $_COOKIE[wb_POLL_COOKIE_NAME] = $cookie_value;
 
-            } elseif (isset($_COOKIE[WP_POLL_COOKIE_NAME])) {
+            } elseif (isset($_COOKIE[wb_POLL_COOKIE_NAME])) {
 
 
-                if (substr($_COOKIE[WP_POLL_COOKIE_NAME], 0, 5) != 'guest') {
-                    setcookie(WP_POLL_COOKIE_NAME, $cookie_value, WP_POLL_COOKIE_EXPIRATION_14DAYS, SITECOOKIEPATH,
+                if (substr($_COOKIE[wb_POLL_COOKIE_NAME], 0, 5) != 'guest') {
+                    setcookie(wb_POLL_COOKIE_NAME, $cookie_value, wb_POLL_COOKIE_EXPIRATION_14DAYS, SITECOOKIEPATH,
                         COOKIE_DOMAIN);
-                    $_COOKIE[WP_POLL_COOKIE_NAME] = $cookie_value;
+                    $_COOKIE[wb_POLL_COOKIE_NAME] = $cookie_value;
                 }
             }
         }
@@ -101,8 +101,8 @@ class WBPollHelper
 
         $args = array(
             'labels'          => array(
-                'name'          => esc_html__('WP Polls', 'wbpoll'),
-                'singular_name' => esc_html__('WP Poll', 'wbpoll')
+                'name'          => esc_html__('wb Polls', 'wbpoll'),
+                'singular_name' => esc_html__('wb Poll', 'wbpoll')
             ),
             'menu_icon'       => 'dashicons-chart-bar', // 16px16
             'public'          => true,
@@ -127,16 +127,16 @@ class WBPollHelper
 
     public static function install_table()
     {
-        global $wpdb;
+        global $wbdb;
         $charset_collate = '';
-        if (!empty($wpdb->charset)) {
-            $charset_collate = "DEFAULT CHARACTER SET $wpdb->charset";
+        if (!empty($wbdb->charset)) {
+            $charset_collate = "DEFAULT CHARACTER SET $wbdb->charset";
         }
-        if (!empty($wpdb->collate)) {
-            $charset_collate .= " COLLATE $wpdb->collate";
+        if (!empty($wbdb->collate)) {
+            $charset_collate .= " COLLATE $wbdb->collate";
         }
 
-        require_once(ABSPATH.'/wp-admin/includes/upgrade.php');
+        require_once(ABSPATH.'/wb-admin/includes/upgrade.php');
 
         $votes_name = WBPollHelper::wb_poll_table_name();
 
@@ -169,10 +169,10 @@ class WBPollHelper
      */
     public static function delete_tables()
     {
-        global $wpdb;
+        global $wbdb;
         $votes_name[] = WBPollHelper::wb_poll_table_name();
         $sql          = "DROP TABLE IF EXISTS ".implode(', ', $votes_name);
-        require_once(ABSPATH.'wp-admin/includes/upgrade.php');
+        require_once(ABSPATH.'wb-admin/includes/upgrade.php');
         dbDelta($sql);
     }
 
@@ -185,12 +185,12 @@ class WBPollHelper
      */
     public static function update_poll($user_vote)
     {
-        global $wpdb;
+        global $wbdb;
 
         if (!empty($user_vote)) {
             $votes_table = WBPollHelper::wb_poll_table_name();
 
-            $success = $wpdb->insert($votes_table, $user_vote, array(
+            $success = $wbdb->insert($votes_table, $user_vote, array(
                 '%d',
                 '%s',
                 '%s',
@@ -207,7 +207,7 @@ class WBPollHelper
                 '%d'
             ));
 
-            return ($success) ? $wpdb->insert_id : false;
+            return ($success) ? $wbdb->insert_id : false;
         }
 
         return false;
@@ -216,15 +216,15 @@ class WBPollHelper
 
 
     /**
-     * WP Poll vote table name
+     * wb Poll vote table name
      *
      * @return string
      */
     public static function wb_poll_table_name()
     {
-        global $wpdb;
+        global $wbdb;
 
-        return $wpdb->prefix."wbpoll_votes";
+        return $wbdb->prefix."wbpoll_votes";
     }
 
     /**
@@ -264,11 +264,11 @@ class WBPollHelper
      */
     public static function get_pollResult($poll_id, $is_object = false)
     {
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
-        $sql     = $wpdb->prepare("SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval($poll_id));
-        $results = $wpdb->get_results($sql, ARRAY_A);
+        $sql     = $wbdb->prepare("SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval($poll_id));
+        $results = $wbdb->get_results($sql, ARRAY_A);
 
 
         return $results;
@@ -283,12 +283,12 @@ class WBPollHelper
      */
     public static function is_poll_voted($poll_id)
     {
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
-        $sql         = $wpdb->prepare("SELECT COUNT(*) AS total_count FROM $votes_name WHERE poll_id=%d",
+        $sql         = $wbdb->prepare("SELECT COUNT(*) AS total_count FROM $votes_name WHERE poll_id=%d",
             intval($poll_id));
-        $total_count = intval($wpdb->get_var($sql));
+        $total_count = intval($wbdb->get_var($sql));
 
 
         return ($total_count > 0) ? 1 : 0;
@@ -306,11 +306,11 @@ class WBPollHelper
      */
     public static function get_voteResult($vote_id, $is_object = false)
     {
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
-        $sql     = $wpdb->prepare("SELECT * FROM $votes_name WHERE id=%d", $vote_id);
-        $results = $wpdb->get_results($sql, ARRAY_A);
+        $sql     = $wbdb->prepare("SELECT * FROM $votes_name WHERE id=%d", $vote_id);
+        $results = $wbdb->get_results($sql, ARRAY_A);
 
 
         return $results;
@@ -368,13 +368,13 @@ class WBPollHelper
     public static function getVoteCountByStatus($poll_id = 0)
     {
 
-        global $wpdb;
+        global $wbdb;
 
         $votes_name = WBPollHelper::wb_poll_table_name();
 
         $where_sql = '';
         if ($poll_id != 0) {
-            $where_sql .= $wpdb->prepare('poll_id=%d', $poll_id);
+            $where_sql .= $wbdb->prepare('poll_id=%d', $poll_id);
         }
 
         if ($where_sql == '') {
@@ -383,7 +383,7 @@ class WBPollHelper
 
         $sql_select = "SELECT published, COUNT(*) as vote_counts FROM $votes_name  WHERE   $where_sql GROUP BY published";
 
-        $results = $wpdb->get_results("$sql_select", 'ARRAY_A');
+        $results = $wbdb->get_results("$sql_select", 'ARRAY_A');
 
         $total = 0;
         $data  = array(
@@ -414,7 +414,7 @@ class WBPollHelper
      *
      * @return string
      */
-    public static function wppoll_mail_content_type($content_type = 'text/plain')
+    public static function wbpoll_mail_content_type($content_type = 'text/plain')
     {
         if ($content_type == 'html') {
             return 'text/html';
@@ -503,10 +503,10 @@ class WBPollHelper
      */
     public static function user_roles($plain = true, $include_guest = false, $ignore = array())
     {
-        global $wp_roles;
+        global $wb_roles;
 
         if (!function_exists('get_editable_roles')) {
-            require_once(ABSPATH.'/wp-admin/includes/user.php');
+            require_once(ABSPATH.'/wb-admin/includes/user.php');
 
         }
 
@@ -550,7 +550,7 @@ class WBPollHelper
      */
     public static function getAllDBTablesList()
     {
-        global $wpdb;
+        global $wbdb;
 
         $table_names                  = array();
         $table_names['wbpoll_votes'] = WBPollHelper::wb_poll_table_name();
@@ -564,10 +564,10 @@ class WBPollHelper
      */
     public static function getAllOptionNames()
     {
-        global $wpdb;
+        global $wbdb;
 
         $prefix       = 'wbpoll_';
-        $option_names = $wpdb->get_results("SELECT * FROM {$wpdb->options} WHERE option_name LIKE '{$prefix}%'",
+        $option_names = $wbdb->get_results("SELECT * FROM {$wbdb->options} WHERE option_name LIKE '{$prefix}%'",
             ARRAY_A);
 
         return apply_filters('wbpoll_option_names', $option_names);
@@ -605,7 +605,7 @@ class WBPollHelper
      * (Recommended not to use)Reset $post back to the original item
      *
      */
-    public static function wp_reset_admin_postdata()
+    public static function wb_reset_admin_postdata()
     {
 
         //only on the admin and if post_cache is set
@@ -621,9 +621,9 @@ class WBPollHelper
             //cleanup
             unset($GLOBALS['post_cache']);
         } else {
-            wp_reset_postdata();
+            wb_reset_postdata();
         }
-    }//end method wp_reset_admin_postdata
+    }//end method wb_reset_admin_postdata
 
     /**
      * List polls
@@ -665,7 +665,7 @@ class WBPollHelper
 
         $content = '';
 
-        $posts_array = new WP_Query($args);
+        $posts_array = new wb_Query($args);
 
 
         $total_count = intval($posts_array->found_posts);
@@ -683,7 +683,7 @@ class WBPollHelper
                     $description);
                 //endforeach;
             endwhile;
-            wp_reset_postdata();
+            wb_reset_postdata();
 
         } else {
             $output['found'] = 0;
@@ -712,10 +712,10 @@ class WBPollHelper
             return '';
         }
 
-        global $wpdb;
+        global $wbdb;
 
        // $setting_api  = $settings = new WBPoll_Settings();
-        $current_user = wp_get_current_user();
+        $current_user = wb_get_current_user();
         $user_id      = $current_user->ID;
         $user_ip      = WBPollHelper::get_ipaddress();
         $poll_output  = '';
@@ -809,7 +809,7 @@ class WBPollHelper
         }
 
 
-        $nonce = wp_create_nonce('wbpolluservote');
+        $nonce = wb_create_nonce('wbpolluservote');
 
         $poll_output .= '<div class="wbpoll_wrapper wbpoll_wrapper-'.$post_id.' wbpoll_wrapper-'.$reference.'" data-reference ="'.$reference.'" >';
         //$poll_output .= '<div class="wbpoll-qresponse wbpoll-qresponse-' . $post_id . '"></div>';
@@ -830,7 +830,7 @@ class WBPollHelper
                     if (is_object($poll_conobj)) {
                         $poll_content = $poll_conobj->post_content;
                         $poll_content = strip_shortcodes($poll_content);
-                        $poll_content = wpautop($poll_content);
+                        $poll_content = wbautop($poll_content);
                         $poll_content = convert_smilies($poll_content);
                         //$poll_content 	= apply_filters('the_content', $poll_content);
                         $poll_content = str_replace(']]>', ']]&gt;', $poll_content);
@@ -847,26 +847,26 @@ class WBPollHelper
 
             if ($log_method == 'cookie') {
 
-                $sql                   = $wpdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_cookie = %s",
+                $sql                   = $wbdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_cookie = %s",
                     $post_id, $user_id, $user_session);
-                $poll_is_voted_by_user = $wpdb->get_var($sql);
+                $poll_is_voted_by_user = $wbdb->get_var($sql);
 
             } elseif ($log_method == 'ip') {
 
-                $sql                   = $wpdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s",
+                $sql                   = $wbdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s",
                     $post_id, $user_id, $user_ip);
-                $poll_is_voted_by_user = $wpdb->get_var($sql);
+                $poll_is_voted_by_user = $wbdb->get_var($sql);
 
             } else {
                 if ($log_method == 'both') {
 
-                    $sql               = $wpdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_cookie = %s",
+                    $sql               = $wbdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_cookie = %s",
                         $post_id, $user_id, $user_session);
-                    $vote_count_cookie = $wpdb->get_var($sql);
+                    $vote_count_cookie = $wbdb->get_var($sql);
 
-                    $sql           = $wpdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s",
+                    $sql           = $wbdb->prepare("SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s",
                         $post_id, $user_id, $user_ip);
-                    $vote_count_ip = $wpdb->get_var($sql);
+                    $vote_count_ip = $wbdb->get_var($sql);
 
                     if ($vote_count_cookie >= 1 || $vote_count_ip >= 1) {
                         $poll_is_voted_by_user = 1;
@@ -879,18 +879,18 @@ class WBPollHelper
 
             if ($is_poll_expired) { // if poll has expired
 
-                $sql           = $wpdb->prepare("SELECT ur.id AS answer FROM $votes_name ur WHERE  ur.poll_id=%d  ",
+                $sql           = $wbdb->prepare("SELECT ur.id AS answer FROM $votes_name ur WHERE  ur.poll_id=%d  ",
                     $post_id);
-                $cb_has_answer = $wpdb->get_var($sql);
+                $cb_has_answer = $wbdb->get_var($sql);
 
                 if ($cb_has_answer != null) {
 
                     $poll_output .= WBPollHelper:: show_single_poll_result($post_id, $reference, $result_chart_type);
                 }
 
-                $sql             = $wpdb->prepare("SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
+                $sql             = $wbdb->prepare("SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
                     $post_id, $user_id, $user_ip, $user_session);
-                $answers_by_user = $wpdb->get_var($sql);
+                $answers_by_user = $wbdb->get_var($sql);
 
                 $answers_by_user_html = '';
 
@@ -953,20 +953,20 @@ class WBPollHelper
 
 	                    if(!is_user_logged_in() && $allow_guest_sign == 'on'):
 		                    if ( is_singular() ) {
-			                    $login_url    = wp_login_url( get_permalink() );
+			                    $login_url    = wb_login_url( get_permalink() );
 			                    $redirect_url = get_permalink();
 		                    } else {
-			                    global $wp;
-			                    //$login_url =  wp_login_url( home_url( $wp->request ) );
-			                    $login_url    = wp_login_url( home_url( add_query_arg( array(), $wp->request ) ) );
-			                    $redirect_url = home_url( add_query_arg( array(), $wp->request ) );
+			                    global $wb;
+			                    //$login_url =  wb_login_url( home_url( $wb->request ) );
+			                    $login_url    = wb_login_url( home_url( add_query_arg( array(), $wb->request ) ) );
+			                    $redirect_url = home_url( add_query_arg( array(), $wb->request ) );
 		                    }
 
 
 		                    $guest_html = '<div class="wbpoll-guest-wrap">';
 
 		                    $guest_html .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
-		                    $guest_login_html = wp_login_form( array(
+		                    $guest_login_html = wb_login_form( array(
 			                    'redirect' => $redirect_url,
 			                    'echo'     => false
 		                    ) );
@@ -978,7 +978,7 @@ class WBPollHelper
 		                    $guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
 		                    if ( $guest_show_register ) {
 			                    if ( get_option( 'users_can_register' ) ) {
-				                    $register_url        = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
+				                    $register_url        = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wb_registration_url() );
 				                    $guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
 			                    }
 
@@ -1002,9 +1002,9 @@ class WBPollHelper
                     //current user has voted this once
                     if ($poll_is_voted_by_user) {
 
-                        $sql             = $wpdb->prepare("SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
+                        $sql             = $wbdb->prepare("SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
                             $post_id, $user_id, $user_ip, $user_session);
-                        $answers_by_user = $wpdb->get_var($sql);
+                        $answers_by_user = $wbdb->get_var($sql);
 
 
                         if ($answers_by_user !== null) {
@@ -1047,20 +1047,20 @@ class WBPollHelper
 
 	                    if(!is_user_logged_in() && $allow_guest_sign == 'on'):
 		                    if ( is_singular() ) {
-			                    $login_url    = wp_login_url( get_permalink() );
+			                    $login_url    = wb_login_url( get_permalink() );
 			                    $redirect_url = get_permalink();
 		                    } else {
-			                    global $wp;
-			                    //$login_url =  wp_login_url( home_url( $wp->request ) );
-			                    $login_url    = wp_login_url( home_url( add_query_arg( array(), $wp->request ) ) );
-			                    $redirect_url = home_url( add_query_arg( array(), $wp->request ) );
+			                    global $wb;
+			                    //$login_url =  wb_login_url( home_url( $wb->request ) );
+			                    $login_url    = wb_login_url( home_url( add_query_arg( array(), $wb->request ) ) );
+			                    $redirect_url = home_url( add_query_arg( array(), $wb->request ) );
 		                    }
 
 
 		                    $guest_html = '<div class="wbpoll-guest-wrap">';
 
 		                    $guest_html .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
-		                    $guest_login_html = wp_login_form( array(
+		                    $guest_login_html = wb_login_form( array(
 			                    'redirect' => $redirect_url,
 			                    'echo'     => false
 		                    ) );
@@ -1072,7 +1072,7 @@ class WBPollHelper
 		                    $guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
 		                    if ( $guest_show_register ) {
 			                    if ( get_option( 'users_can_register' ) ) {
-				                    $register_url        = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
+				                    $register_url        = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wb_registration_url() );
 				                    $guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
 			                    }
 
@@ -1200,9 +1200,9 @@ class WBPollHelper
      */
     public static function show_single_poll_result($poll_id, $reference, $result_chart_type = 'text')
     {
-        global $wpdb;
+        global $wbdb;
 
-        $current_user = wp_get_current_user();
+        $current_user = wb_get_current_user();
         $user_id      = $current_user->ID;
 
 
@@ -1535,7 +1535,7 @@ class WBPollHelper
         
         if( isset($answers_extra['type']) && $answers_extra['type'] == 'default'){
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'default';
-            $answer_fields_html = '<li class="wb_poll_items" id="wp-poll-answer-'.$index.'">';   
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';   
             $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
                     'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';    
             $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"   id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/>
@@ -1552,7 +1552,7 @@ class WBPollHelper
         }elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'image'){
 
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'image';
-            $answer_fields_html = '<li class="wb_poll_items" id="wp-poll-answer-'.$index.'">';
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
             $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
                     'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>'; 
@@ -1560,7 +1560,7 @@ class WBPollHelper
             if(isset($thumbnail_size_image) && !empty($thumbnail_size_image)){
                 $answer_fields_html .= '<div class="left image_wbpoll_full_thumbnail_image_answer-'.$index.'"><img width="266" height="266" src="'.$thumbnail_size_image. '"></div>';
             }else{
-                $answer_fields_html .= '<div class="left image_wbpoll_full_thumbnail_image_answer-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+                $answer_fields_html .= '<div class="left image_wbpoll_full_thumbnail_image_answer-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wb-content/uploads/woocommerce-placeholder.png"></div>';
             }
             
             $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Image Answer', 'wbpoll').'</h4>';  
@@ -1589,7 +1589,7 @@ class WBPollHelper
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'video'){
 
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'video';
-            $answer_fields_html = '<li class="wb_poll_items" id="wp-poll-answer-'.$index.'">';
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
             $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
                     'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';  
@@ -1597,7 +1597,7 @@ class WBPollHelper
             if(isset($video_thumbnail_image) && !empty($video_thumbnail_image)){
                 $answer_fields_html .= '<div class="left image_wbpoll_video_thumbnail_image_url-'.$index.'"><img width="266" height="266" src="'.$video_thumbnail_image. '"></div>';
             }else{
-                $answer_fields_html .= '<div class="left image_wbpoll_video_thumbnail_image_url-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+                $answer_fields_html .= '<div class="left image_wbpoll_video_thumbnail_image_url-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wb-content/uploads/woocommerce-placeholder.png"></div>';
             }
            
             $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Video Answer', 'wbpoll').'</h4>'; 
@@ -1626,7 +1626,7 @@ class WBPollHelper
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'audio'){
 
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'audio';
-            $answer_fields_html = '<li class="wb_poll_items" id="wp-poll-answer-'.$index.'">';
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
             $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
                     'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>'; 
 
@@ -1635,7 +1635,7 @@ class WBPollHelper
                 
                 $answer_fields_html .= '<div class="left image_wbpoll_audio_thumbnail_image_url-'.$index.'" ><img width="266" height="266" src="'.$audio_thumbnail_image. '"></div>';
             }else{
-                $answer_fields_html .= '<div class="left image_wbpoll_audio_thumbnail_image_url-'.$index.'" ><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+                $answer_fields_html .= '<div class="left image_wbpoll_audio_thumbnail_image_url-'.$index.'" ><img width="266" height="266" src="'.site_url() . '/wb-content/uploads/woocommerce-placeholder.png"></div>';
             }
             
             $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Audio Answer', 'wbpoll').'</h4>';
@@ -1664,7 +1664,7 @@ class WBPollHelper
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'html'){
 
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'html';
-            $answer_fields_html = '<li class="wb_poll_items" id="wp-poll-answer-'.$index.'">';
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
             $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
                     'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';   
@@ -1719,7 +1719,7 @@ class WBPollHelper
             return $data;
         }
 
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
 
@@ -1732,14 +1732,14 @@ class WBPollHelper
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('published=%d', intval($status));
+            $where_sql .= $wbdb->prepare('published=%d', intval($status));
         }
 
         if (intval($user_id) > 0) {
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('user_id=%d', intval($user_id));
+            $where_sql .= $wbdb->prepare('user_id=%d', intval($user_id));
         }
 
 
@@ -1761,7 +1761,7 @@ class WBPollHelper
         $sortingOrder = " ORDER BY $orderby $order ";
 
 
-        $data = $wpdb->get_results("$sql_select  WHERE  $where_sql $sortingOrder  $limit_sql", 'ARRAY_A');
+        $data = $wbdb->get_results("$sql_select  WHERE  $where_sql $sortingOrder  $limit_sql", 'ARRAY_A');
 
         return $data;
     }//end method getAllVotesByUser
@@ -1791,7 +1791,7 @@ class WBPollHelper
         $poll_id = intval($poll_id);
         $vote_id = intval($vote_id);
 
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
 
@@ -1802,21 +1802,21 @@ class WBPollHelper
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('poll_id=%d', $poll_id);
+            $where_sql .= $wbdb->prepare('poll_id=%d', $poll_id);
         }
 
         if ($vote_id > 0) {
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('id=%d', $vote_id);
+            $where_sql .= $wbdb->prepare('id=%d', $vote_id);
         }
 
         if (is_numeric($status)) {
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('published=%d', intval($status));
+            $where_sql .= $wbdb->prepare('published=%d', intval($status));
         }
 
 
@@ -1838,7 +1838,7 @@ class WBPollHelper
         $sortingOrder = " ORDER BY $orderby $order ";
 
 
-        $data = $wpdb->get_results("$sql_select  WHERE  $where_sql $sortingOrder  $limit_sql", 'ARRAY_A');
+        $data = $wbdb->get_results("$sql_select  WHERE  $where_sql $sortingOrder  $limit_sql", 'ARRAY_A');
 
         return $data;
     }//end method getAllVotes
@@ -1859,7 +1859,7 @@ class WBPollHelper
         $poll_id = intval($poll_id);
         $vote_id = intval($vote_id);
 
-        global $wpdb;
+        global $wbdb;
         $votes_name = WBPollHelper::wb_poll_table_name();
 
         $sql_select = "SELECT COUNT(*) FROM $votes_name";
@@ -1869,21 +1869,21 @@ class WBPollHelper
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('poll_id=%d', $poll_id);
+            $where_sql .= $wbdb->prepare('poll_id=%d', $poll_id);
         }
 
         if ($vote_id > 0) {
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('id=%d', $vote_id);
+            $where_sql .= $wbdb->prepare('id=%d', $vote_id);
         }
 
         if (is_numeric($status)) {
             if ($where_sql != '') {
                 $where_sql .= ' AND ';
             }
-            $where_sql .= $wpdb->prepare('published=%d', intval($status));
+            $where_sql .= $wbdb->prepare('published=%d', intval($status));
         }
 
 
@@ -1892,7 +1892,7 @@ class WBPollHelper
         }
 
 
-        $count = $wpdb->get_var("$sql_select  WHERE  $where_sql");
+        $count = $wbdb->get_var("$sql_select  WHERE  $where_sql");
 
         return $count;
     }//end method getVoteCount
@@ -1906,11 +1906,11 @@ class WBPollHelper
      */
     public static function getVoteInfo($vote_id)
     {
-        global $wpdb;
+        global $wbdb;
 
         $votes_name = WBPollHelper::wb_poll_table_name();
-        $sql        = $wpdb->prepare("SELECT * FROM $votes_name WHERE id=%d ", intval($vote_id));
-        $log_info   = $wpdb->get_row($sql, ARRAY_A);
+        $sql        = $wbdb->prepare("SELECT * FROM $votes_name WHERE id=%d ", intval($vote_id));
+        $log_info   = $wbdb->get_row($sql, ARRAY_A);
 
         return $log_info;
     }//end method getVoteInfo
@@ -1931,7 +1931,7 @@ class WBPollHelper
         $url = add_query_arg(array(
             'utm_source'   => 'plgsidebarinfo',
             'utm_medium'   => 'plgsidebar',
-            'utm_campaign' => 'wpfreemium',
+            'utm_campaign' => 'wbfreemium',
         ), $url);
 
         return $url;
