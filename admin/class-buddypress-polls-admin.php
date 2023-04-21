@@ -173,7 +173,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-bb-plugins-offer-wrapper">
 					<div id="wb_admin_logo">
 						<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . '/admin/assets/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . '/admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
 						</a>
 					</div>
 				</div>
@@ -946,7 +946,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<a data-type="image" id="add-wb-poll-image-answer"
 					class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>"><i
 								style="line-height: 25px;"
-								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Image Answer',
+								class="dashicons dashicons-format-image"></i> <?php echo esc_html__('Add Image Answer',
 							'wbpoll'); ?>
 					</a>
 					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
@@ -955,7 +955,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<a data-type="video" id="add-wb-poll-video-answer"
 					class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>"><i
 								style="line-height: 25px;"
-								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Video Answer',
+								class="dashicons dashicons-format-video"></i> <?php echo esc_html__('Add Video Answer',
 							'wbpoll'); ?>
 					</a>
 					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
@@ -964,7 +964,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<a data-type="audio" id="add-wb-poll-audio-answer"
 					class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>"><i
 								style="line-height: 25px;"
-								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Audio Answer',
+								class="dashicons dashicons-format-audio"></i> <?php echo esc_html__('Add Audio Answer',
 							'wbpoll'); ?>
 					</a>
 					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
@@ -973,7 +973,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<a data-type="html" id="add-wb-poll-html-answer"
 					class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>"><i
 								style="line-height: 25px;"
-								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add HTML Answer',
+								class="dashicons dashicons-html"></i> <?php echo esc_html__('Add HTML Answer',
 							'wbpoll'); ?>
 					</a>
 					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
