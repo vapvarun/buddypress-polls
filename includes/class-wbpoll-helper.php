@@ -740,7 +740,7 @@ class WBPollHelper
 
 
         if ($user_id == 0) {
-            $user_session = $_COOKIE[wb_poll_COOKIE_NAME]; //this is string
+            $user_session = $_COOKIE[WB_POLL_COOKIE_NAME]; //this is string
 
         } elseif (is_user_logged_in()) {
             $user_session = 'user-'.$user_id; //this is string
@@ -771,6 +771,11 @@ class WBPollHelper
 
 
         $poll_answers_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+
+        //image, video, audio
+        $poll_ans_image = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+        $poll_answers_video = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+        $poll_answers_audio = get_post_meta($post_id, '_wbpoll_answer_extra', true);
 
         //new field from v1.0.1
 
@@ -1125,16 +1130,17 @@ class WBPollHelper
                                     $extra_list_attr, $post_id, $index, $answer, $poll_answers_extra_single).'>';
 
                             $wbpoll_form_answer_listitem_inside_html_start = '';
-                            $poll_form_html                                 .= apply_filters('wbpoll_form_answer_listitem_inside_html_start',
+                            $poll_form_html.= apply_filters('wbpoll_form_answer_listitem_inside_html_start',
                                 $wbpoll_form_answer_listitem_inside_html_start, $post_id, $index, $answer,
                                 $poll_answers_extra_single);
-                            $poll_form_html                                 .= '<div class="checkbox-alignment">';
-                            $poll_form_html                                 .= '<input type="'.$vote_input_type.'" value="'.$index.'" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-'.$post_id.'" data-pollcolor = "'.$poll_colors[$index].' "data-post-id="'.$post_id.'" name="'.$input_name.'"  data-answer="'.$answer.' " id="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"  />';
-                            $poll_form_html                                 .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-'.$post_id.'"  data-post-id="'.$post_id.'" data-answer="'.$answer.' ">'.apply_filters('wbpoll_form_listitem_answer_title',
+                            $poll_form_html.= '<div class="checkbox-alignment">';
+                            $poll_form_html .='<div class="image"></div>';
+                            $poll_form_html .= '<input type="'.$vote_input_type.'" value="'.$index.'" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-'.$post_id.'" data-pollcolor = "'.$poll_colors[$index].' "data-post-id="'.$post_id.'" name="'.$input_name.'"  data-answer="'.$answer.' " id="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"  />';
+                            $poll_form_html .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-'.$post_id.'"  data-post-id="'.$post_id.'" data-answer="'.$answer.' ">'.apply_filters('wbpoll_form_listitem_answer_title',
                                     $answer, $post_id, $index, $poll_answers_extra_single).'</span></label>';
-                            $poll_form_html                                 .= '</div>';
+                            $poll_form_html .= '</div>';
                             $wbpoll_form_answer_listitem_inside_html_end   = '';
-                            $poll_form_html                                 .= apply_filters('wbpoll_form_answer_listitem_inside_html_end',
+                            $poll_form_html .= apply_filters('wbpoll_form_answer_listitem_inside_html_end',
                                 $wbpoll_form_answer_listitem_inside_html_end, $post_id, $index, $answer,
                                 $poll_answers_extra_single);
 

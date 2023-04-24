@@ -120,22 +120,22 @@ class Buddypress_Polls_Public {
 
 		/********** polls *************/
 
-		wp_register_style('select2', plugin_dir_url( __FILE__ ) . 'admin/assets/js/select2/css/select2.min.css', array(),
+		wp_register_style('select2', BPOLLS_PLUGIN_URL . 'admin/css/select2/css/select2.min.css', array(),
             $this->version);
 
-			wp_register_style('wbpoll-ui-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/ui-lightness/jquery-ui.min.css',
+			wp_register_style('wbpoll-ui-styles', BPOLLS_PLUGIN_URL . 'admin/css/ui-lightness/jquery-ui.min.css',
 				array(), BPOLLS_PLUGIN_VERSION);
 			wp_register_style('wbpoll-ui-styles-timepicker',
-			plugin_dir_url( __FILE__ ) . 'admin/assets/js/jquery-ui-timepicker-addon.min.css', array(), BPOLLS_PLUGIN_VERSION);
+			BPOLLS_PLUGIN_URL . 'admin/js/jquery-ui-timepicker-addon.min.css', array(), BPOLLS_PLUGIN_VERSION);
 
-			wp_register_style('wbpoll-ply-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/ply.css', array(),
+			wp_register_style('wbpoll-ply-styles', BPOLLS_PLUGIN_URL . 'admin/css/ply.css', array(),
 				BPOLLS_PLUGIN_VERSION);
-			wp_register_style('wbpoll-switchery-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/switchery.min.css', array(),
+			wp_register_style('wbpoll-switchery-styles', BPOLLS_PLUGIN_URL . 'admin/css/switchery.min.css', array(),
 				BPOLLS_PLUGIN_VERSION);
 
 			//poll admin edit and listing
 
-			wp_register_style('wbpoll-admin-styles', plugin_dir_url( __FILE__ ) . 'admin/assets/css/wbpoll_admin.css', array(
+			wp_register_style('wbpoll-admin-styles', BPOLLS_PLUGIN_URL . 'admin/css/wbpoll_admin.css', array(
 				'select2',
 				'wbpoll-ui-styles',
 				'wbpoll-ui-styles-timepicker',
@@ -162,7 +162,7 @@ class Buddypress_Polls_Public {
 			}
 
 			//poll setting
-			wp_register_style('wbpoll-admin-setting', plugin_dir_url( __FILE__ ) . 'admin/assets/css/wbpoll-admin-setting.css',
+			wp_register_style('wbpoll-admin-setting', BPOLLS_PLUGIN_URL . 'admin/css/wbpoll-admin-setting.css',
 				array(
 					'wp-color-picker',
 					'select2',
@@ -285,29 +285,29 @@ class Buddypress_Polls_Public {
 
 		/*********** poll *************/
 
-		$page = isset($_GET['page']) ? esc_attr(wp_unslash($_GET['page'])) : '';
+		$page = isset($_GET['page']) ? esc_attr(wp_unslash($_GET['page'])) : '';     
 
-		wp_register_script('wbpoll-jseventManager', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpolljsactionandfilter.js',
+		wp_register_script('wbpoll-jseventManager', BPOLLS_PLUGIN_URL . 'admin/js/wbpolljsactionandfilter.js',
 			array(), BPOLLS_PLUGIN_VERSION, true);
 
-		//wp_register_script( 'wbpoll-choosen-script', plugins_url( '/admin/assets/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), BPOLLS_PLUGIN_VERSION, true );
-		wp_register_script('select2', plugin_dir_url( __FILE__ ) . 'admin/assets/js/select2/js/select2.min.js',
+		//wp_register_script( 'wbpoll-choosen-script', plugins_url( '/admin/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), BPOLLS_PLUGIN_VERSION, true );
+		wp_register_script('select2',  BPOLLS_PLUGIN_URL . 'admin/js/select2/js/select2.min.js',
 			array('jquery'), $this->version, true);
 
 
 		wp_register_script('wbpoll-ui-time-script',
-		plugin_dir_url( __FILE__ ) . 'admin/assets/js/jquery-ui-timepicker-addon.js', array(
+		BPOLLS_PLUGIN_URL . 'admin/js/jquery-ui-timepicker-addon.js', array(
 				'jquery',
 				'jquery-ui-datepicker'
 			), BPOLLS_PLUGIN_VERSION, true);
 
-		wp_register_script('wbpoll-plyjs', plugin_dir_url( __FILE__ ) . 'admin/assets/js/ply.min.js', array('jquery'),
+		wp_register_script('wbpoll-plyjs', BPOLLS_PLUGIN_URL . 'admin/js/ply.min.js', array('jquery'),
 			BPOLLS_PLUGIN_VERSION, true);
-		wp_register_script('wbpoll-switcheryjs', plugin_dir_url( __FILE__ ) . 'admin/assets/js/switchery.min.js',
+		wp_register_script('wbpoll-switcheryjs', BPOLLS_PLUGIN_URL . 'admin/js/switchery.min.js',
 			array('jquery'), BPOLLS_PLUGIN_VERSION, true);
 
 		//admin poll listing
-		wp_register_script('wbpolladminlisting', plugin_dir_url( __FILE__ ) . '/admin/assets/js/wbpoll_admin_listing.js', array(
+		wp_register_script('wbpolladminlisting', BPOLLS_PLUGIN_URL . '/admin/js/wbpoll_admin_listing.js', array(
 			'wbpoll-jseventManager',
 			'jquery',
 			'wbpoll-switcheryjs',
@@ -346,7 +346,7 @@ class Buddypress_Polls_Public {
 
 
 		//admin poll single edit
-		wp_register_script('wbpolladminsingle', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-admin-single.js', array(
+		wp_register_script('wbpolladminsingle', BPOLLS_PLUGIN_URL . 'admin/js/wbpoll-admin-single.js', array(
 			'wbpoll-jseventManager',
 			'jquery',
 			'wp-color-picker',
@@ -417,7 +417,7 @@ class Buddypress_Polls_Public {
 		}
 
 		//poll setting
-		wp_register_script('wbpoll-admin-setting', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-admin-setting.js',
+		wp_register_script('wbpoll-admin-setting', BPOLLS_PLUGIN_URL . 'admin/js/wbpoll-admin-setting.js',
 			array(
 				'jquery',
 				'select2',
@@ -442,7 +442,7 @@ class Buddypress_Polls_Public {
 		}
 
 		//header scroll
-		wp_register_script('wbpoll-scroll', plugin_dir_url( __FILE__ ) . 'admin/assets/js/wbpoll-scroll.js', array('jquery'),
+		wp_register_script('wbpoll-scroll', BPOLLS_PLUGIN_URL . 'admin/js/wbpoll-scroll.js', array('jquery'),
 			BPOLLS_PLUGIN_VERSION);
 		if ($page == 'wbpollsetting' || $page == 'wbpoll-help-support') {
 			wp_enqueue_script('jquery');
