@@ -119,8 +119,7 @@ function edd_wbcom_BPOLLS_activate_license() {
 				$message = __( 'An error occurred, please try again.', 'buddypress-polls' );
 			}
 		} else {
-			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
+			$license_data = json_decode( wp_remote_retrieve_body( $response ) );			
 			if ( false === $license_data->success ) {
 				switch ( $license_data->error ) {
 					case 'expired':
@@ -157,7 +156,10 @@ function edd_wbcom_BPOLLS_activate_license() {
 						$message = __( 'An error occurred, please try again.', 'buddypress-polls' );
 						break;
 				}
+			} else {
+				set_transient("edd_wbcom_BPOLLS_license_key_data", $license_data, 12 * HOUR_IN_SECONDS);
 			}
+				
 		}
 
 		// Check if anything passed on a message constituting a failure.
@@ -245,6 +247,7 @@ function edd_wbcom_BPOLLS_deactivate_license() {
 
 		// decode the license data.
 		$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+		delete_transient("edd_wbcom_BPOLLS_license_key_data");
 
 		// $license_data->license will be either "deactivated" or "failed"
 		if ( 'deactivated' === $license_data->license ) {
@@ -260,43 +263,57 @@ add_action( 'admin_init', 'edd_wbcom_BPOLLS_deactivate_license' );
 /**
  * This illustrates how to check if a license key is still valid the updater does this for you, so this is only needed if you want to do something custom
  */
+ 
+add_action( 'admin_init', 'edd_wbcom_BPOLLS_check_license' );
 function edd_wbcom_BPOLLS_check_license() {
-	global $wp_version;
+	global $wp_version, $pagenow;	
+	
+	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset($_GET['page']) && $_GET['page'] === 'wbcom-license-page') ) {
+		
+		$license_data = get_transient("edd_wbcom_BPOLLS_license_key_data");	
+		if( empty($license_data) ) {
+			$license = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
 
-	$license = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
+			$api_params = array(
+				'edd_action' => 'check_license',
+				'license'    => $license,
+				'item_name'  => urlencode( EDD_BPOLLS_ITEM_NAME ),
+				'url'        => home_url(),
+			);
 
-	$api_params = array(
-		'edd_action' => 'check_license',
-		'license'    => $license,
-		'item_name'  => urlencode( EDD_BPOLLS_ITEM_NAME ),
-		'url'        => home_url(),
-	);
+			// Call the custom API.
+			$response = wp_remote_post(
+				EDD_BPOLLS_STORE_URL,
+				array(
+					'timeout'   => 15,
+					'sslverify' => false,
+					'body'      => $api_params,
+				)
+			);
 
-	// Call the custom API.
-	$response = wp_remote_post(
-		EDD_BPOLLS_STORE_URL,
-		array(
-			'timeout'   => 15,
-			'sslverify' => false,
-			'body'      => $api_params,
-		)
-	);
+			if ( is_wp_error( $response ) ) {
+				return false;
+			}
 
-	if ( is_wp_error( $response ) ) {
-		return false;
+			$license_data = json_decode( wp_remote_retrieve_body( $response ) );
+			if(!empty($license_data)) {
+				set_transient("edd_wbcom_BPOLLS_license_key_data", $license_data, 12 * HOUR_IN_SECONDS);
+			}
+			
+			/*
+			if ( 'valid' === $license_data->license ) {
+				echo 'valid';
+				exit;
+				// this license is still valid.
+			} else {
+				echo 'invalid';
+				exit;
+				// this license is no longer valid.
+			}
+			*/
+		} 
 	}
-
-	$license_data = json_decode( wp_remote_retrieve_body( $response ) );
-
-	if ( 'valid' === $license_data->license ) {
-		echo 'valid';
-		exit;
-		// this license is still valid.
-	} else {
-		echo 'invalid';
-		exit;
-		// this license is no longer valid.
-	}
+	
 }
 
 /**
@@ -304,13 +321,33 @@ function edd_wbcom_BPOLLS_check_license() {
  */
 function edd_wbcom_BPOLLS_admin_notices() {
 	$license_activation = filter_input( INPUT_GET, 'WPLI_activation' ) ? filter_input( INPUT_GET, 'WPLI_activation' ) : '';
-	$error_message      = filter_input( INPUT_GET, 'message' ) ? filter_input( INPUT_GET, 'message' ) : '';
-	if ( isset( $license_activation ) && ! empty( $error_message ) ) {
+	$error_message      = filter_input( INPUT_GET, 'message' ) ? filter_input( INPUT_GET, 'message' ) : '';	
+	$license_data 		= get_transient("edd_wbcom_BPOLLS_license_key_data");
+	$license 			= trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
+	
+	if ( isset( $license_activation ) && ! empty( $error_message ) || ( !empty($license_data) && $license_data->license == 'expired' )) {
+		if ( $license_activation === '' ) {
+			$license_activation = $license_data->license;
+		}
 		switch ( $license_activation ) {
+			case 'expired':
+				?>
+				<div class="notice notice-error is-dismissible">
+				<?php 
+				echo $message = sprintf(
+							/* translators: %1$s: Expire Time*/
+							__( 'Your BuddyPress Polls plugin license key expired on %s.', 'buddypress-polls' ),
+							date_i18n( get_option( 'date_format' ), strtotime( $license_data->expires, current_time( 'timestamp' ) ) )
+						);
+				?>
+				</div>
+				<?php
+						break;
+			break;
 			case 'false':
 				$message = urldecode( $error_message );
 				?>
-				<div class="error">
+				<div class="notice notice-error is-dismissible">
 					<p><?php echo esc_html( $message ); ?></p>
 				</div>
 				<?php
@@ -322,6 +359,18 @@ function edd_wbcom_BPOLLS_admin_notices() {
 				break;
 		}
 	}
+	
+	if ( $license === '' ) {
+		?>
+		<div class="notice notice-error is-dismissible">
+			<p>
+			<?php 
+			echo esc_html__( 'Please activate your BuddyPress Polls plugin license key.', 'buddypress-polls' );
+			?>
+			</p>			
+		</div>
+		<?php
+	}
 }
 add_action( 'admin_notices', 'edd_wbcom_BPOLLS_admin_notices' );
 
@@ -332,13 +381,17 @@ add_action( 'admin_notices', 'edd_wbcom_BPOLLS_admin_notices' );
  */
 function wbcom_BPOLLS_render_license_section() {
 
-	$license = get_option( 'edd_wbcom_BPOLLS_license_key', true );
-	$status  = get_option( 'edd_wbcom_BPOLLS_license_status' );
-
-	if ( false !== $status && 'valid' === $status ) {
+	$license 		= get_option( 'edd_wbcom_BPOLLS_license_key', true );
+	$status  		= get_option( 'edd_wbcom_BPOLLS_license_status' );
+	$license_data 	= get_transient("edd_wbcom_BPOLLS_license_key_data");
+	
+	if ( false !== $status && 'valid' === $status  && !empty($license_data) && $license_data->license == 'valid') {
 		$status_class = 'active';
 		$status_text  = 'Active';
-	} else {
+	} else if ( !empty($license_data) && $license_data->license != '' ) {
+		$status_class = 'expired';
+		$status_text  = $license_data->license;
+	}else {
 		$status_class = 'inactive';
 		$status_text  = 'Inactive';
 	}
