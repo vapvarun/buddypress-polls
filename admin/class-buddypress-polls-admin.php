@@ -837,7 +837,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				wp_nonce_field('wbpoll_meta_box', 'wbpoll_meta_box_nonce');
 
 				echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="'.$poll_postid.'">';
-				echo '<h4>'.esc_html__('Poll Answers', 'wbpoll').'</h4>';
+				echo '<h3>'.esc_html__('Poll Answers', 'wbpoll').'</h3>';
 				echo __('<p>[<strong>Note : </strong>  <span>Please select different color for each field.]</span></p>',
 					'wbpoll');
 
@@ -986,136 +986,138 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				echo '</div>';
 
 
-				echo '<table class="form-table">';
+				echo '<div class="wbcom-admin-option-wrap">';
+					echo '<table class="form-table wbcom-settings-section-options wbpoll-answer-options">';
 
-				foreach ($post_meta_fields as $field) {
+					foreach ($post_meta_fields as $field) {
 
-					$meta = get_post_meta($poll_postid, $field['id'], true);
-
-
-					if ($meta == '' && isset($field['default'])) {
-
-						$meta = $field['default'];
-					}
-
-					$label = isset($field['label']) ? $field['label'] : '';
-
-					echo '<tr>';
-					echo '<th><label for="'.$field['id'].'">'.$label.'</label></th>';
-					echo '<td>';
+						$meta = get_post_meta($poll_postid, $field['id'], true);
 
 
-					switch ($field['type']) {
+						if ($meta == '' && isset($field['default'])) {
 
-						case 'text':
-							echo '<input type="text" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-text-'.$poll_postid.'" value="'.$meta.'" size="30" />
-							<span class="description">'.$field['desc'].'</span>';
-							break;
-						case 'number':
-							echo '<input type="number" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-number-'.$poll_postid.'" value="'.$meta.'" size="30" />
-							<span class="description">'.$field['desc'].'</span>';
-							break;
+							$meta = $field['default'];
+						}
 
-						case 'date':
+						$label = isset($field['label']) ? $field['label'] : '';
 
-							echo '<input type="text" class="wbpollmetadatepicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
-							<span class="description">'.$field['desc'].'</span>';
-							break;
-
-						case 'colorpicker':
+						echo '<tr>';
+						echo '<th><label for="'.$field['id'].'">'.$label.'</label></th>';
+						echo '<td>';
 
 
-							echo '<input type="text" class="wbpoll-colorpicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
-							<span class="description">'.$field['desc'].'</span>';
-							break;
+						switch ($field['type']) {
 
-						case 'multiselect':
-							echo '<select name="'.$field['id'].'[]" id="'.$field['id'].'-chosen-'.$poll_postid.'" class="selecttwo-select" multiple="multiple">';
-							if (isset($field['optgroup']) && intval($field['optgroup'])) {
+							case 'text':
+								echo '<input type="text" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-text-'.$poll_postid.'" value="'.$meta.'" size="30" />
+								<span class="description">'.$field['desc'].'</span>';
+								break;
+							case 'number':
+								echo '<input type="number" class="regular-text" name="'.$field['id'].'" id="'.$field['id'].'-number-'.$poll_postid.'" value="'.$meta.'" size="30" />
+								<span class="description">'.$field['desc'].'</span>';
+								break;
 
-								foreach ($field['options'] as $optlabel => $data) {
-									echo '<optgroup label="'.$optlabel.'">';
-									foreach ($data as $key => $val) {
+							case 'date':
+
+								echo '<input type="text" class="wbpollmetadatepicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
+								<span class="description">'.$field['desc'].'</span>';
+								break;
+
+							case 'colorpicker':
+
+
+								echo '<input type="text" class="wbpoll-colorpicker" name="'.$field['id'].'" id="'.$field['id'].'-date-'.$poll_postid.'" value="'.$meta.'" size="30" />
+								<span class="description">'.$field['desc'].'</span>';
+								break;
+
+							case 'multiselect':
+								echo '<select name="'.$field['id'].'[]" id="'.$field['id'].'-chosen-'.$poll_postid.'" class="selecttwo-select" multiple="multiple">';
+								if (isset($field['optgroup']) && intval($field['optgroup'])) {
+
+									foreach ($field['options'] as $optlabel => $data) {
+										echo '<optgroup label="'.$optlabel.'">';
+										foreach ($data as $key => $val) {
+											echo '<option value="'.$key.'"', is_array($meta) && in_array($key,
+												$meta) ? ' selected="selected"' : '', ' >'.$val.'</option>';
+										}
+										echo '<optgroup>';
+									}
+
+								} else {
+									foreach ($field['options'] as $key => $val) {
 										echo '<option value="'.$key.'"', is_array($meta) && in_array($key,
 											$meta) ? ' selected="selected"' : '', ' >'.$val.'</option>';
 									}
-									echo '<optgroup>';
 								}
 
-							} else {
-								foreach ($field['options'] as $key => $val) {
-									echo '<option value="'.$key.'"', is_array($meta) && in_array($key,
-										$meta) ? ' selected="selected"' : '', ' >'.$val.'</option>';
-								}
-							}
 
+								echo '</select><span class="description">'.$field['desc'].'</span>';
+								break;
 
-							echo '</select><span class="description">'.$field['desc'].'</span>';
-							break;
+							case 'select':
+								echo '<select name="'.$field['id'].'" id="'.$field['id'].'-select-'.$poll_postid.'" class="cb-select select-'.$poll_postid.'">';
 
-						case 'select':
-							echo '<select name="'.$field['id'].'" id="'.$field['id'].'-select-'.$poll_postid.'" class="cb-select select-'.$poll_postid.'">';
+								if (isset($field['optgroup']) && intval($field['optgroup'])) {
 
-							if (isset($field['optgroup']) && intval($field['optgroup'])) {
+									foreach ($field['options'] as $optlabel => $data) {
+										echo '<optgroup label="'.$optlabel.'">';
+										foreach ($data as $index => $option) {
+											echo '<option '.(($meta == $index) ? ' selected="selected"' : '').' value="'.$index.'">'.$option.'</option>';
+										}
 
-								foreach ($field['options'] as $optlabel => $data) {
-									echo '<optgroup label="'.$optlabel.'">';
-									foreach ($data as $index => $option) {
+									}
+								} else {
+									foreach ($field['options'] as $index => $option) {
 										echo '<option '.(($meta == $index) ? ' selected="selected"' : '').' value="'.$index.'">'.$option.'</option>';
 									}
+								}
+
+
+								echo '</select><br/><span class="description">'.$field['desc'].'</span>';
+								break;
+							case 'radio':
+
+								echo '<fieldset class="radio_fields">
+										<legend class="screen-reader-text"><span>input type="radio"</span></legend>';
+								foreach ($field['options'] as $key => $value) {
+									echo '<label title="g:i a" for="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'">
+												<input id="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'" type="radio" name="'.$field['id'].'" value="'.$key.'" '.(($meta == $key) ? '  checked="checked" ' : '').'  />
+												<span>'.$value.'</span>
+											</label>';
+
 
 								}
-							} else {
-								foreach ($field['options'] as $index => $option) {
-									echo '<option '.(($meta == $index) ? ' selected="selected"' : '').' value="'.$index.'">'.$option.'</option>';
+								echo '</fieldset>';
+								echo '<span class="description">'.$field['desc'].'</span>';
+								break;
+
+							case 'checkbox':
+								echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'-checkbox-'.$poll_postid.'" class="cb-checkbox checkbox-'.$poll_postid.'" ', $meta ? ' checked="checked"' : '', '/>
+							<span for="'.$field['id'].'">'.$field['desc'].'</span>';
+								break;
+							case 'checkbox_group':
+								if ($meta == '') {
+									$meta = array();
+									foreach ($field['options'] as $option) {
+										array_push($meta, $option['value']);
+									}
 								}
-							}
 
-
-							echo '</select><br/><span class="description">'.$field['desc'].'</span>';
-							break;
-						case 'radio':
-
-							echo '<fieldset class="radio_fields">
-									<legend class="screen-reader-text"><span>input type="radio"</span></legend>';
-							foreach ($field['options'] as $key => $value) {
-								echo '<label title="g:i a" for="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'">
-											<input id="'.$field['id'].'-radio-'.$poll_postid.'-'.$key.'" type="radio" name="'.$field['id'].'" value="'.$key.'" '.(($meta == $key) ? '  checked="checked" ' : '').'  />
-											<span>'.$value.'</span>
-										</label>';
-
-
-							}
-							echo '</fieldset>';
-							echo '<br/><span class="description">'.$field['desc'].'</span>';
-							break;
-
-						case 'checkbox':
-							echo '<input type="checkbox" name="'.$field['id'].'" id="'.$field['id'].'-checkbox-'.$poll_postid.'" class="cb-checkbox checkbox-'.$poll_postid.'" ', $meta ? ' checked="checked"' : '', '/>
-						<span for="'.$field['id'].'">'.$field['desc'].'</span>';
-							break;
-						case 'checkbox_group':
-							if ($meta == '') {
-								$meta = array();
 								foreach ($field['options'] as $option) {
-									array_push($meta, $option['value']);
+									echo '<input type="checkbox" value="'.$option['value'].'" name="'.$field['id'].'[]" id="'.$option['value'].'-mult-chk-'.$poll_postid.'-field-'.$field['id'].'" class="cb-multi-check mult-check-'.$poll_postid.'"', $meta && in_array($option['value'],
+										$meta) ? ' checked="checked"' : '', ' />
+								<label for="'.$option['value'].'">'.$option['label'].'</label><br/>';
 								}
-							}
 
-							foreach ($field['options'] as $option) {
-								echo '<input type="checkbox" value="'.$option['value'].'" name="'.$field['id'].'[]" id="'.$option['value'].'-mult-chk-'.$poll_postid.'-field-'.$field['id'].'" class="cb-multi-check mult-check-'.$poll_postid.'"', $meta && in_array($option['value'],
-									$meta) ? ' checked="checked"' : '', ' />
-							<label for="'.$option['value'].'">'.$option['label'].'</label><br/>';
-							}
+								echo '<span class="description">'.$field['desc'].'</span>';
+								break;
 
-							echo '<span class="description">'.$field['desc'].'</span>';
-							break;
-
+						}
+						echo '</td>';
+						echo '</tr>';
 					}
-					echo '</td>';
-					echo '</tr>';
-				}
-				echo '</table>';
+					echo '</table>';
+				echo '</div>';
 
 			else:
 				echo esc_html__('Please save the post once to enter poll answers.', 'wbpoll');
