@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 6.1.1
-Stable tag: 4.2.6
+Tested up to: 6.2.0
+Stable tag: 4.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,10 +53,15 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 4.2.7 =
+* Enhancement - Display notice if license key not activated, License key expired
+* Enhancement - Added - bp business profile plugin compatibility
+* Fix: Fixed #210 - poll icon is visible even on restriction
+
 = 4.2.6 =
-* Fix:  (#194) Fixed Poll label text
-* Fix:  Fixed Plugin redirect issue when multi plugin activate the same time
-* Fix:  (#195) Fixed poll embed activity does not work with forums
+* Fix: (#194) Fixed Poll label text
+* Fix: Fixed Plugin redirect issue when multi plugin activate the same time
+* Fix: (#195) Fixed poll embed activity does not work with forums
 
 = 4.2.5 =
 * Fix: (#193)Fixed PHP warning errors
