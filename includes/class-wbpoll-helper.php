@@ -1146,7 +1146,7 @@ class WBPollHelper
                                 $poll_form_html .='<div class="poll-image"><img src="'.$thumbnail_poll_ans_image[$index].'"></div>';    
                             }elseif(isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index])){
                                 $poll_form_html .='<div class="poll-thumb-image poll-image" data-id="'.$index.'"><img src="'.$thumbnail_poll_ans_image[$index].'"></div>';   
-                                $poll_form_html .='<div class="poll-image-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><img src="'.$thumbnail_poll_ans_image[$index].'"></div></div>';  
+                                $poll_form_html .='<div class="wb-poll-lightbox poll-image-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><img src="'.$thumbnail_poll_ans_image[$index].'"></div></div>';  
                             }
 
                             // video
@@ -1162,7 +1162,7 @@ class WBPollHelper
                             }elseif(isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index])){
 
                                 $poll_form_html .='<div class="poll-thumb-image poll-video-image poll-image"  data-id="'.$index.'"><img src="'.$thumbnail_poll_answers_video[$index].'"></div>';  
-                                $poll_form_html .='<div class="poll-video-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><video src="'.$poll_answers_video[$index].'" controls="" poster="" preload="none"></video></div></div>';  
+                                $poll_form_html .='<div class="wb-poll-lightbox poll-video-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><video src="'.$poll_answers_video[$index].'" controls="" poster="" preload="none"></video></div></div>';  
                             }
 
                             // audio
@@ -1178,7 +1178,7 @@ class WBPollHelper
                             }elseif(isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index])){
 
                                 $poll_form_html .='<div class="poll-thumb-image poll-audio-image poll-image" data-id="'.$index.'"><img src="'.$thumbnail_poll_answers_audio[$index].'"></div>';  
-                                $poll_form_html .='<div class="poll-audio-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><audio src="'.$poll_answers_audio[$index].'" controls="" preload="none" ></audio></div></div>';  
+                                $poll_form_html .='<div class="wb-poll-lightbox poll-audio-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><audio src="'.$poll_answers_audio[$index].'" controls="" preload="none" ></audio></div></div>';  
                             }
 
                             if(isset($poll_answers_html[$index]) && !empty($poll_answers_html[$index])){

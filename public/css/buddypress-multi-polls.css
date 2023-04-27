@@ -1,39 +1,74 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+# Light Box
+# Simple Poll
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Light Box
+--------------------------------------------------------------*/
+.wb-poll-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.wb-poll-lightbox .close {
+    position: absolute;
+    right: 50px;
+    top: 50px;
+    display: grid;
+    width: 40px;
+    height: 40px;
+    margin-left: 8px;
+    border-radius: 9999999px;
+    background: rgba(0, 0, 0, 0.9);
+    place-items: center;
+    color: #fff;
+}
+
+.wb-poll-lightbox .close:hover {
+    background: #fff;
+}
+
+.wb-poll-lightbox .close:hover svg {
+    color: #333;
+}
+
+/*--------------------------------------------------------------
+# Simple Poll
+--------------------------------------------------------------*/
 .checkbox-alignment .poll-thumb-image {
     width: 200px !important;
     margin: 10px !important;
 }
-.poll-image-lightbox, .poll-video-lightbox, .poll-audio-lightbox {
 
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 9999; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
 .content-area {
     margin: 5rem auto;
     display: table;
 }
-.close {
-    color: #fff;
-    float: right;
-    padding: 20px;
-}
+
 .checkbox-alignment {
     display: unset;
 }
+
 li.wbpoll-form-ans-listitem {
     list-style: none;
     margin-bottom: 20px;
 }
+
 label.wbpoll_single_answer_label {
     margin: 10px;
 }
+
 span.wbpoll_single_answer.wbpoll_single_answer-text {
     font-weight: 700;
 }
+
