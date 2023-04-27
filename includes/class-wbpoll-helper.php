@@ -1591,18 +1591,25 @@ class WBPollHelper
         
         if( isset($answers_extra['type']) && $answers_extra['type'] == 'default'){
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'default';
-            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';   
-            $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
-                    'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';    
+            $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
+
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-toolbar">';
+            $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
+            $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
+
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-editor wbpoll-containable-list-item-editor-text wb-hide">';
             $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"   id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/>
                             <input type="'.$input_type.'" id="wbpoll_answer_color-'.$index.'" class="'.$color_class.'" name="_wbpoll_answer_color['.$index.']" size="8"  value="'.$answers_color.'" />';
             $answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_'.$index.'" value="'.$answer_type.'" name="_wbpoll_answer_extra['.$index.'][type]" />';
             $answer_fields_html_extra = apply_filters('wbpoll_answer_extra_fields', $answer_fields_html_extra, $index,
             $answers_extra, $is_voted, $poll_postid);    
             $answer_fields_html .= $answer_fields_html_extra; 
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-editor.
                 
-            $answer_fields_html .= '<span class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove',
-                    'wbpoll').'"></span>'; 
             $answer_fields_html .= '<div class="clear clearfix"></div></li>';
 
         }elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'image'){
@@ -1610,24 +1617,41 @@ class WBPollHelper
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'image';
             $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
-            $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
-                    'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>'; 
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-toolbar">';
+            $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
+            $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-editor wb-hide">';
             if(isset($thumbnail_size_image) && !empty($thumbnail_size_image)){
                 $answer_fields_html .= '<div class="left image_wbpoll_full_thumbnail_image_answer-'.$index.'"><img width="266" height="266" src="'.$thumbnail_size_image. '"></div>';
             }else{
                 $answer_fields_html .= '<div class="left image_wbpoll_full_thumbnail_image_answer-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
             }
             
-            $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Image Answer', 'wbpoll').'</h4>';  
+            $answer_fields_html .= '<div class="right">';
+
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Label', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/>';
+            $answer_fields_html .= '</div>';
            
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/><br>';
-           
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_full_size_image_answer['.$index.']"  placeholder="Full Size image url"  id="wbpoll_answer-'.$index.'" value="'.$full_size_image.'" class="wbpoll_answer wbpoll_full_size_image_answer-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Image URL', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_full_size_image_answer['.$index.']"  placeholder="Full Size image url"  id="wbpoll_answer-'.$index.'" value="'.$full_size_image.'" class="wbpoll_answer wbpoll_full_size_image_answer-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer['.$index.']" placeholder="Thumbnail image url"   id="wbpoll_answer-'.$index.'" value="'.$thumbnail_size_image.'" class="wbpoll_answer wbpoll_full_thumbnail_image_answer-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Thumbnail URL', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer['.$index.']" placeholder="Thumbnail image url"   id="wbpoll_answer-'.$index.'" value="'.$thumbnail_size_image.'" class="wbpoll_answer wbpoll_full_thumbnail_image_answer-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
             $answer_fields_html .= '<input type="'.$input_type.'" id="wbpoll_answer_color-'.$index.'" class="'.$color_class.'" name="_wbpoll_answer_color['.$index.']" size="8"  value="'.$answers_color.'" />';
+            $answer_fields_html .= '</div>';
 
             $answer_fields_html .= '</div>';
 
@@ -1636,10 +1660,9 @@ class WBPollHelper
             $answer_fields_html_extra = apply_filters('wbpoll_answer_extra_fields', $answer_fields_html_extra, $index,
             $answers_extra, $is_voted, $poll_postid);  
 
-            $answer_fields_html .= $answer_fields_html_extra; 
+            $answer_fields_html .= $answer_fields_html_extra;
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-editor.
 
-            $answer_fields_html .= '<span class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove',
-                    'wbpoll').'"></span>'; 
             $answer_fields_html .= '<div class="clear clearfix"></div></li>';
 
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'video'){
@@ -1647,46 +1670,69 @@ class WBPollHelper
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'video';
             $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
-            $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
-                    'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';  
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-toolbar">';
+            $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
+            $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-editor wb-hide">';
             if(isset($video_thumbnail_image) && !empty($video_thumbnail_image)){
                 $answer_fields_html .= '<div class="left image_wbpoll_video_thumbnail_image_url-'.$index.'"><img width="266" height="266" src="'.$video_thumbnail_image. '"></div>';
             }else{
                 $answer_fields_html .= '<div class="left image_wbpoll_video_thumbnail_image_url-'.$index.'"><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
             }
            
-            $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Video Answer', 'wbpoll').'</h4>'; 
+            $answer_fields_html .= '<div class="right">'; 
            
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Label', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/>';
+            $answer_fields_html .= '</div>';
            
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_video_answer_url['.$index.']"  placeholder="Full Size Video URL"  id="wbpoll_answer-'.$index.'" value="'.$video_url.'" class="wbpoll_answer wbpoll_video_answer_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_answer_url-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Video URL', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_video_answer_url['.$index.']"  placeholder="Full Size Video URL"  id="wbpoll_answer-'.$index.'" value="'.$video_url.'" class="wbpoll_answer wbpoll_video_answer_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_answer_url-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_video_thumbnail_image_url['.$index.']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-'.$index.'" value="'.$video_thumbnail_image.'" class="wbpoll_answer wbpoll_video_thumbnail_image_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Video Thumbnail', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_video_thumbnail_image_url['.$index.']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-'.$index.'" value="'.$video_thumbnail_image.'" class="wbpoll_answer wbpoll_video_thumbnail_image_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
             $answer_fields_html .= '<input type="'.$input_type.'" id="wbpoll_answer_color-'.$index.'" class="'.$color_class.'" name="_wbpoll_answer_color['.$index.']" size="8"  value="'.$answers_color.'" />';
+            $answer_fields_html .= '</div>';
 
             $answer_fields_html .= '</div>';
 
             $answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_'.$index.'" value="'.$answer_type.'" name="_wbpoll_answer_extra['.$index.'][type]" />';
             
             $answer_fields_html_extra = apply_filters('wbpoll_answer_extra_fields', $answer_fields_html_extra, $index,
-            $answers_extra, $is_voted, $poll_postid);  
+            $answers_extra, $is_voted, $poll_postid);
 
             $answer_fields_html .= $answer_fields_html_extra; 
 
-            $answer_fields_html .= '<span class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove',
-                    'wbpoll').'"></span>'; 
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-editor.
+
             $answer_fields_html .= '<div class="clear clearfix"></div></li>';
 
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'audio'){
 
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'audio';
             $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
-            $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
-                    'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>'; 
-
+           
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-toolbar">';
+            $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
+            $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
             
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-editor wb-hide">';
             if(isset($audio_thumbnail_image) && !empty($audio_thumbnail_image)){
                 
                 $answer_fields_html .= '<div class="left image_wbpoll_audio_thumbnail_image_url-'.$index.'" ><img width="266" height="266" src="'.$audio_thumbnail_image. '"></div>';
@@ -1694,15 +1740,26 @@ class WBPollHelper
                 $answer_fields_html .= '<div class="left image_wbpoll_audio_thumbnail_image_url-'.$index.'" ><img width="266" height="266" src="'.site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
             }
             
-            $answer_fields_html .= '<div class="right"><h4>'.esc_html('Add Audio Answer', 'wbpoll').'</h4>';
+            $answer_fields_html .= '<div class="right">';
              
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Label', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/>';
+            $answer_fields_html .= '</div>';
            
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_audio_answer_url['.$index.']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-'.$index.'" value="'.$audio_url.'" class="wbpoll_answer wbpoll_audio_answer_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_answer_url-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Audio URL', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_audio_answer_url['.$index.']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-'.$index.'" value="'.$audio_url.'" class="wbpoll_answer wbpoll_audio_answer_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_answer_url-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
-            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url['.$index.']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-'.$index.'" value="'.$audio_thumbnail_image.'" class="wbpoll_answer wbpoll_audio_thumbnail_image_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-'.$index.'"/><br>';
+            $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+            $answer_fields_html .= '<label for="wbpoll_answer-'.$index.'">'.esc_html__('Audio Thumbnail', 'wbpoll').'</label>';
+            $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url['.$index.']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-'.$index.'" value="'.$audio_thumbnail_image.'" class="wbpoll_answer wbpoll_audio_thumbnail_image_url-'.$index.'"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-'.$index.'"/>';
+            $answer_fields_html .= '</div>';
             
+            $answer_fields_html .= '<div class="wbpoll-input-group">';
             $answer_fields_html .= '<input type="'.$input_type.'" id="wbpoll_answer_color-'.$index.'" class="'.$color_class.'" name="_wbpoll_answer_color['.$index.']" size="8"  value="'.$answers_color.'" />';
+            $answer_fields_html .= '</div>';
 
             $answer_fields_html .= '</div>';
 
@@ -1712,9 +1769,8 @@ class WBPollHelper
             $answers_extra, $is_voted, $poll_postid);  
 
             $answer_fields_html .= $answer_fields_html_extra; 
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-editor.
 
-            $answer_fields_html .= '<span class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove',
-                    'wbpoll').'"></span>'; 
             $answer_fields_html .= '<div class="clear clearfix"></div></li>';
 
         } elseif(isset($answers_extra['type']) && $answers_extra['type'] == 'html'){
@@ -1722,8 +1778,15 @@ class WBPollHelper
             $answer_type = isset($answers_extra['type']) ? $answers_extra['type'] : 'html';
             $answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-'.$index.'">';
 
-            $answer_fields_html .= '<span class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers',
-                    'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></span>';   
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-toolbar">';
+            $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
+            $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
+            $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
+
+            $answer_fields_html .='<div class="wbpoll-containable-list-item-editor wb-hide">';
             $answer_fields_html .='<div class="fill-width"><h4>'.esc_html('Add HTML Answer', 'wbpoll').'</h4>';
             
             $answer_fields_html .= '<input type="'.$input_type.'" style="width:330px;" name="_wbpoll_answer['.$index.']" value="'.$answers_title.'"  placeholder="Label" id="wbpoll_answer-'.$index.'" class="wbpoll_answer"/><br>';
@@ -1738,9 +1801,8 @@ class WBPollHelper
             $answers_extra, $is_voted, $poll_postid);  
 
             $answer_fields_html .= $answer_fields_html_extra; 
+            $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-editor.
 
-            $answer_fields_html .= '<span class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove',
-                    'wbpoll').'"></span>'; 
             $answer_fields_html .= '<div class="clear clearfix"></div></li>';
         }
         

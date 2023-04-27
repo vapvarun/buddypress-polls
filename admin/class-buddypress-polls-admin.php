@@ -992,7 +992,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				echo '</div>';
 
 
-				echo '<div class="wbcom-admin-option-wrap">';
+				echo '<div class="wbcom-polls-option-wrap">';
 					echo '<table class="form-table wbcom-settings-section-options wbpoll-answer-options">';
 
 					foreach ($post_meta_fields as $field) {
