@@ -271,8 +271,9 @@ function edd_wbcom_BPOLLS_check_license() {
 	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset($_GET['page']) && $_GET['page'] === 'wbcom-license-page') ) {
 		
 		$license_data = get_transient("edd_wbcom_BPOLLS_license_key_data");	
-		if( empty($license_data) ) {
-			$license = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
+		$license = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
+		if( empty($license_data) && $license != '' ) {
+			
 
 			$api_params = array(
 				'edd_action' => 'check_license',
