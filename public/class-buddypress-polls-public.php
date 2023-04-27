@@ -208,8 +208,31 @@ class Buddypress_Polls_Public {
 		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
 		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
 
-		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls.js', array( 'jquery' ), time(), false );
-		wp_enqueue_script('buddypress-multi-polls');
+		wp_register_script('wbpoll-base64', plugin_dir_url( __FILE__ ) . 'js/jquery.base64.js', array('jquery'),
+            $this->version, true);
+        wp_register_script('pristine', plugin_dir_url( __FILE__ ) . 'js/pristine.min.js', array(), $this->version,
+            true);
+		wp_register_script('wbpoll-publicjs', plugin_dir_url( __FILE__ ) . 'js/wbpoll-public.js', array(
+				'jquery',
+				'wbpoll-base64',
+				'pristine'
+			), $this->version, true);
+		
+		wp_register_script('wbpoll-publicjs', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls.js', array(
+            'jquery',
+            'ebpoll-base64',
+            'pristine'
+        ), $this->version, true);
+		wp_localize_script('wbpoll-publicjs', 'wbpollpublic', array(
+				'ajaxurl'         => admin_url('admin-ajax.php'),
+				'no_answer_error' => esc_html__('Please select at least one answer', 'cbxpoll')
+			)
+		);
+		wp_enqueue_script('wbpoll-publicjs');
+		wp_enqueue_script('jquery');
+        wp_enqueue_script('cbxpoll-base64');
+        wp_enqueue_script('pristine');
+        wp_enqueue_script('cbxpoll-publicjs');
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
 
@@ -448,7 +471,6 @@ class Buddypress_Polls_Public {
 			wp_localize_script('wbpoll-admin-setting', 'wbpolladminsettingObj', $wbpoll_admin_setting_arr);
 			wp_enqueue_script('wbpoll-admin-setting');
 		}
-
 		//header scroll
 		wp_register_script('wbpoll-scroll', BPOLLS_PLUGIN_URL . 'admin/js/wbpoll-scroll.js', array('jquery'),
 			BPOLLS_PLUGIN_VERSION);
@@ -2032,9 +2054,9 @@ class Buddypress_Polls_Public {
 		 */
 		function wbpoll_user_vote()
 		{
-		
+
 			//security check
-			//check_ajax_referer('wbpolluservote', 'nonce');
+			check_ajax_referer('wbpolluservote', 'nonce');
 
 			global $wpdb;
 			$votes_name = WBPollHelper::wb_poll_table_name();

@@ -632,7 +632,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			if ($show_load_more && (int) $options['per_page'] != -1 && $options['per_page'] != '') {
 				$content .= '<p class="wbpoll-listing-more"><a class="wbpoll-listing-trig" href="#" data-user_id="'.intval($user_id).'" data-security="'.$nonce.'" data-page-no="'.$current_page_number.'"  data-busy ="0" data-per-page="'.$per_page.'">'.esc_html__('View More Polls',
-						'wbpoll').'<span class="cbvoteajaximage cbvoteajaximagecustom"></span></a></p>';
+						'wbpoll').'<span class="wbvoteajaximage wbvoteajaximagecustom"></span></a></p>';
 			}
 
 			$content .= '</div>';

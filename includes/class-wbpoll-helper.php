@@ -18,8 +18,8 @@ if (!defined('WPINC')) {
  *
  * lots of micro methods that help get set
  *
- * @package    WPPoll
- * @subpackage WPPoll/includes
+ * @package    wbpoll
+ * @subpackage wbpoll/includes
  * @author     codeboxr <info@codeboxr.com>
  */
 class WBPollHelper
@@ -414,7 +414,7 @@ class WBPollHelper
      *
      * @return string
      */
-    public static function wppoll_mail_content_type($content_type = 'text/plain')
+    public static function wbpoll_mail_content_type($content_type = 'text/plain')
     {
         if ($content_type == 'html') {
             return 'text/html';
@@ -1097,7 +1097,7 @@ class WBPollHelper
 	                    endif;
                         $poll_form_html .= '								
                                 <div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-'.$post_id.'" data-id="'.$post_id.'">
-                                    <form class="wbpoll-form wbpoll-form-'.$post_id.'" method="post" novalidate="true">
+                                    <form class="wbpoll-form wbpoll-form-'.$post_id.'" sction="" method="post" novalidate="true">
                                         <div class="wbpoll-form-insidewrap '.$grid_class.' wbpoll-form-insidewrap-'.$post_id.'">';
 
                         $poll_form_html = apply_filters('wbpoll_form_html_before_question', $poll_form_html, $post_id);
@@ -1210,7 +1210,7 @@ class WBPollHelper
 
                         //show the poll button
                         $poll_form_html .= '<p class = "wbpoll_ajax_link"><button type="submit" class="btn btn-primary button wbpoll_vote_btn" data-reference = "'.$reference.'" data-charttype = "'.$result_chart_type.'" data-busy = "0" data-post-id="'.$post_id.'"  data-security="'.$nonce.'" >'.esc_html__('Vote',
-                                'wbpoll').'<span class="cbvoteajaximage cbvoteajaximagecustom"></span></button></p>';
+                                'wbpoll').'<span class="wbvoteajaximage wbvoteajaximagecustom"></span></button></p>';
                         $poll_form_html .= '<input type="hidden" name="action" value="wbpoll_user_vote">';
                         $poll_form_html .= '<input type="hidden" name="reference" value="'.$reference.'">';
                         $poll_form_html .= '<input type="hidden" name="chart_type" value="'.$result_chart_type.'">';
