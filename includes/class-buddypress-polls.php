@@ -191,6 +191,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			//adding shortcode
 			$this->loader->add_action('init', $plugin_admin, 'init_shortcodes');
 			$this->loader->add_filter('wbpoll_display_options', $plugin_admin, 'poll_display_methods_text');
+
 			// add meta box and hook save meta box
 			$this->loader->add_action('add_meta_boxes', $plugin_admin, 'metaboxes_display');  
 			$this->loader->add_action('save_post', $plugin_admin, 'metabox_save');
@@ -289,6 +290,10 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
+
+			// ajax for voting
+			$this->loader->add_action("wp_ajax_wbpoll_user_vote", $plugin_public, "wbpoll_user_vote");
+			$this->loader->add_action("wp_ajax_nopriv_wbpoll_user_vote", $plugin_public, "wbpoll_user_vote");
 			
 
 		}

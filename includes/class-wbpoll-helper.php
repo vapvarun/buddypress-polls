@@ -772,11 +772,15 @@ class WBPollHelper
 
         $poll_answers_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
 
-        //image, video, audio
-        $poll_ans_image = get_post_meta($post_id, '_wbpoll_answer_extra', true);
-        $poll_answers_video = get_post_meta($post_id, '_wbpoll_answer_extra', true);
-        $poll_answers_audio = get_post_meta($post_id, '_wbpoll_answer_extra', true);
-
+        //image, video, audio, html
+        $poll_ans_image = get_post_meta($post_id, '_wbpoll_full_size_image_answer', true);
+        $poll_answers_video = get_post_meta($post_id, '_wbpoll_video_answer_url', true);
+        $poll_answers_audio = get_post_meta($post_id, '_wbpoll_audio_answer_url', true);
+        $poll_answers_html = get_post_meta($post_id, '_wbpoll_html_answer', true);
+       // thumbnails image, video, audio, html
+       $thumbnail_poll_ans_image = get_post_meta($post_id, '_wbpoll_full_thumbnail_image_answer', true);
+       $thumbnail_poll_answers_video = get_post_meta($post_id, '_wbpoll_video_thumbnail_image_url', true);
+       $thumbnail_poll_answers_audio = get_post_meta($post_id, '_wbpoll_audio_thumbnail_image_url', true);
         //new field from v1.0.1
 
         $poll_multivote = intval(get_post_meta($post_id, '_wbpoll_multivote', true)); //at least a single vote
@@ -794,8 +798,7 @@ class WBPollHelper
 
         //fallback as text if addon no installed
         $result_chart_type = WBPollHelper::chart_type_fallback($result_chart_type); //make sure that if chart type is from pro addon then it's installed
-
-
+        
         $poll_answers = get_post_meta($post_id, '_wbpoll_answer', true);
 
         $poll_answers = is_array($poll_answers) ? $poll_answers : array();
@@ -1095,7 +1098,7 @@ class WBPollHelper
 
                         $poll_form_html .= '								
                                 <div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-'.$post_id.'" data-id="'.$post_id.'">
-                                    <form action="#" class="wbpoll-form wbpoll-form-'.$post_id.'" method="post" novalidate="true">
+                                    <form class="wbpoll-form wbpoll-form-'.$post_id.'" method="post" novalidate="true">
                                         <div class="wbpoll-form-insidewrap '.$grid_class.' wbpoll-form-insidewrap-'.$post_id.'">';
 
                         $poll_form_html = apply_filters('wbpoll_form_html_before_question', $poll_form_html, $post_id);
@@ -1110,7 +1113,7 @@ class WBPollHelper
 
                         //listing poll answers as radio button
                         foreach ($poll_answers as $index => $answer) {
-
+                           
                             $poll_answers_extra_single = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : array('type' => 'default');
 
                             $input_name = 'wbpoll_user_answer';
@@ -1134,11 +1137,59 @@ class WBPollHelper
                                 $wbpoll_form_answer_listitem_inside_html_start, $post_id, $index, $answer,
                                 $poll_answers_extra_single);
                             $poll_form_html.= '<div class="checkbox-alignment">';
-                            $poll_form_html .='<div class="image"></div>';
-                            $poll_form_html .= '<input type="'.$vote_input_type.'" value="'.$index.'" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-'.$post_id.'" data-pollcolor = "'.$poll_colors[$index].' "data-post-id="'.$post_id.'" name="'.$input_name.'"  data-answer="'.$answer.' " id="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"  />';
+                            
+                            // image
+
+                            if(isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index]) && empty($thumbnail_poll_ans_image[$index])){
+                                $poll_form_html .='<div class="poll-image"><img src="'.$poll_ans_image[$index].'"></div>';    
+                            }elseif(isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && empty($poll_ans_image[$index])){
+                                $poll_form_html .='<div class="poll-image"><img src="'.$thumbnail_poll_ans_image[$index].'"></div>';    
+                            }elseif(isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index])){
+                                $poll_form_html .='<div class="poll-thumb-image poll-image" data-id="'.$index.'"><img src="'.$thumbnail_poll_ans_image[$index].'"></div>';   
+                                $poll_form_html .='<div class="poll-image-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><img src="'.$thumbnail_poll_ans_image[$index].'"></div></div>';  
+                            }
+
+                            // video
+                            
+                            if(isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && empty($thumbnail_poll_answers_video[$index])){
+
+                                $poll_form_html .='<div class="poll-video"><video src="'.$poll_answers_video[$index].'" controls="" poster="" preload="none"></video></div>'; 
+
+                            }elseif(isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index]) && empty($poll_answers_video[$index])){
+
+                                $poll_form_html .='<div class="poll-thumb-image poll-video-image"><img src="'.$thumbnail_poll_answers_video[$index].'"></div>'; 
+
+                            }elseif(isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index])){
+
+                                $poll_form_html .='<div class="poll-thumb-image poll-video-image poll-image"  data-id="'.$index.'"><img src="'.$thumbnail_poll_answers_video[$index].'"></div>';  
+                                $poll_form_html .='<div class="poll-video-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><video src="'.$poll_answers_video[$index].'" controls="" poster="" preload="none"></video></div></div>';  
+                            }
+
+                            // audio
+                            
+                            if(isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && empty($thumbnail_poll_answers_audio[$index])){
+
+                                $poll_form_html .='<div class="poll-audio"><audio src="'.$poll_answers_audio[$index].'" controls="" preload="none"></audio></div>'; 
+
+                            }elseif(isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index]) && empty($poll_answers_audio[$index])){
+
+                                $poll_form_html .='<div class="poll-thumb-image poll-video-image"><img src="'.$thumbnail_poll_answers_audio[$index].'"></div>'; 
+
+                            }elseif(isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index])){
+
+                                $poll_form_html .='<div class="poll-thumb-image poll-audio-image poll-image" data-id="'.$index.'"><img src="'.$thumbnail_poll_answers_audio[$index].'"></div>';  
+                                $poll_form_html .='<div class="poll-audio-lightbox lightbox-'.$index.'" style="display:none;"><div class="close" data-id="'.$index.'">Close</div><div class="content-area"><audio src="'.$poll_answers_audio[$index].'" controls="" preload="none" ></audio></div></div>';  
+                            }
+
+                            if(isset($poll_answers_html[$index]) && !empty($poll_answers_html[$index])){
+                                $poll_form_html .='<div class="poll-html">'.$poll_answers_html[$index].'</div>';    
+                            }
+
+
+                            $poll_form_html .= '<input type="'.$vote_input_type.'" value="'.$index.'" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-'.$post_id.'" data-pollcolor = "" data-post-id="'.$post_id.'" name="'.$input_name.'"  data-answer="'.$answer.' " id="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"  />';
                             $poll_form_html .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-'.$index.'-'.$post_id.'"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-'.$post_id.'"  data-post-id="'.$post_id.'" data-answer="'.$answer.' ">'.apply_filters('wbpoll_form_listitem_answer_title',
-                                    $answer, $post_id, $index, $poll_answers_extra_single).'</span></label>';
-                            $poll_form_html .= '</div>';
+                                    $answer, $post_id, $index, $poll_answers_extra_single).'</span></label>';                           
+                             $poll_form_html .= '</div>';                           
                             $wbpoll_form_answer_listitem_inside_html_end   = '';
                             $poll_form_html .= apply_filters('wbpoll_form_answer_listitem_inside_html_end',
                                 $wbpoll_form_answer_listitem_inside_html_end, $post_id, $index, $answer,
@@ -1524,7 +1575,7 @@ class WBPollHelper
         $answers_title = '',
         $answers_color = '',
         $is_voted = 0,
-        $answers_extra,
+        $answers_extra = "",
         $poll_postid = "",
         $full_size_image = "",
         $thumbnail_size_image = "",

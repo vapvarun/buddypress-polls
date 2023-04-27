@@ -467,13 +467,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function add_new_poll_columns($wbpoll_columns)
 		{
-			$wbpoll_columns['title']      = esc_html__('Poll Title', 'wbpoll');
-			$wbpoll_columns['pollstatus'] = esc_html__('Status', 'wbpoll');
-			$wbpoll_columns['startdate']  = esc_html__('Start Date', 'wbpoll');
-			$wbpoll_columns['enddate']    = esc_html__('End Date', 'wbpoll');
-			$wbpoll_columns['date']       = esc_html__('Created', 'wbpoll');
-			$wbpoll_columns['pollvotes']  = esc_html__('Votes', 'wbpoll');
-			$wbpoll_columns['shortcode']  = esc_html__('Shortcode', 'wbpoll');
+			if(get_post_type() == 'wbpoll'){
+				
+				$wbpoll_columns['title']      = esc_html__('Poll Title', 'wbpoll');
+				$wbpoll_columns['pollstatus'] = esc_html__('Status', 'wbpoll');
+				$wbpoll_columns['startdate']  = esc_html__('Start Date', 'wbpoll');
+				$wbpoll_columns['enddate']    = esc_html__('End Date', 'wbpoll');
+				$wbpoll_columns['date']       = esc_html__('Created', 'wbpoll');
+				$wbpoll_columns['pollvotes']  = esc_html__('Votes', 'wbpoll');
+				$wbpoll_columns['shortcode']  = esc_html__('Shortcode', 'wbpoll');
+			}
 
 			return $wbpoll_columns;
 		}//end method add_new_poll_columns
@@ -1422,7 +1425,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				foreach ($poll_result['weighted_index'] as $index => $vote_count) {
 					$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
-						'cbxpoll');
+						'wbpoll');
 					$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
 
 					$percent       = ($vote_count * 100) / $total;
@@ -1438,7 +1441,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 					foreach ($poll_result['weighted_index'] as $index => $vote_count) {
 						$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
-							'cbxpoll');
+							'wbpoll');
 						$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
 
 						$percent    = ($vote_count * 100) / $total;
@@ -1453,12 +1456,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$output .= $output_result;
 				$output .= '</ul>';
 			} else {
-				$output = '<p>'.esc_html__('No approved vote yet', 'cbxpoll').'</p>';
+				$output = '<p>'.esc_html__('No approved vote yet', 'wbpoll').'</p>';
 			}
 
 			echo $output;
 		}//end method poll_display_methods_text_result
-			
 
 	}
 

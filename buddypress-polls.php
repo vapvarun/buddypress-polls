@@ -59,6 +59,8 @@ if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
  */
 function activate_buddypress_polls() {
 
+	WBPollHelper::install_table();
+
 	if ( false === get_option( 'bpolls_settings' ) ) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';

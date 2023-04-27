@@ -1,0 +1,39 @@
+.checkbox-alignment .poll-thumb-image {
+    width: 200px !important;
+    margin: 10px !important;
+}
+.poll-image-lightbox, .poll-video-lightbox, .poll-audio-lightbox {
+
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+.content-area {
+    margin: 5rem auto;
+    display: table;
+}
+.close {
+    color: #fff;
+    float: right;
+    padding: 20px;
+}
+.checkbox-alignment {
+    display: unset;
+}
+li.wbpoll-form-ans-listitem {
+    list-style: none;
+    margin-bottom: 20px;
+}
+label.wbpoll_single_answer_label {
+    margin: 10px;
+}
+span.wbpoll_single_answer.wbpoll_single_answer-text {
+    font-weight: 700;
+}
