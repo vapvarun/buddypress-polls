@@ -648,7 +648,7 @@ class WBPollHelper
         $description = '',
         $reference = 'shortcode'
     ) {
-      
+        
         global $post;
         $output = array();
 
@@ -678,7 +678,7 @@ class WBPollHelper
             //foreach ( $posts_array as $post ) : setup_postdata( $post );
             while ($posts_array->have_posts()) : $posts_array->the_post();
                 $poll_id = get_the_ID();
-
+                
                 $content .= WBPollHelper::wbpoll_single_display($poll_id, $reference, $chart_type, $answer_grid_list,
                     $description);
                 //endforeach;
@@ -1095,7 +1095,6 @@ class WBPollHelper
 
 		                    $poll_form_html .= $guest_html;
 	                    endif;
-
                         $poll_form_html .= '								
                                 <div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-'.$post_id.'" data-id="'.$post_id.'">
                                     <form class="wbpoll-form wbpoll-form-'.$post_id.'" method="post" novalidate="true">

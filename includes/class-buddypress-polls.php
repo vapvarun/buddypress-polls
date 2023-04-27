@@ -291,6 +291,12 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
 
+			//Show poll in details poll post type
+			if (!is_admin()) {
+				$this->loader->add_filter('the_content', $plugin_public, 'wppoll_the_content');
+				$this->loader->add_filter('the_excerpt', $plugin_public, 'wppoll_the_excerpt');
+			}
+
 			// ajax for voting
 			$this->loader->add_action("wp_ajax_wbpoll_user_vote", $plugin_public, "wbpoll_user_vote");
 			$this->loader->add_action("wp_ajax_nopriv_wbpoll_user_vote", $plugin_public, "wbpoll_user_vote");

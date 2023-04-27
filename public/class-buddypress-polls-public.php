@@ -2025,6 +2025,8 @@ class Buddypress_Polls_Public {
 		}
 	}
 
+
+
 	/**
 		 * ajax function for vote
 		 */
@@ -2114,7 +2116,7 @@ class Buddypress_Polls_Public {
 			$poll_answers = is_array($poll_answers) ? $poll_answers : array();
 			$poll_colors  = get_post_meta($poll_id, '_wbpoll_answer_color', true);
 
-		// $log_method = $setting_api['logmethod'];
+	
 
 			$log_method = 'both';
 
@@ -2326,5 +2328,62 @@ class Buddypress_Polls_Public {
 			die();
 
 		}//end method ajax_vote
+
+		/**
+		 * Append poll with the poll post type description
+		 *
+		 * @param $content
+		 *
+		 * @return string
+		 * @throws Exception
+		 */
+		function wppoll_the_content($content)
+		{
+			if (in_array('get_the_excerpt', $GLOBALS['wp_current_filter'])) {
+				return $content;
+			}
+
+			global $post;
+
+
+			//for single or archive wppoll where 'the_content' hook is available
+			if (isset($post->post_type) && ($post->post_type == 'wppoll')) {
+				$post_id = intval($post->ID);
+				$content = $this->poll_session_data($content);
+
+				//write_log($content);
+
+				$content .= WBPollHelper::wppoll_single_display($post_id, 'content_hook', '', '', 0);
+			}
+
+			return $content;
+
+		}//end method wppoll_the_content
+
+		/**
+     * Auto integration for 'the_excerpt'
+     *
+     * @param $content
+     *
+     * @return string
+     * @throws Exception
+     */
+    public function wppoll_the_excerpt($content)
+    {
+        global $post;
+
+
+        //for single or archive wppoll where 'the_content' hook is available
+        if (isset($post->post_type) && ($post->post_type == 'wppoll')) {
+            $post_id = intval($post->ID);
+
+            $content = $this->poll_session_data($content);
+
+            $content .= WBPollHelper::wppoll_single_display($post_id, 'content_hook', '', '', 0);
+        }
+
+        return $content;
+    }//end  the_excerpt_auto_integration
+
 
 }

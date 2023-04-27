@@ -566,7 +566,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function init_shortcodes()
 		{
 			add_shortcode('wbpoll', array($this, 'wbpoll_shortcode')); //single poll shortcode
-			add_shortcode('wbpoll', array($this, 'wbpolls_shortcode')); //all polls shortcode
+			//add_shortcode('wbpoll', array($this, 'wbpolls_shortcode')); //all polls shortcode
 		}//end method init_shortcodes
 
 		 /**
@@ -578,6 +578,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public static function wbpolls_shortcode($atts)
 		{
+			
 			// normalize attribute keys, lowercase
 			$atts = array_change_key_case((array) $atts, CASE_LOWER);
 
@@ -649,10 +650,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function wbpoll_shortcode($atts)
 		{
-
 			// normalize attribute keys, lowercase
 			$atts = array_change_key_case((array) $atts, CASE_LOWER);
 
+		
 
 			//$global_result_chart_type = isset($setting_api['result_chart_type']) ? $setting_api['result_chart_type'] : 'text';
 			$global_result_chart_type = 'text';
@@ -674,10 +675,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			$poll_ids = array_map('trim', explode(',', $options['id']));
 
-
+			
 			$output = '';
+			
 			if (is_array($poll_ids) && sizeof($poll_ids) > 0) {
 				foreach ($poll_ids as $poll_id) {
+				
 					$output .= wbpollHelper::wbpoll_single_display($poll_id, $reference, $chart_type, $grid,
 						$description);
 				}
