@@ -287,9 +287,9 @@ class Buddypress_Polls_Public {
 		);
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'jquery' );
-		wp_enqueue_script( 'cbxpoll-base64' );
+		wp_enqueue_script( 'wbpoll-base64' );
 		wp_enqueue_script( 'pristine' );
-		wp_enqueue_script( 'cbxpoll-publicjs' );
+		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script('buddypress-multi-polls');
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
@@ -2470,28 +2470,25 @@ class Buddypress_Polls_Public {
 		 * @return string
 		 * @throws Exception
 		 */
-	function wppoll_the_content( $content ) {
+	function wbpoll_the_content( $content ) {
 		if ( in_array( 'get_the_excerpt', $GLOBALS['wp_current_filter'] ) ) {
 			return $content;
 		}
 
 		global $post;
 
-		//for single or archive wppoll where 'the_content' hook is available
-		if ( isset( $post->post_type ) && ( $post->post_type == 'wppoll' ) ) {
+		//for single or archive wbpoll where 'the_content' hook is available
+		if ( isset( $post->post_type ) && ( $post->post_type == 'wbpoll' ) ) {
 			$post_id = intval( $post->ID );
-			$content = $this->poll_session_data( $content );
-
-			//write_log($content);
-
-			$content .= WBPollHelper::wppoll_single_display( $post_id, 'content_hook', '', '', 0 );
+			$content .= WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
 		}
 
 		return $content;
 
-	}//end method wppoll_the_content
-
-		/**
+	}//end method wbpoll_the_content
+	
+	
+	/**
 	 * Auto integration for 'the_excerpt'
 	 *
 	 * @param $content
@@ -2499,16 +2496,13 @@ class Buddypress_Polls_Public {
 	 * @return string
 	 * @throws Exception
 	 */
-	public function wppoll_the_excerpt( $content ) {
+	public function wbpoll_the_excerpt( $content ) {
 		global $post;
 
-		//for single or archive wppoll where 'the_content' hook is available
-		if ( isset( $post->post_type ) && ( $post->post_type == 'wppoll' ) ) {
+		//for single or archive wbpoll where 'the_content' hook is available
+		if ( isset( $post->post_type ) && ( $post->post_type == 'wbpoll' ) ) {
 			$post_id = intval( $post->ID );
-
-			$content = $this->poll_session_data( $content );
-
-			$content .= WBPollHelper::wppoll_single_display( $post_id, 'content_hook', '', '', 0 );
+			$content .= WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
 		}
 
 		return $content;

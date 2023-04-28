@@ -293,8 +293,8 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			//Show poll in details poll post type
 			if ( ! is_admin() ) {
-				$this->loader->add_filter( 'the_content', $plugin_public, 'wppoll_the_content' );
-				$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wppoll_the_excerpt' );
+				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
+				$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wbpoll_the_excerpt' );
 			}
 
 			// ajax for voting
