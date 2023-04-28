@@ -176,7 +176,7 @@ class Buddypress_Polls_Public {
 				BPOLLS_PLUGIN_VERSION
 			);
 
-		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ) ) && 'buddypress-polls' == $post_type ) {
+		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ) ) && 'wbpoll' == $post_type ) {
 			//now enqueue css files
 			//wp_enqueue_style( 'wbpoll-chosen' );
 			wp_enqueue_style( 'select2' );
@@ -433,7 +433,7 @@ class Buddypress_Polls_Public {
 			true
 		);
 
-		if ( in_array( $hook, array( 'edit.php' ) ) && 'buddypress-polls' == $post_type ) {
+		if ( in_array( $hook, array( 'edit.php' ) ) && 'wbpoll' == $post_type ) {
 			//adding translation and other variables from php to js for single post edit screen
 			$admin_listing_arr = array(
 				'copy'                => esc_html__( 'Click to copy', 'buddypress-polls' ),
@@ -445,7 +445,7 @@ class Buddypress_Polls_Public {
 				'deleteconfirmok'     => esc_html__( 'Sure', 'buddypress-polls' ),
 				'deleteconfirmcancel' => esc_html__( 'Oh! No', 'buddypress-polls' ),
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-				'nonce'               => wp_create_nonce( 'buddypress-polls' ),
+				'nonce'               => wp_create_nonce( 'wbpoll' ),
 				'please_select'       => esc_html__( 'Please select', 'buddypress-polls' ),
 			);
 
@@ -483,7 +483,7 @@ class Buddypress_Polls_Public {
 			true
 		);
 
-		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) && 'buddypress-polls' == $post_type ) {
+		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) && 'wbpoll' == $post_type ) {
 
 			if ( ! class_exists( '_WP_Editors', false ) ) {
 				require ABSPATH . WPINC . '/class-wp-editor.php';
@@ -520,7 +520,7 @@ class Buddypress_Polls_Public {
 				'deleteconfirmok'       => esc_html__( 'Sure', 'buddypress-polls' ),
 				'deleteconfirmcancel'   => esc_html__( 'Oh! No', 'buddypress-polls' ),
 				'ajaxurl'               => admin_url( 'admin-ajax.php' ),
-				'nonce'                 => wp_create_nonce( 'buddypress-polls' ),
+				'nonce'                 => wp_create_nonce( 'wbpoll' ),
 				'teeny_editor_settings' => array(
 					'teeny'         => true,
 					'textarea_name' => '',
@@ -559,7 +559,7 @@ class Buddypress_Polls_Public {
 
 			$wbpoll_admin_setting_arr = array(
 				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-				'nonce'         => wp_create_nonce( 'buddypress-polls' ),
+				'nonce'         => wp_create_nonce( 'wbpoll' ),
 				'please_select' => esc_html__( 'Please select', 'buddypress-polls' ),
 			);
 			wp_localize_script( 'wbpoll-admin-setting', 'wbpolladminsettingObj', $wbpoll_admin_setting_arr );

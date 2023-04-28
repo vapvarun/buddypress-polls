@@ -465,7 +465,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 *
 		 */
 		public function add_new_poll_columns( $wbpoll_columns ) {
-			if ( get_post_type() == 'buddypress-polls' ) {
+			if ( get_post_type() == 'wbpoll' ) {
 
 				$wbpoll_columns['title']      = esc_html__( 'Poll Title', 'buddypress-polls' );
 				$wbpoll_columns['pollstatus'] = esc_html__( 'Status', 'buddypress-polls' );
@@ -563,8 +563,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * Inits all shortcodes
 		 */
 		public function init_shortcodes() {
-			 add_shortcode( 'buddypress-polls', array( $this, 'wbpoll_shortcode' ) ); //single poll shortcode
-			//add_shortcode('buddypress-polls', array($this, 'wbpolls_shortcode')); //all polls shortcode
+			 add_shortcode( 'wbpoll', array( $this, 'wbpoll_shortcode' ) ); //single poll shortcode
+			//add_shortcode('wbpoll', array($this, 'wbpolls_shortcode')); //all polls shortcode
 		}//end method init_shortcodes
 
 		 /**
@@ -671,7 +671,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'grid'        => $global_answer_grid_list,
 				),
 				$atts,
-				'buddypress-polls'
+				'wbpoll'
 			);
 
 			$reference   = esc_attr( $options['reference'] );
@@ -708,7 +708,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'pollcustom_meta_box',
 				esc_html__( 'Poll Options', 'buddypress-polls' ),
 				array( $this, 'metabox_setting_display' ),
-				'buddypress-polls',
+				'wbpoll',
 				'normal',
 				'high'
 			);
@@ -718,7 +718,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'pollresult_meta_box',
 				esc_html__( 'Poll Result', 'buddypress-polls' ),
 				array( $this, 'metabox_result_display' ),
-				'buddypress-polls',
+				'wbpoll',
 				'side',
 				'low'
 			);
@@ -728,7 +728,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'pollshortcode_meta_box',
 				esc_html__( 'Shortcode', 'buddypress-polls' ),
 				array( $this, 'metabox_shortcode_display' ),
-				'buddypress-polls',
+				'wbpoll',
 				'side',
 				'low'
 			);
@@ -1157,7 +1157,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Check the user's permissions.
-			if ( isset( $_POST['post_type'] ) && 'buddypress-polls' == $_POST['post_type'] ) {
+			if ( isset( $_POST['post_type'] ) && 'wbpoll' == $_POST['post_type'] ) {
 
 				if ( ! current_user_can( 'edit_post', $post_id ) ) {
 					return;
@@ -1358,7 +1358,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function wbpoll_get_answer_template() {
 			//security check
-			check_ajax_referer( 'buddypress-polls', 'security' );
+			check_ajax_referer( 'wbpoll', 'security' );
 
 			//get the fields
 

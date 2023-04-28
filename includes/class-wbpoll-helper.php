@@ -100,8 +100,8 @@ class WBPollHelper {
 	public static function create_wbpoll_post_type() {
 		//$settings = new WBPoll_Settings();
 
-		//$slug_single    = $settings->get_option('slug_single', 'wbpoll_slugs_settings', 'buddypress-polls');
-		//$slug_archive   = $settings->get_option('slug_archive', 'wbpoll_slugs_settings', 'buddypress-polls');
+		//$slug_single    = $settings->get_option('slug_single', 'wbpoll_slugs_settings', 'wbpoll');
+		//$slug_archive   = $settings->get_option('slug_archive', 'wbpoll_slugs_settings', 'wbpoll');
 
 		$args = array(
 			'labels'          => array(
@@ -111,7 +111,7 @@ class WBPollHelper {
 			'menu_icon'       => 'dashicons-chart-bar', // 16px16
 			'public'          => true,
 			//'has_archive'     => true,
-			'has_archive'     => 'buddypress-polls',
+			'has_archive'     => 'wbpoll',
 			'capability_type' => 'page',
 			'supports'        => apply_filters(
 				'wbpoll_post_type_supports',
@@ -122,10 +122,10 @@ class WBPollHelper {
 					'thumbnail',
 				)
 			),
-			'rewrite'         => array( 'slug' => 'buddypress-polls' ),
+			'rewrite'         => array( 'slug' => 'wbpoll' ),
 		);
 
-		register_post_type( 'buddypress-polls', apply_filters( 'wbpoll_post_type_args', $args ) );
+		register_post_type( 'wbpoll', apply_filters( 'wbpoll_post_type_args', $args ) );
 	}//end method create_wbpoll_post_type
 
 	/**
@@ -641,7 +641,7 @@ class WBPollHelper {
 		$output = array();
 
 		$args = array(
-			'post_type'      => 'buddypress-polls',
+			'post_type'      => 'wbpoll',
 			'post_status'    => 'publish',
 			'posts_per_page' => $per_page,
 			'paged'          => $page_number,
