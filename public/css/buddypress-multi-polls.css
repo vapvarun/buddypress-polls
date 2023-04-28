@@ -1,9 +1,49 @@
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
+# Info Message
 # Light Box
 # Simple Poll
 --------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Info Message
+--------------------------------------------------------------*/
+.wbpoll-voted-info {
+	margin: 10px 0;
+    padding: 16px;
+	background: #4d90fd;
+	color: #fff;
+	border: 1px solid #3a8ace;
+    border-radius: 8px;
+}
+
+.wbpoll-voted-info.wbpoll-success {
+    margin: 10px 0;
+    padding: 16px;
+	background: #60c060;
+	color: #fff;
+	border: 1px solid #54a754;
+    border-radius: 8px;
+}
+
+.wbpoll-voted-info.wbpoll-alert {
+    margin: 10px 0;
+    padding: 16px;
+	background: #fc9700;
+	color: #fff;
+	border: 1px solid #d68000;
+    border-radius: 8px;
+}
+
+.wbpoll-voted-info.wbpoll-error {
+    margin: 10px 0;
+    padding: 16px;
+	background: #da4932;
+	color: #fff;
+	border: 1px solid #ca452e;
+    border-radius: 8px;
+}
 
 /*--------------------------------------------------------------
 # Light Box
@@ -45,7 +85,7 @@
 /*--------------------------------------------------------------
 # Simple Poll
 --------------------------------------------------------------*/
-.checkbox-alignment .poll-thumb-image, .per_question_result .poll-thumb-image{
+.checkbox-alignment .poll-thumb-image {
 	width: 200px !important;
 	margin: 10px !important;
 }
@@ -70,25 +110,4 @@ label.wbpoll_single_answer_label {
 
 span.wbpoll_single_answer.wbpoll_single_answer-text {
 	font-weight: 700;
-}
-
-/*--------------------------------------------------------------
-# single Poll Result
---------------------------------------------------------------*/
-.bpolls-item-width-wrapper {
-    background: #c9c9c9;
-    border-radius: 10px;
-}
-.bpolls-item-width {
-    padding: 5px;
-    border-radius: 10px;
-}
-strong.votecount-right {
-    float: right;
-}
-.per_question_result {
-    padding: 10px 0;
-}
-.per_question_result li {
-    list-style: none;
 }

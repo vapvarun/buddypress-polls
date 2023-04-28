@@ -465,7 +465,7 @@ jQuery( document ).ready(
 					function (ui) {
 						if (ui.state) {
 							// Ok
-							$this.parent( '.wb_poll_items' ).remove();
+							$this.parent().parent( '.wb_poll_items' ).remove();
 
 						} else {
 							// Cancel
