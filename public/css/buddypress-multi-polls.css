@@ -4,6 +4,8 @@
 # Info Message
 # Light Box
 # Simple Poll
+# Single Poll Before Result
+# Single Poll After Result
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -18,7 +20,8 @@
     border-radius: 8px;
 }
 
-.wbpoll-voted-info.wbpoll-success {
+.wbpoll-voted-info.wbpoll-success,
+.wbpoll-qresponse-success {
     margin: 10px 0;
     padding: 16px;
     background: #60c060;
@@ -45,13 +48,18 @@
     border-radius: 8px;
 }
 
+.wbpoll-qresponse-success p,
+.wbpoll-voted-info p {
+    margin: 0;
+}
+
 /*--------------------------------------------------------------
 # Light Box
 --------------------------------------------------------------*/
 .wb-poll-lightbox {
     display: none;
     position: fixed;
-    z-index: 9999;
+    z-index: 99999;
     left: 0;
     top: 0;
     width: 100%;
@@ -72,6 +80,7 @@
     background: rgba(0, 0, 0, 0.9);
     place-items: center;
     color: #fff;
+    z-index: 2;
 }
 
 .wb-poll-lightbox .close:hover {
@@ -85,55 +94,166 @@
 /*--------------------------------------------------------------
 # Simple Poll
 --------------------------------------------------------------*/
-.checkbox-alignment .poll-thumb-image,
-.per_question_result .poll-thumb-image {
+/* .checkbox-alignment .poll-thumb-image,
+.wbpoll-question-choices-item-votes .poll-thumb-image {
     width: 200px !important;
     margin: 10px !important;
-}
+} */
 
 .content-area {
-    margin: 5rem auto;
-    display: table;
-}
-
-.checkbox-alignment {
-    display: unset;
-}
-
-li.wbpoll-form-ans-listitem {
-    list-style: none;
-    margin-bottom: 20px;
-}
-
-label.wbpoll_single_answer_label {
-    margin: 10px;
-}
-
-span.wbpoll_single_answer.wbpoll_single_answer-text {
-    font-weight: 700;
+    position: relative;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
 }
 
 /*--------------------------------------------------------------
-# single Poll Result
+# Single Poll Before Result
 --------------------------------------------------------------*/
-.bpolls-item-width-wrapper {
-    background: #c9c9c9;
-    border-radius: 10px;
+.wbpoll-form ul.wbpoll-form-ans-list {
+	margin: 0;
+	padding: 0;
+	list-style: none;
 }
 
-.bpolls-item-width {
-    padding: 5px;
-    border-radius: 10px;
+.wbpoll-form .wbpoll-form-ans-list .wbpoll-form-ans-listitem {
+    margin: 0 0 15px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
-strong.votecount-right {
-    float: right;
+.wbpoll-form .wbpoll-form-ans-list .wbpoll-form-ans-listitem .checkbox-alignment {
+    display: flex;
+    align-items: center;
+	flex-flow: wrap;
 }
 
-.per_question_result {
-    padding: 10px 0;
+.wbpoll-form .wbpoll-form-ans-list .wbpoll-form-ans-listitem .checkbox-alignment input[type=radio] {
+    display: inline-block;
+    margin: 0 15px 0 0 !important;
+    outline: 0;
+    position: relative;
+    border-radius: 100px;
+    width: 20px !important;
+    height: 20px !important;
+    background: #fff;
+    cursor: pointer;
+    -webkit-transition: all .15s ease-out 0s;
+    transition: all .15s ease-out 0s;
 }
 
-.per_question_result li {
-    list-style: none;
+.wbpoll-form .wbpoll_ajax_link .wbpoll_vote_btn {
+	font-family: inherit;
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: 1;
+    text-transform: inherit;
+    text-align: center;
+    padding-top: 1em;
+    padding-right: 1em;
+    padding-bottom: 1em;
+    padding-left: 1em;
+    box-shadow: unset;
+    cursor: pointer;
+}
+
+/*--------------------------------------------------------------
+# Single Poll After Result
+--------------------------------------------------------------*/
+.wbpoll-question-choices-item-label {
+    margin: 0 0 15px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 6px;
+	box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
+}
+
+.wbpoll-question-choices-item-content-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition-duration: 200ms;
+    transition-property: all;
+    transition-timing-function: ease-out;
+}
+
+.wbpoll-question-choices-item-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.wbpoll-question-choices-item-content .poll-image {
+    cursor: pointer;
+}
+
+.wbpoll-question-choices-item-content .poll-image:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+	background-image: none, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'%3e%3cdefs%3e%3cpath id='a' d='M0 0h24v24H0z'/%3e%3c/defs%3e%3cclipPath id='b'%3e%3cuse xlink:href='%23a' overflow='visible'/%3e%3c/clipPath%3e%3cpath clip-path='url(%23b)' fill='%23ffffff' d='M15 3l2.3 2.3-2.89 2.87 1.42 1.42L18.7 6.7 21 9V3zM3 9l2.3-2.3 2.87 2.89 1.42-1.42L6.7 5.3 9 3H3zm6 12l-2.3-2.3 2.89-2.87-1.42-1.42L5.3 17.3 3 15v6zm12-6l-2.3 2.3-2.87-2.89-1.42 1.42 2.89 2.87L15 21h6z'/%3e%3cpath clip-path='url(%23b)' fill='none' d='M0 0h24v24H0z'/%3e%3c/svg%3e");
+	background-color: rgba(0,0,0,0.75);
+    background-repeat: no-repeat,no-repeat;
+    background-position: center;
+    background-size: 0;
+    opacity: 0;
+    transition-duration: 200ms;
+    transition-property: all;
+    transition-timing-function: ease-out;
+    pointer-events: none;
+}
+
+.wbpoll-question-choices-item-content .poll-image:hover::after {
+	opacity: 1;
+	background-size: 36px;
+}
+
+.wbpoll-question-choices-item-text {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wbpoll-question-choices-item-label .bpolls-item-width-wrapper {
+    margin-top: 10px;
+}
+
+.wbpoll-question-choices-item-label .bpolls-item-width-wrapper .wbpoll-question-choices-item-votes-bar {
+    height: 6px;
+}
+
+.wbpoll-question-choices-item-label .wbpoll-vote-percent-data {
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
 }

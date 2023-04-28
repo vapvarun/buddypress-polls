@@ -72,7 +72,6 @@ ul#wb_poll_answers_items li.placeholder:before {
 .wbpoll-containable-list-item-toolbar {
 	display: flex;
 	align-items: center;
-	border-bottom: 1px solid #ddd;
 }
 
 .wbpoll-containable-list-item-toolbar-collapse-text {
@@ -92,6 +91,10 @@ ul#wb_poll_answers_items li.placeholder:before {
 	font-weight: bold;
 	border-radius: 100px;
 	text-align: center;
+}
+
+.wbpoll-containable-list-item-toolbar-collapse-text span:empty {
+	display: none;
 }
 
 .wbpoll-containable-list-item-toolbar-preview-text span {
@@ -133,6 +136,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 .wbpoll-containable-list-item-editor {
 	display: flex;
 	padding: 15px;
+	border-top: 1px solid #ddd;
 }
 
 .wbpoll-containable-list-item-editor-text {
@@ -536,5 +540,12 @@ ul#wb_poll_answers_items li.placeholder:before {
 }
 
 div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
-    display: none;
+	display: none;
+}
+
+/* Poll Result Post Box */
+#pollresult_meta_box .wbpoll-question-choices-item-content .poll-image,
+#pollresult_meta_box .wbpoll-question-choices-item-content .poll-video,
+#pollresult_meta_box .wbpoll-question-choices-item-content .poll-audio {
+	display: none;
 }
