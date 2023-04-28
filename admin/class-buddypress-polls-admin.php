@@ -859,9 +859,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . $post->ID . '">';
 
 				if ( sizeof( $poll_answers ) > 0 ) {
-
+					$i = 1;
 					foreach ( $poll_answers as $index => $poll_answer ) {
-
+						$number= $i++;
 						if ( isset( $poll_answer ) ) {
 							$poll_answers_extra[ $index ] = isset( $poll_answers_extra[ $index ] ) ? $poll_answers_extra[ $index ] : '';
 							$poll_colors[ $index ]        = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : '';
@@ -882,7 +882,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							//HTML
 							$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
 
-							echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ] );
+							echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ], $number );
 						}
 					}
 				}

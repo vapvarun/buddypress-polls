@@ -495,5 +495,15 @@ jQuery( document ).ready(
 				);
 			}
 		);
+		
+		$('.hidetab').hide();
+		$('.wbpoll-containable-list-item-toolbar').on('click', function(){
+			var dataid = $(this).data('id');
+			$( '.wb-hide-' + dataid ).toggle();
+				
+		});
+
+		
+		
 	}
 );
