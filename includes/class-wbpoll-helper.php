@@ -100,18 +100,18 @@ class WBPollHelper {
 	public static function create_wbpoll_post_type() {
 		//$settings = new WBPoll_Settings();
 
-		//$slug_single    = $settings->get_option('slug_single', 'wbpoll_slugs_settings', 'wbpoll');
-		//$slug_archive   = $settings->get_option('slug_archive', 'wbpoll_slugs_settings', 'wbpoll');
+		//$slug_single    = $settings->get_option('slug_single', 'wbpoll_slugs_settings', 'buddypress-polls');
+		//$slug_archive   = $settings->get_option('slug_archive', 'wbpoll_slugs_settings', 'buddypress-polls');
 
 		$args = array(
 			'labels'          => array(
-				'name'          => esc_html__( 'WB Polls', 'wbpoll' ),
-				'singular_name' => esc_html__( 'WB Poll', 'wbpoll' ),
+				'name'          => esc_html__( 'WB Polls', 'buddypress-polls' ),
+				'singular_name' => esc_html__( 'WB Poll', 'buddypress-polls' ),
 			),
 			'menu_icon'       => 'dashicons-chart-bar', // 16px16
 			'public'          => true,
 			//'has_archive'     => true,
-			'has_archive'     => 'wbpoll',
+			'has_archive'     => 'buddypress-polls',
 			'capability_type' => 'page',
 			'supports'        => apply_filters(
 				'wbpoll_post_type_supports',
@@ -122,10 +122,10 @@ class WBPollHelper {
 					'thumbnail',
 				)
 			),
-			'rewrite'         => array( 'slug' => 'wbpoll' ),
+			'rewrite'         => array( 'slug' => 'buddypress-polls' ),
 		);
 
-		register_post_type( 'wbpoll', apply_filters( 'wbpoll_post_type_args', $args ) );
+		register_post_type( 'buddypress-polls', apply_filters( 'wbpoll_post_type_args', $args ) );
 	}//end method create_wbpoll_post_type
 
 	/**
@@ -445,10 +445,10 @@ class WBPollHelper {
 	 */
 	public static function wbpoll_status_by_value() {
 		$states = array(
-			'0' => esc_html__( 'Unapproved', 'wbpoll' ),
-			'1' => esc_html__( 'Approved', 'wbpoll' ),
-			'2' => esc_html__( 'Spam', 'wbpoll' ),
-			'3' => esc_html__( 'Unverified', 'wbpoll' ),
+			'0' => esc_html__( 'Unapproved', 'buddypress-polls' ),
+			'1' => esc_html__( 'Approved', 'buddypress-polls' ),
+			'2' => esc_html__( 'Spam', 'buddypress-polls' ),
+			'3' => esc_html__( 'Unverified', 'buddypress-polls' ),
 		);
 
 		return apply_filters( 'wbpoll_status_by_value', $states );
@@ -461,10 +461,10 @@ class WBPollHelper {
 	 */
 	public static function wbpoll_status_by_slug() {
 		$states = array(
-			'unapprove'  => esc_html__( 'Unapproved', 'wbpoll' ),
-			'approve'    => esc_html__( 'Approved', 'wbpoll' ),
-			'spam'       => esc_html__( 'Spam', 'wbpoll' ),
-			'unverified' => esc_html__( 'Unverified', 'wbpoll' ),
+			'unapprove'  => esc_html__( 'Unapproved', 'buddypress-polls' ),
+			'approve'    => esc_html__( 'Approved', 'buddypress-polls' ),
+			'spam'       => esc_html__( 'Spam', 'buddypress-polls' ),
+			'unverified' => esc_html__( 'Unverified', 'buddypress-polls' ),
 		);
 
 		return apply_filters( 'wbpoll_status_by_value', $states );
@@ -510,7 +510,7 @@ class WBPollHelper {
 				$userRoles[ $role ] = $roleInfo['name'];
 			}
 			if ( $include_guest ) {
-				$userRoles['guest'] = esc_html__( 'Guest', 'wbpoll' );
+				$userRoles['guest'] = esc_html__( 'Guest', 'buddypress-polls' );
 			}
 		} else {
 			//optgroup
@@ -528,7 +528,7 @@ class WBPollHelper {
 
 			if ( $include_guest ) {
 				$userRoles['Anonymous'] = array(
-					'guest' => esc_html__( 'Guest', 'wbpoll' ),
+					'guest' => esc_html__( 'Guest', 'buddypress-polls' ),
 				);
 			}
 		}
@@ -641,7 +641,7 @@ class WBPollHelper {
 		$output = array();
 
 		$args = array(
-			'post_type'      => 'wbpoll',
+			'post_type'      => 'buddypress-polls',
 			'post_status'    => 'publish',
 			'posts_per_page' => $per_page,
 			'paged'          => $page_number,
@@ -721,10 +721,10 @@ class WBPollHelper {
 			if ( in_array( 'administrator', $this_user_role ) || in_array( 'editor', $this_user_role ) ) {
 				$poll_output .= esc_html__(
 					'Note: Poll is not published yet or poll doesn\'t exists. You are checking this as administrator/editor.',
-					'wbpoll'
+					'buddypress-polls'
 				);
 			} else {
-				return esc_html__( 'Sorry, poll is not published yet or poll doesn\'t exists.', 'wbpoll' );
+				return esc_html__( 'Sorry, poll is not published yet or poll doesn\'t exists.', 'buddypress-polls' );
 			}
 		}//end checking publish status
 
@@ -936,7 +936,7 @@ class WBPollHelper {
 						foreach ( $answers_by_user as $uchoice ) {
 							$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
 								'Unknown or answer deleted',
-								'wbpoll'
+								'buddypress-polls'
 							);
 						}
 
@@ -952,7 +952,7 @@ class WBPollHelper {
                          wbpoll-alert  wbpoll-voted-info-' . $post_id . '">' . sprintf(
 							__(
 								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'wbpoll'
+								'buddypress-polls'
 							),
 							$answers_by_user_html
 						) . ' </p>';
@@ -961,7 +961,7 @@ class WBPollHelper {
                         wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
 							__(
 								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'wbpoll'
+								'buddypress-polls'
 							),
 							$answers_by_user_html
 						) . ' </p>';
@@ -971,7 +971,7 @@ class WBPollHelper {
 					$poll_output .= '<p class="wbpoll-voted-info 55
                     wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
 						'The Poll is out of date. You have not voted.',
-						'wbpoll'
+						'buddypress-polls'
 					) . '</p>';
 				}
 			} // end of if poll expired
@@ -1000,7 +1000,7 @@ class WBPollHelper {
 							);
 						}
 
-						$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'wbpoll' ) . '</p>';
+						$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'buddypress-polls' ) . '</p>';
 
 						//integrate user login for guest user
 
@@ -1017,7 +1017,7 @@ class WBPollHelper {
 
 							$guest_html = '<div class="wbpoll-guest-wrap">';
 
-							$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
+							$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' ) . '</p>';
 							$guest_login_html = wp_login_form(
 								array(
 									'redirect' => $redirect_url,
@@ -1032,7 +1032,7 @@ class WBPollHelper {
 							if ( $guest_show_register ) {
 								if ( get_option( 'users_can_register' ) ) {
 									$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
-									$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
+									$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
 								}
 
 								$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
@@ -1069,7 +1069,7 @@ class WBPollHelper {
 								foreach ( $answers_by_user as $uchoice ) {
 									$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
 										'Unknown or answer deleted',
-										'wbpoll'
+										'buddypress-polls'
 									);
 								}
 
@@ -1084,7 +1084,7 @@ class WBPollHelper {
 								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
 									__(
 										'You have already voted for <strong>"%s"</strong>',
-										'wbpoll'
+										'buddypress-polls'
 									),
 									$answers_by_user_html
 								) . ' </p>';
@@ -1097,7 +1097,7 @@ class WBPollHelper {
                             } else {
 								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
 									'You have already voted ',
-									'wbpoll'
+									'buddypress-polls'
 								) . ' </p>';
 
 							}
@@ -1129,7 +1129,7 @@ class WBPollHelper {
 
 							$guest_html = '<div class="wbpoll-guest-wrap">';
 
-							$guest_html      .= '<p class="wbpoll-title-login wbpoll-alert">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
+							$guest_html      .= '<p class="wbpoll-title-login wbpoll-alert">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' ) . '</p>';
 							$guest_login_html = wp_login_form(
 								array(
 									'redirect' => $redirect_url,
@@ -1144,7 +1144,7 @@ class WBPollHelper {
 							if ( $guest_show_register ) {
 								if ( get_option( 'users_can_register' ) ) {
 									$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
-									$guest_register_html .= '<p class="wbpoll-guest-register wbpoll-error">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
+									$guest_register_html .= '<p class="wbpoll-guest-register wbpoll-error">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
 								}
 
 								$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
@@ -1303,7 +1303,7 @@ class WBPollHelper {
 						//show the poll button
 						$poll_form_html .= '<p class = "wbpoll_ajax_link"><button type="submit" class="btn btn-primary button wbpoll_vote_btn" data-reference = "' . $reference . '" data-charttype = "' . $result_chart_type . '" data-busy = "0" data-post-id="' . $post_id . '"  data-security="' . $nonce . '" >' . esc_html__(
 							'Vote',
-							'wbpoll'
+							'buddypress-polls'
 						) . '<span class="wbvoteajaximage wbvoteajaximagecustom"></span></button></p>';
 						$poll_form_html .= '<input type="hidden" name="action" value="wbpoll_user_vote">';
 						$poll_form_html .= '<input type="hidden" name="reference" value="' . $reference . '">';
@@ -1331,7 +1331,7 @@ class WBPollHelper {
 
 		}//poll didn't start yet
 		else {
-			$poll_output = esc_html__( 'Poll Status: Yet to start', 'wbpoll' );
+			$poll_output = esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' );
 		}
 
 		$poll_output .= '</div>'; //end of wbpoll_wrapper
@@ -1582,28 +1582,28 @@ class WBPollHelper {
 		$post_meta_fields = array(
 
 			'_wbpoll_start_date'                => array(
-				'label'   => esc_html__( 'Start Date', 'wbpoll' ),
+				'label'   => esc_html__( 'Start Date', 'buddypress-polls' ),
 				'desc'    => __(
 					'Poll Start Date. [<strong> Note:</strong> Field required. Default is today]',
-					'wbpoll'
+					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_start_date',
 				'type'    => 'date',
 				'default' => $start_date->format( 'Y-m-d H:i:s' ),
 			),
 			'_wbpoll_end_date'                  => array(
-				'label'   => esc_html__( 'End Date', 'wbpoll' ),
+				'label'   => esc_html__( 'End Date', 'buddypress-polls' ),
 				'desc'    => __(
 					'Poll End Date.  [<strong> Note:</strong> Field required. Default is next seven days. ]',
-					'wbpoll'
+					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_end_date',
 				'type'    => 'date',
 				'default' => date( 'Y-m-d H:i:s', $end_date ),
 			),
 			'_wbpoll_user_roles'                => array(
-				'label'    => esc_html__( 'Who Can Vote', 'wbpoll' ),
-				'desc'     => esc_html__( 'Which user role will have vote capability', 'wbpoll' ),
+				'label'    => esc_html__( 'Who Can Vote', 'buddypress-polls' ),
+				'desc'     => esc_html__( 'Which user role will have vote capability', 'buddypress-polls' ),
 				'id'       => '_wbpoll_user_roles',
 				'type'     => 'multiselect',
 				'options'  => $roles,
@@ -1611,76 +1611,76 @@ class WBPollHelper {
 				'default'  => $default_user_roles,
 			),
 			'_wbpoll_content'                   => array(
-				'label'   => esc_html__( 'Show Poll Description in shortcode', 'wbpoll' ),
-				'desc'    => esc_html__( 'Select if you want to show content.', 'wbpoll' ),
+				'label'   => esc_html__( 'Show Poll Description in shortcode', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Select if you want to show content.', 'buddypress-polls' ),
 				'id'      => '_wbpoll_content',
 				'type'    => 'radio',
 				'default' => $default_content,
 				'options' => array(
-					'1' => esc_html__( 'Yes', 'wbpoll' ),
-					'0' => esc_html__( 'No', 'wbpoll' ),
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
 				),
 
 			),
 			'_wbpoll_never_expire'              => array(
-				'label'   => esc_html__( 'Never Expire', 'wbpoll' ),
+				'label'   => esc_html__( 'Never Expire', 'buddypress-polls' ),
 				'desc'    => 'Select if you want your poll to never expire.(can be override from shortcode param)',
 				'id'      => '_wbpoll_never_expire',
 				'type'    => 'radio',
 				'default' => $default_never_expire,
 				'options' => array(
-					'1' => esc_html__( 'Yes', 'wbpoll' ),
-					'0' => esc_html__( 'No', 'wbpoll' ),
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
 				),
 			),
 
 			'_wbpoll_show_result_before_expire' => array(
-				'label'   => esc_html__( 'Show result before expires', 'wbpoll' ),
+				'label'   => esc_html__( 'Show result before expires', 'buddypress-polls' ),
 				'desc'    => esc_html__(
 					'Select if you want poll to show result before expires. After expires the result will be shown always. Please check it if poll never expires.',
-					'wbpoll'
+					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',
 				'type'    => 'radio',
 				'default' => $default_show_result_before_expire,
 				'options' => array(
-					'1' => esc_html__( 'Yes', 'wbpoll' ),
-					'0' => esc_html__( 'No', 'wbpoll' ),
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
 				),
 			),
 			'_wbpoll_multivote'                 => array(
-				'label'   => esc_html__( 'Enable Multi Choice', 'wbpoll' ),
-				'desc'    => esc_html__( 'Can user vote multiple option', 'wbpoll' ),
+				'label'   => esc_html__( 'Enable Multi Choice', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Can user vote multiple option', 'buddypress-polls' ),
 				'id'      => '_wbpoll_multivote',
 				'type'    => 'radio',
 				'default' => $default_poll_multivote,
 				'options' => array(
-					'1' => esc_html__( 'Yes', 'wbpoll' ),
-					'0' => esc_html__( 'No', 'wbpoll' ),
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
 				),
 			),
 			'_wbpoll_vote_per_session'          => array(
-				'label'   => esc_html__( 'Votes per session', 'wbpoll' ),
-				'desc'    => esc_html__( 'Votes per session', 'wbpoll' ),
+				'label'   => esc_html__( 'Votes per session', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Votes per session', 'buddypress-polls' ),
 				'id'      => '_wbpoll_vote_per_session',
 				'type'    => 'number',
 				'default' => 1,
 			),
 			'_wbpoll_timeout'                   => array(
-				'label'   => esc_html__( 'Timeout', 'wbpoll' ),
-				'desc'    => esc_html__( 'How many times can the user vote using the same session', 'wbpoll' ),
+				'label'   => esc_html__( 'Timeout', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'How many times can the user vote using the same session', 'buddypress-polls' ),
 				'id'      => '_wbpoll_timeout',
 				'type'    => 'radio',
 				'default' => 0,
 				'options' => array(
-					'1' => esc_html__( '30 Minutes', 'wbpoll' ),
-					'2' => esc_html__( '1 Hour', 'wbpoll' ),
-					'3' => esc_html__( '6 Hour', 'wbpoll' ),
-					'4' => esc_html__( '1 Day', 'wbpoll' ),
-					'5' => esc_html__( '1 Week', 'wbpoll' ),
-					'6' => esc_html__( '1 Month', 'wbpoll' ),
-					'7' => esc_html__( '6 Month', 'wbpoll' ),
-					'8' => esc_html__( '1 Year', 'wbpoll' ),
+					'1' => esc_html__( '30 Minutes', 'buddypress-polls' ),
+					'2' => esc_html__( '1 Hour', 'buddypress-polls' ),
+					'3' => esc_html__( '6 Hour', 'buddypress-polls' ),
+					'4' => esc_html__( '1 Day', 'buddypress-polls' ),
+					'5' => esc_html__( '1 Week', 'buddypress-polls' ),
+					'6' => esc_html__( '1 Month', 'buddypress-polls' ),
+					'7' => esc_html__( '6 Month', 'buddypress-polls' ),
+					'8' => esc_html__( '1 Year', 'buddypress-polls' ),
 				),
 			),
 		);
@@ -1726,14 +1726,14 @@ class WBPollHelper {
 			$answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-' . $index . '">';
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar">';
-			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'wbpoll' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'wbpoll' ) . '</i></div>';
+			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'buddypress-polls' ) . '</i></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' . $index . '</span></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' . $answers_title . '</span></div>';
 			if ( $answers_extra['type'] == 'default' ) {
-				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Text', 'wbpoll' ) . '</span></div>';
+				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Text', 'buddypress-polls' ) . '</span></div>';
 			}
-			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'wbpoll' ) . '"></div>';
-			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'wbpoll' ) . '"></div>';
+			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'buddypress-polls' ) . '"></div>';
+			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
 			$answer_fields_html      .= '<div class="wbpoll-containable-list-item-editor wbpoll-containable-list-item-editor-text wb-hide">';
@@ -1759,14 +1759,14 @@ class WBPollHelper {
 			$answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-' . $index . '">';
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar">';
-			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'wbpoll' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'wbpoll' ) . '</i></div>';
+			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'buddypress-polls' ) . '</i></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' . $index . '</span></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' . $answers_title . '</span></div>';
 			if ( $answers_extra['type'] == 'image' ) {
-				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Image', 'wbpoll' ) . '</span></div>';
+				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Image', 'buddypress-polls' ) . '</span></div>';
 			}
-			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'wbpoll' ) . '"></div>';
-			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'wbpoll' ) . '"></div>';
+			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'buddypress-polls' ) . '"></div>';
+			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wb-hide">';
@@ -1779,17 +1779,17 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="right">';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Image URL', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Image URL', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_size_image_answer[' . $index . ']"  placeholder="Full Size image url"  id="wbpoll_answer-' . $index . '" value="' . $full_size_image . '" class="wbpoll_answer wbpoll_full_size_image_answer-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Thumbnail URL', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Thumbnail URL', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer[' . $index . ']" placeholder="Thumbnail image url"   id="wbpoll_answer-' . $index . '" value="' . $thumbnail_size_image . '" class="wbpoll_answer wbpoll_full_thumbnail_image_answer-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
@@ -1821,14 +1821,14 @@ class WBPollHelper {
 			$answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-' . $index . '">';
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar">';
-			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'wbpoll' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'wbpoll' ) . '</i></div>';
+			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'buddypress-polls' ) . '</i></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' . $index . '</span></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' . $answers_title . '</span></div>';
 			if ( $answers_extra['type'] == 'video' ) {
-				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Video', 'wbpoll' ) . '</span></div>';
+				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Video', 'buddypress-polls' ) . '</span></div>';
 			}
-			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'wbpoll' ) . '"></div>';
-			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'wbpoll' ) . '"></div>';
+			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'buddypress-polls' ) . '"></div>';
+			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wb-hide">';
@@ -1841,17 +1841,17 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="right">';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video URL', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video URL', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_answer_url[' . $index . ']"  placeholder="Full Size Video URL"  id="wbpoll_answer-' . $index . '" value="' . $video_url . '" class="wbpoll_answer wbpoll_video_answer_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video Thumbnail', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video Thumbnail', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_thumbnail_image_url[' . $index . ']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-' . $index . '" value="' . $video_thumbnail_image . '" class="wbpoll_answer wbpoll_video_thumbnail_image_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
@@ -1884,14 +1884,14 @@ class WBPollHelper {
 			$answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-' . $index . '">';
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar">';
-			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'wbpoll' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'wbpoll' ) . '</i></div>';
+			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'buddypress-polls' ) . '</i></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' . $index . '</span></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' . $answers_title . '</span></div>';
 			if ( $answers_extra['type'] == 'audio' ) {
-				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Audio', 'wbpoll' ) . '</span></div>';
+				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'Audio', 'buddypress-polls' ) . '</span></div>';
 			}
-			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'wbpoll' ) . '"></div>';
-			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'wbpoll' ) . '"></div>';
+			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'buddypress-polls' ) . '"></div>';
+			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wb-hide">';
@@ -1905,17 +1905,17 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="right">';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Label', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio URL', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio URL', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_answer_url[' . $index . ']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-' . $index . '" value="' . $audio_url . '" class="wbpoll_answer wbpoll_audio_answer_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio Thumbnail', 'wbpoll' ) . '</label>';
+			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio Thumbnail', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url[' . $index . ']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-' . $index . '" value="' . $audio_thumbnail_image . '" class="wbpoll_answer wbpoll_audio_thumbnail_image_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
@@ -1947,18 +1947,18 @@ class WBPollHelper {
 			$answer_fields_html = '<li class="wb_poll_items" id="wb-poll-answer-' . $index . '">';
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar">';
-			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'wbpoll' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'wbpoll' ) . '</i></div>';
+			$answer_fields_html .= '<div class="wb_pollmove"><i title="' . esc_html__( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ) . '" class="cbpollmoveicon">' . esc_html__( 'Move', 'buddypress-polls' ) . '</i></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' . $index . '</span></div>';
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' . $answers_title . '</span></div>';
 			if ( $answers_extra['type'] == 'html' ) {
-				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'HTML', 'wbpoll' ) . '</span></div>';
+				$answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' . esc_html__( 'HTML', 'buddypress-polls' ) . '</span></div>';
 			}
-			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'wbpoll' ) . '"></div>';
-			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'wbpoll' ) . '"></div>';
+			$answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="' . esc_html__( 'Remove', 'buddypress-polls' ) . '"></div>';
+			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wb-hide">';
-			$answer_fields_html .= '<div class="fill-width"><h4>' . esc_html( 'Add HTML Answer', 'wbpoll' ) . '</h4>';
+			$answer_fields_html .= '<div class="fill-width"><h4>' . esc_html( 'Add HTML Answer', 'buddypress-polls' ) . '</h4>';
 
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/><br>';
 
@@ -2255,7 +2255,7 @@ class WBPollHelper {
 	public static function guest_login_forms() {
 		$forms = array();
 
-		$forms['wordpress'] = esc_html__( 'WordPress Core Login Form', 'wbpoll' );
+		$forms['wordpress'] = esc_html__( 'WordPress Core Login Form', 'buddypress-polls' );
 
 		return apply_filters( 'wbpoll_guest_login_forms', $forms );
 	}//end guest_login_forms

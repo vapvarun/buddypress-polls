@@ -176,7 +176,7 @@ class Buddypress_Polls_Public {
 				BPOLLS_PLUGIN_VERSION
 			);
 
-		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ) ) && 'wbpoll' == $post_type ) {
+		if ( in_array( $hook, array( 'edit.php', 'post.php', 'post-new.php' ) ) && 'buddypress-polls' == $post_type ) {
 			//now enqueue css files
 			//wp_enqueue_style( 'wbpoll-chosen' );
 			wp_enqueue_style( 'select2' );
@@ -282,7 +282,7 @@ class Buddypress_Polls_Public {
 			'wbpollpublic',
 			array(
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
-				'no_answer_error' => esc_html__( 'Please select at least one answer', 'cbxpoll' ),
+				'no_answer_error' => esc_html__( 'Please select at least one answer', 'buddypress-polls' ),
 			)
 		);
 		wp_enqueue_script( 'wbpoll-publicjs' );
@@ -433,20 +433,20 @@ class Buddypress_Polls_Public {
 			true
 		);
 
-		if ( in_array( $hook, array( 'edit.php' ) ) && 'wbpoll' == $post_type ) {
+		if ( in_array( $hook, array( 'edit.php' ) ) && 'buddypress-polls' == $post_type ) {
 			//adding translation and other variables from php to js for single post edit screen
 			$admin_listing_arr = array(
-				'copy'                => esc_html__( 'Click to copy', 'wbpoll' ),
-				'copied'              => esc_html__( 'Copied to clipboard', 'wbpoll' ),
-				'remove_label'        => esc_html__( 'Remove', 'wbpoll' ),
-				'move_label'          => esc_html__( 'Move', 'wbpoll' ),
-				'move_title'          => esc_html__( 'Drag and Drop to reorder answers', 'wbpoll' ),
-				'deleteconfirm'       => esc_html__( 'Are you sure to delete this item?', 'wbpoll' ),
-				'deleteconfirmok'     => esc_html__( 'Sure', 'wbpoll' ),
-				'deleteconfirmcancel' => esc_html__( 'Oh! No', 'wbpoll' ),
+				'copy'                => esc_html__( 'Click to copy', 'buddypress-polls' ),
+				'copied'              => esc_html__( 'Copied to clipboard', 'buddypress-polls' ),
+				'remove_label'        => esc_html__( 'Remove', 'buddypress-polls' ),
+				'move_label'          => esc_html__( 'Move', 'buddypress-polls' ),
+				'move_title'          => esc_html__( 'Drag and Drop to reorder answers', 'buddypress-polls' ),
+				'deleteconfirm'       => esc_html__( 'Are you sure to delete this item?', 'buddypress-polls' ),
+				'deleteconfirmok'     => esc_html__( 'Sure', 'buddypress-polls' ),
+				'deleteconfirmcancel' => esc_html__( 'Oh! No', 'buddypress-polls' ),
 				'ajaxurl'             => admin_url( 'admin-ajax.php' ),
-				'nonce'               => wp_create_nonce( 'wbpoll' ),
-				'please_select'       => esc_html__( 'Please select', 'wbpoll' ),
+				'nonce'               => wp_create_nonce( 'buddypress-polls' ),
+				'please_select'       => esc_html__( 'Please select', 'buddypress-polls' ),
 			);
 
 			wp_localize_script( 'wbpolladminlisting', 'wbpolladminlistingObj', $admin_listing_arr );
@@ -483,7 +483,7 @@ class Buddypress_Polls_Public {
 			true
 		);
 
-		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) && 'wbpoll' == $post_type ) {
+		if ( in_array( $hook, array( 'post.php', 'post-new.php' ) ) && 'buddypress-polls' == $post_type ) {
 
 			if ( ! class_exists( '_WP_Editors', false ) ) {
 				require ABSPATH . WPINC . '/class-wp-editor.php';
@@ -510,17 +510,17 @@ class Buddypress_Polls_Public {
 
 			//adding translation and other variables from php to js for single post edit screen
 			$admin_single_arr = array(
-				'copy'                  => esc_html__( 'Click to copy', 'wbpoll' ),
-				'copied'                => esc_html__( 'Copied to clipboard', 'wbpoll' ),
-				'remove_label'          => esc_html__( 'Remove', 'wbpoll' ),
-				'move_label'            => esc_html__( 'Move', 'wbpoll' ),
-				'move_title'            => esc_html__( 'Drag and Drop to reorder answers', 'wbpoll' ),
-				'answer_label'          => esc_html__( 'Answer', 'wbpoll' ),
-				'deleteconfirm'         => esc_html__( 'Are you sure to delete this item?', 'wbpoll' ),
-				'deleteconfirmok'       => esc_html__( 'Sure', 'wbpoll' ),
-				'deleteconfirmcancel'   => esc_html__( 'Oh! No', 'wbpoll' ),
+				'copy'                  => esc_html__( 'Click to copy', 'buddypress-polls' ),
+				'copied'                => esc_html__( 'Copied to clipboard', 'buddypress-polls' ),
+				'remove_label'          => esc_html__( 'Remove', 'buddypress-polls' ),
+				'move_label'            => esc_html__( 'Move', 'buddypress-polls' ),
+				'move_title'            => esc_html__( 'Drag and Drop to reorder answers', 'buddypress-polls' ),
+				'answer_label'          => esc_html__( 'Answer', 'buddypress-polls' ),
+				'deleteconfirm'         => esc_html__( 'Are you sure to delete this item?', 'buddypress-polls' ),
+				'deleteconfirmok'       => esc_html__( 'Sure', 'buddypress-polls' ),
+				'deleteconfirmcancel'   => esc_html__( 'Oh! No', 'buddypress-polls' ),
 				'ajaxurl'               => admin_url( 'admin-ajax.php' ),
-				'nonce'                 => wp_create_nonce( 'wbpoll' ),
+				'nonce'                 => wp_create_nonce( 'buddypress-polls' ),
 				'teeny_editor_settings' => array(
 					'teeny'         => true,
 					'textarea_name' => '',
@@ -528,7 +528,7 @@ class Buddypress_Polls_Public {
 					'media_buttons' => false,
 					'editor_class'  => '',
 				),
-				'please_select'         => esc_html__( 'Please select', 'wbpoll' ),
+				'please_select'         => esc_html__( 'Please select', 'buddypress-polls' ),
 			);
 
 			wp_localize_script( 'wbpolladminsingle', 'wbpolladminsingleObj', $admin_single_arr );
@@ -559,8 +559,8 @@ class Buddypress_Polls_Public {
 
 			$wbpoll_admin_setting_arr = array(
 				'ajaxurl'       => admin_url( 'admin-ajax.php' ),
-				'nonce'         => wp_create_nonce( 'wbpoll' ),
-				'please_select' => esc_html__( 'Please select', 'wbpoll' ),
+				'nonce'         => wp_create_nonce( 'buddypress-polls' ),
+				'please_select' => esc_html__( 'Please select', 'buddypress-polls' ),
 			);
 			wp_localize_script( 'wbpoll-admin-setting', 'wbpolladminsettingObj', $wbpoll_admin_setting_arr );
 			wp_enqueue_script( 'wbpoll-admin-setting' );
@@ -2250,7 +2250,7 @@ class Buddypress_Polls_Public {
 
 		if ( new DateTime( $poll_start_date ) > new DateTime() ) {
 			$poll_result['error'] = 1;
-			$poll_result['text']  = esc_html__( 'Sorry, poll didn\'t start yet.', 'wbpoll' );
+			$poll_result['text']  = esc_html__( 'Sorry, poll didn\'t start yet.', 'buddypress-polls' );
 
 			echo json_encode( $poll_result );
 			die();
@@ -2259,7 +2259,7 @@ class Buddypress_Polls_Public {
 		if ( $is_poll_expired ) {
 
 			$poll_result['error'] = 1;
-			$poll_result['text']  = esc_html__( 'Sorry, you can not vote. Poll has already expired.', 'wbpoll' );
+			$poll_result['text']  = esc_html__( 'Sorry, you can not vote. Poll has already expired.', 'buddypress-polls' );
 
 			echo json_encode( $poll_result );
 			die();
@@ -2269,7 +2269,7 @@ class Buddypress_Polls_Public {
 		//check if the user has permission to vote
 		if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
 			$poll_result['error'] = 1;
-			$poll_result['text']  = esc_html__( 'Sorry, you are not allowed to vote.', 'wbpoll' );
+			$poll_result['text']  = esc_html__( 'Sorry, you are not allowed to vote.', 'buddypress-polls' );
 
 			echo json_encode( $poll_result );
 			die();
@@ -2365,7 +2365,7 @@ class Buddypress_Polls_Public {
 			//already voted, just show the result
 
 			$poll_result['error'] = 1;
-			$poll_result['text']  = esc_html__( 'You already voted this poll !', 'wbpoll' );
+			$poll_result['text']  = esc_html__( 'You already voted this poll !', 'buddypress-polls' );
 
 			echo json_encode( $poll_result );
 			die();
@@ -2388,7 +2388,7 @@ class Buddypress_Polls_Public {
 				$poll_result['error'] = 1;
 				$poll_result['text']  = esc_html__(
 					'Sorry, something wrong while voting, please refresh this page',
-					'wbpoll'
+					'buddypress-polls'
 				);
 
 				echo json_encode( $poll_result );
@@ -2443,7 +2443,7 @@ class Buddypress_Polls_Public {
 			absint( $total_votes )
 		); //can help for showing most voted poll //meta added
 
-		$poll_result['text'] = esc_html__( 'Thanks for voting!', 'wbpoll' );
+		$poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
 
 		//we will only show result if permitted and for successful voting only
 

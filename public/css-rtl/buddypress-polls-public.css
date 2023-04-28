@@ -434,11 +434,11 @@ body:not(.logged-in) .bpolls-vote-submit {
 
 .bpolls-check-radio-wrap input {
 	display: inline-block;
-	margin: 3px 0 0 7px !important;
+	margin: 3px 0 0 1% !important;
 	outline: 0;
 	position: relative;
 	border-radius: 100px;
-	width: 16px !important;
+	width: 3% !important;
 	height: 16px !important;
 	background: #fff;
 	border: 1px solid #a0a0a0;
@@ -463,7 +463,8 @@ body:not(.logged-in) .bpolls-vote-submit {
 	font-weight: 600;
 	font-size: 16px;
 	line-height: 22px;
-	white-space: nowrap;
+	/*white-space: nowrap;*/
+	width: 94%;
 }
 
 a.bpolls-cancel {
@@ -1292,4 +1293,5 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 	width: calc(100% - 30px);
 	margin: 15px;
 }
+
 /*# sourceMappingURL=buddypress-polls-public.css.map */
