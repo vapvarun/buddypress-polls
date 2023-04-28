@@ -99,7 +99,7 @@
 				bitsInBuffer -= w2;
 				var tmp       = buffer >> bitsInBuffer;
 				result       += beta.charAt( tmp );
-				buffer ^      = tmp << bitsInBuffer;
+			buffer 			^= tmp << bitsInBuffer;
 			}
 			++i;
 		}

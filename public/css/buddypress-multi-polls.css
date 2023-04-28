@@ -45,7 +45,7 @@
 /*--------------------------------------------------------------
 # Simple Poll
 --------------------------------------------------------------*/
-.checkbox-alignment .poll-thumb-image {
+.checkbox-alignment .poll-thumb-image, .per_question_result .poll-thumb-image{
 	width: 200px !important;
 	margin: 10px !important;
 }
@@ -70,4 +70,25 @@ label.wbpoll_single_answer_label {
 
 span.wbpoll_single_answer.wbpoll_single_answer-text {
 	font-weight: 700;
+}
+
+/*--------------------------------------------------------------
+# single Poll Result
+--------------------------------------------------------------*/
+.bpolls-item-width-wrapper {
+    background: #c9c9c9;
+    border-radius: 10px;
+}
+.bpolls-item-width {
+    padding: 5px;
+    border-radius: 10px;
+}
+strong.votecount-right {
+    float: right;
+}
+.per_question_result {
+    padding: 10px 0;
+}
+.per_question_result li {
+    list-style: none;
 }

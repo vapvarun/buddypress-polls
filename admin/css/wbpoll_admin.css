@@ -534,3 +534,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 [aria-label][data-balloon-pos][data-balloon-length="fit"]:after {
 	width: 100%;
 }
+
+div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
+    display: none;
+}

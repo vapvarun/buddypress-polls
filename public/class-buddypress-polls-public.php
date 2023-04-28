@@ -238,7 +238,8 @@ class Buddypress_Polls_Public {
 
 		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
 		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
-
+		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls.js', array( 'jquery' ), time(), false );
+		
 		wp_register_script(
 			'wbpoll-base64',
 			plugin_dir_url( __FILE__ ) . 'js/jquery.base64.js',
@@ -289,6 +290,7 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'cbxpoll-base64' );
 		wp_enqueue_script( 'pristine' );
 		wp_enqueue_script( 'cbxpoll-publicjs' );
+		wp_enqueue_script('buddypress-multi-polls');
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
 

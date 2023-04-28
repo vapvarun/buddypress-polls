@@ -1409,65 +1409,121 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 *
 		 * @param  string  $poll_result
 		 */
-		public function poll_display_methods_text_result( $poll_id, $reference = 'shortcode', $poll_result ) {
+		public function poll_display_methods_text_result($poll_id, $reference = 'shortcode', $poll_result)
+		{
 
-			$total  = intval( $poll_result['total'] );
+			$total  = intval($poll_result['total']);
 			$colors = $poll_result['colors'];
 
-			$answers = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();
+			$answers = isset($poll_result['answer']) ? $poll_result['answer'] : array();
+			$poll_ans_image = isset($poll_result['image']) ? $poll_result['image'] : array();
+			$thumbnail_poll_ans_image = isset($poll_result['thumb_image']) ? $poll_result['thumb_image'] : array();
+			
+			$poll_answers_video = isset($poll_result['video']) ? $poll_result['video'] : array();
+			$thumbnail_poll_answers_video = isset($poll_result['thumb_video_img']) ? $poll_result['thumb_video_img'] : array();
+
+			$poll_answers_audio = isset($poll_result['audio']) ? $poll_result['audio'] : array();
+			$thumbnail_poll_answers_audio = isset($poll_result['thumb_audio_img']) ? $poll_result['thumb_audio_img'] : array();
+
+			$poll_answers_html = isset($poll_result['html']) ? $poll_result['html'] : array();
 
 			$output_result = '';
 
-			if ( $total > 0 ) {
-				$output  = '<p>' . sprintf( __( 'Total votes: %d', 'wbpoll' ), number_format_i18n( $total ) ) . '</p>';
+			if ($total > 0) {
+				$output = '<p>'.sprintf(__('Total votes: %d', 'wbpoll'), number_format_i18n($total)).'</p>';
 				$output .= '<ul>';
+
 
 				$total_percent = 0;
 
-				foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
-					$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
-						'Unknown Answer',
-						'wbpoll'
-					);
-					$color_style  = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
+				foreach ($poll_result['weighted_index'] as $index => $vote_count) {
+					$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
+						'wbpoll');
+					$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
 
-					$percent        = ( $vote_count * 100 ) / $total;
+					$percent       = ($vote_count * 100) / $total;
 					$total_percent += $percent;
-					$output_result .= '<li style="' . $color_style . '"><strong>' . $answer_title . ': ' . $vote_count . ' (' . number_format_i18n(
-						$percent,
-						2
-					) . '%)</strong></li>';
+					$output_result .= '<li style="'.$color_style.'"><strong>'.$answer_title.': '.$vote_count.' ('.number_format_i18n($percent,
+							2).'%)</strong></li>';
+							$output_result .= '<div class="bpolls-item-width-wrapper"><div class="bpolls-item-width" style="padding:5px;width:100%;background-color:#ea6464;"></div><div class="bpolls-check-radio-div"></div></div>';
+					
 
 				}
 
-				if ( $total_percent > 0 ) {
+
+				if ($total_percent > 0) {
 					$output_result = '';
+					foreach ($poll_result['weighted_index'] as $index => $vote_count) {
+						$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__('Unknown Answer',
+							'wbpoll');
+						$color_style  = isset($colors[$index]) ? 'color:'.$colors[$index].';' : '';
+					
+						$percent    = ($vote_count * 100) / $total;
+						$re_percent = ($percent * 100) / $total_percent;
+						$output_result .= '<div class="per_question_result">';
 
-					foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
-						$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
-							'Unknown Answer',
-							'wbpoll'
-						);
-						$color_style  = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
+						// image
 
-						$percent    = ( $vote_count * 100 ) / $total;
-						$re_percent = ( $percent * 100 ) / $total_percent;
+						if ( isset( $poll_ans_image[ $index ] ) && ! empty( $poll_ans_image[ $index ] ) && empty( $thumbnail_poll_ans_image[ $index ] ) ) {
+							$output_result .= '<div class="poll-image"><img src="' . $poll_ans_image[ $index ] . '"></div>';
+						} elseif ( isset( $thumbnail_poll_ans_image[ $index ] ) && ! empty( $thumbnail_poll_ans_image[ $index ] ) && empty( $poll_ans_image[ $index ] ) ) {
+							$output_result .= '<div class="poll-image"><img src="' . $thumbnail_poll_ans_image[ $index ] . '"></div>';
+						} elseif ( isset( $thumbnail_poll_ans_image[ $index ] ) && ! empty( $thumbnail_poll_ans_image[ $index ] ) && isset( $poll_ans_image[ $index ] ) && ! empty( $poll_ans_image[ $index ] ) ) {
+							$output_result .= '<div class="poll-thumb-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_ans_image[ $index ] . '"></div>';
+							$output_result .= '<div class="wb-poll-lightbox poll-image-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><img src="' . $poll_ans_image[ $index ] . '"></div></div>';
+						}
 
-						$output_result .= '<li style="' . $color_style . '"><strong>' . $answer_title . ': ' . $vote_count . ' (' . number_format_i18n(
-							$re_percent,
-							2
-						) . '%)</strong></li>';
+						// video
 
+						if ( isset( $poll_answers_video[ $index ] ) && ! empty( $poll_answers_video[ $index ] ) && empty( $thumbnail_poll_answers_video[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-video"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div>';
+
+						} elseif ( isset( $thumbnail_poll_answers_video[ $index ] ) && ! empty( $thumbnail_poll_answers_video[ $index ] ) && empty( $poll_answers_video[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_video[ $index ] . '"></div>';
+
+						} elseif ( isset( $poll_answers_video[ $index ] ) && ! empty( $poll_answers_video[ $index ] ) && isset( $thumbnail_poll_answers_video[ $index ] ) && ! empty( $thumbnail_poll_answers_video[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-thumb-image poll-video-image poll-image"  data-id="' . $index . '"><img src="' . $thumbnail_poll_answers_video[ $index ] . '"></div>';
+							$output_result .= '<div class="wb-poll-lightbox poll-video-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div></div>';
+						}
+
+						// audio
+
+						if ( isset( $poll_answers_audio[ $index ] ) && ! empty( $poll_answers_audio[ $index ] ) && empty( $thumbnail_poll_answers_audio[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-audio"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none"></audio></div>';
+
+						} elseif ( isset( $thumbnail_poll_answers_audio[ $index ] ) && ! empty( $thumbnail_poll_answers_audio[ $index ] ) && empty( $poll_answers_audio[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_audio[ $index ] . '"></div>';
+
+						} elseif ( isset( $poll_answers_audio[ $index ] ) && ! empty( $poll_answers_audio[ $index ] ) && isset( $thumbnail_poll_answers_audio[ $index ] ) && ! empty( $thumbnail_poll_answers_audio[ $index ] ) ) {
+
+							$output_result .= '<div class="poll-thumb-image poll-audio-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_answers_audio[ $index ] . '"></div>';
+							$output_result .= '<div class="wb-poll-lightbox poll-audio-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none" ></audio></div></div>';
+						}
+
+						if ( isset( $poll_answers_html[ $index ] ) && ! empty( $poll_answers_html[ $index ] ) ) {
+							$output_result .= '<div class="poll-html">' . $poll_answers_html[ $index ] . '</div>';
+						}
+						
+						$output_result .= '<div class="per_question_result"><li style="'.$color_style.'"><strong>'.$answer_title.'</strong><strong class="votecount-right"> '.$vote_count.' Vote ('.number_format_i18n($re_percent,
+								2).'%)</strong></li>';
+					    $output_result .= '<div class="bpolls-item-width-wrapper"><div class="bpolls-item-width" style="padding:5px;width:'.number_format_i18n($re_percent,
+								2).'%;background-color:'.$colors[$index].'"></div><div class="bpolls-check-radio-div"></div></div>';
+						$output_result .= '</div>';
 					}
 				}
 
 				$output .= $output_result;
 				$output .= '</ul>';
 			} else {
-				$output = '<p>' . esc_html__( 'No approved vote yet', 'wbpoll' ) . '</p>';
+				$output = '<p>'.esc_html__('No approved vote yet', 'wbpoll').'</p>';
 			}
 
-			echo $output;
+			echo $output;   
 		}//end method poll_display_methods_text_result
 
 	}

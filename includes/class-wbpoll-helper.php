@@ -948,7 +948,8 @@ class WBPollHelper {
 					}
 
 					if ( $answers_by_user_html != '' ) {
-						$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '">' . sprintf(
+						$poll_output .= '<p class="wbpoll-voted-info55
+                         wbpoll-alert  wbpoll-voted-info-' . $post_id . '">' . sprintf(
 							__(
 								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
 								'wbpoll'
@@ -956,7 +957,8 @@ class WBPollHelper {
 							$answers_by_user_html
 						) . ' </p>';
 					} else {
-						$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
+						$poll_output .= '<p class="wbpoll-voted-info 55
+                        wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
 							__(
 								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
 								'wbpoll'
@@ -966,7 +968,8 @@ class WBPollHelper {
 
 					}
 				} else {
-					$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . __(
+					$poll_output .= '<p class="wbpoll-voted-info 55
+                    wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
 						'The Poll is out of date. You have not voted.',
 						'wbpoll'
 					) . '</p>';
@@ -997,7 +1000,7 @@ class WBPollHelper {
 							);
 						}
 
-						$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'wbpoll' ) . '</p>';
+						$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'wbpoll' ) . '</p>';
 
 						//integrate user login for guest user
 
@@ -1078,15 +1081,21 @@ class WBPollHelper {
 							}
 
 							if ( $answers_by_user_html != '' ) {
-								$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '">' . sprintf(
+								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
 									__(
 										'You have already voted for <strong>"%s"</strong>',
 										'wbpoll'
 									),
 									$answers_by_user_html
 								) . ' </p>';
-							} else {
-								$poll_output .= '<p class="wbpoll-voted-info wbpoll-voted-info-' . $post_id . '">' . esc_html__(
+                                $poll_output .= self::show_single_poll_result(
+                                    $post_id,
+                                    $reference,
+                                    $result_chart_type
+                                );
+
+                            } else {
+								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
 									'You have already voted ',
 									'wbpoll'
 								) . ' </p>';
@@ -1120,7 +1129,7 @@ class WBPollHelper {
 
 							$guest_html = '<div class="wbpoll-guest-wrap">';
 
-							$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
+							$guest_html      .= '<p class="wbpoll-title-login wbpoll-alert">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'wbpoll' ) . '</p>';
 							$guest_login_html = wp_login_form(
 								array(
 									'redirect' => $redirect_url,
@@ -1135,7 +1144,7 @@ class WBPollHelper {
 							if ( $guest_show_register ) {
 								if ( get_option( 'users_can_register' ) ) {
 									$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
-									$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
+									$guest_register_html .= '<p class="wbpoll-guest-register wbpoll-error">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'wbpoll' ), $register_url ) . '</p>';
 								}
 
 								$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
@@ -1211,7 +1220,7 @@ class WBPollHelper {
 								$answer,
 								$poll_answers_extra_single
 							);
-							$poll_form_html                               .= '<div class="checkbox-alignment">';
+							$poll_form_html .= '<div class="checkbox-alignment">';
 
 							// image
 
@@ -1221,7 +1230,7 @@ class WBPollHelper {
 								$poll_form_html .= '<div class="poll-image"><img src="' . $thumbnail_poll_ans_image[ $index ] . '"></div>';
 							} elseif ( isset( $thumbnail_poll_ans_image[ $index ] ) && ! empty( $thumbnail_poll_ans_image[ $index ] ) && isset( $poll_ans_image[ $index ] ) && ! empty( $poll_ans_image[ $index ] ) ) {
 								$poll_form_html .= '<div class="poll-thumb-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_ans_image[ $index ] . '"></div>';
-								$poll_form_html .= '<div class="wb-poll-lightbox poll-image-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><img src="' . $thumbnail_poll_ans_image[ $index ] . '"></div></div>';
+								$poll_form_html .= '<div class="wb-poll-lightbox poll-image-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><img src="' . $poll_ans_image[ $index ] . '"></div></div>';
 							}
 
 							// video
@@ -1260,8 +1269,8 @@ class WBPollHelper {
 								$poll_form_html .= '<div class="poll-html">' . $poll_answers_html[ $index ] . '</div>';
 							}
 
-							$poll_form_html                             .= '<input type="' . $vote_input_type . '" value="' . $index . '" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-' . $post_id . '" data-pollcolor = "" data-post-id="' . $post_id . '" name="' . $input_name . '"  data-answer="' . $answer . ' " id="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"  />';
-							$poll_form_html                             .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-' . $post_id . '"  data-post-id="' . $post_id . '" data-answer="' . $answer . ' ">' . apply_filters(
+							$poll_form_html .= '<input type="' . $vote_input_type . '" value="' . $index . '" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-' . $post_id . '" data-pollcolor = "" data-post-id="' . $post_id . '" name="' . $input_name . '"  data-answer="' . $answer . ' " id="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"  />';
+							$poll_form_html .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-' . $post_id . '"  data-post-id="' . $post_id . '" data-answer="' . $answer . ' ">' . apply_filters(
 								'wbpoll_form_listitem_answer_title',
 								$answer,
 								$post_id,
@@ -1385,6 +1394,30 @@ class WBPollHelper {
 		$poll_colors = get_post_meta( $poll_id, '_wbpoll_answer_color', true );
 		$poll_colors = is_array( $poll_colors ) ? $poll_colors : array();
 
+       //image, video, audio, html
+		$poll_ans_image     = get_post_meta( $poll_id, '_wbpoll_full_size_image_answer', true );
+        $poll_ans_image = is_array( $poll_ans_image ) ? $poll_ans_image : array();
+
+		$poll_answers_video = get_post_meta( $poll_id, '_wbpoll_video_answer_url', true );
+        $poll_answers_video = is_array( $poll_answers_video ) ? $poll_answers_video : array();
+
+		$poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_answer_url', true );
+        $poll_answers_audio = is_array( $poll_answers_audio ) ? $poll_answers_audio : array();
+
+		$poll_answers_html  = get_post_meta( $poll_id, '_wbpoll_html_answer', true );
+        $poll_answers_html = is_array( $poll_answers_html ) ? $poll_answers_html : array();
+
+		// thumbnails image, video, audio, html
+		$thumbnail_poll_ans_image     = get_post_meta( $poll_id, '_wbpoll_full_thumbnail_image_answer', true );
+		$thumbnail_poll_ans_image = is_array( $thumbnail_poll_ans_image ) ? $thumbnail_poll_ans_image : array();
+        
+        $thumbnail_poll_answers_video = get_post_meta( $poll_id, '_wbpoll_video_thumbnail_image_url', true );
+        $thumbnail_poll_answers_video = is_array( $thumbnail_poll_answers_video ) ? $thumbnail_poll_answers_video : array();
+		
+        $thumbnail_poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_thumbnail_image_url', true );
+        $thumbnail_poll_answers_audio = is_array( $thumbnail_poll_answers_audio ) ? $thumbnail_poll_answers_audio : array();
+		
+
 		$total_results = self::get_pollResult( $poll_id );
 
 		$poll_result = array();
@@ -1398,6 +1431,15 @@ class WBPollHelper {
 		//$poll_result['results']    		= json_encode($total_results);
 		$poll_result['chart_type'] = $result_chart_type;
 		$poll_result['text']       = '';
+
+        $poll_result['image'] = $poll_ans_image;
+        $poll_result['video'] = $poll_answers_video;
+        $poll_result['audio'] = $poll_answers_audio;
+        $poll_result['html'] = $poll_answers_html;
+
+        $poll_result['thumb_image'] = $thumbnail_poll_ans_image;
+        $poll_result['thumb_video_img'] = $thumbnail_poll_answers_video;
+        $poll_result['thumb_audio_img'] = $thumbnail_poll_answers_audio;
 
 		$poll_answers_weight = array();
 
@@ -1459,6 +1501,7 @@ class WBPollHelper {
 		return $output;
 
 	}
+    
 
 	/**
 	 * Chart Type fallback
