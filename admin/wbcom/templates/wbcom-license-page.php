@@ -10,7 +10,7 @@
 		<div class="wbcom_admin_header-wrapper">
 			<div id="wb_admin_plugin_name">
 				<?php esc_html_e( 'License', 'buddypress-polls' ); ?>
-				<span><?php printf( esc_html_e( 'Version %s', 'buddypress-polls' ), esc_attr(BPOLLS_PLUGIN_VERSION) ); ?></span>
+				<span><?php printf( esc_html_e( 'Version %s', 'buddypress-polls' ), esc_attr( BPOLLS_PLUGIN_VERSION ) ); ?></span>
 			</div>
 			<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 		</div>

@@ -1003,9 +1003,9 @@ var datetimepickerFactory = function ($) {
 					.on(
 						'open.xdsoft focusin.xdsoft mousedown.xdsoft touchstart',
 						function initOnActionCallback() {
-                        if (input.is( ':disabled' ) || input.data( 'xdsoft_datetimepicker' )) {
-                            return;
-                        }
+					if (input.is( ':disabled' ) || input.data( 'xdsoft_datetimepicker' )) {
+						return;
+					}
 						clearTimeout( lazyInitTimer );
 						lazyInitTimer = setTimeout(
 							function () {
