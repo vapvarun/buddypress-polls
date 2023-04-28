@@ -1597,6 +1597,9 @@ class WBPollHelper
             $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            if ( $answers_extra['type'] == 'default' ) {
+                $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' .esc_html__('Text', 'wbpoll'). '</span></div>';
+            }
             $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
             $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
             $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
@@ -1621,6 +1624,9 @@ class WBPollHelper
             $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            if ( $answers_extra['type'] == 'image' ) {
+                $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' .esc_html__('Image', 'wbpoll'). '</span></div>';
+            }
             $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
             $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
             $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
@@ -1674,6 +1680,9 @@ class WBPollHelper
             $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            if ( $answers_extra['type'] == 'video' ) {
+                $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' .esc_html__('Video', 'wbpoll'). '</span></div>';
+            }
             $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
             $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
             $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
@@ -1728,6 +1737,9 @@ class WBPollHelper
             $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            if ( $answers_extra['type'] == 'audio' ) {
+                $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' .esc_html__('Audio', 'wbpoll'). '</span></div>';
+            }
             $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
             $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
             $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.
@@ -1782,6 +1794,9 @@ class WBPollHelper
             $answer_fields_html .= '<div class="wb_pollmove"><i title="'.esc_html__('Drag and Drop to reorder poll answers', 'wbpoll').'" class="cbpollmoveicon">'.esc_html__('Move', 'wbpoll').'</i></div>'; 
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-collapse-text"><span>' .$index. '</span></div>';
             $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-text"><span>' .$answers_title. '</span></div>';
+            if ( $answers_extra['type'] == 'html' ) {
+                $answer_fields_html .= '<div class="wbpoll-containable-list-item-toolbar-preview-type"><span>' .esc_html__('HTML', 'wbpoll'). '</span></div>';
+            }
             $answer_fields_html .= '<div class="wb_pollremove dashicons dashicons-trash" title="'.esc_html__('Remove', 'wbpoll').'"></div>';
             $answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="'.esc_html__('Toggle', 'wbpoll').'"></div>';
             $answer_fields_html .='</div>'; // close - .wbpoll-containable-list-item-toolbar.

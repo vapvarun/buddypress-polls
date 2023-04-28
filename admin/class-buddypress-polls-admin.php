@@ -939,50 +939,39 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					name="_wbpoll_answer_extra[answercount]"/>
 				<?php //if ( ! $is_voted ){
 				?>
-				<div class="add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-					<a data-type="default" id="add-wb-poll-answer-default"
-					class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>"><i
-								style="line-height: 25px;"
-								class="dashicons dashicons-media-text"></i> <?php echo esc_html__('Add Text Answer',
-							'wbpoll'); ?>
-					</a>
-					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
-				</div>
-				<div class="add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-					<a data-type="image" id="add-wb-poll-image-answer"
-					class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>"><i
-								style="line-height: 25px;"
-								class="dashicons dashicons-format-image"></i> <?php echo esc_html__('Add Image Answer',
-							'wbpoll'); ?>
-					</a>
-					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
-				</div>
-				<div class="add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-					<a data-type="video" id="add-wb-poll-video-answer"
-					class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>"><i
-								style="line-height: 25px;"
-								class="dashicons dashicons-format-video"></i> <?php echo esc_html__('Add Video Answer',
-							'wbpoll'); ?>
-					</a>
-					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
-				</div>
-				<div class="add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-					<a data-type="audio" id="add-wb-poll-audio-answer"
-					class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>"><i
-								style="line-height: 25px;"
-								class="dashicons dashicons-format-audio"></i> <?php echo esc_html__('Add Audio Answer',
-							'wbpoll'); ?>
-					</a>
-					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
-				</div>
-				<div class="add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-					<a data-type="html" id="add-wb-poll-html-answer"
-					class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>"><i
-								style="line-height: 25px;"
-								class="dashicons dashicons-html"></i> <?php echo esc_html__('Add HTML Answer',
-							'wbpoll'); ?>
-					</a>
-					<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+				<div class="wbpoll-buttons-horizontal">
+					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+						<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>">
+							<i class="dashicons dashicons-editor-textcolor"></i> <?php echo esc_html__('Text Answer', 'wbpoll'); ?>
+						</a>
+						<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+					</div>
+					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+						<a data-type="image" id="add-wb-poll-image-answer" class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>">
+							<i class="dashicons dashicons-format-image"></i> <?php echo esc_html__('Image Answer', 'wbpoll'); ?>
+						</a>
+						<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+					</div>
+					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+						<a data-type="video" id="add-wb-poll-video-answer" class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>">
+							<i class="dashicons dashicons-format-video"></i> <?php echo esc_html__('Video Answer', 'wbpoll'); ?>
+						</a>
+						<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+					</div>
+					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+						<a data-type="audio" id="add-wb-poll-audio-answer"
+						class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>">
+							<i class="dashicons dashicons-format-audio"></i> <?php echo esc_html__('Audio Answer', 'wbpoll'); ?>
+						</a>
+						<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+					</div>
+					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+						<a data-type="html" id="add-wb-poll-html-answer"
+						class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>">
+							<i class="dashicons dashicons-html"></i> <?php echo esc_html__('HTML Answer', 'wbpoll'); ?>
+						</a>
+						<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
+					</div>
 				</div>
 				<?php //}
 				?>
@@ -993,7 +982,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 
 				echo '<div class="wbcom-polls-option-wrap">';
-					echo '<table class="form-table wbcom-settings-section-options wbpoll-answer-options">';
+					echo '<table class="form-table wbpoll-answer-options">';
 
 					foreach ($post_meta_fields as $field) {
 
