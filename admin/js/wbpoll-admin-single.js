@@ -95,6 +95,7 @@ jQuery( document ).ready(
 				var $post_id = Number( $answer_add_wrap.data( 'postid' ) );
 				//var $index               = Number($answer_add_wrap.data('answercount'));
 				var $index = Number( $( '#wbpoll_answer_extra_answercount' ).val() );
+				
 				var $busy  = Number( $answer_add_wrap.data( 'busy' ) );
 				var $type  = $this.data( 'type' );
 
@@ -126,6 +127,8 @@ jQuery( document ).ready(
 							},
 							success: function (data, textStatus, XMLHttpRequest) {
 								$( '#wb_poll_answers_items' ).append( data );
+								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
+								
 								$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
 								//helps to render the  editor properly
@@ -191,6 +194,7 @@ jQuery( document ).ready(
 							},
 							success: function (data, textStatus, XMLHttpRequest) {
 								$( '#wb_poll_answers_items' ).append( data );
+								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
 								$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
 								//helps to render the  editor properly
@@ -226,7 +230,7 @@ jQuery( document ).ready(
 				//var $index               = Number($answer_add_wrap.data('answercount'));
 				var $index = Number( $( '#wbpoll_answer_extra_answercount' ).val() );
 				var $busy  = Number( $answer_add_wrap.data( 'busy' ) );
-				var $type  = $this.data( 'type' );
+				var $type  = $this.data( 'type' );						
 
 				//get random answer color
 				var answer_color = '#' + '0123456789abcdef'.split( '' ).map(
@@ -256,6 +260,7 @@ jQuery( document ).ready(
 							},
 							success: function (data, textStatus, XMLHttpRequest) {
 								$( '#wb_poll_answers_items' ).append( data );
+								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
 								$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
 								//helps to render the  editor properly
@@ -321,6 +326,7 @@ jQuery( document ).ready(
 							},
 							success: function (data, textStatus, XMLHttpRequest) {
 								$( '#wb_poll_answers_items' ).append( data );
+								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
 								$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
 								//helps to render the  editor properly
@@ -386,6 +392,7 @@ jQuery( document ).ready(
 							},
 							success: function (data, textStatus, XMLHttpRequest) {
 								$( '#wb_poll_answers_items' ).append( data );
+								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
 								$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
 								//helps to render the  editor properly
@@ -500,7 +507,7 @@ jQuery( document ).ready(
 		$('.wbpoll-containable-list-item-toolbar').on('click', function(){
 			var dataid = $(this).data('id');
 			$( '.wb-hide-' + dataid ).toggle();
-				
+			$(this).toggleClass('active');				
 		});
 
 		
