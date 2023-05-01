@@ -447,6 +447,74 @@ jQuery( document ).ready(
 			}
 		);
 
+		//video uploader
+
+		$( '#wbpoll_answer_wrap' ).on(
+			'click',
+			'#upload-btn-video',
+			function (e){
+				var mediaUploader;
+				var imgclass = $( this ).data( 'text' );
+				e.preventDefault();
+				if (mediaUploader) {
+					mediaUploader.open();
+					return;
+				}
+				mediaUploader = wp.media.frames.file_frame = wp.media(
+					{
+						title: 'Choose video',
+						button: {
+							text: 'Choose video'
+						},
+						multiple: false
+					}
+				);
+				mediaUploader.on(
+					'select',
+					function() {
+						var attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
+						$( '.' + imgclass ).val( attachment.url );
+						$( '.video_' + imgclass ).html( '<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>' );
+					}
+				);
+				mediaUploader.open();
+			}
+		);
+
+		//audio uploader
+
+		$( '#wbpoll_answer_wrap' ).on(
+			'click',
+			'#upload-btn-audio',
+			function (e){
+				var mediaUploader;
+				var imgclass = $( this ).data( 'text' );
+				e.preventDefault();
+				if (mediaUploader) {
+					mediaUploader.open();
+					return;
+				}
+				mediaUploader = wp.media.frames.file_frame = wp.media(
+					{
+						title: 'Choose Audio',
+						button: {
+							text: 'Choose Audio'
+						},
+						multiple: false
+					}
+				);
+				mediaUploader.on(
+					'select',
+					function() {
+						var attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
+						$( '.' + imgclass ).val( attachment.url );
+						$( '.audio_' + imgclass ).html( '<audio src="' + attachment.url + '" controls="" preload="none"></audio>' );
+					}
+				);
+				mediaUploader.open();
+			}
+		);
+
 		//remove an answer
 		$( '#wbpoll_answer_wrap' ).on(
 			'click',
