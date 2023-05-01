@@ -127,6 +127,11 @@ ul#wb_poll_answers_items li.placeholder:before {
 	border-left: 1px solid #ddd;
 }
 
+.wbpoll-containable-list-item-toolbar.active .wbpoll-toolbar-toggle::before {
+	display: inline-block;
+    transform: rotate(180deg);
+}
+
 .wbpoll-toolbar-toggle {
 	padding: 12px;
 	border-left: 1px solid #ddd;
