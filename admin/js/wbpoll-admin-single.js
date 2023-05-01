@@ -432,6 +432,9 @@ jQuery( document ).ready(
 						button: {
 							text: 'Choose Image'
 						},
+						library: {
+							type: [ 'image' ]
+						},
 						multiple: false
 					}
 				);
@@ -465,6 +468,9 @@ jQuery( document ).ready(
 						title: 'Choose video',
 						button: {
 							text: 'Choose video'
+						},
+						library: {
+							type: [ 'video' ]
 						},
 						multiple: false
 					}
@@ -500,6 +506,9 @@ jQuery( document ).ready(
 						button: {
 							text: 'Choose Audio'
 						},
+						library: {
+							type: [ 'audio' ]
+						},
 						multiple: false
 					}
 				);
@@ -514,6 +523,45 @@ jQuery( document ).ready(
 				mediaUploader.open();
 			}
 		);
+
+		//image add with url
+
+		$( '#wbpoll_answer_wrap' ).on(
+			'keyup',
+			'.image_url',
+			function (e){
+				var imgclass = $( this ).data( 'text' );
+				var url = $(this).val();
+				$( '.image_' + imgclass ).html( '<img width="266" height="266" src="' + url + '">' );
+
+		});
+
+		//video add with url
+
+		$( '#wbpoll_answer_wrap' ).on(
+			'keyup',
+			'.video_url',
+			function (e){
+				var videoclass = $( this ).data( 'text' );
+				var url = $(this).val();
+				$('#suggestions').show();
+				$( '.video_' + videoclass ).html( '<video src="' + url + '" controls="" poster="" preload="none"></video>' );
+
+
+		});
+
+		//audio add with url
+
+		$( '#wbpoll_answer_wrap' ).on(
+			'keyup',
+			'.audio_url',
+			function (e){
+				var url = $(this).val();
+				var audioclass = $( this ).data( 'text' );
+				
+				$( '.audio_' + audioclass ).html( '<audio src="' + url + '" controls="" preload="none"></audio>' );
+
+		});
 
 		//remove an answer
 		$( '#wbpoll_answer_wrap' ).on(

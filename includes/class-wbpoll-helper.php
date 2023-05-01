@@ -1809,12 +1809,14 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Image URL', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_size_image_answer[' . $index . ']"  placeholder="Full Size image url"  id="wbpoll_answer-' . $index . '" value="' . $full_size_image . '" class="wbpoll_answer wbpoll_full_size_image_answer-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_size_image_answer[' . $index . ']"  placeholder="Full Size image url"  id="wbpoll_answer-' . $index . '" value="' . $full_size_image . '" class="image_url wbpoll_answer wbpoll_full_size_image_answer-' . $index . '"  data-text="wbpoll_full_size_image_answer-' . $index . '"/>';	
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Thumbnail URL', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer[' . $index . ']" placeholder="Thumbnail image url"   id="wbpoll_answer-' . $index . '" value="' . $thumbnail_size_image . '" class="wbpoll_answer wbpoll_full_thumbnail_image_answer-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer[' . $index . ']" placeholder="Thumbnail image url"   id="wbpoll_answer-' . $index . '" value="' . $thumbnail_size_image . '" class="image_url wbpoll_answer wbpoll_full_thumbnail_image_answer-' . $index . '" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';			
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
@@ -1880,12 +1882,17 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video URL', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_answer_url[' . $index . ']"  placeholder="Full Size Video URL"  id="wbpoll_answer-' . $index . '" value="' . $video_url . '" class="wbpoll_answer wbpoll_video_answer_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn-video" data-text="wbpoll_video_answer_url-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_answer_url[' . $index . ']"  placeholder="Full Size Video URL"  id="wbpoll_answer-' . $index . '" value="' . $video_url . '" class="video_url wbpoll_answer wbpoll_video_answer_url-' . $index . '" data-text="wbpoll_video_answer_url-' . $index . '"/>';
+
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-video" data-text="wbpoll_video_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
+			$answer_fields_html .= '<div class="totalpoll-input-group-suggestions" id="suggestions" style="display:none;"><span>Import information from ?</span><a class="totalpoll-input-group-suggestions-item" data-value="yes">Yes</a><a class="totalpoll-input-group-suggestions-item" data-value="yes">No</a></div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video Thumbnail', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_thumbnail_image_url[' . $index . ']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-' . $index . '" value="' . $video_thumbnail_image . '" class="wbpoll_answer wbpoll_video_thumbnail_image_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_thumbnail_image_url[' . $index . ']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-' . $index . '" value="' . $video_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_video_thumbnail_image_url-' . $index . '" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
+			
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
@@ -1952,12 +1959,15 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio URL', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_answer_url[' . $index . ']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-' . $index . '" value="' . $audio_url . '" class="wbpoll_answer wbpoll_audio_answer_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn-audio" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_answer_url[' . $index . ']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-' . $index . '" value="' . $audio_url . '" class="audio_url wbpoll_answer wbpoll_audio_answer_url-' . $index . '" data-text="wbpoll_audio_answer_url-' . $index . '"/>';			
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-audio" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio Thumbnail', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url[' . $index . ']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-' . $index . '" value="' . $audio_thumbnail_image . '" class="wbpoll_answer wbpoll_audio_thumbnail_image_url-' . $index . '"/><input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
+			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url[' . $index . ']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-' . $index . '" value="' . $audio_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_audio_thumbnail_image_url-' . $index . '" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';	
+
+			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="wbpoll-input-group">';
