@@ -1424,9 +1424,22 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			$output_result = '';
 
+			$class = [];
+			foreach ( $poll_result['weighted_index'] as $index => $answer ) {
+				if(!empty($poll_ans_image[ $index ]) || !empty($thumbnail_poll_ans_image[ $index ])){
+					$class['class'] = 'wbpoll-image';
+				}else if(!empty($poll_answers_video[ $index ]) || !empty($thumbnail_poll_answers_video[ $index ])){
+					$class['class'] = 'wbpoll-video';
+				}else if(!empty($poll_answers_audio[ $index ]) || !empty($thumbnail_poll_answers_audio[ $index ])){
+					$class['class'] = 'wbpoll-audio';
+				}else{
+					$class['class'] = 'wbpoll-default';
+				}
+			}
+
 			if ( $total > 0 ) {
 				$output  = '<p>' . sprintf( __( 'Total votes: %d', 'buddypress-polls' ), number_format_i18n( $total ) ) . '</p>';
-				$output .= '<div class="wbpolls-question-results">';
+				$output .= '<div class="wbpolls-question-results '.$class['class'].'">';
 
 				$total_percent = 0;
 

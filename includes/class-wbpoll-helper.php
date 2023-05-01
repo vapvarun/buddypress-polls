@@ -39,31 +39,31 @@ class WBPollHelper {
 
 			} else {
 
-				$cookie_value = 'guest-' . rand( WP_POLL_RAND_MIN, WP_POLL_RAND_MAX );
+				$cookie_value = 'guest-' . rand( BPOLLS_RAND_MIN, BPOLLS_RAND_MAX );
 			}
 
-			if ( ! isset( $_COOKIE[ WP_POLL_COOKIE_NAME ] ) && empty( $_COOKIE[ WP_POLL_COOKIE_NAME ] ) ) {
+			if ( ! isset( $_COOKIE[ BPOLLS_COOKIE_NAME ] ) && empty( $_COOKIE[ BPOLLS_COOKIE_NAME ] ) ) {
 
 				setcookie(
-					WP_POLL_COOKIE_NAME,
+					BPOLLS_COOKIE_NAME,
 					$cookie_value,
-					WP_POLL_COOKIE_EXPIRATION_14DAYS,
+					BPOLLS_COOKIE_EXPIRATION_14DAYS,
 					SITECOOKIEPATH,
 					COOKIE_DOMAIN
 				);
-				$_COOKIE[ WP_POLL_COOKIE_NAME ] = $cookie_value;
+				$_COOKIE[ BPOLLS_COOKIE_NAME ] = $cookie_value;
 
-			} elseif ( isset( $_COOKIE[ WP_POLL_COOKIE_NAME ] ) ) {
+			} elseif ( isset( $_COOKIE[ BPOLLS_COOKIE_NAME ] ) ) {
 
-				if ( substr( $_COOKIE[ WP_POLL_COOKIE_NAME ], 0, 5 ) != 'guest' ) {
+				if ( substr( $_COOKIE[ BPOLLS_COOKIE_NAME ], 0, 5 ) != 'guest' ) {
 					setcookie(
-						WP_POLL_COOKIE_NAME,
+						BPOLLS_COOKIE_NAME,
 						$cookie_value,
-						WP_POLL_COOKIE_EXPIRATION_14DAYS,
+						BPOLLS_COOKIE_EXPIRATION_14DAYS,
 						SITECOOKIEPATH,
 						COOKIE_DOMAIN
 					);
-					$_COOKIE[ WP_POLL_COOKIE_NAME ] = $cookie_value;
+					$_COOKIE[ BPOLLS_COOKIE_NAME ] = $cookie_value;
 				}
 			}
 		}
@@ -734,8 +734,9 @@ class WBPollHelper {
 		$grid_class = ( $grid != 0 ) ? 'wbpoll-form-insidewrap-grid' : '';
 
 		if ( $user_id == 0 ) {
-			$user_session = $_COOKIE[ WB_POLL_COOKIE_NAME ]; //this is string
-
+			
+			//$user_session = $_COOKIE[ BPOLLS_COOKIE_NAME ]; //this is string
+			$user_session = '';
 		} elseif ( is_user_logged_in() ) {
 			$user_session = 'user-' . $user_id; //this is string
 		}
@@ -1140,16 +1141,17 @@ class WBPollHelper {
 							$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
 
 							$guest_register_html = '';
-							$guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
-							if ( $guest_show_register ) {
+							//$guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
+							//if ( $guest_show_register ) {
 								if ( get_option( 'users_can_register' ) ) {
 									$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
 									$guest_register_html .= '<p class="wbpoll-guest-register wbpoll-error">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
+									$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
 								}
 
-								$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
+								
 
-							}
+							//}
 
 							$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
 
@@ -1368,7 +1370,8 @@ class WBPollHelper {
 		$user_ip = self::get_ipaddress();
 
 		if ( $user_id == 0 ) {
-			$user_session = $_COOKIE[ wb_poll_COOKIE_NAME ]; //this is string
+			//$user_session = $_COOKIE[ BPOLLS_COOKIE_NAME ]; //this is string
+			$user_session = '';
 		} elseif ( is_user_logged_in() ) {
 			$user_session = 'user-' . $user_id; //this is string
 		}

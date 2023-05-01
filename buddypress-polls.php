@@ -53,6 +53,15 @@ if ( ! defined( 'BPOLLS_PLUGIN_PATH' ) ) {
 if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
 	define( 'BPOLLS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
 }
+defined('BPOLLS_COOKIE_EXPIRATION') or define('BPOLLS_COOKIE_EXPIRATION',
+    time() + 1209600); //Expiration of 14 days.
+defined('BPOLLS_COOKIE_NAME') or define('BPOLLS_COOKIE_NAME', 'wbpoll-cookie');
+defined('BPOLLS_RAND_MIN') or define('BPOLLS_RAND_MIN', 0);
+defined('BPOLLS_RAND_MAX') or define('BPOLLS_RAND_MAX', 999999);
+defined('BPOLLS_COOKIE_EXPIRATION_14DAYS') or define('BPOLLS_COOKIE_EXPIRATION_14DAYS',
+    time() + 1209600); //Expiration of 14 days.
+defined('BPOLLS_COOKIE_EXPIRATION_7DAYS') or define('BPOLLS_COOKIE_EXPIRATION_7DAYS',
+    time() + 604800); //Expiration of 7 days.
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-buddypress-polls-activator.php

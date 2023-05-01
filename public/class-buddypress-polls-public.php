@@ -2185,7 +2185,8 @@ class Buddypress_Polls_Public {
 		$poll_info = get_post( $poll_id );
 
 		if ( $user_id == 0 ) {
-			$user_session   = $_COOKIE[ WB_POLL_COOKIE_NAME ]; //this is string
+			$user_session   = '';
+			//$user_session   = $_COOKIE[ BPOLLS_COOKIE_NAME ]; //this is string
 			$user_ip        = WBPollHelper::get_ipaddress();
 			$this_user_role = array( 'guest' );
 
@@ -2281,7 +2282,7 @@ class Buddypress_Polls_Public {
 		$insertArray['poll_title']   = $poll_info->post_title;
 		$insertArray['user_name']    = ( $user_id == 0 ) ? 'guest' : $current_user->user_login;
 		$insertArray['is_logged_in'] = ( $user_id == 0 ) ? 0 : 1;
-		$insertArray['user_cookie']  = ( $user_id != 0 ) ? 'user-' . $user_id : $_COOKIE[ WB_POLL_COOKIE_NAME ];
+		$insertArray['user_cookie']  = ( $user_id != 0 ) ? 'user-' . $user_id : $_COOKIE[ BPOLLS_COOKIE_NAME ];
 		$insertArray['user_ip']      = WBPollHelper::get_ipaddress();
 		$insertArray['user_id']      = $user_id;
 
