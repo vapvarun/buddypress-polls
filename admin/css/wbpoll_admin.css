@@ -187,6 +187,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 
 .wbpoll-image-input-preview-thumbnail .fluid-width-video-wrapper {
     padding: 0 !important;
+	width: auto;
 }
 
 .wbpoll-image-input-preview-thumbnail .fluid-width-video-wrapper iframe,
