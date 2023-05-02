@@ -543,12 +543,24 @@ jQuery( document ).ready(
 			'.video_url',
 			function (e){
 				var videoclass = $( this ).data( 'text' );
+				var id = $(this).data('id');
 				var url = $(this).val();
-				$('#suggestions').show();
+				$('.hide_suggestion-'+id).show();
 				$( '.video_' + videoclass ).html( '<video src="' + url + '" controls="" poster="" preload="none"></video>' );
 
 
 		});
+
+		$('.yes').on('click', function(){
+			var choice = $(this).val();
+			var id = $(this).data('id');
+			if(choice == 'yes'){
+				var url = $('.wb-hide-'+id+' .video_url').val();
+				var videoclass = $('.wb-hide-'+id+' .video_url').data( 'text' );
+				$( '.video_' + videoclass ).html( '<iframe width="420" height="345" src="' + url + '"></iframe>' );
+				$('.hide_suggestion-'+id).hide();
+			}
+		});	
 
 		//audio add with url
 
@@ -557,11 +569,23 @@ jQuery( document ).ready(
 			'.audio_url',
 			function (e){
 				var url = $(this).val();
+				var id = $(this).data('id');
 				var audioclass = $( this ).data( 'text' );
-				
+				$('.hide_suggestion-'+id).show();				
 				$( '.audio_' + audioclass ).html( '<audio src="' + url + '" controls="" preload="none"></audio>' );
-
+				
 		});
+
+		$('.yes').on('click', function(){
+			var choice = $(this).val();
+			var id = $(this).data('id');
+			if(choice == 'yes'){
+				var url = $('.wb-hide-'+id+' .audio_url').val();
+				var audioclass = $('.wb-hide-'+id+' .audio_url').data( 'text' );
+				$( '.audio_' + audioclass ).html( '<iframe width="420" height="345" src="' + url + '"></iframe>' );
+				$('.hide_suggestion-'+id).hide();
+			}
+		});	
 
 		//remove an answer
 		$( '#wbpoll_answer_wrap' ).on(

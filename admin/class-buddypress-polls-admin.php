@@ -1255,6 +1255,19 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				delete_post_meta( $post_id, $prefix . 'video_answer_url' );
 			}
 
+			// video suggestion
+			if ( isset( $_POST[ $prefix . 'video_import_info' ] ) ) {
+				$suggestion = $_POST[ $prefix . 'video_import_info' ];
+				foreach ( $suggestion as $index => $text ) {
+					$suggestion[ $index ] = sanitize_text_field( $text );
+				}
+
+				update_post_meta( $post_id, $prefix . 'video_import_info', $suggestion );
+
+			} else {
+				delete_post_meta( $post_id, $prefix . 'video_import_info' );
+			}
+
 			// Video thumbnail size image answer
 			if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
 				$images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
@@ -1281,6 +1294,20 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			} else {
 				delete_post_meta( $post_id, $prefix . 'audio_answer_url' );
+			}
+
+			// audio suggestion
+			if ( isset( $_POST[ $prefix . 'audio_import_info' ] ) ) {
+				$suggestion = $_POST[ $prefix . 'audio_import_info' ];
+
+				foreach ( $suggestion as $index => $text ) {
+					$suggestion[ $index ] = sanitize_text_field( $text );
+				}
+
+				update_post_meta( $post_id, $prefix . 'audio_import_info', $suggestion );
+
+			} else {
+				delete_post_meta( $post_id, $prefix . 'audio_import_info' );
 			}
 
 			// Audio thumbnail size image answer
@@ -1507,8 +1534,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						if ( isset( $poll_answers_html[ $index ] ) && ! empty( $poll_answers_html[ $index ] ) ) {
 							$output_result .= '<div class="poll-html">' . $poll_answers_html[ $index ] . '</div>';
 						}
-
-						$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';
+						if($vote_count > 1){
+							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Votes</strong></div></div>';
+						}else{
+							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';
+						}
 						$output_result .= '<div class="bpolls-item-width-wrapper"><div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format_i18n( $re_percent, 2 ) . '%;background-color:' . $colors[ $index ] . '"></div><div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format_i18n( $re_percent, 2 ) . '%</div></div></div>';
 						$output_result .= '</div>'; // wbpoll-question-choices-item-container.
 						$output_result .= '</div>'; // wbpoll-question-choices-item.
