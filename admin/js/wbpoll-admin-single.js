@@ -541,14 +541,14 @@ jQuery( document ).ready(
 		$( '#wbpoll_answer_wrap' ).on(
 			'keyup',
 			'.video_url',
-			function (e){
-				var videoclass = $( this ).data( 'text' );
-				var id = $(this).data('id');
+			function (e){				
 				var url = $(this).val();
-				$('.hide_suggestion-'+id).show();
-				$( '.video_' + videoclass ).html( '<video src="' + url + '" controls="" poster="" preload="none"></video>' );
-
-
+				if(url != ''){
+					var videoclass = $( this ).data( 'text' );
+					var id = $(this).data('id');
+					$('.hide_suggestion-'+id).show();
+					$( '.video_' + videoclass ).html( '<video src="' + url + '" controls="" poster="" preload="none"></video>' );
+				}
 		});
 
 		$('.yes').on('click', function(){
@@ -558,6 +558,8 @@ jQuery( document ).ready(
 				var url = $('.wb-hide-'+id+' .video_url').val();
 				var videoclass = $('.wb-hide-'+id+' .video_url').data( 'text' );
 				$( '.video_' + videoclass ).html( '<iframe width="420" height="345" src="' + url + '"></iframe>' );
+				$('.hide_suggestion-'+id).hide();
+			}else{
 				$('.hide_suggestion-'+id).hide();
 			}
 		});	
@@ -569,10 +571,12 @@ jQuery( document ).ready(
 			'.audio_url',
 			function (e){
 				var url = $(this).val();
-				var id = $(this).data('id');
-				var audioclass = $( this ).data( 'text' );
-				$('.hide_suggestion-'+id).show();				
-				$( '.audio_' + audioclass ).html( '<audio src="' + url + '" controls="" preload="none"></audio>' );
+				if(url != ''){
+					var id = $(this).data('id');
+					var audioclass = $( this ).data( 'text' );
+					$('.hide_suggestion-'+id).show();				
+					$( '.audio_' + audioclass ).html( '<audio src="' + url + '" controls="" preload="none"></audio>' );
+				}						
 				
 		});
 
@@ -583,6 +587,8 @@ jQuery( document ).ready(
 				var url = $('.wb-hide-'+id+' .audio_url').val();
 				var audioclass = $('.wb-hide-'+id+' .audio_url').data( 'text' );
 				$( '.audio_' + audioclass ).html( '<iframe width="420" height="345" src="' + url + '"></iframe>' );
+				$('.hide_suggestion-'+id).hide();
+			}else{
 				$('.hide_suggestion-'+id).hide();
 			}
 		});	

@@ -919,8 +919,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$audio_url             = array();
 					$audio_thumbnail_image = array();
 					$html_code             = array();
-					$iframe_video_url 	   = array();
-					$iframe_audio_url 	   = array();
 					$thumbnail_size_image = array();
 
 					foreach ( $default_answers_titles as $index => $answers_title ) {
@@ -940,9 +938,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						// HTML
 						$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
 
-						$iframe_video_url[$index] = isset( $iframe_video_url[ $index ] ) ? $iframe_video_url[ $index ] : array();
-						$iframe_audio_url[$index] = isset( $iframe_audio_url[ $index ] ) ? $iframe_audio_url[ $index ] : array();
-
 						echo WBPollHelper::wbpoll_answer_field_template(
 							intval( $index ) + $new_index,
 							$default_answers_titles[ $index ],
@@ -957,8 +952,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							$html_code[ $index ],
 							$audio_url[ $index ],
 							$audio_thumbnail_image[ $index ],
-							$iframe_video_url[ $index ],
-							$iframe_audio_url[ $index ],
 						);
 					}
 
