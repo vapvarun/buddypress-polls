@@ -1245,7 +1245,12 @@ class WBPollHelper {
 							// video
 
 							if ( isset( $poll_answers_video[ $index ] ) && ! empty( $poll_answers_video[ $index ] ) && empty( $thumbnail_poll_answers_video[ $index ] ) ) {
-								$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div></div></div>';
+								if(isset($poll_video_suggestion[$index]) && $poll_video_suggestion[$index] == 'yes'){
+									$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><iframe width="420" height="345" src="' . $poll_answers_video[ $index ] . '"></iframe></div></div></div>';
+								}else{
+									$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div></div></div>';
+								}
+								
 
 							} elseif ( isset( $thumbnail_poll_answers_video[ $index ] ) && ! empty( $thumbnail_poll_answers_video[ $index ] ) && empty( $poll_answers_video[ $index ] ) ) {
 								
@@ -1267,7 +1272,13 @@ class WBPollHelper {
 
 							if ( isset( $poll_answers_audio[ $index ] ) && ! empty( $poll_answers_audio[ $index ] ) && empty( $thumbnail_poll_answers_audio[ $index ] ) ) {
 
-								$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none"></audio></div></div></div>';
+								if(isset($poll_audio_suggestion[$index]) && $poll_audio_suggestion[$index] == 'yes'){
+									$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><iframe width="420" height="345" src="' . $poll_answers_audio[ $index ] . '"></iframe></div></div></div>';
+
+								}else{
+									$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none"></audio></div></div></div>';
+								}
+								
 
 							} elseif ( isset( $thumbnail_poll_answers_audio[ $index ] ) && ! empty( $thumbnail_poll_answers_audio[ $index ] ) && empty( $poll_answers_audio[ $index ] ) ) {
 
@@ -1741,7 +1752,9 @@ class WBPollHelper {
 		$html_code = '',
 		$audio_url = '',
 		$audio_thumbnail_image = '',
-		$number = ''
+		$number = '',
+		$iframe_video_url = '',
+		$iframe_audio_url = ''
 
 	) {
 
@@ -1877,7 +1890,13 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="wbpoll-options-input-container">';
 			$answer_fields_html .= '<div class="left video-section wbpoll-image-input-preview">';
 			if ( isset( $video_url ) && ! empty( $video_url ) ) {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-' . $index . '"><video src="' . $video_url . '" controls="" poster="" preload="none"></video></div>';
+
+				if(isset($iframe_video_url) && $iframe_video_url == 'yes'){
+					$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-' . $index . '"><iframe width="420" height="345" src="' . $video_url . '"></iframe></div>';
+				}else{
+					$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-' . $index . '"><video src="' . $video_url . '" controls="" poster="" preload="none"></video></div>';
+				}
+				
 			} else {
 				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-' . $index . '"></div>';
 			}
@@ -1958,7 +1977,12 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="wbpoll-options-input-container">';
 			$answer_fields_html .= '<div class="left audio-section wbpoll-image-input-preview">';
 			if ( isset( $audio_url ) && ! empty( $audio_url ) ) {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail audio_wbpoll_audio_answer_url-' . $index . '" ><audio src="' . $audio_url . '" controls="" preload="none"></audio></div>';
+				if(isset($iframe_audio_url) && $iframe_audio_url == 'yes'){
+					$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail audio_wbpoll_audio_answer_url-' . $index . '" ><iframe width="420" height="345" src="' . $audio_url . '"></iframe></div>';
+				}else{
+					$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail audio_wbpoll_audio_answer_url-' . $index . '" ><audio src="' . $audio_url . '" controls="" preload="none"></audio></div>';
+				}
+				
 			} else {
 				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail audio_wbpoll_audio_answer_url-' . $index . '" ></div>';
 			}

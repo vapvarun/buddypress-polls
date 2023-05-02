@@ -780,6 +780,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$audio_url             = array();
 			$audio_thumbnail_image = array();
 			$html_code             = array();
+			$iframe_video_url  	   = array();
+			$iframe_audio_url  	   = array();
 
 			if ( $poll_postid > 0 ) :
 				// $is_voted           = intval( get_post_meta( $poll_postid, '_wbpoll_is_voted', true ) );
@@ -804,6 +806,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$video_url = $video_urls;
 				}
 
+				$iframe_video_urls = get_post_meta( $poll_postid, '_wbpoll_video_import_info', true );
+				if ( isset( $iframe_video_url ) && ! empty( $iframe_video_urls ) ) {
+					$iframe_video_url = $iframe_video_urls;
+				}
+				
+
 				$video_thumbnail_images = get_post_meta( $poll_postid, '_wbpoll_video_thumbnail_image_url', true );
 				if ( isset( $video_thumbnail_images ) && ! empty( $video_thumbnail_images ) ) {
 					$video_thumbnail_image = $video_thumbnail_images;
@@ -812,6 +820,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$audio_urls = get_post_meta( $poll_postid, '_wbpoll_audio_answer_url', true );
 				if ( isset( $audio_urls ) && ! empty( $audio_urls ) ) {
 					$audio_url = $audio_urls;
+				}
+				
+				$iframe_audio_urls = get_post_meta( $poll_postid, '_wbpoll_audio_import_info', true );
+				if ( isset( $iframe_audio_urls ) && ! empty( $iframe_audio_urls ) ) {
+					$iframe_audio_url = $iframe_audio_urls;
 				}
 
 				$audio_thumbnail_images = get_post_meta( $poll_postid, '_wbpoll_audio_thumbnail_image_url', true );
@@ -869,16 +882,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							// video
 							$video_url[ $index ]             = isset( $video_url[ $index ] ) ? $video_url[ $index ] : array();
 							$video_thumbnail_image[ $index ] = isset( $video_thumbnail_image[ $index ] ) ? $video_thumbnail_image[ $index ] : array();
-
+							$iframe_video_url[ $index ]             = isset( $iframe_video_url[ $index ] ) ? $iframe_video_url[ $index ] : array();
 							// audio
 
 							$audio_url[ $index ]             = isset( $audio_url[ $index ] ) ? $audio_url[ $index ] : array();
 							$audio_thumbnail_image[ $index ] = isset( $audio_thumbnail_image[ $index ] ) ? $audio_thumbnail_image[ $index ] : array();
-
+							$iframe_audio_url[ $index ] = isset( $iframe_audio_url[ $index ] ) ? $iframe_audio_url[ $index ] : array();
 							// HTML
 							$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
 
-							echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ], $number );
+							echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ], $number, $iframe_video_url[ $index ], $iframe_audio_url[ $index ] );
 						}
 					}
 				}
@@ -906,8 +919,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$audio_url             = array();
 					$audio_thumbnail_image = array();
 					$html_code             = array();
-
+					$iframe_video_url 	   = array();
+					$iframe_audio_url 	   = array();
 					$thumbnail_size_image = array();
+
 					foreach ( $default_answers_titles as $index => $answers_title ) {
 
 						// image
@@ -925,6 +940,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						// HTML
 						$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
 
+						$iframe_video_url[$index] = isset( $iframe_video_url[ $index ] ) ? $iframe_video_url[ $index ] : array();
+						$iframe_audio_url[$index] = isset( $iframe_audio_url[ $index ] ) ? $iframe_audio_url[ $index ] : array();
+
 						echo WBPollHelper::wbpoll_answer_field_template(
 							intval( $index ) + $new_index,
 							$default_answers_titles[ $index ],
@@ -938,7 +956,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							$video_thumbnail_image[ $index ],
 							$html_code[ $index ],
 							$audio_url[ $index ],
-							$audio_thumbnail_image[ $index ]
+							$audio_thumbnail_image[ $index ],
+							$iframe_video_url[ $index ],
+							$iframe_audio_url[ $index ],
 						);
 					}
 
