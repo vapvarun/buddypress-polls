@@ -2221,6 +2221,14 @@ class Buddypress_Polls_Public {
 				true
 			)
 		); //poll never epire
+
+		$poll_votes_per_session = intval(
+			get_post_meta(
+				$poll_id,
+				'_wbpoll_vote_per_session',
+				true
+			)
+		); // Votes per session
 		//$poll_show_result_all           = get_post_meta($poll_id, '_wbpoll_show_result_all', true); //show_result_all
 		$poll_result_chart_type = get_post_meta( $poll_id, '_wbpoll_result_chart_type', true ); //chart type
 
@@ -2362,7 +2370,7 @@ class Buddypress_Polls_Public {
 		$poll_result['chart_type'] = $poll_result_chart_type;
 
 		//already voted
-		if ( $count >= 1 ) {
+		if ( $count >= $poll_votes_per_session ) {
 			//already voted, just show the result
 
 			$poll_result['error'] = 1;
