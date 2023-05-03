@@ -814,6 +814,11 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$poll_colors        = get_post_meta($poll_postid, '_wbpoll_answer_color', true);
 							$poll_answers_extra = get_post_meta($poll_postid, '_wbpoll_answer_extra', true);
 
+							$poll_color = get_post_meta($poll_postid, '_wbpoll_full_size_image_answer', true);
+							if (isset($poll_color) && !empty($poll_color)) {
+								$poll_colors = $poll_color;
+							}
+
 							$full_size_images = get_post_meta($poll_postid, '_wbpoll_full_size_image_answer', true);
 							if (isset($full_size_images) && !empty($full_size_images)) {
 								$full_size_image = $full_size_images;
@@ -896,7 +901,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									$number = $i++;
 									if (isset($poll_answer)) {
 										$poll_answers_extra[$index] = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : '';
-										$poll_colors[$index]        = isset($poll_colors[$index]) ? $poll_colors[$index] : '';
+										
+										$poll_colors[$index] = isset($poll_colors[$index]) ? $poll_colors[$index] : array();
 
 										// image
 										$thumbnail_size_image[$index] = isset($thumbnail_size_image[$index]) ? $thumbnail_size_image[$index] : array();
