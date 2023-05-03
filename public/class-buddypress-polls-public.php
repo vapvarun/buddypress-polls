@@ -88,14 +88,9 @@ class Buddypress_Polls_Public {
 
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
-			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
-			if ( ! empty( $_elementor_controls_usage ) ) {
-				foreach ( $_elementor_controls_usage as $key => $value ) {
-					if ( 'buddypress_shortcode_activity_widget' === $key || 'bp_newsfeed_element_widget' === $key || 'bbp-activity' === $key ) {
-						$current_component = 'activity';
-						break;
-					}
-				}
+			$_elementor_data = get_post_meta( $post->ID, '_elementor_data', true );
+			if ( $_elementor_data != '' && str_contains($_elementor_data, 'bp_newsfeed_element_widget') || str_contains($_elementor_data, 'buddypress_shortcode_activity_widget') || str_contains($_elementor_data, 'bbp-activity')) {
+				$current_component = 'activity';
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
@@ -192,14 +187,10 @@ class Buddypress_Polls_Public {
 
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
-			$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
-			if ( ! empty( $_elementor_controls_usage ) ) {
-				foreach ( $_elementor_controls_usage as $key => $value ) {
-					if ( 'buddypress_shortcode_activity_widget' === $key || 'bp_newsfeed_element_widget' === $key || 'bbp-activity' === $key ) {
-						$current_component = 'activity';
-						break;
-					}
-				}
+			//$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
+			$_elementor_data = get_post_meta( $post->ID, '_elementor_data', true );
+			if ( $_elementor_data != '' && str_contains($_elementor_data, 'bp_newsfeed_element_widget') || str_contains($_elementor_data, 'buddypress_shortcode_activity_widget') || str_contains($_elementor_data, 'bbp-activity')) {
+				$current_component = 'activity';
 			}
 		}
 
