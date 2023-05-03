@@ -1115,11 +1115,14 @@ class WBPollHelper {
 										),
 										$answers_by_user_html
 									) . ' </p>';
-									$poll_output .= self::show_single_poll_result(
-										$post_id,
-										$reference,
-										$result_chart_type
-									);
+
+									if ( $poll_show_result_before_expire == 1 ) {
+										$poll_output .= self::show_single_poll_result(
+											$post_id,
+											$reference,
+											$result_chart_type
+										);
+									}
 	
 								} else {
 									$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
@@ -1130,13 +1133,13 @@ class WBPollHelper {
 								}
 							}
 	
-							if ( $poll_show_result_before_expire == 1 ) {
-								$poll_output .= self::show_single_poll_result(
-									$post_id,
-									$reference,
-									$result_chart_type
-								);
-							}
+							// if ( $poll_show_result_before_expire == 1 ) {
+							// 	$poll_output .= self::show_single_poll_result(
+							// 		$post_id,
+							// 		$reference,
+							// 		$result_chart_type
+							// 	);
+							// }
 						}
 						
 					} else {				
@@ -1725,9 +1728,9 @@ class WBPollHelper {
 			),
 
 			'_wbpoll_show_result_before_expire' => array(
-				'label'   => esc_html__( 'Show Result Before Expires', 'buddypress-polls' ),
+				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),
 				'desc'    => esc_html__(
-					'Select if you want poll to show result before expires. After expires the result will be shown always. Please check it if poll never expires.',
+					'Select if you want poll to show result After expires. After expires the result will be shown always. Please check it if poll never expires.',
 					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',
@@ -1832,8 +1835,8 @@ class WBPollHelper {
 
 			$answer_fields_html      .= '<div class="wbpoll-containable-list-item-editor wbpoll-containable-list-item-editor-text hidetab wb-hide-' . $index . '">';
 			$answer_fields_html      .= '<div class="wbpoll-options-input-container">';
-			$answer_fields_html      .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"   id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>
-                            <input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
+			$answer_fields_html      .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"   id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>';
+            // $answer_fields_html      .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
 			$answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_' . $index . '" value="' . $answer_type . '" name="_wbpoll_answer_extra[' . $index . '][type]" />';
 			$answer_fields_html_extra = apply_filters(
 				'wbpoll_answer_extra_fields',
@@ -1874,11 +1877,11 @@ class WBPollHelper {
 			} else {
 				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_full_size_image_answer-' . $index . '" ></div>';
 			}
-			if ( isset( $thumbnail_size_image ) && ! empty( $thumbnail_size_image ) ) {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_full_thumbnail_image_answer-' . $index . '"><img width="266" height="266" src="' . $thumbnail_size_image . '"></div>';
-			} else {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_full_thumbnail_image_answer-' . $index . '"><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
-			}
+			// if ( isset( $thumbnail_size_image ) && ! empty( $thumbnail_size_image ) ) {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_full_thumbnail_image_answer-' . $index . '"><img width="266" height="266" src="' . $thumbnail_size_image . '"></div>';
+			// } else {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_full_thumbnail_image_answer-' . $index . '"><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+			// }
 
 			$answer_fields_html .= '</div>';
 
@@ -1895,15 +1898,15 @@ class WBPollHelper {
 			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_size_image_answer-' . $index . '"/>';
 			$answer_fields_html .= '</div>';
 
-			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Thumbnail URL', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer[' . $index . ']" placeholder="Thumbnail image url"   id="wbpoll_answer-' . $index . '" value="' . $thumbnail_size_image . '" class="image_url wbpoll_answer wbpoll_full_thumbnail_image_answer-' . $index . '" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
-			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+			// $answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Thumbnail URL', 'buddypress-polls' ) . '</label>';
+			// $answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_full_thumbnail_image_answer[' . $index . ']" placeholder="Thumbnail image url"   id="wbpoll_answer-' . $index . '" value="' . $thumbnail_size_image . '" class="image_url wbpoll_answer wbpoll_full_thumbnail_image_answer-' . $index . '" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
+			// $answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_full_thumbnail_image_answer-' . $index . '"/>';
+			// $answer_fields_html .= '</div>';
 
-			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group">';
+			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
+			// $answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '</div>';
 
@@ -1954,12 +1957,12 @@ class WBPollHelper {
 			} else {
 				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-' . $index . '"></div>';
 			}
-			if ( isset( $video_thumbnail_image ) && ! empty( $video_thumbnail_image ) ) {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_video_thumbnail_image_url-' . $index . '"><img width="266" height="266" src="' . $video_thumbnail_image . '"></div>';
+			// if ( isset( $video_thumbnail_image ) && ! empty( $video_thumbnail_image ) ) {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_video_thumbnail_image_url-' . $index . '"><img width="266" height="266" src="' . $video_thumbnail_image . '"></div>';
 
-			} else {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_video_thumbnail_image_url-' . $index . '"><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
-			}
+			// } else {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_video_thumbnail_image_url-' . $index . '"><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+			// }
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '<div class="right wbpoll-image-input-details">';
@@ -1986,16 +1989,16 @@ class WBPollHelper {
 
 			$answer_fields_html .= '</div>';					
 
-			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video Thumbnail', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_thumbnail_image_url[' . $index . ']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-' . $index . '" value="' . $video_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_video_thumbnail_image_url-' . $index . '" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+			// $answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Video Thumbnail', 'buddypress-polls' ) . '</label>';
+			// $answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_video_thumbnail_image_url[' . $index . ']" placeholder="Video Thumbnail Image url" id="wbpoll_answer-' . $index . '" value="' . $video_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_video_thumbnail_image_url-' . $index . '" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
 
-			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_video_thumbnail_image_url-' . $index . '"/>';
+			// $answer_fields_html .= '</div>';
 
-			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group">';
+			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
+			// $answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '</div>';
 
@@ -2046,11 +2049,11 @@ class WBPollHelper {
 			} else {
 				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail audio_wbpoll_audio_answer_url-' . $index . '" ></div>';
 			}
-			if ( isset( $audio_thumbnail_image ) && ! empty( $audio_thumbnail_image ) ) {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_audio_thumbnail_image_url-' . $index . '" ><img width="266" height="266" src="' . $audio_thumbnail_image . '"></div>';
-			} else {
-				$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_audio_thumbnail_image_url-' . $index . '" ><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
-			}
+			// if ( isset( $audio_thumbnail_image ) && ! empty( $audio_thumbnail_image ) ) {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_audio_thumbnail_image_url-' . $index . '" ><img width="266" height="266" src="' . $audio_thumbnail_image . '"></div>';
+			// } else {
+			// 	$answer_fields_html .= '<div class="wbpoll-image-input-preview-thumbnail image_wbpoll_audio_thumbnail_image_url-' . $index . '" ><img width="266" height="266" src="' . site_url() . '/wp-content/uploads/woocommerce-placeholder.png"></div>';
+			// }
 
 			$answer_fields_html .= '</div>';
 
@@ -2074,16 +2077,15 @@ class WBPollHelper {
 			}
 			$answer_fields_html .= '</div>';
 
-			$answer_fields_html .= '<div class="wbpoll-input-group with-button">';
-			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio Thumbnail', 'buddypress-polls' ) . '</label>';
-			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url[' . $index . ']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-' . $index . '" value="' . $audio_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_audio_thumbnail_image_url-' . $index . '" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group with-button">';
+			// $answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio Thumbnail', 'buddypress-polls' ) . '</label>';
+			// $answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_audio_thumbnail_image_url[' . $index . ']" placeholder="Audio Thumbnail image url" id="wbpoll_answer-' . $index . '" value="' . $audio_thumbnail_image . '" class="image_url wbpoll_answer wbpoll_audio_thumbnail_image_url-' . $index . '" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
+			// $answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
+			// $answer_fields_html .= '</div>';
 
-			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn" data-text="wbpoll_audio_thumbnail_image_url-' . $index . '"/>';
-			$answer_fields_html .= '</div>';
-
-			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group">';
+			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
+			// $answer_fields_html .= '</div>';
 
 			$answer_fields_html .= '</div>';
 
@@ -2128,9 +2130,9 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<textarea style="width:330px;" name="_wbpoll_html_answer[' . $index . ']"  placeholder="Full HTML Data"  id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>' . $html_code . '</textarea>';
 
-			$answer_fields_html .= '<div class="wbpoll-input-group">';
-			$answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
-			$answer_fields_html .= '</div>';
+			// $answer_fields_html .= '<div class="wbpoll-input-group">';
+			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
+			// $answer_fields_html .= '</div>';
 			$answer_fields_html .= '</div>';
 
 			$answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_' . $index . '" value="' . $answer_type . '" name="_wbpoll_answer_extra[' . $index . '][type]" />';

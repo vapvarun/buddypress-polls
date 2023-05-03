@@ -788,8 +788,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$is_voted = WBPollHelper::is_poll_voted( $poll_postid );
 
 				$poll_answers       = get_post_meta( $poll_postid, '_wbpoll_answer', true );
-				$poll_colors        = get_post_meta( $poll_postid, '_wbpoll_answer_color', true );
 				$poll_answers_extra = get_post_meta( $poll_postid, '_wbpoll_answer_extra', true );
+
+				$poll_color = get_post_meta( $poll_postid, '_wbpoll_answer_color', true );
+				if ( isset( $poll_color ) && ! empty( $poll_color ) ) {
+					$poll_colors = $poll_color;
+				}
 
 				$full_size_images = get_post_meta( $poll_postid, '_wbpoll_full_size_image_answer', true );
 				if ( isset( $full_size_images ) && ! empty( $full_size_images ) ) {
@@ -873,8 +877,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						$number = $i++;
 						if ( isset( $poll_answer ) ) {
 							$poll_answers_extra[ $index ] = isset( $poll_answers_extra[ $index ] ) ? $poll_answers_extra[ $index ] : '';
-							$poll_colors[ $index ]        = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : '';
-
+							//color
+							$poll_colors[ $index ] = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : array();
 							// image
 							$thumbnail_size_image[ $index ] = isset( $thumbnail_size_image[ $index ] ) ? $thumbnail_size_image[ $index ] : array();
 							$full_size_image[ $index ]      = isset( $full_size_image[ $index ] ) ? $full_size_image[ $index ] : array();
@@ -1180,28 +1184,28 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$prefix = '_wbpoll_';
 
 			// handle answer colors
-			if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
+			// if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
 
-				$colors = $_POST[ $prefix . 'answer_color' ];
-				foreach ( $colors as $index => $color ) {
-					$colors[ $index ] = WBPollHelper::sanitize_hex_color( $color );
-				}
+			// 	$colors = $_POST[ $prefix . 'answer_color' ];
+			// 	foreach ( $colors as $index => $color ) {
+			// 		$colors[ $index ] = WBPollHelper::sanitize_hex_color( $color );
+			// 	}
 
-				$unique_color = array_unique( $colors );
+			// 	$unique_color = array_unique( $colors );
 
-				if ( ( count( $unique_color ) ) == ( count( $colors ) ) ) {
-					update_post_meta( $post_id, $prefix . 'answer_color', $colors );
-				} else {
-					$error = '<div class="error"><p>' . esc_html__(
-						'Error: Answer Color repeat error',
-						'buddypress-polls'
-					) . '</p></div>';
+			// 	if ( ( count( $unique_color ) ) == ( count( $colors ) ) ) {
+			// 		update_post_meta( $post_id, $prefix . 'answer_color', $colors );
+			// 	} else {
+			// 		$error = '<div class="error"><p>' . esc_html__(
+			// 			'Error: Answer Color repeat error',
+			// 			'buddypress-polls'
+			// 		) . '</p></div>';
 
-					return false;
-				}
-			} else {
-				delete_post_meta( $post_id, $prefix . 'answer_color' );
-			}
+			// 		return false;
+			// 	}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'answer_color' );
+			// }
 
 			// handling extra fields
 			if ( isset( $_POST[ $prefix . 'answer_extra' ] ) ) {
@@ -1241,18 +1245,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'full_thumbnail_image_answer' ] ) ) {
-				$images = $_POST[ $prefix . 'full_thumbnail_image_answer' ];
+			// if ( isset( $_POST[ $prefix . 'full_thumbnail_image_answer' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'full_thumbnail_image_answer' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer', $images );
+			// 	update_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer' );
+			// }
 
 			// video url
 			if ( isset( $_POST[ $prefix . 'video_answer_url' ] ) ) {
@@ -1282,18 +1286,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Video thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
-				$images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
+			// if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'video_thumbnail_image_url', $images );
+			// 	update_post_meta( $post_id, $prefix . 'video_thumbnail_image_url', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'video_thumbnail_image_url' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'video_thumbnail_image_url' );
+			// }
 
 			// Audio url
 			if ( isset( $_POST[ $prefix . 'audio_answer_url' ] ) ) {
@@ -1324,18 +1328,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Audio thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'audio_thumbnail_image_url' ] ) ) {
-				$images = $_POST[ $prefix . 'audio_thumbnail_image_url' ];
+			// if ( isset( $_POST[ $prefix . 'audio_thumbnail_image_url' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'audio_thumbnail_image_url' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url', $images );
+			// 	update_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url' );
+			// }
 
 			// HTML textarea answer
 			if ( isset( $_POST[ $prefix . 'html_answer' ] ) ) {
