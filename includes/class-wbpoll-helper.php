@@ -1188,7 +1188,7 @@ class WBPollHelper
 		// current user didn't vote yet
 		$poll_form_html = '';
 
-		$poll_form_html = apply_filters('wbpoll_form_html_before', $poll_form_html, $post_id);
+		echo apply_filters('wbpoll_form_html_before', $poll_form_html, $post_id);
 
 		if (!is_user_logged_in() && $allow_guest_sign == 'on') :
 			if (is_singular()) {
@@ -1200,35 +1200,37 @@ class WBPollHelper
 				$login_url    = wp_login_url(home_url(add_query_arg(array(), $wp->request)));
 				$redirect_url = home_url(add_query_arg(array(), $wp->request));
 			}
+?>
+			<div class="wbpoll-guest-wrap">
 
-			$guest_html = '<div class="wbpoll-guest-wrap">';
+				<p class="wbpoll-title-login wbpoll-alert">Do you have account and want to vote as registered user? Please <a href="#">login</a></p><?php
+																																					$guest_login_html = wp_login_form(
+																																						array(
+																																							'redirect' => $redirect_url,
+																																							'echo'     => false,
+																																						)
+																																					);
+																																					?>
+				<?php
+				echo apply_filters('wbpoll_login_html', $guest_login_html, $login_url, $redirect_url);
 
-			$guest_html      .= '<p class="wbpoll-title-login wbpoll-alert">' . __('Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls') . '</p>';
-			$guest_login_html = wp_login_form(
-				array(
-					'redirect' => $redirect_url,
-					'echo'     => false,
-				)
-			);
+				$guest_register_html = '';
+				// $guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
+				// if ( $guest_show_register ) {
+				if (get_option('users_can_register')) {
+					$register_url  = add_query_arg('redirect_to', urlencode($redirect_url), wp_registration_url());
+				?>
+					<p class="wbpoll-guest-register wbpoll-error">No account yet? <a href="<?php echo $register_url; ?>">Register</a></p>
+				<?php
+					echo apply_filters('wbpoll_register_html', $guest_register_html, $redirect_url);
+				}
 
-			$guest_login_html = apply_filters('wbpoll_login_html', $guest_login_html, $login_url, $redirect_url);
+				// }
+				?>
+				<div class="wbpoll-guest-login-wrap"><?php echo $guest_login_html . ' ' . $guest_register_html; ?>'</div>
 
-			$guest_register_html = '';
-			// $guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
-			// if ( $guest_show_register ) {
-			if (get_option('users_can_register')) {
-				$register_url         = add_query_arg('redirect_to', urlencode($redirect_url), wp_registration_url());
-				$guest_register_html .= '<p class="wbpoll-guest-register wbpoll-error">' . sprintf(__('No account yet? <a href="%s">Register</a>', 'buddypress-polls'), $register_url) . '</p>';
-				$guest_register_html  = apply_filters('wbpoll_register_html', $guest_register_html, $redirect_url);
-			}
-
-			// }
-
-			$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
-
-			$guest_html .= '</div>';
-
-			$poll_form_html .= $guest_html;
+			</div>
+		<?php
 		endif;
 		$class = array();
 		foreach ($poll_answers as $index => $answer) {
@@ -1243,185 +1245,293 @@ class WBPollHelper
 			}
 		}
 
-		$poll_form_html .= '								
-                                <div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-' . $post_id . '" data-id="' . $post_id . '">
-                                    <form class="wbpoll-form wbpoll-form-' . $post_id . '" sction="" method="post" novalidate="true">
-                                        <div class="wbpoll-form-insidewrap ' . $grid_class . ' wbpoll-form-insidewrap-' . $post_id . '">';
+		?>
+		<div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-<?php echo $post_id; ?>" data-id="' . $post_id . '">
+			<form class="wbpoll-form wbpoll-form-<?php echo $post_id; ?>" sction="" method="post" novalidate="true">
+				<div class="wbpoll-form-insidewrap <?php echo $grid_class; ?> wbpoll-form-insidewrap-<?php echo $post_id; ?>">
+					<?php
+					echo apply_filters('wbpoll_form_html_before_question', $poll_form_html, $post_id);
 
-		$poll_form_html = apply_filters('wbpoll_form_html_before_question', $poll_form_html, $post_id);
+					$poll_answer_list_class = 'wbpoll-form-ans-list wbpoll-form-ans-list-' . $post_id;
 
-		$poll_answer_list_class = 'wbpoll-form-ans-list wbpoll-form-ans-list-' . $post_id;
+					?>
+					<div class="wbpolls-question-results <?php echo $class['class']; ?> <?php echo apply_filters(
+																							'wbpoll_form_answer_list_style_class',
+																							$poll_answer_list_class,
+																							$post_id
+																						); ?>">
+						<?php
+						echo apply_filters('wbpoll_form_answer_start', $poll_form_html, $post_id);
 
-		$poll_form_html .= '<div class="wbpolls-question-results ' . $class['class'] . ' ' . apply_filters(
-			'wbpoll_form_answer_list_style_class',
-			$poll_answer_list_class,
-			$post_id
-		) . '">';
+						// listing poll answers as radio button
+						foreach ($poll_answers as $index => $answer) {
 
-		$poll_form_html = apply_filters('wbpoll_form_answer_start', $poll_form_html, $post_id);
+							$poll_answers_extra_single = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : array('type' => 'default');
 
-		// listing poll answers as radio button
-		foreach ($poll_answers as $index => $answer) {
+							$input_name = 'wbpoll_user_answer';
+							if ($poll_multivote) {
+								$input_name .= '-' . $index;
+							}
 
-			$poll_answers_extra_single = isset($poll_answers_extra[$index]) ? $poll_answers_extra[$index] : array('type' => 'default');
+							$poll_answer_listitem_class = 'wbpoll-form-ans-listitem wbpoll-form-ans-listitem-' . $post_id;
 
-			$input_name = 'wbpoll_user_answer';
-			if ($poll_multivote) {
-				$input_name .= '-' . $index;
-			}
+							$extra_list_style = '';
+							$extra_list_attr  = '';
+						?>
+							<div class="wbpoll-question-choices-item ' <?php echo apply_filters(
+																			'wbpoll_form_answer_listitem_style_class',
+																			$poll_answer_listitem_class,
+																			$post_id,
+																			$index,
+																			$answer,
+																			$poll_answers_extra_single
+																		); ?>" style="<?php echo apply_filters(
+								'wbpoll_form_answer_listitem_style',
+								$extra_list_style,
+								$post_id,
+								$index,
+								$answer,
+								$poll_answers_extra_single
+							); ?>" <?php echo apply_filters(
+								'wbpoll_form_answer_listitem_attr',
+								$extra_list_attr,
+								$post_id,
+								$index,
+								$answer,
+								$poll_answers_extra_single
+							) ?>>
+								<?php
 
-			$poll_answer_listitem_class = 'wbpoll-form-ans-listitem wbpoll-form-ans-listitem-' . $post_id;
+								$wbpoll_form_answer_listitem_inside_html_start = '';
+								echo apply_filters(
+									'wbpoll_form_answer_listitem_inside_html_start',
+									$wbpoll_form_answer_listitem_inside_html_start,
+									$post_id,
+									$index,
+									$answer,
+									$poll_answers_extra_single
+								);
+								?>
+								<div class="wbpoll-question-choices-item-container">
+									<?php
+									// image
 
-			$extra_list_style = '';
-			$extra_list_attr  = '';
-			$poll_form_html  .= '<div class="wbpoll-question-choices-item ' . apply_filters(
-				'wbpoll_form_answer_listitem_style_class',
-				$poll_answer_listitem_class,
-				$post_id,
-				$index,
-				$answer,
-				$poll_answers_extra_single
-			) . '" style="' . apply_filters(
-				'wbpoll_form_answer_listitem_style',
-				$extra_list_style,
-				$post_id,
-				$index,
-				$answer,
-				$poll_answers_extra_single
-			) . '" ' . apply_filters(
-				'wbpoll_form_answer_listitem_attr',
-				$extra_list_attr,
-				$post_id,
-				$index,
-				$answer,
-				$poll_answers_extra_single
-			) . '>';
+									if (isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index]) && empty($thumbnail_poll_ans_image[$index])) {
+									?>
+										<div class="wbpoll-question-choices-item-content-container">
+											<div class="wbpoll-question-choices-item-content">
+												<div class="poll-image"><img src="<?php echo  $poll_ans_image[$index]; ?>"></div>
+											</div>
+										</div>
+									<?php
+									} elseif (isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && empty($poll_ans_image[$index])) {
+									?>
+										<div class="wbpoll-question-choices-item-content-container">
+											<div class="wbpoll-question-choices-item-content">
+												<div class="poll-image"><img src="<?php echo $thumbnail_poll_ans_image[$index]; ?> "></div>
+											</div>
+										</div>
+									<?php
+									} elseif (isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index])) {
+									?>
+										<div class="wbpoll-question-choices-item-content-container">
+											<div class="wbpoll-question-choices-item-content">
+												<div class="poll-thumb-image poll-image" data-id="<?php echo $index; ?>"><img src="<?php echo $thumbnail_poll_ans_image[$index]; ?>"></div>
 
-			$wbpoll_form_answer_listitem_inside_html_start = '';
-			$poll_form_html                               .= apply_filters(
-				'wbpoll_form_answer_listitem_inside_html_start',
-				$wbpoll_form_answer_listitem_inside_html_start,
-				$post_id,
-				$index,
-				$answer,
-				$poll_answers_extra_single
-			);
-			$poll_form_html                               .= '<div class="wbpoll-question-choices-item-container">';
+												<div class="wb-poll-lightbox poll-image-lightbox lightbox-<?php echo $index; ?>" style="display:none;">
+													<div class="close" data-id="<?php echo $index; ?>"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+															<path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path>
+														</svg></div>
+													<div class="content-area"><img src="<?php echo $poll_ans_image[$index]; ?>"></div>
+												</div>
+											</div>
+										</div>
+										<?php
+									}
 
-			// image
+									// video
 
-			if (isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index]) && empty($thumbnail_poll_ans_image[$index])) {
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-image"><img src="' . $poll_ans_image[$index] . '"></div></div></div>';
-			} elseif (isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && empty($poll_ans_image[$index])) {
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-image"><img src="' . $thumbnail_poll_ans_image[$index] . '"></div></div></div>';
-			} elseif (isset($thumbnail_poll_ans_image[$index]) && !empty($thumbnail_poll_ans_image[$index]) && isset($poll_ans_image[$index]) && !empty($poll_ans_image[$index])) {
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_ans_image[$index] . '"></div>';
-				$poll_form_html .= '<div class="wb-poll-lightbox poll-image-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><img src="' . $poll_ans_image[$index] . '"></div></div></div></div>';
-			}
+									if (isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && empty($thumbnail_poll_answers_video[$index])) {
+										if (isset($poll_video_suggestion[$index]) && $poll_video_suggestion[$index] == 'yes') {
+										?>
+											<div class="wbpoll-question-choices-item-content-container">
+												<div class="wbpoll-question-choices-item-content">
+													<div class="poll-video"><iframe width="420" height="345" src="<?php echo $poll_answers_video[$index]; ?>"></iframe></div>
+												</div>
+											</div>
+										<?php
+										} else {
+										?>
+											<div class="wbpoll-question-choices-item-content-container">
+												<div class="wbpoll-question-choices-item-content">
+													<div class="poll-video"><video src="<?php echo $poll_answers_video[$index]; ?>" controls="" poster="" preload="none"></video></div>
+												</div>
+											</div>
+										<?php
+										}
+									} elseif (isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index]) && empty($poll_answers_video[$index])) {
+										?>
+										<div class="wbpoll-question-choices-item-content-container">
+											<div class="wbpoll-question-choices-item-content">
+												<div class="poll-thumb-image poll-video-image"><img src="<?php echo $thumbnail_poll_answers_video[$index]; ?>"></div>
+											</div>
+										</div>
+									<?php
+									} elseif (isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index])) {
+									?>
+										<div class="wbpoll-question-choices-item-content-container">
+											<div class="wbpoll-question-choices-item-content">
+												<div class="poll-thumb-image poll-video-image poll-image" data-id="<?php echo $index; ?>"><img src="<?php echo $thumbnail_poll_answers_video[$index]; ?>"></div>
+												<?php
+												if (isset($poll_video_suggestion[$index]) && $poll_video_suggestion[$index] == 'yes') {
+												?>
+													<div class="wb-poll-lightbox poll-video-lightbox lightbox-<?php echo $index; ?>" style="display:none;">
+														<div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+																<path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path>
+															</svg></div>
+														<div class="content-area"><iframe width="420" height="345" src="<?php echo $poll_answers_video[$index]; ?>"></iframe></div>
+													</div>
+											</div>
+										</div>
+									<?php
+												} else {
+									?>
+										<div class="wb-poll-lightbox poll-video-lightbox lightbox-<?php echo $index; ?>" style="display:none;">
+											<div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+													<path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path>
+												</svg></div>
+											<div class="content-area"><video src="<?php echo $poll_answers_video[$index]; ?>" controls="" poster="" preload="none"></video></div>
+										</div>
+								</div>
+							</div>
+						<?php
+												}
+											}
 
-			// video
+											// audio
 
-			if (isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && empty($thumbnail_poll_answers_video[$index])) {
-				if (isset($poll_video_suggestion[$index]) && $poll_video_suggestion[$index] == 'yes') {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><iframe width="420" height="345" src="' . $poll_answers_video[$index] . '"></iframe></div></div></div>';
-				} else {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><video src="' . $poll_answers_video[$index] . '" controls="" poster="" preload="none"></video></div></div></div>';
-				}
-			} elseif (isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index]) && empty($poll_answers_video[$index])) {
+											if (isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && empty($thumbnail_poll_answers_audio[$index])) {
 
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_video[$index] . '"></div></div></div>';
-			} elseif (isset($poll_answers_video[$index]) && !empty($poll_answers_video[$index]) && isset($thumbnail_poll_answers_video[$index]) && !empty($thumbnail_poll_answers_video[$index])) {
+												if (isset($poll_audio_suggestion[$index]) && $poll_audio_suggestion[$index] == 'yes') {
+						?>
+							<div class="wbpoll-question-choices-item-content-container">
+								<div class="wbpoll-question-choices-item-content">
+									<div class="poll-audio"><iframe width="420" height="345" src="<?php echo $poll_answers_audio[$index]; ?>"></iframe></div>
+								</div>
+							</div>
+						<?php
+												} else {
+						?>
+							<div class="wbpoll-question-choices-item-content-container">
+								<div class="wbpoll-question-choices-item-content">
+									<div class="poll-audio"><audio src="<?php echo $poll_answers_audio[$index]; ?>" controls="" preload="none"></audio></div>
+								</div>
+							</div>
+						<?
+												}
+											} elseif (isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index]) && empty($poll_answers_audio[$index])) {
+						?>
+						<div class="wbpoll-question-choices-item-content-container">
+							<div class="wbpoll-question-choices-item-content">
+								<div class="poll-thumb-image poll-video-image"><img src="<?php echo $thumbnail_poll_answers_audio[$index]; ?>"></div>
+							</div>
+						</div>
+						<?php
+											} elseif (isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index])) {
 
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-video-image poll-image"  data-id="' . $index . '"><img src="' . $thumbnail_poll_answers_video[$index] . '"></div>';
+												if (isset($poll_audio_suggestion[$index]) && $poll_audio_suggestion[$index] == 'yes') {
+						?>
+							<div class="wbpoll-question-choices-item-content-container">
+								<div class="wbpoll-question-choices-item-content">
+									<div class="poll-thumb-image poll-audio-image poll-image" data-id="<?php echo $index; ?>"><img src="<?php echo $thumbnail_poll_answers_audio[$index]; ?>"></div>';
+									$poll_form_html .= '<div class="wb-poll-lightbox poll-audio-lightbox lightbox-<?php echo $index; ?>" style="display:none;">
+										<div class="close" data-id="<?php echo $index; ?>"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+												<path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path>
+											</svg></div>
+										<div class="content-area"><iframe width="420" height="345" src="<?php echo $poll_answers_audio[$index]; ?>"></iframe></div>
+									</div>
+								</div>
+							</div>
+						<?php
+												} else {
+						?>
+							<div class="wbpoll-question-choices-item-content-container">
+								<div class="wbpoll-question-choices-item-content">
+									<div class="poll-thumb-image poll-audio-image poll-image" data-id="<?php echo $index; ?>"><img src="<?php echo $thumbnail_poll_answers_audio[$index]; ?>"></div>
+									<div class="wb-poll-lightbox poll-audio-lightbox lightbox-' . $index . '" style="display:none;">
+										<div class="close" data-id="<?php echo $index; ?>"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
+												<path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path>
+											</svg></div>
+										<div class="content-area"><audio src="<?php echo $poll_answers_audio[$index]; ?>" controls="" preload="none"></audio></div>
+									</div>
+								</div>
+							</div>
+						<?php
+												}
+											}
 
-				if (isset($poll_video_suggestion[$index]) && $poll_video_suggestion[$index] == 'yes') {
-					$poll_form_html .= '<div class="wb-poll-lightbox poll-video-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><iframe width="420" height="345" src="' . $poll_answers_video[$index] . '"></iframe></div></div></div></div>';
-				} else {
-					$poll_form_html .= '<div class="wb-poll-lightbox poll-video-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><video src="' . $poll_answers_video[$index] . '" controls="" poster="" preload="none"></video></div></div></div></div>';
-				}
-			}
+											if (isset($poll_answers_html[$index]) && !empty($poll_answers_html[$index])) { ?>
+						<div class="poll-html"><?php echo $poll_answers_html[$index]; ?></div>
+					<?php
+											}
+					?>
+					<div class="wbpoll-question-choices-item-label">
+						<div class="wbpoll-question-choices-item-text"><input type="<?php echo $vote_input_type; ?>" value="<?php echo $index; ?>" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-<?php echo $post_id; ?>" data-pollcolor="" data-post-id="<?php echo $post_id; ?>" name="<?php echo $input_name; ?>" data-answer="<?php echo $answer; ?>" id="wbpoll_single_answer-radio-<?php echo $index . '-' . $post_id; ?>" />
+							<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-<?php echo $index . '-' . $post_id; ?>"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-<?php echo $post_id; ?>" data-post-id="<?php echo $post_id; ?>" data-answer="<?php echo $answer; ?>">
 
-			// audio
+									<?php
 
-			if (isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && empty($thumbnail_poll_answers_audio[$index])) {
+									echo apply_filters(
+										'wbpoll_form_listitem_answer_title',
+										$answer,
+										$post_id,
+										$index,
+										$poll_answers_extra_single
+									);
+									?>
 
-				if (isset($poll_audio_suggestion[$index]) && $poll_audio_suggestion[$index] == 'yes') {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><iframe width="420" height="345" src="' . $poll_answers_audio[$index] . '"></iframe></div></div></div>';
-				} else {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><audio src="' . $poll_answers_audio[$index] . '" controls="" preload="none"></audio></div></div></div>';
-				}
-			} elseif (isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index]) && empty($poll_answers_audio[$index])) {
+								</span></label>
+						</div>
+					</div>
+					</div>
 
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_audio[$index] . '"></div></div></div>';
-			} elseif (isset($poll_answers_audio[$index]) && !empty($poll_answers_audio[$index]) && isset($thumbnail_poll_answers_audio[$index]) && !empty($thumbnail_poll_answers_audio[$index])) {
+					<?php
+							$wbpoll_form_answer_listitem_inside_html_end = '';
+							echo apply_filters(
+								'wbpoll_form_answer_listitem_inside_html_end',
+								$wbpoll_form_answer_listitem_inside_html_end,
+								$post_id,
+								$index,
+								$answer,
+								$poll_answers_extra_single
+							);
+					?>
+				</div>
+			<?php
+						}
 
-				if (isset($poll_audio_suggestion[$index]) && $poll_audio_suggestion[$index] == 'yes') {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-audio-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_answers_audio[$index] . '"></div>';
-					$poll_form_html .= '<div class="wb-poll-lightbox poll-audio-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><iframe width="420" height="345" src="' . $poll_answers_audio[$index] . '"></iframe></div></div></div></div>';
-				} else {
-					$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-audio-image poll-image" data-id="' . $index . '"><img src="' . $thumbnail_poll_answers_audio[$index] . '"></div>';
-					$poll_form_html .= '<div class="wb-poll-lightbox poll-audio-lightbox lightbox-' . $index . '" style="display:none;"><div class="close" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div><div class="content-area"><audio src="' . $poll_answers_audio[$index] . '" controls="" preload="none" ></audio></div></div></div></div>';
-				}
-			}
+						echo apply_filters('wbpoll_form_answer_end', $poll_form_html, $post_id);
+			?>
+		</div>
+		<?php
+		echo apply_filters('wbpoll_form_html_after_question', $poll_form_html, $post_id);
+		?>
+		<p class="wbpoll_ajax_link"><button type="submit" class="btn btn-primary button wbpoll_vote_btn" data-reference="<?php echo $reference; ?>" data-charttype="<?php echo $result_chart_type; ?>" data-busy="0" data-post-id="<?php echo $post_id; ?>" data-security="<?php echo $nonce; ?>">Vote<span class="wbvoteajaximage wbvoteajaximagecustom"></span></button></p>
+		<input type="hidden" name="action" value="wbpoll_user_vote">
+		<input type="hidden" name="reference" value="<?php echo $reference; ?>">
+		<input type="hidden" name="chart_type" value="<?php echo $result_chart_type; ?>">
+		<input type="hidden" name="nonce" value="<?php echo $nonce; ?>">
+		<input type="hidden" name="poll_id" value="<?php echo $post_id; ?>">
+		</div>
+		</form>
+		<div class="wbpoll_clearfix"></div>
+		</div>
+		<div class="wbpoll-qresponse wbpoll-qresponse-<?php echo $post_id; ?>"></div>
+		<div class="wbpoll_clearfix"></div>
+<?php
+		echo apply_filters('wbpoll_form_html_after', $poll_form_html, $post_id);
 
-			if (isset($poll_answers_html[$index]) && !empty($poll_answers_html[$index])) {
-				$poll_form_html .= '<div class="poll-html">' . $poll_answers_html[$index] . '</div>';
-			}
-
-			$poll_form_html                                 .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-text"><input type="' . $vote_input_type . '" value="' . $index . '" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-' . $post_id . '" data-pollcolor = "" data-post-id="' . $post_id . '" name="' . $input_name . '"  data-answer="' . $answer . ' " id="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"  />';
-			$poll_form_html .= '<label class="wbpoll_single_answer_label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"><span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-' . $post_id . '"  data-post-id="' . $post_id . '" data-answer="' . $answer . ' ">' . apply_filters(
-				'wbpoll_form_listitem_answer_title',
-				$answer,
-				$post_id,
-				$index,
-				$poll_answers_extra_single
-			) . '</span></label>';
-			$poll_form_html .= '</div></div></div>';
-			$wbpoll_form_answer_listitem_inside_html_end = '';
-			$poll_form_html .= apply_filters(
-				'wbpoll_form_answer_listitem_inside_html_end',
-				$wbpoll_form_answer_listitem_inside_html_end,
-				$post_id,
-				$index,
-				$answer,
-				$poll_answers_extra_single
-			);
-
-			$poll_form_html .= '</div>';
-		}
-
-		$poll_form_html = apply_filters('wbpoll_form_answer_end', $poll_form_html, $post_id);
-
-		$poll_form_html .= '</div>';
-
-		// hook
-		$poll_form_html = apply_filters('wbpoll_form_html_after_question', $poll_form_html, $post_id);
-
-		// $poll_form_html .= ' <div class="wbpoll-qresponse wbpoll-qresponse-' . $post_id . '"></div>';
-
-		// show the poll button
-		$poll_form_html .= '<p class = "wbpoll_ajax_link"><button type="submit" class="btn btn-primary button wbpoll_vote_btn" data-reference = "' . $reference . '" data-charttype = "' . $result_chart_type . '" data-busy = "0" data-post-id="' . $post_id . '"  data-security="' . $nonce . '" >' . esc_html__(
-			'Vote',
-			'buddypress-polls'
-		) . '<span class="wbvoteajaximage wbvoteajaximagecustom"></span></button></p>';
-		$poll_form_html .= '<input type="hidden" name="action" value="wbpoll_user_vote">';
-		$poll_form_html .= '<input type="hidden" name="reference" value="' . $reference . '">';
-		$poll_form_html .= '<input type="hidden" name="chart_type" value="' . $result_chart_type . '">';
-		$poll_form_html .= '<input type="hidden" name="nonce" value="' . $nonce . '">';
-		$poll_form_html .= '<input type="hidden" name="poll_id" value="' . $post_id . '">';
-		$poll_form_html .= '
-                                         </div>
-                                    </form>
-                                    <div class="wbpoll_clearfix"></div>
-                                </div>
-                                <div class="wbpoll-qresponse wbpoll-qresponse-' . $post_id . '"></div>
-                                <div class="wbpoll_clearfix"></div>';
-
-		$poll_form_html = apply_filters('wbpoll_form_html_after', $poll_form_html, $post_id);
-
-		$poll_output .= apply_filters('wbpoll_form_html', $poll_form_html, $post_id);
-
-		return $poll_output;
+		echo apply_filters('wbpoll_form_html', $poll_form_html, $post_id);
 	}
 
 	/**
@@ -1838,7 +1948,7 @@ class WBPollHelper
 			$answer_fields_html      .= '<div class="wbpoll-options-input-container">';
 			$answer_fields_html      .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"   id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/>';
 			//$answer_fields_html      .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
-			
+
 			$answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_' . $index . '" value="' . $answer_type . '" name="_wbpoll_answer_extra[' . $index . '][type]" />';
 			$answer_fields_html_extra = apply_filters(
 				'wbpoll_answer_extra_fields',
@@ -1927,7 +2037,6 @@ class WBPollHelper
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-editor.
 
 			$answer_fields_html .= '<div class="clear clearfix"></div></li>';
-
 		} elseif (isset($answers_extra['type']) && $answers_extra['type'] == 'video') {
 
 			$answer_type        = isset($answers_extra['type']) ? $answers_extra['type'] : 'video';
@@ -2018,7 +2127,6 @@ class WBPollHelper
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-editor.
 
 			$answer_fields_html .= '<div class="clear clearfix"></div></li>';
-
 		} elseif (isset($answers_extra['type']) && $answers_extra['type'] == 'audio') {
 
 			$answer_type        = isset($answers_extra['type']) ? $answers_extra['type'] : 'audio';
