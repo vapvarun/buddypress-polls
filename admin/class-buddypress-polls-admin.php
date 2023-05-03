@@ -1180,28 +1180,28 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$prefix = '_wbpoll_';
 
 			// handle answer colors
-			if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
+			// if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
 
-				$colors = $_POST[ $prefix . 'answer_color' ];
-				foreach ( $colors as $index => $color ) {
-					$colors[ $index ] = WBPollHelper::sanitize_hex_color( $color );
-				}
+			// 	$colors = $_POST[ $prefix . 'answer_color' ];
+			// 	foreach ( $colors as $index => $color ) {
+			// 		$colors[ $index ] = WBPollHelper::sanitize_hex_color( $color );
+			// 	}
 
-				$unique_color = array_unique( $colors );
+			// 	$unique_color = array_unique( $colors );
 
-				if ( ( count( $unique_color ) ) == ( count( $colors ) ) ) {
-					update_post_meta( $post_id, $prefix . 'answer_color', $colors );
-				} else {
-					$error = '<div class="error"><p>' . esc_html__(
-						'Error: Answer Color repeat error',
-						'buddypress-polls'
-					) . '</p></div>';
+			// 	if ( ( count( $unique_color ) ) == ( count( $colors ) ) ) {
+			// 		update_post_meta( $post_id, $prefix . 'answer_color', $colors );
+			// 	} else {
+			// 		$error = '<div class="error"><p>' . esc_html__(
+			// 			'Error: Answer Color repeat error',
+			// 			'buddypress-polls'
+			// 		) . '</p></div>';
 
-					return false;
-				}
-			} else {
-				delete_post_meta( $post_id, $prefix . 'answer_color' );
-			}
+			// 		return false;
+			// 	}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'answer_color' );
+			// }
 
 			// handling extra fields
 			if ( isset( $_POST[ $prefix . 'answer_extra' ] ) ) {
@@ -1241,18 +1241,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'full_thumbnail_image_answer' ] ) ) {
-				$images = $_POST[ $prefix . 'full_thumbnail_image_answer' ];
+			// if ( isset( $_POST[ $prefix . 'full_thumbnail_image_answer' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'full_thumbnail_image_answer' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer', $images );
+			// 	update_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer' );
+			// }
 
 			// video url
 			if ( isset( $_POST[ $prefix . 'video_answer_url' ] ) ) {
@@ -1282,18 +1282,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Video thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
-				$images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
+			// if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'video_thumbnail_image_url', $images );
+			// 	update_post_meta( $post_id, $prefix . 'video_thumbnail_image_url', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'video_thumbnail_image_url' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'video_thumbnail_image_url' );
+			// }
 
 			// Audio url
 			if ( isset( $_POST[ $prefix . 'audio_answer_url' ] ) ) {
@@ -1324,18 +1324,18 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Audio thumbnail size image answer
-			if ( isset( $_POST[ $prefix . 'audio_thumbnail_image_url' ] ) ) {
-				$images = $_POST[ $prefix . 'audio_thumbnail_image_url' ];
+			// if ( isset( $_POST[ $prefix . 'audio_thumbnail_image_url' ] ) ) {
+			// 	$images = $_POST[ $prefix . 'audio_thumbnail_image_url' ];
 
-				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
-				}
+			// 	foreach ( $images as $index => $url ) {
+			// 		$images[ $index ] = sanitize_text_field( $url );
+			// 	}
 
-				update_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url', $images );
+			// 	update_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url', $images );
 
-			} else {
-				delete_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url' );
-			}
+			// } else {
+			// 	delete_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url' );
+			// }
 
 			// HTML textarea answer
 			if ( isset( $_POST[ $prefix . 'html_answer' ] ) ) {
