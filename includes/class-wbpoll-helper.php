@@ -1653,7 +1653,7 @@ class WBPollHelper {
 		$default_result_chart   = isset( $global_settings['result_chart_type'] ) ? $global_settings['result_chart_type'] : 'text';
 		$default_poll_multivote = isset( $global_settings['poll_multivote'] ) ? intval( $global_settings['poll_multivote'] ) : 0;
 		// $default_show_result_all           = isset( $global_settings['show_result_all'] ) ? intval($global_settings['show_result_all']) : 0;
-		$default_show_result_before_expire = isset( $global_settings['show_result_before_expire'] ) ? intval( $global_settings['show_result_before_expire'] ) : 0;
+		$default_show_result_before_expire = isset( $global_settings['show_result_before_expire'] ) ? intval( $global_settings['show_result_before_expire'] ) : 1;
 
 		// Field Array
 		$prefix = '_wbpoll_';
@@ -1728,9 +1728,9 @@ class WBPollHelper {
 			),
 
 			'_wbpoll_show_result_before_expire' => array(
-				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),
+				'label'   => esc_html__( 'Show Result After Vote', 'buddypress-polls' ),
 				'desc'    => esc_html__(
-					'Select if you want poll to show result After expires. After expires the result will be shown always. Please check it if poll never expires.',
+					'Select if you want poll to show result after votting.',
 					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',
