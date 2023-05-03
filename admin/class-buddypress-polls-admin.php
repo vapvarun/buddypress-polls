@@ -1486,7 +1486,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$output .= '<div class="wbpolls-question-results '.$class['class'].'">';
 
 				$total_percent = 0;
-
 				foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
 					$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
 						'Unknown Answer',
@@ -1506,13 +1505,15 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				if ( $total_percent > 0 ) {
 					$output_result = '';
+					
 					foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
+						
 						$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
 							'Unknown Answer',
 							'buddypress-polls'
 						);
 						$color_style  = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
-
+						$color = isset( $colors[ $index ] ) ? $colors[ $index ] : '';
 						$percent        = ( $vote_count * 100 ) / $total;
 						$re_percent     = ( $percent * 100 ) / $total_percent;
 						$output_result .= '<div class="wbpoll-question-choices-item">';
@@ -1551,12 +1552,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						if ( isset( $poll_answers_html[ $index ] ) && ! empty( $poll_answers_html[ $index ] ) ) {
 							$output_result .= '<div class="poll-html">' . $poll_answers_html[ $index ] . '</div>';
 						}
+
 						if($vote_count > 1){
 							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Votes</strong></div></div>';
 						}else{
 							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';
 						}
-						$output_result .= '<div class="bpolls-item-width-wrapper"><div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format_i18n( $re_percent, 2 ) . '%;background-color:' . $colors[ $index ] . '"></div><div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format_i18n( $re_percent, 2 ) . '%</div></div></div>';
+						$output_result .= '<div class="bpolls-item-width-wrapper"><div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format_i18n( $re_percent, 2 ) . '%;background-color:' . $color. '"></div><div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format_i18n( $re_percent, 2 ) . '%</div></div></div>';
 						$output_result .= '</div>'; // wbpoll-question-choices-item-container.
 						$output_result .= '</div>'; // wbpoll-question-choices-item.
 					}
