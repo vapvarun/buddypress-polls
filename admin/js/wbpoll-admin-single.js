@@ -17,7 +17,7 @@ function wbpoll_copyStringToClipboard (str) {
 	// Remove temporary element
 	document.body.removeChild( el );
 }
-
+setTimeout(function() { document.getElementById("preloader").style.display = "none"; }, 3500);
 
 jQuery( document ).ready(
 	function ($) {
@@ -655,8 +655,14 @@ jQuery( document ).ready(
 			$( '.wb-hide-' + dataid ).toggle();
 			$(this).toggleClass('active');				
 		});
-
 		
-		
+		$('textarea#tiny').tinymce({
+			menubar: true,
+			max_height: 500,
+			max_width: 800,
+			min_height: 200,
+			min_width: 800,
+			toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+		});
 	}
 );
