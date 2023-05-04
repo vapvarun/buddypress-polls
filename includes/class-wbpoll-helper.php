@@ -341,6 +341,12 @@ class WBPollHelper {
 		return apply_filters( 'wbpoll_display_options', $methods );
 	}
 
+	public static function wbpoll_display_options_backend() {
+		$methods = array();
+
+		return apply_filters( 'wbpoll_display_options_backend', $methods );
+	}
+
 	/**
 	 * Return poll display option as associative array
 	 *
@@ -1418,6 +1424,169 @@ class WBPollHelper {
 		$poll_output .= apply_filters( 'wbpoll_form_html', $poll_form_html, $post_id );
 
 		return $poll_output;
+
+	}
+
+	/**
+	 * Get result from a single poll for backend
+	 *
+	 * @param  int $post_id
+	 *
+	 * return string|mixed
+	 */
+	public static function show_backend_single_poll_result( $poll_id, $reference, $result_chart_type = 'text' ) {
+		global $wpdb;
+
+		$current_user = wp_get_current_user();
+		$user_id      = $current_user->ID;
+
+		$user_ip = self::get_ipaddress();
+
+		if ( $user_id == 0 ) {
+			// $user_session = $_COOKIE[ BPOLLS_COOKIE_NAME ]; //this is string
+			$user_session = '';
+		} elseif ( is_user_logged_in() ) {
+			$user_session = 'user-' . $user_id; // this is string
+		}
+
+		$setting_api     = get_option( 'wbpoll_global_settings' );
+		$poll_start_date = get_post_meta( $poll_id, '_wbpoll_start_date', true ); // poll start date
+		$poll_end_date   = get_post_meta( $poll_id, '_wbpoll_end_date', true ); // poll end date
+		$poll_user_roles = get_post_meta( $poll_id, '_wbpoll_user_roles', true ); // poll user roles
+		if ( ! is_array( $poll_user_roles ) ) {
+			$poll_user_roles = array();
+		}
+
+		$poll_content                   = get_post_meta( $poll_id, '_wbpoll_content', true ); // poll content
+		$poll_never_expire              = intval(
+			get_post_meta(
+				$poll_id,
+				'_wbpoll_never_expire',
+				true
+			)
+		); // poll never epire
+		$poll_show_result_before_expire = intval(
+			get_post_meta(
+				$poll_id,
+				'_wbpoll_show_result_before_expire',
+				true
+			)
+		); // poll never epire
+
+		$poll_result_chart_type = get_post_meta( $poll_id, '_wbpoll_result_chart_type', true ); // chart type
+
+		$result_chart_type = self::chart_type_fallback( $result_chart_type );
+
+		$poll_answers = get_post_meta( $poll_id, '_wbpoll_answer', true );
+		$poll_answers = is_array( $poll_answers ) ? $poll_answers : array();
+
+		$poll_colors = get_post_meta( $poll_id, '_wbpoll_answer_color', true );
+		$poll_colors = is_array( $poll_colors ) ? $poll_colors : array();
+
+		// image, video, audio, html
+		$poll_ans_image = get_post_meta( $poll_id, '_wbpoll_full_size_image_answer', true );
+		$poll_ans_image = is_array( $poll_ans_image ) ? $poll_ans_image : array();
+
+		$poll_answers_video = get_post_meta( $poll_id, '_wbpoll_video_answer_url', true );
+		$poll_answers_video = is_array( $poll_answers_video ) ? $poll_answers_video : array();
+
+		$poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_answer_url', true );
+		$poll_answers_audio = is_array( $poll_answers_audio ) ? $poll_answers_audio : array();
+
+		$poll_answers_html = get_post_meta( $poll_id, '_wbpoll_html_answer', true );
+		$poll_answers_html = is_array( $poll_answers_html ) ? $poll_answers_html : array();
+
+		// thumbnails image, video, audio, html
+		$thumbnail_poll_ans_image = get_post_meta( $poll_id, '_wbpoll_full_thumbnail_image_answer', true );
+		$thumbnail_poll_ans_image = is_array( $thumbnail_poll_ans_image ) ? $thumbnail_poll_ans_image : array();
+
+		$thumbnail_poll_answers_video = get_post_meta( $poll_id, '_wbpoll_video_thumbnail_image_url', true );
+		$thumbnail_poll_answers_video = is_array( $thumbnail_poll_answers_video ) ? $thumbnail_poll_answers_video : array();
+
+		$thumbnail_poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_thumbnail_image_url', true );
+		$thumbnail_poll_answers_audio = is_array( $thumbnail_poll_answers_audio ) ? $thumbnail_poll_answers_audio : array();
+
+		$total_results = self::get_pollResult( $poll_id );
+
+		$poll_result = array();
+
+		$poll_result['reference'] = $reference;
+		$poll_result['poll_id']   = $poll_id;
+		$poll_result['total']     = count( $total_results );
+
+		$poll_result['colors'] = $poll_colors;
+		$poll_result['answer'] = $poll_answers;
+		// $poll_result['results']           = json_encode($total_results);
+		$poll_result['chart_type'] = $result_chart_type;
+		$poll_result['text']       = '';
+
+		$poll_result['image'] = $poll_ans_image;
+		$poll_result['video'] = $poll_answers_video;
+		$poll_result['audio'] = $poll_answers_audio;
+		$poll_result['html']  = $poll_answers_html;
+
+		$poll_result['thumb_image']     = $thumbnail_poll_ans_image;
+		$poll_result['thumb_video_img'] = $thumbnail_poll_answers_video;
+		$poll_result['thumb_audio_img'] = $thumbnail_poll_answers_audio;
+
+		$poll_answers_weight = array();
+
+		foreach ( $total_results as $result ) {
+			$user_ans = maybe_unserialize( $result['user_answer'] );
+
+			if ( is_array( $user_ans ) ) {
+
+				foreach ( $user_ans as $u_ans ) {
+					$old_val                       = isset( $poll_answers_weight[ $u_ans ] ) ? intval( $poll_answers_weight[ $u_ans ] ) : 0;
+					$poll_answers_weight[ $u_ans ] = ( $old_val + 1 );
+				}
+			} else {
+				$user_ans                         = intval( $user_ans );
+				$old_val                          = isset( $poll_answers_weight[ $user_ans ] ) ? intval( $poll_answers_weight[ $user_ans ] ) : 0;
+				$poll_answers_weight[ $user_ans ] = ( $old_val + 1 );
+			}
+		}
+
+		$poll_result['answers_weight'] = $poll_answers_weight;
+
+		// ready mix :)
+		$poll_weighted_index  = array();
+		$poll_weighted_labels = array();
+
+		foreach ( $poll_answers as $index => $answer_title ) {
+			// $poll_weighted_labels[ $answer ] = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+			$poll_weighted_index[ $index ]         = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+			$poll_weighted_labels[ $answer_title ] = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+		}
+
+		$poll_result['weighted_index'] = $poll_weighted_index;
+		$poll_result['weighted_label'] = $poll_weighted_labels;
+
+		ob_start();
+
+		do_action( 'wbpoll_answer_html_before', $poll_id, $reference, $poll_result );
+		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . $reference . ' wbpoll_' . $result_chart_type . '_result_wrap wbpoll_' . $result_chart_type . '_result_wrap_' . $poll_id . ' wbpoll_result_wrap_' . $reference . '_' . $poll_id . ' ">';
+
+		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
+
+		$poll_display_methods = self::wbpoll_display_options_backend();
+		$poll_display_method  = $poll_display_methods[ $result_chart_type ];
+
+		$method = $poll_display_method['method'];
+
+		if ( $method != '' && is_callable( $method ) ) {
+			call_user_func_array( $method, array( $poll_id, $reference, $poll_result ) );
+		}
+
+		do_action( 'wbpoll_answer_html_after_question', $poll_id, $reference, $poll_result );
+
+		echo '</div>';
+		do_action( 'wbpoll_answer_html_after', $poll_id, $reference, $poll_result );
+
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		return $output;
 
 	}
 

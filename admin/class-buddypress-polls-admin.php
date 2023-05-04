@@ -118,6 +118,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @param hook $hook hook.
 		 */
 		public function enqueue_scripts( $hook ) {
+			wp_enqueue_script( 'tinymce-js', 'https://cdn.jsdelivr.net/npm/chart.js' );
 			wp_enqueue_style( 'tinymce-css', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5.10.7-133/jquery.tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'http://totalpoll.local/wp-includes/js/tinymce/plugins/compat3x/plugin.min.js' );
@@ -755,7 +756,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			global $post;
 			$poll_postid = $post->ID;
 
-			$poll_output = WBPollHelper::show_single_poll_result( $poll_postid, 'shortcode', 'text' );
+			$poll_output = WBPollHelper::show_backend_single_poll_result( $poll_postid, 'shortcode', 'text' );
 
 			echo $poll_output;
 		}//end metabox_result_display()
@@ -1444,6 +1445,23 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			return $methods;
 		}//end poll_display_methods_text()
 
+				/**
+		 *  Add Text type poll result display method
+		 *
+		 * @param  array $methods
+		 *
+		 * @return array
+		 */
+		public function poll_display_methods_text_backend( $methods ) {
+			$methods['text'] = array(
+				'title'  => esc_html__( 'Text', 'buddypress-polls' ),
+				'method' => array( $this, 'poll_display_methods_text_backend_result' ),
+			);
+
+			return $methods;
+		}//end poll_display_methods_text_backend()
+
+		
 		/**
 		 * Display poll result as text method
 		 *
@@ -1578,6 +1596,110 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			echo $output;
 		}//end poll_display_methods_text_result()
+
+
+		/**
+		 * poll back graph for single poll
+		 * 
+		 */
+
+		public function poll_display_methods_text_backend_result( $poll_id, $reference = 'shortcode', $poll_result ) {
+
+			$total  = intval( $poll_result['total'] );
+			$colors = $poll_result['colors'];
+
+			$answers = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();
+			
+			$total_percent = 0;
+				foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
+					$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
+						'Unknown Answer',
+						'buddypress-polls'
+					);
+					$percent        = ( $vote_count * 100 ) / $total;
+					$total_percent += $percent;
+					
+				}
+
+			if ( $total_percent > 0 ) {
+				$lablename = [];
+				$persentangevalue = [];
+				foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
+					$answer_title   = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
+						'Unknown Answer',
+						'buddypress-polls'
+					);
+					$color_style    = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
+					$color          = isset( $colors[ $index ] ) ? $colors[ $index ] : '#4caf50';
+					$percent        = ( $vote_count * 100 ) / $total;
+					$re_percent     = ( $percent * 100 ) / $total_percent;
+
+					
+					$lablename[] = $answer_title;					
+					$persentangevalue[] = number_format_i18n( $re_percent, 2 );
+				}
+			}
+			
+			/**********chart ***********/
+			$labels = $lablename;
+			$values = $persentangevalue;
+			$output = self::display_pie_chart( $labels, $values );
+			echo $output;
+			
+		}//end poll_display_methods_text_backend_result()
+
+		function display_pie_chart( $labels, $values ) {
+			// Encode the chart data as JSON
+			$chart_data = array();
+			for ( $i = 0; $i < count( $labels ); $i++ ) {
+				$chart_data[] = array(
+					'label' => $labels[ $i ],
+					'value' => $values[ $i ]
+				);
+			}
+			$chart_data_json = json_encode( $chart_data );
+		
+			// Generate a unique chart ID
+			$chart_id = 'pie-chart-' . rand( 1, 999 );
+		
+			// Output the canvas element for the chart
+			echo '<canvas id="' . $chart_id . '"></canvas>';
+		
+			// Output the JavaScript code to initialize the chart
+			echo '<script>
+				var ctx = document.getElementById("' . $chart_id . '").getContext("2d");
+				var chartData = ' . $chart_data_json . ';
+				var chartColors = [];
+				for (var i = 0; i < chartData.length; i++) {
+					chartColors.push(getRandomColor());
+				}
+				var chartConfig = {
+					type: "pie",
+					data: {
+						labels: chartData.map(d => d.label),
+						datasets: [{
+							data: chartData.map(d => d.value),
+							backgroundColor: chartColors
+						}]
+					},
+					options: {
+						responsive: true
+					}
+				};
+				var chart = new Chart(ctx, chartConfig);
+				function getRandomColor() {
+					var letters = "0123456789ABCDEF";
+					var color = "#";
+					for (var i = 0; i < 6; i++) {
+						color += letters[Math.floor(Math.random() * 16)];
+					}
+					return color;
+				}
+			</script>';
+		}
+
+
+		
 
 	}
 
