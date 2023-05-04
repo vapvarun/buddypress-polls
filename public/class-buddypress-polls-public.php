@@ -2178,7 +2178,14 @@ class Buddypress_Polls_Public {
 		}
 
 		$user_answer_final = maybe_serialize( $user_answer_final );
-
+		$poll_answers = get_post_meta( $poll_id, '_wbpoll_answer', true );
+		if(isset($poll_answers) && !empty($poll_answers)){
+			$poll_ans_id = $user_answer['wbpoll_user_answer'];
+			$poll_ans_title = $poll_answers[$poll_ans_id];
+		}else{
+			$poll_ans_title = '';
+		}
+		
 		$chart_type = esc_attr( sanitize_text_field( $_POST['chart_type'] ) );
 		$reference  = esc_attr( sanitize_text_field( $_POST['reference'] ) );
 
@@ -2298,9 +2305,8 @@ class Buddypress_Polls_Public {
 
 		$status = 1;
 		$status = apply_filters( 'wbpoll_vote_status', $status, $poll_id );
-
 		$insertArray['published'] = $status; //need to make this col as published 1 or 0, 2= spam
-
+		$insertArray['answer_title'] = $poll_ans_title;
 		$insertArray['comment']     = '';
 		$insertArray['guest_hash']  = '';
 		$insertArray['guest_name']  = '';

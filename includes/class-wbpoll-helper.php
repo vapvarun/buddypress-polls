@@ -156,6 +156,7 @@ class WBPollHelper {
                   user_ip varchar(45) NOT NULL,
                   user_id bigint(20) unsigned NOT NULL,
                   user_answer text NOT NULL,
+				  answer_title text NOT NULL,
                   published tinyint(3) NOT NULL DEFAULT '1',
                   comment LONGTEXT NOT NULL,
                   guest_hash VARCHAR(32) NOT NULL,

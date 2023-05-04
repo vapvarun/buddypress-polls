@@ -1574,12 +1574,51 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						if ( isset( $poll_answers_html[ $index ] ) && ! empty( $poll_answers_html[ $index ] ) ) {
 							$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-html">' . $poll_answers_html[ $index ] . '</div></div></div>';
 						}
+						$output_result .= '<div class="wbpoll-question-choices-item-label">';
+						global $wpdb;
+						$votes_name = WBPollHelper::wb_poll_table_name();				
+						$sql_select = "SELECT * FROM $votes_name where poll_id = $poll_id And answer_title = '$answer_title'";
+
+						$result_data = $wpdb->get_results( "$sql_select", 'ARRAY_A' );
+						$img_path = [];
+						foreach($result_data as $ans){
+							$poll_user_id = $ans['user_id'];
+							$img_path[] = bp_core_fetch_avatar(
+								array(
+									'item_id' => $poll_user_id,
+									'type'    => 'thumb',
+									'html'    => true,
+								)
+							);							
+						}
 
 						if ( $vote_count > 1 ) {
-							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Votes</strong></div></div>';
+							$output_result .= '<div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong>';
+							$output_result .= '<div class="user_profile_icon_main">';
+							if(isset($img_path) && !empty($img_path)){
+								foreach($img_path as $image){
+									$output_result .= '<div class="user_profile">';
+									$output_result .= '<div class="user_profile_image">'.$image.'</div>';
+									$output_result .= '</div>';
+								}								
+							}
+							$output_result .= '</div>';
+							$output_result .= '<strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';	
 						} else {
-							$output_result .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong><strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';
+							$output_result .= '<div class="wbpoll-question-choices-item-votes"><div class="wbpoll-question-choices-item-text"><strong>' . $answer_title . '</strong>';
+							$output_result .= '<div class="user_profile_icon_main">';
+							if(isset($img_path) && !empty($img_path)){
+								foreach($img_path as $image){
+									$output_result .= '<div class="user_profile">';
+									$output_result .= '<div class="user_profile_image">'.$image.'</div>';
+									$output_result .= '</div>';
+								}								
+							}
+							$output_result .= '</div>';
+							$output_result .= '<strong class="votecount-right"> ' . $vote_count . ' Vote</strong></div></div>';	
 						}
+
+						
 						$output_result .= '<div class="bpolls-item-width-wrapper"><div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format_i18n( $re_percent, 2 ) . '%;background-color:' . $color . '"></div><div class="wbpoll-question-choices-item-votes-bar-data"></div></div><div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format_i18n( $re_percent, 2 ) . '%</div></div>';
 
 						$output_result .= '</div>'; // wbpoll-single-answer-label.
