@@ -1187,6 +1187,8 @@ class WBPollHelper {
 
 		$poll_form_html = apply_filters( 'wbpoll_form_html_before', $poll_form_html, $post_id );
 
+		$allow_guest_sign = 'on';
+
 		if ( ! is_user_logged_in() && $allow_guest_sign == 'on' ) :
 			if ( is_singular() ) {
 				$login_url    = wp_login_url( get_permalink() );
@@ -2290,7 +2292,7 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/><br>';
 
-			$answer_fields_html .= '<textarea style="width:330px;" name="_wbpoll_html_answer[' . $index . ']"  placeholder="Full HTML Data"  id="tiny" class="wbpoll_answer"/>' . $html_code . '</textarea>';
+			$answer_fields_html .= '<textarea style="width:330px;" name="_wbpoll_html_answer[' . $index . ']"  placeholder="Full HTML Data" class="tiny wbpoll_answer"/>' . $html_code . '</textarea>';
 			
 			// $answer_fields_html .= '<div class="wbpoll-input-group">';
 			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';

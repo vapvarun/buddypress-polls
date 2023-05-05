@@ -405,6 +405,15 @@ jQuery( document ).ready(
 								//$answer_add_wrap.data('answercount', $index);
 								$( '#wbpoll_answer_extra_answercount' ).val( $index );
 								$answer_add_wrap.data( 'busy', 0 );
+
+								$('textarea.tiny').tinymce({
+									menubar: true,
+									max_height: 500,
+									max_width: 800,
+									min_height: 200,
+									min_width: 800,
+									toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+								});
 							}
 						 }
 					);
@@ -656,7 +665,7 @@ jQuery( document ).ready(
 			$(this).toggleClass('active');				
 		});
 		
-		$('textarea#tiny').tinymce({
+		$('textarea.tiny').tinymce({
 			menubar: true,
 			max_height: 500,
 			max_width: 800,

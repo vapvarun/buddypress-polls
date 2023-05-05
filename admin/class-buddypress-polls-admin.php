@@ -118,7 +118,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @param hook $hook hook.
 		 */
 		public function enqueue_scripts( $hook ) {
-			wp_enqueue_script( 'tinymce-js', 'https://cdn.jsdelivr.net/npm/chart.js' );
+			wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js' );
 			wp_enqueue_style( 'tinymce-css', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5.10.7-133/jquery.tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'http://totalpoll.local/wp-includes/js/tinymce/plugins/compat3x/plugin.min.js' );
@@ -1680,11 +1680,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 			
 			/**********chart ***********/
-			$labels = $lablename;
-			$values = $persentangevalue;
-			$output = self::display_pie_chart( $labels, $values );
-			echo $output;
-			
+			if(!empty($lablename) && !empty($persentangevalue)){
+				$labels = $lablename;
+				$values = $persentangevalue;
+				$output = self::display_pie_chart( $labels, $values );
+				echo $output;
+			}else{
+				$labels = [];
+				$values = [];
+				echo "No approved vote yet";
+			}
 		}//end poll_display_methods_text_backend_result()
 
 		function display_pie_chart( $labels, $values ) {
