@@ -1594,10 +1594,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								)
 							);
 						}
-
 						$output_result .= '<div class="wbpoll-question-choices-item-votes">';
 						$output_result .= '<div class="wbpoll-question-choices-item-text"><span class="wbpoll_single_answer">' . $answer_title . '</span>';
-						$output_result .= '<strong class="votecount-right"> ' . $vote_count . ' Votes</strong>';
+						//$output_result .= '<strong class="votecount-right"> ' . $vote_count . ' Votes</strong>';
 
 						$output_result .= '</div>';
 						$output_result .= '</div>';
@@ -1613,11 +1612,49 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						$output_result .= '<div class="wbpoll-user-profile-data-wrapper">';
 						$output_result .= '<div class="wbpoll-user-profile-data">';
 						if ( isset( $img_path ) && ! empty( $img_path ) ) {
-							foreach ( $img_path as $image ) {
+							$count = count($img_path);
+							$images = array_slice($img_path, 0, 3);
+							foreach ( $images as $image ) {
 								$output_result .= '<div class="user-profile">';
 								$output_result .= '<div class="user-profile-image">' . $image . '</div>';
 								$output_result .= '</div>';
 							}
+							if($count > 3){
+
+								// profile modal more button
+								$output_result .= '<div class="user-profile-load-more">';
+								$output_result .= '<div class="user-profile-image load-more" data-id="'.$index.'"> +'.($count - 3).'</div>';
+								$output_result .= '<div class="user-profile-image-modal-'.$index.' profile-modal">';
+								// profile modal
+								$output_result .= '<div class="profile-modal-content">';
+								$output_result .= "<div class='profile-modal-title'><h4>Votted User Profile's </h4><div class='close-profiles' data-id='".$index."'>close</div></div>";
+								foreach ( $result_data as $result ) {
+									$image = bp_core_fetch_avatar(
+										array(
+											'item_id' => $result['user_id'],
+											'type'    => 'thumb',
+											'html'    => true,
+										)
+									);
+									$args = [
+										'include' => $result['user_id'], // ID of users you want to get
+										'fields'  => 'display_name',
+									];
+									
+									$users = get_users( $args );
+									$output_result .= '<div class="user-profile-details">';
+									if(!empty($image) && isset($image) || !empty($users[0]) && isset($users[0])){
+									$output_result .= '<div class="user-profile-images">' . $image . '</div>';								
+									$output_result .= '<div class="user-profile-name">' . $users[0] . '</div>';
+									}								
+									$output_result .= '</div>';
+								}
+								$output_result .= '</div>';
+								$output_result .= '</div>';
+								$output_result .= '</div>';
+								
+							}						
+							
 						}
 						$output_result .= '</div>'; // wbpoll-user-profile-data.
 

@@ -124,3 +124,17 @@ jQuery( document ).ready(function() {
 			}
 		);
 	});
+
+jQuery( document ).ready(function() {
+	
+		jQuery( '.load-more' ).on("click",	function() {
+				var dataid = jQuery( this ).data( 'id' );
+				jQuery( '.user-profile-image-modal-' + dataid ).show();
+			}
+		);
+		jQuery( '.close-profiles' ).on("click", function() {
+				var dataid = jQuery( this ).data( 'id' );
+				jQuery( '.user-profile-image-modal-' + dataid ).hide();
+			}
+		);
+});
