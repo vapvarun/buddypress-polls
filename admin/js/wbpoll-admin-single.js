@@ -407,7 +407,7 @@ jQuery( document ).ready(
 								$answer_add_wrap.data( 'busy', 0 );
 
 								$('textarea.tiny').tinymce({
-									menubar: true,
+									menubar: false,
 									max_height: 500,
 									max_width: 800,
 									min_height: 200,
@@ -666,7 +666,7 @@ jQuery( document ).ready(
 		});
 		
 		$('textarea.tiny').tinymce({
-			menubar: true,
+			menubar: false,
 			max_height: 500,
 			max_width: 800,
 			min_height: 200,

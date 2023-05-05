@@ -51,7 +51,8 @@ ul#wb_poll_answers_items li.placeholder:before {
 }
 
 .wbpoll_answer_wrap {
-    margin: 0 0 30px;
+    margin: 0 0 10px;
+    position: relative;
 }
 
 .wbpoll_answer_wrap:after {
@@ -60,18 +61,34 @@ ul#wb_poll_answers_items li.placeholder:before {
     clear: both;
 }
 
+.wb-poll-answers-items-content-wrapper {
+    margin: 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+    position: relative;
+}
+
+.wb-poll-answers-items-content-wrapper ul#wb_poll_answers_items {
+    margin: 0;
+}
+
 .wb_poll_items {
     list-style: none;
     position: relative;
-    margin: 10px 0;
+    margin: 0 0 15px;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 0;
     transition: all 0.3s;
 }
 
 .wbpoll-containable-list-item-toolbar {
     display: flex;
     align-items: center;
+}
+
+.wbpoll-containable-list-item-toolbar:hover,
+.wbpoll-containable-list-item-toolbar.active {
+    background-color: #fafafa;
 }
 
 .wbpoll-containable-list-item-toolbar-collapse-text {
@@ -127,6 +144,10 @@ ul#wb_poll_answers_items li.placeholder:before {
     border-left: 1px solid #ddd;
 }
 
+.wb_pollremove.dashicons.dashicons-trash:hover {
+    color: #ff0000;
+}
+
 .wbpoll-containable-list-item-toolbar.active .wbpoll-toolbar-toggle::before {
     display: inline-block;
     transform: rotate(180deg);
@@ -150,6 +171,14 @@ ul#wb_poll_answers_items li.placeholder:before {
 
 .wbpoll-containable-list-item-editor-text {
     display: block;
+}
+
+.wbpoll-containable-list-item-editor-text .wbpoll-options-input-container {
+    flex-direction: column;
+}
+
+.wbpoll-containable-list-item-editor-text .wbpoll-options-input-container div.mce-panel {
+    border: 1px solid #dcdcde !important;
 }
 
 .wbpoll-containable-list-item-editor-text .wp-picker-container .wp-color-result.button {
@@ -187,7 +216,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 
 .wbpoll-image-input-preview-thumbnail .fluid-width-video-wrapper {
     padding: 0 !important;
-	width: auto;
+    width: auto;
 }
 
 .wbpoll-image-input-preview-thumbnail .fluid-width-video-wrapper iframe,
@@ -199,6 +228,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 .wbpoll-image-input-preview-thumbnail img {
     width: 100%;
     height: 100%;
+    max-height: 210px;
 }
 
 .wbpoll-containable-list-item-editor .wbpoll-image-input-details {
@@ -217,6 +247,27 @@ ul#wb_poll_answers_items li.placeholder:before {
 
 .wbpoll-containable-list-item-editor .wbpoll-input-group:last-child {
     margin-bottom: 0;
+}
+
+.wbpoll-containable-list-item-editor .wbpoll-input-group-suggestions {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.wbpoll-containable-list-item-editor .wbpoll-input-group-suggestions span {
+    color: #bbb;
+    margin-right: 10px;
+}
+
+.wbpoll-containable-list-item-editor .wbpoll-input-group-suggestions label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.wbpoll-containable-list-item-editor .wbpoll-input-group-suggestions input {
+    margin: 0 3px 0 0;
 }
 
 .wb_poll_items .wp-picker-container {
@@ -258,17 +309,36 @@ ul#wb_poll_answers_items li.placeholder:before {
     box-sizing: border-box;
 }
 
-.wp-core-ui .add-wb-poll-answer-wrap .button {
+.wbpoll-buttons-horizontal {
     display: flex;
-    align-items: center;
-    text-decoration: none;
-    background: #2a32ef;
-    margin: 10px 20px 0 0 !important;
-    padding: 10px 20px;
+    flex-flow: wrap;
+    gap: 20px;
+    margin: 20px 0 0;
+    padding: 20px;
+    border: 1px solid #ddd;
+}
+
+.wbpoll-buttons-horizontal .add-wb-poll-answer-wrap {
+    flex: auto;
+}
+
+.wp-core-ui .add-wb-poll-answer-wrap .button {
+    margin: 0;
     text-shadow: none;
     font-weight: 600;
     transition: all 0.3s;
     border-radius: 10px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    background: white;
+    color: #333;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    width: 100%;
 }
 
 .wp-core-ui .add-wb-poll-answer-wrap .button i {
@@ -276,19 +346,24 @@ ul#wb_poll_answers_items li.placeholder:before {
 }
 
 .wp-core-ui .add-wb-poll-answer-wrap .button:hover {
-    background: #272B41;
-    box-shadow: 0px 10px 25px rgba(32, 53, 85, 0.35);
+    background: transparent;
+    border-color: #bbbbbb;
+    box-shadow: 0 3px 24px 0 rgba(18, 43, 70, .08);
 }
 
 .wbpoll-answer-options tbody>tr {
     display: block;
     background: #fff;
-    border-radius: 12px;
+    border-radius: 0;
     padding: 15px;
     border: 1px solid #ddd;
     margin-bottom: 15px;
     overflow: hidden;
     width: auto;
+}
+
+.wbcom-polls-option-wrap .wbpoll-answer-options td {
+    padding: 0;
 }
 
 .wbpoll-answer-options tbody>tr .description {
@@ -333,11 +408,11 @@ ul#wb_poll_answers_items li.placeholder:before {
     float: left !important;
 }
 
-.fill-width input,
+/* .fill-width input,
 .fill-width textarea {
     width: 100% !important;
     margin: 0 0 16px 0px;
-}
+} */
 
 /* Tooltip */
 :root {
@@ -599,24 +674,19 @@ div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
 **************************************/
 
 .preloaderBg {
-  position: absolute;
-  z-index: 9999; 
-  top: 0;
-  background: #fff;
-  width: 98%;
-  height: 100%;
-  text-align: center;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
 }
 
-.preloader {
-  margin: auto;
-  background-size: 150px;
-  width: 300px;
-  height: 300px;
-}
-
-
-.preloader2 {
+.preloaderBg .preloader2 {
     border: 5px solid #f3f3f3;
     border-top: 5px solid #2271b1;
     border-radius: 50%;
@@ -629,6 +699,11 @@ div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
 }
 
 @keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

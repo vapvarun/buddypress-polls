@@ -2145,10 +2145,10 @@ class WBPollHelper {
 			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-video" data-text="wbpoll_video_answer_url-' . $index . '"/>';
 
 			if ( isset( $iframe_video_url ) && $iframe_video_url == 'yes' ) {
-				$answer_fields_html .= '<div class="hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_video_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
+				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_video_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
 				<label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_video_import_info[' . $index . ']" value="no" data-id="' . $index . '" ><label for="no">No</label><br></div>';
 			} else {
-				$answer_fields_html .= '<div class="hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_video_import_info[' . $index . ']" value="yes" data-id="' . $index . '">
+				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_video_import_info[' . $index . ']" value="yes" data-id="' . $index . '">
 				<label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_video_import_info[' . $index . ']" value="no" data-id="' . $index . '" checked><label for="no">No</label><br></div>';
 			}
 
@@ -2234,10 +2234,10 @@ class WBPollHelper {
 			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-audio" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 
 			if ( isset( $iframe_video_url ) && $iframe_video_url == 'yes' ) {
-				$answer_fields_html .= '<div class="hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
+				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
 				<label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_audio_import_info[' . $index . ']" value="no" data-id="' . $index . '"><label for="no">No</label><br></div>';
 			} else {
-				$answer_fields_html .= '<div class="hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '"><label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_audio_import_info[' . $index . ']" value="no" data-id="' . $index . '" checked><label for="no">No</label><br></div>';
+				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '"><label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_audio_import_info[' . $index . ']" value="no" data-id="' . $index . '" checked><label for="no">No</label><br></div>';
 			}
 			$answer_fields_html .= '</div>';
 
@@ -2286,18 +2286,17 @@ class WBPollHelper {
 			$answer_fields_html .= '<div class="wbpoll-toolbar-toggle dashicons dashicons-arrow-down-alt2" title="' . esc_html__( 'Toggle', 'buddypress-polls' ) . '"></div>';
 			$answer_fields_html .= '</div>'; // close - .wbpoll-containable-list-item-toolbar.
 
-			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor hidetab wb-hide-' . $index . '">';
+			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wbpoll-containable-list-item-editor-text hidetab wb-hide-' . $index . '">';
 			$answer_fields_html .= '<div class="wbpoll-options-input-container">';
-			$answer_fields_html .= '<div class="fill-width"><h4>' . esc_html( 'Add HTML Answer', 'buddypress-polls' ) . '</h4>';
+			$answer_fields_html .= '<h4>' . esc_html( 'Add HTML Answer', 'buddypress-polls' ) . '</h4>';
 
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/><br>';
 
-			$answer_fields_html .= '<textarea style="width:330px;" name="_wbpoll_html_answer[' . $index . ']"  placeholder="Full HTML Data" class="tiny wbpoll_answer"/>' . $html_code . '</textarea>';
+			$answer_fields_html .= '<textarea " name="_wbpoll_html_answer[' . $index . ']"  placeholder="Full HTML Data" class="tiny wbpoll_answer"/>' . $html_code . '</textarea>';
 			
 			// $answer_fields_html .= '<div class="wbpoll-input-group">';
 			// $answer_fields_html .= '<input type="' . $input_type . '" id="wbpoll_answer_color-' . $index . '" class="' . $color_class . '" name="_wbpoll_answer_color[' . $index . ']" size="8"  value="' . $answers_color . '" />';
 			// $answer_fields_html .= '</div>';
-			$answer_fields_html .= '</div>';
 
 			$answer_fields_html_extra = '<input type="hidden" id="wbpoll_answer_extra_type_' . $index . '" value="' . $answer_type . '" name="_wbpoll_answer_extra[' . $index . '][type]" />';
 

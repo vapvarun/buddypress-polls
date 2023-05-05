@@ -872,17 +872,67 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'<p>[<strong>Note : </strong>  <span>Please select different color for each field.]</span></p>',
 					'buddypress-polls'
 				);
-				echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader"></div><div class="preloader2"></div></div>';
-				echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . $post->ID . '">';
 
-				if ( sizeof( $poll_answers ) > 0 ) {
-					$i = 1;
-					foreach ( $poll_answers as $index => $poll_answer ) {
-						$number = $i++;
-						if ( isset( $poll_answer ) ) {
-							$poll_answers_extra[ $index ] = isset( $poll_answers_extra[ $index ] ) ? $poll_answers_extra[ $index ] : '';
-							// color
-							$poll_colors[ $index ] = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : array();
+				echo '<div class="wb-poll-answers-items-content-wrapper">';
+				echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>';
+					echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . $post->ID . '">';
+
+					if ( sizeof( $poll_answers ) > 0 ) {
+						$i = 1;
+						foreach ( $poll_answers as $index => $poll_answer ) {
+							$number = $i++;
+							if ( isset( $poll_answer ) ) {
+								$poll_answers_extra[ $index ] = isset( $poll_answers_extra[ $index ] ) ? $poll_answers_extra[ $index ] : '';
+								// color
+								$poll_colors[ $index ] = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : array();
+								// image
+								$thumbnail_size_image[ $index ] = isset( $thumbnail_size_image[ $index ] ) ? $thumbnail_size_image[ $index ] : array();
+								$full_size_image[ $index ]      = isset( $full_size_image[ $index ] ) ? $full_size_image[ $index ] : array();
+
+								// video
+								$video_url[ $index ]             = isset( $video_url[ $index ] ) ? $video_url[ $index ] : array();
+								$video_thumbnail_image[ $index ] = isset( $video_thumbnail_image[ $index ] ) ? $video_thumbnail_image[ $index ] : array();
+								$iframe_video_url[ $index ]      = isset( $iframe_video_url[ $index ] ) ? $iframe_video_url[ $index ] : array();
+								// audio
+
+								$audio_url[ $index ]             = isset( $audio_url[ $index ] ) ? $audio_url[ $index ] : array();
+								$audio_thumbnail_image[ $index ] = isset( $audio_thumbnail_image[ $index ] ) ? $audio_thumbnail_image[ $index ] : array();
+								$iframe_audio_url[ $index ]      = isset( $iframe_audio_url[ $index ] ) ? $iframe_audio_url[ $index ] : array();
+								// HTML
+								$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
+
+								echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ], $number, $iframe_video_url[ $index ], $iframe_audio_url[ $index ] );
+							}
+						}
+					}
+					// else {
+
+					// $answer_counter         = 3;
+					if ( ! $is_voted && sizeof( $poll_answers ) == 0 ) {
+						$default_answers_titles = array(
+							esc_html__( 'Yes', 'buddypress-polls' ),
+							esc_html__( 'No', 'buddypress-polls' ),
+							esc_html__( 'No comments', 'buddypress-polls' ),
+						);
+
+						$default_answers_colors = array(
+							'#2f7022',
+							'#dd6363',
+							'#e4e4e4',
+						);
+
+						$answers_extra         = array( 'type' => 'default' );
+						$thumbnail_size_image  = array();
+						$full_size_image       = array();
+						$video_url             = array();
+						$video_thumbnail_image = array();
+						$audio_url             = array();
+						$audio_thumbnail_image = array();
+						$html_code             = array();
+						$thumbnail_size_image  = array();
+
+						foreach ( $default_answers_titles as $index => $answers_title ) {
+
 							// image
 							$thumbnail_size_image[ $index ] = isset( $thumbnail_size_image[ $index ] ) ? $thumbnail_size_image[ $index ] : array();
 							$full_size_image[ $index ]      = isset( $full_size_image[ $index ] ) ? $full_size_image[ $index ] : array();
@@ -890,124 +940,77 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							// video
 							$video_url[ $index ]             = isset( $video_url[ $index ] ) ? $video_url[ $index ] : array();
 							$video_thumbnail_image[ $index ] = isset( $video_thumbnail_image[ $index ] ) ? $video_thumbnail_image[ $index ] : array();
-							$iframe_video_url[ $index ]      = isset( $iframe_video_url[ $index ] ) ? $iframe_video_url[ $index ] : array();
-							// audio
 
+							// audio
 							$audio_url[ $index ]             = isset( $audio_url[ $index ] ) ? $audio_url[ $index ] : array();
 							$audio_thumbnail_image[ $index ] = isset( $audio_thumbnail_image[ $index ] ) ? $audio_thumbnail_image[ $index ] : array();
-							$iframe_audio_url[ $index ]      = isset( $iframe_audio_url[ $index ] ) ? $iframe_audio_url[ $index ] : array();
+
 							// HTML
 							$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
 
-							echo WBPollHelper::wbpoll_answer_field_template( $index, $poll_answer, $poll_colors[ $index ], $is_voted, $poll_answers_extra[ $index ], $poll_postid, $full_size_image[ $index ], $thumbnail_size_image[ $index ], $video_url[ $index ], $video_thumbnail_image[ $index ], $html_code[ $index ], $audio_url[ $index ], $audio_thumbnail_image[ $index ], $number, $iframe_video_url[ $index ], $iframe_audio_url[ $index ] );
+							echo WBPollHelper::wbpoll_answer_field_template(
+								intval( $index ) + $new_index,
+								$default_answers_titles[ $index ],
+								$default_answers_colors[ $index ],
+								$is_voted,
+								$answers_extra,
+								$poll_postid,
+								$full_size_image[ $index ],
+								$thumbnail_size_image[ $index ],
+								$video_url[ $index ],
+								$video_thumbnail_image[ $index ],
+								$html_code[ $index ],
+								$audio_url[ $index ],
+								$audio_thumbnail_image[ $index ],
+							);
 						}
-					}
-				}
-				// else {
 
-				// $answer_counter         = 3;
-				if ( ! $is_voted && sizeof( $poll_answers ) == 0 ) {
-					$default_answers_titles = array(
-						esc_html__( 'Yes', 'buddypress-polls' ),
-						esc_html__( 'No', 'buddypress-polls' ),
-						esc_html__( 'No comments', 'buddypress-polls' ),
-					);
-
-					$default_answers_colors = array(
-						'#2f7022',
-						'#dd6363',
-						'#e4e4e4',
-					);
-
-					$answers_extra         = array( 'type' => 'default' );
-					$thumbnail_size_image  = array();
-					$full_size_image       = array();
-					$video_url             = array();
-					$video_thumbnail_image = array();
-					$audio_url             = array();
-					$audio_thumbnail_image = array();
-					$html_code             = array();
-					$thumbnail_size_image  = array();
-
-					foreach ( $default_answers_titles as $index => $answers_title ) {
-
-						// image
-						$thumbnail_size_image[ $index ] = isset( $thumbnail_size_image[ $index ] ) ? $thumbnail_size_image[ $index ] : array();
-						$full_size_image[ $index ]      = isset( $full_size_image[ $index ] ) ? $full_size_image[ $index ] : array();
-
-						// video
-						$video_url[ $index ]             = isset( $video_url[ $index ] ) ? $video_url[ $index ] : array();
-						$video_thumbnail_image[ $index ] = isset( $video_thumbnail_image[ $index ] ) ? $video_thumbnail_image[ $index ] : array();
-
-						// audio
-						$audio_url[ $index ]             = isset( $audio_url[ $index ] ) ? $audio_url[ $index ] : array();
-						$audio_thumbnail_image[ $index ] = isset( $audio_thumbnail_image[ $index ] ) ? $audio_thumbnail_image[ $index ] : array();
-
-						// HTML
-						$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
-
-						echo WBPollHelper::wbpoll_answer_field_template(
-							intval( $index ) + $new_index,
-							$default_answers_titles[ $index ],
-							$default_answers_colors[ $index ],
-							$is_voted,
-							$answers_extra,
-							$poll_postid,
-							$full_size_image[ $index ],
-							$thumbnail_size_image[ $index ],
-							$video_url[ $index ],
-							$video_thumbnail_image[ $index ],
-							$html_code[ $index ],
-							$audio_url[ $index ],
-							$audio_thumbnail_image[ $index ],
-						);
+						$new_index = intval( $index ) + $new_index + 1;
 					}
 
-					$new_index = intval( $index ) + $new_index + 1;
-				}
-
-				// }
-				echo '</ul>';
-				?>
-				<input type="hidden" id="wbpoll_answer_extra_answercount" value="<?php echo intval( $new_index ); ?>"
-					name="_wbpoll_answer_extra[answercount]"/>
-				<?php
-				// if ( ! $is_voted ){
-				?>
-				<div class="wbpoll-buttons-horizontal">
-					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-						<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>">
-							<i class="dashicons dashicons-editor-textcolor"></i> <?php echo esc_html__( 'Text Answer', 'buddypress-polls' ); ?>
-						</a>
-						<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+					// }
+					echo '</ul>';
+					?>
+					<input type="hidden" id="wbpoll_answer_extra_answercount" value="<?php echo intval( $new_index ); ?>"
+						name="_wbpoll_answer_extra[answercount]"/>
+					<?php
+					// if ( ! $is_voted ){
+					?>
+					<div class="wbpoll-buttons-horizontal">
+						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+							<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>">
+								<i class="dashicons dashicons-editor-textcolor"></i> <?php echo esc_html__( 'Text Answer', 'buddypress-polls' ); ?>
+							</a>
+							<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+						</div>
+						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+							<a data-type="image" id="add-wb-poll-image-answer" class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>">
+								<i class="dashicons dashicons-format-image"></i> <?php echo esc_html__( 'Image Answer', 'buddypress-polls' ); ?>
+							</a>
+							<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+						</div>
+						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+							<a data-type="video" id="add-wb-poll-video-answer" class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>">
+								<i class="dashicons dashicons-format-video"></i> <?php echo esc_html__( 'Video Answer', 'buddypress-polls' ); ?>
+							</a>
+							<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+						</div>
+						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+							<a data-type="audio" id="add-wb-poll-audio-answer"
+							class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>">
+								<i class="dashicons dashicons-format-audio"></i> <?php echo esc_html__( 'Audio Answer', 'buddypress-polls' ); ?>
+							</a>
+							<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+						</div>
+						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
+							<a data-type="html" id="add-wb-poll-html-answer"
+							class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>">
+								<i class="dashicons dashicons-html"></i> <?php echo esc_html__( 'HTML Answer', 'buddypress-polls' ); ?>
+							</a>
+							<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
+						</div>
 					</div>
-					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-						<a data-type="image" id="add-wb-poll-image-answer" class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>">
-							<i class="dashicons dashicons-format-image"></i> <?php echo esc_html__( 'Image Answer', 'buddypress-polls' ); ?>
-						</a>
-						<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
-					</div>
-					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-						<a data-type="video" id="add-wb-poll-video-answer" class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>">
-							<i class="dashicons dashicons-format-video"></i> <?php echo esc_html__( 'Video Answer', 'buddypress-polls' ); ?>
-						</a>
-						<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
-					</div>
-					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-						<a data-type="audio" id="add-wb-poll-audio-answer"
-						class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>">
-							<i class="dashicons dashicons-format-audio"></i> <?php echo esc_html__( 'Audio Answer', 'buddypress-polls' ); ?>
-						</a>
-						<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
-					</div>
-					<div class="add-wb-poll-answer-wrap add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-						<a data-type="html" id="add-wb-poll-html-answer"
-						class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>">
-							<i class="dashicons dashicons-html"></i> <?php echo esc_html__( 'HTML Answer', 'buddypress-polls' ); ?>
-						</a>
-						<?php do_action( 'wbpolladmin_add_answertype', $poll_postid, $new_index ); ?>
-					</div>
-				</div>
+				</div><!-- .wb-poll-answers-items-content-wrapper -->
 				<?php
 				// }
 				?>

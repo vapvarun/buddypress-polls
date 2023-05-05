@@ -39,6 +39,7 @@
     border-radius: 8px;
 }
 
+.wbpoll-qresponse-error,
 .wbpoll-voted-info.wbpoll-error {
     margin: 10px 0;
     padding: 16px;
@@ -49,7 +50,9 @@
 }
 
 .wbpoll-qresponse-success p,
-.wbpoll-voted-info p {
+.wbpoll-voted-info p,
+.wbpoll-qresponse-error p,
+.wbpoll-voted-info.wbpoll-error p {
     margin: 0;
 }
 
