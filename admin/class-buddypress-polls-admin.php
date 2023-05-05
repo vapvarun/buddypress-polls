@@ -1645,11 +1645,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function poll_display_methods_text_backend_result( $poll_id, $reference = 'shortcode', $poll_result ) {
 
 			$total  = intval( $poll_result['total'] );
-			$colors = $poll_result['colors'];
-
 			$answers = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();
-			
 			$total_percent = 0;
+			if(!empty($total) && $total > 0){
+				
 				foreach ( $poll_result['weighted_index'] as $index => $vote_count ) {
 					$answer_title = isset( $answers[ $index ] ) ? esc_html( $answers[ $index ] ) : esc_html__(
 						'Unknown Answer',
@@ -1659,6 +1658,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$total_percent += $percent;
 					
 				}
+			}
+			
 
 			if ( $total_percent > 0 ) {
 				$lablename = [];
@@ -1668,14 +1669,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						'Unknown Answer',
 						'buddypress-polls'
 					);
-					$color_style    = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
-					$color          = isset( $colors[ $index ] ) ? $colors[ $index ] : '#4caf50';
-					$percent        = ( $vote_count * 100 ) / $total;
-					$re_percent     = ( $percent * 100 ) / $total_percent;
-
 					
+					$percent        = ( $vote_count * 100 ) / $total;
+					$re_percent     = ( $percent * 100 ) / $total_percent;					
 					$lablename[] = $answer_title;					
 					$persentangevalue[] = number_format_i18n( $re_percent, 2 );
+					
+					
 				}
 			}
 			
