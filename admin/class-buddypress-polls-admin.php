@@ -1596,7 +1596,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						}
 						$output_result .= '<div class="wbpoll-question-choices-item-votes">';
 						$output_result .= '<div class="wbpoll-question-choices-item-text"><span class="wbpoll_single_answer">' . $answer_title . '</span>';
-						//$output_result .= '<strong class="votecount-right"> ' . $vote_count . ' Votes</strong>';
 
 						$output_result .= '</div>';
 						$output_result .= '</div>';
@@ -1612,56 +1611,61 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						$output_result .= '<div class="wbpoll-user-profile-data-wrapper">';
 						$output_result .= '<div class="wbpoll-user-profile-data">';
 						if ( isset( $img_path ) && ! empty( $img_path ) ) {
-							$count = count($img_path);
-							$images = array_slice($img_path, 0, 3);
+							$count  = count( $img_path );
+							$images = array_slice( $img_path, 0, 3 );
 							foreach ( $images as $image ) {
 								$output_result .= '<div class="user-profile">';
 								$output_result .= '<div class="user-profile-image">' . $image . '</div>';
 								$output_result .= '</div>';
 							}
-							if($count > 3){
+							if ( $count > 3 ) {
 
 								// profile modal more button
 								$output_result .= '<div class="user-profile-load-more">';
-								$output_result .= '<div class="user-profile-image load-more" data-id="'.$index.'"> +'.($count - 3).'</div>';
-								$output_result .= '<div class="user-profile-image-modal-'.$index.' profile-modal">';
+								$output_result .= '<div class="user-profile-image load-more" data-id="' . $index . '">+' . ( $count - 3 ) . '</div>';
+								$output_result .= '<div class="wbpoll-user-profile-image-modal user-profile-image-modal-' . $index . ' profile-modal">';
 								// profile modal
-								$output_result .= '<div class="profile-modal-content">';
-								$output_result .= "<div class='profile-modal-title'><h4>Votted User Profile's </h4><div class='close-profiles' data-id='".$index."'>close</div></div>";
+								$output_result .= '<div class="wbpoll-profile-modal-content">';
+								$output_result .= '<div class="wbpoll-profile-modal-header">';
+								$output_result .= '<div class="wbpoll-profile-modal-title">';
+								$output_result .= '<h4>' . esc_html( 'People who voted for this option' ) . '</h4>';
+								$output_result .= '</div>';
+								$output_result .= '<div class="close-profiles" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div>';
+								$output_result .= '</div>';
+								$output_result .= '<div class="wbpoll-user-profile-details-wrapper">';
 								foreach ( $result_data as $result ) {
-									$image = bp_core_fetch_avatar(
+									$image          = bp_core_fetch_avatar(
 										array(
 											'item_id' => $result['user_id'],
 											'type'    => 'thumb',
 											'html'    => true,
 										)
 									);
-									$args = [
+									$args           = array(
 										'include' => $result['user_id'], // ID of users you want to get
 										'fields'  => 'display_name',
-									];
-									
-									$users = get_users( $args );
-									$output_result .= '<div class="user-profile-details">';
-									if(!empty($image) && isset($image) || !empty($users[0]) && isset($users[0])){
-									$output_result .= '<div class="user-profile-images">' . $image . '</div>';								
-									$output_result .= '<div class="user-profile-name">' . $users[0] . '</div>';
-									}								
+									);
+									$users          = get_users( $args );
+									$output_result .= '<div class="wbpoll-user-profile-details">';
+									if ( ! empty( $image ) && isset( $image ) || ! empty( $users[0] ) && isset( $users[0] ) ) {
+										$output_result .= '<div class="user-profile-images">' . $image . '</div>';
+										$output_result .= '<div class="user-profile-name">' . $users[0] . '</div>';
+									}
 									$output_result .= '</div>';
 								}
+								$output_result .= '</div>'; // wbpoll-user-profile-details-wrapper.
 								$output_result .= '</div>';
 								$output_result .= '</div>';
 								$output_result .= '</div>';
-								
-							}						
-							
+
+							}
 						}
 						$output_result .= '</div>'; // wbpoll-user-profile-data.
 
 						if ( $vote_count > 1 ) {
-							$output_result .= '<div class="votecount-right"> ' . $vote_count . ' Votes</div>';
+							$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' Votes</div>';
 						} else {
-							$output_result .= '<div class="votecount-right"> ' . $vote_count . ' Vote</div>';
+							$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' Vote</div>';
 						}
 
 						$output_result .= '</div>'; // wbpoll-vote-percent-data-wrapper.

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-05 12:56:17+00:00\n"
+"POT-Creation-Date: 2023-05-05 14:38:20+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -229,12 +229,12 @@ msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:1514
 #: admin/class-buddypress-polls-admin.php:1535
-#: admin/class-buddypress-polls-admin.php:1666
-#: admin/class-buddypress-polls-admin.php:1680
+#: admin/class-buddypress-polls-admin.php:1708
+#: admin/class-buddypress-polls-admin.php:1722
 msgid "Unknown Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1647
+#: admin/class-buddypress-polls-admin.php:1689
 msgid "No approved vote yet"
 msgstr ""
 
