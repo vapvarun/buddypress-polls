@@ -1190,7 +1190,7 @@ class Buddypress_Polls_Public {
 	 * @param object $activity Current activity item object.
 	 */
 	public function bpolls_activity_can_edit( $can_edit, $activity ) {
-			global $activities_template;
+		global $activities_template;
 
 		// Try to use current activity if none was passed.
 		if ( empty( $activity ) && ! empty( $activities_template->activity ) ) {
