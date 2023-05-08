@@ -192,57 +192,88 @@
     cursor: pointer;
 }
 
-.wbpoll-single-answer-label::before {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 2;
-    display: block;
-    content: '';
-    width: 0;
-    height: 0;
-    background: rgba(255, 255, 255, .2);
-    border-radius: 100%;
-    -webkit-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    opacity: 0;
-}
-
 .wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::before {
-    -webkit-animation: circle .75s;
-    animation: circle .75s;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pZCIgdmlld0JveD0iMCAwIDIwIDIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiPjxwYXRoIGQ9Ik0xNS44NzEgNS45MzZhMS4yNzcgMS4yNzcgMCAwMC0xLjgwNiAwbC01LjQyIDUuNDE5LTIuNzA5LTIuNzA5YTEuMjc4IDEuMjc4IDAgMDAtMS44MDcgMS44MDZsMy42MTIgMy42MTJhMS4yNzggMS4yNzggMCAwMDEuODA3IDBsNi4zMjItNi4zMjJjLjUtLjQ5OS41LTEuMzA3LjAwMS0xLjgwNnoiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg==) !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    border-radius: 100%;
+    opacity: 1;
+    -webkit-animation: checkmark-appears .4s ease;
+    animation: checkmark-appears .4s ease;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    background-color: #4caf50;
+    z-index: 2;
+    box-shadow: 0 -1px 2px 3px rgba(0, 0, 0, .01), 0 1px 2px 0 rgba(0, 0, 0, .1);
 }
 
-@-webkit-keyframes circle {
+.wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+@-webkit-keyframes checkmark-appears {
     0% {
-        opacity: 1;
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2)
     }
 
-    40% {
-        opacity: 1;
+    10% {
+        opacity: 1
+    }
+
+    60% {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8)
     }
 
     100% {
-        width: 200%;
-        height: 200%;
-        opacity: 0;
+        -webkit-transform: scale(1);
+        transform: scale(1)
     }
 }
 
-@keyframes circle {
+@keyframes checkmark-appears {
     0% {
-        opacity: 1;
+        opacity: 0;
+        -webkit-transform: scale(2);
+        transform: scale(2)
     }
 
-    40% {
-        opacity: 1;
+    10% {
+        opacity: 1
+    }
+
+    60% {
+        -webkit-transform: scale(0.8);
+        transform: scale(0.8)
     }
 
     100% {
-        width: 200%;
-        height: 200%;
-        opacity: 0;
+        -webkit-transform: scale(1);
+        transform: scale(1)
     }
 }
 
@@ -262,7 +293,7 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    padding-top: 100%;
+    padding-top: 52.56%;
     display: block;
 }
 
@@ -383,6 +414,11 @@
     height: 100%;
 }
 
+/* Audio options */
+.wbpolls-question-results.wbpoll-audio audio {
+    max-width: 100%;
+}
+
 /* HTML options */
 .wbpoll-form-ans-listitem .poll-html {
     margin: 0 0 10px;
@@ -471,7 +507,6 @@
 .wbpoll-question-choices-item-label .wbpoll-vote-percent-data {
     font-size: 12px;
     display: block;
-    margin-top: 5px;
 }
 
 .wbpoll-question-choices-item-label .wbpoll-vote-percent-data-wrapper {
@@ -509,9 +544,14 @@
     margin-right: 10px;
 }
 
+.wbpoll-question-choices-item-label .wbpoll-user-profile-data-wrapper .wbpoll-user-profile-data:empty {
+    display: none;
+}
+
 .wbpoll-question-choices-item-label .wbpoll-user-profile-data-wrapper .user-profile-image {
-    display: inline-block;
-    line-height: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
     margin: 0;
     margin-left: -5px;
 }
@@ -562,7 +602,6 @@
 .wbpoll-question-choices-item-label .wbpoll-user-profile-data-wrapper .wbpoll-votecount {
     font-size: 12px;
     display: block;
-    margin: 3px 0 0;
 }
 
 .wbpoll-user-profile-image-modal {
