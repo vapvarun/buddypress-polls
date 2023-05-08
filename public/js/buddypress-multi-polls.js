@@ -113,7 +113,7 @@ function wbpoll_formsubmit($element, $) {
 }
 
 jQuery( document ).ready(function() {
-		jQuery( '.poll-image-view' ).on("click",	function() {
+		jQuery( '.poll-image-view' ).on("click", function() {
 				var dataid = jQuery( this ).data( 'id' );
 				jQuery( '.lightbox-' + dataid ).show();
 			}
