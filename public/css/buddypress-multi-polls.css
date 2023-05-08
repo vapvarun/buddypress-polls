@@ -105,6 +105,7 @@
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
+    padding: 15px;
     width: 100%;
     height: 100%;
     max-width: 100%;
@@ -203,10 +204,12 @@
     margin: auto;
     width: 30px;
     height: 30px;
-    background-image: url(data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWluWU1pZCIgdmlld0JveD0iMCAwIDIwIDIwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIGZpbGwtcnVsZT0iZXZlbm9kZCIgY2xpcC1ydWxlPSJldmVub2RkIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBzdHJva2UtbWl0ZXJsaW1pdD0iMS40MTQiPjxwYXRoIGQ9Ik0xNS44NzEgNS45MzZhMS4yNzcgMS4yNzcgMCAwMC0xLjgwNiAwbC01LjQyIDUuNDE5LTIuNzA5LTIuNzA5YTEuMjc4IDEuMjc4IDAgMDAtMS44MDcgMS44MDZsMy42MTIgMy42MTJhMS4yNzggMS4yNzggMCAwMDEuODA3IDBsNi4zMjItNi4zMjJjLjUtLjQ5OS41LTEuMzA3LjAwMS0xLjgwNnoiIGZpbGw9IiNmZmYiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg==) !important;
+    background-image: url(../images/check.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
+    background-color: #4caf50;
+    border: 1.5px solid #fff;
     border-radius: 100%;
     opacity: 1;
     -webkit-animation: checkmark-appears .4s ease;
@@ -214,7 +217,6 @@
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
-    background-color: #4caf50;
     z-index: 2;
     box-shadow: 0 -1px 2px 3px rgba(0, 0, 0, .01), 0 1px 2px 0 rgba(0, 0, 0, .1);
 }
@@ -461,6 +463,32 @@
     display: block;
 }
 
+.wbpoll-question-choices-item-content .poll-image .poll-image-view {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/expand.svg) !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 14px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 100%;
+    z-index: 99;
+    -webkit-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.wbpoll-question-choices-item-content .poll-image .poll-image-view:hover {
+    background-size: 16px;
+}
+
+.wbpoll-question-choices-item-wrapper:hover .wbpoll-question-choices-item-content .poll-image .poll-image-view {
+    display: block;
+}
+
 .wbpoll-question-choices-item-content .poll-image img {
     position: absolute;
     top: 0;
@@ -640,6 +668,19 @@
 }
 
 .wbpoll-user-profile-image-modal .close-profiles {
+    width: 32px;
+    height: 32px;
+    background: rgba(0, 0, 0, .5);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-radius: 100%;
     cursor: pointer;
 }
 
