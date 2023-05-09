@@ -535,7 +535,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					echo apply_filters( 'wbpoll_admin_listing_votes', $total_votes, $post_id );
 					break;
 				case 'shortcode':
-					echo '<span id="wbpollhortcode-' . $post_id . '" class="wbpollhortcode wbpollhortcode-' . $post_id . '">[wbpoll id="' . $post_id . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
+					echo '<span id="wbpollshortcode-' . $post_id . '" class="wbpollshortcode wbpollshortcode-' . $post_id . '">[wbpoll id="' . $post_id . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
 						'Click to copy',
 						'buddypress-polls'
 					) . '" data-balloon-pos="down">&nbsp;</span>';

@@ -512,6 +512,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );
+			var id = $( this ).data( 'id' );
 			e.preventDefault();
 			if (mediaUploader) {
 				mediaUploader.open();
@@ -538,6 +539,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				}
 			);
 			mediaUploader.open();
+			$('.hide_suggestion-'+id).hide();
 		}
 	);
 
@@ -549,6 +551,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );
+			var id = $( this ).data( 'id' );
 			e.preventDefault();
 			if (mediaUploader) {
 				mediaUploader.open();
@@ -575,6 +578,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				}
 			);
 			mediaUploader.open();
+			$('.hide_suggestion-'+id).hide();
 		}
 	);
 
