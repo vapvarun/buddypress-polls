@@ -1469,12 +1469,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		/**
 		 * Display poll result as text method
 		 *
-		 * @param  int    $poll_id
-		 * @param  string $reference
+		 * @param int    $poll_id
 		 *
-		 * @param  string $poll_result
+		 * @param string $poll_result
 		 */
-		public function poll_display_methods_text_result( $poll_id, $reference = 'shortcode', $poll_result ) {
+		public function poll_display_methods_text_result( $poll_id, $poll_result ) {
 
 			$total  = intval( $poll_result['total'] );
 			$colors = $poll_result['colors'];
@@ -1697,8 +1696,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		/**
 		 * poll back graph for single poll
 		 */
-
-		public function poll_display_methods_text_backend_result( $poll_id, $reference = 'shortcode', $poll_result ) {
+		public function poll_display_methods_text_backend_result( $poll_id, $poll_result ) {
 
 			$total         = intval( $poll_result['total'] );
 			$answers       = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();

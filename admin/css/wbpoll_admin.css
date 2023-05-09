@@ -137,6 +137,7 @@ ul#wb_poll_answers_items li.placeholder:before {
     display: flex;
     margin-top: 1px;
     margin-left: 0.5rem;
+    margin-right: 0.5rem;
     background: white;
     color: #999;
     border-radius: 3px;
