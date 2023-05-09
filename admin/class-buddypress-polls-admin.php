@@ -119,6 +119,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function enqueue_scripts( $hook ) {
 			wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js' );
+			wp_enqueue_script( 'embaded-js', 'https://survey.g.doubleclick.net/async_survey?site=vj2nngtlb7sbtnveaepk5so4ke' );
 			wp_enqueue_style( 'tinymce-css', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'https://cdn.tiny.cloud/1/no-api-key/tinymce/5.10.7-133/jquery.tinymce.min.js' );
 			wp_enqueue_script( 'tinymce-js', 'http://totalpoll.local/wp-includes/js/tinymce/plugins/compat3x/plugin.min.js' );
@@ -1270,7 +1271,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$images = $_POST[ $prefix . 'video_answer_url' ];
 
 				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
+					$images[ $index ] = $url;
 				}
 
 				update_post_meta( $post_id, $prefix . 'video_answer_url', $images );
@@ -1309,9 +1310,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			// Audio url
 			if ( isset( $_POST[ $prefix . 'audio_answer_url' ] ) ) {
 				$images = $_POST[ $prefix . 'audio_answer_url' ];
-
+				
 				foreach ( $images as $index => $url ) {
-					$images[ $index ] = sanitize_text_field( $url );
+					$images[ $index ] = $url;
 				}
 
 				update_post_meta( $post_id, $prefix . 'audio_answer_url', $images );
