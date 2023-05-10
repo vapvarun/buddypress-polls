@@ -284,10 +284,11 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 										url: url,
 									}, function( response ) {
 										if( response.error ) {
-											//alert( response.error );
+											
+											$('.error-'+id).text("Please add correct link");
 											$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 										} else {
-											
+											$('.error-'+id).text("");
 											$( '.video_' + videoclass ).html(response.html);
 											$('#wbpoll_answer-'+id).val(response.title);
 											var iframe = $(response.html);
@@ -374,10 +375,10 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 										url: url,
 									}, function( response ) {
 										if( response.error ) {
-											//alert( response.error );
+											$('.error-'+id).text("Please add correct link");
 											$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 										} else {
-											
+											$('.error-'+id).text("");
 											$( '.audio_' + audioclass ).html(response.html);					
 											$('#wbpoll_answer-'+id).val(response.title);
 											var iframe = $(response.html);
@@ -625,10 +626,11 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				url: url,
 			}, function( response ) {
 				if( response.error ) {
-					//alert( response.error );
+				
+					$('.error-'+id).text("Please add correct link");
 					$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 				} else {
-					
+					$('.error-'+id).text("");
 					$( '.video_' + videoclass ).html(response.html);
 					$('#wbpoll_answer-'+id).val(response.title);
 					var iframe = $(response.html);
@@ -672,10 +674,10 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				url: url,
 			}, function( response ) {
 				if( response.error ) {
-					//alert( response.error );
+					$('.error-'+id).text("Please add correct link");
 					$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 				} else {
-					
+					$('.error-'+id).text("");
 					$( '.audio_' + audioclass ).html(response.html);					
 					$('#wbpoll_answer-'+id).val(response.title);
 					var iframe = $(response.html);

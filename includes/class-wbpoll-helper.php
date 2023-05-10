@@ -2155,7 +2155,7 @@ class WBPollHelper {
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" placeholder="Full Size Video URL"  id="wbpoll_answer-' . $index . '" value="' . $video_url . '" class="video_url wbpoll_answer wbpoll_video_answer_url-' . $index . '" data-id="' . $index . '" data-text="wbpoll_video_answer_url-' . $index . '"/>';
 
 			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-video" data-id="'.$index.'" data-text="wbpoll_video_answer_url-' . $index . '"/>';
-
+			$answer_fields_html .= '<div class="error-'.$index.'"></div>';
 			if ( isset( $iframe_video_url ) && $iframe_video_url == 'yes' ) {
 				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes_video" name="_wbpoll_video_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
 				<label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_video_import_info[' . $index . ']" value="no" data-id="' . $index . '" ><label for="no">No</label><br></div>';
@@ -2245,8 +2245,8 @@ class WBPollHelper {
 			$answer_fields_html .= '<input type="hidden" style="width:330px;" name="_wbpoll_audio_answer_url[' . $index . ']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-url-' . $index . '" value="' . $audio_url . '" class="wbpoll_answer wbpoll_audio_answer_url-' . $index . '" data-id="' . $index . '" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;"  id="wbpoll_answer-' . $index . '" value="' . $audio_url . '" class="audio_url wbpoll_answer wbpoll_audio_answer_url-' . $index . '" data-id="' . $index . '" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-audio" data-id="'.$index.'" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
-
-			if ( isset( $iframe_video_url ) && $iframe_video_url == 'yes' ) {
+			$answer_fields_html .= '<div class="error-'.$index.'"></div>';
+			if ( isset( $iframe_audio_url ) && $iframe_audio_url == 'yes' ) {
 				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>
 				<label for="yes">Yes</label><input type="radio" id="no" name="_wbpoll_audio_import_info[' . $index . ']" value="no" data-id="' . $index . '"><label for="no">No</label><br></div>';
 			} else {
