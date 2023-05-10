@@ -1473,9 +1473,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 *
 		 * @param string $poll_result
 		 */
-		public function poll_display_methods_text_result( $poll_id, $poll_result ) {
+		public function poll_display_methods_text_result( $poll_id, $poll_result, $reference='' ) {
 
+			print_r($poll_result);
+			die();
 			$total  = intval( $poll_result['total'] );
+
 			$colors = $poll_result['colors'];
 
 			$answers                  = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();
@@ -1696,9 +1699,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		/**
 		 * poll back graph for single poll
 		 */
-		public function poll_display_methods_text_backend_result( $poll_id, $poll_result ) {
-
-			$total         = intval( $poll_result['total'] );
+		public function poll_display_methods_text_backend_result( $poll_id, $reference='', $poll_result ) {
+			
+			$total         = intval( $poll_result['total'] );			
 			$answers       = isset( $poll_result['answer'] ) ? $poll_result['answer'] : array();
 			$total_percent = 0;
 			if ( ! empty( $total ) && $total > 0 ) {

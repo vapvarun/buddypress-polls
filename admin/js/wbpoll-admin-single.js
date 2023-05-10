@@ -284,7 +284,8 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 										url: url,
 									}, function( response ) {
 										if( response.error ) {
-											alert( response.error );
+											//alert( response.error );
+											$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 										} else {
 											
 											$( '.video_' + videoclass ).html(response.html);
@@ -373,7 +374,8 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 										url: url,
 									}, function( response ) {
 										if( response.error ) {
-											alert( response.error );
+											//alert( response.error );
+											$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 										} else {
 											
 											$( '.audio_' + audioclass ).html(response.html);					
@@ -540,6 +542,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 			);
 			mediaUploader.open();
 			$('.hide_suggestion-'+id).hide();
+			$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 		}
 	);
 
@@ -579,6 +582,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 			);
 			mediaUploader.open();
 			$('.hide_suggestion-'+id).hide();
+			$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 		}
 	);
 
@@ -621,7 +625,8 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				url: url,
 			}, function( response ) {
 				if( response.error ) {
-					alert( response.error );
+					//alert( response.error );
+					$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 				} else {
 					
 					$( '.video_' + videoclass ).html(response.html);
@@ -667,7 +672,8 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				url: url,
 			}, function( response ) {
 				if( response.error ) {
-					alert( response.error );
+					//alert( response.error );
+					$('.hide_suggestion-'+id+' input#no').prop('checked', true);
 				} else {
 					
 					$( '.audio_' + audioclass ).html(response.html);					
