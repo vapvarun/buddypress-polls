@@ -1473,10 +1473,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 *
 		 * @param string $poll_result
 		 */
-		public function poll_display_methods_text_result( $poll_id, $poll_result  = '', $reference='' ) {
+		public function poll_display_methods_text_result( $poll_id, $reference='', $poll_result  = '' ) {
 
-			print_r($poll_result);
-			die();
 			$total  = intval( $poll_result['total'] );
 
 			$colors = $poll_result['colors'];
@@ -1587,17 +1585,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						$sql_select = "SELECT * FROM $votes_name where poll_id = $poll_id And answer_title = '$answer_title'";
 
 						$result_data = $wpdb->get_results( "$sql_select", 'ARRAY_A' );
-						$img_path    = array();
-						foreach ( $result_data as $ans ) {
-							$poll_user_id = $ans['user_id'];
-							$img_path[]   = bp_core_fetch_avatar(
-								array(
-									'item_id' => $poll_user_id,
-									'type'    => 'thumb',
-									'html'    => true,
-								)
-							);
-						}
+						
 						$output_result .= '<div class="wbpoll-question-choices-item-votes">';
 						$output_result .= '<div class="wbpoll-question-choices-item-text"><span class="wbpoll_single_answer">' . $answer_title . '</span>';
 
@@ -1614,12 +1602,29 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						$output_result .= '<div class="wbpoll-user-profile-data-wrapper">';
 						$output_result .= '<div class="wbpoll-user-profile-data">';
-						if ( isset( $img_path ) && ! empty( $img_path ) ) {
-							$count  = count( $img_path );
-							$images = array_slice( $img_path, 0, 3 );
-							foreach ( $images as $image ) {
+
+						
+						if ( isset( $result_data ) && ! empty( $result_data ) ) {
+							$count  = count( $result_data );
+							$results = array_slice( $result_data, 0, 3 );
+							
+							foreach ( $results as $res ) {
+								
+								$image          = bp_core_fetch_avatar(
+									array(
+										'item_id' => $res['user_id'],
+										'type'    => 'thumb',
+										'html'    => true,
+									)
+								);
+								$args           = array(
+									'include' => $res['user_id'], // ID of users you want to get
+									'fields'  => 'display_name',
+								);
+								$users          = get_users( $args );
+
 								$output_result .= '<div class="user-profile">';
-								$output_result .= '<div class="user-profile-image">' . $image . '</div>';
+								$output_result .= '<div class="user-profile-image" data-polls-tooltip="'.$users[0].'">' . $image. '</div>';
 								$output_result .= '</div>';
 							}
 							if ( $count > 3 ) {
