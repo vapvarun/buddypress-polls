@@ -1224,13 +1224,13 @@ class WBPollHelper {
 			$class = array();
 		foreach ( $poll_answers as $index => $answer ) {
 			if ( ! empty( $poll_ans_image[ $index ] ) || ! empty( $thumbnail_poll_ans_image[ $index ] ) ) {
-				$class['class'] = 'wbpoll-image';
+				$class[] = 'wbpoll-image';
 			} elseif ( ! empty( $poll_answers_video[ $index ] ) || ! empty( $thumbnail_poll_answers_video[ $index ] ) ) {
-				$class['class'] = 'wbpoll-video';
+				$class[] = 'wbpoll-video';
 			} elseif ( ! empty( $poll_answers_audio[ $index ] ) || ! empty( $thumbnail_poll_answers_audio[ $index ] ) ) {
-				$class['class'] = 'wbpoll-audio';
+				$class[] = 'wbpoll-audio';
 			} else {
-				$class['class'] = 'wbpoll-default';
+				$class[] = 'wbpoll-default';
 			}
 		}
 
@@ -1243,7 +1243,7 @@ class WBPollHelper {
 
 			$poll_answer_list_class = 'wbpoll-form-ans-list wbpoll-form-ans-list-' . $post_id;
 
-			$poll_form_html .= '<div class="wbpolls-question-results ' . $class['class'] . ' ' . apply_filters(
+			$poll_form_html .= '<div class="wbpolls-question-results ' . $class . ' ' . apply_filters(
 				'wbpoll_form_answer_list_style_class',
 				$poll_answer_list_class,
 				$post_id
