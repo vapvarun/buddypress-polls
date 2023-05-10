@@ -1484,12 +1484,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$thumbnail_poll_ans_image = isset( $poll_result['thumb_image'] ) ? $poll_result['thumb_image'] : array();
 
 			$poll_answers_video           = isset( $poll_result['video'] ) ? $poll_result['video'] : array();
+			
 			$thumbnail_poll_answers_video = isset( $poll_result['thumb_video_img'] ) ? $poll_result['thumb_video_img'] : array();
 
 			$poll_answers_audio           = isset( $poll_result['audio'] ) ? $poll_result['audio'] : array();
 			$thumbnail_poll_answers_audio = isset( $poll_result['thumb_audio_img'] ) ? $poll_result['thumb_audio_img'] : array();
-
+		
 			$poll_answers_html = isset( $poll_result['html'] ) ? $poll_result['html'] : array();
+
+			$poll_video_suggestion = isset( $poll_result['video_suggestion'] ) ? $poll_result['video_suggestion'] : array();
+			$poll_audio_suggestion = isset( $poll_result['audio_suggestion'] ) ? $poll_result['audio_suggestion'] : array();
 
 			$output_result = '';
 
@@ -1558,7 +1562,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						// video.
 						if ( isset( $poll_answers_video[ $index ] ) && ! empty( $poll_answers_video[ $index ] ) && empty( $thumbnail_poll_answers_video[ $index ] ) ) {
-							$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div></div></div>';
+							if ( isset( $poll_video_suggestion[ $index ] ) && $poll_video_suggestion[ $index ] == 'yes' ) {
+								$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><iframe width="420" height="345" src="' . $poll_answers_video[ $index ] . '"></iframe></div></div></div>';
+							} else {
+								$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-video"><video src="' . $poll_answers_video[ $index ] . '" controls="" poster="" preload="none"></video></div></div></div>';
+							}
 						} elseif ( isset( $thumbnail_poll_answers_video[ $index ] ) && ! empty( $thumbnail_poll_answers_video[ $index ] ) && empty( $poll_answers_video[ $index ] ) ) {
 							$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_video[ $index ] . '"></div></div></div>';
 						} elseif ( isset( $poll_answers_video[ $index ] ) && ! empty( $poll_answers_video[ $index ] ) && isset( $thumbnail_poll_answers_video[ $index ] ) && ! empty( $thumbnail_poll_answers_video[ $index ] ) ) {
@@ -1568,7 +1576,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						// audio.
 						if ( isset( $poll_answers_audio[ $index ] ) && ! empty( $poll_answers_audio[ $index ] ) && empty( $thumbnail_poll_answers_audio[ $index ] ) ) {
-							$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none"></audio></div></div></div>';
+							if ( isset( $poll_audio_suggestion[ $index ] ) && $poll_audio_suggestion[ $index ] == 'yes' ) {
+								$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><iframe width="420" height="345" src="' . $poll_answers_audio[ $index ] . '"></iframe></div></div></div>';
+							} else {
+								$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-audio"><audio src="' . $poll_answers_audio[ $index ] . '" controls="" preload="none"></audio></div></div></div>';
+							}
 						} elseif ( isset( $thumbnail_poll_answers_audio[ $index ] ) && ! empty( $thumbnail_poll_answers_audio[ $index ] ) && empty( $poll_answers_audio[ $index ] ) ) {
 							$output_result .= '<div class="wbpoll-question-choices-item-content-container"><div class="wbpoll-question-choices-item-content"><div class="poll-thumb-image poll-video-image"><img src="' . $thumbnail_poll_answers_audio[ $index ] . '"></div></div></div>';
 						} elseif ( isset( $poll_answers_audio[ $index ] ) && ! empty( $poll_answers_audio[ $index ] ) && isset( $thumbnail_poll_answers_audio[ $index ] ) && ! empty( $thumbnail_poll_answers_audio[ $index ] ) ) {

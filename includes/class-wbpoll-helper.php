@@ -1486,8 +1486,14 @@ class WBPollHelper {
 		$poll_answers_video = get_post_meta( $poll_id, '_wbpoll_video_answer_url', true );
 		$poll_answers_video = is_array( $poll_answers_video ) ? $poll_answers_video : array();
 
+		$poll_video_suggestion = get_post_meta( $poll_id, '_wbpoll_video_import_info', true );
+		$poll_video_suggestion = is_array( $poll_video_suggestion ) ? $poll_video_suggestion : array();
+
 		$poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_answer_url', true );
-		$poll_answers_audio = is_array( $poll_answers_audio ) ? $poll_answers_audio : array();
+		$poll_answers_audio = is_array( $poll_answers_audio ) ? $poll_answers_audio : array(); 
+
+		$poll_audio_suggestion = get_post_meta( $poll_id, '_wbpoll_audio_import_info', true );
+		$poll_audio_suggestion = is_array( $poll_audio_suggestion ) ? $poll_audio_suggestion : array();
 
 		$poll_answers_html = get_post_meta( $poll_id, '_wbpoll_html_answer', true );
 		$poll_answers_html = is_array( $poll_answers_html ) ? $poll_answers_html : array();
@@ -1524,6 +1530,9 @@ class WBPollHelper {
 		$poll_result['thumb_image']     = $thumbnail_poll_ans_image;
 		$poll_result['thumb_video_img'] = $thumbnail_poll_answers_video;
 		$poll_result['thumb_audio_img'] = $thumbnail_poll_answers_audio;
+
+		$poll_result['video_suggestion'] = $poll_video_suggestion;
+		$poll_result['audio_suggestion'] = $poll_audio_suggestion;
 
 		$poll_answers_weight = array();
 
@@ -1665,6 +1674,12 @@ class WBPollHelper {
 		$thumbnail_poll_answers_audio = get_post_meta( $poll_id, '_wbpoll_audio_thumbnail_image_url', true );
 		$thumbnail_poll_answers_audio = is_array( $thumbnail_poll_answers_audio ) ? $thumbnail_poll_answers_audio : array();
 
+		$poll_video_suggestion = get_post_meta( $poll_id, '_wbpoll_video_import_info', true );
+		$poll_video_suggestion = is_array( $poll_video_suggestion ) ? $poll_video_suggestion : array();
+
+		$poll_audio_suggestion = get_post_meta( $poll_id, '_wbpoll_audio_import_info', true );
+		$poll_audio_suggestion = is_array( $poll_audio_suggestion ) ? $poll_audio_suggestion : array();
+
 		$total_results = self::get_pollResult( $poll_id );
 
 		$poll_result = array();
@@ -1687,6 +1702,9 @@ class WBPollHelper {
 		$poll_result['thumb_image']     = $thumbnail_poll_ans_image;
 		$poll_result['thumb_video_img'] = $thumbnail_poll_answers_video;
 		$poll_result['thumb_audio_img'] = $thumbnail_poll_answers_audio;
+
+		$poll_result['video_suggestion'] = $poll_video_suggestion;
+		$poll_result['audio_suggestion'] = $poll_audio_suggestion;
 
 		$poll_answers_weight = array();
 
