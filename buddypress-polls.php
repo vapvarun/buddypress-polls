@@ -109,6 +109,12 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-wbpoll-helper.php';
 require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-polls.php';
 
 require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
+/**
+ * Poll rest api
+ */
+require_once plugin_dir_path( __FILE__ ) . 'restapi/v1/pollrestapi.php';
+
+
 
 /**
  * Begins execution of the plugin.
@@ -151,6 +157,7 @@ function bpolls_plugin_init() {
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
 	}
 }
+
 /**
  * Function to check configurations.
  */
@@ -341,7 +348,7 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 	if ( ! isset( $plugins ) ) {
 		return;
 	}
-	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'Buddypress' ) ) {
+	if ( plugin_basename( __FILE__ ) === $plugin || class_exists( 'Buddypress' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) {
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
 			exit;

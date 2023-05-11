@@ -882,7 +882,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$i = 1;
 					foreach ( $poll_answers as $index => $poll_answer ) {
 						$number = $i++;
-						if ( isset( $poll_answer ) ) {
+						if ( isset( $poll_answer ) && !empty($poll_answer) ) {
 							$poll_answers_extra[ $index ] = isset( $poll_answers_extra[ $index ] ) ? $poll_answers_extra[ $index ] : '';
 							// color
 							$poll_colors[ $index ] = isset( $poll_colors[ $index ] ) ? $poll_colors[ $index ] : array();

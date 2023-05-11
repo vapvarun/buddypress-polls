@@ -1842,6 +1842,7 @@ class WBPollHelper {
 		$start_date = new DateTime();
 		$timestamp  = time() - 86400;
 		$end_date   = strtotime( '+7 day', $timestamp );
+	
 
 		$post_meta_fields = array(
 
@@ -1937,7 +1938,21 @@ class WBPollHelper {
 				'type'    => 'number',
 				'default' => 1,
 			),
-
+			
+			'_wbpoll_show_poll_under_the_activity' => array(
+				'label'   => esc_html__( 'Show poll under the BuddyPress activity', 'buddypress-polls' ),
+				'desc'    => esc_html__(
+					'Select if you want poll to Show poll under the BuddyPress activity.',
+					'buddypress-polls'
+				),
+				'id'      => '_wbpoll_show_poll_under_the_activity',
+				'type'    => 'radio',
+				'default' => 0,
+				'options' => array(
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
+				),
+			),
 			// '_wbpoll_timeout'                   => array(
 			// 'label'   => esc_html__( 'Timeout', 'buddypress-polls' ),
 			// 'desc'    => esc_html__( 'How many times can the user vote using the same session', 'buddypress-polls' ),
@@ -1957,7 +1972,30 @@ class WBPollHelper {
 			// ),
 		);
 
-		return apply_filters( 'wbpoll_fields', $post_meta_fields );
+		$post_meta_fields_buddypress = array(
+			'_wbpoll_show_poll_under_the_activity' => array(
+				'label'   => esc_html__( 'Show poll under the BuddyPress activity', 'buddypress-polls' ),
+				'desc'    => esc_html__(
+					'Select if you want poll to Show poll under the BuddyPress activity.',
+					'buddypress-polls'
+				),
+				'id'      => '_wbpoll_show_poll_under_the_activity',
+				'type'    => 'radio',
+				'default' => 0,
+				'options' => array(
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
+				),
+			),
+		);
+
+
+		if ( class_exists( 'Buddypress' ) ) {
+			$return_post = apply_filters( 'wbpoll_fields', $post_meta_fields_buddypress );
+		}
+		$return_post = apply_filters( 'wbpoll_fields', $post_meta_fields );
+		return $return_post;
+			
 	}//end get_meta_fields()
 
 

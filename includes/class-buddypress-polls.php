@@ -212,12 +212,13 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 		private function define_public_hooks() {
 
 			$plugin_public = new Buddypress_Polls_Public( $this->get_plugin_name(), $this->get_version() );
-
+			
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 			 //add js and css in admin end
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+			 
 
 			$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
@@ -301,6 +302,8 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			// ajax for voting
 			$this->loader->add_action( 'wp_ajax_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
+
+
 
 		}
 

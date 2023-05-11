@@ -1,0 +1,499 @@
+<?php
+/**
+ * The helper functionality of the plugin.
+ *
+ * @link       https://codeboxr.com
+ * @since      1.0.0
+ *
+ * @package    wbpoll
+ * @subpackage wbpoll/includes
+ */
+
+if ( ! defined( 'WPINC' ) ) {
+	die;
+}
+
+/**
+ * Helper functionality of the plugin.
+ *
+ * lots of micro methods that help get set
+ *
+ * @package    wbpoll
+ * @subpackage wbpoll/includes
+ * @author     codeboxr <info@codeboxr.com>
+ */
+
+class Pollrestapi {
+
+    public function __construct() {
+        add_action( 'rest_api_init', array( $this, 'registerRoutes' ) );
+    }
+
+    /**
+     * Register routes.
+     */
+    public function registerRoutes() {
+    
+        register_rest_route( 'wbpoll/v1', '/postpoll', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'create_wbpoll' ),
+            'permission_callback' => '__return_true'
+        ) );
+        
+        //wbpoll listall poll
+
+        register_rest_route( 'wbpoll/v1', '/listpoll', array(
+            'methods' => 'GET',
+            'callback' => array( $this, 'list_all_poll' ),
+            'permission_callback' => '__return_true'
+        ) );
+
+        //wbpoll list poll by poll-id
+        register_rest_route( 'wbpoll/v1', '/listpoll/id', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_by_id' ),
+            'permission_callback' => '__return_true'
+        ) );
+
+        //wbpoll list poll by user
+        register_rest_route( 'wbpoll/v1', '/listpoll/user/id', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_by_user' ),
+            'permission_callback' => '__return_true'
+        ) );
+               
+    }
+
+    // Callback function
+    public function create_wbpoll($request) {
+
+        $parameters = $request->get_params();
+        $prefix = '_wbpoll_';
+        // Retrieve the post data from the request body
+        $post_title = sanitize_text_field( $parameters['title'] );
+        $post_content = wp_kses_post( $parameters['content'] );
+        
+        // Create a new post with the retrieved data
+        $new_post = array(
+            'post_title' => $post_title,
+            'post_content' => $post_content,
+            'post_status' => 'publish',
+            'post_type' => 'wbpoll',
+        );
+        $post_id = wp_insert_post( $new_post );
+
+         // option type (default, image, video, audio, html)
+        if ( isset( $parameters[ $prefix . 'answer_extra' ] ) ) {
+            $extra = $parameters[ $prefix . 'answer_extra' ];
+            update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'answer_extra' );
+        }
+
+        // option lable
+        if ( isset( $parameters[ $prefix . 'answer' ] ) ) {
+            $titles = $parameters[ $prefix . 'answer' ];
+        
+            foreach ( $titles as $index => $title ) {
+                $titles[ $index ] = sanitize_text_field( $title );
+            }
+
+            update_post_meta( $post_id, $prefix . 'answer', $titles, true);
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'answer' );
+        }
+
+        // Full size image answer
+        if ( isset( $parameters[ $prefix . 'full_size_image_answer' ] ) ) {
+            $images = $parameters[ $prefix . 'full_size_image_answer' ];
+
+            foreach ( $images as $index => $url ) {
+                $images[ $index ] = sanitize_text_field( $url );
+            }
+
+            update_post_meta( $post_id, $prefix . 'full_size_image_answer', $images );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'full_size_image_answer' );
+        }
+
+        // video url
+        if ( isset( $parameters[ $prefix . 'video_answer_url' ] ) ) {
+            $images = $parameters[ $prefix . 'video_answer_url' ];
+
+            foreach ( $images as $index => $url ) {
+                $images[ $index ] = $url;
+            }
+
+            update_post_meta( $post_id, $prefix . 'video_answer_url', $images );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'video_answer_url' );
+        }
+
+        
+        // video suggestion
+        if ( isset( $parameters[ $prefix . 'video_import_info' ] ) ) {
+            $suggestion = $parameters[ $prefix . 'video_import_info' ];
+            foreach ( $suggestion as $index => $text ) {
+                $suggestion[ $index ] = sanitize_text_field( $text );
+            }
+
+            update_post_meta( $post_id, $prefix . 'video_import_info', $suggestion );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'video_import_info' );
+        }
+
+        // Audio url
+        if ( isset( $parameters[ $prefix . 'audio_answer_url' ] ) ) {
+            $images = $parameters[ $prefix . 'audio_answer_url' ];
+            
+            foreach ( $images as $index => $url ) {
+                $images[ $index ] = $url;
+            }
+
+            update_post_meta( $post_id, $prefix . 'audio_answer_url', $images );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'audio_answer_url' );
+        }
+
+        // audio suggestion
+        if ( isset( $parameters[ $prefix . 'audio_import_info' ] ) ) {
+            $suggestion = $parameters[ $prefix . 'audio_import_info' ];
+
+            foreach ( $suggestion as $index => $text ) {
+                $suggestion[ $index ] = sanitize_text_field( $text );
+            }
+
+            update_post_meta( $post_id, $prefix . 'audio_import_info', $suggestion );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'audio_import_info' );
+        }
+
+        //html content
+        if ( isset( $parameters[ $prefix . 'html_answer' ] ) ) {
+            $images = $parameters[ $prefix . 'html_answer' ];
+
+            foreach ( $images as $index => $url ) {
+                $images[ $index ] = sanitize_text_field( $url );
+            }
+
+            update_post_meta( $post_id, $prefix . 'html_answer', $images );
+
+        } else {
+            delete_post_meta( $post_id, $prefix . 'html_answer' );
+        }
+
+        //Start date meta
+        if ( isset( $parameters[ $prefix . 'start_date' ] ) ) {
+            $start_date = $parameters[ $prefix . 'start_date' ];
+            update_post_meta( $post_id, $prefix . 'start_date', $start_date );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'start_date' );
+        }
+
+        //End date meta
+        if ( isset( $parameters[ $prefix . 'end_date' ] ) ) {
+            $end_date = $parameters[ $prefix . 'end_date' ];
+            update_post_meta( $post_id, $prefix . 'end_date', $end_date );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'end_date' );
+        }
+
+        //Who can vote meta
+        if ( isset( $parameters[ $prefix . 'user_roles' ] ) ) {
+            $user_roles = $parameters[ $prefix . 'user_roles' ];
+            update_post_meta( $post_id, $prefix . 'user_roles', $user_roles );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'user_roles' );
+        }
+
+        //show description meta
+        if ( isset( $parameters[ $prefix . 'content' ] ) ) {
+            $content = $parameters[ $prefix . 'content' ];
+            update_post_meta( $post_id, $prefix . 'content', $content );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'content' );
+        }
+
+        //never expire meta
+        if ( isset( $parameters[ $prefix . 'never_expire' ] ) ) {
+            $never_expire = $parameters[ $prefix . 'never_expire' ];
+            update_post_meta( $post_id, $prefix . 'never_expire', $never_expire );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'never_expire' );
+        }
+
+        //show result after Expire meta
+        if ( isset( $parameters[ $prefix . 'show_result_before_expire' ] ) ) {
+            $show_result_before_expire = $parameters[ $prefix . 'show_result_before_expire' ];
+            update_post_meta( $post_id, $prefix . 'show_result_before_expire', $show_result_before_expire );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'show_result_before_expire' );
+        }
+
+        //multivote meta
+        if ( isset( $parameters[ $prefix . 'multivote' ] ) ) {
+            $multivote = $parameters[ $prefix . 'multivote' ];
+            update_post_meta( $post_id, $prefix . 'multivote', $multivote );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'multivote' );
+        }
+
+        // vote per session meta
+        if ( isset( $parameters[ $prefix . 'vote_per_session' ] ) ) {
+            $vote_per_session = $parameters[ $prefix . 'vote_per_session' ];
+            update_post_meta( $post_id, $prefix . 'vote_per_session', $vote_per_session );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'vote_per_session' );
+        }
+
+        //Return the response data
+        $data = array(
+            'message' => 'Post created successfully',
+            'post_id' => $post_id,
+        );
+        return rest_ensure_response( $data );
+    }
+
+
+    // Callback function
+    public function list_all_poll($request) {
+
+        $args = array(
+            'post_type' => 'wbpoll',
+            'posts_per_page' => -1,
+        );
+        $query = new WP_Query( $args );
+        $posts = $query->get_posts();
+        
+        // Format the response data
+        $data = array();
+        foreach ( $posts as $post ) {
+
+            $post_id = $post->ID;
+
+            $meta_value_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
+
+            $image_answer_url = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
+            $image_answer_url = isset($image_answer_url) ? $image_answer_url : array();
+
+            $video_answer_url = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
+            $video_answer_url = isset($video_answer_url) ? $video_answer_url : array();
+
+            $audio_answer_url = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
+            $audio_answer_url = isset($audio_answer_url) ? $audio_answer_url : array();
+
+            $html_content = get_post_meta( $post_id, '_wbpoll_html_answer', true );
+            $html_content = isset($html_content) ? $html_content : array();
+
+            $options_data = [];
+            foreach($meta_value_ans as $key => $meta_value){
+
+                $options_data[$key]['lable'] = $meta_value;
+                
+                if(isset($image_answer_url[$key]) && !empty($image_answer_url[$key])){
+                    $options_data[$key]['image'] = $image_answer_url[$key];
+                }
+            
+                if(isset($video_answer_url[$key]) && !empty($video_answer_url[$key])){
+                    $options_data[$key]['video'] = $video_answer_url[$key];
+                }
+
+                if(isset($audio_answer_url[$key]) && !empty($audio_answer_url[$key])){
+                    $options_data[$key]['audio'] = $audio_answer_url[$key];
+                }
+
+                if(isset($html_content[$key]) && !empty($html_content[$key])){
+                    $options_data[$key]['html'] = $html_content[$key];
+                }          
+                
+            }
+            $data[] = array(
+
+                'id' => $post->ID,
+                'title' => $post->post_title,
+                'content' => $post->post_content,
+                'date' => $post->post_date,
+                'options' => $options_data,
+                'start_time' => get_post_meta( $post_id, '_wbpoll_start_date', true ),
+                'end_date' => get_post_meta( $post_id, '_wbpoll_end_date', true ),
+                'user_role' => get_post_meta( $post_id, '_wbpoll_user_roles', true ),
+                'show_description' => get_post_meta( $post_id, '_wbpoll_content', true ),
+                'never_expire' => get_post_meta( $post_id, '_wbpoll_never_expire', true ),
+                'show_result_after_expire' => get_post_meta( $post_id, '_wbpoll_show_result_before_expire', true ),
+                'multivote' => get_post_meta( $post_id, '_wbpoll_multivote', true ),
+                'vote_per_session' => get_post_meta( $post_id, '_wbpoll_vote_per_session', true ),
+                'result' => WBPollHelper::show_backend_single_poll_result( $post_id, 'shortcode', 'text' ),
+            );
+        }
+        
+        // Return the response data
+        return rest_ensure_response( $data );
+    }
+
+    public function listpoll_by_id($request){   
+    
+        $post_id = $request['id'];
+        $post = get_post( $post_id );
+        
+        // If post not found, return a 404 error
+        if ( empty( $post ) || is_wp_error( $post ) ) {
+            return new WP_Error( '404', 'Post not found', array( 'status' => 404 ) );
+        }
+        
+        // Format the response data
+        $data = array(
+            'id' => $post->ID,
+            'title' => $post->post_title,
+            'content' => $post->post_content,
+            'date' => $post->post_date,
+            'featured_image' => get_the_post_thumbnail( $post_id, 'large' ),
+        );
+
+        $meta_value_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
+
+        $image_answer_url = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
+        $image_answer_url = isset($image_answer_url) ? $image_answer_url : array();
+
+        $video_answer_url = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
+        $video_answer_url = isset($video_answer_url) ? $video_answer_url : array();
+
+        $audio_answer_url = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
+        $audio_answer_url = isset($audio_answer_url) ? $audio_answer_url : array();
+
+        $html_content = get_post_meta( $post_id, '_wbpoll_html_answer', true );
+        $html_content = isset($html_content) ? $html_content : array();
+        
+        $options_data = [];
+        foreach($meta_value_ans as $key => $meta_value){
+
+            $options_data[$key]['lable'] = $meta_value;
+            if(isset($image_answer_url[$key]) && !empty($image_answer_url[$key])){
+                $options_data[$key]['image'] = $image_answer_url[$key];
+            }
+           
+            if(isset($video_answer_url[$key]) && !empty($video_answer_url[$key])){
+                $options_data[$key]['video'] = $video_answer_url[$key];
+            }
+
+            if(isset($audio_answer_url[$key]) && !empty($audio_answer_url[$key])){
+                $options_data[$key]['audio'] = $audio_answer_url[$key];
+            }
+
+            if(isset($html_content[$key]) && !empty($html_content[$key])){
+                $options_data[$key]['html'] = $html_content[$key];
+            }          
+            
+        }
+        $data['options'] = $options_data;
+        $data['start_time'] = get_post_meta( $post_id, '_wbpoll_start_date', true );
+        $data['end_date'] = get_post_meta( $post_id, '_wbpoll_end_date', true );
+        $data['user_role'] = get_post_meta( $post_id, '_wbpoll_user_roles', true );
+        $data['show_description'] = get_post_meta( $post_id, '_wbpoll_content', true );
+        $data['never_expire'] = get_post_meta( $post_id, '_wbpoll_never_expire', true );
+        $data['show_result_after_expire'] = get_post_meta( $post_id, '_wbpoll_show_result_before_expire', true );
+        $data['multivote'] = get_post_meta( $post_id, '_wbpoll_multivote', true );
+        $data['vote_per_session'] = get_post_meta( $post_id, '_wbpoll_vote_per_session', true );
+        $data['result'] = WBPollHelper::show_backend_single_poll_result( $post_id, 'shortcode', 'text' );
+
+        // Return the response data
+        return rest_ensure_response( $data );
+    }
+
+    // Callback function
+    public function listpoll_by_user($request) {
+
+        $author_id = $request['id'];
+        $args = array(
+            'author' => $author_id,
+            'post_type' => 'wbpoll',
+            'posts_per_page' => -1,
+            'post_status' => 'publish',
+        );
+        
+        $query = new WP_Query( $args );
+        $posts = $query->get_posts();
+        
+        // If no posts found, return a 404 error
+        if ( empty( $posts ) ) {
+            return new WP_Error( '404', 'No posts found', array( 'status' => 404 ) );
+        }
+        
+        // Format the response data
+        $data = array();
+        foreach ( $posts as $post ) {
+            $post_id = $post->ID;
+
+            $meta_value_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
+
+            $image_answer_url = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
+            $image_answer_url = isset($image_answer_url) ? $image_answer_url : array();
+
+            $video_answer_url = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
+            $video_answer_url = isset($video_answer_url) ? $video_answer_url : array();
+
+            $audio_answer_url = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
+            $audio_answer_url = isset($audio_answer_url) ? $audio_answer_url : array();
+
+            $html_content = get_post_meta( $post_id, '_wbpoll_html_answer', true );
+            $html_content = isset($html_content) ? $html_content : array();
+
+            $options_data = [];
+            foreach($meta_value_ans as $key => $meta_value){
+
+                $options_data[$key]['lable'] = $meta_value;
+                
+                if(isset($image_answer_url[$key]) && !empty($image_answer_url[$key])){
+                    $options_data[$key]['image'] = $image_answer_url[$key];
+                }
+            
+                if(isset($video_answer_url[$key]) && !empty($video_answer_url[$key])){
+                    $options_data[$key]['video'] = $video_answer_url[$key];
+                }
+
+                if(isset($audio_answer_url[$key]) && !empty($audio_answer_url[$key])){
+                    $options_data[$key]['audio'] = $audio_answer_url[$key];
+                }
+
+                if(isset($html_content[$key]) && !empty($html_content[$key])){
+                    $options_data[$key]['html'] = $html_content[$key];
+                }          
+                
+            }
+
+            $data[] = array(
+                'id' => $post->ID,
+                'title' => $post->post_title,
+                'content' => $post->post_content,
+                'date' => $post->post_date,
+                'options' => $options_data,
+                'start_time' => get_post_meta( $post_id, '_wbpoll_start_date', true ),
+                'end_date' => get_post_meta( $post_id, '_wbpoll_end_date', true ),
+                'user_role' => get_post_meta( $post_id, '_wbpoll_user_roles', true ),
+                'show_description' => get_post_meta( $post_id, '_wbpoll_content', true ),
+                'never_expire' => get_post_meta( $post_id, '_wbpoll_never_expire', true ),
+                'show_result_after_expire' => get_post_meta( $post_id, '_wbpoll_show_result_before_expire', true ),
+                'multivote' => get_post_meta( $post_id, '_wbpoll_multivote', true ),
+                'vote_per_session' => get_post_meta( $post_id, '_wbpoll_vote_per_session', true ),
+                'result' => WBPollHelper::show_backend_single_poll_result( $post_id, 'shortcode', 'text' ),
+            );
+            
+            
+        }
+
+        
+        
+        // Return the response data
+        return rest_ensure_response( $data );
+              
+    }
+
+}
+$custom_endpoint = new Pollrestapi();
+?>
