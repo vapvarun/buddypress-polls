@@ -2523,5 +2523,49 @@ class Buddypress_Polls_Public {
 		return $content;
 	}//end  the_excerpt_auto_integration
 
+	/**
+	 * Filter the_content with the business template part.
+	 *
+	 * @since 1.0.0
+	 */
+	public function wb_poll_add_new_content( $content ) {
 
+		if (is_page('poll-dashboard')) {
+			// Modify the content as needed
+			$modified_content = self:: wb_poll_locate_template( 'poll-dashboard.php', true );
+		
+			return $modified_content;
+		}
+		if(is_page('create-poll')){
+			$modified_content = self:: wb_poll_locate_template( 'create-poll.php', true );
+		
+			return $modified_content;
+			
+		}
+		// For other pages, return the original content
+		return $content;
+		
+	}
+
+	function wb_poll_locate_template( $file_name, $load = false ) {
+
+		$template_name = 'template/' . $file_name;
+		
+	
+		if ( file_exists( STYLESHEETPATH . $template_name ) ) {
+			$template_part = STYLESHEETPATH . $template_name;
+		} elseif ( file_exists( TEMPLATEPATH . $template_name ) ) {
+			$template_part = TEMPLATEPATH . $template_name;
+		} else {
+			$template_part = plugin_dir_path( __FILE__ ) . 'template/' . $file_name;
+		}
+	
+		if ( $template_part && $load ) {
+			load_template( $template_part, false );
+			return false;
+		}
+	
+		return apply_filters( 'wb_poll_locate_template', $template_part, $file_name );
+	}
+	
 }

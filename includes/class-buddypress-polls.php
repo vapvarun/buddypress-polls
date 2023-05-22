@@ -303,8 +303,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 
-
-
+			//attach template for plugin pages
+			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
+			
 		}
 
 		/**

@@ -84,7 +84,33 @@ function activate_buddypress_polls() {
 		}
 		update_option( 'bpolls_settings', $bpolls_settings );
 	}
+
+	/**
+	 * create a page for frontend poll
+	 */
+	$page_title = 'Poll Dashboard';
+
+    $page_id = wp_insert_post(array(
+        'post_title'     => $page_title,
+        'post_status'    => 'publish',
+        'post_type'      => 'page',
+    ));
+
+
+	/**
+	 * create a page for frontend poll
+	 */
+	$page_title = 'Create Poll';
+
+    $page_id = wp_insert_post(array(
+        'post_title'     => $page_title,
+        'post_status'    => 'publish',
+        'post_type'      => 'page',
+    ));
+
+
 }
+
 
 /**
  * The code that runs during plugin deactivation.
