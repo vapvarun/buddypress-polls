@@ -3,7 +3,7 @@
  * The poll dashboard page.
  *
  * @link       http://www.wbcomdesigns.com
- * @since      1.0.0
+ * @since      4.3.0
  *
  * @package    Buddypress_Polls
  * @subpackage Buddypress_Polls/public

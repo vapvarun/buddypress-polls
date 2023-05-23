@@ -217,14 +217,26 @@ class Buddypress_Polls_Public {
 
 		// Polls Dashboard CSS file.
 		wp_register_style(
-			'polls-dashboard',
+			'wbpolls-dashboard',
 			BPOLLS_PLUGIN_URL . 'public/css/polls-dashboard.css',
 			array(),
 			$this->version
 		);
 
 		if ( is_page( 'poll-dashboard' ) ) {
-			wp_enqueue_style( 'polls-dashboard' );
+			wp_enqueue_style( 'wbpolls-dashboard' );
+		}
+
+		// Create Poll CSS file.
+		wp_register_style(
+			'wbpolls-create-poll',
+			BPOLLS_PLUGIN_URL . 'public/css/create-poll.css',
+			array(),
+			$this->version
+		);
+
+		if ( is_page( 'create-poll' ) ) {
+			wp_enqueue_style( 'wbpolls-create-poll' );
 		}
 
 	}
@@ -289,6 +301,18 @@ class Buddypress_Polls_Public {
 			$this->version,
 			true
 		);
+
+		// Create poll JS file.
+		wp_register_script(
+			'wbpolls-create-poll',
+			plugin_dir_url( __FILE__ ) . 'js/create-poll.js',
+			array(
+				'jquery',
+			),
+			$this->version,
+			true
+		);
+
 		wp_localize_script(
 			'wbpoll-publicjs',
 			'wbpollpublic',
@@ -303,6 +327,9 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'pristine' );
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'buddypress-multi-polls' );
+		if ( is_page( 'create-poll' ) ) {
+			wp_enqueue_script( 'wbpolls-create-poll' );
+		}
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
 
