@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="poll-create">
-		<form>
+		<form id="wbpolls-create" class="wbpolls-create">
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
 				<input type="text" class="form-control" name="poll_title" id="polltitle">
@@ -39,60 +39,90 @@
 				</select>
 			</div>
 
-			<!-- for text type -->
-			<div class="row" id="type_text" style="display:none;">
-				<div class="text_records">
-					<label><?php esc_html_e( 'Text Answer', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_answer[]" type="text" value="">
-					<a class="extra-fields-text" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+			<div class="wbpolls-answer-wrap">
+				<!-- for text type -->
+				<div class="row wbpoll-list-item" id="type_text" style="display:none;">
+					<div class="ans-records text_records">
+						<div class="ans-records-wrap">
+							<label><?php esc_html_e( 'Text Answer', 'buddypress-polls' ); ?></label>
+							<input name="_wbpoll_answer[]" type="text" value="">
+						</div>
+						<a class="add-field extra-fields-text" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+					</div>
+					<div class="text_records_dynamic"></div>
 				</div>
-				<div class="text_records_dynamic"></div>
-			</div>
 
-			<!-- for image type -->
-			<div class="row" id="type_image" style="display:none;">
-				<div class="image_records">
-					<label><?php esc_html_e( 'Image Answer', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_answer[]" type="text" value="">
-					<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_full_size_image_answer[]" type="url" value="">
-					<a class="extra-fields-image" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+				<!-- for image type -->
+				<div class="row wbpoll-list-item" id="type_image" style="display:none;">
+					<div class="ans-records image_records">
+						<div class="ans-records-wrap">
+							<div class="wbpoll-image-input-preview">
+								<div class="wbpoll-image-input-preview-thumbnail">
+								</div>
+							</div>
+							<div class="wbpoll-image-input-details">
+								<label><?php esc_html_e( 'Image Answer', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_answer[]" type="text" value="">
+								<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_full_size_image_answer[]" type="url" value="">
+							</div>
+						</div>
+						<a class="add-field extra-fields-image" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+					</div>
+					<div class="image_records_dynamic"></div>
 				</div>
-				<div class="image_records_dynamic"></div>
-			</div>
 
-			<!-- for video type -->
-			<div class="row" id="type_video" style="display:none;">
-				<div class="video_records">
-					<label><?php esc_html_e( 'Video Answer', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_answer[]" type="text" value="">
-					<label>L<?php esc_html_e( 'Video UR', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_video_answer_url[]" type="url" value="">
-					<a class="extra-fields-video" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+				<!-- for video type -->
+				<div class="row wbpoll-list-item" id="type_video" style="display:none;">
+					<div class="ans-records video_records">
+						<div class="ans-records-wrap">
+							<div class="wbpoll-image-input-preview">
+								<div class="wbpoll-image-input-preview-thumbnail">
+								</div>
+							</div>
+							<div class="wbpoll-image-input-details">
+								<label><?php esc_html_e( 'Video Answer', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_answer[]" type="text" value="">
+								<label><?php esc_html_e( 'Video URL', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_video_answer_url[]" type="url" value="">
+							</div>
+						</div>
+						<a class="add-field extra-fields-video" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+					</div>
+					<div class="video_records_dynamic"></div>
 				</div>
-				<div class="video_records_dynamic"></div>
-			</div>
 
-			<!-- for audio type -->
-			<div class="row" id="type_audio" style="display:none;">
-				<div class="audio_records">
-					<label><?php esc_html_e( 'Audio Answer', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_answer[]" type="text" value="">
-					<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
-					<input name="_wbpoll_audio_answer_url[]" type="url" value="">
-					<a class="extra-fields-audio" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+				<!-- for audio type -->
+				<div class="row wbpoll-list-item" id="type_audio" style="display:none;">
+					<div class="ans-records audio_records">
+						<div class="ans-records-wrap">
+							<div class="wbpoll-image-input-preview">
+								<div class="wbpoll-image-input-preview-thumbnail">
+								</div>
+							</div>
+							<div class="wbpoll-image-input-details">
+								<label><?php esc_html_e( 'Audio Answer', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_answer[]" type="text" value="">
+								<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
+								<input name="_wbpoll_audio_answer_url[]" type="url" value="">
+							</div>
+						</div>
+						<a class="add-field extra-fields-audio" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+					</div>
+					<div class="audio_records_dynamic"></div>
 				</div>
-				<div class="audio_records_dynamic"></div>
-			</div>
 
-			<!-- for html type -->
-			<div class="row" id="type_html" style="display:none;">
-				<div class="html_records">
-					<label><?php esc_html_e( 'HTML Answer', 'buddypress-polls' ); ?></label>
-					<textarea name="_wbpoll_answer[]"></textarea>
-					<a class="extra-fields-html" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+				<!-- for html type -->
+				<div class="row wbpoll-list-item" id="type_html" style="display:none;">
+					<div class="ans-records html_records">
+						<div class="ans-records-wrap">
+							<label><?php esc_html_e( 'HTML Answer', 'buddypress-polls' ); ?></label>
+							<textarea name="_wbpoll_answer[]"></textarea>
+						</div>
+						<a class="add-field extra-fields-html" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
+					</div>
+					<div class="html_records_dynamic"></div>
 				</div>
-				<div class="html_records_dynamic"></div>
 			</div>
 
 			<div class="wbcom-polls-option-wrap">

@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-23 08:08:57+00:00\n"
+"POT-Creation-Date: 2023-05-23 10:31:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -102,12 +102,12 @@ msgid "Status"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:477
-#: includes/class-wbpoll-helper.php:1850 public/template/create-poll.php:102
+#: includes/class-wbpoll-helper.php:1850 public/template/create-poll.php:132
 msgid "Start Date"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:478
-#: includes/class-wbpoll-helper.php:1860 public/template/create-poll.php:108
+#: includes/class-wbpoll-helper.php:1860 public/template/create-poll.php:138
 msgid "End Date"
 msgstr ""
 
@@ -175,8 +175,8 @@ msgstr ""
 #: includes/class-wbpoll-helper.php:1892 includes/class-wbpoll-helper.php:1904
 #: includes/class-wbpoll-helper.php:1919 includes/class-wbpoll-helper.php:1930
 #: includes/class-wbpoll-helper.php:1952 includes/class-wbpoll-helper.php:1986
-#: public/template/create-poll.php:135 public/template/create-poll.php:151
-#: public/template/create-poll.php:167 public/template/create-poll.php:183
+#: public/template/create-poll.php:165 public/template/create-poll.php:181
+#: public/template/create-poll.php:197 public/template/create-poll.php:213
 msgid "Yes"
 msgstr ""
 
@@ -184,8 +184,8 @@ msgstr ""
 #: includes/class-wbpoll-helper.php:1893 includes/class-wbpoll-helper.php:1905
 #: includes/class-wbpoll-helper.php:1920 includes/class-wbpoll-helper.php:1931
 #: includes/class-wbpoll-helper.php:1953 includes/class-wbpoll-helper.php:1987
-#: public/template/create-poll.php:138 public/template/create-poll.php:154
-#: public/template/create-poll.php:170 public/template/create-poll.php:186
+#: public/template/create-poll.php:168 public/template/create-poll.php:184
+#: public/template/create-poll.php:200 public/template/create-poll.php:216
 msgid "No"
 msgstr ""
 
@@ -194,27 +194,27 @@ msgid "No comments"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:983
-#: public/template/create-poll.php:45
+#: public/template/create-poll.php:47
 msgid "Text Answer"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:989
-#: public/template/create-poll.php:55
+#: public/template/create-poll.php:64
 msgid "Image Answer"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:995
-#: public/template/create-poll.php:67
+#: public/template/create-poll.php:84
 msgid "Video Answer"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:1002
-#: public/template/create-poll.php:79
+#: public/template/create-poll.php:104
 msgid "Audio Answer"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:1009
-#: public/template/create-poll.php:91
+#: public/template/create-poll.php:119
 msgid "HTML Answer"
 msgstr ""
 
@@ -1347,46 +1347,46 @@ msgid ""
 "seven days. ]"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1870 public/template/create-poll.php:114
+#: includes/class-wbpoll-helper.php:1870 public/template/create-poll.php:144
 msgid "Who Can Vote"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1871 public/template/create-poll.php:125
+#: includes/class-wbpoll-helper.php:1871 public/template/create-poll.php:155
 msgid "Which user role will have vote capability"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1886 public/template/create-poll.php:129
+#: includes/class-wbpoll-helper.php:1886 public/template/create-poll.php:159
 msgid "Show Poll Description in Shortcode"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1887 public/template/create-poll.php:141
+#: includes/class-wbpoll-helper.php:1887 public/template/create-poll.php:171
 msgid "Select if you want to show content."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1898 public/template/create-poll.php:145
+#: includes/class-wbpoll-helper.php:1898 public/template/create-poll.php:175
 msgid "Never Expire"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1910 public/template/create-poll.php:161
+#: includes/class-wbpoll-helper.php:1910 public/template/create-poll.php:191
 msgid "Show Result After Expires"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1911 public/template/create-poll.php:173
+#: includes/class-wbpoll-helper.php:1911 public/template/create-poll.php:203
 msgid ""
 "Select if you want poll to show result After expires. After expires the "
 "result will be shown always. Please check it if poll never expires."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1924 public/template/create-poll.php:177
+#: includes/class-wbpoll-helper.php:1924 public/template/create-poll.php:207
 msgid "Enable Multi Choice"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1925 public/template/create-poll.php:189
+#: includes/class-wbpoll-helper.php:1925 public/template/create-poll.php:219
 msgid "Can user vote multiple option"
 msgstr ""
 
 #: includes/class-wbpoll-helper.php:1935 includes/class-wbpoll-helper.php:1936
-#: public/template/create-poll.php:193 public/template/create-poll.php:195
+#: public/template/create-poll.php:223 public/template/create-poll.php:225
 msgid "Votes Per Session"
 msgstr ""
 
@@ -1435,7 +1435,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2112 public/template/create-poll.php:57
+#: includes/class-wbpoll-helper.php:2112 public/template/create-poll.php:66
 msgid "Image URL"
 msgstr ""
 
@@ -1443,7 +1443,7 @@ msgstr ""
 msgid "Video"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2191
+#: includes/class-wbpoll-helper.php:2191 public/template/create-poll.php:86
 msgid "Video URL"
 msgstr ""
 
@@ -1451,7 +1451,7 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2282 public/template/create-poll.php:81
+#: includes/class-wbpoll-helper.php:2282 public/template/create-poll.php:106
 msgid "Audio URL"
 msgstr ""
 
@@ -1719,64 +1719,60 @@ msgstr ""
 msgid "Select Poll Type"
 msgstr ""
 
-#: public/template/create-poll.php:47 public/template/create-poll.php:59
-#: public/template/create-poll.php:71 public/template/create-poll.php:83
-#: public/template/create-poll.php:93
+#: public/template/create-poll.php:50 public/template/create-poll.php:70
+#: public/template/create-poll.php:90 public/template/create-poll.php:110
+#: public/template/create-poll.php:122
 msgid "Add More"
 msgstr ""
 
-#: public/template/create-poll.php:69
-msgid "Video UR"
-msgstr ""
-
-#: public/template/create-poll.php:104
+#: public/template/create-poll.php:134
 msgid "Poll Start Date. [Note: Field required. Default is today]"
 msgstr ""
 
-#: public/template/create-poll.php:110
+#: public/template/create-poll.php:140
 msgid "Poll End Date. [Note: Field required. Default is next seven days.]"
 msgstr ""
 
-#: public/template/create-poll.php:117
+#: public/template/create-poll.php:147
 msgid "Administrator"
 msgstr ""
 
-#: public/template/create-poll.php:118
+#: public/template/create-poll.php:148
 msgid "Editor"
 msgstr ""
 
-#: public/template/create-poll.php:119
+#: public/template/create-poll.php:149
 msgid "Author"
 msgstr ""
 
-#: public/template/create-poll.php:120
+#: public/template/create-poll.php:150
 msgid "Contributor"
 msgstr ""
 
-#: public/template/create-poll.php:121
+#: public/template/create-poll.php:151
 msgid "Subscriber"
 msgstr ""
 
-#: public/template/create-poll.php:122
+#: public/template/create-poll.php:152
 msgid "Customer"
 msgstr ""
 
-#: public/template/create-poll.php:123
+#: public/template/create-poll.php:153
 msgid "Shop manager"
 msgstr ""
 
-#: public/template/create-poll.php:132 public/template/create-poll.php:148
-#: public/template/create-poll.php:164 public/template/create-poll.php:180
+#: public/template/create-poll.php:162 public/template/create-poll.php:178
+#: public/template/create-poll.php:194 public/template/create-poll.php:210
 msgid "input type=\"radio\""
 msgstr ""
 
-#: public/template/create-poll.php:157
+#: public/template/create-poll.php:187
 msgid ""
 "Select if you want your poll to never expire.(can be override from "
 "shortcode param)"
 msgstr ""
 
-#: public/template/create-poll.php:201
+#: public/template/create-poll.php:231
 msgid "Poll Create"
 msgstr ""
 

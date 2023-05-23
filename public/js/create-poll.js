@@ -19,7 +19,8 @@ jQuery('#poll_type').on('change', function() {
     }
 });
 
-jQuery('.extra-fields-text').click(function() {
+jQuery('.extra-fields-text').click(function(e) {
+    e.preventDefault();
     jQuery('.text_records').clone().appendTo('.text_records_dynamic');
     jQuery('.text_records_dynamic .text_records').addClass('single remove');
     jQuery('.single .extra-fields-text').remove();
