@@ -1,0 +1,117 @@
+.main-dashboard .deshboard-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 20px;
+}
+
+.main-dashboard .deshboard-top .main-title h3 {
+    margin: 0;
+}
+
+.main-dashboard .poll-listing table {
+    border-spacing: 1;
+    border-collapse: collapse;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
+}
+
+.main-dashboard .poll-listing table tbody tr {
+    height: 50px;
+}
+
+.main-dashboard .poll-listing table th,
+.main-dashboard .poll-listing table td {
+    font-size: 15px;
+    padding: 10px;
+    border: 0;
+}
+
+.main-dashboard .poll-listing table th {
+    font-size: 18px;
+    color: #fff;
+    line-height: 1.2;
+    font-weight: unset;
+}
+
+.main-dashboard .poll-listing table thead tr {
+    height: 60px;
+    background: #36304a;
+}
+
+.main-dashboard .poll-listing table tbody tr:nth-child(2n) {
+    background-color: #f5f5f5;
+}
+
+.main-dashboard .poll-listing table tbody tr:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 1024px) {
+
+    /* Force table to not be like tables anymore */
+    .main-dashboard .poll-listing table.poll-listing-table,
+    .main-dashboard .poll-listing table.poll-listing-table thead,
+    .main-dashboard .poll-listing table.poll-listing-table tbody,
+    .main-dashboard .poll-listing table.poll-listing-table th,
+    .main-dashboard .poll-listing table.poll-listing-table td,
+    .main-dashboard .poll-listing table.poll-listing-table tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    .main-dashboard .poll-listing table.poll-listing-table thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    .main-dashboard .poll-listing table tbody tr:hover {
+        background-color: transparent;
+    }
+
+    .main-dashboard .poll-listing table tbody tr:nth-child(2n) {
+        background-color: #f5f5f5;
+    }
+
+    .main-dashboard .poll-listing table.poll-listing-table tr {
+        background: #fff;
+        height: auto;
+    }
+
+    .main-dashboard .poll-listing table.poll-listing-table td {
+        /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    .main-dashboard .poll-listing table.poll-listing-table td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 10px;
+        left: 10px;
+        width: 45%;
+        font-weight: 600;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /*
+	Label the data
+	*/
+    .main-dashboard .poll-listing table.poll-listing-table td:before {
+        content: attr(data-title) ": ";
+        font-weight: 700;
+        float: left;
+    }
+}
