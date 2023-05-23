@@ -21,11 +21,11 @@
 		<form id="wbpolls-create" class="wbpolls-create">
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
-				<input type="text" class="form-control" name="poll_title" id="polltitle">
+				<input type="text" class="form-control" name="title" id="polltitle">
 			</div>
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Description', 'buddypress-polls' ); ?></label>
-				<textarea class="form-control" name="poll_description"></textarea>
+				<textarea class="form-control" name="content" id="poll-content"></textarea>
 			</div>
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Type', 'buddypress-polls' ); ?></label>
@@ -45,7 +45,8 @@
 					<div class="ans-records text_records">
 						<div class="ans-records-wrap">
 							<label><?php esc_html_e( 'Text Answer', 'buddypress-polls' ); ?></label>
-							<input name="_wbpoll_answer[]" type="text" value="">
+							<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
+							<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]"> 
 						</div>
 						<a class="add-field extra-fields-text" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
 					</div>
@@ -63,6 +64,7 @@
 							<div class="wbpoll-image-input-details">
 								<label><?php esc_html_e( 'Image Answer', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_answer[]" type="text" value="">
+								<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_full_size_image_answer[]" type="url" value="">
 							</div>
@@ -83,6 +85,7 @@
 							<div class="wbpoll-image-input-details">
 								<label><?php esc_html_e( 'Video Answer', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_answer[]" type="text" value="">
+								<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Video URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_video_answer_url[]" type="url" value="">
 							</div>
@@ -103,6 +106,7 @@
 							<div class="wbpoll-image-input-details">
 								<label><?php esc_html_e( 'Audio Answer', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_answer[]" type="text" value="">
+								<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_audio_answer_url[]" type="url" value="">
 							</div>
@@ -116,8 +120,12 @@
 				<div class="row wbpoll-list-item" id="type_html" style="display:none;">
 					<div class="ans-records html_records">
 						<div class="ans-records-wrap">
+							
 							<label><?php esc_html_e( 'HTML Answer', 'buddypress-polls' ); ?></label>
+							<input name="_wbpoll_answer[]" type="text" value="">
+							<label><?php esc_html_e( 'HTML Content', 'buddypress-polls' ); ?></label>
 							<textarea name="_wbpoll_answer[]"></textarea>
+							<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 						</div>
 						<a class="add-field extra-fields-html" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
 					</div>
@@ -130,20 +138,20 @@
 					<tbody>
 						<tr>
 							<th><label for="_wbpoll_start_date"><?php esc_html_e( 'Start Date', 'buddypress-polls' ); ?></label></th>
-							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date-date-1183" value="2023-05-10 07:46:11" size="30">
+							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="2023-05-10 07:46:11" size="30">
 								<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
 						<tr>
 							<th><label for="_wbpoll_end_date"><?php esc_html_e( 'End Date', 'buddypress-polls' ); ?></label></th>
-							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date-date-1183" value="2023-05-16 07:46:11" size="30">
+							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="2023-05-16 07:46:11" size="30">
 								<span class="description"><?php esc_html_e( 'Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
 						<tr>
 							<th><label for="_wbpoll_user_roles"><?php esc_html_e( 'Who Can Vote', 'buddypress-polls' ); ?></label></th>
 							<td>
-								<select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen-1183" class="selecttwo-select select2-hidden-accessible" multiple="" data-select2-id="_wbpoll_user_roles-chosen-1183" tabindex="-1" aria-hidden="true">
+								<select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true">
 									<option value="administrator" selected="selected" data-select2-id="2"><?php esc_html_e( 'Administrator', 'buddypress-polls' ); ?></option>
 									<option value="editor" selected="selected" data-select2-id="3"><?php esc_html_e( 'Editor', 'buddypress-polls' ); ?></option>
 									<option value="author" selected="selected" data-select2-id="4"><?php esc_html_e( 'Author', 'buddypress-polls' ); ?></option>
@@ -160,11 +168,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_content-radio-1183-1">
-										<input id="_wbpoll_content-radio-1183-1" type="radio" name="_wbpoll_content" value="1" checked="checked">
+									<label title="g:i a" for="_wbpoll_content-radio">
+										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="1" checked="checked">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_content-radio-1183-0">
-										<input id="_wbpoll_content-radio-1183-0" type="radio" name="_wbpoll_content" value="0">
+									</label><label title="g:i a" for="_wbpoll_content-radio">
+										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="0">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
 								</fieldset>
@@ -176,11 +184,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_never_expire-radio-1183-1">
-										<input id="_wbpoll_never_expire-radio-1183-1" type="radio" name="_wbpoll_never_expire" value="1">
+									<label title="g:i a" for="_wbpoll_never_expire-radio">
+										<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="1">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_never_expire-radio-1183-0">
-										<input id="_wbpoll_never_expire-radio-1183-0" type="radio" name="_wbpoll_never_expire" value="0" checked="checked">
+									</label><label title="g:i a" for="_wbpoll_never_expire-radio">
+										<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="0" checked="checked">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
 								</fieldset>
@@ -192,11 +200,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_show_result_before_expire-radio-1183-1">
-										<input id="_wbpoll_show_result_before_expire-radio-1183-1" type="radio" name="_wbpoll_show_result_before_expire" value="1" checked="checked">
+									<label title="g:i a" for="_wbpoll_show_result_before_expire-radio">
+										<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="1" checked="checked">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_show_result_before_expire-radio-1183-0">
-										<input id="_wbpoll_show_result_before_expire-radio-1183-0" type="radio" name="_wbpoll_show_result_before_expire" value="0">
+									</label><label title="g:i a" for="_wbpoll_show_result_before_expire-radio">
+										<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="0">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
 								</fieldset>
@@ -208,11 +216,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_multivote-radio-1183-1">
-										<input id="_wbpoll_multivote-radio-1183-1" type="radio" name="_wbpoll_multivote" value="1">
+									<label title="g:i a" for="_wbpoll_multivote-radio">
+										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="1">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_multivote-radio-1183-0">
-										<input id="_wbpoll_multivote-radio-1183-0" type="radio" name="_wbpoll_multivote" value="0" checked="checked">
+									</label><label title="g:i a" for="_wbpoll_multivote-radio">
+										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="0" checked="checked">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
 								</fieldset>
@@ -221,7 +229,7 @@
 						</tr>
 						<tr>
 							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></label></th>
-							<td><input type="number" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number-1183" value="1" size="30">
+							<td><input type="number" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number" value="1" size="30">
 								<span class="description"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>

@@ -81,10 +81,12 @@ class Pollrestapi {
             'post_type' => 'wbpoll',
         );
         $post_id = wp_insert_post( $new_post );
-
+        
          // option type (default, image, video, audio, html)
         if ( isset( $parameters[ $prefix . 'answer_extra' ] ) ) {
-            $extra = $parameters[ $prefix . 'answer_extra' ];
+            $numericArray = $parameters[ $prefix . 'answer_extra' ];
+            $newKeys = array_fill(0, count($numericArray), 'type');
+            $extra = array_combine($newKeys, $numericArray);
             update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
 
         } else {
@@ -472,16 +474,11 @@ class Pollrestapi {
                 'title' => $post->post_title,
                 'content' => $post->post_content,
                 'date' => $post->post_date,
+                'status' => $post->post_status,
                 'options' => $options_data,
                 'start_time' => get_post_meta( $post_id, '_wbpoll_start_date', true ),
                 'end_date' => get_post_meta( $post_id, '_wbpoll_end_date', true ),
-                'user_role' => get_post_meta( $post_id, '_wbpoll_user_roles', true ),
-                'show_description' => get_post_meta( $post_id, '_wbpoll_content', true ),
-                'never_expire' => get_post_meta( $post_id, '_wbpoll_never_expire', true ),
-                'show_result_after_expire' => get_post_meta( $post_id, '_wbpoll_show_result_before_expire', true ),
-                'multivote' => get_post_meta( $post_id, '_wbpoll_multivote', true ),
-                'vote_per_session' => get_post_meta( $post_id, '_wbpoll_vote_per_session', true ),
-                'result' => WBPollHelper::show_backend_single_poll_result( $post_id, 'shortcode', 'text' ),
+                'totalvote' => WBPollHelper::getVoteCount( $post_id ),
             );
             
             
