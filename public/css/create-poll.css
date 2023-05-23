@@ -24,10 +24,12 @@
 
 .main-poll-create .wbpolls-create .form-group textarea.form-control {
     min-height: 80px;
+    padding: 10px;
 }
 
 .main-poll-create .wbpolls-create .wbpolls-answer-wrap {
     display: -ms-flexbox;
+    display: -webkit-box;
     display: flex;
     -ms-flex-flow: wrap;
     flex-flow: wrap;
@@ -44,8 +46,14 @@
 
 .main-poll-create .wbpolls-create .ans-records,
 .main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
     gap: 20px;
     margin: 20px 0;
@@ -90,8 +98,13 @@
 }
 
 .main-poll-create .wbpolls-create .ans-records-wrap {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -ms-flex-flow: wrap;
     flex-flow: wrap;
 }
 
@@ -103,6 +116,11 @@
 
 .main-poll-create .wbpolls-create .ans-records-wrap input {
     width: 100%;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap textarea {
+    min-height: 80px;
+    padding: 10px;
 }
 
 .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview {
@@ -146,6 +164,50 @@
 }
 
 .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     margin-left: 15px;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details input[type=text] {
+    margin: 0 0 15px;
+}
+
+.wbcom-polls-option-wrap fieldset {
+    width: 100% !important;
+    margin: 15px 0;
+    padding: 0;
+    border: 0;
+}
+
+.wbcom-polls-option-wrap fieldset label::before {
+    content: none;
+}
+
+.wbcom-polls-option-wrap span.description {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 13px;
+    margin: 5px 0 0;
+}
+
+.wbcom-polls-option-wrap fieldset input[type="radio"] {
+    display: inline-block;
+    margin: 0 !important;
+    outline: 0;
+    position: relative !important;
+    left: auto;
+    border-radius: 100px;
+    width: 20px !important;
+    height: 20px !important;
+    background: #fff;
+    cursor: pointer;
+    -webkit-transition: all .15s ease-out 0s;
+    transition: all .15s ease-out 0s;
+}
+
+.wbcom-polls-option-wrap fieldset input[type="radio"]+span {
+    vertical-align: top;
 }
