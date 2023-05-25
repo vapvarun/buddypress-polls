@@ -207,6 +207,11 @@ jQuery(document).on('click', '.remove-field', function(e) {
     e.preventDefault();
 });
 
+jQuery(document).on('ready', function(e) {
+    e.preventDefault();
+    jQuery( '.wbpollmetadatepicker' ).datetimepicker();
+});
+
 
 jQuery('#wbpolls-create').submit(function (event) {
     event.preventDefault();

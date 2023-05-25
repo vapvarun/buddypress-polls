@@ -14,7 +14,7 @@
 <div class="main-poll-create">
 	<div class="deshboard-top">
 		<div class="main-title">
-			<h3><?php esc_html_e( 'Create Poll', 'buddypress-polls' ); ?></h3>
+			<h3><?php esc_html_e( 'Add Poll', 'buddypress-polls' ); ?></h3>
 		</div>
 	</div>
 	<div class="poll-create">
