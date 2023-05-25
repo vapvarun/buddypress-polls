@@ -14,9 +14,9 @@ jQuery('.pause_poll').on('click', function(){
         jQuery(this).text('Pause');
         jQuery(this).attr('data-value', '1');
     }
-    
+    var siteUrl = window.location.origin;
     jQuery.ajax({
-        url: 'http://totalpoll.local/wp-json/wbpoll/v1/listpoll/pause/poll',
+        url: siteUrl+'wp-json/wbpoll/v1/listpoll/pause/poll',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -260,9 +260,9 @@ jQuery('#wbpolls-create').submit(function (event) {
         _wbpoll_multivote:_wbpoll_multivote,
         _wbpoll_vote_per_session:_wbpoll_vote_per_session,
     };
-
+    var siteUrl = window.location.origin;
     jQuery.ajax({
-        url: 'http://totalpoll.local/wp-json/wbpoll/v1/postpoll',
+        url: siteUrl+'/wp-json/wbpoll/v1/postpoll',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(data),

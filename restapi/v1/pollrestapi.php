@@ -73,21 +73,19 @@ class Pollrestapi {
 
     // Callback function
     public function create_wbpoll($request) {
-
-        $author_id = get_current_user_id();
+     
         $parameters = $request->get_params();
         $prefix = '_wbpoll_';
         // Retrieve the post data from the request body
         $post_title = sanitize_text_field( $parameters['title'] );
-        $post_content = wp_kses_post( $parameters['content'] );
-
+        $post_content = wp_kses_post( $parameters['content'] ); 
         // Create a new post with the retrieved data
         $new_post = array(
             'post_title' => $post_title,
             'post_content' => $post_content,
             'post_status' => 'draft',
             'post_type' => 'wbpoll',
-            'author' => $author_id,
+            'author' => get_current_user_id(),
         );
         $post_id = wp_insert_post( $new_post );
         
