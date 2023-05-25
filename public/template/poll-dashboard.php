@@ -56,6 +56,7 @@
 					$start_date  = $post->start_time; // poll start date
 					$end_date    = $post->end_date; // poll end date
 					$totalvote   = $post->totalvote;
+					$pause = $post->pausetype;
 					?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
@@ -63,7 +64,7 @@
 						<td class="poll-start-date" data-title="<?php esc_attr_e( 'Start date', 'buddypress-polls' ); ?>"><?php echo esc_html( $start_date ); ?></td>
 						<td class="poll-end-date" data-title="<?php esc_attr_e( 'End date', 'buddypress-polls' ); ?>"><?php echo esc_html( $end_date ); ?></td>
 						<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
-						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="btn" href="<?php echo esc_url(site_url()).'/wbpoll/'.esc_html(str_replace(' ', '-', $post_title)); ?>">view</a> <a class="btn" href="#">Pause</a></td>
+						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="btn" href="<?php echo esc_url(site_url()).'/wbpoll/'.esc_html(str_replace(' ', '-', $post_title)); ?>">view</a> <button class="btn pause_poll" data-value="<?php if(!empty($pause) && $pause == 1){ echo 0;}else{echo 1;}?>" data-id="<?php echo esc_html($post_id); ?>"><?php if(!empty($pause) && $pause == 1){ echo 'Resume';}else{echo 'Pause';}?></button></td>
 					</tr>
 	
 					<?php

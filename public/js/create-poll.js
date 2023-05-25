@@ -1,21 +1,123 @@
+
+jQuery('.pause_poll').on('click', function(){
+   const pollid = jQuery(this).data('id');
+   const pause_poll = jQuery(this).data('value');;
+
+    const data = {
+        pollid:pollid,
+        _wbpoll_pause_poll:pause_poll,
+    };
+    if(pause_poll == 1){
+        jQuery(this).text('Resume');
+        jQuery(this).attr('data-value', '0');
+    }else{
+        jQuery(this).text('Pause');
+        jQuery(this).attr('data-value', '1');
+    }
+    
+    jQuery.ajax({
+        url: 'http://totalpoll.local/wp-json/wbpoll/v1/listpoll/pause/poll',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            if (response.success) {
+                jQuery(this).text('Resume');
+                
+            } else {
+                alert('Failed to create post.');
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error('Error:', error);
+        }
+    });
+});
+
 jQuery('#poll_type').on('change', function() {
     var type = jQuery(this).val();
     if (type == 'default') {
         jQuery('#type_text').show();
+        jQuery('#type_image').hide();
+        jQuery('div#type_image input#wbpoll_answer').val('');
+        jQuery('div#type_image input#wbpoll_image_answer_url').val('');
+        jQuery('#type_video').hide();
+        jQuery('div#type_video input#wbpoll_answer').val('');
+        jQuery('div#type_video input#wbpoll_video_answer_url').val('');
+        jQuery('#type_audio').hide();
+        jQuery('div#type_audio input#wbpoll_answer').val('');
+        jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
+        jQuery('#type_html').hide();
+        jQuery('div#type_html input#wbpoll_answer').val('');
+        jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'image') {
         jQuery('#type_image').show();
+        jQuery('#type_text').hide();
+        jQuery('div#type_text input#wbpoll_answer').val('');
+        jQuery('#type_video').hide();
+        jQuery('div#type_video input#wbpoll_answer').val('');
+        jQuery('div#type_video input#wbpoll_video_answer_url').val('');
+        jQuery('#type_audio').hide();
+        jQuery('div#type_audio input#wbpoll_answer').val('');
+        jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
+        jQuery('#type_html').hide();
+        jQuery('div#type_html input#wbpoll_answer').val('');
+        jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'video') {
         jQuery('#type_video').show();
+        jQuery('#type_image').hide();
+        jQuery('div#type_image input#wbpoll_answer').val('');
+        jQuery('div#type_image input#wbpoll_image_answer_url').val('');
+        jQuery('#type_text').hide();
+        jQuery('div#type_text input#wbpoll_answer').val('');
+        jQuery('#type_audio').hide();
+        jQuery('div#type_audio input#wbpoll_answer').val('');
+        jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
+        jQuery('#type_html').hide();
+        jQuery('div#type_html input#wbpoll_answer').val('');
+        jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'audio') {
         jQuery('#type_audio').show();
+        jQuery('#type_video').hide();
+        jQuery('div#type_video input#wbpoll_answer').val('');
+        jQuery('div#type_video input#wbpoll_video_answer_url').val('');
+        jQuery('#type_image').hide();
+        jQuery('div#type_image input#wbpoll_answer').val('');
+        jQuery('div#type_image input#wbpoll_image_answer_url').val('');
+        jQuery('#type_text').hide();
+        jQuery('div#type_text input#wbpoll_answer').val('');
+        jQuery('#type_html').hide();
+        jQuery('div#type_html input#wbpoll_answer').val('');
+        jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'html') {
         jQuery('#type_html').show();
+        jQuery('#type_video').hide();
+        jQuery('div#type_video input#wbpoll_answer').val('');
+        jQuery('div#type_video input#wbpoll_video_answer_url').val('');
+        jQuery('#type_image').hide();
+        jQuery('div#type_image input#wbpoll_answer').val('');
+        jQuery('div#type_image input#wbpoll_image_answer_url').val('');
+        jQuery('#type_text').hide();
+        jQuery('div#type_text input#wbpoll_answer').val('');
+        jQuery('#type_audio').hide();
+        jQuery('div#type_audio input#wbpoll_answer').val('');
+        jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
+        
     } else {
         jQuery('#type_text').hide();
+        jQuery('div#type_text input#wbpoll_answer').val('');
         jQuery('#type_image').hide();
+        jQuery('div#type_image input#wbpoll_answer').val('');
+        jQuery('div#type_image input#wbpoll_image_answer_url').val('');
         jQuery('#type_video').hide();
+        jQuery('div#type_video input#wbpoll_answer').val('');
+        jQuery('div#type_video input#wbpoll_video_answer_url').val('');
         jQuery('#type_audio').hide();
+        jQuery('div#type_audio input#wbpoll_answer').val('');
+        jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
         jQuery('#type_html').hide();
+        jQuery('div#type_html input#wbpoll_answer').val('');
+        jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     }
 });
 
@@ -118,6 +220,18 @@ jQuery('#wbpolls-create').submit(function (event) {
     const answertype = jQuery('[name="_wbpoll_answer_extra[][type]"]').map(function() {
         return jQuery(this).val();
     }).get();
+    const full_size_image_answer = jQuery('[name="_wbpoll_full_size_image_answer[]"]').map(function() {
+        return jQuery(this).val();
+    }).get();
+    const video_answer_url = jQuery('[name="_wbpoll_video_answer_url[]"]').map(function() {
+        return jQuery(this).val();
+    }).get();
+    const audio_answer_url = jQuery('[name="_wbpoll_audio_answer_url[]"]').map(function() {
+        return jQuery(this).val();
+    }).get();
+    const html_answer = jQuery('[name="_wbpoll_html_answer[]"]').map(function() {
+        return jQuery(this).val();
+    }).get();
     const _wbpoll_start_date = jQuery('#_wbpoll_start_date').val();
     const _wbpoll_end_date = jQuery('#_wbpoll_end_date').val();
     const _wbpoll_user_roles = jQuery('#_wbpoll_user_roles-chosen').val(); 
@@ -133,6 +247,10 @@ jQuery('#wbpolls-create').submit(function (event) {
         poll_type: poll_type,
         _wbpoll_answer:answer,
         _wbpoll_answer_extra:answertype,
+        _wbpoll_full_size_image_answer:full_size_image_answer,
+        _wbpoll_video_answer_url:video_answer_url,
+        _wbpoll_audio_answer_url:audio_answer_url,
+        _wbpoll_html_answer:html_answer,
         _wbpoll_start_date:_wbpoll_start_date,
         _wbpoll_end_date:_wbpoll_end_date,
         _wbpoll_user_roles:_wbpoll_user_roles,

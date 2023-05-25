@@ -784,25 +784,18 @@ class WBPollHelper {
 			)
 		); // Votes per session
 
+		$poll_pause = intval(
+			get_post_meta(
+				$post_id,
+				'_wbpoll_pause_poll',
+				true
+			)
+		); // Votes per session
+
 		$poll_result_chart_type = get_post_meta( $post_id, '_wbpoll_result_chart_type', true ); // chart type
 		$poll_is_voted          = self::is_poll_voted( $post_id );
 		// $poll_show_result_all           = get_post_meta( $post_id, '_wbpoll_show_result_all', true ); //show_result_all
 		// $poll_is_voted          = intval( get_post_meta( $post_id, '_wbpoll_is_voted', true ) ); //at least a single vote
-
-		$poll_answers_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
-
-		// image, video, audio, html
-		$poll_ans_image        = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
-		$poll_answers_video    = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
-		$poll_video_suggestion = get_post_meta( $post_id, '_wbpoll_video_import_info', true );
-		$poll_answers_audio    = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
-		$poll_audio_suggestion = get_post_meta( $post_id, '_wbpoll_audio_import_info', true );
-		$poll_answers_html     = get_post_meta( $post_id, '_wbpoll_html_answer', true );
-		// thumbnails image, video, audio, html
-		$thumbnail_poll_ans_image     = get_post_meta( $post_id, '_wbpoll_full_thumbnail_image_answer', true );
-		$thumbnail_poll_answers_video = get_post_meta( $post_id, '_wbpoll_video_thumbnail_image_url', true );
-		$thumbnail_poll_answers_audio = get_post_meta( $post_id, '_wbpoll_audio_thumbnail_image_url', true );
-		// new field from v1.0.1
 
 		$poll_multivote = intval( get_post_meta( $post_id, '_wbpoll_multivote', true ) ); // at least a single vote
 
@@ -941,52 +934,64 @@ class WBPollHelper {
 				$answers_by_user = $wpdb->get_var( $sql );
 
 				$answers_by_user_html = '';
-
-				if ( $answers_by_user !== null ) {
-					$answers_by_user = maybe_unserialize( $answers_by_user );
-					if ( is_array( $answers_by_user ) ) {
-						$user_answers_textual = array();
-						foreach ( $answers_by_user as $uchoice ) {
-							$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
-								'Unknown or answer deleted',
-								'buddypress-polls'
-							);
+				if($poll_pause != 1){
+					if ( $answers_by_user !== null ) {
+						$answers_by_user = maybe_unserialize( $answers_by_user );
+						if ( is_array( $answers_by_user ) ) {
+							$user_answers_textual = array();
+							foreach ( $answers_by_user as $uchoice ) {
+								$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
+									'Unknown or answer deleted',
+									'buddypress-polls'
+								);
+							}
+	
+							$answers_by_user_html = implode( ', ', $user_answers_textual );
+						} else {
+							$answers_by_user      = intval( $answers_by_user );
+							$answers_by_user_html = $poll_answers[ $answers_by_user ];
+	
 						}
-
-						$answers_by_user_html = implode( ', ', $user_answers_textual );
-					} else {
-						$answers_by_user      = intval( $answers_by_user );
-						$answers_by_user_html = $poll_answers[ $answers_by_user ];
-
-					}
-
-					if ( $answers_by_user_html != '' ) {
-						$poll_output .= '<p class="wbpoll-voted-info55
-                         wbpoll-alert  wbpoll-voted-info-' . $post_id . '">' . sprintf(
-							__(
-								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'buddypress-polls'
-							),
-							$answers_by_user_html
-						) . ' </p>';
+	
+						if ( $answers_by_user_html != '' ) {
+							$poll_output .= '<p class="wbpoll-voted-info55
+							 wbpoll-alert  wbpoll-voted-info-' . $post_id . '">' . sprintf(
+								__(
+									'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
+									'buddypress-polls'
+								),
+								$answers_by_user_html
+							) . ' </p>';
+						} else {
+							$poll_output .= '<p class="wbpoll-voted-info 55
+							wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
+								__(
+									'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
+									'buddypress-polls'
+								),
+								$answers_by_user_html
+							) . ' </p>';
+	
+						}
 					} else {
 						$poll_output .= '<p class="wbpoll-voted-info 55
-                        wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
-							__(
-								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'buddypress-polls'
-							),
-							$answers_by_user_html
-						) . ' </p>';
-
+						wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
+							'The Poll is out of date. You have not voted.',
+							'buddypress-polls'
+						) . '</p>';
 					}
-				} else {
+				}else{
+					// Get the author ID of the post
+				$author_id = get_post_field('post_author', $post_id);
+				// Get the author name
+				$author_name = get_the_author_meta('display_name', $author_id);
 					$poll_output .= '<p class="wbpoll-voted-info 55
-                    wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
-						'The Poll is out of date. You have not voted.',
+					wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
+						'The Poll Paused By '.$author_name,
 						'buddypress-polls'
 					) . '</p>';
 				}
+				
 			} // end of if poll expired
 			else {
 				if ( is_user_logged_in() ) {

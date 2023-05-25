@@ -1190,7 +1190,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$status = $post->post_status;
 
 			$prefix = '_wbpoll_';
-
 			// handle answer colors
 			// if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
 

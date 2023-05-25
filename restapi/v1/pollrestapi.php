@@ -61,33 +61,46 @@ class Pollrestapi {
             'callback' => array( $this, 'listpoll_by_user' ),
             'permission_callback' => '__return_true'
         ) );
+
+        //wbpoll list poll by user
+        register_rest_route( 'wbpoll/v1', '/listpoll/pause/poll', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_pause_by_user' ),
+            'permission_callback' => '__return_true'
+        ) );
                
     }
 
     // Callback function
     public function create_wbpoll($request) {
 
+        $author_id = get_current_user_id();
         $parameters = $request->get_params();
         $prefix = '_wbpoll_';
         // Retrieve the post data from the request body
         $post_title = sanitize_text_field( $parameters['title'] );
         $post_content = wp_kses_post( $parameters['content'] );
-        
+
         // Create a new post with the retrieved data
         $new_post = array(
             'post_title' => $post_title,
             'post_content' => $post_content,
-            'post_status' => 'publish',
+            'post_status' => 'draft',
             'post_type' => 'wbpoll',
+            'author' => $author_id,
         );
         $post_id = wp_insert_post( $new_post );
         
          // option type (default, image, video, audio, html)
         if ( isset( $parameters[ $prefix . 'answer_extra' ] ) ) {
-            $numericArray = $parameters[ $prefix . 'answer_extra' ];
-            $newKeys = array_fill(0, count($numericArray), 'type');
-            $extra = array_combine($newKeys, $numericArray);
-            update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
+           
+                $extra = [];
+                foreach($parameters[ $prefix . 'answer_extra' ] as $key => $extra_type){
+                    if($extra_type == $parameters['poll_type']){
+                        $extra[]['type'] = $extra_type;
+                    }           
+                }
+                 update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
 
         } else {
             delete_post_meta( $post_id, $prefix . 'answer_extra' );
@@ -95,8 +108,14 @@ class Pollrestapi {
 
         // option lable
         if ( isset( $parameters[ $prefix . 'answer' ] ) ) {
-            $titles = $parameters[ $prefix . 'answer' ];
-        
+           
+            $titles = [];
+            foreach($parameters[ $prefix . 'answer' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $titles[] = $extra_type;
+                }           
+            }
+
             foreach ( $titles as $index => $title ) {
                 $titles[ $index ] = sanitize_text_field( $title );
             }
@@ -109,7 +128,13 @@ class Pollrestapi {
 
         // Full size image answer
         if ( isset( $parameters[ $prefix . 'full_size_image_answer' ] ) ) {
-            $images = $parameters[ $prefix . 'full_size_image_answer' ];
+            
+            $images = [];
+            foreach($parameters[ $prefix . 'full_size_image_answer' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $images[] = $extra_type;
+                }           
+            }
 
             foreach ( $images as $index => $url ) {
                 $images[ $index ] = sanitize_text_field( $url );
@@ -123,13 +148,19 @@ class Pollrestapi {
 
         // video url
         if ( isset( $parameters[ $prefix . 'video_answer_url' ] ) ) {
-            $images = $parameters[ $prefix . 'video_answer_url' ];
-
-            foreach ( $images as $index => $url ) {
-                $images[ $index ] = $url;
+            
+            $videos = [];
+            foreach($parameters[ $prefix . 'video_answer_url' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $videos[] = $extra_type;
+                }           
             }
 
-            update_post_meta( $post_id, $prefix . 'video_answer_url', $images );
+            foreach ( $videos as $index => $url ) {
+                $videos[ $index ] = $url;
+            }
+
+            update_post_meta( $post_id, $prefix . 'video_answer_url', $videos );
 
         } else {
             delete_post_meta( $post_id, $prefix . 'video_answer_url' );
@@ -151,13 +182,19 @@ class Pollrestapi {
 
         // Audio url
         if ( isset( $parameters[ $prefix . 'audio_answer_url' ] ) ) {
-            $images = $parameters[ $prefix . 'audio_answer_url' ];
             
-            foreach ( $images as $index => $url ) {
-                $images[ $index ] = $url;
+            $audios = [];
+            foreach($parameters[ $prefix . 'audio_answer_url' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $audios[] = $extra_type;
+                }           
+            }
+            
+            foreach ( $audios as $index => $url ) {
+                $audios[ $index ] = $url;
             }
 
-            update_post_meta( $post_id, $prefix . 'audio_answer_url', $images );
+            update_post_meta( $post_id, $prefix . 'audio_answer_url', $audios );
 
         } else {
             delete_post_meta( $post_id, $prefix . 'audio_answer_url' );
@@ -179,13 +216,18 @@ class Pollrestapi {
 
         //html content
         if ( isset( $parameters[ $prefix . 'html_answer' ] ) ) {
-            $images = $parameters[ $prefix . 'html_answer' ];
-
-            foreach ( $images as $index => $url ) {
-                $images[ $index ] = sanitize_text_field( $url );
+            $htmls = [];
+            foreach($parameters[ $prefix . 'html_answer' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $htmls[] = $extra_type;
+                }           
             }
 
-            update_post_meta( $post_id, $prefix . 'html_answer', $images );
+            foreach ( $htmls as $index => $url ) {
+                $htmls[ $index ] = sanitize_text_field( $url );
+            }
+
+            update_post_meta( $post_id, $prefix . 'html_answer', $htmls );
 
         } else {
             delete_post_meta( $post_id, $prefix . 'html_answer' );
@@ -257,7 +299,7 @@ class Pollrestapi {
 
         //Return the response data
         $data = array(
-            'message' => 'Post created successfully',
+            'success' => 'Post created successfully',
             'post_id' => $post_id,
         );
         return rest_ensure_response( $data );
@@ -432,53 +474,16 @@ class Pollrestapi {
         foreach ( $posts as $post ) {
             $post_id = $post->ID;
 
-            $meta_value_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
-
-            $image_answer_url = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
-            $image_answer_url = isset($image_answer_url) ? $image_answer_url : array();
-
-            $video_answer_url = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
-            $video_answer_url = isset($video_answer_url) ? $video_answer_url : array();
-
-            $audio_answer_url = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
-            $audio_answer_url = isset($audio_answer_url) ? $audio_answer_url : array();
-
-            $html_content = get_post_meta( $post_id, '_wbpoll_html_answer', true );
-            $html_content = isset($html_content) ? $html_content : array();
-
-            $options_data = [];
-            foreach($meta_value_ans as $key => $meta_value){
-
-                $options_data[$key]['lable'] = $meta_value;
-                
-                if(isset($image_answer_url[$key]) && !empty($image_answer_url[$key])){
-                    $options_data[$key]['image'] = $image_answer_url[$key];
-                }
-            
-                if(isset($video_answer_url[$key]) && !empty($video_answer_url[$key])){
-                    $options_data[$key]['video'] = $video_answer_url[$key];
-                }
-
-                if(isset($audio_answer_url[$key]) && !empty($audio_answer_url[$key])){
-                    $options_data[$key]['audio'] = $audio_answer_url[$key];
-                }
-
-                if(isset($html_content[$key]) && !empty($html_content[$key])){
-                    $options_data[$key]['html'] = $html_content[$key];
-                }          
-                
-            }
-
             $data[] = array(
                 'id' => $post->ID,
                 'title' => $post->post_title,
                 'content' => $post->post_content,
                 'date' => $post->post_date,
                 'status' => $post->post_status,
-                'options' => $options_data,
                 'start_time' => get_post_meta( $post_id, '_wbpoll_start_date', true ),
                 'end_date' => get_post_meta( $post_id, '_wbpoll_end_date', true ),
                 'totalvote' => WBPollHelper::getVoteCount( $post_id ),
+                'pausetype' => get_post_meta( $post_id, '_wbpoll_pause_poll', true ),
             );
             
             
@@ -489,6 +494,27 @@ class Pollrestapi {
         // Return the response data
         return rest_ensure_response( $data );
               
+    }
+
+    public function listpoll_pause_by_user($request){
+        $parameters = $request->get_params();
+        $prefix = '_wbpoll_';
+        // Retrieve the post data from the request body
+        $pollid = sanitize_text_field( $parameters['pollid'] );
+
+        //Who can vote meta
+        if ( isset( $parameters[ $prefix . 'pause_poll' ] ) ) {
+            $pause_poll = $parameters[ $prefix . 'pause_poll' ];
+            update_post_meta( $pollid, $prefix . 'pause_poll', $pause_poll );
+        } else {
+            delete_post_meta( $pollid, $prefix . 'pause_poll' );
+        }
+
+        $data = array(
+            'success' => 'poll pause successfully',
+            'post_id' => $pollid,
+        );
+        return rest_ensure_response( $data );
     }
 
 }
