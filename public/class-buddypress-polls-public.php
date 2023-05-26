@@ -108,7 +108,8 @@ class Buddypress_Polls_Public {
 			|| 'activity' === $current_component
 			) {
 
-			wp_enqueue_style( $this->plugin_name );	
+			wp_enqueue_style( $this->plugin_name );
+			wp_enqueue_style( $this->plugin_name . '-time' );
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-font-awesome' );
 			}
@@ -116,9 +117,6 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 		}
-
-		// Date picker CSS call globally.
-		wp_enqueue_style( $this->plugin_name . '-time' );
 
 		/********** polls */
 
@@ -238,6 +236,8 @@ class Buddypress_Polls_Public {
 		);
 
 		if ( is_page( 'create-poll' ) ) {
+			// Date picker CSS call.
+			wp_enqueue_style( $this->plugin_name . '-time' );
 			wp_enqueue_style( 'wbpolls-create-poll' );
 		}
 
@@ -330,6 +330,9 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'buddypress-multi-polls' );
 		if ( is_page( 'create-poll' ) ) {
+			// Date picker JS call.
+			wp_enqueue_script( $this->plugin_name . '-timejs' );
+			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 			wp_enqueue_script( 'wbpolls-create-poll' );
 		}
 
@@ -405,14 +408,11 @@ class Buddypress_Polls_Public {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
 			wp_enqueue_media();
-
+			wp_enqueue_script( $this->plugin_name . '-timejs' );
+			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 			wp_enqueue_script( $this->plugin_name );
 
 		}
-
-		// Date picker JS call globally.
-		wp_enqueue_script( $this->plugin_name . '-timejs' );
-		wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 
 		/*********** poll */
 
