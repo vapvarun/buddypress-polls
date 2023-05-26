@@ -316,6 +316,16 @@ class Buddypress_Polls_Public {
 			true
 		);
 
+		wp_register_script(
+			'wbpolls-poll-dashboard-js',
+			plugin_dir_url( __FILE__ ) . 'js/poll-dashboard.js',
+			array(
+				'jquery',
+			),
+			$this->version,
+			true
+		);
+
 		wp_localize_script(
 			'wbpoll-publicjs',
 			'wbpollpublic',
@@ -330,12 +340,16 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'pristine' );
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'buddypress-multi-polls' );
-		if ( is_page( 'create-poll' ) || is_page('poll-dashboard')) {
+		if ( is_page( 'create-poll' )) {
 			wp_enqueue_media();
 			// Date picker JS call.
 			wp_enqueue_script( $this->plugin_name . '-timejs' );
 			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 			wp_enqueue_script( 'wbpolls-create-poll' );
+			
+		}
+		if ( is_page( 'poll-dashboard' )) {
+			wp_enqueue_script( 'wbpolls-poll-dashboard-js');
 		}
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );

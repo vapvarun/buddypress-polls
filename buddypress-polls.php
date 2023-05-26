@@ -111,6 +111,8 @@ function activate_buddypress_polls() {
 		'comment_status' => 'closed',
     ));
 
+	update_option( 'permalink_structure', '/%postname%/' );
+
 }
 
 

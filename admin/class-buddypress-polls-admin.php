@@ -247,6 +247,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				esc_html__( 'Poll Graph', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
 			);
+			
 		}
 
 		/**

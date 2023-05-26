@@ -1,35 +1,3 @@
-
-jQuery('.pause_poll').on('click', function () {
-    var pollid = jQuery(this).data('id');
-    var pause_poll = jQuery(this).data('value');
-
-    const data = {
-        pollid: pollid,
-        _wbpoll_pause_poll: pause_poll,
-    };
-    
-    var siteUrl = window.location.origin;
-    jQuery.ajax({
-        url: siteUrl + '/wp-json/wbpoll/v1/listpoll/pause/poll',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function (response) {
-            if (response.success) {
-                if (pause_poll == 1) {
-                    jQuery(this).text('Resume');
-                    jQuery(this).attr('data-value', '0');
-                } else {
-                    jQuery(this).text('Pause');
-                    jQuery(this).attr('data-value', '1');
-                }
-            } else {
-                alert('Failed to create post.');
-            }
-        }
-    });
-});
-
 jQuery('#poll_type').on('change', function () {
     var type = jQuery(this).val();
     if (type == 'default') {
@@ -235,7 +203,7 @@ jQuery('.extra-fields-video').click(function () {
                     url: url,
                 }, function (response) {
                     if (response.error) {
-                        jQuery(suggestion + ' input#no').prop('checked', true);
+                        // jQuery(suggestion + ' input#no').prop('checked', true);
                     } else {
                         jQuery(imagclass).html(response.html);
                         jQuery(title).val(response.title);
@@ -327,7 +295,7 @@ jQuery('.extra-fields-audio').click(function () {
                     url: url,
                 }, function (response) {
                     if (response.error) {
-                        jQuery(suggestion + ' input#no').prop('checked', true);
+                        // jQuery(suggestion + ' input#no').prop('checked', true);
                     } else {
                         jQuery(imagclass).html(response.html);
                         jQuery(title).val(response.title);
@@ -431,7 +399,7 @@ jQuery('.wbpoll_video_answer_url').on(
                 url: url,
             }, function (response) {
                 if (response.error) {
-                    jQuery(suggestion + ' input#no').prop('checked', true);
+                    // jQuery(suggestion + ' input#no').prop('checked', true);
                 } else {
                     jQuery(imagclass).html(response.html);
                     jQuery(title).val(response.title);
@@ -463,7 +431,7 @@ jQuery('.wbpoll_audio_answer_url').on(
                 url: url,
             }, function (response) {
                 if (response.error) {
-                    jQuery(suggestion + ' input#no').prop('checked', true);
+                    // jQuery(suggestion + ' input#no').prop('checked', true);
                 } else {
                     jQuery(imagclass).html(response.html);
                     jQuery(title).val(response.title);

@@ -179,9 +179,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		echo esc_html( $before_widget );
+		//echo esc_html( $before_widget );
 
-		echo esc_html( $before_title ) . esc_html( $title ) . esc_html( $after_title );
+		//echo esc_html( $before_title ) . esc_html( $title ) . esc_html( $after_title );
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
@@ -228,7 +228,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			</div>
 		<?php } ?>
 		<?php
-		echo esc_html( $after_widget );
+		//echo esc_html( $after_widget );
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}
