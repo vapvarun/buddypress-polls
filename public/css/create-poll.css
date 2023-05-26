@@ -176,6 +176,68 @@
     margin-left: 15px;
 }
 
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_image_answer_url,
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_video_answer_url,
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_audio_answer_url {
+    width: calc(100% - 50px);
+    float: left;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .bpolls-attach {
+    margin: 0 0 0 10px !important;
+    padding: 0;
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+    border: 0;
+    border-radius: 4px;
+    float: right;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions span {
+    font-size: 13px;
+    color: #bbb;
+    margin-right: 10px;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions input {
+    width: auto;
+    margin: 0 3px 0 0;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap audio,
+.main-poll-create .wbpolls-create .ans-records-wrap video {
+    display: inline-block;
+    max-width: 100%;
+}
+
+.main-poll-create .wbpolls-create .ans-records-wrap iframe {
+    width: 100%;
+    height: 100%;
+}
+
 .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details input[type=text] {
     margin: 0 0 15px;
 }
@@ -203,6 +265,10 @@
     margin: 5px 0 0;
 }
 
+.wbcom-polls-option-wrap fieldset label.wbpoll-answer-options-radio-field {
+    margin-right: 10px;
+}
+
 .wbcom-polls-option-wrap fieldset input[type="radio"] {
     display: inline-block;
     margin: 0 !important;
@@ -220,4 +286,15 @@
 
 .wbcom-polls-option-wrap fieldset input[type="radio"]+span {
     vertical-align: top;
+}
+
+@media screen and (max-width: 767px) {
+    .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview {
+        width: 100%;
+        height: 210px;
+    }
+
+    .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details {
+        margin: 15px 0 0;
+    }
 }

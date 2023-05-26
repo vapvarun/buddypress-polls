@@ -707,6 +707,7 @@
     -webkit-box-pack: end;
     -ms-flex-pack: end;
     justify-content: flex-end;
+    margin-left: 5px;
     margin-right: 10px;
 }
 

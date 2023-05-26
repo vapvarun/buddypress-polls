@@ -19,7 +19,7 @@
 	</div>
 	<div class="poll-create">
 		<form id="wbpolls-create" class="wbpolls-create">
-			<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id();?>">
+			<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id(); ?>">
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
 				<input type="text" class="form-control" name="title" id="polltitle">
@@ -68,7 +68,7 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url"  type="url" value="">
-								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
+								<button type='button' class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 							</div>
 						</div>
 						<a class="add-field extra-fields-image" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -90,13 +90,14 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Video URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url"  type="url" value="">
-								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
+								<button type='button' class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
-								<span>Import information from ?</span>
-								<input type="radio" class="yes_video" name="_wbpoll_video_import_info[]" value="yes">
-								<label for="yes">Yes</label>
-								<input type="radio" id="no" name="_wbpoll_video_import_info[]" value="no" checked="">
-								<label for="no">No</label><br></div>
+									<span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span> 
+									<input type="radio" class="yes_video" name="_wbpoll_video_import_info[]" value="yes">
+									<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
+									<input type="radio" id="no" name="_wbpoll_video_import_info[]" value="no" checked="">
+									<label for="no"><?php esc_html_e( 'No', 'buddypress-polls' ); ?></label>
+								</div>
 							</div>
 						</div>
 						<a class="add-field extra-fields-video" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -118,12 +119,12 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
-								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
-								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
+								<button type='button' class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
+								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
 								<input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[]" value="yes">
-								<label for="yes">Yes</label>
+								<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
 								<input type="radio" id="no" name="_wbpoll_audio_import_info[]" value="no" checked="">
-								<label for="no">No</label><br></div>
+								<label for="no"><?php esc_html_e( 'No', 'buddypress-polls' ); ?></label><br></div>
 							</div>
 						</div>
 						<a class="add-field extra-fields-audio" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -183,10 +184,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_content-radio">
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_content-radio">
 										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="1" checked="checked">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_content-radio">
+									</label>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_content-radio">
 										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="0">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
@@ -199,10 +201,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_never_expire-radio">
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_never_expire-radio">
 										<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="1">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_never_expire-radio">
+									</label>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_never_expire-radio">
 										<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="0" checked="checked">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
@@ -215,10 +218,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_show_result_before_expire-radio">
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_show_result_before_expire-radio">
 										<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="1" checked="checked">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_show_result_before_expire-radio">
+									</label>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_show_result_before_expire-radio">
 										<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="0">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
@@ -231,10 +235,11 @@
 							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label title="g:i a" for="_wbpoll_multivote-radio">
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
 										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="1">
 										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label><label title="g:i a" for="_wbpoll_multivote-radio">
+									</label>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
 										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="0" checked="checked">
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>

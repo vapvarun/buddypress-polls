@@ -32,6 +32,13 @@
     border: 0;
 }
 
+@media only screen and (min-width: 761px) {
+    .main-dashboard .poll-listing table th:first-child,
+    .main-dashboard .poll-listing table td:first-child {
+        padding-left: 20px;
+    }
+}
+
 .main-dashboard .poll-listing table th {
     font-size: 18px;
     color: #fff;

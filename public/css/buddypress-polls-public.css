@@ -555,7 +555,7 @@ select.bpolls-activities-list {
 	margin-top: 10px;
 }
 
-#bpolls-attach-image {
+.bpolls-option-actions-wrap #bpolls-attach-image {
 	margin: 10px 10px 0 0;
 	padding: 0;
 	width: 34px;

@@ -17,7 +17,7 @@
 			<h3><?php esc_html_e( 'Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
-			<a class="button btn" href="<?php echo esc_url(site_url()).'/create-poll/'; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
+			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/create-poll/'; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
 		</div>
 	</div>
 	<div class="poll-listing">
@@ -34,20 +34,23 @@
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$url = site_url().'/wp-json/wbpoll/v1/listpoll/user/id?id='.$userid;
-			$curl = curl_init();
-			curl_setopt_array($curl, array(
-			CURLOPT_URL => $url,
-			CURLOPT_RETURNTRANSFER => true,
-			CURLOPT_CUSTOMREQUEST => 'POST',			
-			));
-			$response = curl_exec($curl);
+			$url    = site_url() . '/wp-json/wbpoll/v1/listpoll/user/id?id=' . $userid;
+			$curl   = curl_init();
+			curl_setopt_array(
+				$curl,
+				array(
+					CURLOPT_URL            => $url,
+					CURLOPT_RETURNTRANSFER => true,
+					CURLOPT_CUSTOMREQUEST  => 'POST',
+				)
+			);
+			$response = curl_exec( $curl );
 
-			curl_close($curl);
-			
+			curl_close( $curl );
+
 			// Parse the JSON response
-			$data = json_decode($response);
-			if(!empty($data)){
+			$data = json_decode( $response );
+			if ( ! empty( $data ) ) {
 				foreach ( $data as $post ) {
 					// Access post information.
 					$post_id     = $post->id;
@@ -56,7 +59,7 @@
 					$start_date  = $post->start_time; // poll start date
 					$end_date    = $post->end_date; // poll end date
 					$totalvote   = $post->totalvote;
-					$pause = $post->pausetype;
+					$pause       = $post->pausetype;
 					?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
@@ -64,13 +67,13 @@
 						<td class="poll-start-date" data-title="<?php esc_attr_e( 'Start date', 'buddypress-polls' ); ?>"><?php echo esc_html( $start_date ); ?></td>
 						<td class="poll-end-date" data-title="<?php esc_attr_e( 'End date', 'buddypress-polls' ); ?>"><?php echo esc_html( $end_date ); ?></td>
 						<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
-						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="btn" href="<?php echo esc_url(site_url()).'/wbpoll/'.esc_html(str_replace(' ', '-', $post_title)); ?>"><?php esc_attr_e('View'); ?></a> <button class="btn pause_poll" data-value="<?php if(!empty($pause) && $pause == 1){ echo 0;}else{echo 1;}?>" data-id="<?php echo esc_html($post_id); ?>"><?php if(!empty($pause) && $pause == 1){ echo esc_html_e('Resume');}else{echo esc_html_e('Pause');}?></button></td>
+						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="btn" href="<?php echo esc_url( site_url() ) . '/wbpoll/' . esc_html( str_replace( ' ', '-', $post_title ) ); ?>"><?php esc_attr_e( 'View', 'buddypress-polls' ); ?></a> <button class="btn pause_poll" data-value="<?php if ( ! empty( $pause ) && $pause == 1 ) { echo 0; } else { echo 1; } ?>" data-id="<?php echo esc_html( $post_id ); ?>"><?php if ( ! empty( $pause ) && $pause == 1 ) { echo esc_html_e( 'Resume', 'buddypress-polls' ); } else { echo esc_html_e( 'Pause', 'buddypress-polls' );} ?> </button></td>
 					</tr>
 	
 					<?php
 				}
-			}else{
-				echo "Polls Not Found";
+			} else {
+				echo 'Polls Not Found';
 			}
 			?>
 		</table>
