@@ -68,6 +68,7 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url"  type="url" value="">
+								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 							</div>
 						</div>
 						<a class="add-field extra-fields-image" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -89,6 +90,7 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Video URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url"  type="url" value="">
+								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 								<span>Import information from ?</span>
 								<input type="radio" class="yes_video" name="_wbpoll_video_import_info[]" value="yes">
@@ -116,6 +118,7 @@
 								<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
 								<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
+								<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
 								<input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[]" value="yes">
 								<label for="yes">Yes</label>
