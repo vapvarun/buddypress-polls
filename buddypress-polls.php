@@ -94,7 +94,9 @@ function activate_buddypress_polls() {
         'post_title'     => $page_title,
         'post_status'    => 'publish',
         'post_type'      => 'page',
+		'comment_status' => 'closed',
     ));
+
 
 
 	/**
@@ -106,8 +108,8 @@ function activate_buddypress_polls() {
         'post_title'     => $page_title,
         'post_status'    => 'publish',
         'post_type'      => 'page',
+		'comment_status' => 'closed',
     ));
-
 
 }
 
@@ -117,6 +119,10 @@ function activate_buddypress_polls() {
  * This action is documented in includes/class-buddypress-polls-deactivator.php
  */
 function deactivate_buddypress_polls() {
+	$page = get_page_by_title('Poll Dashboard');
+	wp_trash_post($page->ID);
+	$page = get_page_by_title('Create Poll');
+	wp_trash_post($page->ID);
 	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
 	}
 }

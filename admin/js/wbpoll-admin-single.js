@@ -549,9 +549,8 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 
 	//audio uploader
 
-	$( '#wbpoll_answer_wrap' ).on(
+	$( '#upload-btn-audio' ).on(
 		'click',
-		'#upload-btn-audio',
 		function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );

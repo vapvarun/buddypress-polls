@@ -19,6 +19,7 @@
 	</div>
 	<div class="poll-create">
 		<form id="wbpolls-create" class="wbpolls-create">
+			<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id();?>">
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
 				<input type="text" class="form-control" name="title" id="polltitle">
@@ -58,7 +59,7 @@
 					<div class="ans-records image_records">
 						<div class="ans-records-wrap">
 							<div class="wbpoll-image-input-preview">
-								<div class="wbpoll-image-input-preview-thumbnail">
+								<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail">
 								</div>
 							</div>
 							<div class="wbpoll-image-input-details">
@@ -66,7 +67,7 @@
 								<input name="_wbpoll_answer[]" id="wbpoll_answer"  type="text" value="">
 								<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Image URL', 'buddypress-polls' ); ?></label>
-								<input name="_wbpoll_full_size_image_answer[]" id="wbpoll_image_answer_url"  type="url" value="">
+								<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url"  type="url" value="">
 							</div>
 						</div>
 						<a class="add-field extra-fields-image" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -84,10 +85,16 @@
 							</div>
 							<div class="wbpoll-image-input-details">
 								<label><?php esc_html_e( 'Video Answer', 'buddypress-polls' ); ?></label>
-								<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
+								<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="">
 								<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Video URL', 'buddypress-polls' ); ?></label>
-								<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url"  type="url" value="">
+								<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url"  type="url" value="">
+								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
+								<span>Import information from ?</span>
+								<input type="radio" class="yes_video" name="_wbpoll_video_import_info[]" value="yes">
+								<label for="yes">Yes</label>
+								<input type="radio" id="no" name="_wbpoll_video_import_info[]" value="no" checked="">
+								<label for="no">No</label><br></div>
 							</div>
 						</div>
 						<a class="add-field extra-fields-video" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -105,10 +112,15 @@
 							</div>
 							<div class="wbpoll-image-input-details">
 								<label><?php esc_html_e( 'Audio Answer', 'buddypress-polls' ); ?></label>
-								<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
+								<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="">
 								<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 								<label><?php esc_html_e( 'Audio URL', 'buddypress-polls' ); ?></label>
-								<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" type="url" value="">
+								<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
+								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
+								<input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[]" value="yes">
+								<label for="yes">Yes</label>
+								<input type="radio" id="no" name="_wbpoll_audio_import_info[]" value="no" checked="">
+								<label for="no">No</label><br></div>
 							</div>
 						</div>
 						<a class="add-field extra-fields-audio" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -124,7 +136,7 @@
 							<label><?php esc_html_e( 'HTML Answer', 'buddypress-polls' ); ?></label>
 							<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
 							<label><?php esc_html_e( 'HTML Content', 'buddypress-polls' ); ?></label>
-							<textarea name="_wbpoll_answer[]" id="wbpoll_html_answer_textarea"></textarea>
+							<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea"></textarea>
 							<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 						</div>
 						<a class="add-field extra-fields-html" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -151,7 +163,7 @@
 						<tr>
 							<th><label for="_wbpoll_user_roles"><?php esc_html_e( 'Who Can Vote', 'buddypress-polls' ); ?></label></th>
 							<td>
-								<select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true">
+								<select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="multiple" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true">
 									<option value="administrator" selected="selected" data-select2-id="2"><?php esc_html_e( 'Administrator', 'buddypress-polls' ); ?></option>
 									<option value="editor" selected="selected" data-select2-id="3"><?php esc_html_e( 'Editor', 'buddypress-polls' ); ?></option>
 									<option value="author" selected="selected" data-select2-id="4"><?php esc_html_e( 'Author', 'buddypress-polls' ); ?></option>

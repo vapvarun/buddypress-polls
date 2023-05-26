@@ -79,13 +79,14 @@ class Pollrestapi {
         // Retrieve the post data from the request body
         $post_title = sanitize_text_field( $parameters['title'] );
         $post_content = wp_kses_post( $parameters['content'] ); 
+        $post_author = wp_kses_post( $parameters['author_id'] );
         // Create a new post with the retrieved data
         $new_post = array(
             'post_title' => $post_title,
             'post_content' => $post_content,
             'post_status' => 'draft',
             'post_type' => 'wbpoll',
-            'author' => get_current_user_id(),
+            'post_author' => $post_author,
         );
         $post_id = wp_insert_post( $new_post );
         
@@ -164,19 +165,24 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'video_answer_url' );
         }
 
-        
         // video suggestion
-        if ( isset( $parameters[ $prefix . 'video_import_info' ] ) ) {
-            $suggestion = $parameters[ $prefix . 'video_import_info' ];
-            foreach ( $suggestion as $index => $text ) {
-                $suggestion[ $index ] = sanitize_text_field( $text );
-            }
+			if ( isset( $_POST[ $prefix . 'video_import_info' ] ) ) {
+				
+                $suggestion = [];
+                foreach($parameters[ $prefix . 'video_import_info' ] as $extra_type){
+                    if(!empty($extra_type)){
+                        $suggestion[] = $extra_type;
+                    }           
+                }
+				foreach ( $suggestion as $index => $text ) {
+					$suggestion[ $index ] = sanitize_text_field( $text );
+				}
 
-            update_post_meta( $post_id, $prefix . 'video_import_info', $suggestion );
+				update_post_meta( $post_id, $prefix . 'video_import_info', $suggestion );
 
-        } else {
-            delete_post_meta( $post_id, $prefix . 'video_import_info' );
-        }
+			} else {
+				delete_post_meta( $post_id, $prefix . 'video_import_info' );
+			}
 
         // Audio url
         if ( isset( $parameters[ $prefix . 'audio_answer_url' ] ) ) {
@@ -200,8 +206,12 @@ class Pollrestapi {
 
         // audio suggestion
         if ( isset( $parameters[ $prefix . 'audio_import_info' ] ) ) {
-            $suggestion = $parameters[ $prefix . 'audio_import_info' ];
-
+            $suggestion = [];
+            foreach($parameters[ $prefix . 'audio_import_info' ] as $extra_type){
+                if(!empty($extra_type)){
+                    $suggestion[] = $extra_type;
+                }           
+            }
             foreach ( $suggestion as $index => $text ) {
                 $suggestion[ $index ] = sanitize_text_field( $text );
             }
