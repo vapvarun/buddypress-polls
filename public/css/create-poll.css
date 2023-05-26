@@ -57,6 +57,12 @@
     justify-content: space-between;
     gap: 20px;
     margin: 20px 0;
+    
+}
+
+.main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove {
+    padding-top: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .main-poll-create .wbpolls-create .wbpolls-answer-wrap .add-field {
@@ -172,6 +178,10 @@
 
 .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details input[type=text] {
     margin: 0 0 15px;
+}
+
+.main-poll-create .wbpolls-create .wbpolls-answer-wrap #type_html input[type=text] {
+    margin: 0 0 20px;
 }
 
 .wbcom-polls-option-wrap fieldset {
