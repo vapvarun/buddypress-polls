@@ -296,7 +296,8 @@
     cursor: pointer;
 }
 
-.wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::before {
+.wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::before,
+.wbpolls-question-results input[type="checkbox"]:checked+label.wbpoll-single-answer-label::before {
     content: "";
     display: block;
     position: absolute;
@@ -324,7 +325,8 @@
     box-shadow: 0 -1px 2px 3px rgba(0, 0, 0, .01), 0 1px 2px 0 rgba(0, 0, 0, .1);
 }
 
-.wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::after {
+.wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label::after,
+.wbpolls-question-results input[type="checkbox"]:checked+label.wbpoll-single-answer-label::after {
     content: "";
     display: block;
     position: absolute;
