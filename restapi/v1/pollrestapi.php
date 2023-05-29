@@ -62,13 +62,20 @@ class Pollrestapi {
             'permission_callback' => '__return_true'
         ) );
 
-        //wbpoll list poll by user
+        //wbpoll list poll pause by user
         register_rest_route( 'wbpoll/v1', '/listpoll/pause/poll', array(
             'methods' => 'POST',
             'callback' => array( $this, 'listpoll_pause_by_user' ),
             'permission_callback' => '__return_true'
         ) );
-               
+
+        //wbpoll list poll delete by user
+        register_rest_route( 'wbpoll/v1', '/listpoll/delete/poll', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_delete_by_user' ),
+            'permission_callback' => '__return_true'
+        ) );
+         
     }
 
     // Callback function
@@ -520,6 +527,23 @@ class Pollrestapi {
 
         $data = array(
             'success' => 'poll pause successfully',
+            'post_id' => $pollid,
+        );
+        return rest_ensure_response( $data );
+    }
+
+
+    public function listpoll_delete_by_user($request){
+        $parameters = $request->get_params();
+        $prefix = '_wbpoll_';
+        // Retrieve the post data from the request body
+        $pollid = sanitize_text_field( $parameters['pollid'] );
+
+       // Delete the post
+        $result = wp_delete_post($pollid, true);
+
+        $data = array(
+            'success' => 'Post deleted successfully!',
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );
