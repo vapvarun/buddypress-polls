@@ -247,6 +247,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				esc_html__( 'Poll Graph', 'buddypress-polls' ), // Title.
 				array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
 			);
+
+			wp_add_dashboard_widget(
+				'bpolls_graph_dashboard_widget', // Widget slug.
+				esc_html__( 'Wb Poll Result ', 'buddypress-polls' ), // Title.
+				array( $this, 'wbpolls_graph_widget_function' ) // Display function.
+			);
 			
 		}
 
@@ -345,6 +351,25 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="bpolls-empty-messgae"><?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?></div>
 				<?php
 			}
+		}
+
+		/**
+		 * Bpolls_graph_dashboard_widget_function
+		 */
+		public function wbpolls_graph_widget_function() {
+
+			global $wpdb;
+
+			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
+			$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
+			$poll_wdgt_stngs = $poll_wdgt->get_settings();
+			$instance        = array(
+				'title'            => esc_html__( 'Wb Poll Result', 'buddypress-polls' ),
+				'max_activity'     => 50,
+				'activity_default' => ( isset( $results->id ) ) ? $results->id : '',
+			);
+			the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
 		}
 
 		/**

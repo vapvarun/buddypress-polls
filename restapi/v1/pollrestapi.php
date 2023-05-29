@@ -88,6 +88,7 @@ class Pollrestapi {
         $post_content = wp_kses_post( $parameters['content'] ); 
         $post_author = wp_kses_post( $parameters['author_id'] );
         // Create a new post with the retrieved data
+       
         $new_post = array(
             'post_title' => $post_title,
             'post_content' => $post_content,
@@ -173,7 +174,7 @@ class Pollrestapi {
         }
 
         // video suggestion
-			if ( isset( $_POST[ $prefix . 'video_import_info' ] ) ) {
+			if ( isset( $parameters[ $prefix . 'video_import_info' ] ) ) {
 				
                 $suggestion = [];
                 foreach($parameters[ $prefix . 'video_import_info' ] as $extra_type){
@@ -182,7 +183,7 @@ class Pollrestapi {
                     }           
                 }
 				foreach ( $suggestion as $index => $text ) {
-					$suggestion[ $index ] = sanitize_text_field( $text );
+					$suggestion[ $index ] = $text;
 				}
 
 				update_post_meta( $post_id, $prefix . 'video_import_info', $suggestion );
@@ -220,7 +221,7 @@ class Pollrestapi {
                 }           
             }
             foreach ( $suggestion as $index => $text ) {
-                $suggestion[ $index ] = sanitize_text_field( $text );
+                $suggestion[ $index ] = $text;
             }
 
             update_post_meta( $post_id, $prefix . 'audio_import_info', $suggestion );

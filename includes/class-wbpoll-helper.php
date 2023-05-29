@@ -934,7 +934,6 @@ class WBPollHelper {
 				$answers_by_user = $wpdb->get_var( $sql );
 
 				$answers_by_user_html = '';
-				if($poll_pause != 1){
 					if ( $answers_by_user !== null ) {
 						$answers_by_user = maybe_unserialize( $answers_by_user );
 						if ( is_array( $answers_by_user ) ) {
@@ -980,173 +979,176 @@ class WBPollHelper {
 							'buddypress-polls'
 						) . '</p>';
 					}
-				}else{
-					// Get the author ID of the post
-				$author_id = get_post_field('post_author', $post_id);
-				// Get the author name
-				$author_name = get_the_author_meta('display_name', $author_id);
-					$poll_output .= '<p class="wbpoll-voted-info 55
-					wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
-						'The Poll Paused By '.$author_name,
-						'buddypress-polls'
-					) . '</p>';
-				}
+				
 				
 			} // end of if poll expired
 			else {
-				if ( is_user_logged_in() ) {
-					global $current_user;
-					$this_user_role = $current_user->roles;
-				} else {
-					$this_user_role = array( 'guest' );
-				}
+				
+					if ( is_user_logged_in() ) {
+						global $current_user;
+						$this_user_role = $current_user->roles;
+					} else {
+						$this_user_role = array( 'guest' );
+					}
 
-				$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
+					$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
 
-				// current user is not allowed
-				if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
+					// current user is not allowed
+					if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
 
-					// we know poll is not expired, and user is not allowed to vote
-					// now we check if the user i allowed to see result and result is allow to show before expire
-					// if ( $poll_show_result_all == '1' && $poll_show_result_before_expire == '1' ) {
-					if ( $poll_show_result_before_expire == 1 ) {
-						if ( $poll_is_voted ) {
-							$poll_output .= self::show_single_poll_result(
-								$post_id,
-								$reference,
-								$result_chart_type
-							);
-						}
-
-						$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'buddypress-polls' ) . '</p>';
-
-						// integrate user login for guest user
-
-						if ( ! is_user_logged_in() && $allow_guest_sign == 'on' ) :
-							if ( is_singular() ) {
-								$login_url    = wp_login_url( get_permalink() );
-								$redirect_url = get_permalink();
-							} else {
-								global $wp;
-								// $login_url =  wp_login_url( home_url( $wp->request ) );
-								$login_url    = wp_login_url( home_url( add_query_arg( array(), $wp->request ) ) );
-								$redirect_url = home_url( add_query_arg( array(), $wp->request ) );
+						// we know poll is not expired, and user is not allowed to vote
+						// now we check if the user i allowed to see result and result is allow to show before expire
+						// if ( $poll_show_result_all == '1' && $poll_show_result_before_expire == '1' ) {
+						if ( $poll_show_result_before_expire == 1 ) {
+							if ( $poll_is_voted ) {
+								$poll_output .= self::show_single_poll_result(
+									$post_id,
+									$reference,
+									$result_chart_type
+								);
 							}
 
-							$guest_html = '<div class="wbpoll-guest-wrap">';
+							$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'buddypress-polls' ) . '</p>';
 
-							$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' ) . '</p>';
-							$guest_login_html = wp_login_form(
-								array(
-									'redirect' => $redirect_url,
-									'echo'     => false,
-								)
-							);
+							// integrate user login for guest user
 
-							$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
-
-							$guest_register_html = '';
-							$guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
-							if ( $guest_show_register ) {
-								if ( get_option( 'users_can_register' ) ) {
-									$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
-									$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
+							if ( ! is_user_logged_in() && $allow_guest_sign == 'on' ) :
+								if ( is_singular() ) {
+									$login_url    = wp_login_url( get_permalink() );
+									$redirect_url = get_permalink();
+								} else {
+									global $wp;
+									// $login_url =  wp_login_url( home_url( $wp->request ) );
+									$login_url    = wp_login_url( home_url( add_query_arg( array(), $wp->request ) ) );
+									$redirect_url = home_url( add_query_arg( array(), $wp->request ) );
 								}
 
-								$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
+								$guest_html = '<div class="wbpoll-guest-wrap">';
 
-							}
+								$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' ) . '</p>';
+								$guest_login_html = wp_login_form(
+									array(
+										'redirect' => $redirect_url,
+										'echo'     => false,
+									)
+								);
 
-							$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
+								$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
 
-							$guest_html .= '</div>';
+								$guest_register_html = '';
+								$guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
+								if ( $guest_show_register ) {
+									if ( get_option( 'users_can_register' ) ) {
+										$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
+										$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
+									}
 
-							$poll_output .= $guest_html;
-						endif;
+									$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
 
-					}
+								}
+
+								$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
+
+								$guest_html .= '</div>';
+
+								$poll_output .= $guest_html;
+							endif;
+
+						}
+					
 				} else {
 					// current user is allowed
-
+					if($poll_pause != '1'){
 					// current user has voted this once
-					if ( $poll_is_voted_by_user ) {
+						if ( $poll_is_voted_by_user ) {
 
-						// find ip count
-						$sql        = $wpdb->prepare(
-							"SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d",
-							$post_id,
-							$user_id
-						);
-						$vote_count = $wpdb->get_var( $sql );
-
-						$count = apply_filters( 'wbpoll_is_user_voted', $vote_count );
-
-						if ( $count < $poll_votes_per_session ) {
-							$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
-						} else {
-							$sql             = $wpdb->prepare(
-								"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
+							// find ip count
+							$sql        = $wpdb->prepare(
+								"SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d",
 								$post_id,
-								$user_id,
-								$user_ip,
-								$user_session
+								$user_id
 							);
-							$answers_by_user = $wpdb->get_var( $sql );
+							$vote_count = $wpdb->get_var( $sql );
 
-							if ( $answers_by_user !== null ) {
-								$answers_by_user = maybe_unserialize( $answers_by_user );
-								if ( is_array( $answers_by_user ) ) {
-									$user_answers_textual = array();
-									foreach ( $answers_by_user as $uchoice ) {
-										$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
-											'Unknown or answer deleted',
-											'buddypress-polls'
-										);
+							$count = apply_filters( 'wbpoll_is_user_voted', $vote_count );
+
+							if ( $count < $poll_votes_per_session ) {
+								$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
+							} else {
+								$sql             = $wpdb->prepare(
+									"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
+									$post_id,
+									$user_id,
+									$user_ip,
+									$user_session
+								);
+								$answers_by_user = $wpdb->get_var( $sql );
+
+								if ( $answers_by_user !== null ) {
+									$answers_by_user = maybe_unserialize( $answers_by_user );
+									if ( is_array( $answers_by_user ) ) {
+										$user_answers_textual = array();
+										foreach ( $answers_by_user as $uchoice ) {
+											$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
+												'Unknown or answer deleted',
+												'buddypress-polls'
+											);
+										}
+
+										$answers_by_user_html = implode( ', ', $user_answers_textual );
+									} else {
+										$answers_by_user      = intval( $answers_by_user );
+										$answers_by_user_html = $poll_answers[ $answers_by_user ];
+
 									}
 
-									$answers_by_user_html = implode( ', ', $user_answers_textual );
-								} else {
-									$answers_by_user      = intval( $answers_by_user );
-									$answers_by_user_html = $poll_answers[ $answers_by_user ];
+									if ( $answers_by_user_html != '' ) {
+										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
+											__(
+												'You have already voted for <strong>"%s"</strong>',
+												'buddypress-polls'
+											),
+											$answers_by_user_html
+										) . ' </p>';
 
-								}
-
-								if ( $answers_by_user_html != '' ) {
-									$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
-										__(
-											'You have already voted for <strong>"%s"</strong>',
+										if ( $poll_show_result_before_expire == 1 ) {
+											$poll_output .= self::show_single_poll_result(
+												$post_id,
+												$reference,
+												$result_chart_type
+											);
+										}
+									} else {
+										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
+											'You have already voted ',
 											'buddypress-polls'
-										),
-										$answers_by_user_html
-									) . ' </p>';
+										) . ' </p>';
 
-									if ( $poll_show_result_before_expire == 1 ) {
-										$poll_output .= self::show_single_poll_result(
-											$post_id,
-											$reference,
-											$result_chart_type
-										);
 									}
-								} else {
-									$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
-										'You have already voted ',
-										'buddypress-polls'
-									) . ' </p>';
-
 								}
+
+								// if ( $poll_show_result_before_expire == 1 ) {
+								// $poll_output .= self::show_single_poll_result(
+								// $post_id,
+								// $reference,
+								// $result_chart_type
+								// );
+								// }
 							}
+						} else {
 
-							// if ( $poll_show_result_before_expire == 1 ) {
-							// $poll_output .= self::show_single_poll_result(
-							// $post_id,
-							// $reference,
-							// $result_chart_type
-							// );
-							// }
+							$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
 						}
-					} else {
-
-						$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
+					}else{
+						// Get the author ID of the post
+					$author_id = get_post_field('post_author', $post_id);
+					// Get the author name
+					$author_name = get_the_author_meta('display_name', $author_id);
+						$poll_output .= '<p class="wbpoll-voted-info 55
+						wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
+							'The Poll Paused By '.$author_name,
+							'buddypress-polls'
+						) . '</p>';
 					}
 					// end of if voted
 				}

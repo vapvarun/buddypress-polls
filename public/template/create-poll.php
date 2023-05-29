@@ -93,9 +93,9 @@
 								<button type='button' class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 									<span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span> 
-									<input type="radio" class="yes_video" name="_wbpoll_video_import_info[]" value="yes">
+									<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes">
 									<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-									<input type="radio" id="no" name="_wbpoll_video_import_info[]" value="no">
+									<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no">
 									<label for="no"><?php esc_html_e( 'No', 'buddypress-polls' ); ?></label>
 								</div>
 							</div>
@@ -121,9 +121,9 @@
 								<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
 								<button type='button' class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 								<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-								<input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[]" value="yes">
+								<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes">
 								<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-								<input type="radio" id="no" name="_wbpoll_audio_import_info[]" value="no">
+								<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no">
 								<label for="no"><?php esc_html_e( 'No', 'buddypress-polls' ); ?></label><br></div>
 							</div>
 						</div>

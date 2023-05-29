@@ -21,8 +21,7 @@ jQuery('.pause_poll').on('click', function () {
         data: JSON.stringify(data),
         success: function (response) {
             if (response.success) {
-                var myTable = jQuery('table.poll-listing-table');
-                myTable.ajax.reload();
+                location.reload();
             } else {
                 alert('Failed to create post.');
             }
@@ -45,9 +44,7 @@ jQuery('.delete_poll').on('click', function () {
         data: JSON.stringify(data),
         success: function (response) {
             if (response.success) {
-                alert('poll Delted.');
-                var myTable = jQuery('table.poll-listing-table');
-                myTable.ajax.reload();
+                location.reload();
             } else {
                 alert('Failed to delete poll.');
             }

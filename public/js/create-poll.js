@@ -194,6 +194,7 @@ jQuery('.extra-fields-video').click(function () {
             jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
             jQuery(suggestion).show();
             jQuery(suggestion).find('#no').prop('checked', true);
+            jQuery(suggestion).find('#yes').prop('checked', false);
             jQuery('.yes_video').on('click', function () {
                 var url = jQuery(this).parent().parent().find('.wbpoll_video_answer_url').val();
                 var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -205,10 +206,12 @@ jQuery('.extra-fields-video').click(function () {
                 }, function (response) {
                     if (response.error) {
                         jQuery(suggestion).find('#no').prop('checked', true);
+                        jQuery(suggestion).find('#yes').prop('checked', false);
                     } else {
                         jQuery(imagclass).html(response.html);
                         jQuery(title).val(response.title);
                         var iframe = jQuery(response.html);
+                        jQuery(suggestion).find('#no').prop('checked', true);
                         var src = iframe.attr('src');
                         jQuery(updateurl).val(src);
                     }
@@ -225,6 +228,7 @@ jQuery('.extra-fields-video').click(function () {
             updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
             imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
             jQuery(this).parent().find('#no').prop('checked', true);
+            jQuery(this).parent().find('#yes').prop('checked', false);
             if (file_frame) {
                 file_frame.open();
                 return;
@@ -287,6 +291,7 @@ jQuery('.extra-fields-audio').click(function () {
             jQuery(imagclass).html('<audio src="' + url + '" controls="" preload="none"></audio>')
             jQuery(suggestion).show();
             jQuery(suggestion).find('#no').prop('checked', true);
+            jQuery(suggestion).find('#yes').prop('checked', false);
             jQuery('.yes_audio').on('click', function () {
                 var url = jQuery(this).parent().parent().find('.wbpoll_audio_answer_url').val();
                 var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -298,9 +303,11 @@ jQuery('.extra-fields-audio').click(function () {
                 }, function (response) {
                     if (response.error) {
                         jQuery(suggestion).find('#no').prop('checked', true);
+                        jQuery(suggestion).find('#yes').prop('checked', false);
                     } else {
                         jQuery(imagclass).html(response.html);
                         jQuery(title).val(response.title);
+                        jQuery(suggestion).find('#no').prop('checked', false);
                         var iframe = jQuery(response.html);
                         var src = iframe.attr('src');
                         jQuery(updateurl).val(src);
@@ -319,6 +326,7 @@ jQuery('.extra-fields-audio').click(function () {
             updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
             imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
             jQuery(this).parent().find('#no').prop('checked', true);
+            jQuery(this).parent().find('#yes').prop('checked', false);
             if (file_frame) {
                 file_frame.open();
                 return;
@@ -392,6 +400,7 @@ jQuery('.wbpoll_video_answer_url').on(
         jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
         jQuery(suggestion).show();
         jQuery(suggestion).find('#no').prop('checked', true);
+        jQuery(suggestion).find('#yes').prop('checked', false);
         jQuery('.yes_video').on('click', function () {
             var url = jQuery(this).parent().parent().find('.wbpoll_video_answer_url').val();
             var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -403,7 +412,9 @@ jQuery('.wbpoll_video_answer_url').on(
             }, function (response) {
                 if (response.error) {
                     jQuery(suggestion).find('#no').prop('checked', true);
+                    jQuery(suggestion).find('#yes').prop('checked', false);
                 } else {
+                    jQuery(suggestion).find('#no').prop('checked', false);
                     jQuery(imagclass).html(response.html);
                     jQuery(title).val(response.title);
                     var iframe = jQuery(response.html);
@@ -425,6 +436,7 @@ jQuery('.wbpoll_audio_answer_url').on(
         jQuery(imagclass).html('<audio src="' + url + '" controls="" preload="none"></audio>')
         jQuery(suggestion).show();
         jQuery(suggestion).find('#no').prop('checked', true);
+        jQuery(suggestion).find('#yes').prop('checked', false);
         jQuery('.yes_audio').on('click', function () {
             var url = jQuery(this).parent().parent().find('.wbpoll_audio_answer_url').val();
             var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -436,7 +448,9 @@ jQuery('.wbpoll_audio_answer_url').on(
             }, function (response) {
                 if (response.error) {
                     jQuery(suggestion).find('#no').prop('checked', true);
+                    jQuery(suggestion).find('#yes').prop('checked', false);
                 } else {
+                    jQuery(suggestion).find('#no').prop('checked', false);
                     jQuery(imagclass).html(response.html);
                     jQuery(title).val(response.title);
                     var iframe = jQuery(response.html);
@@ -516,6 +530,7 @@ jQuery(document).ready(
                 updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
                 imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
                 jQuery(this).parent().find('#no').prop('checked', true);
+                jQuery(this).parent().find('#yes').prop('checked', false);
                 if (file_frame) {
                     file_frame.open();
                     return;
@@ -562,6 +577,7 @@ jQuery(document).ready(
                 updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
                 imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
                 jQuery(this).parent().find('#no').prop('checked', true);
+                jQuery(this).parent().find('#yes').prop('checked', false);
                 if (file_frame) {
                     file_frame.open();
                     return;
@@ -627,12 +643,13 @@ jQuery('#wbpolls-create').submit(function (event) {
     const html_answer = jQuery('[name="_wbpoll_html_answer[]"]').map(function () {
         return jQuery(this).val();
     }).get();
-    const video_import_info = jQuery('[name="_wbpoll_video_import_info[]"]:checked').map(function () {
+    const video_import_info = jQuery('input[name="_wbpoll_video_import_info[]"]:checked').map(function () {
         return jQuery(this).val();
     }).get();
-    const audio_import_info = jQuery('[name="_wbpoll_audio_import_info[]"]:checked').map(function () {
+    const audio_import_info = jQuery('input[name="_wbpoll_audio_import_info[]"]:checked').map(function() {
         return jQuery(this).val();
-    }).get();
+      }).get();
+      
     const _wbpoll_start_date = jQuery('#_wbpoll_start_date').val();
     const _wbpoll_end_date = jQuery('#_wbpoll_end_date').val();
     const _wbpoll_user_roles = jQuery('#_wbpoll_user_roles-chosen').val();
@@ -686,8 +703,5 @@ jQuery('#wbpolls-create').submit(function (event) {
               
             }
         },
-        error: function (xhr, status, error) {
-            console.error('Error:', error);
-        }
     });
 });
