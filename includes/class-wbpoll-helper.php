@@ -754,14 +754,14 @@ class WBPollHelper {
 			$poll_user_roles = array();
 		}
 
-		$show_description               = intval(
+		$show_description = intval(
 			get_post_meta(
 				$post_id,
 				'_wbpoll_content',
 				true
 			)
 		); // show poll description or not
-		$poll_never_expire              = intval(
+		$poll_never_expire = intval(
 			get_post_meta(
 				$post_id,
 				'_wbpoll_never_expire',
@@ -806,7 +806,7 @@ class WBPollHelper {
 
 		$result_chart_type = ( $result_chart_type != '' ) ? $result_chart_type : $poll_result_chart_type;
 
-		$description = ( $description != '' ) ? intval( $description ) : $show_description;
+		$show_description = ( $show_description != '' ) ? intval( $show_description ) : $show_description;
 
 		// fallback as text if addon no installed
 		$result_chart_type = self::chart_type_fallback( $result_chart_type ); // make sure that if chart type is from pro addon then it's installed
@@ -837,12 +837,12 @@ class WBPollHelper {
 		if ( new DateTime( $poll_start_date ) <= new DateTime() ) {
 
 			if ( $reference != 'content_hook' ) {
-				$poll_output .= '<h3>' . get_the_title( $post_id ) . '</h3>';
+				 echo '<h3>' . get_the_title( $post_id ) . '</h3>';
 			}
 
 			if ( $reference != 'content_hook' ) {
 				// if enabled from shortcode and enabled from post meta field
-				if ( intval( $description ) == 1 ) {
+				if ( intval( $show_description ) == 1 || $description == 'true') {
 					$poll_conobj  = get_post( $post_id );
 					$poll_content = '';
 					if ( is_object( $poll_conobj ) ) {
@@ -854,13 +854,14 @@ class WBPollHelper {
 						$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
 					}
 
-					$poll_output .= '<div class="wbpoll-description">' . apply_filters(
+					echo '<div class="wbpoll-description">' . apply_filters(
 						'wbpoll_description',
 						$poll_content,
 						$post_id
 					) . '</div>';
 				}
 			}
+
 
 			$poll_is_voted_by_user = 0;
 
@@ -1158,7 +1159,7 @@ class WBPollHelper {
 
 		}//poll didn't start yet
 		else {
-			$poll_output = esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' );
+			$poll_output .= esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' );
 		}
 
 		$poll_output .= '</div>'; // end of wbpoll_wrapper
@@ -1241,8 +1242,7 @@ class WBPollHelper {
 			}
 		}
 
-			$poll_form_html .= '								
-			<div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-' . $post_id . '" data-id="' . $post_id . '">
+			$poll_form_html .= '<div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-' . $post_id . '" data-id="' . $post_id . '">
 			<form class="wbpoll-form wbpoll-form-' . $post_id . '" sction="" method="post" novalidate="true">
 			<div class="wbpoll-form-insidewrap ' . $grid_class . ' wbpoll-form-insidewrap-' . $post_id . '">';
 
