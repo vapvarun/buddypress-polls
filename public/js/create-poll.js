@@ -1,3 +1,5 @@
+
+
 jQuery('#poll_type').on('change', function () {
     var type = jQuery(this).val();
     if (type == 'default') {
@@ -620,7 +622,6 @@ jQuery(document).ready(
 
 jQuery('#wbpolls-create').submit(function (event) {
     event.preventDefault();
-
     const author_id = jQuery('#author_id').val();
     const title = jQuery('#polltitle').val();
     const content = jQuery('#poll-content').val();
@@ -681,7 +682,8 @@ jQuery('#wbpolls-create').submit(function (event) {
         _wbpoll_multivote: _wbpoll_multivote,
         _wbpoll_vote_per_session: _wbpoll_vote_per_session,
     };
-    var siteUrl = window.location.origin;
+    var siteUrl = bpolls_ajax_object.site_url;
+    
     jQuery.ajax({
         url: siteUrl + '/wp-json/wbpoll/v1/postpoll',
         type: 'POST',
