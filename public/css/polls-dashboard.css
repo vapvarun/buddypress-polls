@@ -33,7 +33,29 @@
 }
 
 .main-dashboard .poll-listing table td.poll-action .btn {
+    margin: 0;
     margin-right: 5px;
+    padding: 5px !important;
+    background: transparent !important;
+    color: inherit;
+    width: auto !important;
+    height: auto !important;
+    line-height: normal !important;
+    border: 0 !important;
+    outline: 0 !important;
+}
+
+.main-dashboard .poll-listing table td.poll-action .btn[data-polls-tooltip]:after {
+    box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.5);
+}
+
+.main-dashboard .poll-listing table td.poll-action .btn i {
+    font-size: 16px;
+}
+
+.main-dashboard .poll-listing table td.poll-action .btn i.wb-icon-eye-small {
+    content: '\e843';
+    font-size: 20px;
 }
 
 @media only screen and (min-width: 761px) {

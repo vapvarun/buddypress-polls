@@ -225,6 +225,9 @@ class Buddypress_Polls_Public {
 
 		if ( is_page( 'poll-dashboard' ) ) {
 			wp_enqueue_style( 'wbpolls-dashboard' );
+			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
+				wp_enqueue_style( 'wb-icons' );
+			}
 		}
 
 		// Create Poll CSS file.
@@ -240,6 +243,9 @@ class Buddypress_Polls_Public {
 			// Date picker CSS call.
 			wp_enqueue_style( $this->plugin_name . '-time' );
 			wp_enqueue_style( 'wbpolls-create-poll' );
+			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
+				wp_enqueue_style( 'wb-icons' );
+			}
 		}
 
 	}
