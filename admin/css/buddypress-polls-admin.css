@@ -9,12 +9,16 @@
 	color: #000;
 }
 
-.nav-tab-wrapper ul li.Support a.nav-tab:before {
+.nav-tab-wrapper ul li.support a.nav-tab:before {
 	content: "\f125";
 }
 
-.nav-tab-wrapper ul li.General a.nav-tab:before {
+.nav-tab-wrapper ul li.general a.nav-tab:before {
 	content: "\f111";
+}
+
+.nav-tab-wrapper ul li.wbpoll_setting a.nav-tab:before {
+	content: "\f185";
 }
 
 .wb-plugins-license-tables-wrap {
