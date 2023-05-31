@@ -30,7 +30,7 @@ global $wp_roles;
                         do_settings_sections( 'buddypress_wbpolls' );
                         ?>
                     <div class="form-table polls-general-options">
-                        <div class="wbcom-settings-section-wrap">
+                        <!-- <div class="wbcom-settings-section-wrap">
                             <div class="wbcom-settings-section-options-heading">
                                 <label
                                     for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label>
@@ -45,7 +45,7 @@ global $wp_roles;
                                     <div class="wb-slider wb-round"></div>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="wbcom-settings-section-wrap">
                             <div class="wbcom-settings-section-options-heading">
@@ -67,7 +67,7 @@ global $wp_roles;
                             </div>
                         </div>
 
-                        <div class="wbcom-settings-section-wrap">
+                        <!-- <div class="wbcom-settings-section-wrap">
                             <div class="wbcom-settings-section-options-heading">
                                 <label
                                     for="blogname"><?php esc_html_e( 'Never Expire', 'buddypress-polls' ); ?></label>
@@ -82,7 +82,7 @@ global $wp_roles;
                                     <div class="wb-slider wb-round"></div>
                                 </label>
                             </div>
-                        </div>
+                        </div> -->
 
                         <div class="wbcom-settings-section-wrap">
                             <div class="wbcom-settings-section-options-heading">
@@ -111,13 +111,10 @@ global $wp_roles;
                             </div>
                             <div class="wbcom-settings-section-options">
                                 <label class="wb-switch">
-                                    <!-- <input name='bpolls_settings[wbpolls_submit_status]' type='checkbox' value='yes'
-                                        <?php ( isset( $bpolls_settings['wbpolls_submit_status'] ) ) ? checked( $bpolls_settings['wbpolls_submit_status'], 'yes' ) : ''; ?> />
-                                    <div class="wb-slider wb-round"></div> -->
                                     <select name="wbpolls_settings[wbpolls_submit_status]">
-                                        <option value="">Poll Status</option>
-                                        <option value="draft">Draft</option>
-                                        <option value="publish">Publish</option>
+                                        <option value="" <?php if($bpolls_settings['wbpolls_submit_status'] == ''){ echo "selected"; }?>>Poll Status</option>
+                                        <option value="draft" <?php if($bpolls_settings['wbpolls_submit_status'] == 'draft'){ echo "selected"; }?>>Draft</option>
+                                        <option value="publish" <?php if($bpolls_settings['wbpolls_submit_status'] == 'publish'){ echo "selected"; }?>>Publish</option>
                                     </select>
                                 </label>
                             </div>
@@ -132,14 +129,14 @@ global $wp_roles;
                                 </p>
                             </div>
                             <div class="wbcom-settings-section-options">
-                            <label>
-                            <input name="wbpolls_settings[Wppolls_show_result]" type="radio" value="no" checked="checked">&nbsp;  Show results for voters and non-voters				</label>
-                            <label>
-                            <input name="wbpolls_settings[Wppolls_show_result]" type="radio" value="user_role">&nbsp; Show results for voters only			</label>
-                            <label>
-                            <input name="wbpolls_settings[Wppolls_show_result]" type="radio" value="member_type">&nbsp; Hide results				</label>				
+                                <label class="wb-switch">
+                                    <input name='wbpolls_settings[wppolls_show_result]' type='checkbox' value='yes'
+                                        <?php ( isset( $bpolls_settings['wppolls_show_result'] ) ) ? checked( $bpolls_settings['wppolls_show_result'], 'yes' ) : ''; ?> />
+                                    <div class="wb-slider wb-round"></div>
+                                </label>
+                            </div>
                         </div>
-                        </div>
+                        
 
                     </div>
                 </div>

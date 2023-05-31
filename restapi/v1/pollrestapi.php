@@ -87,12 +87,17 @@ class Pollrestapi {
         $post_title = sanitize_text_field( $parameters['title'] );
         $post_content = wp_kses_post( $parameters['content'] ); 
         $post_author = wp_kses_post( $parameters['author_id'] );
+
+        $option_value = get_option('wbpolls_settings');
+        if(!empty($option_value)){
+			$wbpolls_submit_status = $option_value['wbpolls_submit_status'];
+		}
         // Create a new post with the retrieved data
        
         $new_post = array(
             'post_title' => $post_title,
             'post_content' => $post_content,
-            'post_status' => 'draft',
+            'post_status' => $wbpolls_submit_status,
             'post_type' => 'wbpoll',
             'post_author' => $post_author,
         );

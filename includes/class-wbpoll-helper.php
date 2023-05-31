@@ -706,6 +706,10 @@ class WBPollHelper {
 			return '';
 		}
 
+		$option_value = get_option('wbpolls_settings');
+        if(!empty($option_value)){
+			$wppolls_who_can_vote = $option_value['wppolls_who_can_vote'];
+		}
 		global $wpdb;
 
 		// $setting_api  = $settings = new WBPoll_Settings();
@@ -992,10 +996,22 @@ class WBPollHelper {
 						$this_user_role = array( 'guest' );
 					}
 
-					$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
+					$allowed_user_groups = array_intersect( $poll_allowed_user_group, $this_user_role );
 
+					if ( ! is_array( $wppolls_who_can_vote ) ) {
+						$wppolls_who_can_vote = array();
+					}
+					$wp_allowed_user_group = array_intersect( $wppolls_who_can_vote, $this_user_role );
+					
+					if((sizeof( $allowed_user_groups )) < 1 || !empty($allowed_user_groups)){
+						
+						$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
+					}else{
+						
+						$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
+					}
 					// current user is not allowed
-					if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
+					if ( ( sizeof( $allowed_user_group ) ) < 1) {
 
 						// we know poll is not expired, and user is not allowed to vote
 						// now we check if the user i allowed to see result and result is allow to show before expire
@@ -1085,56 +1101,63 @@ class WBPollHelper {
 								);
 								$answers_by_user = $wpdb->get_var( $sql );
 
-								if ( $answers_by_user !== null ) {
-									$answers_by_user = maybe_unserialize( $answers_by_user );
-									if ( is_array( $answers_by_user ) ) {
-										$user_answers_textual = array();
-										foreach ( $answers_by_user as $uchoice ) {
-											$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
-												'Unknown or answer deleted',
-												'buddypress-polls'
-											);
+								$option_value = get_option('wbpolls_settings');
+								if(!empty($option_value)){
+									
+									$wppolls_show_result = isset($option_value['wppolls_show_result']) ? $option_value['wppolls_show_result'] : '';
+								}
+								if($wppolls_show_result == 'yes'){
+									if ( $answers_by_user !== null ) {
+										$answers_by_user = maybe_unserialize( $answers_by_user );
+										if ( is_array( $answers_by_user ) ) {
+											$user_answers_textual = array();
+											foreach ( $answers_by_user as $uchoice ) {
+												$user_answers_textual[] = isset( $poll_answers[ $uchoice ] ) ? $poll_answers[ $uchoice ] : esc_html__(
+													'Unknown or answer deleted',
+													'buddypress-polls'
+												);
+											}
+	
+											$answers_by_user_html = implode( ', ', $user_answers_textual );
+										} else {
+											$answers_by_user      = intval( $answers_by_user );
+											$answers_by_user_html = $poll_answers[ $answers_by_user ];
+	
 										}
-
-										$answers_by_user_html = implode( ', ', $user_answers_textual );
-									} else {
-										$answers_by_user      = intval( $answers_by_user );
-										$answers_by_user_html = $poll_answers[ $answers_by_user ];
-
-									}
-
-									if ( $answers_by_user_html != '' ) {
-										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
-											__(
-												'You have already voted for <strong>"%s"</strong>',
+	
+										if ( $answers_by_user_html != '' ) {
+											$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
+												__(
+													'You have already voted for <strong>"%s"</strong>',
+													'buddypress-polls'
+												),
+												$answers_by_user_html
+											) . ' </p>';
+	
+											if ( $poll_show_result_before_expire == 1 ) {
+												
+												$poll_output .= self::show_single_poll_result(
+													$post_id,
+													$reference,
+													$result_chart_type
+												);
+											}
+										} else {
+											$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
+												'You have already voted ',
 												'buddypress-polls'
-											),
-											$answers_by_user_html
-										) . ' </p>';
-
-										if ( $poll_show_result_before_expire == 1 ) {
-											$poll_output .= self::show_single_poll_result(
-												$post_id,
-												$reference,
-												$result_chart_type
-											);
+											) . ' </p>';
+	
 										}
-									} else {
-										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
-											'You have already voted ',
-											'buddypress-polls'
-										) . ' </p>';
-
 									}
+								}else{
+									$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert">' . esc_html__(
+										'Result hide by Admin',
+										'buddypress-polls'
+									) . ' </p>';
 								}
 
-								// if ( $poll_show_result_before_expire == 1 ) {
-								// $poll_output .= self::show_single_poll_result(
-								// $post_id,
-								// $reference,
-								// $result_chart_type
-								// );
-								// }
+								
 							}
 						} else {
 
@@ -1304,10 +1327,10 @@ class WBPollHelper {
 				$answer,
 				$poll_answers_extra_single
 			);
-			$poll_form_html                               .= '<div class="wbpoll-question-choices-item-container">';
-			$poll_form_html                               .= '<input type="' . $vote_input_type . '" value="' . $index . '" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-' . $post_id . '" data-pollcolor = "" data-post-id="' . $post_id . '" name="' . $input_name . '"  data-answer="' . $answer . ' " id="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"  />';
-			$poll_form_html                               .= '<label class="wbpoll-single-answer-label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '">';
-			$poll_form_html                               .= '<div class="wbpoll-question-choices-item-wrapper">';
+			$poll_form_html .= '<div class="wbpoll-question-choices-item-container">';
+			$poll_form_html .= '<input type="' . $vote_input_type . '" value="' . $index . '" class="wbpoll_single_answer wbpoll_single_answer-radio wbpoll_single_answer-radio-' . $post_id . '" data-pollcolor = "" data-post-id="' . $post_id . '" name="' . $input_name . '"  data-answer="' . $answer . ' " id="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '"  />';
+			$poll_form_html .= '<label class="wbpoll-single-answer-label wbpoll_single_answer_label_radio" for="wbpoll_single_answer-radio-' . $index . '-' . $post_id . '">';
+			$poll_form_html  .= '<div class="wbpoll-question-choices-item-wrapper">';
 
 			// image.
 
@@ -1880,14 +1903,7 @@ class WBPollHelper {
 				'type'     => 'multiselect',
 				'options'  => $roles,
 				'optgroup' => 1,
-				'default'  => array(
-					'administrator',
-					'editor',
-					'author',
-					'contributor',
-					'subscriber',
-					'guest',
-				),
+				'default'  => array(),
 			),
 			'_wbpoll_content'                   => array(
 				'label'   => esc_html__( 'Show Poll Description in Shortcode', 'buddypress-polls' ),

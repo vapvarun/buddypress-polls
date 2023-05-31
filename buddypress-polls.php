@@ -88,11 +88,9 @@ function activate_buddypress_polls() {
 
 	if ( false === get_option( 'wbpolls_settings' ) ) {
 		global $wp_roles;
-		$bpolls_settings['wbpolls_multiselect']    = 'no';
-		$bpolls_settings['wbpolls_never_expire']          = 'no';
 		$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
 		$bpolls_settings['wbpolls_submit_status']       = 'draft';
-		$bpolls_settings['Wppolls_show_result']      = 'voter_only';
+		$bpolls_settings['wppolls_show_result']      = 'yes';
 		$bpolls_settings['wbpolls_logoutuser']      = 'no';
 		$bpolls_settings['wbpolls_background_color'] = '#4caf50';
 		$roles  = $wp_roles->get_names();
