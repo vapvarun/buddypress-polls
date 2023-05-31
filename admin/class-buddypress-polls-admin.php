@@ -199,6 +199,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'welcome' => esc_html__( 'Welcome', 'buddypress-polls' ),
 				'general' => esc_html__( 'General', 'buddypress-polls' ),
 				'support' => esc_html__( 'Support', 'buddypress-polls' ),
+				'wbpoll_setting' => esc_html__( 'WB Poll Setting', 'buddypress-polls' ),
 			);
 
 			$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
@@ -223,6 +224,15 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			if ( isset( $_POST['bpolls_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 				unset( $_POST['bpolls_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				exit();
+			}
+		}
+
+		public function wbpolls_admin_register_settings() {
+			if ( isset( $_POST['wbpolls_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				unset( $_POST['wbpolls_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				update_site_option( 'wbpolls_settings', wp_unslash( $_POST['wbpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				exit();
 			}

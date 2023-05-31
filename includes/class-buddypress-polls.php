@@ -183,6 +183,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			/** Polls hooks **/
 
 			 // init cookie and custom post types
+			 $this->loader->add_action( 'admin_init', $plugin_admin, 'wbpolls_admin_register_settings' );
 			$this->loader->add_action( 'init', $plugin_admin, 'init_wbpoll_type' );
 			$this->loader->add_filter( 'manage_posts_columns', $plugin_admin, 'add_new_poll_columns' );
 			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );

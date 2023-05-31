@@ -70,6 +70,7 @@ function activate_buddypress_polls() {
 
 	WBPollHelper::install_table();
 
+
 	if ( false === get_option( 'bpolls_settings' ) ) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
@@ -83,6 +84,22 @@ function activate_buddypress_polls() {
 			$bpolls_settings['poll_user_role'][] = $role;
 		}
 		update_option( 'bpolls_settings', $bpolls_settings );
+	}
+
+	if ( false === get_option( 'wbpolls_settings' ) ) {
+		global $wp_roles;
+		$bpolls_settings['wbpolls_multiselect']    = 'no';
+		$bpolls_settings['wbpolls_never_expire']          = 'no';
+		$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
+		$bpolls_settings['wbpolls_submit_status']       = 'draft';
+		$bpolls_settings['Wppolls_show_result']      = 'voter_only';
+		$bpolls_settings['wbpolls_logoutuser']      = 'no';
+		$bpolls_settings['wbpolls_background_color'] = '#4caf50';
+		$roles  = $wp_roles->get_names();
+		foreach ( $roles as $role => $role_name ) {
+			$bpolls_settings['wppolls_who_can_vote'][] = $role;
+		}
+		update_option( 'wbpolls_settings', $bpolls_settings );
 	}
 
 	/**

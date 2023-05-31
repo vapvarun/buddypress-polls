@@ -37,6 +37,9 @@ function bpolls_include_setting_tabs( $bpolls_tab ) {
 		case 'support':
 			include 'bpolls-support-setting-tab.php';
 			break;
+		case 'wbpoll_setting':
+			include 'wbpolls-setting-tab.php';
+			break;
 		default:
 			include 'bpolls-welcome-page.php';
 			break;
