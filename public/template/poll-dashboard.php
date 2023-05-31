@@ -48,62 +48,67 @@
 
 			// Parse the JSON response
 			$data = json_decode( $response );
-			if ( ! empty( $data ) ) {
-				foreach ( $data as $post ) {
-					// Access post information.
-					$post_id     = $post->id;
-					$post_title  = $post->title;
-					$post_stauts = $post->status;
-					$start_date  = $post->start_time; // poll start date
-					$end_date    = $post->end_date; // poll end date
-					$totalvote   = $post->totalvote;
-					$pause       = $post->pausetype;
-					?>
+				if(isset($data->code) && $data->code != '404'){
+					foreach ( $data as $post ) {
+					
+						// Access post information.
+						$post_id     = $post->id;
+						$post_title  = $post->title;
+						$post_stauts = $post->status;
+						$totalvote   = $post->totalvote;
+						$pause       = $post->pausetype;
+						?>
+						<tr>
+							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
+							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_stauts ); ?></td>
+							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
+							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="button btn" href="<?php echo esc_url( site_url() ) . '/wbpoll/' . esc_html( str_replace( ' ', '-', $post_title ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
+							<button class="button btn pause_poll" data-value="
+							<?php
+							if ( ! empty( $pause ) && $pause == 1 ) {
+								echo 0;
+							} else {
+								echo 1; }
+							?>
+							" data-id="<?php echo esc_html( $post_id ); ?>"
+							<?php
+							if ( ! empty( $pause ) && $pause == 1 ) {
+								?>
+								data-polls-tooltip="<?php esc_attr_e( 'Resume', 'buddypress-polls' ); ?>"
+								<?php
+							} else {
+								?>
+								data-polls-tooltip="<?php esc_attr_e( 'Pause', 'buddypress-polls' ); ?>"
+								<?php
+							}
+							?>
+							>
+							<?php
+							if ( ! empty( $pause ) && $pause == 1 ) {
+								?>
+								<i class="wb-icons wb-icon-play-circle"></i>
+								<?php
+							} else {
+								?>
+								<i class="wb-icons wb-icon-pause-circle"></i>
+								<?php
+							}
+							?>
+							</button>
+							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
+						</tr>
+	
+						<?php
+					}
+				
+				}else{ ?>
 					<tr>
-						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
-						<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_stauts ); ?></td>
-						<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
-						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="button btn" href="<?php echo esc_url( site_url() ) . '/wbpoll/' . esc_html( str_replace( ' ', '-', $post_title ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
-						<button class="button btn pause_poll" data-value="
-						<?php
-						if ( ! empty( $pause ) && $pause == 1 ) {
-							echo 0;
-						} else {
-							echo 1; }
-						?>
-						" data-id="<?php echo esc_html( $post_id ); ?>"
-						<?php
-						if ( ! empty( $pause ) && $pause == 1 ) {
-							?>
-							data-polls-tooltip="<?php esc_attr_e( 'Resume', 'buddypress-polls' ); ?>"
-							<?php
-						} else {
-							?>
-							data-polls-tooltip="<?php esc_attr_e( 'Pause', 'buddypress-polls' ); ?>"
-							<?php
-						}
-						?>
-						>
-						<?php
-						if ( ! empty( $pause ) && $pause == 1 ) {
-							?>
-							<i class="wb-icons wb-icon-play-circle"></i>
-							<?php
-						} else {
-							?>
-							<i class="wb-icons wb-icon-pause-circle"></i>
-							<?php
-						}
-						?>
-						</button>
-						<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
+						<td colspan="4">
+							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
+						</td>
 					</tr>
-
-					<?php
-				}
-			} else {
-				echo 'Polls Not Found';
-			}
+				<?php }
+				
 			?>
 		</table>
 	</div>
