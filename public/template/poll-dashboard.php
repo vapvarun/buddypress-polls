@@ -48,7 +48,16 @@
 
 			// Parse the JSON response
 			$data = json_decode( $response );
-				if(isset($data->code) && $data->code != '404'){
+				if(isset($data->code) && $data->code == '404'){?>
+
+					<tr>
+						<td colspan="4">
+							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
+						</td>
+					</tr>
+					<?php
+				}else{ 
+
 					foreach ( $data as $post ) {
 					
 						// Access post information.
@@ -100,14 +109,7 @@
 	
 						<?php
 					}
-				
-				}else{ ?>
-					<tr>
-						<td colspan="4">
-							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
-						</td>
-					</tr>
-				<?php }
+				 }
 				
 			?>
 		</table>
