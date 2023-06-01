@@ -60,7 +60,7 @@ module.exports = function(grunt) {
 					expand: true,
 					cwd: 'public/css',
 					dest: 'public/css-rtl',
-					src: ['buddypress-polls-public.css']
+					src: ['buddypress-polls-public.css','buddypress-multi-polls.css','create-poll.css','polls-dashboard.css']
 				}
 			},
 			// make po files
