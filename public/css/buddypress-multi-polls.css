@@ -7,6 +7,7 @@
 # Simple Poll
 # Single Poll Before Result
 # Single Poll After Result
+# Shortcode
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -875,4 +876,12 @@
 .wbpoll-user-profile-image-modal .wbpoll-user-profile-details .user-profile-images img {
     width: 50px;
     height: 50px;
+}
+
+/*--------------------------------------------------------------
+# Shortcode
+--------------------------------------------------------------*/
+.wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>h3,
+.wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>.wbpoll-description{
+    display: none;
 }
