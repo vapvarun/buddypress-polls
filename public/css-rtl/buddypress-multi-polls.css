@@ -481,7 +481,7 @@
 .wbpolls-question-results.wbpoll-video .wbpoll-question-choices-item .wbpoll-single-answer-label:hover,
 .wbpolls-question-results.wbpoll-audio .wbpoll-question-choices-item .wbpoll-single-answer-label:hover {
     /* box-shadow: 0 3px 24px 0 rgba(18, 43, 70, .08); */
-    box-shadow: 0 2px 32px 0 rgba(0,0,0,.17);
+    box-shadow: 0 2px 32px 0 rgba(0, 0, 0, .17);
 }
 
 @media screen and (max-width: 767px) {
@@ -544,6 +544,7 @@
 }
 
 .wbpolls-question-results.wbpoll-audio audio {
+    max-width: -webkit-calc(100% - 30px);
     max-width: calc(100% - 30px);
     margin: 15px 15px 0;
 }
