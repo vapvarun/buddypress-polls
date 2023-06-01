@@ -95,12 +95,9 @@
     font-weight: unset;
 }
 
-.main-dashboard .poll-listing table thead tr {
-    height: 60px;
-    background: #36304a;
-}
-
+.main-dashboard .poll-listing table thead tr,
 .main-dashboard .poll-listing table thead tr th {
+    height: 60px;
     background: #36304a;
 }
 
