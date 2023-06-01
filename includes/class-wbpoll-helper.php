@@ -841,7 +841,7 @@ class WBPollHelper {
 		if ( new DateTime( $poll_start_date ) <= new DateTime() ) {
 
 			if ( $reference != 'content_hook' ) {
-				 echo '<h3>' . get_the_title( $post_id ) . '</h3>';
+				$poll_output .= '<h3>' . get_the_title( $post_id ) . '</h3>';
 			}
 
 			if ( $reference != 'content_hook' ) {
@@ -858,7 +858,7 @@ class WBPollHelper {
 						$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
 					}
 
-					echo '<div class="wbpoll-description">' . apply_filters(
+					$poll_output .= '<div class="wbpoll-description">' . apply_filters(
 						'wbpoll_description',
 						$poll_content,
 						$post_id

@@ -152,7 +152,7 @@ global $wp_roles;
 						</div>						
 					</div>
 
-					<div class="wbcom-admin-option-wrap-bp-poll">
+					<!-- <div class="wbcom-admin-option-wrap-bp-poll">
 						<div class="form-table polls-general-options">
 							<div class="wbcom-settings-section-wrap">
 								<div class="wbcom-settings-section-options-heading">
@@ -172,7 +172,7 @@ global $wp_roles;
 							</div>
 
 						</div>
-					</div>
+					</div> -->
 
 				</div>
 			</div>
