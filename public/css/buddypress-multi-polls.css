@@ -282,6 +282,10 @@
 }
 
 /* Multi Optional */
+.wbpolls-question-results .wbpoll-question-choices-item-container {
+    height: 100%;
+}
+
 .wbpoll-single-answer-label {
     position: relative;
     display: block;
