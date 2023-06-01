@@ -129,7 +129,7 @@ class Buddypress_Polls_Public {
 
 		wp_register_style(
 			'buddypress-multi-polls',
-			BPOLLS_PLUGIN_URL . 'public/css/buddypress-multi-polls.css',
+			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/buddypress-multi-polls.css',
 			array(),
 			$this->version
 		);
@@ -218,7 +218,7 @@ class Buddypress_Polls_Public {
 		// Polls Dashboard CSS file.
 		wp_register_style(
 			'wbpolls-dashboard',
-			BPOLLS_PLUGIN_URL . 'public/css/polls-dashboard.css',
+			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/polls-dashboard.css',
 			array(),
 			$this->version
 		);
@@ -233,7 +233,7 @@ class Buddypress_Polls_Public {
 		// Create Poll CSS file.
 		wp_register_style(
 			'wbpolls-create-poll',
-			BPOLLS_PLUGIN_URL . 'public/css/create-poll.css',
+			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/create-poll.css',
 			array(),
 			$this->version
 		);
