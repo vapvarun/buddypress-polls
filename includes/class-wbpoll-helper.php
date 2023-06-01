@@ -1003,11 +1003,11 @@ class WBPollHelper {
 					}
 					$wp_allowed_user_group = array_intersect( $wppolls_who_can_vote, $this_user_role );
 					
-					if((sizeof( $allowed_user_groups )) < 1 || !empty($allowed_user_groups)){
-						
+					
+
+					if((sizeof( $allowed_user_groups )) >= 1 || !empty($allowed_user_groups)){
 						$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
 					}else{
-						
 						$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
 					}
 					// current user is not allowed
@@ -1025,7 +1025,7 @@ class WBPollHelper {
 								);
 							}
 
-							$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'buddypress-polls' ) . '</p>';
+							//$poll_output .= '<p class="wbpoll-voted-info wbpoll-error wbpoll-voted-info-' . $post_id . '"> ' . __( 'You are not allowed to vote.', 'buddypress-polls' ) . '</p>';
 
 							// integrate user login for guest user
 
@@ -1053,16 +1053,16 @@ class WBPollHelper {
 								$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
 
 								$guest_register_html = '';
-								$guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
-								if ( $guest_show_register ) {
-									if ( get_option( 'users_can_register' ) ) {
-										$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
-										$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
-									}
+								// $guest_show_register = intval( $settings->get_option( 'guest_show_register', 'wbpoll_global_settings', 1 ) );
+								// if ( $guest_show_register ) {
+								// 	if ( get_option( 'users_can_register' ) ) {
+								// 		$register_url         = add_query_arg( 'redirect_to', urlencode( $redirect_url ), wp_registration_url() );
+								// 		$guest_register_html .= '<p class="wbpoll-guest-register">' . sprintf( __( 'No account yet? <a href="%s">Register</a>', 'buddypress-polls' ), $register_url ) . '</p>';
+								// 	}
 
-									$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
+								// 	$guest_register_html = apply_filters( 'wbpoll_register_html', $guest_register_html, $redirect_url );
 
-								}
+								// }
 
 								$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
 

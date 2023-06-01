@@ -12,6 +12,7 @@
 ?>
 
 <div class="main-dashboard">
+<?php if (is_user_logged_in()) { ?>
 	<div class="deshboard-top">
 		<div class="main-title">
 			<h3><?php esc_html_e( 'Poll Listing', 'buddypress-polls' ); ?></h3>
@@ -114,4 +115,7 @@
 			?>
 		</table>
 	</div>
+	<?php }else{ ?>
+		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert">This page content only for login members. </p></div>
+	<?php } ?>
 </div>

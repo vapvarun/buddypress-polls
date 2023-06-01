@@ -171,7 +171,7 @@
 						<!-- <tr>
 							<th><label for="_wbpoll_user_roles"><?php esc_html_e( 'Who Can Vote', 'buddypress-polls' ); ?></label></th>
 							<td>--->
-								<select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="multiple" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true" style="display:none;">
+								<!-- <select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="multiple" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true" style="display:none;">
 									<option value="administrator" selected="selected" data-select2-id="2"><?php esc_html_e( 'Administrator', 'buddypress-polls' ); ?></option>
 									<option value="editor" selected="selected" data-select2-id="3"><?php esc_html_e( 'Editor', 'buddypress-polls' ); ?></option>
 									<option value="author" selected="selected" data-select2-id="4"><?php esc_html_e( 'Author', 'buddypress-polls' ); ?></option>
@@ -179,7 +179,7 @@
 									<option value="subscriber" selected="selected" data-select2-id="6"><?php esc_html_e( 'Subscriber', 'buddypress-polls' ); ?></option>
 									<option value="customer"><?php esc_html_e( 'Customer', 'buddypress-polls' ); ?></option>
 									<option value="shop_manager"><?php esc_html_e( 'Shop manager', 'buddypress-polls' ); ?></option>
-								</select>
+								</select> -->
 								<!----<span class="description"><?php esc_html_e( 'Which user role will have vote capability', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr> -->
@@ -253,8 +253,9 @@
 						</tr>
 						<!-- <tr>
 							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></label></th>
-							<td><input type="number" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number" value="1" size="30">
-								<span class="description"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></span>
+							<td>--->
+								<input type="hidden" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number" value="1" size="30">
+							<!----	<span class="description"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr> -->
 					</tbody>

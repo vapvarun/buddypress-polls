@@ -2327,7 +2327,7 @@ class Buddypress_Polls_Public {
 		// $poll_allowed_user_group = empty($poll_user_roles) ? $setting_api['user_roles'] : $poll_user_roles;
 		$poll_allowed_user_group = $poll_user_roles;
 
-		$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
+		$allowed_user_groups = array_intersect( $poll_allowed_user_group, $this_user_role );
 
 		if ( new DateTime( $poll_start_date ) > new DateTime() ) {
 			$poll_result['error'] = 1;
@@ -2347,6 +2347,20 @@ class Buddypress_Polls_Public {
 
 		}
 
+		$option_value = get_option('wbpolls_settings');
+        if(!empty($option_value)){
+			$wppolls_who_can_vote = $option_value['wppolls_who_can_vote'];
+		}
+		if ( ! is_array( $wppolls_who_can_vote ) ) {
+			$wppolls_who_can_vote = array();
+		}
+		$wp_allowed_user_group = array_intersect( $wppolls_who_can_vote, $this_user_role );
+		
+		if((sizeof( $allowed_user_groups )) >= 1 || !empty($allowed_user_groups)){
+			$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
+		}else{
+			$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
+		}
 		// check if the user has permission to vote
 		if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
 			$poll_result['error'] = 1;
