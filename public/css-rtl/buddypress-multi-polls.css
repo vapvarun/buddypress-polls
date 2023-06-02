@@ -8,6 +8,7 @@
 # Single Poll Before Result
 # Single Poll After Result
 # Shortcode
+# Polls Report
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -884,5 +885,18 @@
 .wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>h3,
 .wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>.wbpoll-description{
     display: none;
+}
+
+/*--------------------------------------------------------------
+# Polls Report
+--------------------------------------------------------------*/
+.widget_wb_poll_report table {
+    margin: 0;
+}
+
+.widget_wb_poll_report table th,
+.widget_wb_poll_report table td {
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, .05);
 }
 /*# sourceMappingURL=buddypress-multi-polls.css.map */

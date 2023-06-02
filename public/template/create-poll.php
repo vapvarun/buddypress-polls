@@ -252,10 +252,10 @@
 							</td>
 						</tr>
 						<!-- <tr>
-							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></label></th>
+							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per User', 'buddypress-polls' ); ?></label></th>
 							<td>--->
 								<input type="hidden" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number" value="1" size="30">
-							<!----	<span class="description"><?php esc_html_e( 'Votes Per Session', 'buddypress-polls' ); ?></span>
+							<!----	<span class="description"><?php esc_html_e( 'Set the number of times a user can vote.', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr> -->
 					</tbody>

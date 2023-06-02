@@ -2058,8 +2058,8 @@ class WBPollHelper {
 				),
 			),
 			'_wbpoll_vote_per_session'          => array(
-				'label'   => esc_html__( 'Votes Per Session', 'buddypress-polls' ),
-				'desc'    => esc_html__( 'Votes Per Session', 'buddypress-polls' ),
+				'label'   => esc_html__( 'Votes Per User', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Set the number of times a user can vote.', 'buddypress-polls' ),
 				'id'      => '_wbpoll_vote_per_session',
 				'type'    => 'number',
 				'default' => 1,
