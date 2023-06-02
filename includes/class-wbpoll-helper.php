@@ -1430,7 +1430,32 @@ class WBPollHelper {
 
 		// hook.
 		$poll_form_html = apply_filters( 'wbpoll_form_html_after_question', $poll_form_html, $post_id );
-
+		$option_value = get_option('wbpolls_settings');
+        if(!empty($option_value)){
+			$wbpolls_user_add_extra_op = $option_value['wbpolls_user_add_extra_op'];
+		}
+		if($wbpolls_user_add_extra_op == 'yes'){
+			$poll_type = get_post_meta( $post_id, 'poll_type', true );
+			if(!empty($poll_type) && isset($poll_type)){
+					if($poll_type == 'default'){
+						$poll_form_html .= "<div class='btn btn-primary button text_field' id='text_field'> Add addition text field</div>";
+						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_text" style="display:none;">
+							<div class="ans-records text_records">
+							<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
+								<div class="ans-records-wrap">
+									<label>Text Answer</label>
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
+									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]"> 
+								</div>
+								<a class="add-field extra-fields-text" href="#">Add More</a>
+							</div>
+							<div class="text_records_dynamic"></div>
+							<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+						</div>';
+					}
+			}			
+		}
+		
 		// $poll_form_html .= ' <div class="wbpoll-qresponse wbpoll-qresponse-' . $post_id . '"></div>';
 
 		// show the poll button.

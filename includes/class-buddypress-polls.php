@@ -307,6 +307,10 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			//attach template for plugin pages
 			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
+
+			// add additional field
+
+			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field', $plugin_public, 'wbpoll_additional_field' );
 			
 		}
 

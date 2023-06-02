@@ -2646,4 +2646,47 @@ class Buddypress_Polls_Public {
 		return apply_filters( 'wb_poll_locate_template', $template_part, $file_name );
 	}
 
+	public function wbpoll_additional_field(){
+		$post_id = $_POST['post_id'];
+		
+		$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+		$new_ans = $_POST['_wbpoll_answer'];
+		$answers = array_merge($old_ans,$new_ans);
+
+		$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		$new_ans_extra = $_POST['_wbpoll_answer_extra'];
+		$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+		
+		if ( isset( $answers ) ) {
+			$titles = [];
+            foreach( $answers as $index => $title ) {
+                $titles[ $index ] = $title;
+            }
+
+            update_post_meta( $post_id, '_wbpoll_answer', $titles );
+
+        } else {
+            delete_post_meta( $post_id, '_wbpoll_answer' );
+        }
+
+		if ( isset( $answers_extra ) ) {
+           
+			$extra = [];
+			foreach($answers_extra as $key => $extra_type){
+				$extra[]['type'] = 'default';         
+			}
+			 update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
+
+		} else {
+			delete_post_meta( $post_id, '_wbpoll_answer_extra' );
+		}
+
+		$data = array(
+            'success' => 'Added additional field',
+            'post_id' => $post_id,
+        );
+        return rest_ensure_response( $data );
+
+	}
+
 }

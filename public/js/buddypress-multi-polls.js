@@ -138,3 +138,59 @@ jQuery( document ).ready(function() {
 			}
 		);
 });
+
+jQuery( document ).ready(function ($) {
+	$('#text_field').on('click', function(){
+		$('#type_text').show();
+	});
+
+	$('.extra-fields-text').click(function (e) {
+		e.preventDefault();
+		$('.text_records').clone().appendTo('.text_records_dynamic');
+		$('.text_records_dynamic .text_records').addClass('single remove');
+		$('.text_records_dynamic .extra-fields-text').remove();
+		$('.single').append('<a href="#" class="remove-field btn-remove-text">Remove Fields</a>');
+		$('.text_records_dynamic > .single').attr("class", "remove");
+	
+		$('.text_records_dynamic input').each(function () {
+			var count = 0;
+			var fieldname = $(this).attr("name");
+			$(this).attr('name', fieldname);
+			count++;
+		});
+	
+	});
+
+	$(document).on('click', '.remove-field', function (e) {
+		$(this).parent('.remove').remove();
+		e.preventDefault();
+	});
+
+	$('#post_text_field').on('click', function (event) {
+		event.preventDefault();
+		const answer = $('[name="_wbpoll_answer[]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const post_id = $('#post_id').val();
+	
+		$.ajax({
+			url: wbpollpublic.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'wbpoll_additional_field',
+				_wbpoll_answer: answer,
+				_wbpoll_answer_extra: answertype,
+				post_id: post_id,
+			},
+			success: function (response) {
+					location.reload();	
+			},
+		});
+	});
+});
+
+

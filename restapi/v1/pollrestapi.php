@@ -262,6 +262,13 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'start_date' );
         }
 
+        //poll type
+        if ( isset( $parameters[ 'poll_type' ] ) ) {
+            $poll_type = $parameters[ 'poll_type' ];
+            update_post_meta( $post_id, 'poll_type', $poll_type );
+        } else {
+            delete_post_meta( $post_id, 'poll_type' );
+        }
         //End date meta
         if ( isset( $parameters[ $prefix . 'end_date' ] ) ) {
             $end_date = $parameters[ $prefix . 'end_date' ];
@@ -269,7 +276,7 @@ class Pollrestapi {
         } else {
             delete_post_meta( $post_id, $prefix . 'end_date' );
         }
-
+        
         //Who can vote meta
         if ( isset( $parameters[ $prefix . 'user_roles' ] ) ) {
             $user_roles = $parameters[ $prefix . 'user_roles' ];
