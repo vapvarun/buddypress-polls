@@ -770,6 +770,7 @@ class WBPollHelper {
 				true
 			)
 		); // show poll description or not
+
 		$poll_never_expire = intval(
 			get_post_meta(
 				$post_id,

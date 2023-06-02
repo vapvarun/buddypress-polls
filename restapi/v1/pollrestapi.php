@@ -279,8 +279,9 @@ class Pollrestapi {
         }
 
         //show description meta
-        if ( isset( $parameters[ $prefix . 'content' ] ) ) {
-            $content = $parameters[ $prefix . 'content' ];
+        $description = 1;
+        if ( isset(  $description ) ) {
+            $content =  $description;
             update_post_meta( $post_id, $prefix . 'content', $content );
         } else {
             delete_post_meta( $post_id, $prefix . 'content' );
