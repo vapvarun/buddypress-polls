@@ -61,7 +61,6 @@ class Wb_Poll_Report extends WP_Widget {
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 		<p>
-			<?php if ( bp_has_activities( $act_args ) ) { ?>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress' ); ?></label>
 				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>">
 					<?php
@@ -86,11 +85,10 @@ class Wb_Poll_Report extends WP_Widget {
                             <?php
                             // Do something with the post data
                         }
-                    } ?>
+                    } else { ?>
+                        <label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress' ); ?></label>
+                    <?php	} ?>
 				</select>
-			<?php } else { ?>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress' ); ?></label>
-			<?php	} ?>
 		</p>
 		<?php
 		// Restore the global.
