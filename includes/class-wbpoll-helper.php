@@ -348,6 +348,11 @@ class WBPollHelper {
 		return apply_filters( 'wbpoll_display_options_backend', $methods );
 	}
 
+	public static function wbpoll_display_options_widget_result(){
+		$methods = array();
+
+		return apply_filters( 'wbpoll_display_options_widget_result', $methods );
+	}
 	/**
 	 * Return poll display option as associative array
 	 *
@@ -1605,6 +1610,103 @@ class WBPollHelper {
 		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
 
 		$poll_display_methods = self::wbpoll_display_options_backend();
+		$poll_display_method  = $poll_display_methods[ $result_chart_type ];
+
+		$method = $poll_display_method['method'];
+
+		if ( $method != '' && is_callable( $method ) ) {
+			call_user_func_array( $method, array( $poll_id, $reference, $poll_result ) );
+		}
+
+		do_action( 'wbpoll_answer_html_after_question', $poll_id, $reference, $poll_result );
+
+		echo '</div>';
+		do_action( 'wbpoll_answer_html_after', $poll_id, $reference, $poll_result );
+
+		$output = ob_get_contents();
+		ob_end_clean();
+
+		return $output;
+
+	}
+
+
+	/**
+	 * Get result from a single poll for backend
+	 *
+	 * @param  int $post_id
+	 *
+	 * return string|mixed
+	 */
+	public static function show_backend_single_poll_widget_result( $poll_id, $reference, $result_chart_type = 'text' ) {
+		global $wpdb;
+		$current_user = wp_get_current_user();
+		$user_id      = $current_user->ID;
+
+		$poll_user_roles = get_post_meta( $poll_id, '_wbpoll_user_roles', true ); // poll user roles
+		if ( ! is_array( $poll_user_roles ) ) {
+			$poll_user_roles = array();
+		}
+
+
+		$result_chart_type = self::chart_type_fallback( $result_chart_type );
+
+		$poll_answers = get_post_meta( $poll_id, '_wbpoll_answer', true );
+		$poll_answers = is_array( $poll_answers ) ? $poll_answers : array();
+
+		$total_results = self::get_pollResult( $poll_id );
+
+		$poll_result = array();
+
+		$poll_result['reference'] = $reference;
+		$poll_result['poll_id']   = $poll_id;
+		$poll_result['total']     = count( $total_results );
+		$poll_result['answer'] = $poll_answers;
+		// $poll_result['results']           = json_encode($total_results);
+		$poll_result['chart_type'] = $result_chart_type;
+		$poll_result['text']       = '';
+
+		$poll_answers_weight = array();
+
+		foreach ( $total_results as $result ) {
+			$user_ans = maybe_unserialize( $result['user_answer'] );
+
+			if ( is_array( $user_ans ) ) {
+
+				foreach ( $user_ans as $u_ans ) {
+					$old_val                       = isset( $poll_answers_weight[ $u_ans ] ) ? intval( $poll_answers_weight[ $u_ans ] ) : 0;
+					$poll_answers_weight[ $u_ans ] = ( $old_val + 1 );
+				}
+			} else {
+				$user_ans                         = intval( $user_ans );
+				$old_val                          = isset( $poll_answers_weight[ $user_ans ] ) ? intval( $poll_answers_weight[ $user_ans ] ) : 0;
+				$poll_answers_weight[ $user_ans ] = ( $old_val + 1 );
+			}
+		}
+
+		$poll_result['answers_weight'] = $poll_answers_weight;
+
+		// ready mix :)
+		$poll_weighted_index  = array();
+		$poll_weighted_labels = array();
+
+		foreach ( $poll_answers as $index => $answer_title ) {
+			// $poll_weighted_labels[ $answer ] = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+			$poll_weighted_index[ $index ]         = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+			$poll_weighted_labels[ $answer_title ] = isset( $poll_answers_weight[ $index ] ) ? $poll_answers_weight[ $index ] : 0;
+		}
+
+		$poll_result['weighted_index'] = $poll_weighted_index;
+		$poll_result['weighted_label'] = $poll_weighted_labels;
+
+		ob_start();
+
+		do_action( 'wbpoll_answer_html_before', $poll_id, $reference, $poll_result );
+		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . $reference . ' wbpoll_' . $result_chart_type . '_result_wrap wbpoll_' . $result_chart_type . '_result_wrap_' . $poll_id . ' wbpoll_result_wrap_' . $reference . '_' . $poll_id . ' ">';
+
+		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
+
+		$poll_display_methods = self::wbpoll_display_options_widget_result();
 		$poll_display_method  = $poll_display_methods[ $result_chart_type ];
 
 		$method = $poll_display_method['method'];

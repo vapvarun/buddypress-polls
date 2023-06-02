@@ -129,7 +129,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/bp-poll-activity-graph.php';
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-bp-poll-activity-graph.php';
-
+			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/inc/class-wb-poll-report-graph.php';
 			/* Enqueue wbcom plugin folder file. */
 			require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/wbcom/wbcom-admin-settings.php';
 
@@ -193,6 +193,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
 			$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );
 			$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
+			$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
 
 			// add meta box and hook save meta box
 			$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'metaboxes_display' );
