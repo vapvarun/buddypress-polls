@@ -42,15 +42,10 @@ class Wb_Poll_Report extends WP_Widget {
 			'type'   => 'activity_poll',
 		);
 
-		if ( bp_has_activities( $act_args ) ) {
-			$act_default = $activities_template->activities[0]->id;
-		} else {
-			$act_default = '';
-		}
 
 		$defaults = array(
 			'title'            => __( 'WB Poll Report', 'buddypress-polls' ),
-			'wb_activity_default' => $act_default,
+			'wb_activity_default' => '',
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
@@ -63,7 +58,8 @@ class Wb_Poll_Report extends WP_Widget {
 		<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress' ); ?></label>
 				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>">
-					<?php
+                <option value="" <?php selected( $wb_activity_default, '' ); ?>>Select poll</option>
+                    <?php
 
                     $args = array(
                         'post_type' => 'wbpoll', // Replace 'your_post_type' with the desired post type
