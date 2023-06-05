@@ -293,6 +293,9 @@
 .main-poll-create .wbpolls-create .wbpoll-answer-options th {
     vertical-align: inherit;
 }
+.remove a.add-field.extra-fields-text {
+    display: none;
+}
 
 @media screen and (max-width: 767px) {
     .main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview {

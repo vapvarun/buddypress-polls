@@ -140,30 +140,35 @@ jQuery( document ).ready(function() {
 });
 
 jQuery( document ).ready(function ($) {
+	
+	//text additional field
+
 	$('#text_field').on('click', function(){
 		$('#type_text').show();
 	});
 
-	$('.extra-fields-text').click(function (e) {
-		e.preventDefault();
-		$('.text_records').clone().appendTo('.text_records_dynamic');
-		$('.text_records_dynamic .text_records').addClass('single remove');
-		$('.text_records_dynamic .extra-fields-text').remove();
-		$('.single').append('<a href="#" class="remove-field btn-remove-text">Remove Fields</a>');
-		$('.text_records_dynamic > .single').attr("class", "remove");
-	
-		$('.text_records_dynamic input').each(function () {
-			var count = 0;
-			var fieldname = $(this).attr("name");
-			$(this).attr('name', fieldname);
-			count++;
-		});
-	
+	//image additional field
+
+	$('#image_field').on('click', function(){
+		$('#type_image').show();
 	});
 
-	$(document).on('click', '.remove-field', function (e) {
-		$(this).parent('.remove').remove();
-		e.preventDefault();
+	//video additional field
+
+	$('#video_field').on('click', function(){
+		$('#type_video').show();
+	});
+
+	//audio additional field
+
+	$('#audio_field').on('click', function(){
+		$('#type_audio').show();
+	});
+
+	//html additional field
+
+	$('#html_field').on('click', function(){
+		$('#type_html').show();
 	});
 
 	$('#post_text_field').on('click', function (event) {
@@ -174,6 +179,26 @@ jQuery( document ).ready(function ($) {
 		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
 			return $(this).val();
 		}).get();
+
+		const full_size_image_answer = jQuery('[name="_wbpoll_full_size_image_answer[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const video_answer_url = jQuery('[name="_wbpoll_video_answer_url[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const audio_answer_url = jQuery('[name="_wbpoll_audio_answer_url[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const html_answer = jQuery('[name="_wbpoll_html_answer[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const video_import_info = jQuery('input[name="_wbpoll_video_import_info[]"]:checked').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const audio_import_info = jQuery('input[name="_wbpoll_audio_import_info[]"]:checked').map(function() {
+			return jQuery(this).val();
+		  }).get();
+
 		const post_id = $('#post_id').val();
 	
 		$.ajax({
@@ -184,6 +209,12 @@ jQuery( document ).ready(function ($) {
 				action: 'wbpoll_additional_field',
 				_wbpoll_answer: answer,
 				_wbpoll_answer_extra: answertype,
+				_wbpoll_full_size_image_answer: full_size_image_answer,
+				_wbpoll_video_answer_url: video_answer_url,
+				_wbpoll_audio_answer_url: audio_answer_url,
+				_wbpoll_video_import_info: video_import_info,
+				_wbpoll_audio_import_info: audio_import_info,
+				_wbpoll_html_answer: html_answer,
 				post_id: post_id,
 			},
 			success: function (response) {
@@ -192,29 +223,145 @@ jQuery( document ).ready(function ($) {
 		});
 	});
 
-//image additional field
+	$('#post_image_field').on('click', function (event) {
+		event.preventDefault();
+		const answer = $('[name="_wbpoll_answer[]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
+			return $(this).val();
+		}).get();
 
-$('#image_field').on('click', function(){
-	$('#type_image').show();
-});
+		const full_size_image_answer = jQuery('[name="_wbpoll_full_size_image_answer[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		
 
-//video additional field
+		const post_id = $('#post_id').val();
+	
+		$.ajax({
+			url: wbpollpublic.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'wbpoll_additional_field_image',
+				_wbpoll_answer: answer,
+				_wbpoll_answer_extra: answertype,
+				_wbpoll_full_size_image_answer: full_size_image_answer,
+				post_id: post_id,
+			},
+			success: function (response) {
+					location.reload();	
+			},
+		});
+	});
+	
+	$('#post_video_field').on('click', function (event) {
+		event.preventDefault();
+		const answer = $('[name="_wbpoll_answer[]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
+			return $(this).val();
+		}).get();
 
-$('#video_field').on('click', function(){
-	$('#type_video').show();
-});
+		const video_answer_url = jQuery('[name="_wbpoll_video_answer_url[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const video_import_info = jQuery('input[name="_wbpoll_video_import_info[]"]:checked').map(function () {
+			return jQuery(this).val();
+		}).get();
+		
 
-//audio additional field
+		const post_id = $('#post_id').val();
+	
+		$.ajax({
+			url: wbpollpublic.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'wbpoll_additional_field_video',
+				_wbpoll_answer: answer,
+				_wbpoll_answer_extra: answertype,
+				_wbpoll_video_answer_url: video_answer_url,
+				_wbpoll_video_import_info:video_import_info,
+				post_id: post_id,
+			},
+			success: function (response) {
+					location.reload();	
+			},
+		});
+	});
+	
+	$('#post_audio_field').on('click', function (event) {
+		event.preventDefault();
+		const answer = $('[name="_wbpoll_answer[]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
+			return $(this).val();
+		}).get();
 
-$('#audio_field').on('click', function(){
-	$('#type_audio').show();
-});
+		const audio_answer_url = jQuery('[name="_wbpoll_audio_answer_url[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
+		const audio_import_info = jQuery('input[name="_wbpoll_audio_import_info[]"]:checked').map(function() {
+			return jQuery(this).val();
+		  }).get();
 
-//html additional field
+		const post_id = $('#post_id').val();
+	
+		$.ajax({
+			url: wbpollpublic.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'wbpoll_additional_field_audio',
+				_wbpoll_answer: answer,
+				_wbpoll_answer_extra: answertype,
+				_wbpoll_audio_answer_url: audio_answer_url,
+				_wbpoll_audio_import_info: audio_import_info,
+				post_id: post_id,
+			},
+			success: function (response) {
+					location.reload();	
+			},
+		});
+	});
+	
+	
+	$('#post_html_field').on('click', function (event) {
+		event.preventDefault();
+		const answer = $('[name="_wbpoll_answer[]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
+			return $(this).val();
+		}).get();
+		const html_answer = jQuery('[name="_wbpoll_html_answer[]"]').map(function () {
+			return jQuery(this).val();
+		}).get();
 
-$('#html_field').on('click', function(){
-	$('#type_html').show();
-});
+		const post_id = $('#post_id').val();
+	
+		$.ajax({
+			url: wbpollpublic.ajaxurl,
+			type: 'POST',
+			dataType: 'json',
+			data: {
+				action: 'wbpoll_additional_field_html',
+				_wbpoll_answer: answer,
+				_wbpoll_answer_extra: answertype,
+				_wbpoll_html_answer: html_answer,
+				post_id: post_id,
+			},
+			success: function (response) {
+					location.reload();	
+			},
+		});
+	});
+
+
 });
 
 

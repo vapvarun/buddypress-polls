@@ -89,7 +89,7 @@ jQuery('.extra-fields-text').click(function (e) {
     e.preventDefault();
     jQuery('.text_records').clone().appendTo('.text_records_dynamic');
     jQuery('.text_records_dynamic .text_records').addClass('single remove');
-    jQuery('.single .extra-fields-text').remove();
+    jQuery('.html_records_dynamic .extra-fields-text').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-text">Remove Fields</a>');
     jQuery('.text_records_dynamic > .single').attr("class", "remove");
 
@@ -105,7 +105,7 @@ jQuery('.extra-fields-text').click(function (e) {
 jQuery('.extra-fields-image').click(function () {
     jQuery('.image_records').clone().appendTo('.image_records_dynamic');
     jQuery('.image_records_dynamic .image_records').addClass('single remove');
-    jQuery('.single .extra-fields-image').remove();
+    jQuery('.remove .extra-fields-image').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-image">Remove Fields</a>');
     jQuery('.image_records_dynamic > .single').attr("class", "remove");
 
@@ -174,7 +174,7 @@ jQuery('.extra-fields-image').click(function () {
 jQuery('.extra-fields-video').click(function () {
     jQuery('.video_records').clone().appendTo('.video_records_dynamic');
     jQuery('.video_records_dynamic .video_records').addClass('single remove');
-    jQuery('.single .extra-fields-video').remove();
+    jQuery('.remove .extra-fields-video').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-video">Remove Fields</a>');
     jQuery('.video_records_dynamic > .single').attr("class", "remove");
 
@@ -271,7 +271,7 @@ jQuery('.extra-fields-video').click(function () {
 jQuery('.extra-fields-audio').click(function () {
     jQuery('.audio_records').clone().appendTo('.audio_records_dynamic');
     jQuery('.audio_records_dynamic .audio_records').addClass('single remove');
-    jQuery('.single .extra-fields-audio').remove();
+    jQuery('.remove .extra-fields-audio').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
     jQuery('.audio_records_dynamic > .single').attr("class", "remove");
 
@@ -369,7 +369,7 @@ jQuery('.extra-fields-audio').click(function () {
 jQuery('.extra-fields-html').click(function () {
     jQuery('.html_records').clone().appendTo('.html_records_dynamic');
     jQuery('.html_records_dynamic .html_records').addClass('single remove');
-    jQuery('.single .extra-fields-html').remove();
+    jQuery('.remove .extra-fields-html').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-html">Remove Fields</a>');
     jQuery('.html_records_dynamic > .single').attr("class", "remove");
 
