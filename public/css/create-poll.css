@@ -27,7 +27,7 @@
     padding: 10px;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap {
+.wbpolls-answer-wrap {
     display: -ms-flexbox;
     display: -webkit-box;
     display: flex;
@@ -37,7 +37,7 @@
     margin: 15px 0;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .wbpoll-list-item {
+.wbpolls-answer-wrap .wbpoll-list-item {
     width: 100%;
     margin: 0;
     padding: 0 20px;
@@ -45,8 +45,8 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-.main-poll-create .wbpolls-create .ans-records,
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove {
+.wbpolls-answer-wrap .ans-records,
+.wbpolls-answer-wrap .remove {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -58,15 +58,18 @@
     justify-content: space-between;
     gap: 20px;
     margin: 20px 0;
-
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove {
+.wbpolls-answer-wrap .remove {
     padding-top: 20px;
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .add-field {
+.wbpolls-answer-wrap .remove .add-field {
+    display: none;
+}
+
+.wbpolls-answer-wrap .add-field {
     -webkit-appearance: none;
     background-image: url(../images/plus.svg) !important;
     background-color: rgba(26, 116, 229, 0.21) !important;
@@ -82,11 +85,11 @@
     border: 0 !important;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .add-field:hover {
+.wbpolls-answer-wrap .add-field:hover {
     background-color: rgba(26, 116, 229, 0.32) !important;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove-field {
+.wbpolls-answer-wrap .remove-field {
     background-image: url(../images/cross.svg) !important;
     background-color: rgb(240, 242, 244) !important;
     background-repeat: no-repeat !important;
@@ -100,11 +103,11 @@
     border: 0 !important;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap .remove-field:hover {
+.wbpolls-answer-wrap .remove-field:hover {
     background-color: rgba(255, 0, 0, 0.12) !important;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap {
+.wbpolls-answer-wrap .ans-records-wrap {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
@@ -115,22 +118,22 @@
     flex-flow: wrap;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap label {
+.wbpolls-answer-wrap .ans-records-wrap label {
     font-size: 15px;
     display: block;
     margin: 0 0 5px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap input {
+.wbpolls-answer-wrap .ans-records-wrap input {
     width: 100%;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap textarea {
+.wbpolls-answer-wrap .ans-records-wrap textarea {
     min-height: 80px;
     padding: 10px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-preview {
     width: 200px;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -151,7 +154,7 @@
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview:before {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-preview:before {
     content: "Preview";
     position: absolute;
     margin: auto;
@@ -160,38 +163,38 @@
     font-size: 13px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview-thumbnail {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-preview-thumbnail {
     z-index: 1;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-preview-thumbnail img {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-preview-thumbnail img {
     width: 100%;
     height: 100%;
     max-height: 210px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details {
     -webkit-box-flex: 1;
     -ms-flex: 1;
     flex: 1;
     margin-left: 15px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details::after {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details::after {
     content: "";
     display: table;
     clear: both;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_image_answer_url,
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_video_answer_url,
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .wbpoll_audio_answer_url {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details .wbpoll_image_answer_url,
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details .wbpoll_video_answer_url,
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details .wbpoll_audio_answer_url {
     width: -webkit-calc(100% - 50px);
     width: calc(100% - 50px);
     float: left;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details .bpolls-attach {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details .bpolls-attach {
     margin: 0 0 0 10px !important;
     padding: 0;
     width: 36px;
@@ -202,7 +205,7 @@
     float: right;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-input-group-suggestions {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
@@ -213,38 +216,38 @@
     margin-top: 0.5rem;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions span {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-input-group-suggestions span {
     font-size: 13px;
     color: #bbb;
     margin-right: 10px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions label {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-input-group-suggestions label {
     margin-bottom: 0;
     margin-right: 10px;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-input-group-suggestions input {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-input-group-suggestions input {
     width: auto;
     margin: 0 3px 0 0;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap audio,
-.main-poll-create .wbpolls-create .ans-records-wrap video {
+.wbpolls-answer-wrap .ans-records-wrap audio,
+.wbpolls-answer-wrap .ans-records-wrap video {
     display: inline-block;
     max-width: 100%;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap iframe {
+.wbpolls-answer-wrap .ans-records-wrap iframe {
     width: 100%;
     height: 100%;
 }
 
-.main-poll-create .wbpolls-create .ans-records-wrap .wbpoll-image-input-details input[type=text] {
+.wbpolls-answer-wrap .ans-records-wrap .wbpoll-image-input-details input[type=text] {
     margin: 0 0 15px;
 }
 
-.main-poll-create .wbpolls-create .wbpolls-answer-wrap #type_html input[type=text] {
+.wbpolls-answer-wrap #type_html input[type=text] {
     margin: 0 0 20px;
 }
 
@@ -292,6 +295,39 @@
 
 .main-poll-create .wbpolls-create .wbpoll-answer-options th {
     vertical-align: inherit;
+}
+
+.wbpoll-form .wbpolls-add-option-button,
+.wbpoll-form .wbpolls-remove-option-button {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    font-style: normal;
+    text-align: center;
+    margin: 0;
+    padding: 7px 20px;
+    color: #4caf50 !important;
+    text-decoration: none;
+    border-radius: 4px !important;
+    background: #fff;
+    border: 2px solid #4caf50 !important;
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+.wbpoll-form .wbpolls-add-option-button {
+    margin: 15px 0 0;
+}
+
+.wbpoll-form .wbpolls-add-option-button:hover,
+.wbpoll-form .wbpolls-add-option-button:focus,
+.wbpoll-form .wbpolls-remove-option-button:hover,
+.wbpoll-form .wbpolls-remove-option-button:focus {
+    box-shadow: 0 0.5em 0.5em -0.4em #3a3a3a !important;
+    -webkit-transform: translateY(-0.1em);
+    -ms-transform: translateY(-0.1em);
+    transform: translateY(-0.1em);
 }
 
 @media screen and (max-width: 767px) {

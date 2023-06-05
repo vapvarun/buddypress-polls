@@ -242,11 +242,12 @@ class Buddypress_Polls_Public {
 			wp_enqueue_media();
 			// Date picker CSS call.
 			wp_enqueue_style( $this->plugin_name . '-time' );
-			wp_enqueue_style( 'wbpolls-create-poll' );
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}
 		}
+
+		wp_enqueue_style( 'wbpolls-create-poll' );
 
 	}
 

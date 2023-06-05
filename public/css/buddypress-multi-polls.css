@@ -114,7 +114,8 @@
 /*--------------------------------------------------------------
 # Info Message
 --------------------------------------------------------------*/
-.wbpoll-voted-info {
+.wbpoll-voted-info,
+.wbpoll-qresponse-info {
     margin: 10px 0;
     padding: 16px;
     background: #4d90fd;
@@ -133,7 +134,8 @@
     border-radius: 8px;
 }
 
-.wbpoll-voted-info.wbpoll-alert {
+.wbpoll-voted-info.wbpoll-alert,
+.wbpoll-qresponse-alert {
     margin: 10px 0;
     padding: 16px;
     background: #fc9700;
@@ -155,7 +157,8 @@
 .wbpoll-qresponse-success p,
 .wbpoll-voted-info p,
 .wbpoll-qresponse-error p,
-.wbpoll-voted-info.wbpoll-error p {
+.wbpoll-voted-info.wbpoll-error p,
+.wbpoll-qresponse-alert p {
     margin: 0;
 }
 

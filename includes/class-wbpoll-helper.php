@@ -1435,12 +1435,12 @@ class WBPollHelper {
 			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 		}
 		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
-		if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) && $add_additional_fields == 1){
+        if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) && $add_additional_fields == 1){
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
 			if(!empty($poll_type) && isset($poll_type)){
 					if($poll_type == 'default'){
-						$poll_form_html .= "<div class='btn btn-primary button text_field' id='text_field'> ".esc_html('Add addition text field') ."</div>";
-						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_text" style="display:none;">
+						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button text_field' id='text_field'> ".esc_html('Add Option') ."</div>";
+						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_text" style="display:none;">
 							<div class="ans-records text_records">
 							<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 								<div class="ans-records-wrap">
@@ -1450,12 +1450,12 @@ class WBPollHelper {
 								</div>
 								<a class="add-field extra-fields-text" href="#">'.esc_html('Add More').'</a>
 							</div>
-							<div class="text_records_dynamic"></div>
-							<div class="btn btn-primary button post_text_field" id="post_text_field">'.esc_html('Post Add addition text').'</div>
+							<div class="text_records_dynamic"></div></div>
+							<div class="btn btn-primary button wbpolls-remove-option-button post_text_field" id="post_text_field">'.esc_html('Post Option').'</div>
 						</div>';
 					}else if($poll_type == 'image'){
-						$poll_form_html .= "<div class='btn btn-primary button image_field' id='image_field'> ".esc_html('Add addition Image field')."</div>";
-						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_image" style="display:none;">
+						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button image_field' id='image_field'> ".esc_html('Add Option')."</div>";
+						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_image" style="display:none;">
 						<div class="ans-records image_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 							<div class="ans-records-wrap">
@@ -1474,12 +1474,12 @@ class WBPollHelper {
 							</div>
 							<a class="add-field extra-fields-image" href="#">'.esc_html('Add More').'</a>
 						</div>
-						<div class="image_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_image_field"> Post Add addition Image</div>
+						<div class="image_records_dynamic"></div></div>
+						<div class="btn btn-primary button wbpolls-remove-option-button post_text_field" id="post_image_field">'.esc_html('Post Option').'</div>
 					</div>';
 					}else if($poll_type == 'video'){
-						$poll_form_html .= "<div class='btn btn-primary button video_field' id='video_field'> ".esc_html('Add addition Video field')."</div>";
-						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_video" style="display:none;">
+						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button video_field' id='video_field'> ".esc_html('Add Option')."</div>";
+						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_video" style="display:none;">
 						<div class="ans-records video_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 							<div class="ans-records-wrap">
@@ -1505,12 +1505,12 @@ class WBPollHelper {
 							</div>
 							<a class="add-field extra-fields-video" href="#">'.esc_html('Add More').'</a>
 						</div>
-						<div class="video_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_video_field">'.esc_html('Post Add addition Video').'</div>
+						<div class="video_records_dynamic"></div></div>
+						<div class="btn btn-primary button wbpolls-remove-option-button post_text_field" id="post_video_field">'.esc_html('Post Option').'</div>
 					</div>';
 					}else if($poll_type == 'audio'){
-						$poll_form_html .= "<div class='btn btn-primary button audio_field' id='audio_field'> ".esc_html('Add addition Audio field')."</div>";
-						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_audio" style="display:none;">
+						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button audio_field' id='audio_field'> ".esc_html('Add Option')."</div>";
+						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_audio" style="display:none;">
 						<div class="ans-records audio_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 							<div class="ans-records-wrap">
@@ -1534,12 +1534,12 @@ class WBPollHelper {
 							</div>
 							<a class="add-field extra-fields-audio" href="#">Add More</a>
 						</div>
-						<div class="audio_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_audio_field">'.esc_html('Post Add addition Audio').'</div>
+						<div class="audio_records_dynamic"></div></div>
+						<div class="btn btn-primary button wbpolls-remove-option-button post_text_field" id="post_audio_field">'.esc_html('Post Option').'</div>
 					</div>';
 					}else if($poll_type == 'html'){
-						$poll_form_html .= "<div class='btn btn-primary button html_field' id='html_field'> ".esc_html('Add addition HTML field')."</div>";
-						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_html" style="display:none;">
+						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button html_field' id='html_field'> ".esc_html('Add Option')."</div>";
+						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_html" style="display:none;">
 						<div class="ans-records html_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 							<div class="ans-records-wrap">								
@@ -1551,8 +1551,8 @@ class WBPollHelper {
 							</div>
 							<a class="add-field extra-fields-html" href="#">'.esc_html('Add More').'</a>
 						</div>
-						<div class="html_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_html_field">'.esc_html('Post Add addition HTML').'</div>
+						<div class="html_records_dynamic"></div></div>
+						<div class="btn btn-primary button wbpolls-remove-option-button post_text_field" id="post_html_field">'.esc_html('Post Option').'</div>
 					</div>';
 					}
 			}			
