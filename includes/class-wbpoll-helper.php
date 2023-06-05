@@ -1438,22 +1438,22 @@ class WBPollHelper {
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
 			if(!empty($poll_type) && isset($poll_type)){
 					if($poll_type == 'default'){
-						$poll_form_html .= "<div class='btn btn-primary button text_field' id='text_field'> Add addition text field</div>";
+						$poll_form_html .= "<div class='btn btn-primary button text_field' id='text_field'> ".esc_html('Add addition text field') ."</div>";
 						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_text" style="display:none;">
 							<div class="ans-records text_records">
 							<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 								<div class="ans-records-wrap">
-									<label>Text Answer</label>
+									<label>'.esc_html('Text Answer').'</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]"> 
 								</div>
-								<a class="add-field extra-fields-text" href="#">Add More</a>
+								<a class="add-field extra-fields-text" href="#">'.esc_html('Add More').'</a>
 							</div>
 							<div class="text_records_dynamic"></div>
-							<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+							<div class="btn btn-primary button post_text_field" id="post_text_field">'.esc_html('Post Add addition text').'</div>
 						</div>';
 					}else if($poll_type == 'image'){
-						$poll_form_html .= "<div class='btn btn-primary button image_field' id='image_field'> Add addition Image field</div>";
+						$poll_form_html .= "<div class='btn btn-primary button image_field' id='image_field'> ".esc_html('Add addition Image field')."</div>";
 						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_image" style="display:none;">
 						<div class="ans-records image_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
@@ -1463,21 +1463,21 @@ class WBPollHelper {
 									</div>
 								</div>
 								<div class="wbpoll-image-input-details">
-									<label>Image Answer</label>
+									<label>'.esc_html('Image Answer').'</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer"  type="text" value="">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
-									<label>Image URL</label>
+									<label>'.esc_html('Image URL').'</label>
 									<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url"  type="url" value="">
 									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 								</div>
 							</div>
-							<a class="add-field extra-fields-image" href="#">Add More</a>
+							<a class="add-field extra-fields-image" href="#">'.esc_html('Add More').'</a>
 						</div>
 						<div class="image_records_dynamic"></div>
 						<div class="btn btn-primary button post_text_field" id="post_image_field"> Post Add addition Image</div>
 					</div>';
 					}else if($poll_type == 'video'){
-						$poll_form_html .= "<div class='btn btn-primary button video_field' id='video_field'> Add addition Video field</div>";
+						$poll_form_html .= "<div class='btn btn-primary button video_field' id='video_field'> ".esc_html('Add addition Video field')."</div>";
 						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_video" style="display:none;">
 						<div class="ans-records video_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
@@ -1487,28 +1487,28 @@ class WBPollHelper {
 									</div>
 								</div>
 								<div class="wbpoll-image-input-details">
-									<label>Video Answer</label>
+									<label>'.esc_html('Video Answer').'</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
-									<label>Video URL</label>
+									<label>'.esc_html('Video URL').'</label>
 									<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url"  type="url" value="">
 									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 									<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
-										<span>Import information from ?</span> 
+										<span>'.esc_html('Import information from ?').'</span> 
 										<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes">
-										<label for="yes">Yes</label>
+										<label for="yes">'.esc_html('Yes').'</label>
 										<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no">
-										<label for="no">No</label>
+										<label for="no">'.esc_html('No').'</label>
 									</div>
 								</div>
 							</div>
-							<a class="add-field extra-fields-video" href="#">Add More</a>
+							<a class="add-field extra-fields-video" href="#">'.esc_html('Add More').'</a>
 						</div>
 						<div class="video_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_video_field"> Post Add addition Video</div>
+						<div class="btn btn-primary button post_text_field" id="post_video_field">'.esc_html('Post Add addition Video').'</div>
 					</div>';
 					}else if($poll_type == 'audio'){
-						$poll_form_html .= "<div class='btn btn-primary button audio_field' id='audio_field'> Add addition Audio field</div>";
+						$poll_form_html .= "<div class='btn btn-primary button audio_field' id='audio_field'> ".esc_html('Add addition Audio field')."</div>";
 						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_audio" style="display:none;">
 						<div class="ans-records audio_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
@@ -1518,40 +1518,40 @@ class WBPollHelper {
 									</div>
 								</div>
 								<div class="wbpoll-image-input-details">
-									<label>Audio Answer</label>
+									<label>'.esc_html('Audio Answer').'</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
-									<label>Audio URL</label>
+									<label>'.esc_html('Audio URL').'</label>
 									<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
 									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
-									<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
+									<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>'.esc_html('Import information from ?').'</span>
 									<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes">
-									<label for="yes">Yes</label>
+									<label for="yes">'.esc_html('Yes').'</label>
 									<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no">
-									<label for="no">No</label><br></div>
+									<label for="no">'.esc_html('No').'</label><br></div>
 								</div>
 							</div>
 							<a class="add-field extra-fields-audio" href="#">Add More</a>
 						</div>
 						<div class="audio_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_audio_field"> Post Add addition Audio</div>
+						<div class="btn btn-primary button post_text_field" id="post_audio_field">'.esc_html('Post Add addition Audio').'</div>
 					</div>';
 					}else if($poll_type == 'html'){
-						$poll_form_html .= "<div class='btn btn-primary button html_field' id='html_field'> Add addition HTML field</div>";
+						$poll_form_html .= "<div class='btn btn-primary button html_field' id='html_field'> ".esc_html('Add addition HTML field')."</div>";
 						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_html" style="display:none;">
 						<div class="ans-records html_records">
 						<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">
 							<div class="ans-records-wrap">								
-								<label>HTML Answer</label>
+								<label>'.esc_html('HTML Answer').'</label>
 								<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
-								<label>HTML Content</label>
+								<label>'.esc_html('HTML Content').'</label>
 								<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea"></textarea>
 								<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 							</div>
-							<a class="add-field extra-fields-html" href="#">Add More</a>
+							<a class="add-field extra-fields-html" href="#">'.esc_html('Add More').'</a>
 						</div>
 						<div class="html_records_dynamic"></div>
-						<div class="btn btn-primary button post_text_field" id="post_html_field"> Post Add addition HTML</div>
+						<div class="btn btn-primary button post_text_field" id="post_html_field">'.esc_html('Post Add addition HTML').'</div>
 					</div>';
 					}
 			}			
