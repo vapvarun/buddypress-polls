@@ -191,6 +191,30 @@ jQuery( document ).ready(function ($) {
 			},
 		});
 	});
+
+//image additional field
+
+$('#image_field').on('click', function(){
+	$('#type_image').show();
+});
+
+//video additional field
+
+$('#video_field').on('click', function(){
+	$('#type_video').show();
+});
+
+//audio additional field
+
+$('#audio_field').on('click', function(){
+	$('#type_audio').show();
+});
+
+//html additional field
+
+$('#html_field').on('click', function(){
+	$('#type_html').show();
+});
 });
 
 

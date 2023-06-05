@@ -1432,7 +1432,7 @@ class WBPollHelper {
 		$poll_form_html = apply_filters( 'wbpoll_form_html_after_question', $poll_form_html, $post_id );
 		$option_value = get_option('wbpolls_settings');
         if(!empty($option_value)){
-			$wbpolls_user_add_extra_op = $option_value['wbpolls_user_add_extra_op'];
+			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 		}
 		if($wbpolls_user_add_extra_op == 'yes'){
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
@@ -1452,6 +1452,103 @@ class WBPollHelper {
 							<div class="text_records_dynamic"></div>
 							<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
 						</div>';
+					}else if($poll_type == 'image'){
+						$poll_form_html .= "<div class='btn btn-primary button image_field' id='image_field'> Add addition Image field</div>";
+						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_image" style="display:none;">
+						<div class="ans-records image_records">
+							<div class="ans-records-wrap">
+								<div class="wbpoll-image-input-preview">
+									<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail">
+									</div>
+								</div>
+								<div class="wbpoll-image-input-details">
+									<label><?php esc_html_e( "Image Answer", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_answer[]" id="wbpoll_answer"  type="text" value="">
+									<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
+									<label><?php esc_html_e( "Image URL", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url"  type="url" value="">
+									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
+								</div>
+							</div>
+							<a class="add-field extra-fields-image" href="#"><?php esc_html_e( "Add More", "buddypress-polls" ); ?></a>
+						</div>
+						<div class="image_records_dynamic"></div>
+						<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+					</div>';
+					}else if($poll_type == 'video'){
+						$poll_form_html .= "<div class='btn btn-primary button video_field' id='video_field'> Add addition Video field</div>";
+						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_video" style="display:none;">
+						<div class="ans-records video_records">
+							<div class="ans-records-wrap">
+								<div class="wbpoll-image-input-preview">
+									<div class="wbpoll-image-input-preview-thumbnail">
+									</div>
+								</div>
+								<div class="wbpoll-image-input-details">
+									<label><?php esc_html_e( "Video Answer", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="">
+									<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
+									<label><?php esc_html_e( "Video URL", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url"  type="url" value="">
+									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
+									<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
+										<span><?php esc_html_e( "Import information from ?", "buddypress-polls" ); ?></span> 
+										<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes">
+										<label for="yes"><?php esc_html_e( "Yes", "buddypress-polls" ); ?></label>
+										<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no">
+										<label for="no"><?php esc_html_e( "No", "buddypress-polls" ); ?></label>
+									</div>
+								</div>
+							</div>
+							<a class="add-field extra-fields-video" href="#"><?php esc_html_e( "Add More", "buddypress-polls" ); ?></a>
+						</div>
+						<div class="video_records_dynamic"></div>
+						<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+					</div>';
+					}else if($poll_type == 'audio'){
+						$poll_form_html .= "<div class='btn btn-primary button audio_field' id='audio_field'> Add addition Audio field</div>";
+						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_audio" style="display:none;">
+						<div class="ans-records audio_records">
+							<div class="ans-records-wrap">
+								<div class="wbpoll-image-input-preview">
+									<div class="wbpoll-image-input-preview-thumbnail">
+									</div>
+								</div>
+								<div class="wbpoll-image-input-details">
+									<label><?php esc_html_e( "Audio Answer", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="">
+									<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
+									<label><?php esc_html_e( "Audio URL", "buddypress-polls" ); ?></label>
+									<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="">
+									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
+									<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( "Import information from ?", "buddypress-polls" ); ?></span>
+									<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes">
+									<label for="yes"><?php esc_html_e( "Yes", "buddypress-polls" ); ?></label>
+									<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no">
+									<label for="no"><?php esc_html_e( "No", "buddypress-polls" ); ?></label><br></div>
+								</div>
+							</div>
+							<a class="add-field extra-fields-audio" href="#"><?php esc_html_e( "Add More", "buddypress-polls" ); ?></a>
+						</div>
+						<div class="audio_records_dynamic"></div>
+						<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+					</div>';
+					}else if($poll_type == 'html'){
+						$poll_form_html .= "<div class='btn btn-primary button html_field' id='html_field'> Add addition HTML field</div>";
+						$poll_form_html .= '<div class="row wbpoll-list-item" id="type_html" style="display:none;">
+						<div class="ans-records html_records">
+							<div class="ans-records-wrap">								
+								<label><?php esc_html_e( "HTML Answer", "buddypress-polls" ); ?></label>
+								<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" value="">
+								<label><?php esc_html_e( "HTML Content", "buddypress-polls" ); ?></label>
+								<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea"></textarea>
+								<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
+							</div>
+							<a class="add-field extra-fields-html" href="#"><?php esc_html_e( "Add More", "buddypress-polls" ); ?></a>
+						</div>
+						<div class="html_records_dynamic"></div>
+						<div class="btn btn-primary button post_text_field" id="post_text_field"> Post Add addition text</div>
+					</div>';
 					}
 			}			
 		}
