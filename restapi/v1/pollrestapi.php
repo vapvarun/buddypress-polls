@@ -318,6 +318,13 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'multivote' );
         }
 
+         //add additional fields meta
+         if ( isset( $parameters[ $prefix . 'add_additional_fields' ] ) ) {
+            $multivote = $parameters[ $prefix . 'add_additional_fields' ];
+            update_post_meta( $post_id, $prefix . 'add_additional_fields', $multivote );
+        } else {
+            delete_post_meta( $post_id, $prefix . 'add_additional_fields' );
+        }
         // vote per session meta
         if ( isset( $parameters[ $prefix . 'vote_per_session' ] ) ) {
             $vote_per_session = $parameters[ $prefix . 'vote_per_session' ];

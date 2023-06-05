@@ -658,6 +658,7 @@ jQuery('#wbpolls-create').submit(function (event) {
     const _wbpoll_show_result_before_expire = jQuery('input[name="_wbpoll_show_result_before_expire"]:checked').val();
     const _wbpoll_multivote = jQuery('input[name="_wbpoll_multivote"]:checked').val();
     const _wbpoll_vote_per_session = jQuery('#_wbpoll_vote_per_session-number').val();
+    const _wbpoll_add_additional_fields = jQuery('input[name="_wbpoll_add_additional_fields"]:checked').val();
 
     const data = {
         author_id: author_id,
@@ -680,6 +681,7 @@ jQuery('#wbpolls-create').submit(function (event) {
         _wbpoll_show_result_before_expire: _wbpoll_show_result_before_expire,
         _wbpoll_multivote: _wbpoll_multivote,
         _wbpoll_vote_per_session: _wbpoll_vote_per_session,
+        _wbpoll_add_additional_fields:_wbpoll_add_additional_fields,
     };
     var siteUrl = window.location.origin;
     jQuery.ajax({

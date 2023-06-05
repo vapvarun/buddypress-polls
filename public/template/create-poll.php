@@ -251,6 +251,30 @@
 								<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
+						<?php $option_value = get_option('wbpolls_settings');
+						if(!empty($option_value)){
+							$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
+						}
+						if($wbpolls_user_add_extra_op == 'yes'){ ?>
+						<tr>
+							<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional fields', 'buddypress-polls' ); ?></label></th>
+							<td>
+								<fieldset class="radio_fields">
+									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
+										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="1">
+										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
+									</label>
+									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
+										<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="0" checked="checked">
+										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
+									</label>
+								</fieldset>
+								<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
+							</td>
+						</tr>
+
+						<?php } ?>
 						<!-- <tr>
 							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per User', 'buddypress-polls' ); ?></label></th>
 							<td>--->
