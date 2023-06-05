@@ -1,4 +1,5 @@
-jQuery('#poll_type').on('change', function () {
+jQuery('#poll_type').on('change', function (e) {
+    e.preventDefault();
     var type = jQuery(this).val();
     if (type == 'default') {
         jQuery('#type_text').show();
@@ -102,7 +103,8 @@ jQuery('.extra-fields-text').click(function (e) {
 
 });
 
-jQuery('.extra-fields-image').click(function () {
+jQuery('.extra-fields-image').click(function(e) {
+    e.preventDefault();
     jQuery('.image_records').clone().appendTo('.image_records_dynamic');
     jQuery('.image_records_dynamic .image_records').addClass('single remove');
     jQuery('.remove .extra-fields-image').remove();
@@ -119,6 +121,7 @@ jQuery('.extra-fields-image').click(function () {
     jQuery('.wbpoll_image_answer_url').on(
         'keyup',
         function (e) {
+            e.preventDefault();
             var url = jQuery(this).val();
             var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
             jQuery(imagclass).html('<img width="266" height="266" src="' + url + '">');
@@ -171,7 +174,8 @@ jQuery('.extra-fields-image').click(function () {
 
 });
 
-jQuery('.extra-fields-video').click(function () {
+jQuery('.extra-fields-video').click(function(e) {
+    e.preventDefault();
     jQuery('.video_records').clone().appendTo('.video_records_dynamic');
     jQuery('.video_records_dynamic .video_records').addClass('single remove');
     jQuery('.remove .extra-fields-video').remove();
@@ -188,6 +192,7 @@ jQuery('.extra-fields-video').click(function () {
     jQuery('.wbpoll_video_answer_url').on(
         'keyup',
         function (e) {
+            e.preventDefault();
             var url = jQuery(this).val();
             var suggestion = jQuery(this).parent().find('.hide_suggestion');
             var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -268,7 +273,8 @@ jQuery('.extra-fields-video').click(function () {
 
 });
 
-jQuery('.extra-fields-audio').click(function () {
+jQuery('.extra-fields-audio').click(function(e) {
+    e.preventDefault();
     jQuery('.audio_records').clone().appendTo('.audio_records_dynamic');
     jQuery('.audio_records_dynamic .audio_records').addClass('single remove');
     jQuery('.remove .extra-fields-audio').remove();
@@ -285,6 +291,7 @@ jQuery('.extra-fields-audio').click(function () {
     jQuery('.wbpoll_audio_answer_url').on(
         'keyup',
         function (e) {
+            e.preventDefault();
             var url = jQuery(this).val();
             var suggestion = jQuery(this).parent().find('.hide_suggestion');
             var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -366,7 +373,8 @@ jQuery('.extra-fields-audio').click(function () {
 
 });
 
-jQuery('.extra-fields-html').click(function () {
+jQuery('.extra-fields-html').click(function(e) {
+    e.preventDefault();
     jQuery('.html_records').clone().appendTo('.html_records_dynamic');
     jQuery('.html_records_dynamic .html_records').addClass('single remove');
     jQuery('.remove .extra-fields-html').remove();
@@ -385,6 +393,7 @@ jQuery('.extra-fields-html').click(function () {
 jQuery('.wbpoll_image_answer_url').on(
     'keyup',
     function (e) {
+        e.preventDefault();
         var url = jQuery(this).val();
         var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
         jQuery(imagclass).html('<img width="266" height="266" src="' + url + '">');
@@ -394,6 +403,7 @@ jQuery('.wbpoll_image_answer_url').on(
 jQuery('.wbpoll_video_answer_url').on(
     'keyup',
     function (e) {
+        e.preventDefault();
         var url = jQuery(this).val();
         var suggestion = jQuery(this).parent().find('.hide_suggestion');
         var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
@@ -430,6 +440,7 @@ jQuery('.wbpoll_video_answer_url').on(
 jQuery('.wbpoll_audio_answer_url').on(
     'keyup',
     function (e) {
+        e.preventDefault();
         var url = jQuery(this).val();
         var suggestion = jQuery(this).parent().find('.hide_suggestion');
         var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
