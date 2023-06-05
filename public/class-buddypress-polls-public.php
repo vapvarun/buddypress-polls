@@ -135,6 +135,10 @@ class Buddypress_Polls_Public {
 		);
 		wp_enqueue_style( 'buddypress-multi-polls' );
 
+		// Loads dynamic inline color style.
+		$wbpolls_color_css = $this->wbpolls_load_color_palette();
+		wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
+
 		wp_register_style(
 			'wbpoll-ui-styles',
 			BPOLLS_PLUGIN_URL . 'admin/css/ui-lightness/jquery-ui.min.css',
@@ -3009,5 +3013,49 @@ class Buddypress_Polls_Public {
 
 	}
 
+	/**
+	 * Load color palette
+	 *
+	 * @since 6.9.2
+	 * @return string
+	 */
+	public function wbpolls_load_color_palette() {
 
+		$colors = array(
+			'primary_color'    => '--wbpoll-global-primary-color',
+		);
+
+		// Customizer colors.
+		$color_settings = get_option( 'wbpolls_settings' );
+
+        if( ! empty( $color_settings ) ) {
+			$wbpolls_background_color = isset( $color_settings['wbpolls_background_color'] ) ? $color_settings['wbpolls_background_color'] : '';
+		}
+
+		$primary_color = ( isset( $wbpolls_background_color['primary_color'] ) ) ? $wbpolls_background_color['primary_color'] : '#4caf50';
+
+		$admin_colors = array(
+			'--wbpoll-global-primary-color'     => $wbpolls_background_color,
+		);
+
+		$fallback_colors = array(
+			'primary_color'    => '#4caf50',
+		);
+
+		$color_string = '';
+		foreach ( $colors as $key => $property ) {
+			$fallback_color = isset( $fallback_colors[ $key ] ) ? $fallback_colors[ $key ] : '';
+			$color          = get_option( $key, $fallback_color );
+
+			if ( isset( $admin_colors[ $property ] ) ) {
+				$color = $admin_colors[ $property ];
+			}
+
+			if ( $color ) {
+				$color_string .= $property . ':' . $color . ';';
+			}
+		}
+
+		return ':root{' . $color_string . '}';
+	}
 }

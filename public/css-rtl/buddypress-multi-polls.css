@@ -1,6 +1,7 @@
 /*--------------------------------------------------------------
 >>> TABLE OF CONTENTS:
 ----------------------------------------------------------------
+# Variables
 # Tooltip
 # Info Message
 # Light Box
@@ -10,6 +11,13 @@
 # Shortcode
 # Polls Report
 --------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+# Variables
+--------------------------------------------------------------*/
+:root {
+    --wbpoll-global-primary-color: #4caf50;
+}
 
 /*--------------------------------------------------------------
 # Tooltip
@@ -321,7 +329,7 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: 20px;
-    background-color: #4caf50;
+    background-color: var(--wbpoll-global-primary-color);
     border: 1.5px solid #fff;
     border-radius: 100%;
     opacity: 1;
@@ -400,7 +408,7 @@
 .wbpolls-question-results label.wbpoll-single-answer-label:hover,
 .wbpolls-question-results input[type="radio"]:checked+label.wbpoll-single-answer-label,
 .wbpolls-question-results input[type="checkbox"]:checked+label.wbpoll-single-answer-label {
-    border: 3px solid #4caf50;
+    border: 3px solid var(--wbpoll-global-primary-color);
 }
 
 .wbpolls-question-results.wbpoll-default .wbpoll-question-choices-item-content .poll-image {
@@ -675,7 +683,7 @@
 .wbpoll-question-choices-item-label .bpolls-item-width-wrapper .wbpoll-question-choices-item-votes-bar {
     height: 6px;
     position: absolute;
-    background-color: #4caf50;
+    background-color: var(--wbpoll-global-primary-color);
     border-radius: 100px;
     z-index: 1;
 }
