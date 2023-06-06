@@ -28,6 +28,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 		public function __construct() {
 			add_shortcode( 'wbcom_admin_setting_header', array( $this, 'wbcom_admin_setting_header_html' ) );
 			add_action( 'admin_menu', array( $this, 'wbcom_admin_additional_pages' ), 999 );
+			add_action( 'admin_menu', array( $this, 'wbcom_admin_additional_menu_logs' ), 999 );
 			add_action( 'admin_enqueue_scripts', array( $this, 'wbcom_enqueue_admin_scripts' ) );
 			add_action( 'wp_ajax_wbcom_addons_cards', array( $this, 'wbcom_addons_cards_links' ) );
 		}
@@ -300,6 +301,112 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				'wbcom-support-page',
 				array( $this, 'wbcom_support_submenu_page_callback' )
 			);
+		}
+
+		public function wbcom_admin_additional_menu_logs(){
+			add_submenu_page(
+				'edit.php?post_type=wbpoll', // Parent menu slug (edit.php?post_type=custom_post_type)
+				esc_html__('Logs', 'buddypress-polls'),  // Page title
+				esc_html__('Logs', 'buddypress-polls'),   // Menu title
+				'manage_options',   // Capability required to access the submenu
+				'wbpoll_logs',
+				array($this, 'wbpoll_logs_page_callback'),
+			);
+		}
+
+		public function wbpoll_logs_page_callback() {
+			// Code to display the "Log" submenu page content
+			global $wpdb;
+			$polls_logs_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}wppoll_log order by created desc" );
+		if ( ! empty( $polls_logs_results ) ) {	?>
+			<h2>WB Poll Logs</h2>
+			<table class="widefat fixed striped posts">
+				<thead>
+					<tr>
+						<th><strong><?php echo esc_html('Status'); ?></strong></th>
+						<th><strong><?php echo esc_html('Poll'); ?></strong></th>
+						<th><strong><?php echo esc_html('User Name'); ?></strong></th>
+						<th><strong><?php echo esc_html('Date'); ?></strong></th>
+						<th><strong><?php echo esc_html('Action'); ?></strong></th>
+					</tr>
+				</thead>
+				
+				<tbody>
+				<?php
+				foreach($polls_logs_results as $log){
+					?>
+					<tr>
+						<td><?php echo esc_html($log->poll_status); ?></td>
+						<td><?php echo esc_html(get_the_title($log->poll_id)); ?></td>
+						<td><?php echo esc_html($log->user_name); ?></td>
+						<td><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></td>
+						<td><button class="button action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Open'); ?></button><button class="button action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Delete'); ?></button></td>
+					</tr>
+					<div class="opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
+						<div class="content">
+							<h2><?php echo esc_html('Log'); ?></h2><span class="close">close</span>
+							<div>
+								<div>
+									<span><?php echo esc_html('Poll'); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html(get_the_title($log->poll_id)); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('Received choices'); ?></span>
+								</div>
+								<div>
+									<?php
+									$poll_id = $log->poll_id;
+									$user_answer_t = maybe_unserialize($log->details);
+									$poll_answers      = get_post_meta( $poll_id, '_wbpoll_answer', true );
+									foreach($user_answer_t as $ans){
+										if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
+											$poll_ans_id    = $ans;
+											$poll_ans_title = $poll_answers[ $poll_ans_id ];
+										} else {
+											$poll_ans_title = '';
+										}?>
+										<span><?php echo $poll_ans_title; ?></span>
+										<span><?php echo esc_html('Choice #'); ?><?php echo $poll_ans_id; ?></span>
+									<?php } ?>												
+								</div>
+								<div>
+									<span><?php echo esc_html('IP'); ?></span>
+									<span><?php echo esc_html('Date'); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html($log->user_ip); ?></span>
+									<span><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('Browser'); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html($log->useragent); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('User'); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('id'); ?></span>
+									<span><?php echo esc_html($log->user_id); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('Login'); ?></span>
+									<span><?php echo esc_html($log->is_logged_in); ?></span>
+								</div>
+								<div>
+									<span><?php echo esc_html('Name'); ?></span>
+									<span><?php echo esc_html($log->user_name); ?></span>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php } ?>
+				</tbody>
+				</table>
+		<?php }
 		}
 
 		/**
