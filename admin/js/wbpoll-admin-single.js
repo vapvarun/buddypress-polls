@@ -761,5 +761,5 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		min_width: 800,
 		toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
 	});
-		
+	
 })( jQuery );

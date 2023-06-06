@@ -200,6 +200,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'save_post', $plugin_admin, 'metabox_save' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_get_answer_template', $plugin_admin, 'wbpoll_get_answer_template' );
 
+			$this->loader->add_action( 'wp_ajax_wbpoll_log_delete', $plugin_admin, 'wbpoll_log_delete' );
 		}
 
 
@@ -315,6 +316,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );
+		
 		}
 
 		/**

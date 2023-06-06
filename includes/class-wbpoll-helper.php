@@ -24,6 +24,7 @@ if ( ! defined( 'WPINC' ) ) {
  */
 class WBPollHelper {
 
+
 	/**
 	 * initialize cookie
 	 */
@@ -95,6 +96,17 @@ class WBPollHelper {
 	}
 
 	/**
+	 * Get useragent address
+	 *
+	 * @return string|void
+	 */
+	public static function get_useragent() {
+
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+       return esc_html($user_agent);
+	}
+
+	/**
 	 * Create custom post type poll
 	 */
 	public static function create_wbpoll_post_type() {
@@ -126,8 +138,13 @@ class WBPollHelper {
 		);
 
 		register_post_type( 'wbpoll', apply_filters( 'wbpoll_post_type_args', $args ) );
+
+
 	}//end create_wbpoll_post_type()
 
+	
+	
+	
 	/**
 	 * create table with plugin activate hook
 	 */
@@ -167,7 +184,26 @@ class WBPollHelper {
             ) $charset_collate;";
 		dbDelta( $sql );
 
+		$votes_name = $wpdb->prefix . 'wppoll_log';
+
+		$sql = "CREATE TABLE $votes_name (
+                  id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+                  poll_id int(13) NOT NULL,
+                  user_name varchar(255) NOT NULL,
+                  is_logged_in tinyint(1) NOT NULL,
+                  user_ip varchar(45) NOT NULL,
+				  useragent text NOT NULL,
+                  user_id bigint(20) unsigned NOT NULL,
+                  user_action text NOT NULL,
+				  poll_status text NOT NULL,
+                  details  text NOT NULL,
+                  created int(20) NOT NULL,
+                  PRIMARY KEY  (id)
+            ) $charset_collate;";
+		dbDelta( $sql );
+
 	}
+	
 
 
 	/**
@@ -180,6 +216,13 @@ class WBPollHelper {
 		$sql          = 'DROP TABLE IF EXISTS ' . implode( ', ', $votes_name );
 		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
 		dbDelta( $sql );
+
+		$votes_name[] = $wpdb->prefix . 'wppoll_log';
+		$sql          = 'DROP TABLE IF EXISTS ' . implode( ', ', $votes_name );
+		require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+		dbDelta( $sql );
+
+		
 	}
 
 	/**

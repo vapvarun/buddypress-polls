@@ -219,6 +219,15 @@ class Buddypress_Polls_Public {
 			wp_enqueue_style( 'wbpoll-admin-setting' );
 		}
 
+	
+			wp_register_style(
+				'wbpoll-admin-log',
+				BPOLLS_PLUGIN_URL . 'admin/css/wbpoll-admin-log.css',
+				array(),
+				$this->version
+			);
+			wp_enqueue_style('wbpoll-admin-log');
+		
 		// Polls Dashboard CSS file.
 		wp_register_style(
 			'wbpolls-dashboard',
@@ -634,6 +643,17 @@ class Buddypress_Polls_Public {
 			);
 			wp_localize_script( 'wbpoll-admin-setting', 'wbpolladminsettingObj', $wbpoll_admin_setting_arr );
 			wp_enqueue_script( 'wbpoll-admin-setting' );
+		}
+		if ( $page == 'wbpoll_logs' ) {
+			wp_register_script(
+				'wbpoll-admin-log',
+				BPOLLS_PLUGIN_URL . 'admin/js/wbpoll-admin-log.js',
+				array(
+					'jquery',
+				),
+				BPOLLS_PLUGIN_VERSION
+			);
+			wp_enqueue_script( 'wbpoll-admin-log' );
 		}
 		// header scroll
 		wp_register_script(
@@ -2541,6 +2561,25 @@ class Buddypress_Polls_Public {
 			'_wbpoll_total_votes',
 			absint( $total_votes )
 		); // can help for showing most voted poll //meta added
+
+		//create vote logs
+		
+
+		$insertArray_log = array(
+			'poll_id' => $poll_id,
+			'user_name' => ( $user_id == 0 ) ? 'guest' : $current_user->user_login,
+			'is_logged_in' => ( $user_id == 0 ) ? 0 : 1,
+			'user_ip' => WBPollHelper::get_ipaddress(),
+			'user_id' => $user_id,
+			'user_action' => 'vote',
+			'poll_status' => 'accepted',
+			'details' => $user_answer_final,
+			'created' => time(),
+			'useragent' => WBPollHelper::get_useragent(),
+
+		);
+			
+		$wpdb->insert($wpdb->prefix . 'wppoll_log', $insertArray_log);
 
 		$poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
 

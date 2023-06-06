@@ -71,5 +71,5 @@
 			$( '#polls_background_color' ).wpColorPicker();
 		}
 	);
-
 })( jQuery );
+
