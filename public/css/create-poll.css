@@ -274,7 +274,7 @@
     margin-right: 10px;
 }
 
-.wbcom-polls-option-wrap fieldset input[type="radio"] {
+/* .wbcom-polls-option-wrap fieldset input[type="radio"] {
     display: inline-block;
     margin: 0 !important;
     outline: 0;
@@ -287,7 +287,7 @@
     cursor: pointer;
     -webkit-transition: all .15s ease-out 0s;
     transition: all .15s ease-out 0s;
-}
+} */
 
 .wbcom-polls-option-wrap fieldset input[type="radio"]+span {
     vertical-align: top;
