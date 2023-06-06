@@ -511,9 +511,9 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						WBPollHelper::create_wbpoll_post_type();
 						add_submenu_page(
 							'edit.php?post_type=wbpoll', // Parent menu slug (edit.php?post_type=custom_post_type)
-							'Logs',                                // Page title
-							'Logs',                                // Menu title
-							'manage_options',                      // Capability required to access the submenu
+							esc_html__('Logs', 'buddypress-polls'),  // Page title
+							esc_html__('Logs', 'buddypress-polls'),   // Menu title
+							'manage_options',   // Capability required to access the submenu
 							'wbpoll_logs',
 							array($this, 'wbpoll_logs_page_callback'),
 						);

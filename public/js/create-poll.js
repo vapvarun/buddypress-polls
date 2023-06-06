@@ -2,6 +2,7 @@ jQuery('#poll_type').on('change', function (e) {
     e.preventDefault();
     var type = jQuery(this).val();
     if (type == 'default') {
+        jQuery('#addtitonal_option').show();
         jQuery('#type_text').show();
         jQuery('#type_image').hide();
         jQuery('div#type_image input#wbpoll_answer').val('');
@@ -16,6 +17,7 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('div#type_html input#wbpoll_answer').val('');
         jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'image') {
+        jQuery('#addtitonal_option').hide();
         jQuery('#type_image').show();
         jQuery('#type_text').hide();
         jQuery('div#type_text input#wbpoll_answer').val('');
@@ -29,6 +31,7 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('div#type_html input#wbpoll_answer').val('');
         jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'video') {
+        jQuery('#addtitonal_option').hide();
         jQuery('#type_video').show();
         jQuery('#type_image').hide();
         jQuery('div#type_image input#wbpoll_answer').val('');
@@ -42,6 +45,7 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('div#type_html input#wbpoll_answer').val('');
         jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'audio') {
+        jQuery('#addtitonal_option').hide();
         jQuery('#type_audio').show();
         jQuery('#type_video').hide();
         jQuery('div#type_video input#wbpoll_answer').val('');
@@ -55,6 +59,7 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('div#type_html input#wbpoll_answer').val('');
         jQuery('div#type_html #wbpoll_html_answer_textarea').val('');
     } else if (type == 'html') {
+        jQuery('#addtitonal_option').hide();
         jQuery('#type_html').show();
         jQuery('#type_video').hide();
         jQuery('div#type_video input#wbpoll_answer').val('');
@@ -69,6 +74,7 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
 
     } else {
+        jQuery('#addtitonal_option').hide();
         jQuery('#type_text').hide();
         jQuery('div#type_text input#wbpoll_answer').val('');
         jQuery('#type_image').hide();

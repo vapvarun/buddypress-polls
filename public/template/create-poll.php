@@ -256,7 +256,7 @@
 							$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 						}
 						if($wbpolls_user_add_extra_op == 'yes'){ ?>
-						<tr>
+						<tr id="addtitonal_option" style="display:none;">
 							<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional fields', 'buddypress-polls' ); ?></label></th>
 							<td>
 								<fieldset class="radio_fields">

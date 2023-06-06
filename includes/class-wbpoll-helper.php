@@ -1480,6 +1480,8 @@ class WBPollHelper {
 		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
         if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) && $add_additional_fields == 1){
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
+			$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+
 			if(!empty($poll_type) && isset($poll_type)){
 					if($poll_type == 'default'){
 						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button text_field' id='text_field'> ".esc_html('Add Option') ."</div>";
@@ -2234,6 +2236,18 @@ class WBPollHelper {
 				'id'      => '_wbpoll_vote_per_session',
 				'type'    => 'number',
 				'default' => 1,
+			),
+			'_wbpoll_add_additional_fields'  => array(
+				'label'   => esc_html__( 'Add Additional fields', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ),
+				'id'      => '_wbpoll_add_additional_fields',
+				'type'    => 'radio',
+				'default' => $default_content,
+				'options' => array(
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
+				),
+
 			),
 			
 			// '_wbpoll_show_poll_under_the_activity' => array(
