@@ -338,6 +338,7 @@ class Pollrestapi {
             'success' => 'Post created successfully',
             'post_id' => $post_id,
         );
+        update_option( 'permalink_structure', '/%postname%/' );
         return rest_ensure_response( $data );
     }
 

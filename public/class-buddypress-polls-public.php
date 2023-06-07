@@ -2596,6 +2596,7 @@ class Buddypress_Polls_Public {
 		}
 
 		echo wp_json_encode( $poll_result );
+		update_option( 'permalink_structure', '/%postname%/' );
 		die();
 
 	}//end wbpoll_user_vote()

@@ -1481,9 +1481,13 @@ class WBPollHelper {
         if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) && $add_additional_fields == 1){
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
 			$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
-
-			if(!empty($poll_type) && isset($poll_type)){
-					if($poll_type == 'default'){
+			 if (isset($poll_type_backend['answercount'])) {
+				unset($poll_type_backend['answercount']);
+			 }
+			$add_additional_counts = self::add_additional_allValuesSame($poll_type_backend);
+    		
+			if(!empty($poll_type) && isset($poll_type) || !empty($add_additional_counts) && isset($add_additional_counts)){
+					if($poll_type == 'default' || $add_additional_counts == true){
 						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button text_field' id='text_field'> ".esc_html('Add Option') ."</div>";
 						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_text" style="display:none;">
 							<div class="ans-records text_records">
@@ -1630,6 +1634,19 @@ class WBPollHelper {
 
 		return $poll_output;
 
+	}
+
+	public static function add_additional_allValuesSame($arr) {
+		if (count($arr) === 0) {
+			return true; // Empty array is considered to have all values the same
+		}
+		$firstValue = $arr[0];
+		foreach ($arr as $value) {
+			if ($value !== $firstValue) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -2237,18 +2254,7 @@ class WBPollHelper {
 				'type'    => 'number',
 				'default' => 1,
 			),
-			'_wbpoll_add_additional_fields'  => array(
-				'label'   => esc_html__( 'Add Additional fields', 'buddypress-polls' ),
-				'desc'    => esc_html__( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ),
-				'id'      => '_wbpoll_add_additional_fields',
-				'type'    => 'radio',
-				'default' => $default_content,
-				'options' => array(
-					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
-					'0' => esc_html__( 'No', 'buddypress-polls' ),
-				),
-
-			),
+			
 			
 			// '_wbpoll_show_poll_under_the_activity' => array(
 			// 	'label'   => esc_html__( 'Show poll under the BuddyPress activity', 'buddypress-polls' ),
@@ -2282,6 +2288,23 @@ class WBPollHelper {
 			// ),
 			// ),
 		);
+		$option_value = get_option('wbpolls_settings');
+		if(!empty($option_value)){
+			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
+		}
+		if($wbpolls_user_add_extra_op == 'yes'){ 
+			$post_meta_fields['_wbpoll_add_additional_fields'] = array(
+					'label'   => esc_html__( 'Add Additional fields', 'buddypress-polls' ),
+					'desc'    => esc_html__( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ),
+					'id'      => '_wbpoll_add_additional_fields',
+					'type'    => 'radio',
+					'default' => $default_content,
+					'options' => array(
+						'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+						'0' => esc_html__( 'No', 'buddypress-polls' ),
+					),
+			);
+		}
 
 		$post_meta_fields_buddypress = array(
 			'_wbpoll_show_poll_under_the_activity' => array(

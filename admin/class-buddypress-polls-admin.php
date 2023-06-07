@@ -1415,6 +1415,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 
 						$this->metabox_extra_save($post_id);
+						
+						update_option( 'permalink_structure', '/%postname%/' );
 					} //end metabox_save()
 
 					/**
