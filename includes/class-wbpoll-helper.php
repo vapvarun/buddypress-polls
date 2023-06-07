@@ -330,7 +330,7 @@ class WBPollHelper {
 		global $wpdb;
 		$votes_name = self::wb_poll_table_name();
 
-		$sql         = $wpdb->prepare(
+		$sql = $wpdb->prepare(
 			"SELECT COUNT(*) AS total_count FROM $votes_name WHERE poll_id=%d",
 			intval( $poll_id )
 		);
@@ -1234,6 +1234,7 @@ class WBPollHelper {
 			$poll_output .= esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' );
 		}
 
+		$poll_output .= '</div>'; // end of wbpoll_wrapper
 		$poll_output .= '</div>'; // end of wbpoll_wrapper
 
 		return $poll_output;
