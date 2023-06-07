@@ -18,6 +18,7 @@
 		</div>
 	</div>
 	<div class="poll-create">
+	<?php if (is_user_logged_in()) { ?>
 		<form id="wbpolls-create" class="wbpolls-create">
 			<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id(); ?>">
 			<div class="form-group">
@@ -288,5 +289,8 @@
 
 		</form>
 		<div class="wbpoll-voted-info wbpoll-success" id="pollsuccess" style="display:none;"></div>
+		<?php }else{ ?>
+		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert">This page content only for login members. </p></div>
+	<?php } ?>
 	</div>
 </div>
