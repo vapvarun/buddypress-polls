@@ -12,7 +12,7 @@
 ?>
 
 <div class="main-dashboard">
-<?php if ( is_user_logged_in() ) { ?>
+<?php if (is_user_logged_in()) { ?>
 	<div class="deshboard-top">
 		<div class="main-title">
 			<h3><?php esc_html_e( 'Poll Listing', 'buddypress-polls' ); ?></h3>
@@ -49,8 +49,7 @@
 
 			// Parse the JSON response
 			$data = json_decode( $response );
-			if ( isset( $data->code ) && $data->code == '404' ) {
-				?>
+				if(isset($data->code) && $data->code == '404'){?>
 
 					<tr>
 						<td colspan="4">
@@ -58,29 +57,29 @@
 						</td>
 					</tr>
 					<?php
-			} else {
+				}else{ 
 
-				foreach ( $data as $post ) {
-
-					// Access post information.
-					$post_id     = $post->id;
-					$post_title  = $post->title;
-					$post_stauts = $post->status;
-					$totalvote   = $post->totalvote;
-					$pause       = $post->pausetype;
-					?>
+					foreach ( $data as $post ) {
+					
+						// Access post information.
+						$post_id     = $post->id;
+						$post_title  = $post->title;
+						$post_stauts = $post->status;
+						$totalvote   = $post->totalvote;
+						$pause       = $post->pausetype;
+						?>
 						<tr>
 							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
 							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_stauts ); ?></td>
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>"><a class="button btn" href="<?php echo esc_url( site_url() ) . '/wbpoll/' . esc_html( str_replace( ' ', '-', $post_title ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<button class="button btn pause_poll" data-value="
-						<?php
-						if ( ! empty( $pause ) && $pause == 1 ) {
-							echo 0;
-						} else {
-							echo 1; }
-						?>
+							<?php
+							if ( ! empty( $pause ) && $pause == 1 ) {
+								echo 0;
+							} else {
+								echo 1; }
+							?>
 							" data-id="<?php echo esc_html( $post_id ); ?>"
 							<?php
 							if ( ! empty( $pause ) && $pause == 1 ) {
@@ -110,14 +109,14 @@
 						</tr>
 	
 						<?php
-				}
-				wp_reset_postdata();
-			}
-
+					}
+					wp_reset_postdata();
+				 }
+				
 			?>
 		</table>
 	</div>
-	<?php } else { ?>
+	<?php }else{ ?>
 		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert">This page content only for login members. </p></div>
 	<?php } ?>
 </div>

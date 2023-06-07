@@ -18,7 +18,7 @@
 		</div>
 	</div>
 	<div class="poll-create">
-	<?php if ( is_user_logged_in() ) { ?>
+	<?php if (is_user_logged_in()) { ?>
 		<form id="wbpolls-create" class="wbpolls-create">
 			<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id(); ?>">
 			<div class="form-group">
@@ -155,14 +155,14 @@
 					<tbody>
 						<tr>
 							<th><label for="_wbpoll_start_date"><?php esc_html_e( 'Start Date', 'buddypress-polls' ); ?></label></th>
-							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php echo date( 'Y-m-d H:i:s' ); ?>" size="30">
+							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php echo date('Y-m-d H:i:s'); ?>" size="30">
 								<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
 						<tr>
 							<?php
-							$currentDate   = date( 'Y-m-d H:i:s' );
-							$nextSevenDays = date( 'Y-m-d H:i:s', strtotime( $currentDate . ' +7 days' ) );
+							$currentDate = date('Y-m-d H:i:s');
+							$nextSevenDays = date('Y-m-d H:i:s', strtotime($currentDate . ' +7 days'));
 							?>
 							<th><label for="_wbpoll_end_date"><?php esc_html_e( 'End Date', 'buddypress-polls' ); ?></label></th>
 							<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php echo $nextSevenDays; ?>" size="30">
@@ -252,13 +252,11 @@
 								<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
-						<?php
-						$option_value = get_option( 'wbpolls_settings' );
-						if ( ! empty( $option_value ) ) {
-							$wbpolls_user_add_extra_op = isset( $option_value['wbpolls_user_add_extra_op'] ) ? $option_value['wbpolls_user_add_extra_op'] : '';
+						<?php $option_value = get_option('wbpolls_settings');
+						if(!empty($option_value)){
+							$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 						}
-						if ( $wbpolls_user_add_extra_op == 'yes' ) {
-							?>
+						if($wbpolls_user_add_extra_op == 'yes'){ ?>
 						<tr id="addtitonal_option" style="display:none;">
 							<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional fields', 'buddypress-polls' ); ?></label></th>
 							<td>
@@ -291,7 +289,7 @@
 
 		</form>
 		<div class="wbpoll-voted-info wbpoll-success" id="pollsuccess" style="display:none;"></div>
-		<?php } else { ?>
+		<?php }else{ ?>
 		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert">This page content only for login members. </p></div>
 	<?php } ?>
 	</div>
