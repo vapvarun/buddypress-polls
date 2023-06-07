@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-06 14:52:08+00:00\n"
+"POT-Creation-Date: 2023-06-07 07:05:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -58,7 +58,7 @@ msgstr ""
 #: admin/class-buddypress-polls-admin.php:208
 #: admin/wbcom/wbcom-admin-settings.php:298
 #: admin/wbcom/wbcom-admin-settings.php:299
-#: admin/wbcom/wbcom-admin-settings.php:509 buddypress-polls.php:296
+#: admin/wbcom/wbcom-admin-settings.php:515 buddypress-polls.php:296
 msgid "Support"
 msgstr ""
 
@@ -117,12 +117,12 @@ msgid "Status"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:531
-#: includes/class-wbpoll-helper.php:2156 public/template/create-poll.php:156
+#: includes/class-wbpoll-helper.php:2173 public/template/create-poll.php:156
 msgid "Start Date"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:532
-#: includes/class-wbpoll-helper.php:2166 public/template/create-poll.php:166
+#: includes/class-wbpoll-helper.php:2183 public/template/create-poll.php:166
 msgid "End Date"
 msgstr ""
 
@@ -187,9 +187,9 @@ msgid ""
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:979
-#: includes/class-wbpoll-helper.php:2191 includes/class-wbpoll-helper.php:2203
-#: includes/class-wbpoll-helper.php:2218 includes/class-wbpoll-helper.php:2229
-#: includes/class-wbpoll-helper.php:2247 includes/class-wbpoll-helper.php:2297
+#: includes/class-wbpoll-helper.php:2208 includes/class-wbpoll-helper.php:2220
+#: includes/class-wbpoll-helper.php:2235 includes/class-wbpoll-helper.php:2246
+#: includes/class-wbpoll-helper.php:2303 includes/class-wbpoll-helper.php:2320
 #: public/template/create-poll.php:97 public/template/create-poll.php:125
 #: public/template/create-poll.php:193 public/template/create-poll.php:210
 #: public/template/create-poll.php:227 public/template/create-poll.php:244
@@ -198,9 +198,9 @@ msgid "Yes"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:980
-#: includes/class-wbpoll-helper.php:2192 includes/class-wbpoll-helper.php:2204
-#: includes/class-wbpoll-helper.php:2219 includes/class-wbpoll-helper.php:2230
-#: includes/class-wbpoll-helper.php:2248 includes/class-wbpoll-helper.php:2298
+#: includes/class-wbpoll-helper.php:2209 includes/class-wbpoll-helper.php:2221
+#: includes/class-wbpoll-helper.php:2236 includes/class-wbpoll-helper.php:2247
+#: includes/class-wbpoll-helper.php:2304 includes/class-wbpoll-helper.php:2321
 #: public/template/create-poll.php:99 public/template/create-poll.php:127
 #: public/template/create-poll.php:197 public/template/create-poll.php:214
 #: public/template/create-poll.php:231 public/template/create-poll.php:248
@@ -241,44 +241,44 @@ msgstr ""
 msgid "Please save the post once to enter poll answers."
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1442
+#: admin/class-buddypress-polls-admin.php:1444
 msgid "Error:: Start or End date any one empty"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1473
+#: admin/class-buddypress-polls-admin.php:1475
 msgid "Answer %d"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1498
-#: admin/class-buddypress-polls-admin.php:1515
-#: admin/class-buddypress-polls-admin.php:1532
-#: includes/class-wbpoll-helper.php:2357 public/template/create-poll.php:35
+#: admin/class-buddypress-polls-admin.php:1500
+#: admin/class-buddypress-polls-admin.php:1517
+#: admin/class-buddypress-polls-admin.php:1534
+#: includes/class-wbpoll-helper.php:2380 public/template/create-poll.php:35
 msgid "Text"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1589
+#: admin/class-buddypress-polls-admin.php:1591
 msgid "Total votes: %d"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1594
-#: admin/class-buddypress-polls-admin.php:1615
-#: admin/class-buddypress-polls-admin.php:1799
-#: admin/class-buddypress-polls-admin.php:1822
-#: admin/class-buddypress-polls-admin.php:1857
-#: admin/class-buddypress-polls-admin.php:1870
+#: admin/class-buddypress-polls-admin.php:1596
+#: admin/class-buddypress-polls-admin.php:1617
+#: admin/class-buddypress-polls-admin.php:1801
+#: admin/class-buddypress-polls-admin.php:1824
+#: admin/class-buddypress-polls-admin.php:1859
+#: admin/class-buddypress-polls-admin.php:1872
 msgid "Unknown Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1784
-#: admin/class-buddypress-polls-admin.php:1842
+#: admin/class-buddypress-polls-admin.php:1786
+#: admin/class-buddypress-polls-admin.php:1844
 msgid "No approved vote yet"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1815
+#: admin/class-buddypress-polls-admin.php:1817
 msgid "Answer Title"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1816
+#: admin/class-buddypress-polls-admin.php:1818
 msgid "Vote %"
 msgstr ""
 
@@ -591,7 +591,7 @@ msgstr ""
 msgid "Select the user roles who can vote on polls."
 msgstr ""
 
-#: admin/inc/wbpolls-setting-tab.php:74 includes/class-wbpoll-helper.php:2197
+#: admin/inc/wbpolls-setting-tab.php:74 includes/class-wbpoll-helper.php:2214
 #: public/template/create-poll.php:204
 msgid "Never Expire"
 msgstr ""
@@ -689,7 +689,7 @@ msgid "Action"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:12
-#: admin/wbcom/wbcom-admin-settings.php:503
+#: admin/wbcom/wbcom-admin-settings.php:509
 msgid "Themes & Extension"
 msgstr ""
 
@@ -1280,7 +1280,7 @@ msgstr ""
 msgid "Logs"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:497 buddypress-polls.php:295
+#: admin/wbcom/wbcom-admin-settings.php:503 buddypress-polls.php:295
 msgid "Settings"
 msgstr ""
 
@@ -1443,142 +1443,142 @@ msgstr ""
 msgid "No account yet? <a href=\"%s\">Register</a>"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:1610 public/template/poll-dashboard.php:30
+#: includes/class-wbpoll-helper.php:1614 public/template/poll-dashboard.php:30
 #: public/template/poll-dashboard.php:74
 msgid "Vote"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2157
+#: includes/class-wbpoll-helper.php:2174
 msgid "Poll Start Date. [<strong> Note:</strong> Field required. Default is today]"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2167
+#: includes/class-wbpoll-helper.php:2184
 msgid ""
 "Poll End Date.  [<strong> Note:</strong> Field required. Default is next "
 "seven days. ]"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2176 public/template/create-poll.php:172
+#: includes/class-wbpoll-helper.php:2193 public/template/create-poll.php:172
 msgid "Who Can Vote"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2177 public/template/create-poll.php:183
+#: includes/class-wbpoll-helper.php:2194 public/template/create-poll.php:183
 msgid "Which user role will have vote capability"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2185 public/template/create-poll.php:187
+#: includes/class-wbpoll-helper.php:2202 public/template/create-poll.php:187
 msgid "Show Poll Description in Shortcode"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2186 public/template/create-poll.php:200
+#: includes/class-wbpoll-helper.php:2203 public/template/create-poll.php:200
 msgid "Select if you want to show content."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2209 public/template/create-poll.php:221
+#: includes/class-wbpoll-helper.php:2226 public/template/create-poll.php:221
 msgid "Show Result After Expires"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2210 public/template/create-poll.php:234
+#: includes/class-wbpoll-helper.php:2227 public/template/create-poll.php:234
 msgid ""
 "Select if you want poll to show result After expires. After expires the "
 "result will be shown always. Please check it if poll never expires."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2223 public/template/create-poll.php:238
+#: includes/class-wbpoll-helper.php:2240 public/template/create-poll.php:238
 msgid "Enable Multi Choice"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2224 public/template/create-poll.php:251
+#: includes/class-wbpoll-helper.php:2241 public/template/create-poll.php:251
 #: public/template/create-poll.php:273
 msgid "Can user vote multiple option"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2234 public/template/create-poll.php:279
+#: includes/class-wbpoll-helper.php:2251 public/template/create-poll.php:279
 msgid "Votes Per User"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2235 public/template/create-poll.php:282
+#: includes/class-wbpoll-helper.php:2252 public/template/create-poll.php:282
 msgid "Set the number of times a user can vote."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2241 public/template/create-poll.php:260
+#: includes/class-wbpoll-helper.php:2297 public/template/create-poll.php:260
 msgid "Add Additional fields"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2242
+#: includes/class-wbpoll-helper.php:2298
 msgid "Add Additional fields functionality only for text poll."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2288
+#: includes/class-wbpoll-helper.php:2311
 msgid "Show poll under the BuddyPress activity"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2289
+#: includes/class-wbpoll-helper.php:2312
 msgid "Select if you want poll to Show poll under the BuddyPress activity."
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2353 includes/class-wbpoll-helper.php:2388
-#: includes/class-wbpoll-helper.php:2463 includes/class-wbpoll-helper.php:2555
-#: includes/class-wbpoll-helper.php:2641
+#: includes/class-wbpoll-helper.php:2376 includes/class-wbpoll-helper.php:2411
+#: includes/class-wbpoll-helper.php:2486 includes/class-wbpoll-helper.php:2578
+#: includes/class-wbpoll-helper.php:2664
 msgid "Drag and Drop to reorder poll answers"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2353 includes/class-wbpoll-helper.php:2388
-#: includes/class-wbpoll-helper.php:2463 includes/class-wbpoll-helper.php:2555
-#: includes/class-wbpoll-helper.php:2641
+#: includes/class-wbpoll-helper.php:2376 includes/class-wbpoll-helper.php:2411
+#: includes/class-wbpoll-helper.php:2486 includes/class-wbpoll-helper.php:2578
+#: includes/class-wbpoll-helper.php:2664
 #: public/class-buddypress-polls-public.php:521
 #: public/class-buddypress-polls-public.php:595
 msgid "Move"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2359 includes/class-wbpoll-helper.php:2394
-#: includes/class-wbpoll-helper.php:2469 includes/class-wbpoll-helper.php:2561
-#: includes/class-wbpoll-helper.php:2647
+#: includes/class-wbpoll-helper.php:2382 includes/class-wbpoll-helper.php:2417
+#: includes/class-wbpoll-helper.php:2492 includes/class-wbpoll-helper.php:2584
+#: includes/class-wbpoll-helper.php:2670
 #: public/class-buddypress-polls-public.php:520
 #: public/class-buddypress-polls-public.php:594
 msgid "Remove"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2360 includes/class-wbpoll-helper.php:2395
-#: includes/class-wbpoll-helper.php:2470 includes/class-wbpoll-helper.php:2562
-#: includes/class-wbpoll-helper.php:2648
+#: includes/class-wbpoll-helper.php:2383 includes/class-wbpoll-helper.php:2418
+#: includes/class-wbpoll-helper.php:2493 includes/class-wbpoll-helper.php:2585
+#: includes/class-wbpoll-helper.php:2671
 msgid "Toggle"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2392 public/template/create-poll.php:36
+#: includes/class-wbpoll-helper.php:2415 public/template/create-poll.php:36
 msgid "Image"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2418 includes/class-wbpoll-helper.php:2497
-#: includes/class-wbpoll-helper.php:2588
+#: includes/class-wbpoll-helper.php:2441 includes/class-wbpoll-helper.php:2520
+#: includes/class-wbpoll-helper.php:2611
 msgid "Label"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2423 public/template/create-poll.php:69
+#: includes/class-wbpoll-helper.php:2446 public/template/create-poll.php:69
 msgid "Image URL"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2467 public/template/create-poll.php:37
+#: includes/class-wbpoll-helper.php:2490 public/template/create-poll.php:37
 msgid "Video"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2502 public/template/create-poll.php:91
+#: includes/class-wbpoll-helper.php:2525 public/template/create-poll.php:91
 msgid "Video URL"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2559 public/template/create-poll.php:38
+#: includes/class-wbpoll-helper.php:2582 public/template/create-poll.php:38
 msgid "Audio"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2593 public/template/create-poll.php:120
+#: includes/class-wbpoll-helper.php:2616 public/template/create-poll.php:120
 msgid "Audio URL"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2645 public/template/create-poll.php:39
+#: includes/class-wbpoll-helper.php:2668 public/template/create-poll.php:39
 msgid "HTML"
 msgstr ""
 
-#: includes/class-wbpoll-helper.php:2953
+#: includes/class-wbpoll-helper.php:2976
 msgid "WordPress Core Login Form"
 msgstr ""
 
