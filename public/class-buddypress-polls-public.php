@@ -452,7 +452,7 @@ class Buddypress_Polls_Public {
 
 		}
 
-		/*********** poll */
+		/*********** poll ***********/
 
 		$page = isset( $_GET['page'] ) ? esc_attr( wp_unslash( $_GET['page'] ) ) : '';
 

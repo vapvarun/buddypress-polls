@@ -179,9 +179,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		echo $before_widget;
+		echo $args['before_widget'];
 
-		echo  $before_title . $title . $after_title;
+		esc_html($before_title, 'buddypress-polls' ) . esc_html($title, 'buddypress-polls' ) . esc_html($after_title, 'buddypress-polls' );
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
@@ -228,7 +228,8 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			</div>
 		<?php } ?>
 		<?php
-		echo $after_widget;
+	
+		echo $args['after_widget'];
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}

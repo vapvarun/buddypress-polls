@@ -290,7 +290,7 @@
 		</form>
 		<div class="wbpoll-voted-info wbpoll-success" id="pollsuccess" style="display:none;"></div>
 		<?php }else{ ?>
-		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert">This page content only for login members. </p></div>
+		<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook"><p class="wbpoll-voted-info wbpoll-alert"><?php esc_html_e( 'This page content only for login members.', 'buddypress-polls' ); ?> </p></div>
 	<?php } ?>
 	</div>
 </div>

@@ -768,18 +768,18 @@ class WBPollHelper {
 
 		$allow_guest_sign = 'on';
 
-		$poll_status = get_post_status( $post_id );
-		if ( $poll_status !== 'publish' ) {
-			$this_user_role = $current_user->roles;
-			if ( in_array( 'administrator', $this_user_role ) || in_array( 'editor', $this_user_role ) ) {
-				$poll_output .= esc_html__(
-					'Note: Poll is not published yet or poll doesn\'t exists. You are checking this as administrator/editor.',
-					'buddypress-polls'
-				);
-			} else {
-				return esc_html__( 'Sorry, poll is not published yet or poll doesn\'t exists.', 'buddypress-polls' );
-			}
-		}//end checking publish status
+		//$poll_status = get_post_status( $post_id );
+		// if ( $poll_status !== 'publish' ) {
+		// 	$this_user_role = $current_user->roles;
+		// 	if ( in_array( 'administrator', $this_user_role ) || in_array( 'editor', $this_user_role ) ) {
+		// 		$poll_output .= esc_html__(
+		// 			'Note: Poll is not published yet or poll doesn\'t exists. You are checking this as administrator/editor.',
+		// 			'buddypress-polls'
+		// 		);
+		// 	} else {
+		// 		return esc_html__( 'Sorry, poll is not published yet or poll doesn\'t exists.', 'buddypress-polls' );
+		// 	}
+		// }//end checking publish status
 
 		// todo: need to get it from single poll if we introduce this inside poll setting
 		$grid = 0;
@@ -1235,7 +1235,10 @@ class WBPollHelper {
 		}
 
 		$poll_output .= '</div>'; // end of wbpoll_wrapper
-		$poll_output .= '</div>'; // end of wbpoll_wrapper
+		
+		if ( $reference == 'shortcode' ) {
+			$poll_output .= '</div>'; // end of wbpoll_wrapper
+		}
 
 		return $poll_output;
 	}//end wbpoll_single_display()
@@ -1797,7 +1800,7 @@ class WBPollHelper {
 		ob_start();
 
 		do_action( 'wbpoll_answer_html_before', $poll_id, $reference, $poll_result );
-		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . $reference . ' wbpoll_' . $result_chart_type . '_result_wrap wbpoll_' . $result_chart_type . '_result_wrap_' . $poll_id . ' wbpoll_result_wrap_' . $reference . '_' . $poll_id . ' ">';
+		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . esc_html($reference) . ' wbpoll_' . esc_html($result_chart_type) . '_result_wrap wbpoll_' . esc_html($result_chart_type) . '_result_wrap_' . esc_html($poll_id) . ' wbpoll_result_wrap_' . esc_html($reference) . '_' . esc_html($poll_id) . ' ">';
 
 		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
 
@@ -1894,7 +1897,7 @@ class WBPollHelper {
 		ob_start();
 
 		do_action( 'wbpoll_answer_html_before', $poll_id, $reference, $poll_result );
-		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . $reference . ' wbpoll_' . $result_chart_type . '_result_wrap wbpoll_' . $result_chart_type . '_result_wrap_' . $poll_id . ' wbpoll_result_wrap_' . $reference . '_' . $poll_id . ' ">';
+		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . esc_html($reference) . ' wbpoll_' . esc_html($result_chart_type) . '_result_wrap wbpoll_' . esc_html($result_chart_type) . '_result_wrap_' . esc_html($poll_id) . ' wbpoll_result_wrap_' . esc_html($reference) . '_' . esc_html($poll_id) . ' ">';
 
 		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
 
@@ -2066,7 +2069,7 @@ class WBPollHelper {
 		ob_start();
 
 		do_action( 'wbpoll_answer_html_before', $poll_id, $reference, $poll_result );
-		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . $reference . ' wbpoll_' . $result_chart_type . '_result_wrap wbpoll_' . $result_chart_type . '_result_wrap_' . $poll_id . ' wbpoll_result_wrap_' . $reference . '_' . $poll_id . ' ">';
+		echo '<div class="wbpoll_result_wrap wbpoll_result_wrap_' . esc_html($reference) . ' wbpoll_' . esc_html($result_chart_type) . '_result_wrap wbpoll_' . esc_html($result_chart_type) . '_result_wrap_' . esc_html($poll_id) . ' wbpoll_result_wrap_' . esc_html($reference) . '_' . esc_html($poll_id) . ' ">';
 
 		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
 
