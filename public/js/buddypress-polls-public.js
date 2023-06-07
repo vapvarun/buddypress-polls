@@ -70,7 +70,7 @@
 					'click',
 					'#rtmedia-add-media-button-post-update',
 					function() {
-						//$('.bpolls-html-container').hide();
+						// $('.bpolls-html-container').hide();
 					}
 				);
 
@@ -85,7 +85,7 @@
 				);
 			}
 
-			//Manage Poll icon with Buddyboss Plateform
+			// Manage Poll icon with Buddyboss Plateform
 			$( document ).on(
 				'click focus',
 				'#whats-new',
@@ -680,7 +680,7 @@
 						'select',
 						function() {
 							attachment = file_frame.state().get( 'selection' ).first().toJSON();
-							//$( '#frontend-button' ).hide();
+							// $( '#frontend-button' ).hide();
 							$( '#bpolls-image-preview' ).attr( 'src', attachment.url );
 							if (attachment.url) {
 								var data = {

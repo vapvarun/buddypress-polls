@@ -170,7 +170,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-			 //add js and css in admin end
+			 // add js and css in admin end
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
@@ -180,7 +180,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 
-			/** Polls hooks **/
+			/** Polls hooks */
 
 			 // init cookie and custom post types
 			 $this->loader->add_action( 'admin_init', $plugin_admin, 'wbpolls_admin_register_settings' );
@@ -189,7 +189,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );
 			$this->loader->add_filter( 'manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort' );
 
-			//adding shortcode
+			// adding shortcode
 			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
 			$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );
 			$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
@@ -215,13 +215,12 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 		private function define_public_hooks() {
 
 			$plugin_public = new Buddypress_Polls_Public( $this->get_plugin_name(), $this->get_version() );
-			
+
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-			 //add js and css in admin end
+			 // add js and css in admin end
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
-			 
 
 			$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
@@ -296,7 +295,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
 
-			//Show poll in details poll post type
+			// Show poll in details poll post type
 			if ( ! is_admin() ) {
 				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
 				$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wbpoll_the_excerpt' );
@@ -306,7 +305,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 
-			//attach template for plugin pages
+			// attach template for plugin pages
 			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
 
 			// add additional field
@@ -316,7 +315,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );
-		
+
 		}
 
 		/**

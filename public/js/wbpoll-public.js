@@ -32,7 +32,7 @@ function wbpoll_formsubmit($element, $) {
 					data: $element.serialize() + '&user_answer=' + $.base64.btoa( user_answer ),
 					success: function (data, textStatus, XMLHttpRequest) {
 						if (Number( data.error ) === 0) {
-							try { //the data for all graphs
+							try { // the data for all graphs
 								if (data.show_result === 1) {
 									wrapper.append( data.html );
 								}
@@ -60,11 +60,11 @@ function wbpoll_formsubmit($element, $) {
 						wrapper.find( '.wbvoteajaximage' ).addClass( 'wbvoteajaximagecustom' );
 					}//end of success
 				}
-			)//end of ajax
+			)// end of ajax
 
 		} else {
 
-			//if no answer given
+			// if no answer given
 			$submit_btn.show();
 			$submit_btn.attr( 'data-busy', 0 );
 			$submit_btn.prop( 'disabled', false );
@@ -128,7 +128,7 @@ jQuery( document ).ready(
 									parent.find( '.wbpoll-listing' ).append( content );
 								}
 
-								//check if we reached at last page
+								// check if we reached at last page
 								var max_num_pages = data.max_num_pages;
 								if ((page_no === max_num_pages) || (data.found === 0)) {
 									$this.parent( '.wbpoll-listing-more' ).remove();
@@ -146,7 +146,7 @@ jQuery( document ).ready(
 				}
 
 			}
-		);//end on click
+		);// end on click
 
 		$( document.body ).on(
 			'submit',
@@ -194,5 +194,5 @@ jQuery( document ).ready(
 		);
 
 	}
-);//end dom ready
+);// end dom ready
 

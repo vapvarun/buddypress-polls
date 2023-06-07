@@ -181,7 +181,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		echo $before_widget;
 
-		echo  $before_title . $title . $after_title;
+		echo $before_title . $title . $after_title;
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';

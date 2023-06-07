@@ -219,15 +219,14 @@ class Buddypress_Polls_Public {
 			wp_enqueue_style( 'wbpoll-admin-setting' );
 		}
 
-	
 			wp_register_style(
 				'wbpoll-admin-log',
 				BPOLLS_PLUGIN_URL . 'admin/css/wbpoll-admin-log.css',
 				array(),
 				$this->version
 			);
-			wp_enqueue_style('wbpoll-admin-log');
-		
+			wp_enqueue_style( 'wbpoll-admin-log' );
+
 		// Polls Dashboard CSS file.
 		wp_register_style(
 			'wbpolls-dashboard',
@@ -352,7 +351,7 @@ class Buddypress_Polls_Public {
 			array(
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'no_answer_error' => esc_html__( 'Please select at least one answer', 'buddypress-polls' ),
-				'url' => site_url(),
+				'url'             => site_url(),
 			)
 		);
 
@@ -362,16 +361,16 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'pristine' );
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'buddypress-multi-polls' );
-		//if ( is_page( 'create-poll' )) {
+		// if ( is_page( 'create-poll' )) {
 			wp_enqueue_media();
 			// Date picker JS call.
 			wp_enqueue_script( $this->plugin_name . '-timejs' );
 			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
 			wp_enqueue_script( 'wbpolls-create-poll' );
-			
-		//}
-		if ( is_page( 'poll-dashboard' )) {
-			wp_enqueue_script( 'wbpolls-poll-dashboard-js');
+
+		// }
+		if ( is_page( 'poll-dashboard' ) ) {
+			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
 		}
 
 		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public.js', array( 'jquery' ), time(), false );
@@ -2374,18 +2373,18 @@ class Buddypress_Polls_Public {
 
 		}
 
-		$option_value = get_option('wbpolls_settings');
-        if(!empty($option_value)){
+		$option_value = get_option( 'wbpolls_settings' );
+		if ( ! empty( $option_value ) ) {
 			$wppolls_who_can_vote = $option_value['wppolls_who_can_vote'];
 		}
 		if ( ! is_array( $wppolls_who_can_vote ) ) {
 			$wppolls_who_can_vote = array();
 		}
 		$wp_allowed_user_group = array_intersect( $wppolls_who_can_vote, $this_user_role );
-		
-		if((sizeof( $allowed_user_groups )) >= 1 || !empty($allowed_user_groups)){
+
+		if ( ( sizeof( $allowed_user_groups ) ) >= 1 || ! empty( $allowed_user_groups ) ) {
 			$allowed_user_group = array_intersect( $poll_allowed_user_group, $this_user_role );
-		}else{
+		} else {
 			$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
 		}
 		// check if the user has permission to vote
@@ -2564,24 +2563,23 @@ class Buddypress_Polls_Public {
 			absint( $total_votes )
 		); // can help for showing most voted poll //meta added
 
-		//create vote logs
-		
+		// create vote logs
 
 		$insertArray_log = array(
-			'poll_id' => $poll_id,
-			'user_name' => ( $user_id == 0 ) ? 'guest' : $current_user->user_login,
+			'poll_id'      => $poll_id,
+			'user_name'    => ( $user_id == 0 ) ? 'guest' : $current_user->user_login,
 			'is_logged_in' => ( $user_id == 0 ) ? 0 : 1,
-			'user_ip' => WBPollHelper::get_ipaddress(),
-			'user_id' => $user_id,
-			'user_action' => 'vote',
-			'poll_status' => 'accepted',
-			'details' => $user_answer_final,
-			'created' => time(),
-			'useragent' => WBPollHelper::get_useragent(),
+			'user_ip'      => WBPollHelper::get_ipaddress(),
+			'user_id'      => $user_id,
+			'user_action'  => 'vote',
+			'poll_status'  => 'accepted',
+			'details'      => $user_answer_final,
+			'created'      => time(),
+			'useragent'    => WBPollHelper::get_useragent(),
 
 		);
-			
-		$wpdb->insert($wpdb->prefix . 'wppoll_log', $insertArray_log);
+
+		$wpdb->insert( $wpdb->prefix . 'wppoll_log', $insertArray_log );
 
 		$poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
 
@@ -2693,37 +2691,37 @@ class Buddypress_Polls_Public {
 		return apply_filters( 'wb_poll_locate_template', $template_part, $file_name );
 	}
 
-	public function wbpoll_additional_field(){
+	public function wbpoll_additional_field() {
 		$post_id = $_POST['post_id'];
-		
-		if(!empty($_POST['_wbpoll_answer']) && isset($_POST['_wbpoll_answer'][0]) && !empty($_POST['_wbpoll_answer'][0])){
-			
-			$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+
+		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
+
+			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
-			$answers = array_merge($old_ans,$new_ans);
-	
+			$answers = array_merge( $old_ans, $new_ans );
+
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
-	
+
 				update_post_meta( $post_id, '_wbpoll_answer', $titles );
-	
+
 			} else {
 				delete_post_meta( $post_id, '_wbpoll_answer' );
 			}
 		}
-		if(!empty($_POST['_wbpoll_answer_extra']) && isset($_POST['_wbpoll_answer_extra'][0]) && !empty($_POST['_wbpoll_answer_extra'][0])){
-			$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		if ( ! empty( $_POST['_wbpoll_answer_extra'] ) && isset( $_POST['_wbpoll_answer_extra'][0] ) && ! empty( $_POST['_wbpoll_answer_extra'][0] ) ) {
+			$old_ans_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
 			$new_ans_extra = $_POST['_wbpoll_answer_extra'];
-			$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+			$answers_extra = array_merge( $old_ans_extra, $new_ans_extra );
 
 			if ( isset( $answers_extra ) ) {
-			
-				$extra = [];
-				foreach($answers_extra as $key => $extra_type){
-					$extra[]['type'] = 'default';         
+
+				$extra = array();
+				foreach ( $answers_extra as $key => $extra_type ) {
+					$extra[]['type'] = 'default';
 				}
 				update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
 
@@ -2731,28 +2729,27 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer_extra' );
 			}
 		}
-		
 
 		$data = array(
-            'success' => 'Added additional field',
-            'post_id' => $post_id,
-        );
-        return rest_ensure_response( $data );
+			'success' => 'Added additional field',
+			'post_id' => $post_id,
+		);
+		return rest_ensure_response( $data );
 
 	}
 
-		
-	public function wbpoll_additional_field_image(){
+
+	public function wbpoll_additional_field_image() {
 		$post_id = $_POST['post_id'];
-		if(!empty($_POST['_wbpoll_answer']) && isset($_POST['_wbpoll_answer'][0]) && !empty($_POST['_wbpoll_answer'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
 
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2762,16 +2759,16 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer' );
 			}
 		}
-		if(!empty($_POST['_wbpoll_answer_extra']) && isset($_POST['_wbpoll_answer_extra'][0]) && !empty($_POST['_wbpoll_answer_extra'][0])){
-			$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		if ( ! empty( $_POST['_wbpoll_answer_extra'] ) && isset( $_POST['_wbpoll_answer_extra'][0] ) && ! empty( $_POST['_wbpoll_answer_extra'][0] ) ) {
+			$old_ans_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
 			$new_ans_extra = $_POST['_wbpoll_answer_extra'];
-			$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+			$answers_extra = array_merge( $old_ans_extra, $new_ans_extra );
 
 			if ( isset( $answers_extra ) ) {
-			
-				$extra = [];
-				foreach($answers_extra as $key => $extra_type){
-					$extra[]['type'] = 'image';         
+
+				$extra = array();
+				foreach ( $answers_extra as $key => $extra_type ) {
+					$extra[]['type'] = 'image';
 				}
 				update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
 
@@ -2781,14 +2778,14 @@ class Buddypress_Polls_Public {
 		}
 		// Full size image answer
 
-		if(!empty($_POST['_wbpoll_full_size_image_answer']) && isset($_POST['_wbpoll_full_size_image_answer'][0]) && !empty($_POST['_wbpoll_full_size_image_answer'][0])){
-			$old_ans_image = get_post_meta($post_id, '_wbpoll_full_size_image_answer', true);
+		if ( ! empty( $_POST['_wbpoll_full_size_image_answer'] ) && isset( $_POST['_wbpoll_full_size_image_answer'][0] ) && ! empty( $_POST['_wbpoll_full_size_image_answer'][0] ) ) {
+			$old_ans_image = get_post_meta( $post_id, '_wbpoll_full_size_image_answer', true );
 			$new_ans_image = $_POST['_wbpoll_full_size_image_answer'];
-			$answers_image = array_merge($old_ans_image,$new_ans_image);
+			$answers_image = array_merge( $old_ans_image, $new_ans_image );
 
 			if ( isset( $answers_image ) ) {
-				$titles = [];
-				foreach( $answers_image as $index => $title ) {
+				$titles = array();
+				foreach ( $answers_image as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2799,7 +2796,6 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-
 		$data = array(
 			'success' => 'Added additional field',
 			'post_id' => $post_id,
@@ -2808,17 +2804,17 @@ class Buddypress_Polls_Public {
 
 	}
 
-	public function wbpoll_additional_field_video(){
+	public function wbpoll_additional_field_video() {
 		$post_id = $_POST['post_id'];
-		
-		if(!empty($_POST['_wbpoll_answer']) && isset($_POST['_wbpoll_answer'][0]) && !empty($_POST['_wbpoll_answer'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+
+		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2828,16 +2824,16 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer' );
 			}
 		}
-		if(!empty($_POST['_wbpoll_answer_extra']) && isset($_POST['_wbpoll_answer_extra'][0]) && !empty($_POST['_wbpoll_answer_extra'][0])){
-			$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		if ( ! empty( $_POST['_wbpoll_answer_extra'] ) && isset( $_POST['_wbpoll_answer_extra'][0] ) && ! empty( $_POST['_wbpoll_answer_extra'][0] ) ) {
+			$old_ans_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
 			$new_ans_extra = $_POST['_wbpoll_answer_extra'];
-			$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+			$answers_extra = array_merge( $old_ans_extra, $new_ans_extra );
 
 			if ( isset( $answers_extra ) ) {
-			
-				$extra = [];
-				foreach($answers_extra as $key => $extra_type){
-					$extra[]['type'] = 'video';         
+
+				$extra = array();
+				foreach ( $answers_extra as $key => $extra_type ) {
+					$extra[]['type'] = 'video';
 				}
 				update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
 
@@ -2845,17 +2841,17 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer_extra' );
 			}
 		}
-		
+
 		// Full size video  answer
 
-		if(!empty($_POST['_wbpoll_video_answer_url']) && isset($_POST['_wbpoll_video_answer_url'][0]) && !empty($_POST['_wbpoll_video_answer_url'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_video_answer_url', true);
+		if ( ! empty( $_POST['_wbpoll_video_answer_url'] ) && isset( $_POST['_wbpoll_video_answer_url'][0] ) && ! empty( $_POST['_wbpoll_video_answer_url'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_video_answer_url', true );
 			$new_ans = $_POST['_wbpoll_video_answer_url'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2866,17 +2862,16 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-
 		// video suggestion  answer
 
-		if(!empty($_POST['_wbpoll_video_import_info']) && isset($_POST['_wbpoll_video_import_info'][0]) && !empty($_POST['_wbpoll_video_import_info'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_video_import_info', true);
+		if ( ! empty( $_POST['_wbpoll_video_import_info'] ) && isset( $_POST['_wbpoll_video_import_info'][0] ) && ! empty( $_POST['_wbpoll_video_import_info'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_video_import_info', true );
 			$new_ans = $_POST['_wbpoll_video_import_info'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2896,17 +2891,17 @@ class Buddypress_Polls_Public {
 	}
 
 
-	public function wbpoll_additional_field_audio(){
+	public function wbpoll_additional_field_audio() {
 		$post_id = $_POST['post_id'];
-		
-		if(!empty($_POST['_wbpoll_answer']) && isset($_POST['_wbpoll_answer'][0]) && !empty($_POST['_wbpoll_answer'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+
+		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2916,16 +2911,16 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer' );
 			}
 		}
-		if(!empty($_POST['_wbpoll_answer_extra']) && isset($_POST['_wbpoll_answer_extra'][0]) && !empty($_POST['_wbpoll_answer_extra'][0])){
-			$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		if ( ! empty( $_POST['_wbpoll_answer_extra'] ) && isset( $_POST['_wbpoll_answer_extra'][0] ) && ! empty( $_POST['_wbpoll_answer_extra'][0] ) ) {
+			$old_ans_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
 			$new_ans_extra = $_POST['_wbpoll_answer_extra'];
-			$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+			$answers_extra = array_merge( $old_ans_extra, $new_ans_extra );
 
 			if ( isset( $answers_extra ) ) {
-			
-				$extra = [];
-				foreach($answers_extra as $key => $extra_type){
-					$extra[]['type'] = 'audio';         
+
+				$extra = array();
+				foreach ( $answers_extra as $key => $extra_type ) {
+					$extra[]['type'] = 'audio';
 				}
 				update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
 
@@ -2936,14 +2931,14 @@ class Buddypress_Polls_Public {
 
 		// Full size audio  answer
 
-		if(!empty($_POST['_wbpoll_audio_answer_url']) && isset($_POST['_wbpoll_audio_answer_url'][0]) && !empty($_POST['_wbpoll_audio_answer_url'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_audio_answer_url', true);
+		if ( ! empty( $_POST['_wbpoll_audio_answer_url'] ) && isset( $_POST['_wbpoll_audio_answer_url'][0] ) && ! empty( $_POST['_wbpoll_audio_answer_url'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_audio_answer_url', true );
 			$new_ans = $_POST['_wbpoll_audio_answer_url'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2956,14 +2951,14 @@ class Buddypress_Polls_Public {
 
 		// audio suggestion  answer
 
-		if(!empty($_POST['_wbpoll_audio_import_info']) && isset($_POST['_wbpoll_audio_import_info'][0]) && !empty($_POST['_wbpoll_audio_import_info'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_audio_import_info', true);
+		if ( ! empty( $_POST['_wbpoll_audio_import_info'] ) && isset( $_POST['_wbpoll_audio_import_info'][0] ) && ! empty( $_POST['_wbpoll_audio_import_info'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_audio_import_info', true );
 			$new_ans = $_POST['_wbpoll_audio_import_info'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -2973,9 +2968,6 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_audio_import_info' );
 			}
 		}
-		
-
-		
 
 		$data = array(
 			'success' => 'Added additional field',
@@ -2987,17 +2979,17 @@ class Buddypress_Polls_Public {
 
 
 
-	public function wbpoll_additional_field_html(){
+	public function wbpoll_additional_field_html() {
 		$post_id = $_POST['post_id'];
-		
-		if(!empty($_POST['_wbpoll_answer']) && isset($_POST['_wbpoll_answer'][0]) && !empty($_POST['_wbpoll_answer'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_answer', true);
+
+		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -3007,16 +2999,16 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer' );
 			}
 		}
-		if(!empty($_POST['_wbpoll_answer_extra']) && isset($_POST['_wbpoll_answer_extra'][0]) && !empty($_POST['_wbpoll_answer_extra'][0])){
-			$old_ans_extra = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+		if ( ! empty( $_POST['_wbpoll_answer_extra'] ) && isset( $_POST['_wbpoll_answer_extra'][0] ) && ! empty( $_POST['_wbpoll_answer_extra'][0] ) ) {
+			$old_ans_extra = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
 			$new_ans_extra = $_POST['_wbpoll_answer_extra'];
-			$answers_extra = array_merge($old_ans_extra,$new_ans_extra);
+			$answers_extra = array_merge( $old_ans_extra, $new_ans_extra );
 
 			if ( isset( $answers_extra ) ) {
-			
-				$extra = [];
-				foreach($answers_extra as $key => $extra_type){
-					$extra[]['type'] = 'html';         
+
+				$extra = array();
+				foreach ( $answers_extra as $key => $extra_type ) {
+					$extra[]['type'] = 'html';
 				}
 				update_post_meta( $post_id, '_wbpoll_answer_extra', $extra );
 
@@ -3024,18 +3016,17 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_answer_extra' );
 			}
 		}
-		
 
 		// Full size html  answer
 
-		if(!empty($_POST['_wbpoll_html_answer']) && isset($_POST['_wbpoll_html_answer'][0]) && !empty($_POST['_wbpoll_html_answer'][0])){
-			$old_ans = get_post_meta($post_id, '_wbpoll_html_answer', true);
+		if ( ! empty( $_POST['_wbpoll_html_answer'] ) && isset( $_POST['_wbpoll_html_answer'][0] ) && ! empty( $_POST['_wbpoll_html_answer'][0] ) ) {
+			$old_ans = get_post_meta( $post_id, '_wbpoll_html_answer', true );
 			$new_ans = $_POST['_wbpoll_html_answer'];
-			$answers = array_merge($old_ans,$new_ans);
+			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
-				$titles = [];
-				foreach( $answers as $index => $title ) {
+				$titles = array();
+				foreach ( $answers as $index => $title ) {
 					$titles[ $index ] = $title;
 				}
 
@@ -3045,7 +3036,6 @@ class Buddypress_Polls_Public {
 				delete_post_meta( $post_id, '_wbpoll_html_answer' );
 			}
 		}
-
 
 		$data = array(
 			'success' => 'Added additional field',
@@ -3064,24 +3054,24 @@ class Buddypress_Polls_Public {
 	public function wbpolls_load_color_palette() {
 
 		$colors = array(
-			'primary_color'    => '--wbpoll-global-primary-color',
+			'primary_color' => '--wbpoll-global-primary-color',
 		);
 
 		// Customizer colors.
 		$color_settings = get_option( 'wbpolls_settings' );
 
-        if( ! empty( $color_settings ) ) {
+		if ( ! empty( $color_settings ) ) {
 			$wbpolls_background_color = isset( $color_settings['wbpolls_background_color'] ) ? $color_settings['wbpolls_background_color'] : '';
 		}
 
 		$primary_color = ( isset( $wbpolls_background_color['primary_color'] ) ) ? $wbpolls_background_color['primary_color'] : '#4caf50';
 
 		$admin_colors = array(
-			'--wbpoll-global-primary-color'     => $wbpolls_background_color,
+			'--wbpoll-global-primary-color' => $wbpolls_background_color,
 		);
 
 		$fallback_colors = array(
-			'primary_color'    => '#4caf50',
+			'primary_color' => '#4caf50',
 		);
 
 		$color_string = '';
