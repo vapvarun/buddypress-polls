@@ -318,7 +318,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			// Code to display the "Log" submenu page content
 			global $wpdb;
 			$polls_logs_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}wppoll_log order by created desc" );
-		if ( ! empty( $polls_logs_results ) ) {	?>
+			?>
 			<h2><?php esc_html( 'WB Poll Logs', 'buddypress-polls' ); ?></h2>
 			<table class="wbpolls-log-table widefat fixed striped posts">
 				<thead>
@@ -331,8 +331,9 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 					</tr>
 				</thead>
 				
-				<tbody>
-				<?php
+			<tbody>
+			<?php
+			if ( ! empty( $polls_logs_results ) ) {	
 				foreach($polls_logs_results as $log){
 					?>
 					<tr>
@@ -429,10 +430,15 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 							</div>
 						</div>
 					</div>
-				<?php } ?>
-				</tbody>
-				</table>
-		<?php }
+				<?php }
+				}else{?>
+					<tr>
+					<td colspan="5"><?php echo esc_html('Logs Not Found'); ?></td>
+					</tr><?php
+				}
+		    ?>
+		</tbody>
+		</table><?php
 		}
 
 		/**
