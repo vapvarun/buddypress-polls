@@ -273,7 +273,6 @@
 								<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
-
 						<?php } ?>
 						<!-- <tr>
 							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per User', 'buddypress-polls' ); ?></label></th>

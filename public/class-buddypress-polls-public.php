@@ -352,8 +352,10 @@ class Buddypress_Polls_Public {
 			array(
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'no_answer_error' => esc_html__( 'Please select at least one answer', 'buddypress-polls' ),
+				'url' => site_url(),
 			)
 		);
+
 		wp_enqueue_script( 'wbpoll-publicjs' );
 		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( 'wbpoll-base64' );

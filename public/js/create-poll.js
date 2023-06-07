@@ -637,7 +637,6 @@ jQuery(document).ready(
 
 jQuery('#wbpolls-create').submit(function (event) {
     event.preventDefault();
-
     const author_id = jQuery('#author_id').val();
     const title = jQuery('#polltitle').val();
     const content = jQuery('#poll-content').val();
@@ -700,7 +699,7 @@ jQuery('#wbpolls-create').submit(function (event) {
         _wbpoll_vote_per_session: _wbpoll_vote_per_session,
         _wbpoll_add_additional_fields:_wbpoll_add_additional_fields,
     };
-    var siteUrl = window.location.origin;
+    var siteUrl = wbpollpublic.url;
     jQuery.ajax({
         url: siteUrl + '/wp-json/wbpoll/v1/postpoll',
         type: 'POST',
