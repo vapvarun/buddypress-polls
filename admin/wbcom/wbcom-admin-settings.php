@@ -319,8 +319,8 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			global $wpdb;
 			$polls_logs_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}wppoll_log order by created desc" );
 		if ( ! empty( $polls_logs_results ) ) {	?>
-			<h2>WB Poll Logs</h2>
-			<table class="widefat fixed striped posts">
+			<h2><?php esc_html( 'WB Poll Logs', 'buddypress-polls' ); ?></h2>
+			<table class="wbpolls-log-table widefat fixed striped posts">
 				<thead>
 					<tr>
 						<th><strong><?php echo esc_html('Status'); ?></strong></th>
@@ -336,69 +336,95 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				foreach($polls_logs_results as $log){
 					?>
 					<tr>
-						<td><?php echo esc_html($log->poll_status); ?></td>
-						<td><?php echo esc_html(get_the_title($log->poll_id)); ?></td>
-						<td><?php echo esc_html($log->user_name); ?></td>
-						<td><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></td>
-						<td><button class="button action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Open'); ?></button><button class="button action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Delete'); ?></button></td>
+					<td class="log-status"><?php echo esc_html($log->poll_status); ?></td>
+						<td class="log-title"><?php echo esc_html(get_the_title($log->poll_id)); ?></td>
+						<td class="log-user"><?php echo esc_html($log->user_name); ?></td>
+						<td class="log-data"><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></td>
+						<td class="log-action"><button class="button button-small action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Open'); ?></button><button class="button button-small action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Delete'); ?></button></td>
 					</tr>
-					<div class="opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
-						<div class="content">
-							<h2><?php echo esc_html('Log'); ?></h2><span class="close">close</span>
-							<div>
-								<div>
-									<span><?php echo esc_html('Poll'); ?></span>
+					<div class="wbpolls-log-modal opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2><?php echo esc_html( 'Log', 'buddypress-polls' ); ?></h2>
+								<span class="close"><?php echo esc_html( 'close', 'buddypress-polls' ); ?></span>
+							</div>
+							<div class="modal-body">
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('Poll:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html(get_the_title($log->poll_id)); ?></span>
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html(get_the_title($log->poll_id)); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('Received choices:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<?php
+										$poll_id = $log->poll_id;
+										$user_answer_t = maybe_unserialize($log->details);
+										$poll_answers      = get_post_meta( $poll_id, '_wbpoll_answer', true );
+										foreach($user_answer_t as $ans){
+											if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
+												$poll_ans_id    = $ans;
+												$poll_ans_title = $poll_answers[ $poll_ans_id ];
+											} else {
+												$poll_ans_title = '';
+											}?>
+											<span><?php echo $poll_ans_title; ?></span>
+											<span><?php echo esc_html('Choice #'); ?><?php echo $poll_ans_id; ?></span>
+										<?php } ?>												
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html('Received choices'); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('IP:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->user_ip); ?></span>
+									</div>
 								</div>
-								<div>
-									<?php
-									$poll_id = $log->poll_id;
-									$user_answer_t = maybe_unserialize($log->details);
-									$poll_answers      = get_post_meta( $poll_id, '_wbpoll_answer', true );
-									foreach($user_answer_t as $ans){
-										if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
-											$poll_ans_id    = $ans;
-											$poll_ans_title = $poll_answers[ $poll_ans_id ];
-										} else {
-											$poll_ans_title = '';
-										}?>
-										<span><?php echo $poll_ans_title; ?></span>
-										<span><?php echo esc_html('Choice #'); ?><?php echo $poll_ans_id; ?></span>
-									<?php } ?>												
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('Date:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></span>
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html('IP'); ?></span>
-									<span><?php echo esc_html('Date'); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('Browser:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->useragent); ?></span>
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html($log->user_ip); ?></span>
-									<span><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('User Id:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->user_id); ?></span>
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html('Browser'); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('User Login:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->is_logged_in); ?></span>
+									</div>
 								</div>
-								<div>
-									<span><?php echo esc_html($log->useragent); ?></span>
-								</div>
-								<div>
-									<span><?php echo esc_html('User'); ?></span>
-								</div>
-								<div>
-									<span><?php echo esc_html('id'); ?></span>
-									<span><?php echo esc_html($log->user_id); ?></span>
-								</div>
-								<div>
-									<span><?php echo esc_html('Login'); ?></span>
-									<span><?php echo esc_html($log->is_logged_in); ?></span>
-								</div>
-								<div>
-									<span><?php echo esc_html('Name'); ?></span>
-									<span><?php echo esc_html($log->user_name); ?></span>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html('User Name:'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->user_name); ?></span>
+									</div>
 								</div>
 							</div>
 						</div>
