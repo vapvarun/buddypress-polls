@@ -549,9 +549,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 
 	//audio uploader
 
-	$( '#upload-btn-audio' ).on(
-		'click',
-		function (e){
+	$( '#upload-btn-audio' ).on('click', function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );
 			var id = $( this ).data( 'id' );

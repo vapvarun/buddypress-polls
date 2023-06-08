@@ -2620,7 +2620,7 @@ class WBPollHelper {
 			$answer_fields_html .= '<label for="wbpoll_answer-' . $index . '">' . esc_html__( 'Audio URL', 'buddypress-polls' ) . '</label>';
 			$answer_fields_html .= '<input type="hidden" style="width:330px;" name="_wbpoll_audio_answer_url[' . $index . ']"  placeholder="Full Size Audio URL"  id="wbpoll_answer-url-' . $index . '" value="' . $audio_url . '" class="wbpoll_answer wbpoll_audio_answer_url-' . $index . '" data-id="' . $index . '" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;"  id="wbpoll_answer-' . $index . '" value="' . $audio_url . '" class="audio_url wbpoll_answer wbpoll_audio_answer_url-' . $index . '" data-id="' . $index . '" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
-			$answer_fields_html .= '<input type="button" class="button" value="Upload" id="upload-btn-audio" data-id="'.$index.'" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
+			$answer_fields_html .= '<input type="button" class="button upload-btn-audio" value="Upload" id="upload-btn-audio" data-id="'.$index.'" data-text="wbpoll_audio_answer_url-' . $index . '"/>';
 			$answer_fields_html .= '<div class="error-'.$index.'"></div>';
 			if ( isset( $iframe_audio_url ) && $iframe_audio_url == 'yes' ) {
 				$answer_fields_html .= '<div class="wbpoll-input-group-suggestions hide_suggestion-' . $index . '" style="display:none;"><span>Import information from ?</span><input type="radio" class="yes_audio" name="_wbpoll_audio_import_info[' . $index . ']" value="yes" data-id="' . $index . '" checked>

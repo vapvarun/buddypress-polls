@@ -712,13 +712,13 @@ jQuery('#wbpolls-create').submit(function (event) {
                 window.setTimeout(
                     function () {
                         jQuery('#pollsuccess').hide();
-                        jQuery('#pollsuccess').text('');                        
+                        jQuery('#pollsuccess').text(''); 
+                        location.reload();                       
                     },
                     5000
                 );
             } else {
-                jQuery('#pollsuccess').hide();
-              
+                jQuery('#pollsuccess').hide();              
             }
         },
     });
