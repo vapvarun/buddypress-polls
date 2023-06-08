@@ -547,9 +547,12 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		}
 	);
 
-	//audio uploader
+	//video uploader
 
-	$( '#upload-btn-audio' ).on('click', function (e){
+	$( '#wbpoll_answer_wrap' ).on(
+		'click',
+		'#upload-audio-btn',
+		function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );
 			var id = $( this ).data( 'id' );
@@ -560,9 +563,9 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 			}
 			mediaUploader = wp.media.frames.file_frame = wp.media(
 				{
-					title: 'Choose Audio',
+					title: 'Choose audio',
 					button: {
-						text: 'Choose Audio'
+						text: 'Choose audio'
 					},
 					library: {
 						type: [ 'audio' ]
@@ -575,7 +578,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 				function() {
 					var attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
 					$( '.' + imgclass ).val( attachment.url );
-					$( '.audio_' + imgclass ).html( '<audio src="' + attachment.url + '" controls="" preload="none"></audio>' );
+					$( '.video_' + imgclass ).html( '<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>' );
 				}
 			);
 			mediaUploader.open();
@@ -584,6 +587,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		}
 	);
 
+	
 	//image add with url
 
 	$( '#wbpoll_answer_wrap' ).on(
