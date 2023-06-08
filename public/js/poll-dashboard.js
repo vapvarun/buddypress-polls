@@ -13,7 +13,7 @@ jQuery('.pause_poll').on('click', function () {
         _wbpoll_pause_poll: pause_poll,
     };
     
-    var siteUrl = window.location.origin;
+    var siteUrl = wbpollpublic.url;
     jQuery.ajax({
         url: siteUrl + '/wp-json/wbpoll/v1/listpoll/pause/poll',
         type: 'POST',
@@ -36,7 +36,7 @@ jQuery('.delete_poll').on('click', function () {
         pollid: pollid,
     };
     
-    var siteUrl = window.location.origin;
+    var siteUrl =wbpollpublic.url;
     jQuery.ajax({
         url: siteUrl + '/wp-json/wbpoll/v1/listpoll/delete/poll',
         type: 'POST',
