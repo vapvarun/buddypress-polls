@@ -90,7 +90,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Allow users to create poll options.', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'This option will allow the users to create poll options.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'This option will allow the users to create poll options. (Valid obly for Text Poll type)', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -112,12 +112,12 @@ global $wp_roles;
 							</div>
 							<div class="wbcom-settings-section-options">
 								<select name="wbpolls_settings[wbpolls_submit_status]">
-									<option value="" 
+									<option value="pending" 
 									<?php
-									if ( $bpolls_settings['wbpolls_submit_status'] == '' ) {
+									if ( $bpolls_settings['wbpolls_submit_status'] == 'pending' ) {
 										echo 'selected'; }
 									?>
-									><?php esc_html_e( 'Poll Status', 'buddypress-polls' ); ?></option>
+									><?php esc_html_e( 'Pending Review', 'buddypress-polls' ); ?></option>
 									<option value="draft" 
 									<?php
 									if ( $bpolls_settings['wbpolls_submit_status'] == 'draft' ) {
