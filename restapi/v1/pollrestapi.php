@@ -334,12 +334,22 @@ class Pollrestapi {
         }
         $type = $wbpolls_submit_status;
         //Return the response data
-        $data = array(
-            'success' => true,
-            'message' => 'Poll created successfully. your poll is in '.$type.'. It will be published after admin review',
-            'post_id' => $post_id,
-        );
+        if($type == "publish"){
+            $data = array(
+                'success' => true,
+                'message' => 'Your Poll is published.',
+                'post_id' => $post_id,
+            );
+        }else{
+            $data = array(
+                'success' => true,
+                'message' => 'your poll is in '.$type.'. It will be published after admin review',
+                'post_id' => $post_id,
+            );
+        }
+       
         update_option( 'permalink_structure', '/%postname%/' );
+
         return rest_ensure_response( $data );
     }
 

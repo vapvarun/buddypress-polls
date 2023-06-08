@@ -375,7 +375,6 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 												$poll_ans_title = '';
 											}?>
 											<span><?php echo $poll_ans_title; ?></span>
-											<span><?php echo esc_html('Choice #'); ?><?php echo $poll_ans_id; ?></span>
 										<?php } ?>												
 									</div>
 								</div>

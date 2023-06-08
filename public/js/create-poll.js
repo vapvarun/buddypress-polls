@@ -676,50 +676,58 @@ jQuery('#wbpolls-create').submit(function (event) {
     const _wbpoll_vote_per_session = jQuery('#_wbpoll_vote_per_session-number').val();
     const _wbpoll_add_additional_fields = jQuery('input[name="_wbpoll_add_additional_fields"]:checked').val();
 
-    const data = {
-        author_id: author_id,
-        title: title,
-        content: content,
-        poll_type: poll_type,
-        _wbpoll_answer: answer,
-        _wbpoll_answer_extra: answertype,
-        _wbpoll_full_size_image_answer: full_size_image_answer,
-        _wbpoll_video_answer_url: video_answer_url,
-        _wbpoll_audio_answer_url: audio_answer_url,
-        _wbpoll_video_import_info: video_import_info,
-        _wbpoll_audio_import_info: audio_import_info,
-        _wbpoll_html_answer: html_answer,
-        _wbpoll_start_date: _wbpoll_start_date,
-        _wbpoll_end_date: _wbpoll_end_date,
-        _wbpoll_user_roles: _wbpoll_user_roles,
-        _wbpoll_content: _wbpoll_content,
-        _wbpoll_never_expire: _wbpoll_never_expire,
-        _wbpoll_show_result_before_expire: _wbpoll_show_result_before_expire,
-        _wbpoll_multivote: _wbpoll_multivote,
-        _wbpoll_vote_per_session: _wbpoll_vote_per_session,
-        _wbpoll_add_additional_fields:_wbpoll_add_additional_fields,
-    };
-    var siteUrl = wbpollpublic.url;
-    jQuery.ajax({
-        url: siteUrl + '/wp-json/wbpoll/v1/postpoll',
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(data),
-        success: function (response) {
-            if (response.success) {
-                jQuery('#pollsuccess').show();
-                jQuery('#pollsuccess').text(response.message);
-                window.setTimeout(
-                    function () {
-                        jQuery('#pollsuccess').hide();
-                        jQuery('#pollsuccess').text(''); 
-                        location.reload();                       
-                    },
-                    5000
-                );
-            } else {
-                jQuery('#pollsuccess').hide();              
-            }
-        },
-    });
+    if(title == ""){
+        jQuery('#error_title').text('Poll Title is required');
+    }else if(poll_type == ""){
+        jQuery('#error_type').text('Poll Type is required');
+    }else if(answer == ",,,,"){
+        jQuery('#error_ans').text('Poll options is required');
+    }else{
+        const data = {
+            author_id: author_id,
+            title: title,
+            content: content,
+            poll_type: poll_type,
+            _wbpoll_answer: answer,
+            _wbpoll_answer_extra: answertype,
+            _wbpoll_full_size_image_answer: full_size_image_answer,
+            _wbpoll_video_answer_url: video_answer_url,
+            _wbpoll_audio_answer_url: audio_answer_url,
+            _wbpoll_video_import_info: video_import_info,
+            _wbpoll_audio_import_info: audio_import_info,
+            _wbpoll_html_answer: html_answer,
+            _wbpoll_start_date: _wbpoll_start_date,
+            _wbpoll_end_date: _wbpoll_end_date,
+            _wbpoll_user_roles: _wbpoll_user_roles,
+            _wbpoll_content: _wbpoll_content,
+            _wbpoll_never_expire: _wbpoll_never_expire,
+            _wbpoll_show_result_before_expire: _wbpoll_show_result_before_expire,
+            _wbpoll_multivote: _wbpoll_multivote,
+            _wbpoll_vote_per_session: _wbpoll_vote_per_session,
+            _wbpoll_add_additional_fields:_wbpoll_add_additional_fields,
+        };
+        var siteUrl = wbpollpublic.url;
+        jQuery.ajax({
+            url: siteUrl + '/wp-json/wbpoll/v1/postpoll',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.success) {
+                    jQuery('#pollsuccess').show();
+                    jQuery('#pollsuccess').text(response.message);
+                    window.setTimeout(
+                        function () {
+                            jQuery('#pollsuccess').hide();
+                            jQuery('#pollsuccess').text(''); 
+                            location.reload();                       
+                        },
+                        5000
+                    );
+                } else {
+                    jQuery('#pollsuccess').hide();              
+                }
+            },
+        });
+    }
 });

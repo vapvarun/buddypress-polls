@@ -24,6 +24,7 @@
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
 				<input type="text" class="form-control" name="title" id="polltitle">
+				<span id="error_title" style="color:red;"></span>
 			</div>
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Description', 'buddypress-polls' ); ?></label>
@@ -39,6 +40,7 @@
 					<option value="audio"><?php esc_html_e( 'Audio', 'buddypress-polls' ); ?></option>
 					<option value="html"><?php esc_html_e( 'HTML', 'buddypress-polls' ); ?></option>
 				</select>
+				<span id="error_type" style="color:red;"></span>
 			</div>
 
 			<div class="wbpolls-answer-wrap">
@@ -149,6 +151,7 @@
 					<div class="html_records_dynamic"></div>
 				</div>
 			</div>
+			<span id="error_ans" style="color:red;"></span>
 
 			<div class="wbcom-polls-option-wrap">
 				<table class="form-table wbpoll-answer-options">

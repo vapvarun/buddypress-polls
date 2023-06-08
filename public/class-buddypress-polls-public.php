@@ -2582,19 +2582,27 @@ class Buddypress_Polls_Public {
 		);
 			
 		$wpdb->insert($wpdb->prefix . 'wppoll_log', $insertArray_log);
-
-		$poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
+		$option_value = get_option('wbpolls_settings');
+		if(!empty($option_value)){
+			
+			$wppolls_show_result = isset($option_value['wppolls_show_result']) ? $option_value['wppolls_show_result'] : '';
+		}
 
 		// we will only show result if permitted and for successful voting only
 
 		// at least a successful vote happen
 		// let's check if permission to see result >> as has vote capability to can see result
 		// let's check if has permission to see before expire
+		
+		if($wppolls_show_result == 'yes'){
+			//$poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
+			if ( $poll_show_result_before_expire == 1 ) {
+				$poll_result['show_result'] = 1;
+				$poll_result['html']        = WBPollHelper::show_single_poll_result( $poll_id, $reference, $chart_type );
 
-		if ( $poll_show_result_before_expire == 1 ) {
-			$poll_result['show_result'] = 1;
-			$poll_result['html']        = WBPollHelper::show_single_poll_result( $poll_id, $reference, $chart_type );
-
+			}
+		}else{
+			$poll_result['text'] = esc_html__( 'Thanks for voting! and Result hide by Admin', 'buddypress-polls' );
 		}
 
 		echo wp_json_encode( $poll_result );
