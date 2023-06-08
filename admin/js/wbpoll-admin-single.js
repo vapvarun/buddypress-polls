@@ -754,14 +754,21 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		$( '.wb-hide-' + dataid ).toggle();
 		$(this).toggleClass('active');				
 	});
+
+	$('.wbpoll-containable-list-item-toolbar').on(
+		'click',
+		function (e) {
+			e.preventDefault();
+			$('textarea.tiny').tinymce({
+				menubar: false,
+				max_height: 500,
+				max_width: 800,
+				min_height: 200,
+				min_width: 800,
+				toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+			});
 	
-	$('textarea.tiny').tinymce({
-		menubar: false,
-		max_height: 500,
-		max_width: 800,
-		min_height: 200,
-		min_width: 800,
-		toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
-	});
+		});
 	
 })( jQuery );
+

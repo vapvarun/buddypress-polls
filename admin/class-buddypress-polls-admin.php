@@ -1403,13 +1403,13 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 						// HTML textarea answer
 						if (isset($_POST[$prefix . 'html_answer'])) {
-							$images = $_POST[$prefix . 'html_answer'];
+							$htmls = $_POST[$prefix . 'html_answer'];
 
-							foreach ($images as $index => $url) {
-								$images[$index] = sanitize_text_field($url);
+							foreach ($htmls as $index => $html) {
+								$htmls[$index] = $html;
 							}
 
-							update_post_meta($post_id, $prefix . 'html_answer', $images);
+							update_post_meta($post_id, $prefix . 'html_answer', $htmls);
 						} else {
 							delete_post_meta($post_id, $prefix . 'html_answer');
 						}

@@ -244,8 +244,8 @@ class Pollrestapi {
                 }           
             }
 
-            foreach ( $htmls as $index => $url ) {
-                $htmls[ $index ] = sanitize_text_field( $url );
+            foreach ( $htmls as $index => $html ) {
+                $htmls[ $index ] = $html;
             }
 
             update_post_meta( $post_id, $prefix . 'html_answer', $htmls );
