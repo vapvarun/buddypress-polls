@@ -332,10 +332,11 @@ class Pollrestapi {
         } else {
             delete_post_meta( $post_id, $prefix . 'vote_per_session' );
         }
-
+        $type = $wbpolls_submit_status;
         //Return the response data
         $data = array(
-            'success' => 'Post created successfully',
+            'success' => true,
+            'message' => 'Poll created successfully. your poll is in '.$type.'. It will be published after admin review',
             'post_id' => $post_id,
         );
         update_option( 'permalink_structure', '/%postname%/' );

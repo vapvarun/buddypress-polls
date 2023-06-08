@@ -708,7 +708,7 @@ jQuery('#wbpolls-create').submit(function (event) {
         success: function (response) {
             if (response.success) {
                 jQuery('#pollsuccess').show();
-                jQuery('#pollsuccess').text('Poll created successfully.');
+                jQuery('#pollsuccess').text(response.message);
                 window.setTimeout(
                     function () {
                         jQuery('#pollsuccess').hide();
