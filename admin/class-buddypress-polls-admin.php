@@ -255,10 +255,9 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					function change_admin_bar_edit_text() {
 						global $wp_admin_bar;
 						$current_post_type = get_post_type();
-						if($current_post_type == 'wbpoll'){
-							// Find the "Edit Post" node in the admin bar
+						// Find the "Edit Post" node in the admin bar
+						if($current_post_type == 'wbpoll'){						
 							$edit_node = $wp_admin_bar->get_node('edit');
-						
 							// Check if the node exists and its title is "Edit Post"
 							if ($edit_node && $edit_node->title === 'Edit Post') {
 								// Change the title to "Edit Poll"
@@ -267,10 +266,30 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								// Update the node in the admin bar
 								$wp_admin_bar->add_node($edit_node);
 							}
+							if ($edit_node && $edit_node->title === 'View Post') {
+								// Change the title to "Edit Poll"
+								$edit_node->title = 'View Poll';
+						
+								// Update the node in the admin bar
+								$wp_admin_bar->add_node($edit_node);
+							}
 						}
 					}
 
-
+					/**
+					 * change_post_title_placeholder change title placeholder for single poll
+					 *
+					 * @since    1.0.0
+					 */
+					function change_post_title_placeholder($title_placeholder) {
+						$screen = get_current_screen();
+					
+						if ($screen->post_type === 'wbpoll') {
+							$title_placeholder = 'Poll Title';
+						}
+					
+						return $title_placeholder;
+					}
 
 					/**
 					 * Bpolls_add_dashboard_widgets
@@ -957,11 +976,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 							echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="' . $poll_postid . '">';
 							echo '<h3>' . esc_html__('Poll Answers', 'buddypress-polls') . '</h3>';
-							echo __(
-								'<p>[<strong>Note : </strong>  <span>Please select different color for each field.]</span></p>',
-								'buddypress-polls'
-							);
-
+							
 							echo '<div class="wb-poll-answers-items-content-wrapper">';
 							echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>';
 							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . $post->ID . '">';
