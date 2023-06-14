@@ -337,13 +337,13 @@ class Pollrestapi {
         if($type == "publish"){
             $data = array(
                 'success' => true,
-                'message' => esc_html_e('Your Poll is published.'),
+                'message' => esc_html('Your Poll is published.'),
                 'post_id' => $post_id,
             );
         }else{
             $data = array(
                 'success' => true,
-                'message' => esc_html_e('Your poll is in '.$type.'. It will be published after admin review'),
+                'message' => esc_html('Your Poll is in '.$type.'. It will be published after admin review'),
                 'post_id' => $post_id,
             );
         }
@@ -559,7 +559,7 @@ class Pollrestapi {
         }
 
         $data = array(
-            'success' => 'poll pause successfully',
+            'success' => esc_html('Poll pause successfully.'),
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );
@@ -576,7 +576,7 @@ class Pollrestapi {
         $result = wp_delete_post($pollid, true);
 
         $data = array(
-            'success' => 'Post deleted successfully!',
+            'success' => esc_html('Poll deleted successfully!'),
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );
