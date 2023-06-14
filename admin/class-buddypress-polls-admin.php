@@ -205,8 +205,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$bpolls_tabs = array(
 							'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
 							'general'        => esc_html__('General (Community)', 'buddypress-polls'),
-							'support'        => esc_html__('Support', 'buddypress-polls'),
 							'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+							'support'        => esc_html__('Support', 'buddypress-polls'),
 						);
 
 						$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html('Menu') . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
