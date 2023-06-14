@@ -2602,7 +2602,7 @@ class Buddypress_Polls_Public {
 
 			}
 		} else {
-			$poll_result['text'] = esc_html__( 'Thanks for voting! and Result hide by Admin', 'buddypress-polls' );
+			$poll_result['text'] = esc_html__( 'Thanks for the voting. Results are hidden by the admin for this poll', 'buddypress-polls' );
 		}
 
 		echo wp_json_encode( $poll_result );
