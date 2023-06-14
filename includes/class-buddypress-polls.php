@@ -173,13 +173,14 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 //add js and css in admin end
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-
-			$this->loader->add_action( bp_core_admin_hook(), $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
-			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
-			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
-			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
-			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
-
+			 $this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
+			 if ( class_exists( 'Buddypress' ) ) {				
+				$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
+				$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
+				$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
+				$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
+			 }
+			 
 			/** Polls hooks **/
 
 			 // init cookie and custom post types
@@ -224,80 +225,80 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 			 
+			 if ( class_exists( 'Buddypress' ) ) {
+				$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
-			$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
+				/* adds polls html in whats new area */
+				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpolls_polls_update_html', 10 );
+				$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bppolls_polls_options_container', 50 );
 
-			/* adds polls html in whats new area */
-			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpolls_polls_update_html', 10 );
-			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bppolls_polls_options_container', 50 );
+				/* adds new activity type poll */
+				$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpolls_add_polls_type_activity', 10, 1 );
 
-			/* adds new activity type poll */
-			$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpolls_add_polls_type_activity', 10, 1 );
+				/* register poll type activity action */
+				$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpolls_register_activity_actions' );
 
-			/* register poll type activity action */
-			$this->loader->add_action( 'bp_register_activity_actions', $plugin_public, 'bpolls_register_activity_actions' );
+				$this->loader->add_filter( 'bp_get_activity_action_pre_meta', $plugin_public, 'bpolls_activity_action_wall_posts', 9999, 2 );
 
-			$this->loader->add_filter( 'bp_get_activity_action_pre_meta', $plugin_public, 'bpolls_activity_action_wall_posts', 9999, 2 );
+				/* update poll type activity on post update */
+				$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
 
-			/* update poll type activity on post update */
-			$this->loader->add_action( 'bp_activity_before_save', $plugin_public, 'bpolls_update_poll_type_activity', 10, 1 );
+				/* update poll activity meta */
+				$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
-			/* update poll activity meta */
-			$this->loader->add_action( 'bp_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+				/* update group poll activity meta */
+				$this->loader->add_action( 'bp_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
-			/* update group poll activity meta */
-			$this->loader->add_action( 'bp_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+				/* ypuzer update activity meta */
+				$this->loader->add_action( 'yz_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+				$this->loader->add_action( 'yz_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
 
-			/* ypuzer update activity meta */
-			$this->loader->add_action( 'yz_activity_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
-			$this->loader->add_action( 'yz_groups_posted_update', $plugin_public, 'bpolls_update_poll_activity_meta', 10, 4 );
+				/* Update poll activity content */
 
-			/* Update poll activity content */
+				// $this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
 
-			// $this->loader->add_action( 'bp_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
+				$this->loader->add_filter( 'bp_get_activity_content_body', $plugin_public, 'bpquotes_update_pols_activity_content', 10, 2 );
+				/* update widget poll activity content */
+				$this->loader->add_action( 'bp_polls_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
 
-			$this->loader->add_filter( 'bp_get_activity_content_body', $plugin_public, 'bpquotes_update_pols_activity_content', 10, 2 );
-			/* update widget poll activity content */
-			$this->loader->add_action( 'bp_polls_activity_entry_content', $plugin_public, 'bpolls_update_poll_activity_content', 10, 1 );
+				/* ajax request to save note */
+				$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
 
-			/* ajax request to save note */
-			$this->loader->add_action( 'wp_ajax_bpolls_save_poll_vote', $plugin_public, 'bpolls_save_poll_vote' );
-
-			/* set poll type activity action in groups */
-			if ( defined( 'BP_VERSION' ) ) {
-				if ( version_compare( BP_VERSION, '5.0.0', '>=' ) ) {
-					$this->loader->add_filter( 'bp_groups_format_activity_action_group_activity_update', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
-				} else {
-					$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+				/* set poll type activity action in groups */
+				if ( defined( 'BP_VERSION' ) ) {
+					if ( version_compare( BP_VERSION, '5.0.0', '>=' ) ) {
+						$this->loader->add_filter( 'bp_groups_format_activity_action_group_activity_update', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+					} else {
+						$this->loader->add_filter( 'groups_activity_new_update_action', $plugin_public, 'bpolls_groups_activity_new_update_action', 10, 1 );
+					}
 				}
-			}
-			/* set poll activity content in embed */
-			$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
-			/* embed poll activity css */
-			$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_activity_embed_add_inline_styles', 20 );
+				/* set poll activity content in embed */
+				$this->loader->add_filter( 'bp_activity_get_embed_excerpt', $plugin_public, 'bpolls_bp_activity_get_embed_excerpt', 10, 2 );
+				/* embed poll activity css */
+				$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_activity_embed_add_inline_styles', 20 );
 
-			// update total poll votes.
-			// $this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
+				// update total poll votes.
+				// $this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
 
-			$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
+				$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
 
-			$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
+				$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
 
-			$this->loader->add_action( 'wp_ajax_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
-			$this->loader->add_action( 'wp_ajax_nopriv_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
+				$this->loader->add_action( 'wp_ajax_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
+				$this->loader->add_action( 'wp_ajax_nopriv_bpolls_activity_all_voters', $plugin_public, 'bpolls_activity_all_voters' );
 
-			/* Embed polls activity data in rest api */
-			$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpolls_activity_data_embed_rest_api', 10, 3 );
+				/* Embed polls activity data in rest api */
+				$this->loader->add_filter( 'bp_rest_activity_prepare_value', $plugin_public, 'bpolls_activity_data_embed_rest_api', 10, 3 );
 
-			$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
-			$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
+				$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
+				$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
 
-			$this->loader->add_action( 'wp_ajax_bpolls_activity_add_user_option', $plugin_public, 'bpolls_activity_add_user_option' );
+				$this->loader->add_action( 'wp_ajax_bpolls_activity_add_user_option', $plugin_public, 'bpolls_activity_add_user_option' );
 
-			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
+				$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
-			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
-
+				$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
+			 }
 			//Show poll in details poll post type
 			if ( ! is_admin() ) {
 				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );

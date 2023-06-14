@@ -99,7 +99,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( is_buddypress()
+		if ( function_exists('is_buddypress') && is_buddypress()
 			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
@@ -405,7 +405,7 @@ class Buddypress_Polls_Public {
 				'reign_polls'        => $body_polls_class,
 				'rt_poll_fix'        => $rt_poll_fix,
 				'nouveau'            => $nouveau,
-				'buddyboss'          => buddypress()->buddyboss,
+				'buddyboss'          => function_exists('buddypress') ? buddypress()->buddyboss : '',
 				'polls_option_lmit'  => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
 				'poll_limit_voters'  => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
 				/* translators: %d: Polls Max Options */
@@ -433,7 +433,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( is_buddypress()
+		if ( function_exists('is_buddypress') && is_buddypress()
 				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
@@ -846,15 +846,18 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function bpolls_register_activity_actions() {
-		$bp = buddypress();
-		bp_activity_set_action(
-			$bp->activity->id,
-			'activity_poll',
-			__( 'Polls Update', 'buddypress-polls' ),
-			array( $this, 'bp_activity_format_activity_action_activity_poll' ),
-			__( 'Poll', 'buddypress-polls' ),
-			array( 'activity', 'group', 'member', 'member_groups' )
-		);
+		if(function_exists('buddypress')){
+			$bp = buddypress();
+			bp_activity_set_action(
+				$bp->activity->id,
+				'activity_poll',
+				__( 'Polls Update', 'buddypress-polls' ),
+				array( $this, 'bp_activity_format_activity_action_activity_poll' ),
+				__( 'Poll', 'buddypress-polls' ),
+				array( 'activity', 'group', 'member', 'member_groups' )
+			);
+		}
+		
 	}
 
 	/**

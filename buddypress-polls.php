@@ -211,12 +211,15 @@ add_action( 'bp_include', 'bpolls_plugin_init' );
  * this plugin requires BuddyPress to be installed and active
  */
 function bpolls_plugin_init() {
+	
 	if ( bp_polls_check_config() ) {
-		run_buddypress_polls();
+		run_buddypress_polls();		
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
+	}else{
+		run_buddypress_polls();
 	}
 }
-
+bpolls_plugin_init();
 /**
  * Function to check configurations.
  */
@@ -228,17 +231,18 @@ function bp_polls_check_config() {
 		'network_active' => false,
 		'network_status' => true,
 	);
-	if ( get_current_blog_id() == bp_get_root_blog_id() ) {
+	if ( function_exists('bp_get_root_blog_id') && get_current_blog_id() == bp_get_root_blog_id() ) {
 		$config['blog_status'] = true;
 	}
 
 	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
+	if ( class_exists( 'Buddypress' ) ) {
+		// No Network plugins.
+		if ( empty( $network_plugins ) ) {
 
-	// No Network plugins.
-	if ( empty( $network_plugins ) ) {
-
-		// Looking for BuddyPress and bp-activity plugin.
-		$check[] = $bp->basename;
+			// Looking for BuddyPress and bp-activity plugin.
+			$check[] = $bp->basename;
+		}
 	}
 	$check[] = BPOLLS_PLUGIN_BASENAME;
 
@@ -259,12 +263,12 @@ function bp_polls_check_config() {
 	if ( ! $config['blog_status'] || ! $config['network_status'] ) {
 
 		$warnings = array();
-		if ( ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
+		if ( function_exists( 'bp_core_do_network_admin' ) && ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
 			add_action( 'admin_notices', 'bpolls_same_blog' );
 			$warnings[] = __( 'BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls' );
 		}
 
-		if ( bp_core_do_network_admin() && ! $config['network_status'] ) {
+		if ( function_exists( 'bp_core_do_network_admin' ) && bp_core_do_network_admin() && ! $config['network_status'] ) {
 			add_action( 'admin_notices', 'bpolls_same_network_config' );
 			$warnings[] = __( 'BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls' );
 		}
@@ -312,14 +316,14 @@ function bpolls_plugin_links( $links ) {
  *  Check if buddypress activate.
  */
 function bpolls_requires_buddypress() {
-	if ( ! class_exists( 'Buddypress' ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		add_action( 'admin_notices', 'bpolls_required_plugin_admin_notice' );
+	//if ( ! class_exists( 'Buddypress' ) ) {
+		//( plugin_basename( __FILE__ ) );
+		//add_action( 'admin_notices', 'bpolls_required_plugin_admin_notice' );
 		if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
 			$activate = filter_input( INPUT_GET, 'activate' );
 			unset( $activate );
 		}
-	}
+	//}
 }
 add_action( 'admin_init', 'bpolls_requires_buddypress' );
 
@@ -407,7 +411,7 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 	if ( ! isset( $plugins ) ) {
 		return;
 	}
-	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'Buddypress' ) ) {
+	if ( plugin_basename( __FILE__ ) === $plugin || class_exists( 'Buddypress' ) ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) {
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls&redirects=1' ) );
 			exit;

@@ -202,12 +202,21 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					</div>
 					<div class="wbcom-admin-settings-page">
 						<?php
-						$bpolls_tabs = array(
-							'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
-							'general'        => esc_html__('General (Community)', 'buddypress-polls'),
-							'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
-							'support'        => esc_html__('Support', 'buddypress-polls'),
-						);
+						if ( class_exists( 'Buddypress' ) ) {
+							$bpolls_tabs = array(
+								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
+								'general'        => esc_html__('General (Community)', 'buddypress-polls'),
+								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+								'support'        => esc_html__('Support', 'buddypress-polls'),
+							);
+						}else{
+							$bpolls_tabs = array(
+								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
+								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+								'support'        => esc_html__('Support', 'buddypress-polls'),
+							);
+						}
+						
 
 						$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html('Menu') . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 						foreach ($bpolls_tabs as $bpolls_tab => $bpolls_name) {
@@ -1738,13 +1747,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 										foreach ($results as $res) {
 
-											$image          = bp_core_fetch_avatar(
-												array(
-													'item_id' => $res['user_id'],
-													'type'    => 'thumb',
-													'html'    => true,
-												)
-											);
+											$image = get_avatar($res['user_id'], 150, '', 'User Avatar', array('class' => 'avatar-image'));
+
 											$args           = array(
 												'include' => $res['user_id'], // ID of users you want to get
 												'fields'  => 'display_name',
