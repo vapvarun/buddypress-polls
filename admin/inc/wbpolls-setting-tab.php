@@ -90,7 +90,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Allow users to create poll options.', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'This option will allow the users to create poll options. (Valid obly for Text Poll type)', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'This option will allow the users to create poll options. (Valid only for Text Poll type)', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
