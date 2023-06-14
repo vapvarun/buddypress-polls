@@ -447,6 +447,10 @@
     margin: 0 -15px;
 }
 
+.wbpolls-question-results .poll-video {
+    width: 100%;
+}
+
 .wbpolls-question-results.wbpoll-image .wbpoll-question-choices-item,
 .wbpolls-question-results.wbpoll-video .wbpoll-question-choices-item,
 .wbpolls-question-results.wbpoll-audio .wbpoll-question-choices-item {

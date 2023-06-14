@@ -1,6 +1,6 @@
 .main-poll-create {
     background: #fff;
-    margin: 0;
+    margin: 0 0 20px;
     padding: 20px !important;
     height: 100%;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -258,6 +258,25 @@
     border: 0;
 }
 
+table.form-table.wbpoll-answer-options,
+table.form-table.wbpoll-answer-options td,
+table.form-table.wbpoll-answer-options th {
+    text-align: right;
+    border-right: 0;
+    border-left: 0;
+}
+
+.wbcom-polls-option-wrap input[type=text] {
+    width: 100%;
+}
+
+.wbcom-polls-option-wrap td,
+.wbcom-polls-option-wrap th {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .wbcom-polls-option-wrap fieldset label::before {
     content: none;
 }
@@ -295,6 +314,7 @@
 
 .main-poll-create .wbpolls-create .wbpoll-answer-options th {
     vertical-align: inherit;
+    padding-left: 15px;
 }
 
 .wbpoll-form .wbpolls-add-option-button,
@@ -324,10 +344,13 @@
 .wbpoll-form .wbpolls-add-option-button:focus,
 .wbpoll-form .wbpolls-remove-option-button:hover,
 .wbpoll-form .wbpolls-remove-option-button:focus {
+    background-color: transparent;
+    color: inherit;
     box-shadow: 0 0.5em 0.5em -0.4em #3a3a3a !important;
     -webkit-transform: translateY(-0.1em);
     -ms-transform: translateY(-0.1em);
     transform: translateY(-0.1em);
+    border: 2px solid var(--wbpoll-global-primary-color) !important;
 }
 
 @media screen and (max-width: 767px) {

@@ -119,13 +119,13 @@ class WBPollHelper {
 			'labels'          => array(
 				'name'          => esc_html__( 'WB Polls', 'buddypress-polls' ),
 				'singular_name' => esc_html__( 'WB Poll', 'buddypress-polls' ),
-				'add_new_item'       => esc_html__( 'Add New Poll' ),
-				'edit_item'          => esc_html__( 'Edit Poll' ),
-				'new_item'           => esc_html__( 'New Poll' ),
-				'view_item'          => esc_html__( 'View Poll' ),
-				'search_items'       => esc_html__( 'Search Poll' ),
-				'not_found'          => esc_html__( 'No Poll found' ),
-				'not_found_in_trash' => esc_html__( 'No Poll found in trash' ),
+				'add_new_item'       => esc_html__( 'Add New Poll', 'buddypress-polls' ),
+				'edit_item'          => esc_html__( 'Edit Poll', 'buddypress-polls' ),
+				'new_item'           => esc_html__( 'New Poll', 'buddypress-polls' ),
+				'view_item'          => esc_html__( 'View Poll', 'buddypress-polls' ),
+				'search_items'       => esc_html__( 'Search Poll', 'buddypress-polls' ),
+				'not_found'          => esc_html__( 'No Poll found', 'buddypress-polls' ),
+				'not_found_in_trash' => esc_html__( 'No Poll found in trash', 'buddypress-polls' ),
 			),
 			
 			'menu_icon'       => 'dashicons-chart-bar', // 16px16
