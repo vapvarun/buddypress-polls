@@ -1,6 +1,6 @@
 .main-poll-create {
     background: #fff;
-    margin: 0;
+    margin: 0 0 20px;
     padding: 20px !important;
     height: 100%;
     box-shadow: 0 0 1px rgba(0, 0, 0, 0.5);
@@ -258,6 +258,25 @@
     border: 0;
 }
 
+table.form-table.wbpoll-answer-options,
+table.form-table.wbpoll-answer-options td,
+table.form-table.wbpoll-answer-options th {
+    text-align: left;
+    border-left: 0;
+    border-right: 0;
+}
+
+.wbcom-polls-option-wrap input[type=text] {
+    width: 100%;
+}
+
+.wbcom-polls-option-wrap td,
+.wbcom-polls-option-wrap th {
+    padding: 0;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
 .wbcom-polls-option-wrap fieldset label::before {
     content: none;
 }
@@ -295,6 +314,7 @@
 
 .main-poll-create .wbpolls-create .wbpoll-answer-options th {
     vertical-align: inherit;
+    padding-right: 15px;
 }
 
 .wbpoll-form .wbpolls-add-option-button,
