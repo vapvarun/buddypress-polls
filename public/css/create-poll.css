@@ -344,10 +344,13 @@ table.form-table.wbpoll-answer-options th {
 .wbpoll-form .wbpolls-add-option-button:focus,
 .wbpoll-form .wbpolls-remove-option-button:hover,
 .wbpoll-form .wbpolls-remove-option-button:focus {
+    background-color: transparent;
+    color: inherit;
     box-shadow: 0 0.5em 0.5em -0.4em #3a3a3a !important;
     -webkit-transform: translateY(-0.1em);
     -ms-transform: translateY(-0.1em);
     transform: translateY(-0.1em);
+    border: 2px solid var(--wbpoll-global-primary-color) !important;
 }
 
 @media screen and (max-width: 767px) {
