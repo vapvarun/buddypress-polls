@@ -247,6 +247,29 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 					}
 
+					/**
+					 * change_admin_bar_edit_text change text Post to poll for single poll
+					 *
+					 * @since    1.0.0
+					 */
+					function change_admin_bar_edit_text() {
+						global $wp_admin_bar;
+						$current_post_type = get_post_type();
+						if($current_post_type == 'wbpoll'){
+							// Find the "Edit Post" node in the admin bar
+							$edit_node = $wp_admin_bar->get_node('edit');
+						
+							// Check if the node exists and its title is "Edit Post"
+							if ($edit_node && $edit_node->title === 'Edit Post') {
+								// Change the title to "Edit Poll"
+								$edit_node->title = 'Edit Poll';
+						
+								// Update the node in the admin bar
+								$wp_admin_bar->add_node($edit_node);
+							}
+						}
+					}
+
 
 
 					/**
