@@ -547,7 +547,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		}
 	);
 
-	//video uploader
+	//audio uploader
 
 	$( '#wbpoll_answer_wrap' ).on(
 		'click',
@@ -555,6 +555,7 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 		function (e){
 			var mediaUploader;
 			var imgclass = $( this ).data( 'text' );
+			
 			var id = $( this ).data( 'id' );
 			e.preventDefault();
 			if (mediaUploader) {
@@ -576,9 +577,10 @@ setTimeout(function() { document.getElementById("preloader").style.display = "no
 			mediaUploader.on(
 				'select',
 				function() {
+					
 					var attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
 					$( '.' + imgclass ).val( attachment.url );
-					$( '.video_' + imgclass ).html( '<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>' );
+					$( '.audio_' + imgclass ).html( '<audio src="' + attachment.url + '" controls="" poster="" preload="none"></audio>' );
 				}
 			);
 			mediaUploader.open();
