@@ -2595,7 +2595,7 @@ class Buddypress_Polls_Public {
 		// let's check if has permission to see before expire
 
 		if ( $wppolls_show_result == 'yes' ) {
-			// $poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
+			 $poll_result['text'] = esc_html__( 'Thanks for voting!', 'buddypress-polls' );
 			if ( $poll_show_result_before_expire == 1 ) {
 				$poll_result['show_result'] = 1;
 				$poll_result['html']        = WBPollHelper::show_single_poll_result( $poll_id, $reference, $chart_type );
