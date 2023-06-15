@@ -205,18 +205,15 @@ function run_buddypress_polls() {
 
 }
 
-add_action( 'bp_include', 'bpolls_plugin_init' );
+//add_action( 'bp_include', 'bpolls_plugin_init' );
 /**
  * Check plugin requirement on plugins loaded
  * this plugin requires BuddyPress to be installed and active
  */
 function bpolls_plugin_init() {
-	
-	if ( bp_polls_check_config() ) {
-		run_buddypress_polls();		
+	run_buddypress_polls();	
+	if ( bp_polls_check_config() ) {			
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
-	}else{
-		run_buddypress_polls();
 	}
 }
 bpolls_plugin_init();
