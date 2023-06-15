@@ -2416,7 +2416,7 @@ class Buddypress_Polls_Public {
 		$status                      = 1;
 		$status                      = apply_filters( 'wbpoll_vote_status', $status, $poll_id );
 		$insertArray['published']    = $status; // need to make this col as published 1 or 0, 2= spam
-		$insertArray['answer_title'] = $poll_ans_title;
+		$insertArray['answer_title'] = isset($poll_ans_title) ? $poll_ans_title: '';
 		$insertArray['comment']      = '';
 		$insertArray['guest_hash']   = '';
 		$insertArray['guest_name']   = '';
@@ -2500,7 +2500,7 @@ class Buddypress_Polls_Public {
 
 			// add the vote
 			$vote_id = WBPollHelper::update_poll( $insertArray ); // let the user vote
-
+			
 			if ( $vote_id !== false ) {
 				// poll vote action
 				// update the post as at least on vote is done to restrict for sorting order and edit answer labels

@@ -242,7 +242,6 @@ class WBPollHelper {
 	 */
 	public static function update_poll( $user_vote ) {
 		global $wpdb;
-
 		if ( ! empty( $user_vote ) ) {
 			$votes_table = self::wb_poll_table_name();
 

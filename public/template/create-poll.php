@@ -274,7 +274,7 @@
 										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 									</label>
 								</fieldset>
-								<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
+								<span class="description"><?php esc_html_e( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
 						<?php } ?>
