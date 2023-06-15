@@ -2,7 +2,6 @@ jQuery( document.body ).on(
 	'submit',
 	'.wbpoll-form',
 	function (e) {
-		alert( 'helo' );
 		e.preventDefault();
 
 		var $element = jQuery( this );
@@ -179,26 +178,6 @@ jQuery( document ).ready(function ($) {
 		const answertype = $('[name="_wbpoll_answer_extra[][type]"]').map(function () {
 			return $(this).val();
 		}).get();
-
-		const full_size_image_answer = jQuery('[name="_wbpoll_full_size_image_answer[]"]').map(function () {
-			return jQuery(this).val();
-		}).get();
-		const video_answer_url = jQuery('[name="_wbpoll_video_answer_url[]"]').map(function () {
-			return jQuery(this).val();
-		}).get();
-		const audio_answer_url = jQuery('[name="_wbpoll_audio_answer_url[]"]').map(function () {
-			return jQuery(this).val();
-		}).get();
-		const html_answer = jQuery('[name="_wbpoll_html_answer[]"]').map(function () {
-			return jQuery(this).val();
-		}).get();
-		const video_import_info = jQuery('input[name="_wbpoll_video_import_info[]"]:checked').map(function () {
-			return jQuery(this).val();
-		}).get();
-		const audio_import_info = jQuery('input[name="_wbpoll_audio_import_info[]"]:checked').map(function() {
-			return jQuery(this).val();
-		  }).get();
-
 		const post_id = $('#post_id').val();
 	
 		$.ajax({
@@ -209,12 +188,6 @@ jQuery( document ).ready(function ($) {
 				action: 'wbpoll_additional_field',
 				_wbpoll_answer: answer,
 				_wbpoll_answer_extra: answertype,
-				_wbpoll_full_size_image_answer: full_size_image_answer,
-				_wbpoll_video_answer_url: video_answer_url,
-				_wbpoll_audio_answer_url: audio_answer_url,
-				_wbpoll_video_import_info: video_import_info,
-				_wbpoll_audio_import_info: audio_import_info,
-				_wbpoll_html_answer: html_answer,
 				post_id: post_id,
 			},
 			success: function (response) {

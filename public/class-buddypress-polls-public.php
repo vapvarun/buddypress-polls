@@ -2276,8 +2276,8 @@ class Buddypress_Polls_Public {
 		$user_answer_final = maybe_serialize( $user_answer_final );
 		$poll_answers      = get_post_meta( $poll_id, '_wbpoll_answer', true );
 		if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
-			$poll_ans_id    = $user_answer['wbpoll_user_answer'];
-			$poll_ans_title = $poll_answers[ $poll_ans_id ];
+			$poll_ans_id    = isset($user_answer['wbpoll_user_answer']) ? $user_answer['wbpoll_user_answer'] : "";
+			$poll_ans_title = isset($poll_answers[ $poll_ans_id ]) ? $poll_answers[ $poll_ans_id ] : "";
 		} else {
 			$poll_ans_title = '';
 		}
@@ -2711,6 +2711,11 @@ class Buddypress_Polls_Public {
 
 			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
 			$new_ans = $_POST['_wbpoll_answer'];
+			foreach ($new_ans as $key => $value) {
+				if ($value === '') {
+					unset($new_ans[$key]);
+				}
+			}
 			$answers = array_merge( $old_ans, $new_ans );
 
 			if ( isset( $answers ) ) {
