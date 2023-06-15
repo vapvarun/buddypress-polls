@@ -92,13 +92,19 @@ jQuery('#poll_type').on('change', function (e) {
     }
 });
 
+var clickCount = 0;
 jQuery('.extra-fields-text').click(function (e) {
     e.preventDefault();
+        // var dataid = jQuery('.extra-fields-text').data('id');
+        clickCount++;
+        jQuery('.extra-fields-text').attr('data-id', clickCount);
+        // alert(idinc);
+        
     jQuery('.text_records').clone().appendTo('.text_records_dynamic');
     jQuery('.text_records_dynamic .text_records').addClass('single remove');
     jQuery('.html_records_dynamic .extra-fields-text').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-text">Remove Fields</a>');
-    jQuery('.text_records_dynamic > .single').attr("class", "remove");
+    jQuery('.text_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.text_records_dynamic input').each(function () {
         var count = 0;
@@ -106,16 +112,19 @@ jQuery('.extra-fields-text').click(function (e) {
         jQuery(this).attr('name', fieldname);
         count++;
     });
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
 
 });
 
 jQuery('.extra-fields-image').click(function(e) {
     e.preventDefault();
+    clickCount++;
+    jQuery('.extra-fields-image').attr('data-id', clickCount);
     jQuery('.image_records').clone().appendTo('.image_records_dynamic');
     jQuery('.image_records_dynamic .image_records').addClass('single remove');
-    jQuery('.remove .extra-fields-image').remove();
+    jQuery('.remove'+clickCount+' .extra-fields-image').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-image">Remove Fields</a>');
-    jQuery('.image_records_dynamic > .single').attr("class", "remove");
+    jQuery('.image_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.image_records_dynamic input').each(function () {
         var count = 0;
@@ -123,7 +132,10 @@ jQuery('.extra-fields-image').click(function(e) {
         jQuery(this).attr('name', fieldname);
         count++;
     });
-
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_image_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
     jQuery('.wbpoll_image_answer_url').on(
         'keyup',
         function (e) {
@@ -182,11 +194,13 @@ jQuery('.extra-fields-image').click(function(e) {
 
 jQuery('.extra-fields-video').click(function(e) {
     e.preventDefault();
+    clickCount++;
+    jQuery('.extra-fields-video').attr('data-id', clickCount);
     jQuery('.video_records').clone().appendTo('.video_records_dynamic');
     jQuery('.video_records_dynamic .video_records').addClass('single remove');
-    jQuery('.remove .extra-fields-video').remove();
+    jQuery('.remove'+clickCount+' .extra-fields-video').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-video">Remove Fields</a>');
-    jQuery('.video_records_dynamic > .single').attr("class", "remove");
+    jQuery('.video_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.video_records_dynamic input').each(function () {
         var count = 0;
@@ -194,6 +208,11 @@ jQuery('.extra-fields-video').click(function(e) {
         jQuery(this).attr('name', fieldname);
         count++;
     });
+
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_video_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
 
     jQuery('.wbpoll_video_answer_url').on(
         'keyup',
@@ -281,11 +300,13 @@ jQuery('.extra-fields-video').click(function(e) {
 
 jQuery('.extra-fields-audio').click(function(e) {
     e.preventDefault();
+    clickCount++;
+    jQuery('.extra-fields-audio').attr('data-id', clickCount);
     jQuery('.audio_records').clone().appendTo('.audio_records_dynamic');
     jQuery('.audio_records_dynamic .audio_records').addClass('single remove');
-    jQuery('.remove .extra-fields-audio').remove();
+    jQuery('.remove'+clickCount+' .extra-fields-audio').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
-    jQuery('.audio_records_dynamic > .single').attr("class", "remove");
+    jQuery('.audio_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.audio_records_dynamic input').each(function () {
         var count = 0;
@@ -293,6 +314,12 @@ jQuery('.extra-fields-audio').click(function(e) {
         jQuery(this).attr('name', fieldname);
         count++;
     });
+
+    
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_audio_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
 
     jQuery('.wbpoll_audio_answer_url').on(
         'keyup',
@@ -381,11 +408,13 @@ jQuery('.extra-fields-audio').click(function(e) {
 
 jQuery('.extra-fields-html').click(function(e) {
     e.preventDefault();
+    clickCount++;
+    jQuery('.extra-fields-html').attr('data-id', clickCount);
     jQuery('.html_records').clone().appendTo('.html_records_dynamic');
     jQuery('.html_records_dynamic .html_records').addClass('single remove');
-    jQuery('.remove .extra-fields-html').remove();
+    jQuery('.remove'+clickCount+' .extra-fields-html').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-html">Remove Fields</a>');
-    jQuery('.html_records_dynamic > .single').attr("class", "remove");
+    jQuery('.html_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.html_records_dynamic input').each(function () {
         var count = 0;
@@ -394,6 +423,9 @@ jQuery('.extra-fields-html').click(function(e) {
         count++;
     });
 
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');
+    
 });
 
 jQuery('.wbpoll_image_answer_url').on(
@@ -482,7 +514,7 @@ jQuery('.wbpoll_audio_answer_url').on(
     });
 
 jQuery(document).on('click', '.remove-field', function (e) {
-    jQuery(this).parent('.remove').remove();
+    jQuery(this).parent().remove();
     e.preventDefault();
 });
 
@@ -722,7 +754,7 @@ jQuery('#wbpolls-create').submit(function (event) {
                             jQuery('#pollsuccess').text(''); 
                             location.reload();                       
                         },
-                        5000
+                        3000
                     );
                 } else {
                     jQuery('#pollsuccess').hide();              
