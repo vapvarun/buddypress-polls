@@ -205,7 +205,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						if ( class_exists( 'Buddypress' ) ) {
 							$bpolls_tabs = array(
 								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
-								'general'        => esc_html__('General (Community)', 'buddypress-polls'),
+								'general'        => esc_html__('Community', 'buddypress-polls'),
 								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
 								'support'        => esc_html__('Support', 'buddypress-polls'),
 							);
