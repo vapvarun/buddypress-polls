@@ -405,7 +405,11 @@ ul#wb_poll_answers_items li.placeholder:before {
 }
 
 .wbpoll-answer-options tbody>tr {
-    display: block;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-flow: wrap;
+    flex-flow: wrap;
     background: #fff;
     border-radius: 0;
     padding: 15px;
@@ -415,8 +419,20 @@ ul#wb_poll_answers_items li.placeholder:before {
     width: auto;
 }
 
-.wbcom-polls-option-wrap .wbpoll-answer-options td {
+.wbcom-polls-option-wrap .wbpoll-answer-options th {
+    width: 30%;
     padding: 0;
+}
+
+.wbcom-polls-option-wrap .wbpoll-answer-options td {
+    width: 70%;
+    padding: 0;
+}
+
+.wbcom-polls-option-wrap .wbpoll-answer-options td input[type="text"],
+.wbcom-polls-option-wrap .wbpoll-answer-options td input[type="number"] {
+    width: 100%;
+    min-height: 48px;
 }
 
 .wbpoll-answer-options tbody>tr .description {
@@ -461,11 +477,13 @@ ul#wb_poll_answers_items li.placeholder:before {
     float: left !important;
 }
 
-/* .fill-width input,
-.fill-width textarea {
-    width: 100% !important;
-    margin: 0 0 16px 0px;
-} */
+@media screen and (max-width: 850px) {
+    .wbcom-polls-option-wrap .wbpoll-answer-options th,
+    .wbcom-polls-option-wrap .wbpoll-answer-options td {
+        width: 90%;
+        padding: 10px 0;
+    }
+}
 
 /* Tooltip */
 :root {
