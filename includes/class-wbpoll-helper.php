@@ -1512,7 +1512,7 @@ class WBPollHelper {
 		$author_name = get_the_author_meta('display_name', $author_id);
 			$poll_output .= '<p class="wbpoll-voted-info 55
 			wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
-				'The Poll Paused By '.$author_name,
+				'This particular poll has been paused by the '.$author_name.'. Please wait until it is live again',
 				'buddypress-polls'
 			) . '</p>';
 		}

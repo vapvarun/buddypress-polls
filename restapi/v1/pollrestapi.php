@@ -337,13 +337,13 @@ class Pollrestapi {
         if($type == "publish"){
             $data = array(
                 'success' => true,
-                'message' => esc_html('Your Poll is published.'),
+                'message' => esc_html('Your poll is published.'),
                 'post_id' => $post_id,
             );
         }else{
             $data = array(
                 'success' => true,
-                'message' => esc_html('Your Poll is in '.$type.'. It will be published after admin review'),
+                'message' => esc_html('Your poll is in '.$type.'. It will be published after admin review'),
                 'post_id' => $post_id,
             );
         }

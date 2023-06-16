@@ -1,9 +1,0 @@
-{
-	"version": 3,
-	"file": "wbpoll-block.css",
-	"sources": [
-		"../scss/wbpoll-block.scss"
-	],
-	"names": [],
-	"mappings": "AAAA,AAAA,mBAAmB,AAAC,CAClB,SAAS,CAAE,IAAI,CAChB,AAED,AAAA,mBAAmB,AAAA,OAAO,AAAC,CACzB,OAAO,CAAE,OAAO,CAChB,OAAO,CAAE,YAAY,CACrB,sBAAsB,CAAE,WAAW,CACnC,IAAI,CAAE,yBAAyB,CAC/B,cAAc,CAAE,MAAM,CACvB"
-}

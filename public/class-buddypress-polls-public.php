@@ -127,13 +127,7 @@ class Buddypress_Polls_Public {
 			$this->version
 		);
 
-		wp_register_style(
-			'buddypress-multi-polls',
-			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/buddypress-multi-polls.css',
-			array(),
-			$this->version
-		);
-		wp_enqueue_style( 'buddypress-multi-polls' );
+		
 
 		// Loads dynamic inline color style.
 		$wbpolls_color_css = $this->wbpolls_load_color_palette();
@@ -228,6 +222,15 @@ class Buddypress_Polls_Public {
 			wp_enqueue_style( 'wbpoll-admin-log' );
 
 		// Polls Dashboard CSS file.
+
+		wp_register_style(
+			'buddypress-multi-polls',
+			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/buddypress-multi-polls.css',
+			array(),
+			$this->version
+		);
+		wp_enqueue_style( 'buddypress-multi-polls' );
+		
 		wp_register_style(
 			'wbpolls-dashboard',
 			BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/polls-dashboard.css',
