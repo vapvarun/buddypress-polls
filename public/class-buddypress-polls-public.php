@@ -2670,14 +2670,16 @@ class Buddypress_Polls_Public {
 
 		if ( is_page( 'poll-dashboard' ) ) {
 			// Modify the content as needed
+			ob_start();
 			$modified_content = self::wb_poll_locate_template( 'poll-dashboard.php', true );
-
-			return $modified_content;
+			$custom_template_content = ob_get_clean();
+			return $custom_template_content;
 		}
 		if ( is_page( 'create-poll' ) ) {
+			ob_start();
 			$modified_content = self::wb_poll_locate_template( 'create-poll.php', true );
-
-			return $modified_content;
+			$custom_template_content = ob_get_clean();
+			return $custom_template_content;
 
 		}
 		// For other pages, return the original content
