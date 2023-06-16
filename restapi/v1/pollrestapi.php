@@ -525,6 +525,7 @@ class Pollrestapi {
             $data[] = array(
                 'id' => $post->ID,
                 'title' => $post->post_title,
+                'slug' => $post->post_name,
                 'content' => $post->post_content,
                 'date' => $post->post_date,
                 'status' => $post->post_status,
