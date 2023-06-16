@@ -1745,8 +1745,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$results = array_slice($result_data, 0, 3);
 
 										foreach ($results as $res) {
-											$vote_ans = maybe_unserialize($res['answer_title']);
-											if (in_array($answer_title, $vote_ans)) {
+											//$vote_ans = maybe_unserialize($res['answer_title']);
+											//if (in_array($answer_title, $vote_ans)) {
 												$image = get_avatar($res['user_id'], 150, '', 'User Avatar', array('class' => 'avatar-image'));
 
 												$args           = array(
@@ -1758,7 +1758,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 												$output_result .= '<div class="user-profile">';
 												$output_result .= '<div class="user-profile-image" data-polls-tooltip="' . $users[0] . '">' . $image . '</div>';
 												$output_result .= '</div>';
-											}											
+											//}											
 										}
 										if ($count > 3) {
 											// profile modal more button
