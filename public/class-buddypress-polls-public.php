@@ -257,6 +257,7 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}
+			
 		}
 
 		wp_enqueue_style( 'wbpolls-create-poll' );
