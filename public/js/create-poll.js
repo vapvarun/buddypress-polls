@@ -671,7 +671,9 @@ jQuery('#wbpolls-create').submit(function (event) {
     event.preventDefault();
     const author_id = jQuery('#author_id').val();
     const title = jQuery('#polltitle').val();
-    const content = jQuery('#poll-content').val();
+    var editor = tinyMCE.get('poll-content');
+    var content = editor.getContent();
+    //const content = jQuery('#poll-content').val();
     const poll_type = jQuery('#poll_type').val();
     const answer = jQuery('[name="_wbpoll_answer[]"]').map(function () {
         return jQuery(this).val();

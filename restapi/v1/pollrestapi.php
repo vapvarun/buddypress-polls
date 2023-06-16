@@ -86,7 +86,7 @@ class Pollrestapi {
         // Retrieve the post data from the request body
         $post_title = sanitize_text_field( $parameters['title'] );
         $post_content = wp_kses_post( $parameters['content'] ); 
-        $post_author = wp_kses_post( $parameters['author_id'] );
+        $post_author = $parameters['author_id'];
 
         $option_value = get_option('wbpolls_settings');
         if(!empty($option_value)){

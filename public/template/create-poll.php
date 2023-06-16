@@ -28,7 +28,17 @@
 			</div>
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Description', 'buddypress-polls' ); ?></label>
-				<textarea class="form-control" name="content" id="poll-content"></textarea>
+				<!-- <textarea class="form-control wp_editor" name="content" id="poll-content"></textarea> -->
+				<?php
+				$content = ''; // Set initial content if needed
+
+				// Output the Rich Textarea
+				wp_editor($content, 'poll-content', array(
+					'textarea_name' => 'content', // Replace with your desired field name
+					'editor_height' => 300, // Set the height of the editor
+					// Additional settings and configurations can be added here
+				));
+				?>
 			</div>
 			<div class="form-group">
 				<label for="polltitle"><?php esc_html_e( 'Poll Type', 'buddypress-polls' ); ?></label>
@@ -143,7 +153,7 @@
 							<label><?php esc_html_e( 'HTML Answer', 'buddypress-polls' ); ?></label>
 							<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="">
 							<label><?php esc_html_e( 'HTML Content', 'buddypress-polls' ); ?></label>
-							<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea"></textarea>
+							<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"></textarea>
 							<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 						</div>
 						<a class="add-field extra-fields-html" data-id="0" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
