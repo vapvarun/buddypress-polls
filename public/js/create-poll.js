@@ -710,12 +710,30 @@ jQuery('#wbpolls-create').submit(function (event) {
     const _wbpoll_vote_per_session = jQuery('#_wbpoll_vote_per_session-number').val();
     const _wbpoll_add_additional_fields = jQuery('input[name="_wbpoll_add_additional_fields"]:checked').val();
 
+    var answerarray = jQuery('[name="_wbpoll_answer[]"]').map(function () {
+        return jQuery(this).val();
+    }).get();
+   
+    var filteredArray = jQuery.grep(answerarray, function(value) {
+        return value !== '';
+    });
+    
+    // Use $.grep() to filter out duplicate values
+    var uniqueArray = jQuery.grep(filteredArray, function(value, index) {
+        return index === jQuery.inArray(value, filteredArray);
+    });
+    
+    // Check if duplicate values exist
+    var hasDuplicates = filteredArray.length !== uniqueArray.length;
+
     if(title == ""){
         jQuery('#error_title').text('Poll Title is required');
     }else if(poll_type == ""){
         jQuery('#error_type').text('Poll Type is required');
     }else if(answer == ",,,,"){
         jQuery('#error_ans').text('Poll options is required');
+    }else if(hasDuplicates){
+        jQuery('#error_ans').text("Poll options are duplicate's");
     }else{
         const data = {
             author_id: author_id,
