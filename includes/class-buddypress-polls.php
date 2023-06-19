@@ -176,7 +176,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 
 			 if ( class_exists( 'Buddypress' ) ) {	
 				$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );			
-				$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
+				//$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 				$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 				$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 				$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
@@ -188,7 +188,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			/** Polls hooks **/
 
 			 // init cookie and custom post types
-			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbpolls_admin_register_settings' );
+			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action('wp_before_admin_bar_render', $plugin_admin, 'change_admin_bar_edit_text');
 			$this->loader->add_filter('enter_title_here', $plugin_admin, 'change_post_title_placeholder');
 			$this->loader->add_action( 'init', $plugin_admin, 'init_wbpoll_type' );

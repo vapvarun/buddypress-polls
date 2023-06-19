@@ -244,10 +244,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 							exit();
 						}
-					}
-
-					public function wbpolls_admin_register_settings()
-					{
 						if (isset($_POST['wbpolls_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
 							unset($_POST['wbpolls_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 							update_site_option('wbpolls_settings', wp_unslash($_POST['wbpolls_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
@@ -255,6 +251,22 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							exit();
 						}
 					}
+
+					// public function wbpolls_admin_register_settings()
+					// {
+					// 	if (isset($_POST['wbpolls_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
+					// 		unset($_POST['wbpolls_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					// 		update_site_option('wbpolls_settings', wp_unslash($_POST['wbpolls_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					// 		wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					// 		exit();
+					// 	}
+					// 	if (isset($_POST['bpolls_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
+					// 		unset($_POST['bpolls_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					// 		update_site_option('bpolls_settings', wp_unslash($_POST['bpolls_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+					// 		wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+					// 		exit();
+					// 	}
+					// }
 
 					/**
 					 * change_admin_bar_edit_text change text Post to poll for single poll

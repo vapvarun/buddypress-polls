@@ -87,7 +87,7 @@ require_once plugin_dir_path( __FILE__ ) . 'restapi/v1/pollrestapi.php';
 function activate_buddypress_polls() {
 
 	
-	if ( false === get_option( 'bpolls_settings' ) ) {
+	if ( false === get_option( 'bpolls_settings' ) || empty(get_option( 'bpolls_settings' ))) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
 		$bpolls_settings['options_limit']          = '5';
@@ -95,6 +95,12 @@ function activate_buddypress_polls() {
 		$bpolls_settings['poll_list_voters']       = 'yes';
 		$bpolls_settings['poll_limit_voters']      = '3';
 		$bpolls_settings['polls_background_color'] = '#4caf50';
+		$bpolls_settings['multiselect']    = 'no';
+		$bpolls_settings['user_additional_option']    = 'no';
+		$bpolls_settings['hide_results']    = 'no';
+		$bpolls_settings['close_date']    = 'no';
+		$bpolls_settings['enable_image']    = 'no';
+		$bpolls_settings['poll_revoting']    = 'no';
 		$roles                                     = $wp_roles->get_names();
 		foreach ( $roles as $role => $role_name ) {
 			$bpolls_settings['poll_user_role'][] = $role;
@@ -124,7 +130,30 @@ register_deactivation_hook( __FILE__, 'deactivate_buddypress_polls' );
 function bpolls_add_page_or_data__buddypress(){
 
 	WBPollHelper::install_table();
-	if ( false === get_option( 'wbpolls_settings' ) ) {
+
+	if ( false === get_option( 'bpolls_settings' ) || empty(get_option( 'bpolls_settings' ))) {
+		global $wp_roles;
+		$bpolls_settings['limit_poll_activity']    = 'no';
+		$bpolls_settings['options_limit']          = '5';
+		$bpolls_settings['poll_options_result']    = 'yes';
+		$bpolls_settings['poll_list_voters']       = 'yes';
+		$bpolls_settings['poll_limit_voters']      = '3';
+		$bpolls_settings['polls_background_color'] = '#4caf50';
+		$bpolls_settings['multiselect']    = 'no';
+		$bpolls_settings['user_additional_option']    = 'no';
+		$bpolls_settings['hide_results']    = 'no';
+		$bpolls_settings['close_date']    = 'no';
+		$bpolls_settings['enable_image']    = 'no';
+		$bpolls_settings['poll_revoting']    = 'no';
+		$bpolls_settings['enable_thank_you_message']    = 'no';
+		$roles                                     = $wp_roles->get_names();
+		foreach ( $roles as $role => $role_name ) {
+			$bpolls_settings['poll_user_role'][] = $role;
+		}
+		update_option( 'bpolls_settings', $bpolls_settings );
+	}
+
+	if ( false === get_option( 'wbpolls_settings' ) || empty(get_option( 'wbpolls_settings' ))) {
 		global $wp_roles;
 		$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
 		$bpolls_settings['wbpolls_submit_status']       = 'publish';
