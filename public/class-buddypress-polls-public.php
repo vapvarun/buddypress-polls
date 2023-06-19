@@ -127,12 +127,6 @@ class Buddypress_Polls_Public {
 			$this->version
 		);
 
-		
-
-		// Loads dynamic inline color style.
-		$wbpolls_color_css = $this->wbpolls_load_color_palette();
-		wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
-
 		wp_register_style(
 			'wbpoll-ui-styles',
 			BPOLLS_PLUGIN_URL . 'admin/css/ui-lightness/jquery-ui.min.css',
@@ -230,6 +224,10 @@ class Buddypress_Polls_Public {
 			$this->version
 		);
 		wp_enqueue_style( 'buddypress-multi-polls' );
+
+		// Loads dynamic inline color style.
+		$wbpolls_color_css = $this->wbpolls_load_color_palette();
+		wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
 		
 		wp_register_style(
 			'wbpolls-dashboard',
