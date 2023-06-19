@@ -1541,7 +1541,7 @@ class WBPollHelper {
 		if (count($arr) === 0) {
 			return true; // Empty array is considered to have all values the same
 		}
-		$firstValue = $arr[0];
+		$firstValue = isset($arr[0]) ? $arr[0] : array();
 		foreach ($arr as $value) {
 			if ($value !== $firstValue) {
 				return false;
