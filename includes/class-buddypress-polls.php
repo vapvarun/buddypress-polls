@@ -229,7 +229,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 			 
-			 if ( class_exists( 'Buddypress' ) ) {
+			 //if ( class_exists( 'Buddypress' ) ) {
 				$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
 				/* adds polls html in whats new area */
@@ -302,7 +302,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 				$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
 				$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
-			 }
+			// }
 			//Show poll in details poll post type
 			if ( ! is_admin() ) {
 				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
