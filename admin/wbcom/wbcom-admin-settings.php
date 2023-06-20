@@ -319,15 +319,15 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 			global $wpdb;
 			$polls_logs_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}wppoll_log order by created desc" );
 			?>
-			<h2><?php esc_html( 'WB Poll Logs', 'buddypress-polls' ); ?></h2>
+			<h2><?php esc_html__( 'WB Poll Logs', 'buddypress-polls' ); ?></h2>
 			<table class="wbpolls-log-table widefat fixed striped posts">
 				<thead>
 					<tr>
-						<th><strong><?php echo esc_html('Status'); ?></strong></th>
-						<th><strong><?php echo esc_html('Poll'); ?></strong></th>
-						<th><strong><?php echo esc_html('User Name'); ?></strong></th>
-						<th><strong><?php echo esc_html('Date'); ?></strong></th>
-						<th><strong><?php echo esc_html('Action'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Status'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Poll'); ?></strong></th>
+						<th><strong><?php echo esc_html__('User Name'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Date'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Action'); ?></strong></th>
 					</tr>
 				</thead>
 				
@@ -337,30 +337,30 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				foreach($polls_logs_results as $log){
 					?>
 					<tr>
-					<td class="log-status"><?php echo esc_html($log->poll_status); ?></td>
-						<td class="log-title"><?php echo esc_html(get_the_title($log->poll_id)); ?></td>
-						<td class="log-user"><?php echo esc_html($log->user_name); ?></td>
+					<td class="log-status"><?php echo esc_html__($log->poll_status); ?></td>
+						<td class="log-title"><?php echo esc_html__(get_the_title($log->poll_id)); ?></td>
+						<td class="log-user"><?php echo esc_html__($log->user_name); ?></td>
 						<td class="log-data"><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></td>
-						<td class="log-action"><button class="button button-small action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Open'); ?></button><button class="button button-small action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html('Delete'); ?></button></td>
+						<td class="log-action"><button class="button button-small action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Open'); ?></button><button class="button button-small action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Delete'); ?></button></td>
 					</tr>
 					<div class="wbpolls-log-modal opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h2><?php echo esc_html( 'Log', 'buddypress-polls' ); ?></h2>
-								<span class="close"><?php echo esc_html( 'close', 'buddypress-polls' ); ?></span>
+								<h2><?php echo esc_html__( 'Log', 'buddypress-polls' ); ?></h2>
+								<span class="close"><?php echo esc_html__( 'close', 'buddypress-polls' ); ?></span>
 							</div>
 							<div class="modal-body">
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('Poll:'); ?></strong>
+										<strong><?php echo esc_html__('Poll:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
-										<span><?php echo esc_html(get_the_title($log->poll_id)); ?></span>
+										<span><?php echo esc_html__(get_the_title($log->poll_id)); ?></span>
 									</div>
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('Received choices:'); ?></strong>
+										<strong><?php echo esc_html__('Received choices:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
 										<?php
@@ -380,7 +380,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('IP:'); ?></strong>
+										<strong><?php echo esc_html__('IP:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
 										<span><?php echo esc_html($log->user_ip); ?></span>
@@ -388,7 +388,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('Date:'); ?></strong>
+										<strong><?php echo esc_html__('Date:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
 										<span><?php echo esc_html(date("Y-m-d H:i:s", $log->created)); ?></span>
@@ -396,15 +396,15 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('Browser:'); ?></strong>
+										<strong><?php echo esc_html__('Browser:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
-										<span><?php echo esc_html($log->useragent); ?></span>
+										<span><?php echo esc_html__($log->useragent); ?></span>
 									</div>
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('User Id:'); ?></strong>
+										<strong><?php echo esc_html__('User Id:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
 										<span><?php echo esc_html($log->user_id); ?></span>
@@ -412,7 +412,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('User Login:'); ?></strong>
+										<strong><?php echo esc_html__('User Login:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
 										<span><?php echo esc_html($log->is_logged_in); ?></span>
@@ -420,10 +420,10 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 								</div>
 								<div class="modal-body-group">
 									<div class="modal-body-group-content left">
-										<strong><?php echo esc_html('User Name:'); ?></strong>
+										<strong><?php echo esc_html__('User Name:'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
-										<span><?php echo esc_html($log->user_name); ?></span>
+										<span><?php echo esc_html__($log->user_name); ?></span>
 									</div>
 								</div>
 							</div>
@@ -432,7 +432,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 				<?php }
 				}else{?>
 					<tr>
-					<td colspan="5"><?php echo esc_html('Logs Not Found'); ?></td>
+					<td colspan="5"><?php echo esc_html__('Logs Not Found'); ?></td>
 					</tr><?php
 				}
 		    ?>

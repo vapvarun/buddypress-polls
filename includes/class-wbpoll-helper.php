@@ -2195,7 +2195,7 @@ class WBPollHelper {
 			),
 			'_wbpoll_never_expire'              => array(
 				'label'   => esc_html__( 'Never Expire', 'buddypress-polls' ),
-				'desc'    => 'Select if you want your poll to never expire.(can be override from shortcode param)',
+				'desc'    => esc_html__('Select if you want your poll to never expire.(can be override from shortcode param', 'buddypress-polls' ),
 				'id'      => '_wbpoll_never_expire',
 				'type'    => 'radio',
 				'default' => $default_never_expire,

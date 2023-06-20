@@ -1719,14 +1719,14 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									$output_result .= '</div>'; // wbpoll-user-profile-data.
 
 									if ($vote_count > 1) {
-										$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' Votes</div>';
+										$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' '.esc_html__('Votes', 'buddypress-polls'). '</div>';
 									} else {
-										$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' Vote</div>';
+										$output_result .= '<div class="wbpoll-votecount"> ' . $vote_count . ' '.esc_html__('Vote', 'buddypress-polls'). '</div>';
 									}
 
 									$output_result .= '</div>'; // wbpoll-vote-percent-data-wrapper.
 
-									$output_result .= '<div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format_i18n($re_percent, 2) . '%</div>';
+									$output_result .= '<div class="wbpoll-vote-percent-data" style="' . $color_style . '">' . number_format($re_percent, 2) . '%</div>';
 
 									$output_result .= '</div>'; // wbpoll-vote-percent-data-wrapper.
 
