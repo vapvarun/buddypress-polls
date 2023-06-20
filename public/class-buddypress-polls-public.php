@@ -2015,7 +2015,7 @@ class Buddypress_Polls_Public {
 
 				}
 			} else {
-				$activity_content .= esc_html( 'This is not a poll activity', 'buddypress-polls' );
+				$activity_content .= esc_html__( 'This is not a poll activity', 'buddypress-polls' );
 			}
 		}
 		$activity_content .= '</div>';
