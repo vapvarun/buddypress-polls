@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 6.2.0
-Stable tag: 4.2.7
+Stable tag: 4.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -53,6 +53,11 @@ With Poll closing date & time setting enabled users can set poll closing date an
 Poll activity graph can be listed in sidebar with the help of widget (BuddyPress) Poll Activity Graph widget provided by the plugin.
 
 == Changelog ==
+= 4.2.8 =
+* Fix: Set only inactive when the license key deactivates
+* Fix: Update the license activation file and set the response to transient
+* Fix: Call plugin js and css when the Elementor widget is used on any page
+
 = 4.2.7 =
 * Enhancement - Display notice if license key not activated, License key expired
 * Enhancement - Added - bp business profile plugin compatibility
