@@ -218,7 +218,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 						
 
-						$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html('Menu') . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
+						$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html__('Menu', 'buddypress-polls') . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 						foreach ($bpolls_tabs as $bpolls_tab => $bpolls_name) {
 							$class     = ($bpolls_tab == $current) ? 'nav-tab-active' : '';
 							$tab_html .= '<li class="' . $bpolls_tab . '"><a class="nav-tab ' . $class . '" href="admin.php?page=buddypress-polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a></li>';
@@ -409,7 +409,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									</tr>
 									<tr>
 										<td><?php esc_html_e('Recent Poll', 'buddypress-polls'); ?></td>
-										<td><a href="<?php echo esc_url($recent_poll_link); ?>"><?php echo esc_html($recent_title); ?><a></td>
+										<td><a href="<?php echo esc_url($recent_poll_link); ?>"><?php echo esc_html($recent_title, 'buddypress-polls'); ?><a></td>
 									</tr>
 								</table>
 							</div>
@@ -1557,12 +1557,12 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 
 						if ($total > 0) {
-							$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format_i18n($total)) . '</p>';
+							$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)) . '</p>';
 							$output .= '<div class="wbpolls-question-results ' . $class['class'] . '">';
 
 							$total_percent = 0;
 							foreach ($poll_result['weighted_index'] as $index => $vote_count) {
-								$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__(
+								$answer_title = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
 									'Unknown Answer',
 									'buddypress-polls'
 								);
@@ -1570,7 +1570,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 								$percent        = ($vote_count * 100) / $total;
 								$total_percent += $percent;
-								$output_result .= '<li style="' . $color_style . '"><strong>' . $answer_title . ': ' . $vote_count . ' (' . number_format_i18n(
+								$output_result .= '<li style="' . $color_style . '"><strong>' . $answer_title . ': ' . $vote_count . ' (' . number_format(
 									$percent,
 									2
 								) . '%)</strong></li>';
@@ -1582,7 +1582,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 								foreach ($poll_result['weighted_index'] as $index => $vote_count) {
 
-									$answer_title   = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__(
+									$answer_title   = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
 										'Unknown Answer',
 										'buddypress-polls'
 									);
@@ -1639,14 +1639,14 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									
 
 									$output_result .= '<div class="wbpoll-question-choices-item-votes">';
-									$output_result .= '<div class="wbpoll-question-choices-item-text"><span class="wbpoll_single_answer">' . $answer_title . '</span>';
+									$output_result .= '<div class="wbpoll-question-choices-item-text"><span class="wbpoll_single_answer">' . esc_html__($answer_title, 'buddypress-polls') . '</span>';
 
 									$output_result .= '</div>';
 									$output_result .= '</div>';
 
 									$output_result .= '<div class="bpolls-item-width-wrapper">';
 
-									$output_result .= '<div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format_i18n($re_percent, 2) . '%;background-color:' . $color . '"></div><div class="wbpoll-question-choices-item-votes-bar-data"></div>';
+									$output_result .= '<div class="wbpoll-question-choices-item-votes-bar" style="width:' . number_format($re_percent, 2) . '%;background-color:' . $color . '"></div><div class="wbpoll-question-choices-item-votes-bar-data"></div>';
 
 									$output_result .= '</div>'; // bpolls-item-width-wrapper.
 
@@ -1688,7 +1688,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 											$output_result .= '<div class="wbpoll-profile-modal-content">';
 											$output_result .= '<div class="wbpoll-profile-modal-header">';
 											$output_result .= '<div class="wbpoll-profile-modal-title">';
-											$output_result .= '<h4>' . esc_html('People who voted for this option') . '</h4>';
+											$output_result .= '<h4>' . esc_html__('People who voted for this option', 'buddypress-polls') . '</h4>';
 											$output_result .= '</div>';
 											$output_result .= '<div class="close-profiles" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div>';
 											$output_result .= '</div>';
@@ -1768,7 +1768,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						if ($total_percent > 0) {
 							$post_title = get_the_title($poll_id);
 					?>
-					<h5><?php echo esc_html($post_title); ?></h5>
+					<h5><?php echo esc_html__($post_title, 'buddypress-polls'); ?></h5>
 					<table>
 						<thead>
 							<tr>
@@ -1779,7 +1779,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						<tbody>
 							<?php
 							foreach ($poll_result['weighted_index'] as $index => $vote_count) {
-								$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__(
+								$answer_title = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
 									'Unknown Answer',
 									'buddypress-polls'
 								);
@@ -1787,11 +1787,11 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								$percent            = ($vote_count * 100) / $total;
 								$re_percent         = ($percent * 100) / $total_percent;
 								$lablename        = $answer_title;
-								$persentangevalue = number_format_i18n($re_percent, 0).' %';
+								$persentangevalue = number_format($re_percent, 0).' %';
 							?>
 								<tr>
-									<td><?php echo esc_html($lablename); ?></td>
-									<td><?php echo esc_html($persentangevalue); ?></td>
+									<td><?php echo esc_html__($lablename, 'buddypress-polls'); ?></td>
+									<td><?php echo esc_html__($persentangevalue, 'buddypress-polls'); ?></td>
 								</tr>
 							<?php
 							} ?>
@@ -1814,7 +1814,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						if (!empty($total) && $total > 0) {
 
 							foreach ($poll_result['weighted_index'] as $index => $vote_count) {
-								$answer_title   = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__(
+								$answer_title   = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
 									'Unknown Answer',
 									'buddypress-polls'
 								);
@@ -1827,7 +1827,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$lablename        = array();
 							$persentangevalue = array();
 							foreach ($poll_result['weighted_index'] as $index => $vote_count) {
-								$answer_title = isset($answers[$index]) ? esc_html($answers[$index]) : esc_html__(
+								$answer_title = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
 									'Unknown Answer',
 									'buddypress-polls'
 								);
@@ -1835,7 +1835,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								$percent            = ($vote_count * 100) / $total;
 								$re_percent         = ($percent * 100) / $total_percent;
 								$lablename[]        = $answer_title;
-								$persentangevalue[] = number_format_i18n($re_percent, 2);
+								$persentangevalue[] = number_format($re_percent, 2);
 							}
 						}
 

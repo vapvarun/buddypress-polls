@@ -70,7 +70,7 @@
 					</div>
 					<div class="wbcom-addons-plugins-card">
 						<div class="wbcom-addons-image-card">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-community-pro.jpg' ); ?>" alt="BuddyPress-addons-img">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-community-pro.jpg', 'buddypress-polls' ); ?>" alt="BuddyPress-addons-img">
 						</div>
 						<div class="wbcom-addons-card-details">
 							<h2><?php esc_html_e( 'BuddyPress Private Community Pro', 'buddypress-polls' ); ?></h2>
@@ -187,7 +187,7 @@
 					</div>
 					<div class="wbcom-addons-plugins-card">
 						<div class="wbcom-addons-image-card">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-shortcodes-pro.jpg' ); ?>" alt="BuddyPress-addons-img">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-shortcodes-pro.jpg', 'buddypress-polls' ); ?>" alt="BuddyPress-addons-img">
 						</div>
 						<div class="wbcom-addons-card-details">
 							<h2><?php esc_html_e( 'Shortcodes for BuddyPress Pro', 'buddypress-polls' ); ?></h2>
@@ -252,7 +252,7 @@
 					</div>
 					<div class="wbcom-addons-plugins-card">
 						<div class="wbcom-addons-image-card">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-status.jpg' ); ?>" alt="BuddyPress-addons-img">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/bp-status.jpg', 'buddypress-polls' ); ?>" alt="BuddyPress-addons-img">
 						</div>
 						<div class="wbcom-addons-card-details">
 							<h2><?php esc_html_e( 'BuddyPress Status', 'buddypress-polls' ); ?></h2>
@@ -404,7 +404,7 @@
 					</div>
 					<div class="wbcom-addons-plugins-card">
 						<div class="wbcom-addons-image-card">
-							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/knowxtheme.jpg' ); ?>" alt="BuddyPress-addons-img">
+							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL . 'admin/wbcom/assets/imgs/knowxtheme.jpg', 'buddypress-polls' ); ?>" alt="BuddyPress-addons-img">
 						</div>
 						<div class="wbcom-addons-card-details">
 							<h2><?php esc_html_e( 'KnowX Theme', 'buddypress-polls' ); ?></h2>

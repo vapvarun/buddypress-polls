@@ -337,13 +337,13 @@ class Pollrestapi {
         if($type == "publish"){
             $data = array(
                 'success' => true,
-                'message' => esc_html('Your poll is published.'),
+                'message' => esc_html__('Your poll is published.', 'buddypress-polls'),
                 'post_id' => $post_id,
             );
         }else{
             $data = array(
                 'success' => true,
-                'message' => esc_html('Your poll is in '.$type.'. It will be published after admin review'),
+                'message' => esc_html__('Your poll is in '.$type.'. It will be published after admin review', 'buddypress-polls'),
                 'post_id' => $post_id,
             );
         }
@@ -560,7 +560,7 @@ class Pollrestapi {
         }
 
         $data = array(
-            'success' => esc_html('Poll pause successfully.'),
+            'success' => esc_html__('Poll pause successfully.', 'buddypress-polls'),
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );
@@ -577,7 +577,7 @@ class Pollrestapi {
         $result = wp_delete_post($pollid, true);
 
         $data = array(
-            'success' => esc_html('Poll deleted successfully!'),
+            'success' => esc_html__('Poll deleted successfully!', 'buddypress-polls'),
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );

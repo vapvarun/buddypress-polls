@@ -181,7 +181,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		echo $args['before_widget'];
 
-		esc_html($before_title, 'buddypress-polls' ) . esc_html($title, 'buddypress-polls' ) . esc_html($after_title, 'buddypress-polls' );
+		esc_html($before_title, 'buddypress-polls' ) . esc_html__($title, 'buddypress-polls' ) . esc_html($after_title, 'buddypress-polls' );
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';

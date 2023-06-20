@@ -361,7 +361,7 @@ function bpolls_required_plugin_admin_notice() {
 	$bp_plugin       = esc_html__( 'BuddyPress', 'buddypress-polls' );
 	echo '<div class="error"><p>';
 	/* translators: %s: */
-	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
+	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . esc_html__( $bpquotes_plugin , 'buddypress-polls') . '</strong>', '<strong>' . esc_html__( $bp_plugin, 'buddypress-polls' ) . '</strong>' );
 	echo '</p></div>';
 	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
 		$activate = filter_input( INPUT_GET, 'activate' );

@@ -311,7 +311,7 @@ function edd_wbcom_BPOLLS_admin_notices() {
 				$message = urldecode( $error_message );
 				?>
 				<div class="error">
-					<p><?php echo esc_html( $message ); ?></p>
+					<p><?php echo esc_html( $message , 'buddypress-polls'); ?></p>
 				</div>
 				<?php
 				break;
@@ -358,8 +358,8 @@ function wbcom_BPOLLS_render_license_section() {
 		<?php settings_fields( 'edd_wbcom_BPOLLS_license' ); ?>
 		<table class="form-table wb-license-form-table">
 			<tr>
-				<td class="wb-plugin-name"><?php echo esc_html( EDD_BPOLLS_ITEM_NAME ); ?></td>
-				<td class="wb-plugin-version"><?php echo esc_html( BPOLLS_PLUGIN_VERSION ); ?></td>
+				<td class="wb-plugin-name"><?php echo esc_html( EDD_BPOLLS_ITEM_NAME, 'buddypress-polls' ); ?></td>
+				<td class="wb-plugin-version"><?php echo esc_html( BPOLLS_PLUGIN_VERSION, 'buddypress-polls' ); ?></td>
 				<td class="wb-plugin-license-key"><input id="edd_wbcom_BPOLLS_license_key" name="edd_wbcom_BPOLLS_license_key" type="text" value="<?php esc_attr_e( $license, 'buddypress-polls' ); ?>" /></td>
 				<td class="wb-license-status <?php echo esc_attr( $status_class ); ?>"><?php esc_attr_e( $status_text, 'buddypress-polls' ); ?></td>
 				<td class="wb-license-action">
