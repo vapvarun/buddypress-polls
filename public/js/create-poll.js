@@ -733,7 +733,7 @@ jQuery('#wbpolls-create').submit(function (event) {
     }else if(answer == ",,,,"){
         jQuery('#error_ans').text('Poll options is required');
     }else if(hasDuplicates){
-        jQuery('#error_ans').text("Poll options are duplicate's");
+        jQuery('#error_ans').text("Poll options are duplicate's, Please add unique options");
     }else{
         const data = {
             author_id: author_id,
