@@ -2590,7 +2590,7 @@ class WBPollHelper {
 
 			$answer_fields_html .= '<div class="wbpoll-containable-list-item-editor wbpoll-containable-list-item-editor-text hidetab wb-hide-' . $index . '">';
 			$answer_fields_html .= '<div class="wbpoll-options-input-container">';
-			$answer_fields_html .= '<h4>' . esc_html( 'Add HTML Answer', 'buddypress-polls' ) . '</h4>';
+			$answer_fields_html .= '<h4>' . esc_html__( 'Add HTML Answer', 'buddypress-polls' ) . '</h4>';
 
 			$answer_fields_html .= '<input type="' . $input_type . '" style="width:330px;" name="_wbpoll_answer[' . $index . ']" value="' . $answers_title . '"  placeholder="Label" id="wbpoll_answer-' . $index . '" class="wbpoll_answer"/><br>';
 
