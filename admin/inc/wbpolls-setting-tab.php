@@ -51,6 +51,37 @@ global $wp_roles;
 								</select>				
 							</div>
 						</div>
+						<div class="wbcom-settings-section-wrap">
+							<div class="wbcom-settings-section-options-heading">
+								<label for="blogname"><?php esc_html_e( 'Add Poll Page Mapping', 'buddypress-polls' ); ?></label>
+							</div>
+							<div class="wbcom-settings-section-options">
+								<div class="wbcom-settings-section-options-heading">
+									<label for="blogname"><?php esc_html_e( 'Create Poll Page', 'buddypress-polls' ); ?></label>
+								</div>
+								
+								<select name="wbpolls_settings[create_poll_page]">
+									<?php
+									$pages = get_pages();
+									foreach ( $pages as $page ) {
+										?>
+									<option value="<?php echo esc_attr( $page->ID ); ?>" <?php if($bpolls_settings['create_poll_page'] == $page->ID){ echo "selected"; } ?>><?php echo esc_attr( $page->post_title ); ?></option>
+									<?php } ?>
+								</select>
+
+								<div class="wbcom-settings-section-options-heading">
+									<label for="blogname"><?php esc_html_e( 'Poll Dashboard Page', 'buddypress-polls' ); ?></label>
+								</div>
+								<select name="wbpolls_settings[poll_dashboard_page]">
+									<?php
+									$pages = get_pages();
+									foreach ( $pages as $dpage ) {										
+										?>
+									<option value="<?php echo esc_attr( $dpage->ID ); ?>" <?php if($bpolls_settings['poll_dashboard_page'] == $dpage->ID){ echo "selected"; } ?>><?php echo esc_attr( $dpage->post_title ); ?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</div>
 
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">

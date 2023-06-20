@@ -2655,21 +2655,33 @@ class Buddypress_Polls_Public {
 	 * @since 1.0.0
 	 */
 	public function wb_poll_add_new_content( $content ) {
-
-		if ( is_page( 'poll-dashboard' ) ) {
-			// Modify the content as needed
-			ob_start();
-			$modified_content = self::wb_poll_locate_template( 'poll-dashboard.php', true );
-			$custom_template_content = ob_get_clean();
-			return $custom_template_content;
+		$option_value = get_option('wbpolls_settings');
+        if(!empty($option_value)){
+			$poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+			if ( is_page( $poll_dashboard_page ) ) {
+				// Modify the content as needed
+				ob_start();
+				$modified_content = self::wb_poll_locate_template( 'poll-dashboard.php', true );
+				$custom_template_content = ob_get_clean();
+				return $custom_template_content;
+			}else{
+				remove_filter( 'the_content', 'wb_poll_locate_template', 10 );
+			}
 		}
-		if ( is_page( 'create-poll' ) ) {
-			ob_start();
-			$modified_content = self::wb_poll_locate_template( 'create-poll.php', true );
-			$custom_template_content = ob_get_clean();
-			return $custom_template_content;
 
+		if(!empty($option_value)){
+			$create_poll_page = isset($option_value['create_poll_page']) ? $option_value['create_poll_page'] : '';
+			if ( is_page( $create_poll_page ) ) {   
+				ob_start();
+				$modified_content = self::wb_poll_locate_template( 'create-poll.php', true );
+				$custom_template_content = ob_get_clean();
+				return $custom_template_content;
+			}else{
+				remove_filter( 'the_content', 'wb_poll_locate_template', 10 );
+			}
 		}
+		
+		
 		// For other pages, return the original content
 		return $content;
 

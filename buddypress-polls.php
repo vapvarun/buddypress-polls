@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The plugin bootstrap file
  *
@@ -26,7 +27,7 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
+if (!defined('WPINC')) {
 	die;
 }
 
@@ -35,59 +36,65 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-if ( ! defined( 'BPOLLS_PLUGIN_VERSION' ) ) {
-	define( 'BPOLLS_PLUGIN_VERSION', '4.2.6' );
+if (!defined('BPOLLS_PLUGIN_VERSION')) {
+	define('BPOLLS_PLUGIN_VERSION', '4.2.6');
 }
 
-if ( ! defined( 'BPOLLS_PLUGIN_FILE' ) ) {
-	define( 'BPOLLS_PLUGIN_FILE', __FILE__ );
+if (!defined('BPOLLS_PLUGIN_FILE')) {
+	define('BPOLLS_PLUGIN_FILE', __FILE__);
 }
 
-if ( ! defined( 'BPOLLS_PLUGIN_URL' ) ) {
-	define( 'BPOLLS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if (!defined('BPOLLS_PLUGIN_URL')) {
+	define('BPOLLS_PLUGIN_URL', plugin_dir_url(__FILE__));
 }
 
-if ( ! defined( 'BPOLLS_PLUGIN_PATH' ) ) {
-	define( 'BPOLLS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+if (!defined('BPOLLS_PLUGIN_PATH')) {
+	define('BPOLLS_PLUGIN_PATH', plugin_dir_path(__FILE__));
 }
-if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
-	define( 'BPOLLS_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+if (!defined('BPOLLS_PLUGIN_BASENAME')) {
+	define('BPOLLS_PLUGIN_BASENAME', plugin_basename(__FILE__));
 }
-defined('BPOLLS_COOKIE_EXPIRATION') or define('BPOLLS_COOKIE_EXPIRATION',
-    time() + 1209600); //Expiration of 14 days.
+defined('BPOLLS_COOKIE_EXPIRATION') or define(
+	'BPOLLS_COOKIE_EXPIRATION',
+	time() + 1209600
+); //Expiration of 14 days.
 defined('BPOLLS_COOKIE_NAME') or define('BPOLLS_COOKIE_NAME', 'wbpoll-cookie');
 defined('BPOLLS_RAND_MIN') or define('BPOLLS_RAND_MIN', 0);
 defined('BPOLLS_RAND_MAX') or define('BPOLLS_RAND_MAX', 999999);
-defined('BPOLLS_COOKIE_EXPIRATION_14DAYS') or define('BPOLLS_COOKIE_EXPIRATION_14DAYS',
-    time() + 1209600); //Expiration of 14 days.
-defined('BPOLLS_COOKIE_EXPIRATION_7DAYS') or define('BPOLLS_COOKIE_EXPIRATION_7DAYS',
-    time() + 604800); //Expiration of 7 days.
+defined('BPOLLS_COOKIE_EXPIRATION_14DAYS') or define(
+	'BPOLLS_COOKIE_EXPIRATION_14DAYS',
+	time() + 1209600
+); //Expiration of 14 days.
+defined('BPOLLS_COOKIE_EXPIRATION_7DAYS') or define(
+	'BPOLLS_COOKIE_EXPIRATION_7DAYS',
+	time() + 604800
+); //Expiration of 7 days.
 
 
 /**
-* This class responsible for help methods
-*/
-require_once plugin_dir_path( __FILE__ ) . 'includes/class-wbpoll-helper.php';
+ * This class responsible for help methods
+ */
+require_once plugin_dir_path(__FILE__) . 'includes/class-wbpoll-helper.php';
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-polls.php';
+require plugin_dir_path(__FILE__) . 'includes/class-buddypress-polls.php';
 
-require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
+require plugin_dir_path(__FILE__) . 'edd-license/edd-plugin-license.php';
 /**
  * Poll rest api
  */
-require_once plugin_dir_path( __FILE__ ) . 'restapi/v1/pollrestapi.php';
+require_once plugin_dir_path(__FILE__) . 'restapi/v1/pollrestapi.php';
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-buddypress-polls-activator.php
  */
-function activate_buddypress_polls() {
+function activate_buddypress_polls()
+{
 
-	
-	if ( false === get_option( 'bpolls_settings' ) || empty(get_option( 'bpolls_settings' ))) {
+	if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
 		$bpolls_settings['options_limit']          = '5';
@@ -102,12 +109,53 @@ function activate_buddypress_polls() {
 		$bpolls_settings['enable_image']    = 'no';
 		$bpolls_settings['poll_revoting']    = 'no';
 		$roles                                     = $wp_roles->get_names();
-		foreach ( $roles as $role => $role_name ) {
+		foreach ($roles as $role => $role_name) {
 			$bpolls_settings['poll_user_role'][] = $role;
 		}
-		update_option( 'bpolls_settings', $bpolls_settings );
+		update_option('bpolls_settings', $bpolls_settings);
 	}
 
+		/**
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Poll Dashboard';
+
+		$dashboard_page_id = wp_insert_post(array(
+			'post_title'     => $page_title,
+			'post_status'    => 'publish',
+			'post_type'      => 'page',
+			'comment_status' => 'closed',
+		));
+
+		/**
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Create Poll';
+
+		$create_page_id = wp_insert_post(array(
+			'post_title'     => $page_title,
+			'post_status'    => 'publish',
+			'post_type'      => 'page',
+			'comment_status' => 'closed',
+		));
+
+
+	if (false === get_option('wbpolls_settings')) {
+		global $wp_roles;
+		$bpolls_settings['poll_dashboard_page']    = $dashboard_page_id;
+		$bpolls_settings['create_poll_page']    = $create_page_id;
+		$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
+		$bpolls_settings['wbpolls_submit_status']       = 'publish';
+		$bpolls_settings['wppolls_show_result']      = 'yes';
+		$bpolls_settings['wbpolls_logoutuser']      = 'no';
+		$bpolls_settings['wbpolls_background_color'] = '#4caf50';
+		$roles  = $wp_roles->get_names();
+		foreach ($roles as $role => $role_name) {
+			$bpolls_settings['wppolls_who_can_vote'][] = $role;
+		}
+		update_option('wbpolls_settings', $bpolls_settings);
+	}
+	update_option('permalink_structure', '/%postname%/');
 }
 
 
@@ -115,23 +163,25 @@ function activate_buddypress_polls() {
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-buddypress-polls-deactivator.php
  */
-function deactivate_buddypress_polls() {
+function deactivate_buddypress_polls()
+{
 	$page = get_page_by_title('Poll Dashboard');
 	wp_trash_post($page->ID);
 	$page = get_page_by_title('Create Poll');
 	wp_trash_post($page->ID);
-	if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+	if (function_exists('is_multisite') && is_multisite()) {
 	}
 }
 
-register_activation_hook( __FILE__, 'activate_buddypress_polls' );
-register_deactivation_hook( __FILE__, 'deactivate_buddypress_polls' );
+register_activation_hook(__FILE__, 'activate_buddypress_polls');
+register_deactivation_hook(__FILE__, 'deactivate_buddypress_polls');
 
-function bpolls_add_page_or_data__buddypress(){
+function bpolls_add_page_or_data__buddypress()
+{
 
 	WBPollHelper::install_table();
 
-	if ( false === get_option( 'bpolls_settings' ) || empty(get_option( 'bpolls_settings' ))) {
+	if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
 		$bpolls_settings['options_limit']          = '5';
@@ -147,62 +197,14 @@ function bpolls_add_page_or_data__buddypress(){
 		$bpolls_settings['poll_revoting']    = 'no';
 		$bpolls_settings['enable_thank_you_message']    = 'no';
 		$roles                                     = $wp_roles->get_names();
-		foreach ( $roles as $role => $role_name ) {
+		foreach ($roles as $role => $role_name) {
 			$bpolls_settings['poll_user_role'][] = $role;
 		}
-		update_option( 'bpolls_settings', $bpolls_settings );
+		update_option('bpolls_settings', $bpolls_settings);
 	}
-
-	if ( false === get_option( 'wbpolls_settings' ) || empty(get_option( 'wbpolls_settings' ))) {
-		global $wp_roles;
-		$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
-		$bpolls_settings['wbpolls_submit_status']       = 'publish';
-		$bpolls_settings['wppolls_show_result']      = 'yes';
-		$bpolls_settings['wbpolls_logoutuser']      = 'no';
-		$bpolls_settings['wbpolls_background_color'] = '#4caf50';
-		$roles  = $wp_roles->get_names();
-		foreach ( $roles as $role => $role_name ) {
-			$bpolls_settings['wppolls_who_can_vote'][] = $role;
-		}
-		update_option( 'wbpolls_settings', $bpolls_settings );
-	}
-	
-	$page = get_page_by_path('Poll Dashboard');
-    
-	if(!$page){
-	/**
-		 * create a page for frontend poll
-		 */
-		$page_title = 'Poll Dashboard';
-
-		$page_id = wp_insert_post(array(
-			'post_title'     => $page_title,
-			'post_status'    => 'publish',
-			'post_type'      => 'page',
-			'comment_status' => 'closed',
-		));
-	}
-	$pagecreate = get_page_by_path('Create Poll');
-    if(!$pagecreate){
-		
-			/**
-			 * create a page for frontend poll
-			 */
-			$page_title = 'Create Poll';
-
-			$page_id = wp_insert_post(array(
-				'post_title'     => $page_title,
-				'post_status'    => 'publish',
-				'post_type'      => 'page',
-				'comment_status' => 'closed',
-			));
-		update_option( 'permalink_structure', '/%postname%/' );
-	}
-
-	
 }
 
-add_action( 'admin_init', 'bpolls_add_page_or_data__buddypress' );
+add_action('admin_init', 'bpolls_add_page_or_data__buddypress');
 /**
  * Begins execution of the plugin.
  *
@@ -212,26 +214,24 @@ add_action( 'admin_init', 'bpolls_add_page_or_data__buddypress' );
  *
  * @since    1.0.0
  */
-function run_buddypress_polls() {
+function run_buddypress_polls()
+{
 	global $pagenow;
-	$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
-	if ( ! get_option( 'bpolls_update_3_8_2' ) && ( isset( $admin_page ) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow ) ) {
-		$bpolls_settings                           = get_option( 'bpolls_settings' );
+	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
+	if (!get_option('bpolls_update_3_8_2') && (isset($admin_page) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow)) {
+		$bpolls_settings                           = get_option('bpolls_settings');
 		$bpolls_settings['options_limit']          = '5';
 		$bpolls_settings['poll_options_result']    = 'yes';
 		$bpolls_settings['poll_list_voters']       = 'yes';
 		$bpolls_settings['poll_limit_voters']      = '3';
 		$bpolls_settings['polls_background_color'] = '#4caf50';
-		update_option( 'bpolls_settings', $bpolls_settings );
+		update_option('bpolls_settings', $bpolls_settings);
 
-		update_option( 'bpolls_update_3_8_2', 1 );
-
+		update_option('bpolls_update_3_8_2', 1);
 	}
 
 	$plugin = new Buddypress_Polls();
 	$plugin->run();
-	
-
 }
 
 //add_action( 'bp_include', 'bpolls_plugin_init' );
@@ -239,17 +239,19 @@ function run_buddypress_polls() {
  * Check plugin requirement on plugins loaded
  * this plugin requires BuddyPress to be installed and active
  */
-function bpolls_plugin_init() {
-	run_buddypress_polls();	
-	if ( bp_polls_check_config() ) {			
-		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
+function bpolls_plugin_init()
+{
+	run_buddypress_polls();
+	if (bp_polls_check_config()) {
+		add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'bpolls_plugin_links');
 	}
 }
 bpolls_plugin_init();
 /**
  * Function to check configurations.
  */
-function bp_polls_check_config() {
+function bp_polls_check_config()
+{
 	global $bp;
 	$check  = array();
 	$config = array(
@@ -257,14 +259,14 @@ function bp_polls_check_config() {
 		'network_active' => false,
 		'network_status' => true,
 	);
-	if ( function_exists('bp_get_root_blog_id') && get_current_blog_id() == bp_get_root_blog_id() ) {
+	if (function_exists('bp_get_root_blog_id') && get_current_blog_id() == bp_get_root_blog_id()) {
 		$config['blog_status'] = true;
 	}
 
-	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
-	if ( class_exists( 'Buddypress' ) ) {
+	$network_plugins = get_site_option('active_sitewide_plugins', array());
+	if (class_exists('Buddypress')) {
 		// No Network plugins.
-		if ( empty( $network_plugins ) ) {
+		if (empty($network_plugins)) {
 
 			// Looking for BuddyPress and bp-activity plugin.
 			$check[] = $bp->basename;
@@ -273,33 +275,33 @@ function bp_polls_check_config() {
 	$check[] = BPOLLS_PLUGIN_BASENAME;
 
 	// Are they active on the network ?
-	$network_active = array_diff( $check, array_keys( $network_plugins ) );
+	$network_active = array_diff($check, array_keys($network_plugins));
 
 	// If result is 1, your plugin is network activated
 	// and not BuddyPress or vice & versa. Config is not ok.
-	if ( count( $network_active ) == 1 ) {
+	if (count($network_active) == 1) {
 		$config['network_status'] = false;
 	}
 
 	// We need to know if the plugin is network activated to choose the right
 	// notice ( admin or network_admin ) to display the warning message.
-	$config['network_active'] = isset( $network_plugins[ BPOLLS_PLUGIN_BASENAME ] );
+	$config['network_active'] = isset($network_plugins[BPOLLS_PLUGIN_BASENAME]);
 
 	// if BuddyPress config is different than bp-activity plugin.
-	if ( ! $config['blog_status'] || ! $config['network_status'] ) {
+	if (!$config['blog_status'] || !$config['network_status']) {
 
 		$warnings = array();
-		if ( function_exists( 'bp_core_do_network_admin' ) && ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
-			add_action( 'admin_notices', 'bpolls_same_blog' );
-			$warnings[] = __( 'BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls' );
+		if (function_exists('bp_core_do_network_admin') && !bp_core_do_network_admin() && !$config['blog_status']) {
+			add_action('admin_notices', 'bpolls_same_blog');
+			$warnings[] = __('BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls');
 		}
 
-		if ( function_exists( 'bp_core_do_network_admin' ) && bp_core_do_network_admin() && ! $config['network_status'] ) {
-			add_action( 'admin_notices', 'bpolls_same_network_config' );
-			$warnings[] = __( 'BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls' );
+		if (function_exists('bp_core_do_network_admin') && bp_core_do_network_admin() && !$config['network_status']) {
+			add_action('admin_notices', 'bpolls_same_network_config');
+			$warnings[] = __('BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls');
 		}
 
-		if ( ! empty( $warnings ) ) :
+		if (!empty($warnings)) :
 			return false;
 		endif;
 		// Display a warning message in network admin or admin.
@@ -310,19 +312,21 @@ function bp_polls_check_config() {
 /**
  * Bpolls_same_blog
  */
-function bpolls_same_blog() {
+function bpolls_same_blog()
+{
 	echo '<div class="error"><p>'
-	. esc_html( __( 'BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls' ) )
-	. '</p></div>';
+		. esc_html(__('BuddyPress Polls requires to be activated on the blog where BuddyPress is activated.', 'buddypress-polls'))
+		. '</p></div>';
 }
 
 /**
  * Bpolls_same_network_config
  */
-function bpolls_same_network_config() {
+function bpolls_same_network_config()
+{
 	echo '<div class="error"><p>'
-	. esc_html( __( 'BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls' ) )
-	. '</p></div>';
+		. esc_html(__('BuddyPress Polls and BuddyPress need to share the same network configuration.', 'buddypress-polls'))
+		. '</p></div>';
 }
 
 /**
@@ -330,25 +334,27 @@ function bpolls_same_network_config() {
  *
  * @param array $links Plugin action links array.
  */
-function bpolls_plugin_links( $links ) {
+function bpolls_plugin_links($links)
+{
 	$bpolls_links = array(
-		'<a href="' . admin_url( 'admin.php?page=buddypress-polls' ) . '">' . __( 'Settings', 'buddypress-polls' ) . '</a>',
-		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __( 'Support', 'buddypress-polls' ) . '</a>',
+		'<a href="' . admin_url('admin.php?page=buddypress-polls') . '">' . __('Settings', 'buddypress-polls') . '</a>',
+		'<a href="https://wbcomdesigns.com/contact/" target="_blank">' . __('Support', 'buddypress-polls') . '</a>',
 	);
-	return array_merge( $links, $bpolls_links );
+	return array_merge($links, $bpolls_links);
 }
 
 /**
  *  Check if buddypress activate.
  */
-function bpolls_requires_buddypress() {
+function bpolls_requires_buddypress()
+{
 
-		if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-			$activate = filter_input( INPUT_GET, 'activate' );
-			unset( $activate );
-		}
+	if (null !== filter_input(INPUT_GET, 'activate')) {
+		$activate = filter_input(INPUT_GET, 'activate');
+		unset($activate);
+	}
 }
-add_action( 'admin_init', 'bpolls_requires_buddypress' );
+add_action('admin_init', 'bpolls_requires_buddypress');
 
 /**
  * Throw an Alert to tell the Admin why it didn't activate.
@@ -356,19 +362,20 @@ add_action( 'admin_init', 'bpolls_requires_buddypress' );
  * @author wbcomdesigns
  * @since  2.5.0
  */
-function bpolls_required_plugin_admin_notice() {
-	$bpquotes_plugin = esc_html__( 'BuddyPress Polls', 'buddypress-polls' );
-	$bp_plugin       = esc_html__( 'BuddyPress', 'buddypress-polls' );
+function bpolls_required_plugin_admin_notice()
+{
+	$bpquotes_plugin = esc_html__('BuddyPress Polls', 'buddypress-polls');
+	$bp_plugin       = esc_html__('BuddyPress', 'buddypress-polls');
 	echo '<div class="error"><p>';
 	/* translators: %s: */
-	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . esc_html__( $bpquotes_plugin , 'buddypress-polls') . '</strong>', '<strong>' . esc_html__( $bp_plugin, 'buddypress-polls' ) . '</strong>' );
+	echo sprintf(esc_html__('%1$s is ineffective now as it requires %2$s to be installed and active.', 'buddypress-polls'), '<strong>' . esc_html__($bpquotes_plugin, 'buddypress-polls') . '</strong>', '<strong>' . esc_html__($bp_plugin, 'buddypress-polls') . '</strong>');
 	echo '</p></div>';
-	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-		$activate = filter_input( INPUT_GET, 'activate' );
-		unset( $activate );
+	if (null !== filter_input(INPUT_GET, 'activate')) {
+		$activate = filter_input(INPUT_GET, 'activate');
+		unset($activate);
 	}
 }
-add_action( 'admin_init', 'buddypress_polls_migration', 20 );
+add_action('admin_init', 'buddypress_polls_migration', 20);
 
 /**
  * Update existing polls user data into polls activity meta.
@@ -376,16 +383,17 @@ add_action( 'admin_init', 'buddypress_polls_migration', 20 );
  * @author wbcomdesigns
  * @since  3.2.1
  */
-function buddypress_polls_migration() {
+function buddypress_polls_migration()
+{
 	global $wpdb, $pagenow;
-    if(class_exists( 'Buddypress' )){
-		$buddypress_polls_migration_3_2_1 = get_option( 'buddypress_polls_migration_3_2_1' );
-		if ( ( 'plugins.php' === $pagenow || 'update-core.php' === $pagenow ) && 'update' !== $buddypress_polls_migration_3_2_1 ) {
-			$polls_activity_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
-			if ( ! empty( $polls_activity_results ) ) {
-				foreach ( $polls_activity_results as  $activity ) {
+	if (class_exists('Buddypress')) {
+		$buddypress_polls_migration_3_2_1 = get_option('buddypress_polls_migration_3_2_1');
+		if (('plugins.php' === $pagenow || 'update-core.php' === $pagenow) && 'update' !== $buddypress_polls_migration_3_2_1) {
+			$polls_activity_results = $wpdb->get_results("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
+			if (!empty($polls_activity_results)) {
+				foreach ($polls_activity_results as  $activity) {
 					$activity_id                = $activity->id;
-					$activity_meta              = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+					$activity_meta              = bp_activity_get_meta($activity_id, 'bpolls_meta');
 					$usermeta_query             = array();
 					$usermeta_query['relation'] = 'AND';
 					$usermeta_query[]           = array(
@@ -396,52 +404,52 @@ function buddypress_polls_migration() {
 					$args                       = array(
 						'meta_query' => $usermeta_query,
 					);
-					$users                      = new WP_User_Query( $args );
+					$users                      = new WP_User_Query($args);
 					$users_found                = $users->get_results();
-					foreach ( $users_found as $user ) {
+					foreach ($users_found as $user) {
 						$user_id         = $user->ID;
-						$user_polls_data = get_user_meta( $user_id, 'bpoll_user_vote', true );
-						if ( isset( $user_polls_data[ $activity_id ] ) && ! empty( $user_polls_data[ $activity_id ] ) ) {
-							$user_activity_poll_data = isset( $user_polls_data[ $activity_id ] ) ? $user_polls_data[ $activity_id ] : array();
-							foreach ( $activity_meta['poll_option'] as $key => $value ) {
-								if ( in_array( $key, $user_activity_poll_data, true ) ) {
-									$polls_existing_useid                          = isset( $activity_meta['poll_optn_user_votes'][ $key ] ) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
-									$activity_meta['poll_optn_user_votes'][ $key ] = array_unique( array_merge( $polls_existing_useid, array( $user_id ) ) );
+						$user_polls_data = get_user_meta($user_id, 'bpoll_user_vote', true);
+						if (isset($user_polls_data[$activity_id]) && !empty($user_polls_data[$activity_id])) {
+							$user_activity_poll_data = isset($user_polls_data[$activity_id]) ? $user_polls_data[$activity_id] : array();
+							foreach ($activity_meta['poll_option'] as $key => $value) {
+								if (in_array($key, $user_activity_poll_data, true)) {
+									$polls_existing_useid                          = isset($activity_meta['poll_optn_user_votes'][$key]) ? $activity_meta['poll_optn_user_votes'][$key] : array();
+									$activity_meta['poll_optn_user_votes'][$key] = array_unique(array_merge($polls_existing_useid, array($user_id)));
 								}
 							}
 							/* saved User id in activity meta */
-							$existing_useid              = isset( $activity_meta['poll_users'] ) ? $activity_meta['poll_users'] : array();
-							$activity_meta['poll_users'] = array_unique( array_merge( $existing_useid, array( $user_id ) ) );
+							$existing_useid              = isset($activity_meta['poll_users']) ? $activity_meta['poll_users'] : array();
+							$activity_meta['poll_users'] = array_unique(array_merge($existing_useid, array($user_id)));
 
-							bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
+							bp_activity_update_meta($activity_id, 'bpolls_meta', $activity_meta);
 						}
 					}
 				}
-				update_option( 'buddypress_polls_migration_3_2_1', 'update' );
+				update_option('buddypress_polls_migration_3_2_1', 'update');
 			}
 		}
 	}
-
 }
-add_action( 'activated_plugin', 'buddypress_polls_activation_redirect_settings' );
+add_action('activated_plugin', 'buddypress_polls_activation_redirect_settings');
 
 /**
  * Redirect to plugin settings page after activated
  *
  * @param plugin $plugin plugin.
  */
-function buddypress_polls_activation_redirect_settings( $plugin ) {
-	$plugins = filter_input( INPUT_GET, 'plugin' ) ? filter_input( INPUT_GET, 'plugin' ) : '';
-	if ( ! isset( $plugins ) ) {
+function buddypress_polls_activation_redirect_settings($plugin)
+{
+	$plugins = filter_input(INPUT_GET, 'plugin') ? filter_input(INPUT_GET, 'plugin') : '';
+	if (!isset($plugins)) {
 		return;
 	}
-	if ( plugin_basename( __FILE__ ) === $plugin) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) {
-			if (class_exists( 'Buddypress' ) ) {
-			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls&redirects=1' ) );
-			exit;
-			}else if(class_exists( 'Buddypress_Polls' )){
-				wp_safe_redirect( admin_url( 'admin.php?page=wbcomplugins' ) );
+	if (plugin_basename(__FILE__) === $plugin) {
+		if (isset($_REQUEST['action']) && $_REQUEST['action'] == 'activate' && isset($_REQUEST['plugin']) && $_REQUEST['plugin'] == $plugin) {
+			if (class_exists('Buddypress')) {
+				wp_safe_redirect(admin_url('admin.php?page=buddypress-polls&redirects=1'));
+				exit;
+			} else if (class_exists('Buddypress_Polls')) {
+				wp_safe_redirect(admin_url('admin.php?page=wbcomplugins'));
 				exit;
 			}
 		}
@@ -453,20 +461,22 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
  *
  * @param content $content bbPress reply content.
  */
-function bpolls_bbp_get_reply_content( $content ) {
+function bpolls_bbp_get_reply_content($content)
+{
 
-	return do_shortcode( $content );
+	return do_shortcode($content);
 }
-add_filter( 'bbp_get_reply_content', 'bpolls_bbp_get_reply_content' );
+add_filter('bbp_get_reply_content', 'bpolls_bbp_get_reply_content');
 
 /**
  * Display Polls Activity in bbpress forum using shortcode.
  *
  * @param content $content bbPress forum content.
  */
-function bpolls_bbp_get_forum_content( $content ) {
+function bpolls_bbp_get_forum_content($content)
+{
 
-	return do_shortcode( $content );
+	return do_shortcode($content);
 }
 
 /**
@@ -474,13 +484,14 @@ function bpolls_bbp_get_forum_content( $content ) {
  *
  * @param content $content bbPress topic content.
  */
-function bpolls_bbp_get_topic_content( $content ) {
+function bpolls_bbp_get_topic_content($content)
+{
 
-	return do_shortcode( $content );
+	return do_shortcode($content);
 }
-if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
-	add_filter( 'bbp_get_forum_content', 'bpolls_bbp_get_forum_content' );
-	add_filter( 'bbp_get_topic_content', 'bpolls_bbp_get_topic_content' );
+if (function_exists('buddypress') && isset(buddypress()->buddyboss)) {
+	add_filter('bbp_get_forum_content', 'bpolls_bbp_get_forum_content');
+	add_filter('bbp_get_topic_content', 'bpolls_bbp_get_topic_content');
 }
 
 /**
@@ -488,13 +499,14 @@ if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
  *
  * @ Since 4.0.0
  */
-function bpolls_add_quicktags() {
-	if ( wp_script_is( 'quicktags' ) && ( function_exists( 'bbp_is_single_forum' ) && bbp_is_single_forum() ) ) {
-		?>
-	<script type="text/javascript">
-		QTags.addButton( 'bp_polls', 'Polls', '[bp_polls activity_id="add your polls activity id"]', '', 'h', 'Add your polls activity', 201 );
-	</script>
-		<?php
+function bpolls_add_quicktags()
+{
+	if (wp_script_is('quicktags') && (function_exists('bbp_is_single_forum') && bbp_is_single_forum())) {
+?>
+		<script type="text/javascript">
+			QTags.addButton('bp_polls', 'Polls', '[bp_polls activity_id="add your polls activity id"]', '', 'h', 'Add your polls activity', 201);
+		</script>
+<?php
 	}
 }
-add_action( 'wp_footer', 'bpolls_add_quicktags', 99999 );
+add_action('wp_footer', 'bpolls_add_quicktags', 99999);
