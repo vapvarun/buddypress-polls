@@ -393,6 +393,8 @@ class Buddypress_Polls_Public {
 			$nouveau = false;
 		} elseif ( 'nouveau' === $active_template ) {
 			$nouveau = true;
+		}else{
+			$nouveau = false;
 		}
 
 		$bpolls_settings = get_site_option( 'bpolls_settings' );
