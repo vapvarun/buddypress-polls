@@ -1519,7 +1519,7 @@ class WBPollHelper {
 			$poll_form_html  .= '<div class="wbpoll-question-choices-item-label"><div class="wbpoll-question-choices-item-text">';
 			$poll_form_html  .= '<span class="wbpoll_single_answer wbpoll_single_answer-text wbpoll_single_answer-text-' . $post_id . '"  data-post-id="' . $post_id . '" data-answer="' . $answer . ' ">' . apply_filters(
 				'wbpoll_form_listitem_answer_title',
-				esc_html__($answer),
+				esc_html__($answer, 'buddypress-polls'),
 				$post_id,
 				$index,
 				$poll_answers_extra_single

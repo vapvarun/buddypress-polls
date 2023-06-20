@@ -70,7 +70,7 @@
 						$pause       = $post->pausetype;
 						?>
 						<tr>
-							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title ); ?></td>
+							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title , 'buddypress-polls'); ?></td>
 							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_stauts ); ?></td>
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">

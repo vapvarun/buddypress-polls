@@ -24,7 +24,7 @@ class Wb_Poll_Report extends WP_Widget {
 
 		// Widget content.
 		$poll_id = $instance['wb_activity_default'];
-		echo '<h4 class="widget-title"><span>' . esc_html__($instance['title']) . '</span></h4>';
+		echo '<h4 class="widget-title"><span>' . esc_html__($instance['title'], 'buddypress-polls') . '</span></h4>';
 		echo WBPollHelper::show_backend_single_poll_widget_result( esc_html($poll_id), 'shortcode', 'text' );
 
 		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -76,7 +76,7 @@ class Wb_Poll_Report extends WP_Widget {
 							$post_id    = get_the_ID();
 							$post_title = get_the_title();
 							?>
-							<option value="<?php echo esc_html($post_id); ?>" <?php selected( $wb_activity_default, $post_id ); ?>><?php echo esc_html__( $post_title ); ?></option>
+							<option value="<?php echo esc_html($post_id); ?>" <?php selected( $wb_activity_default, $post_id ); ?>><?php echo esc_html__( $post_title, 'buddypress-polls' ); ?></option>
 							<?php
 							// Do something with the post data.
 						}
