@@ -378,7 +378,7 @@ add_action( 'admin_init', 'buddypress_polls_migration', 20 );
  */
 function buddypress_polls_migration() {
 	global $wpdb, $pagenow;
-    if(class_exists( 'Buddypress_Polls' )){
+    if(class_exists( 'Buddypress' )){
 		$buddypress_polls_migration_3_2_1 = get_option( 'buddypress_polls_migration_3_2_1' );
 		if ( ( 'plugins.php' === $pagenow || 'update-core.php' === $pagenow ) && 'update' !== $buddypress_polls_migration_3_2_1 ) {
 			$polls_activity_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
