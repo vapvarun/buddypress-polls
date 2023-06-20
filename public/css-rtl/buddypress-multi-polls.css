@@ -10,6 +10,7 @@
 # Single Poll After Result
 # Shortcode
 # Polls Report
+# Guest Login Form
 --------------------------------------------------------------*/
 
 /*--------------------------------------------------------------
@@ -898,7 +899,7 @@
 # Shortcode
 --------------------------------------------------------------*/
 .wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>h3,
-.wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>.wbpoll-description{
+.wbpoll_wrapper-shortcode>.wbpoll_wrapper-shortcode>.wbpoll-description {
     display: none;
 }
 
@@ -913,5 +914,36 @@
 .widget_wb_poll_report table td {
     padding: 10px;
     border: 1px solid rgba(0, 0, 0, .05);
+}
+
+/*--------------------------------------------------------------
+# Guest Login Form
+--------------------------------------------------------------*/
+.wbpoll-guest-wrap {
+    background: #fff;
+    margin: 0;
+    padding: 15px;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+}
+
+.wbpoll-guest-wrap #loginform label {
+    display: block;
+    margin: 0 0 5px;
+}
+
+.wbpoll-guest-wrap #loginform input[type="text"],
+.wbpoll-guest-wrap #loginform input[type="password"] {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
 }
 /*# sourceMappingURL=buddypress-multi-polls.css.map */
