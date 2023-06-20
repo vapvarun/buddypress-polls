@@ -342,14 +342,11 @@ function bpolls_plugin_links( $links ) {
  *  Check if buddypress activate.
  */
 function bpolls_requires_buddypress() {
-	//if ( ! class_exists( 'Buddypress' ) ) {
-		//( plugin_basename( __FILE__ ) );
-		//add_action( 'admin_notices', 'bpolls_required_plugin_admin_notice' );
+
 		if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
 			$activate = filter_input( INPUT_GET, 'activate' );
 			unset( $activate );
 		}
-	//}
 }
 add_action( 'admin_init', 'bpolls_requires_buddypress' );
 

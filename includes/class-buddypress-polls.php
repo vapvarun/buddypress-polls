@@ -176,7 +176,6 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 
 			 if ( class_exists( 'Buddypress' ) ) {	
 				$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );			
-				//$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 				$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 				$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 				$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
@@ -229,7 +228,6 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 			 $this->loader->add_action( 'admin_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 			 
-			 //if ( class_exists( 'Buddypress' ) ) {
 				$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
 				/* adds polls html in whats new area */
@@ -282,8 +280,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 				$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_activity_embed_add_inline_styles', 20 );
 
 				// update total poll votes.
-				// $this->loader->add_action( 'bp_init', $plugin_public, 'bpolls_update_prev_polls_total_votes', 20 );
-
+				
 				$this->loader->add_action( 'wp_ajax_bpolls_save_image', $plugin_public, 'bpolls_save_image' );
 
 				$this->loader->add_filter( 'bp_activity_user_can_edit', $plugin_public, 'bpolls_activity_can_edit', 10, 2 );
@@ -302,7 +299,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 				$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
 				$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
-			// }
+		
 			//Show poll in details poll post type
 			if ( ! is_admin() ) {
 				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );

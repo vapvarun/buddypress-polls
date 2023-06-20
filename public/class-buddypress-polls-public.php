@@ -467,7 +467,6 @@ class Buddypress_Polls_Public {
 			true
 		);
 
-		// wp_register_script( 'wbpoll-choosen-script', plugins_url( '/admin/js/chosen.jquery.min.js', __FILE__ ), array( 'jquery' ), BPOLLS_PLUGIN_VERSION, true );
 		wp_register_script(
 			'select2',
 			BPOLLS_PLUGIN_URL . 'admin/js/select2/js/select2.min.js',
@@ -575,17 +574,13 @@ class Buddypress_Polls_Public {
 
 			wp_enqueue_script( 'wbpoll-jseventManager' );
 			wp_enqueue_script( 'jquery' );
-			// wp_enqueue_style( 'wp-color-picker' );
-			// wp_enqueue_style( 'thickbox' );
 			wp_enqueue_script( 'wp-color-picker' );
-			// wp_enqueue_script( 'media-upload' );
 			wp_enqueue_media();
 
 			wp_enqueue_style( 'jquery-ui-core' ); // jquery ui core
 			wp_enqueue_style( 'jquery-ui-datepicker' ); // jquery ui datepicker
 			wp_enqueue_style( 'jquery-ui-sortable' ); // jquery ui sortable
 
-			// wp_enqueue_script( 'wbpoll-choosen-script' );
 			wp_enqueue_script( 'select2' );
 			wp_enqueue_script( 'wbpoll-ui-time-script' );
 
@@ -876,7 +871,6 @@ class Buddypress_Polls_Public {
 			return $retval;
 		}
 
-		// $retval = sprintf( __( '%s created a poll', 'buddypress-polls' ), bp_core_get_userlink( $activity->user_id ) );
 		return $retval;
 	}
 
@@ -914,10 +908,6 @@ class Buddypress_Polls_Public {
 		global $bp;
 		$user_id = bp_loggedin_user_id();
 
-		// if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options']) && is_array($_POST['bpolls_input_options']) ) {
-		// $activity_action = sprintf(__('%1$s created a poll in the group %2$s', 'buddypress'), bp_core_get_userlink($user_id), '<a href="' . bp_get_group_permalink($bp->groups->current_group) . '">' . esc_attr($bp->groups->current_group->name) . '</a>');
-		// }.
-
 		$_check_type = '';
 		$_check_type = get_option( 'temp_poll_type' );
 
@@ -935,10 +925,7 @@ class Buddypress_Polls_Public {
 	 * @param array $activity Activity object.
 	 */
 	public function bpolls_update_poll_type_activity( $activity ) {
-		// if (isset($_POST['bpolls_input_options']) && !empty($_POST['bpolls_input_options']) && is_array($_POST['bpolls_input_options']) ) {
-		// $activity->type = 'activity_poll';
-		// }.
-
+		
 		$_check_type = '';
 		$_check_type = get_option( 'temp_poll_type' );
 
@@ -1183,7 +1170,6 @@ class Buddypress_Polls_Public {
 					$activity_votes_content = '';
 					$count                  = 0;
 
-					// $activity_content .= "<span class='bpolls-votes'>" . $bpolls_votes_txt . '</span>';
 					$poll_optn_user_votes = isset( $activity_meta['poll_optn_user_votes'][ $key ] ) ? $activity_meta['poll_optn_user_votes'][ $key ] : array();
 
 					if ( ! empty( $poll_optn_user_votes ) && isset( $bpolls_settings['poll_list_voters'] ) && ! $hide_results ) {
@@ -2317,7 +2303,6 @@ class Buddypress_Polls_Public {
 			$poll_user_roles = array();
 		}
 
-		// $poll_content                   = get_post_meta( $poll_id, '_wbpoll_content', true ); //poll content
 		$poll_never_expire              = intval(
 			get_post_meta(
 				$poll_id,
@@ -2340,13 +2325,10 @@ class Buddypress_Polls_Public {
 				true
 			)
 		); // Votes per session
-		// $poll_show_result_all           = get_post_meta($poll_id, '_wbpoll_show_result_all', true); //show_result_all
 		$poll_result_chart_type = get_post_meta( $poll_id, '_wbpoll_result_chart_type', true ); // chart type
 
-		// $poll_is_voted          = intval( get_post_meta( $poll_id, '_wbpoll_is_voted', true ) ); //at least a single vote
 		$poll_is_voted = WBPollHelper::is_poll_voted( $poll_id );
 
-		// $global_result_chart_type   = isset($setting_api['result_chart_type'])? $setting_api['result_chart_type']: 'text';
 		$poll_result_chart_type = get_post_meta( $poll_id, '_wbpoll_result_chart_type', true );
 		$poll_result_chart_type = ( $chart_type != '' ) ? $chart_type : $poll_result_chart_type; // honor shortcode or widget  as user input
 
@@ -2363,7 +2345,6 @@ class Buddypress_Polls_Public {
 		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime(); // check if poll expired from it's end data
 		$is_poll_expired = ( $poll_never_expire == 1 ) ? false : $is_poll_expired; // override expired status based on the meta information
 
-		// $poll_allowed_user_group = empty($poll_user_roles) ? $setting_api['user_roles'] : $poll_user_roles;
 		$poll_allowed_user_group = $poll_user_roles;
 
 		$allowed_user_groups = array_intersect( $poll_allowed_user_group, $this_user_role );

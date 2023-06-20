@@ -31,23 +31,7 @@ global $wp_roles;
 						do_settings_sections( 'buddypress_wbpolls' );
 					?>
 					<div class="form-table polls-general-options">
-						<!-- <div class="wbcom-settings-section-wrap">
-							<div class="wbcom-settings-section-options-heading">
-								<label
-									for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label>
-								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Enabled/Disabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
-								</p>
-							</div>
-							<div class="wbcom-settings-section-options">
-								<label class="wb-switch">
-									<input name='wbpolls_settings[wbpolls_multiselect]' type='checkbox' value='yes'
-										<?php ( isset( $bpolls_settings['wbpolls_multiselect'] ) ) ? checked( $bpolls_settings['wbpolls_multiselect'], 'yes' ) : ''; ?> />
-									<div class="wb-slider wb-round"></div>
-								</label>
-							</div>
-						</div> -->
-
+						
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label for="blogname"><?php esc_html_e( 'Who can vote?', 'buddypress-polls' ); ?></label>
@@ -67,23 +51,6 @@ global $wp_roles;
 								</select>				
 							</div>
 						</div>
-
-						<!-- <div class="wbcom-settings-section-wrap">
-							<div class="wbcom-settings-section-options-heading">
-								<label
-									for="blogname"><?php esc_html_e( 'Never Expire', 'buddypress-polls' ); ?></label>
-								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Enabled/Disabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
-								</p>
-							</div>
-							<div class="wbcom-settings-section-options">
-								<label class="wb-switch">
-									<input name='wbpolls_settings[wbpolls_never_expire]' type='checkbox' value='yes'
-										<?php ( isset( $bpolls_settings['wbpolls_never_expire'] ) ) ? checked( $bpolls_settings['wbpolls_never_expire'], 'yes' ) : ''; ?> />
-									<div class="wb-slider wb-round"></div>
-								</label>
-							</div>
-						</div> -->
 
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
@@ -151,29 +118,6 @@ global $wp_roles;
 							</div>
 						</div>						
 					</div>
-
-					<!-- <div class="wbcom-admin-option-wrap-bp-poll">
-						<div class="form-table polls-general-options">
-							<div class="wbcom-settings-section-wrap">
-								<div class="wbcom-settings-section-options-heading">
-									<label
-										for="blogname"><?php esc_html_e( 'Guest User Voting', 'buddypress-polls' ); ?></label>
-									<p class="description" id="tagline-description">
-										<?php esc_html_e( 'This option will allow the guest users to vote.', 'buddypress-polls' ); ?>
-									</p>
-								</div>
-								<div class="wbcom-settings-section-options">
-									<label class="wb-switch">
-										<input name='wbpolls_settings[wbpolls_logoutuser]' type='checkbox' value='yes'
-											<?php ( isset( $bpolls_settings['wbpolls_logoutuser'] ) ) ? checked( $bpolls_settings['wbpolls_logoutuser'], 'yes' ) : ''; ?> />
-										<div class="wb-slider wb-round"></div>
-									</label>
-								</div>
-							</div>
-
-						</div>
-					</div> -->
-
 				</div>
 			</div>
 

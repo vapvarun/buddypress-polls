@@ -252,22 +252,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 					}
 
-					// public function wbpolls_admin_register_settings()
-					// {
-					// 	if (isset($_POST['wbpolls_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
-					// 		unset($_POST['wbpolls_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-					// 		update_site_option('wbpolls_settings', wp_unslash($_POST['wbpolls_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					// 		wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-					// 		exit();
-					// 	}
-					// 	if (isset($_POST['bpolls_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
-					// 		unset($_POST['bpolls_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-					// 		update_site_option('bpolls_settings', wp_unslash($_POST['bpolls_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-					// 		wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-					// 		exit();
-					// 	}
-					// }
-
 					/**
 					 * change_admin_bar_edit_text change text Post to poll for single poll
 					 *
@@ -688,7 +672,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					public function init_shortcodes()
 					{
 						add_shortcode('wbpoll', array($this, 'wbpoll_shortcode')); // single poll shortcode
-						// add_shortcode('wbpoll', array($this, 'wbpolls_shortcode')); //all polls shortcode
 					} //end init_shortcodes()
 
 					/**
@@ -704,7 +687,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						// normalize attribute keys, lowercase
 						$atts = array_change_key_case((array) $atts, CASE_LOWER);
 
-						// $global_result_chart_type = isset($setting_api['result_chart_type']) ? $setting_api['result_chart_type'] : 'text';
 						$global_result_chart_type = 'text';
 						$global_answer_grid_list  = 1; // 0 = list 1 = grid
 
@@ -715,7 +697,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							array(
 								'per_page'    => 5,
 								'chart_type'  => $global_result_chart_type, // chart type, default will be always 'text' if not defined
-								// 'chart_type'  => '', //chart type, default will be always 'text' if not defined
 								'grid'        => $global_answer_grid_list, // show grid or list as answer
 								'description' => 1, // show poll description,
 								'user_id'     => 0, // if we want to show polls from any user
@@ -784,7 +765,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						// normalize attribute keys, lowercase
 						$atts = array_change_key_case((array) $atts, CASE_LOWER);
 
-						// $global_result_chart_type = isset($setting_api['result_chart_type']) ? $setting_api['result_chart_type'] : 'text';
 						$global_result_chart_type = 'text';
 						$global_answer_grid_list  = 1; // 0 = list 1 = grid
 
@@ -918,7 +898,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$iframe_audio_url      = array();
 
 						if ($poll_postid > 0) :
-							// $is_voted           = intval( get_post_meta( $poll_postid, '_wbpoll_is_voted', true ) );
 							$is_voted = WBPollHelper::is_poll_voted($poll_postid);
 
 							$poll_answers       = get_post_meta($poll_postid, '_wbpoll_answer', true);
@@ -1030,7 +1009,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									}
 								}
 							}
-							// else {
 
 							// $answer_counter         = 3;
 							if (!$is_voted && sizeof($poll_answers) == 0) {
@@ -1093,7 +1071,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								$new_index = intval($index) + $new_index + 1;
 							}
 
-							// }
 							echo '</ul>';
 						?>
 							<input type="hidden" id="wbpoll_answer_extra_answercount" value="<?php echo intval($new_index); ?>" name="_wbpoll_answer_extra[answercount]" />
@@ -1133,9 +1110,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								</div>
 							</div>
 					</div><!-- .wb-poll-answers-items-content-wrapper -->
-					<?php
-							// }
-					?>
+					
 					<br />
 
 					<?php
@@ -1309,30 +1284,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$status = $post->post_status;
 
 						$prefix = '_wbpoll_';
-						// handle answer colors
-						// if ( isset( $_POST[ $prefix . 'answer_color' ] ) ) {
-
-						// $colors = $_POST[ $prefix . 'answer_color' ];
-						// foreach ( $colors as $index => $color ) {
-						// $colors[ $index ] = WBPollHelper::sanitize_hex_color( $color );
-						// }
-
-						// $unique_color = array_unique( $colors );
-
-						// if ( ( count( $unique_color ) ) == ( count( $colors ) ) ) {
-						// update_post_meta( $post_id, $prefix . 'answer_color', $colors );
-						// } else {
-						// $error = '<div class="error"><p>' . esc_html__(
-						// 'Error: Answer Color repeat error',
-						// 'buddypress-polls'
-						// ) . '</p></div>';
-
-						// return false;
-						// }
-						// } else {
-						// delete_post_meta( $post_id, $prefix . 'answer_color' );
-						// }
-
+						
 						// handling extra fields
 						if (isset($_POST[$prefix . 'answer_extra'])) {
 							$extra = $_POST[$prefix . 'answer_extra'];
@@ -1367,20 +1319,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							delete_post_meta($post_id, $prefix . 'full_size_image_answer');
 						}
 
-						// thumbnail size image answer
-						// if ( isset( $_POST[ $prefix . 'full_thumbnail_image_answer' ] ) ) {
-						// $images = $_POST[ $prefix . 'full_thumbnail_image_answer' ];
-
-						// foreach ( $images as $index => $url ) {
-						// $images[ $index ] = sanitize_text_field( $url );
-						// }
-
-						// update_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer', $images );
-
-						// } else {
-						// delete_post_meta( $post_id, $prefix . 'full_thumbnail_image_answer' );
-						// }
-
 						// video url
 						if (isset($_POST[$prefix . 'video_answer_url'])) {
 							$images = $_POST[$prefix . 'video_answer_url'];
@@ -1405,20 +1343,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						} else {
 							delete_post_meta($post_id, $prefix . 'video_import_info');
 						}
-
-						// Video thumbnail size image answer
-						// if ( isset( $_POST[ $prefix . 'video_thumbnail_image_url' ] ) ) {
-						// $images = $_POST[ $prefix . 'video_thumbnail_image_url' ];
-
-						// foreach ( $images as $index => $url ) {
-						// $images[ $index ] = sanitize_text_field( $url );
-						// }
-
-						// update_post_meta( $post_id, $prefix . 'video_thumbnail_image_url', $images );
-
-						// } else {
-						// delete_post_meta( $post_id, $prefix . 'video_thumbnail_image_url' );
-						// }
 
 						// Audio url
 						if (isset($_POST[$prefix . 'audio_answer_url'])) {
@@ -1445,20 +1369,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						} else {
 							delete_post_meta($post_id, $prefix . 'audio_import_info');
 						}
-
-						// Audio thumbnail size image answer
-						// if ( isset( $_POST[ $prefix . 'audio_thumbnail_image_url' ] ) ) {
-						// $images = $_POST[ $prefix . 'audio_thumbnail_image_url' ];
-
-						// foreach ( $images as $index => $url ) {
-						// $images[ $index ] = sanitize_text_field( $url );
-						// }
-
-						// update_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url', $images );
-
-						// } else {
-						// delete_post_meta( $post_id, $prefix . 'audio_thumbnail_image_url' );
-						// }
 
 						// HTML textarea answer
 						if (isset($_POST[$prefix . 'html_answer'])) {
@@ -1656,7 +1566,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									'Unknown Answer',
 									'buddypress-polls'
 								);
-								//$color_style  = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
 								$color_style  = $wbpolls_background_color;
 
 								$percent        = ($vote_count * 100) / $total;
@@ -1677,8 +1586,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										'Unknown Answer',
 										'buddypress-polls'
 									);
-									// $color_style    = isset( $colors[ $index ] ) ? 'color:' . $colors[ $index ] . ';' : '';
-									// $color          = isset( $colors[ $index ] ) ? $colors[ $index ] : '#4caf50';
 									$color          = $wbpolls_background_color;
 									$percent        = ($vote_count * 100) / $total;
 									$re_percent     = ($percent * 100) / $total_percent;

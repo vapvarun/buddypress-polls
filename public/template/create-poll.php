@@ -182,38 +182,6 @@
 								<span class="description"><?php esc_html_e( 'Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls' ); ?></span>
 							</td>
 						</tr>
-						<!-- <tr>
-							<th><label for="_wbpoll_user_roles"><?php esc_html_e( 'Who Can Vote', 'buddypress-polls' ); ?></label></th>
-							<td>--->
-								<!-- <select name="_wbpoll_user_roles[]" id="_wbpoll_user_roles-chosen" class="selecttwo-select select2-hidden-accessible" multiple="multiple" data-select2-id="_wbpoll_user_roles-chosen" tabindex="-1" aria-hidden="true" style="display:none;">
-									<option value="administrator" selected="selected" data-select2-id="2"><?php esc_html_e( 'Administrator', 'buddypress-polls' ); ?></option>
-									<option value="editor" selected="selected" data-select2-id="3"><?php esc_html_e( 'Editor', 'buddypress-polls' ); ?></option>
-									<option value="author" selected="selected" data-select2-id="4"><?php esc_html_e( 'Author', 'buddypress-polls' ); ?></option>
-									<option value="contributor" selected="selected" data-select2-id="5"><?php esc_html_e( 'Contributor', 'buddypress-polls' ); ?></option>
-									<option value="subscriber" selected="selected" data-select2-id="6"><?php esc_html_e( 'Subscriber', 'buddypress-polls' ); ?></option>
-									<option value="customer"><?php esc_html_e( 'Customer', 'buddypress-polls' ); ?></option>
-									<option value="shop_manager"><?php esc_html_e( 'Shop manager', 'buddypress-polls' ); ?></option>
-								</select> -->
-								<!----<span class="description"><?php esc_html_e( 'Which user role will have vote capability', 'buddypress-polls' ); ?></span>
-							</td>
-						</tr> -->
-						<!-- <tr>
-							<th><label for="_wbpoll_content"><?php esc_html_e( 'Show Poll Description in Shortcode', 'buddypress-polls' ); ?></label></th>
-							<td>
-								<fieldset class="radio_fields">
-									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
-									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_content-radio">
-										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="1" checked="checked">
-										<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
-									</label>
-									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_content-radio">
-										<input id="_wbpoll_content-radio" type="radio" name="_wbpoll_content" value="0">
-										<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
-									</label>
-								</fieldset>
-								<span class="description"><?php esc_html_e( 'Select if you want to show content.', 'buddypress-polls' ); ?></span>
-							</td>
-						</tr> -->
 						<tr>
 							<th><label for="_wbpoll_never_expire"><?php esc_html_e( 'Never Expire', 'buddypress-polls' ); ?></label></th>
 							<td>
@@ -288,13 +256,6 @@
 							</td>
 						</tr>
 						<?php } ?>
-						<!-- <tr>
-							<th><label for="_wbpoll_vote_per_session"><?php esc_html_e( 'Votes Per User', 'buddypress-polls' ); ?></label></th>
-							<td>--->
-								<input type="hidden" class="regular-text" name="_wbpoll_vote_per_session" id="_wbpoll_vote_per_session-number" value="1" size="30">
-							<!----	<span class="description"><?php esc_html_e( 'Set the number of times a user can vote.', 'buddypress-polls' ); ?></span>
-							</td>
-						</tr> -->
 					</tbody>
 				</table>
 			</div>
