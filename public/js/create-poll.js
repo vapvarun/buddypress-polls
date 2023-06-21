@@ -669,6 +669,7 @@ jQuery(document).ready(
 
 jQuery('#wbpolls-create').submit(function (event) {
     event.preventDefault();
+    const poll_id = jQuery('#poll_id').val();
     const author_id = jQuery('#author_id').val();
     const title = jQuery('#polltitle').val();
     var editor = tinyMCE.get('poll-content');
@@ -736,6 +737,7 @@ jQuery('#wbpolls-create').submit(function (event) {
         jQuery('#error_ans').text("Poll options are duplicate's, Please add unique options");
     }else{
         const data = {
+            poll_id:poll_id,
             author_id: author_id,
             title: title,
             content: content,

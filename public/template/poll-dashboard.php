@@ -12,13 +12,22 @@
 ?>
 
 <div class="main-dashboard">
-<?php if (is_user_logged_in()) { ?>
+<?php if (is_user_logged_in()) { 
+	
+	$option_value = get_option('wbpolls_settings');
+	$poll_dashboard_page = isset($option_value['create_poll_page']) ? $option_value['create_poll_page'] : '';
+	
+	$page = get_post($poll_dashboard_page);
+	if ($page) {
+		$page_slug = $page->post_name;
+	}
+	?>
 	<div class="deshboard-top">
 		<div class="main-title">
 			<h3><?php esc_html_e( 'Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
-			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/create-poll/'; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
+			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
 		</div>
 	</div>
 	<div class="poll-listing">
@@ -75,6 +84,9 @@
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
+							<?php if($totalvote < 1){ ?>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
+							<?php } ?>
 							<button class="button btn pause_poll" data-value="
 							<?php
 							if ( ! empty( $pause ) && $pause == 1 ) {

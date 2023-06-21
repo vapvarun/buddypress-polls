@@ -93,15 +93,28 @@ class Pollrestapi {
 			$wbpolls_submit_status = $option_value['wbpolls_submit_status'];
 		}
         // Create a new post with the retrieved data
-       
-        $new_post = array(
-            'post_title' => $post_title,
-            'post_content' => $post_content,
-            'post_status' => $wbpolls_submit_status,
-            'post_type' => 'wbpoll',
-            'post_author' => $post_author,
-        );
-        $post_id = wp_insert_post( $new_post );
+        $updatepost_id = isset($parameters['poll_id']) ? $parameters['poll_id']: '';
+        $post = get_post($updatepost_id);
+        // Update the post data
+        if ($post) {
+            $updated_post = array(
+                'ID'           => $updatepost_id,
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_author' => $post_author,
+            ); 
+            $post_id = wp_update_post($updated_post);
+        }else{
+            $new_post = array(
+                'post_title' => $post_title,
+                'post_content' => $post_content,
+                'post_status' => $wbpolls_submit_status,
+                'post_type' => 'wbpoll',
+                'post_author' => $post_author,
+            );
+            $post_id = wp_insert_post( $new_post );
+        }
+        
         
          // option type (default, image, video, audio, html)
         if ( isset( $parameters[ $prefix . 'answer_extra' ] ) ) {
@@ -118,6 +131,8 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'answer_extra' );
         }
 
+        
+
         // option lable
         if ( isset( $parameters[ $prefix . 'answer' ] ) ) {
            
@@ -127,12 +142,10 @@ class Pollrestapi {
                     $titles[] = $extra_type;
                 }           
             }
-
             foreach ( $titles as $index => $title ) {
-                $titles[ $index ] = sanitize_text_field( $title );
+                $titles[ $index ] = $title;
             }
-
-            update_post_meta( $post_id, $prefix . 'answer', $titles, true);
+            update_post_meta( $post_id, $prefix . 'answer', $titles);
 
         } else {
             delete_post_meta( $post_id, $prefix . 'answer' );
@@ -332,23 +345,40 @@ class Pollrestapi {
         } else {
             delete_post_meta( $post_id, $prefix . 'vote_per_session' );
         }
-        $type = $wbpolls_submit_status;
-        //Return the response data
-        if($type == "publish"){
-            $page = get_post($post_id);
-            if ($page) {
-                $page_slug = $page->post_name;
+        if(empty($updatepost_id)){
+            $type = $wbpolls_submit_status;
+            //Return the response data
+            if($type == "publish"){
+                $page = get_post($post_id);
+                if ($page) {
+                    $page_slug = $page->post_name;
+                }
+                $data = array(
+                    'success' => true,
+                    'message' => esc_html__('Your poll is published.', 'buddypress-polls'),
+                    'post_id' => $post_id,
+                    'url' => site_url().'/poll/'.$page_slug,
+                );
+            }else{
+                
+                $option_value = get_option('wbpolls_settings');
+                $poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+               
+                $page = get_post($poll_dashboard_page);
+                if ($page) {
+                    $page_slug = $page->post_name;
+                }
+                $data = array(
+                    'success' => true,
+                    'message' => esc_html__('Your poll is in '.$type.'. It will be published after admin review', 'buddypress-polls'),
+                    'post_id' => $post_id,
+                    'url' => site_url().'/'.$page_slug,
+                );
             }
-            $data = array(
-                'success' => true,
-                'message' => esc_html__('Your poll is published.', 'buddypress-polls'),
-                'post_id' => $post_id,
-                'url' => site_url().'/poll/'.$page_slug,
-            );
         }else{
-            
+             
             $option_value = get_option('wbpolls_settings');
-		    $poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+            $poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
            
             $page = get_post($poll_dashboard_page);
             if ($page) {
@@ -356,11 +386,13 @@ class Pollrestapi {
             }
             $data = array(
                 'success' => true,
-                'message' => esc_html__('Your poll is in '.$type.'. It will be published after admin review', 'buddypress-polls'),
+                'message' => esc_html__('Your poll update successfully', 'buddypress-polls'),
                 'post_id' => $post_id,
                 'url' => site_url().'/'.$page_slug,
             );
+            
         }
+        
        
         update_option( 'permalink_structure', '/%postname%/' );
         return rest_ensure_response( $data );
