@@ -116,12 +116,6 @@ global $wp_roles;
 										echo 'selected'; }
 									?>
 									><?php esc_html_e( 'Pending Review', 'buddypress-polls' ); ?></option>
-									<option value="draft" 
-									<?php
-									if ( $bpolls_settings['wbpolls_submit_status'] == 'draft' ) {
-										echo 'selected'; }
-									?>
-									><?php esc_html_e( 'Draft', 'buddypress-polls' ); ?></option>
 									<option value="publish" 
 									<?php
 									if ( $bpolls_settings['wbpolls_submit_status'] == 'publish' ) {
