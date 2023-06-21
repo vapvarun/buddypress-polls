@@ -236,12 +236,18 @@ class Buddypress_Polls_Public {
 			$this->version
 		);
 
-		if ( is_page( 'poll-dashboard' ) ) {
-			wp_enqueue_style( 'wbpolls-dashboard' );
-			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
-				wp_enqueue_style( 'wb-icons' );
-			}
+		$option_value = get_option('wbpolls_settings');
+		$poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+		$page = get_post($poll_dashboard_page);
+		if ($page) {
+			$page_slug_dashboard = $page->post_name;
 		}
+		if ( is_page( $page_slug_dashboard ) ) {
+				wp_enqueue_style( 'wbpolls-dashboard' );
+				if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) { 
+					wp_enqueue_style( 'wb-icons' );
+				}
+			}
 
 		// Create Poll CSS file.
 		wp_register_style(
@@ -251,7 +257,12 @@ class Buddypress_Polls_Public {
 			$this->version
 		);
 
-		if ( is_page( 'create-poll' ) ) {
+		$poll_create_page = isset($option_value['create_poll_page']) ? $option_value['create_poll_page'] : '';
+		$page = get_post($poll_create_page);
+		if ($page) {
+			$page_slug_create = $page->post_name;
+		}
+		if ( is_page( $page_slug_create ) ) {
 			wp_enqueue_media();
 			// Date picker CSS call.
 			wp_enqueue_style( $this->plugin_name . '-time' );
@@ -362,16 +373,20 @@ class Buddypress_Polls_Public {
 		wp_enqueue_script( 'wbpoll-base64' );
 		wp_enqueue_script( 'pristine' );
 		wp_enqueue_script( 'wbpoll-publicjs' );
-		wp_enqueue_script( 'buddypress-multi-polls' );
-		// if ( is_page( 'create-poll' )) {
-			wp_enqueue_media();
-			// Date picker JS call.
-			wp_enqueue_script( $this->plugin_name . '-timejs' );
-			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
-			wp_enqueue_script( 'wbpolls-create-poll' );
+		wp_enqueue_script( 'buddypress-multi-polls' );		
+		wp_enqueue_media();
+		// Date picker JS call.
+		wp_enqueue_script( $this->plugin_name . '-timejs' );
+		wp_enqueue_script( $this->plugin_name . '-timefulljs' );
+		wp_enqueue_script( 'wbpolls-create-poll' );
 
-		// }
-		if ( is_page( 'poll-dashboard' ) ) {
+		$option_value = get_option('wbpolls_settings');
+		$poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+		$page = get_post($poll_dashboard_page);
+		if ($page) {
+			$page_slug_dashboard = $page->post_name;
+		}
+		if ( is_page( $page_slug_dashboard ) ) {
 			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
 		}
 
