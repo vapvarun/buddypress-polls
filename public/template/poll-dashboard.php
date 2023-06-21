@@ -87,38 +87,43 @@
 							<?php if($totalvote < 1){ ?>
 								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
 							<?php } ?>
-							<button class="button btn pause_poll" data-value="
-							<?php
-							if ( ! empty( $pause ) && $pause == 1 ) {
-								echo 0;
-							} else {
-								echo 1; }
-							?>
-							" data-id="<?php echo esc_html( $post_id ); ?>"
-							<?php
-							if ( ! empty( $pause ) && $pause == 1 ) {
-								?>
-								data-polls-tooltip="<?php esc_attr_e( 'Resume', 'buddypress-polls' ); ?>"
+							<?php if($totalvote > 1){ ?>
+								<button class="button btn pause_poll" data-value="
 								<?php
-							} else {
+								if ( ! empty( $pause ) && $pause == 1 ) {
+									echo 0;
+								} else {
+									echo 1; }
 								?>
-								data-polls-tooltip="<?php esc_attr_e( 'Pause', 'buddypress-polls' ); ?>"
+								" data-id="<?php echo esc_html( $post_id ); ?>"
 								<?php
-							}
-							?>
-							>
-							<?php
-							if ( ! empty( $pause ) && $pause == 1 ) {
+								if ( ! empty( $pause ) && $pause == 1 ) {
+									?>
+									data-polls-tooltip="<?php esc_attr_e( 'Resume', 'buddypress-polls' ); ?>"
+									<?php
+								} else {
+									?>
+									data-polls-tooltip="<?php esc_attr_e( 'Pause', 'buddypress-polls' ); ?>"
+									<?php
+								}
 								?>
-								<i class="wb-icons wb-icon-play-circle"></i>
+								>
 								<?php
-							} else {
+								if ( ! empty( $pause ) && $pause == 1 ) {
+									?>
+									<i class="wb-icons wb-icon-play-circle"></i>
+									<?php
+								} else {
+									?>
+									<i class="wb-icons wb-icon-pause-circle"></i>
+									<?php
+								}
 								?>
-								<i class="wb-icons wb-icon-pause-circle"></i>
-								<?php
-							}
-							?>
-							</button>
+								</button>
+							<?php } ?>
+							<?php if($post_stauts == 'publish'){ ?>
+								<button class="button btn unpublish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Unpublish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button>
+							<?php } ?>
 							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 						</tr>
 	
