@@ -82,6 +82,14 @@ class Pollrestapi {
             'callback' => array( $this, 'listpoll_unpublish_by_user' ),
             'permission_callback' => '__return_true'
         ) );
+
+        //wbpoll list poll unpublish by user
+        register_rest_route( 'wbpoll/v1', '/listpoll/publish/poll', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_publish_by_user' ),
+            'permission_callback' => '__return_true'
+        ) );
+        
          
     }
 
@@ -554,11 +562,12 @@ class Pollrestapi {
     public function listpoll_by_user($request) {
 
         $author_id = $request['id'];
+        $status = $request['status'];
         $args = array(
             'author' => $author_id,
             'post_type' => 'wbpoll',
             'posts_per_page' => -1,
-            'post_status' => array('publish', 'pending'),
+            'post_status' => $status,
         );
         
         $query = new WP_Query( $args );
@@ -658,6 +667,34 @@ class Pollrestapi {
 
         $data = array(
             'success' => esc_html__('Poll unpublish successfully!', 'buddypress-polls'),
+            'post_id' => $pollid,
+        );
+        return rest_ensure_response( $data );
+    }
+
+    public function listpoll_publish_by_user($request){
+        $parameters = $request->get_params();
+        $prefix = '_wbpoll_';
+        // Retrieve the post data from the request body
+        $pollid = sanitize_text_field( $parameters['pollid'] );
+
+        // Get the current post object
+            $post = get_post($pollid);
+
+            // Check if the post is a poll and its status is 'publish'
+            if ($post && $post->post_type === 'wbpoll' && $post->post_status === 'draft') {
+                // Set the new post status to 'draft'
+                $updated_post = array(
+                    'ID'          => $pollid,
+                    'post_status' => 'publish',
+                );
+
+                // Update the post status
+                wp_update_post($updated_post);
+            }
+
+        $data = array(
+            'success' => esc_html__('Poll publish successfully!', 'buddypress-polls'),
             'post_id' => $pollid,
         );
         return rest_ensure_response( $data );
