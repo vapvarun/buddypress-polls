@@ -100,7 +100,7 @@ jQuery('.publish_poll').on('click', function () {
 });
 
 
-jQuery('.bp-personal-sub-tab').on('click', function () {
+jQuery('.dashboard-sub-tab').on('click', function () {
    
     var datatext = jQuery(this).data('text');
     if(datatext == 'publish'){

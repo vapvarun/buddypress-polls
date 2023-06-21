@@ -10,35 +10,19 @@
  */
 
 ?>
-<style>
-.tab-list {
-    display: none;
-}
-
-.tab-list.active{
-    display: block;
-}
-ul.subnav li {
-    float: left;
-    padding: 10px;
-}
-ul.subnav li.selected {
-    border-bottom: 3px solid;
-}
-</style>
 
 <div class="main-dashboard">
 
-<nav class="bp-navs bp-subnavs no-ajax user-subnav" id="subnav">
-	<ul class="subnav">
-		<li id="publish-personal-li" class="bp-personal-sub-tab selected" data-text="publish">
-			Published
+<nav class="dashboard-nav" id="dashboard-nav">
+	<ul class="dashboard-subnav">
+		<li id="publish-personal-li" class="dashboard-sub-tab selected" data-text="publish">
+			<a href="#" class="tab-link"><?php esc_html_e( 'Published', 'buddypress-polls' ); ?></a>
 		</li>
-		<li id="pending-personal-li" class="bp-personal-sub-tab"  data-text="pending">
-			Pending
+		<li id="pending-personal-li" class="dashboard-sub-tab"  data-text="pending">
+			<a href="#" class="tab-link"><?php esc_html_e( 'Pending', 'buddypress-polls' ); ?></a>
 		</li>
-		<li id="draft-personal-li" class="bp-personal-sub-tab"  data-text="draft">
-			Draft
+		<li id="draft-personal-li" class="dashboard-sub-tab"  data-text="draft">
+			<a href="#" class="tab-link"><?php esc_html_e( 'Draft', 'buddypress-polls' ); ?></a>
 		</li>
 	</ul>
 </nav>
@@ -119,7 +103,7 @@ ul.subnav li.selected {
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 							<?php } ?>
 								<button class="button btn pause_poll" data-value="
 								<?php
@@ -144,17 +128,17 @@ ul.subnav li.selected {
 								<?php
 								if ( ! empty( $pause ) && $pause == 1 ) {
 									?>
-									<i class="wb-icons wb-icon-play-circle"></i>
+									<i class="wb-icons wb-icon-play"></i>
 									<?php
 								} else {
 									?>
-									<i class="wb-icons wb-icon-pause-circle"></i>
+									<i class="wb-icons wb-icon-pause"></i>
 									<?php
 								}
 								?>
 								</button>
 							<?php if($post_stauts == 'publish'){ ?>
-								<button class="button btn unpublish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Unpublish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button>
+								<button class="button btn unpublish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Unpublish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-list-bookmark"></i></button>
 							<?php } ?>
 							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 						</tr>
@@ -248,7 +232,7 @@ ul.subnav li.selected {
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
 							<?php } ?>
 							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 						</tr>
@@ -341,10 +325,10 @@ ul.subnav li.selected {
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 							<?php } ?>
 							<?php if($post_stauts == 'draft'){ ?>
-								<button class="button btn publish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'publish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button>
+								<button class="button btn publish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Publish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-all-results"></i></button>
 							<?php } ?>
 							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 						</tr>
