@@ -51,3 +51,27 @@ jQuery('.delete_poll').on('click', function () {
         }
     });
 });
+
+
+jQuery('.unpublish_poll').on('click', function () {
+    var pollid = jQuery(this).data('id');
+    
+    const data = {
+        pollid: pollid,
+    };
+    
+    var siteUrl =wbpollpublic.url;
+    jQuery.ajax({
+        url: siteUrl + '/wp-json/wbpoll/v1/listpoll/unpublish/poll',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function (response) {
+            if (response.success) {
+                location.reload();
+            } else {
+                alert('Failed to unpublish poll.');
+            }
+        }
+    });
+});

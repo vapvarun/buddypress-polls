@@ -87,7 +87,6 @@
 							<?php if($totalvote < 1){ ?>
 								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-square-small"></i></a>
 							<?php } ?>
-							<?php if($totalvote > 1){ ?>
 								<button class="button btn pause_poll" data-value="
 								<?php
 								if ( ! empty( $pause ) && $pause == 1 ) {
@@ -120,7 +119,6 @@
 								}
 								?>
 								</button>
-							<?php } ?>
 							<?php if($post_stauts == 'publish'){ ?>
 								<button class="button btn unpublish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Unpublish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button>
 							<?php } ?>
