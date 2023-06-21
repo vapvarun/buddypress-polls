@@ -772,7 +772,7 @@ jQuery('#wbpolls-create').submit(function (event) {
                         function () {
                             jQuery('#pollsuccess').hide();
                             jQuery('#pollsuccess').text(''); 
-                            location.reload();                       
+                            window.location.href = response.url;                     
                         },
                         3000
                     );
@@ -783,3 +783,4 @@ jQuery('#wbpolls-create').submit(function (event) {
         });
     }
 });
+ 

@@ -335,21 +335,34 @@ class Pollrestapi {
         $type = $wbpolls_submit_status;
         //Return the response data
         if($type == "publish"){
+            $page = get_post($post_id);
+            if ($page) {
+                $page_slug = $page->post_name;
+            }
             $data = array(
                 'success' => true,
                 'message' => esc_html__('Your poll is published.', 'buddypress-polls'),
                 'post_id' => $post_id,
+                'url' => site_url().'/poll/'.$page_slug,
             );
         }else{
+            
+            $option_value = get_option('wbpolls_settings');
+		    $poll_dashboard_page = isset($option_value['poll_dashboard_page']) ? $option_value['poll_dashboard_page'] : '';
+           
+            $page = get_post($poll_dashboard_page);
+            if ($page) {
+                $page_slug = $page->post_name;
+            }
             $data = array(
                 'success' => true,
                 'message' => esc_html__('Your poll is in '.$type.'. It will be published after admin review', 'buddypress-polls'),
                 'post_id' => $post_id,
+                'url' => site_url().'/'.$page_slug,
             );
         }
        
         update_option( 'permalink_structure', '/%postname%/' );
-
         return rest_ensure_response( $data );
     }
 
@@ -506,7 +519,7 @@ class Pollrestapi {
             'author' => $author_id,
             'post_type' => 'wbpoll',
             'posts_per_page' => -1,
-            'post_status' => 'publish',
+            'post_status' => array('publish', 'pending'),
         );
         
         $query = new WP_Query( $args );
