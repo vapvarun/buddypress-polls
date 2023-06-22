@@ -378,6 +378,7 @@ class Buddypress_Polls_Public {
 		// Date picker JS call.
 		wp_enqueue_script( $this->plugin_name . '-timejs' );
 		wp_enqueue_script( $this->plugin_name . '-timefulljs' );
+		
 		wp_enqueue_script( 'wbpolls-create-poll' );
 
 		$option_value = get_option('wbpolls_settings');

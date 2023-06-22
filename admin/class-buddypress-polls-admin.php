@@ -1401,6 +1401,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 
 						$this->metabox_extra_save($post_id);
+
+						//$this->send_admin_email_on_post_publish($post_id);
 						
 						update_option( 'permalink_structure', '/%postname%/' );
 					} //end metabox_save()
@@ -1416,27 +1418,26 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					function send_admin_email_on_post_publish($post_id){
 
 						$notification = get_option('wbpolls_notification_settings');
-
+						
 						if(isset($notification['wppolls_enable_notification']) && $notification['wppolls_enable_notification'] == 'yes' && isset($notification['wppolls_member_notification']) && $notification['wppolls_member_notification'] == 'yes'){
 						
 							$post = get_post($post_id);
-		
+							
 							// Check if the post type is "poll"
 							if ($post->post_type === 'wbpoll') {
 								$author_id = $post->post_author;
 								$author = get_userdata($author_id);
 								
-								// Check if the author has the role "author"
-								if (in_array('author', $author->roles)) {
-									$author_email = $author->user_email;
-									$option_value = get_option('notification_setting_options');
-									$subject            = isset($option_value['member']['notification_subject']) ? $option_value['admin']['notification_subject'] : '';
-									$headers[]          = 'Content-Type: text/html; charset=UTF-8';
-									$content         =  isset($option_value['member']['notification_content']) ? $option_value['admin']['notification_content'] : '';
-									
-									// Send the email to the poll author
-									wp_mail($author_email, $subject, $content, $headers);
-								}
+								$author_email = $author->user_email;
+								$option_value = get_option('notification_setting_options');
+								$subject            = isset($option_value['member']['notification_subject']) ? $option_value['member']['notification_subject'] : '';
+								$headers[]          = 'Content-Type: text/html; charset=UTF-8';
+								$content         =  isset($option_value['member']['notification_content']) ? $option_value['member']['notification_content'] : '';
+								
+								
+								// Send the email to the poll author
+								wp_mail($author_email, $subject, $content, $headers);
+								
 							}
 						}
 					}
