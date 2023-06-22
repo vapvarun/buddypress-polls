@@ -361,8 +361,12 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'vote_per_session' );
         }
         if(empty($updatepost_id)){
+            $notification = get_option('wbpolls_notification_settings');
 
-            $send_admin_notification = self::send_admin_notifications();
+            if(isset($notification['wppolls_enable_notification']) && $notification['wppolls_enable_notification'] == 'yes' && isset($notification['wppolls_admin_notification']) && $notification['wppolls_admin_notification'] == 'yes'){
+                $send_admin_notification = self::send_admin_notifications();
+            }
+            
             $type = $wbpolls_submit_status;
             //Return the response data
             if($type == "publish"){
