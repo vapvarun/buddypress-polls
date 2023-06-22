@@ -74,7 +74,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 								<p class="description"><?php esc_html_e( 'Text to admin for approve the blog.Personalize with HTML and {tag} markers.', 'buddypress-member-blog-pro' ); ?></p>
 								<code>
 									{site_name} - <?php esc_html_e( 'Site title', 'buddypress-member-blog-pro' ); ?> </br>
-									{blog_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
+									{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
 									{site_admin} - <?php esc_html_e( 'Selected admin first name', 'buddypress-member-blog-pro' ); ?>
 								</code>
 							</div>
@@ -125,7 +125,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 										<p class="description"><?php esc_html_e( 'Text to member to notify them, the blog is approved. Personalize with HTML and {tag} markers.', 'buddypress-member-blog-pro' ); ?></p>
 										<code>
 											{site_name} - <?php esc_html_e( 'Site title', 'buddypress-member-blog-pro' ); ?> </br>
-											{blog_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
+											{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
 											{publisher_name} - <?php esc_html_e( 'Post autohr first name', 'buddypress-member-blog-pro' ); ?>
 										</code>
 									</div>

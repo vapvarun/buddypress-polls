@@ -205,7 +205,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'metaboxes_display' );
 			$this->loader->add_action( 'save_post', $plugin_admin, 'metabox_save' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_get_answer_template', $plugin_admin, 'wbpoll_get_answer_template' );
-
+			$this->loader->add_action( 'publish_post', $plugin_admin, 'send_admin_email_on_post_publish' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_log_delete', $plugin_admin, 'wbpoll_log_delete' );
 		}
 

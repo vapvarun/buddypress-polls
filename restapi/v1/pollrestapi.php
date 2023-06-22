@@ -361,6 +361,8 @@ class Pollrestapi {
             delete_post_meta( $post_id, $prefix . 'vote_per_session' );
         }
         if(empty($updatepost_id)){
+
+            $send_admin_notification = self::send_admin_notifications();
             $type = $wbpolls_submit_status;
             //Return the response data
             if($type == "publish"){
@@ -408,10 +410,34 @@ class Pollrestapi {
             
         }
         
-       
+    
         update_option( 'permalink_structure', '/%postname%/' );
         return rest_ensure_response( $data );
     }
+
+
+    public function send_admin_notifications() {
+		
+        $option_value = get_option('notification_setting_options');
+        $option_admins = get_option('wbpolls_notification_settings');
+        
+		$admin_users        = $option_admins['wppolls_admin_user'] ;
+		$subject            = isset($option_value['admin']['notification_subject']) ? $option_value['admin']['notification_subject'] : '';
+		$headers[]          = 'Content-Type: text/html; charset=UTF-8';
+		$to                 = array();
+
+		if ( ! empty( $admin_users ) ) {
+			//Add BuddyPress Notification First
+
+			foreach ( $admin_users as $admin_user ) {
+			    $content         =  isset($option_value['admin']['notification_content']) ? $option_value['admin']['notification_content'] : '';
+				$admin_user_info = get_userdata( $admin_user );
+				wp_mail( $admin_user_info->user_email, $subject, $content, $headers );
+			}
+		}
+
+	}
+    
 
 
     // Callback function

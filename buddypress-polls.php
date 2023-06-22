@@ -176,7 +176,7 @@ function activate_buddypress_polls()
 			'notification_content' => '
 				Hi {site_admin},
 
-				You have a new post {blog_name} to approve.
+				You have a new post {poll_name} to approve.
 
 				Have a look once.
 
@@ -189,7 +189,7 @@ function activate_buddypress_polls()
 			'notification_content' => '
 				Hi {publisher_name} ,
 
-				Your blog post {blog_name} is approved.
+				Your blog post {poll_name} is approved.
 			',
 		);
 
