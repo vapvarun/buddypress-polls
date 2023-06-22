@@ -155,6 +155,47 @@ function activate_buddypress_polls()
 		}
 		update_option('wbpolls_settings', $bpolls_settings);
 	}
+
+	if (false === get_option('wbpolls_notification_settings')) {
+		global $wp_roles;
+		$bpolls_settings['wppolls_enable_notification']    = 'no';
+		$bpolls_settings['wppolls_admin_notification']    = 'no';
+		$bpolls_settings['wppolls_member_notification']    = 'no';
+		$administrators = get_users(array(
+			'role' => 'administrator',
+		));
+		foreach ($administrators as $role_name) {
+			$bpolls_settings['wppolls_admin_user'][] = $role_name->ID;
+		}
+		update_option('wbpolls_notification_settings', $bpolls_settings);
+	}
+
+	if ( false === get_option( 'notification_setting_options' ) ) {
+		$emai_content['admin'] = array(
+			'notification_subject' => 'You have a new blog to approve', 
+			'notification_content' => '
+				Hi {site_admin},
+
+				You have a new post {blog_name} to approve.
+
+				Have a look once.
+
+				Thank You.
+			',
+		);
+
+		$emai_content['member'] = array(
+			'notification_subject' => 'Your blog is approved',
+			'notification_content' => '
+				Hi {publisher_name} ,
+
+				Your blog post {blog_name} is approved.
+			',
+		);
+
+		update_option( 'notification_setting_options', $emai_content );
+	}
+	
 	update_option('permalink_structure', '/%postname%/');
 }
 

@@ -207,12 +207,16 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
 								'general'        => esc_html__('Community', 'buddypress-polls'),
 								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+								'notifications' => esc_html__('Notifications', 'buddypress-polls'),
+								'email_notification_settings' => esc_html__('Email Notification Settings', 'buddypress-polls'),
 								'support'        => esc_html__('Support', 'buddypress-polls'),
 							);
 						}else{
 							$bpolls_tabs = array(
 								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
 								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+								'notifications' => esc_html__('Notifications', 'buddypress-polls'),
+								'email_notification_settings' => esc_html__('Email Notification Settings', 'buddypress-polls'),
 								'support'        => esc_html__('Support', 'buddypress-polls'),
 							);
 						}
@@ -250,6 +254,19 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 							exit();
 						}
+						if (isset($_POST['wbpolls_notification_settings'])) { // phpcs:ignore WordPress.Security.NonceVerification
+							unset($_POST['wbpolls_notification_settings']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+							update_site_option('wbpolls_notification_settings', wp_unslash($_POST['wbpolls_notification_settings'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+							exit();
+						}
+						if (isset($_POST['notification_setting_options'])) { // phpcs:ignore WordPress.Security.NonceVerification
+							unset($_POST['notification_setting_options']['hidden']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+							update_site_option('notification_setting_options', wp_unslash($_POST['notification_setting_options'])); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+							wp_safe_redirect($_POST['_wp_http_referer']); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+							exit();
+						}
+						
 					}
 
 					/**
