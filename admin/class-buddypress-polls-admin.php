@@ -1822,12 +1822,15 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						if ($total_percent > 0) {
 							$post_title = get_the_title($poll_id);
 					?>
+					<br>
 					<h5><?php echo esc_html__($post_title, 'buddypress-polls'); ?></h5>
+					<p> <?php echo sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)); ?> <p>
 					<table>
 						<thead>
 							<tr>
-								<th><?php esc_attr_e('Answer Title', 'buddypress-polls'); ?></th>
+								<th><?php esc_attr_e('Options', 'buddypress-polls'); ?></th>
 								<th><?php esc_attr_e('Vote %', 'buddypress-polls'); ?></th>
+								<th><?php esc_attr_e('vote', 'buddypress-polls'); ?></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -1846,6 +1849,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								<tr>
 									<td><?php echo esc_html__($lablename, 'buddypress-polls'); ?></td>
 									<td><?php echo esc_html__($persentangevalue, 'buddypress-polls'); ?></td>
+									<td><?php echo esc_html__($vote_count, 'buddypress-polls'); ?></td>
 								</tr>
 							<?php
 							} ?>

@@ -89,6 +89,14 @@ class Pollrestapi {
             'callback' => array( $this, 'listpoll_publish_by_user' ),
             'permission_callback' => '__return_true'
         ) );
+
+
+         //wbpoll list poll alll result by user id
+         register_rest_route( 'wbpoll/v1', '/listpoll/result/poll', array(
+            'methods' => 'POST',
+            'callback' => array( $this, 'listpoll_result_by_user' ),
+            'permission_callback' => '__return_true'
+        ) );
         
          
     }
@@ -727,6 +735,17 @@ class Pollrestapi {
         $data = array(
             'success' => esc_html__('Poll publish successfully!', 'buddypress-polls'),
             'post_id' => $pollid,
+        );
+        return rest_ensure_response( $data );
+    }
+
+    public function listpoll_result_by_user($request){
+        $parameters = $request->get_params();
+        $pollid = sanitize_text_field( $parameters['pollid'] );
+        $result =   WBPollHelper::show_backend_single_poll_widget_result( esc_html($pollid), 'shortcode', 'text' );
+        $data = array(
+            'success' => esc_html__('Poll report', 'buddypress-polls'),
+            'result' => $result,
         );
         return rest_ensure_response( $data );
     }

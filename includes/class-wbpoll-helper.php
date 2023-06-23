@@ -1902,6 +1902,54 @@ class WBPollHelper {
 
 	}
 
+
+	public static function show_backend_single_poll_widget_result_all_voted() {
+		global $wpdb;
+		$current_user = wp_get_current_user();
+		$user_id      = $current_user->ID;
+		global $wpdb;
+
+		ob_start();
+		$output = '';
+		$output .= "<select id='poll_seletect'>";
+
+		if (is_user_logged_in()) {
+		$votes_name = self::wb_poll_table_name();
+
+		$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM $votes_name WHERE user_id = $user_id");
+		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$output .= "<option value=''>".esc_html__('Select poll', 'buddypress-polls')."</option>";
+		foreach($results as $res){
+			$output .= "<option value='".$res['poll_id']."'>".$res['poll_title']."</option>";
+		}
+		
+		$output .= "</select>";
+
+		}else{
+			$args = array(
+				'post_type'      => 'wbpoll', // Set the post type to 'post' to fetch regular posts
+				'posts_per_page' => -1,
+				'post_status' => 'publish',     // Retrieve all posts (-1 means no limit)
+			);
+
+			$results = get_posts($args);
+			$output .= "<option value=''>".esc_html__('Select poll', 'buddypress-polls')."</option>";
+			foreach($results as $res){
+				$output .= "<option value='".$res->ID."'>".$res->post_title."</option>";
+			}
+		
+		$output .= "</select>";
+		}
+		
+		$output .= "<div class='all_polll_result'>";
+		$output .= "</div>";
+		$output .= ob_get_contents();
+		ob_end_clean();
+
+		return $output;
+
+	}
+
 	/**
 	 * Get result from a single poll
 	 *
