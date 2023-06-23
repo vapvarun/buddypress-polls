@@ -65,9 +65,9 @@
     border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
-.wbpolls-answer-wrap .remove .add-field {
+/* .wbpolls-answer-wrap .remove .add-field {
     display: none;
-}
+} */
 
 .wbpolls-answer-wrap .add-field {
     -webkit-appearance: none;

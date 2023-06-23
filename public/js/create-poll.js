@@ -93,7 +93,7 @@ jQuery('#poll_type').on('change', function (e) {
 });
 
 clickCount = 0;
-jQuery('.extra-fields-text').click(function (e) {
+jQuery(document).on('click', 'a.add-field.extra-fields-text', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
@@ -115,10 +115,12 @@ jQuery('.extra-fields-text').click(function (e) {
         count++;
     });
     jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
-
+  
 });
 
-jQuery('.extra-fields-image').click(function(e) {
+
+
+jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
@@ -197,13 +199,12 @@ jQuery('.extra-fields-image').click(function(e) {
 
 });
 
-jQuery('.extra-fields-video').click(function(e) {
+jQuery(document).on('click', 'a.add-field.extra-fields-video', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
     jQuery(this).data('id', clickCount);
-    //clickCount++;
-    alert(clickCount);
+
     jQuery('.extra-fields-video').attr('data-id', clickCount);
     jQuery('.video_records').clone().appendTo('.video_records_dynamic');
     jQuery('.video_records_dynamic .video_records').addClass('single remove');
@@ -308,7 +309,7 @@ jQuery('.extra-fields-video').click(function(e) {
 });
 
 
-jQuery('.extra-fields-audio').click(function(e) {
+jQuery(document).on('click', 'a.add-field.extra-fields-audio', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
@@ -419,7 +420,7 @@ jQuery('.extra-fields-audio').click(function(e) {
 
 });
 
-jQuery('.extra-fields-html').click(function(e) {
+jQuery(document).on('click', 'a.add-field.extra-fields-html', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
@@ -428,7 +429,7 @@ jQuery('.extra-fields-html').click(function(e) {
     jQuery('.extra-fields-html').attr('data-id', clickCount);
     jQuery('.html_records').clone().appendTo('.html_records_dynamic');
     jQuery('.html_records_dynamic .html_records').addClass('single remove');
-    jQuery('.remove'+clickCount+' .extra-fields-html').remove();
+    //jQuery('.remove'+clickCount+' .extra-fields-html').remove();
     jQuery('.single').append('<a href="#" class="remove-field btn-remove-html">Remove Fields</a>');
     jQuery('.html_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
@@ -443,6 +444,7 @@ jQuery('.extra-fields-html').click(function(e) {
     jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');
     
 });
+
 
 jQuery('.wbpoll_image_answer_url').on(
     'keyup',

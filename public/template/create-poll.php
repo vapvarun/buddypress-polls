@@ -157,7 +157,7 @@ if(isset($poll_type) && !empty($poll_type)){
 											<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $optn; ?>">
 											<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]"> 
 										</div>
-										<a class="add-field extra-fields-text" data-id="<?php echo $key; ?>" href="#">Add More</a>
+										<a class="add-field extra-fields-text" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 										<a href="#" class="remove-field btn-remove-text">Remove Fields</a>
 									</div>
 									<?php } 
@@ -204,7 +204,7 @@ if(isset($poll_type) && !empty($poll_type)){
 												<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 											</div>
 										</div>
-										<a class="add-field extra-fields-image" data-id="<?php echo $key; ?>" href="#">Add More</a>
+										<a class="add-field extra-fields-image" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 										<a href="#" class="remove-field btn-remove-image">Remove Fields</a></div>
 									</div>
 								<?php } 
@@ -273,7 +273,7 @@ if(isset($poll_type) && !empty($poll_type)){
 											</div>
 										</div>
 									</div>
-									<a class="add-field extra-fields-video" data-id="1" href="#">Add More</a>
+									<a class="add-field extra-fields-video" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 									<a href="#" class="remove-field btn-remove-video">Remove Fields</a></div>
 								</div>
 						<?PHP }
@@ -338,7 +338,7 @@ if(isset($poll_type) && !empty($poll_type)){
 											<label for="no">No</label><br></div>
 										</div>
 									</div>
-									<a class="add-field extra-fields-audio" data-id="2" href="#">Add More</a>
+									<a class="add-field extra-fields-audio" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 									<a href="#" class="remove-field btn-remove-audio">Remove Fields</a></div>
 								</div>
 							<?PHP }
@@ -369,14 +369,14 @@ if(isset($poll_type) && !empty($poll_type)){
 										<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $optn['html']; ?></textarea>
 										<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 									</div>
-									<a class="add-field extra-fields-html" data-id="1" href="#">Add More</a>
+									<a class="add-field extra-fields-html" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 									<a href="#" class="remove-field btn-remove-html">Remove Fields</a></div>
 								</div>
 							<?PHP }
 								} ?>
 					</div>
 				</div>
-			<?php }else{ ?>
+			<?php }?>
 
 			<div class="wbpolls-answer-wrap">
 				<!-- for text type -->
@@ -486,7 +486,6 @@ if(isset($poll_type) && !empty($poll_type)){
 					<div class="html_records_dynamic"></div>
 				</div>
 			</div>
-			<?php } ?>
 			<span id="error_ans" style="color:red;"></span>
 
 			<div class="wbcom-polls-option-wrap">
