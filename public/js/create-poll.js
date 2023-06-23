@@ -92,12 +92,14 @@ jQuery('#poll_type').on('change', function (e) {
     }
 });
 
-var clickCount = 0;
+clickCount = 0;
 jQuery('.extra-fields-text').click(function (e) {
     e.preventDefault();
-        // var dataid = jQuery('.extra-fields-text').data('id');
-        clickCount++;
-        jQuery('.extra-fields-text').attr('data-id', clickCount);
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
+    jQuery('.extra-fields-text').attr('data-id', clickCount);
         // alert(idinc);
         
     jQuery('.text_records').clone().appendTo('.text_records_dynamic');
@@ -118,7 +120,10 @@ jQuery('.extra-fields-text').click(function (e) {
 
 jQuery('.extra-fields-image').click(function(e) {
     e.preventDefault();
-    clickCount++;
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
     jQuery('.extra-fields-image').attr('data-id', clickCount);
     jQuery('.image_records').clone().appendTo('.image_records_dynamic');
     jQuery('.image_records_dynamic .image_records').addClass('single remove');
@@ -194,7 +199,11 @@ jQuery('.extra-fields-image').click(function(e) {
 
 jQuery('.extra-fields-video').click(function(e) {
     e.preventDefault();
-    clickCount++;
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+    //clickCount++;
+    alert(clickCount);
     jQuery('.extra-fields-video').attr('data-id', clickCount);
     jQuery('.video_records').clone().appendTo('.video_records_dynamic');
     jQuery('.video_records_dynamic .video_records').addClass('single remove');
@@ -298,9 +307,13 @@ jQuery('.extra-fields-video').click(function(e) {
 
 });
 
+
 jQuery('.extra-fields-audio').click(function(e) {
     e.preventDefault();
-    clickCount++;
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
     jQuery('.extra-fields-audio').attr('data-id', clickCount);
     jQuery('.audio_records').clone().appendTo('.audio_records_dynamic');
     jQuery('.audio_records_dynamic .audio_records').addClass('single remove');
@@ -408,7 +421,10 @@ jQuery('.extra-fields-audio').click(function(e) {
 
 jQuery('.extra-fields-html').click(function(e) {
     e.preventDefault();
-    clickCount++;
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+   
     jQuery('.extra-fields-html').attr('data-id', clickCount);
     jQuery('.html_records').clone().appendTo('.html_records_dynamic');
     jQuery('.html_records_dynamic .html_records').addClass('single remove');

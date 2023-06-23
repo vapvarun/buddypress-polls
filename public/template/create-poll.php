@@ -145,7 +145,7 @@ if(isset($poll_type) && !empty($poll_type)){
 								<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]; ?>">
 								<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]"> 
 							</div>
-							<a class="add-field extra-fields-text" data-id="0" href="#">Add More</a>
+							<a class="add-field extra-fields-text" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 						</div>
 						<div class="text_records_dynamic">
 							<?php 
@@ -185,7 +185,7 @@ if(isset($poll_type) && !empty($poll_type)){
 									<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 								</div>
 							</div>
-							<a class="add-field extra-fields-image" data-id="0" href="#">Add More</a>
+							<a class="add-field extra-fields-image" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 						</div>
 						<?php 
 							foreach($options as $key => $optn){ 
@@ -241,7 +241,7 @@ if(isset($poll_type) && !empty($poll_type)){
 									</div>
 								</div>
 							</div>
-							<a class="add-field extra-fields-video" data-id="1" href="#">Add More</a>
+							<a class="add-field extra-fields-video" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 						</div>
 						<?php 
 							foreach($options as $key => $optn){ 
@@ -308,7 +308,7 @@ if(isset($poll_type) && !empty($poll_type)){
 									<label for="no">No</label><br></div>
 								</div>
 							</div>
-							<a class="add-field extra-fields-audio" data-id="2" href="#">Add More</a>
+							<a class="add-field extra-fields-audio" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 						</div>
 						<?php 
 							foreach($options as $key => $optn){ 
@@ -356,7 +356,7 @@ if(isset($poll_type) && !empty($poll_type)){
 								<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $options[0]['html']; ?></textarea>
 								<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 							</div>
-							<a class="add-field extra-fields-html" data-id="1" href="#">Add More</a>
+							<a class="add-field extra-fields-html" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 						</div>
 						<?php 
 							foreach($options as $key => $optn){ 
