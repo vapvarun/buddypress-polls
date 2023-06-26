@@ -1611,7 +1611,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 
 						if ($total > 0) {
-							$output  = '<p>' . sprintf(__('Total voters: %d', 'buddypress-polls'), number_format($total)) . '</p>';
+							$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)) . '</p>';
 							$output .= '<div class="wbpolls-question-results ' . $class['class'] . '">';
 
 							$total_percent = 0;
@@ -1824,7 +1824,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					?>
 					<br>
 					<h5><?php echo esc_html__($post_title, 'buddypress-polls'); ?></h5>
-					<p> <?php echo sprintf(__('Total voters: %d', 'buddypress-polls'), number_format($total)); ?> <p>
+					<p> <?php echo sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)); ?> <p>
 					<table>
 						<thead>
 							<tr>

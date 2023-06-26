@@ -1047,6 +1047,11 @@ class WBPollHelper {
 									$reference,
 									$result_chart_type
 								);
+							}else{
+								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
+									'You are not able to vote for this poll',
+									'buddypress-polls'
+								) . ' </p>';
 							}
 							// integrate user login for guest user
 
@@ -1081,6 +1086,8 @@ class WBPollHelper {
 
 								$poll_output .= $guest_html;
 							endif;
+
+							
 
 						}
 					
