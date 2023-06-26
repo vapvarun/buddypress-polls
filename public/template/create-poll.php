@@ -565,7 +565,7 @@ if(isset($poll_type) && !empty($poll_type)){
 						if($wbpolls_user_add_extra_op == 'yes'){ ?>
 						<tr id="addtitonal_option" style="display:none;">
 							<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional fields', 'buddypress-polls' ); ?></label></th>
-							<td>add_additional_fields
+							<td>
 								<fieldset class="radio_fields">
 									<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
 									<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
