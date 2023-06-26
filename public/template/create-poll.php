@@ -190,7 +190,7 @@ if(isset($poll_type) && !empty($poll_type)){
 						<?php 
 							foreach($options as $key => $optn){ 
 								if($key != 0){ ?>
-									<div class="image_records_dynamic"><div class="remove remove2">
+									<div class="image_records_dynamic"><div class="remove remove<?php echo count($options); ?>">
 										<div class="ans-records-wrap">
 											<div class="wbpoll-image-input-preview">
 												<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail"><img width="266" height="266" src="<?php echo $optn['image']; ?>"></div>
@@ -376,7 +376,7 @@ if(isset($poll_type) && !empty($poll_type)){
 								} ?>
 					</div>
 				</div>
-			<?php }?>
+			<?php } else{?>
 
 			<div class="wbpolls-answer-wrap">
 				<!-- for text type -->
@@ -486,6 +486,7 @@ if(isset($poll_type) && !empty($poll_type)){
 					<div class="html_records_dynamic"></div>
 				</div>
 			</div>
+			<?php } ?>
 			<span id="error_ans" style="color:red;"></span>
 
 			<div class="wbcom-polls-option-wrap">

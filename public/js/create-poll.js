@@ -122,11 +122,13 @@ jQuery(document).on('click', 'a.add-field.extra-fields-text', function (e) {
 
 jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
     e.preventDefault();
+    
     var currentId = jQuery(this).data('id');
     var clickCount = currentId + 1; // Increase the value by 1
     jQuery(this).data('id', clickCount);
-
+   
     jQuery('.extra-fields-image').attr('data-id', clickCount);
+    console.log(jQuery('.image_records').clone());
     jQuery('.image_records').clone().appendTo('.image_records_dynamic');
     jQuery('.image_records_dynamic .image_records').addClass('single remove');
     jQuery('.remove'+clickCount+' .extra-fields-image').remove();
