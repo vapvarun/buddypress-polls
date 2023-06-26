@@ -631,6 +631,7 @@ class Pollrestapi {
                 'status' => $post->post_status,
                 'start_time' => get_post_meta( $post_id, '_wbpoll_start_date', true ),
                 'end_date' => get_post_meta( $post_id, '_wbpoll_end_date', true ),
+                'never_expire' => get_post_meta( $post_id, '_wbpoll_never_expire', true ),
                 'totalvote' => WBPollHelper::getVoteCount( $post_id ),
                 'pausetype' => get_post_meta( $post_id, '_wbpoll_pause_poll', true ),
             );

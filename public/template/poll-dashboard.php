@@ -54,6 +54,7 @@
 				<tr>
 					<th class="poll-title"><?php esc_html_e( 'Title', 'buddypress-polls' ); ?></th>
 					<th class="poll-status"><?php esc_html_e( 'Status', 'buddypress-polls' ); ?></th>
+					<th class="poll-status"><?php esc_html_e( 'Time Status', 'buddypress-polls' ); ?></th>
 					<th class="poll-vote"><?php esc_html_e( 'Vote', 'buddypress-polls' ); ?></th>
 					<th class="poll-action"><?php esc_html_e( 'Action', 'buddypress-polls' ); ?></th>
 				</tr>
@@ -95,10 +96,40 @@
 						$post_stauts = $post->status;
 						$totalvote   = $post->totalvote;
 						$pause       = $post->pausetype;
+						$start_date  = $post->start_time;
+						$end_date    = $post->end_date;
+						$never_expire = $post->never_expire;
+						
 						?>
 						<tr>
 							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title , 'buddypress-polls'); ?></td>
 							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_stauts, 'buddypress-polls' ); ?></td>
+							<td class="poll-time-status" data-title="<?php esc_attr_e( 'Time Status', 'buddypress-polls' ); ?>"><?php 
+							
+							if ($never_expire == 1) {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
+										'Yet to Start',
+										'buddypress-polls'
+									);
+								} else {
+									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+								}
+							} else {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+								} else {
+									if ($start_date <= current_time('Y-m-d H:i:s') && $end_date > current_time('Y-m-d H:i:s')) {
+										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+									} else {
+										if ($end_date <= current_time('Y-m-d H:i:s')) {
+											echo '<span class="dashicons dashicons-lock"></span> ' . esc_html__('Expired', 'buddypress-polls');
+										}
+									}
+								}
+							}
+							
+							?></td>
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
@@ -183,6 +214,7 @@
 				<tr>
 					<th class="poll-title"><?php esc_html_e( 'Title', 'buddypress-polls' ); ?></th>
 					<th class="poll-status"><?php esc_html_e( 'Status', 'buddypress-polls' ); ?></th>
+					<th class="poll-status"><?php esc_html_e( 'Time Status', 'buddypress-polls' ); ?></th>
 					<th class="poll-vote"><?php esc_html_e( 'Vote', 'buddypress-polls' ); ?></th>
 					<th class="poll-action"><?php esc_html_e( 'Action', 'buddypress-polls' ); ?></th>
 				</tr>
@@ -224,10 +256,39 @@
 						$post_stauts = $post->status;
 						$totalvote   = $post->totalvote;
 						$pause       = $post->pausetype;
+						$start_date  = $post->start_time;
+						$end_date    = $post->end_date;
+						$never_expire = $post->never_expire;
 						?>
 						<tr>
 							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title , 'buddypress-polls'); ?></td>
 							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_stauts, 'buddypress-polls' ); ?></td>
+							<td class="poll-time-status" data-title="<?php esc_attr_e( 'Time Status', 'buddypress-polls' ); ?>"><?php 
+							
+							if ($never_expire == 1) {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
+										'Yet to Start',
+										'buddypress-polls'
+									);
+								} else {
+									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+								}
+							} else {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+								} else {
+									if ($start_date <= current_time('Y-m-d H:i:s') && $end_date > current_time('Y-m-d H:i:s')) {
+										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+									} else {
+										if ($end_date <= current_time('Y-m-d H:i:s')) {
+											echo '<span class="dashicons dashicons-lock"></span> ' . esc_html__('Expired', 'buddypress-polls');
+										}
+									}
+								}
+							}
+							
+							?></td>
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
@@ -276,6 +337,7 @@
 				<tr>
 					<th class="poll-title"><?php esc_html_e( 'Title', 'buddypress-polls' ); ?></th>
 					<th class="poll-status"><?php esc_html_e( 'Status', 'buddypress-polls' ); ?></th>
+					<th class="poll-status"><?php esc_html_e( 'Time Status', 'buddypress-polls' ); ?></th>
 					<th class="poll-vote"><?php esc_html_e( 'Vote', 'buddypress-polls' ); ?></th>
 					<th class="poll-action"><?php esc_html_e( 'Action', 'buddypress-polls' ); ?></th>
 				</tr>
@@ -317,10 +379,39 @@
 						$post_stauts = $post->status;
 						$totalvote   = $post->totalvote;
 						$pause       = $post->pausetype;
+						$start_date  = $post->start_time;
+						$end_date    = $post->end_date;
+						$never_expire = $post->never_expire;
 						?>
 						<tr>
 							<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title , 'buddypress-polls'); ?></td>
 							<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_stauts, 'buddypress-polls' ); ?></td>
+							<td class="poll-time-status" data-title="<?php esc_attr_e( 'Time Status', 'buddypress-polls' ); ?>"><?php 
+							
+							if ($never_expire == 1) {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
+										'Yet to Start',
+										'buddypress-polls'
+									);
+								} else {
+									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+								}
+							} else {
+								if ($start_date > current_time('Y-m-d H:i:s')) {
+									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+								} else {
+									if ($start_date <= current_time('Y-m-d H:i:s') && $end_date > current_time('Y-m-d H:i:s')) {
+										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
+									} else {
+										if ($end_date <= current_time('Y-m-d H:i:s')) {
+											echo '<span class="dashicons dashicons-lock"></span> ' . esc_html__('Expired', 'buddypress-polls');
+										}
+									}
+								}
+							}
+							
+							?></td>
 							<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
