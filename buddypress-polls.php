@@ -94,6 +94,8 @@ require_once plugin_dir_path(__FILE__) . 'restapi/v1/pollrestapi.php';
 function activate_buddypress_polls()
 {
 
+	WBPollHelper::install_table();
+
 	if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
@@ -220,8 +222,6 @@ register_deactivation_hook(__FILE__, 'deactivate_buddypress_polls');
 function bpolls_add_page_or_data__buddypress()
 {
 
-	WBPollHelper::install_table();
-
 	if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 		global $wp_roles;
 		$bpolls_settings['limit_poll_activity']    = 'no';
@@ -257,6 +257,7 @@ add_action('admin_init', 'bpolls_add_page_or_data__buddypress');
  */
 function run_buddypress_polls()
 {
+	WBPollHelper::install_table();
 	global $pagenow;
 	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
 	if (!get_option('bpolls_update_3_8_2') && (isset($admin_page) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow)) {
