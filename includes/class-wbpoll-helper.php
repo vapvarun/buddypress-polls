@@ -318,9 +318,23 @@ class WBPollHelper {
 
 		$sql     = $wpdb->prepare( "SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval( $poll_id ) );
 		$results = $wpdb->get_results( $sql, ARRAY_A );
-
+	
 		return $results;
 	}//end get_pollResult()
+
+	public static function count_pollResult( $poll_id, $is_object = false ) {
+		global $wpdb;
+		$votes_name = self::wb_poll_table_name();
+
+		$sql     = $wpdb->prepare( "SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval( $poll_id ) );
+		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$total = 0;
+		foreach($results as $res){
+			$total += count(maybe_unserialize($res['user_answer']));
+		}
+		return $total;
+	}
+
 
 	/**
 	 * Is poll voted or not by vote count (not taking publish status into account)
@@ -1177,7 +1191,7 @@ class WBPollHelper {
 								
 							}
 						} else {
-
+                            
 							$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
 						}
 					// end of if voted
@@ -1267,7 +1281,6 @@ class WBPollHelper {
 				$class = 'wbpoll-default';
 			}
 		}
-
 			$poll_form_html .= '<div class="wbpoll_answer_wrapper wbpoll_answer_wrapper-' . $post_id . '" data-id="' . $post_id . '">';
 			$poll_form_html .='<form class="wbpoll-form wbpoll-form-' . $post_id . '" sction="" method="post" novalidate="true">';
 			$poll_form_html .= '<div class="wbpoll-form-insidewrap ' . $grid_class . ' wbpoll-form-insidewrap-' . $post_id . '">';
@@ -1732,7 +1745,7 @@ class WBPollHelper {
 
 		$poll_result['reference'] = $reference;
 		$poll_result['poll_id']   = $poll_id;
-		$poll_result['total']     = count( $total_results );
+		$poll_result['total']     = self::count_pollResult( $poll_id );
 
 		$poll_result['colors'] = $poll_colors;
 		$poll_result['answer'] = $poll_answers;
@@ -1843,7 +1856,7 @@ class WBPollHelper {
 
 		$poll_result['reference'] = $reference;
 		$poll_result['poll_id']   = $poll_id;
-		$poll_result['total']     = count( $total_results );
+		$poll_result['total']     = self::count_pollResult( $poll_id );;
 		$poll_result['answer'] = $poll_answers;
 		// $poll_result['results']           = json_encode($total_results);
 		$poll_result['chart_type'] = $result_chart_type;
@@ -2049,7 +2062,7 @@ class WBPollHelper {
 
 		$poll_result['reference'] = $reference;
 		$poll_result['poll_id']   = $poll_id;
-		$poll_result['total']     = count( $total_results );
+		$poll_result['total']     = self::count_pollResult( $poll_id );;
 
 		$poll_result['colors'] = $poll_colors;
 		$poll_result['answer'] = $poll_answers;

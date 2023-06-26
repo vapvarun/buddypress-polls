@@ -1613,7 +1613,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						if ($total > 0) {
 							$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)) . '</p>';
 							$output .= '<div class="wbpolls-question-results ' . $class['class'] . '">';
-
+							
 							$total_percent = 0;
 							foreach ($poll_result['weighted_index'] as $index => $vote_count) {
 								$answer_title = isset($answers[$index]) ? esc_html__($answers[$index], 'buddypress-polls') : esc_html__(
@@ -1623,7 +1623,9 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								$color_style  = $wbpolls_background_color;
 
 								$percent        = ($vote_count * 100) / $total;
+								
 								$total_percent += $percent;
+								
 								$output_result .= '<li style="' . $color_style . '"><strong>' . $answer_title . ': ' . $vote_count . ' (' . number_format(
 									$percent,
 									2

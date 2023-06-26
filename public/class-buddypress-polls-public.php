@@ -2534,9 +2534,9 @@ class Buddypress_Polls_Public {
 
 		$total_results = WBPollHelper::get_pollResult( $insertArray['poll_id'] );
 
-		$total_votes = count( $total_results );
+		$total_votes = WBPollHelper::count_pollResult( $poll_id );;
 
-		$poll_result['total']       = $total_votes;
+		$poll_result['total']   = $total_votes;
 		$poll_result['show_result'] = ''; // todo: need to check if user allowed to view result with all condition
 
 		$poll_answers_weight = array();
