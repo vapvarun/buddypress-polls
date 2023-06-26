@@ -862,7 +862,8 @@ class WBPollHelper {
 
 		$poll_output .= '<div class="wbpoll_wrapper wbpoll_wrapper-' . $post_id . ' wbpoll_wrapper-' . $reference . '" data-reference ="' . $reference . '" >';
 		// check if the poll started still
-		if ( new DateTime( $poll_start_date ) <= new DateTime() ) {
+        
+		if ( $poll_start_date <= current_time('Y-m-d H:i:s') ) {
 
 			if ( $reference != 'content_hook' ) {
 				$poll_output .= '<h3>' . get_the_title( $post_id ) . '</h3>';

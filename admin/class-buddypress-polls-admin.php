@@ -624,7 +624,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							case 'pollstatus':
 								// Get number of images in gallery
 								if ($never_expire == 1) {
-									if (new DateTime($start_date) > new DateTime()) {
+									if ($start_date > current_time('Y-m-d H:i:s')) {
 										echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
 											'Yet to Start',
 											'buddypress-polls'
@@ -633,13 +633,13 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
 									}
 								} else {
-									if (new DateTime($start_date) > new DateTime()) {
+									if ($start_date > current_time('Y-m-d H:i:s')) {
 										echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
 									} else {
-										if (new DateTime($start_date) <= new DateTime() && new DateTime($end_date) > new DateTime()) {
+										if ($start_date <= current_time('Y-m-d H:i:s') && $end_date > current_time('Y-m-d H:i:s')) {
 											echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
 										} else {
-											if (new DateTime($end_date) <= new DateTime()) {
+											if ($end_date <= current_time('Y-m-d H:i:s')) {
 												echo '<span class="dashicons dashicons-lock"></span> ' . esc_html__('Expired', 'buddypress-polls');
 											}
 										}
@@ -1611,7 +1611,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						}
 
 						if ($total > 0) {
-							$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)) . '</p>';
+							$output  = '<p>' . sprintf(__('Total voters: %d', 'buddypress-polls'), number_format($total)) . '</p>';
 							$output .= '<div class="wbpolls-question-results ' . $class['class'] . '">';
 
 							$total_percent = 0;
@@ -1824,7 +1824,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					?>
 					<br>
 					<h5><?php echo esc_html__($post_title, 'buddypress-polls'); ?></h5>
-					<p> <?php echo sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)); ?> <p>
+					<p> <?php echo sprintf(__('Total voters: %d', 'buddypress-polls'), number_format($total)); ?> <p>
 					<table>
 						<thead>
 							<tr>
