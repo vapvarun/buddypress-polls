@@ -2358,7 +2358,7 @@ class Buddypress_Polls_Public {
 
 		$log_method = 'both';
 
-		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime(); // check if poll expired from it's end data
+		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ); // check if poll expired from it's end data
 		$is_poll_expired = ( $poll_never_expire == 1 ) ? false : $is_poll_expired; // override expired status based on the meta information
 
 		$poll_allowed_user_group = $poll_user_roles;
