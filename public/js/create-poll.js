@@ -159,6 +159,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
         '#bpolls-attach-image',
         function (event) {
             event.preventDefault();
+            var file_frame;
             updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
             imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 
@@ -267,6 +268,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-video', function (e) {
         '#bpolls-attach-video',
         function (event) {
             event.preventDefault();
+            var file_frame;
             updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
             imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
             jQuery(this).parent().find('#no').prop('checked', true);
@@ -379,6 +381,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-audio', function (e) {
         '#bpolls-attach-audio',
         function (event) {
             event.preventDefault();
+            var file_frame;
             updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
             imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
             jQuery(this).parent().find('#no').prop('checked', true);
@@ -551,6 +554,7 @@ jQuery(document).ready(
             '#bpolls-attach-image',
             function (event) {
                 event.preventDefault();
+                var file_frame;
                 updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
                 imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 
@@ -596,6 +600,7 @@ jQuery(document).ready(
             '#bpolls-attach-video',
             function (event) {
                 event.preventDefault();
+                var file_frame;
                 updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
                 imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
                 jQuery(this).parent().find('#no').prop('checked', true);
@@ -643,6 +648,7 @@ jQuery(document).ready(
             '#bpolls-attach-audio',
             function (event) {
                 event.preventDefault();
+                var file_frame;
                 updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
                 imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
                 jQuery(this).parent().find('#no').prop('checked', true);
