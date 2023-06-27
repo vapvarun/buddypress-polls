@@ -154,15 +154,15 @@ if (isset($poll_type) && !empty($poll_type)) {
 				<?php if ($poll_type == 'default') { ?>
 					<div class="wbpolls-answer-wrap">
 						<div class="row wbpoll-list-item" id="type_text" style="">
-							<div class="ans-records text_records">
+							<div class="ans-records text_records-edit">
 								<div class="ans-records-wrap">
 									<label>Text Answer</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]; ?>">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]">
 								</div>
-								<a class="add-field extra-fields-text" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+								<a class="add-field extra-fields-text-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 							</div>
-							<div class="text_records_dynamic">
+							<div class="text_records_dynamic-edit">
 								<?php
 
 								foreach ($options as $key => $optn) {
@@ -173,7 +173,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 												<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $optn; ?>">
 												<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]">
 											</div>
-											<a class="add-field extra-fields-text" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+											<a class="add-field extra-fields-text-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 											<a href="#" class="remove-field btn-remove-text">Remove Fields</a>
 										</div>
 								<?php }
@@ -184,7 +184,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 				<?php } elseif ($poll_type == 'image') { ?>
 					<div class="wbpolls-answer-wrap">
 						<div class="row wbpoll-list-item" id="type_image" style="">
-							<div class="ans-records image_records">
+							<div class="ans-records image_records_edit">
 								<div class="ans-records-wrap">
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail">
@@ -201,9 +201,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 									</div>
 								</div>
-								<a class="add-field extra-fields-image" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+								<a class="add-field extra-fields-image-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 							</div>
-							<div class="image_records_dynamic">
+							<div class="image_records_dynamic_edit">
 								<?php
 								foreach ($options as $key => $optn) {
 									if ($key != 0) { ?>
@@ -221,7 +221,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 												</div>
 											</div>
-											<a class="add-field extra-fields-image" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+											<a class="add-field extra-fields-image-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 											<a href="#" class="remove-field btn-remove-image">Remove Fields</a>
 										</div>
 
@@ -233,7 +233,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 				<?php } elseif ($poll_type == 'video') { ?>
 					<div class="wbpolls-answer-wrap">
 						<div class="row wbpoll-list-item" id="type_video" style="">
-							<div class="ans-records video_records">
+							<div class="ans-records video_records_edit">
 								<div class="ans-records-wrap">
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail">
@@ -264,9 +264,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 										</div>
 									</div>
 								</div>
-								<a class="add-field extra-fields-video" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+								<a class="add-field extra-fields-video-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 							</div>
-							<div class="video_records_dynamic">
+							<div class="video_records_dynamic_edit">
 								<?php
 								foreach ($options as $key => $optn) {
 									if ($key != 0) { ?>
@@ -301,7 +301,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 													</div>
 												</div>
 											</div>
-											<a class="add-field extra-fields-video" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+											<a class="add-field extra-fields-video-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 											<a href="#" class="remove-field btn-remove-video">Remove Fields</a>
 										</div>
 
@@ -313,7 +313,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 				<?php } elseif ($poll_type == 'audio') { ?>
 					<div class="wbpolls-answer-wrap">
 						<div class="row wbpoll-list-item" id="type_audio" style="">
-							<div class="ans-records audio_records">
+							<div class="ans-records audio_records_edit">
 								<div class="ans-records-wrap">
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail">
@@ -343,9 +343,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 										</div>
 									</div>
 								</div>
-								<a class="add-field extra-fields-audio" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+								<a class="add-field extra-fields-audio-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 							</div>
-							<div class="audio_records_dynamic">
+							<div class="audio_records_dynamic_edit">
 								<?php
 								foreach ($options as $key => $optn) {
 									if ($key != 0) { ?>
@@ -379,7 +379,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 													</div>
 												</div>
 											</div>
-											<a class="add-field extra-fields-audio" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+											<a class="add-field extra-fields-audio-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 											<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>
 										</div>
 
@@ -391,7 +391,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 				<?php } elseif ($poll_type == 'html') { ?>
 					<div class="wbpolls-answer-wrap">
 						<div class="row wbpoll-list-item" id="type_html" style="">
-							<div class="ans-records html_records">
+							<div class="ans-records html_records_edit">
 								<div class="ans-records-wrap">
 									<label>HTML Answer</label>
 									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]['ans']; ?>">
@@ -399,9 +399,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $options[0]['html']; ?></textarea>
 									<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 								</div>
-								<a class="add-field extra-fields-html" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+								<a class="add-field extra-fields-html-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 							</div>
-							<div class="html_records_dynamic">
+							<div class="html_records_dynamic_edit">
 								<?php
 								foreach ($options as $key => $optn) {
 									if ($key != 0) { ?>
@@ -413,7 +413,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 												<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $optn['html']; ?></textarea>
 												<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 											</div>
-											<a class="add-field extra-fields-html" data-id="<?php echo count($options); ?>" href="#">Add More</a>
+											<a class="add-field extra-fields-html-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
 											<a href="#" class="remove-field btn-remove-html">Remove Fields</a>
 										</div>
 
@@ -422,7 +422,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 							</div>
 						</div>
 					</div>
-				<?php } else { ?>
+				<?php } ?>
 
 					<div class="wbpolls-answer-wrap">
 						<!-- for text type -->
@@ -533,7 +533,6 @@ if (isset($poll_type) && !empty($poll_type)) {
 							<div class="html_records_dynamic"></div>
 						</div>
 					</div>
-				<?php } ?>
 				<span id="error_ans" style="color:red;"></span>
 
 				<div class="wbcom-polls-option-wrap">

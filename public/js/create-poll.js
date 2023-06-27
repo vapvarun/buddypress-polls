@@ -119,6 +119,33 @@ jQuery(document).on('click', 'a.add-field.extra-fields-text', function (e) {
 });
 
 
+/*** edit text field ***/
+jQuery(document).on('click', 'a.add-field.extra-fields-text-edit', function (e) {
+    e.preventDefault();
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
+    jQuery('.extra-fields-text-edit').attr('data-id', clickCount);
+        // alert(idinc);
+        
+    jQuery('.text_records-edit').clone().appendTo('.text_records_dynamic-edit');
+    jQuery('.text_records_dynamic-edit .text_records-edit').addClass('single remove');
+    jQuery('.html_records_dynamic-edit .extra-fields-text-edit').remove();
+    jQuery('.single').append('<a href="#" class="remove-field btn-remove-text">Remove Fields</a>');
+    jQuery('.text_records_dynamic-edit > .single').attr("class", 'remove remove'+clickCount);
+
+    jQuery('.text_records_dynamic-edit input').each(function () {
+        var count = 0;
+        var fieldname = jQuery(this).attr("name");
+        jQuery(this).attr('name', fieldname);
+        count++;
+    });
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+  
+});
+
+
 
 jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
     e.preventDefault();
@@ -202,6 +229,89 @@ jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
 
 });
 
+/*** edit image field ***/
+jQuery(document).on('click', 'a.add-field.extra-fields-image-edit', function (e) {
+    e.preventDefault();
+    
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+   
+    jQuery('.extra-fields-image-edit').attr('data-id', clickCount);
+    console.log(jQuery('.image_records_edit').clone());
+    jQuery('.image_records_edit').clone().appendTo('.image_records_dynamic_edit');
+    jQuery('.image_records_dynamic_edit .image_records_edit').addClass('single remove');
+    jQuery('.remove'+clickCount+' .extra-fields-image-edit').remove();
+    jQuery('.single').append('<a href="#" class="remove-field btn-remove-image">Remove Fields</a>');
+    jQuery('.image_records_dynamic_edit > .single').attr("class", 'remove remove'+clickCount);
+
+    jQuery('.image_records_dynamic_edit input').each(function () {
+        var count = 0;
+        var fieldname = jQuery(this).attr("name");
+        jQuery(this).attr('name', fieldname);
+        count++;
+    });
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_image_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
+    jQuery('.wbpoll_image_answer_url').on(
+        'keyup',
+        function (e) {
+            e.preventDefault();
+            var url = jQuery(this).val();
+            var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+            jQuery(imagclass).html('<img width="266" height="266" src="' + url + '">');
+
+        });
+    jQuery(document).on(
+        'click',
+        '#bpolls-attach-image',
+        function (event) {
+            event.preventDefault();
+            var file_frame;
+            updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
+            imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+
+            if (file_frame) {
+                file_frame.open();
+                return;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media(
+                {
+                    title: 'Choose Image',
+                    button: {
+                        text: 'Choose Image'
+                    },
+                    library: {
+                        type: ['image']
+                    },
+                    multiple: false,
+                    // library: {
+                    // 	author: bpolls_ajax_object.poll_user
+                    // }
+                }
+            );
+
+            file_frame.on(
+                'select',
+                function () {
+                    attachment = file_frame.state().get('selection').first().toJSON();
+
+                    if (attachment.url) {
+                        jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
+                        jQuery(updateurl).val(attachment.url);
+
+                    }
+                }
+            );
+            file_frame.open();
+        }
+    );
+
+});
+
 jQuery(document).on('click', 'a.add-field.extra-fields-video', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
@@ -216,6 +326,118 @@ jQuery(document).on('click', 'a.add-field.extra-fields-video', function (e) {
     jQuery('.video_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.video_records_dynamic input').each(function () {
+        var count = 0;
+        var fieldname = jQuery(this).attr("name");
+        jQuery(this).attr('name', fieldname);
+        count++;
+    });
+
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_video_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
+
+    jQuery('.wbpoll_video_answer_url').on(
+        'keyup',
+        function (e) {
+            e.preventDefault();
+            var url = jQuery(this).val();
+            var suggestion = jQuery(this).parent().find('.hide_suggestion');
+            var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+            jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
+            jQuery(suggestion).show();
+            jQuery(suggestion).find('#no').prop('checked', true);
+            jQuery(suggestion).find('#yes').prop('checked', false);
+            jQuery('.yes_video').on('click', function () {
+                var url = jQuery(this).parent().parent().find('.wbpoll_video_answer_url').val();
+                var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+                var title = jQuery(this).parent().parent().find('.wbpoll_answer');
+                var updateurl = jQuery(this).parent().parent().find('.wbpoll_video_answer_url');
+                jQuery.getJSON('https://noembed.com/embed', {
+                    format: 'json',
+                    url: url,
+                }, function (response) {
+                    if (response.error) {
+                        jQuery(suggestion).find('#no').prop('checked', true);
+                        jQuery(suggestion).find('#yes').prop('checked', false);
+                    } else {
+                        jQuery(imagclass).html(response.html);
+                        jQuery(title).val(response.title);
+                        var iframe = jQuery(response.html);
+                        jQuery(suggestion).find('#no').prop('checked', true);
+                        var src = iframe.attr('src');
+                        jQuery(updateurl).val(src);
+                    }
+                });
+                jQuery(suggestion).hide();
+            });
+        });
+
+    jQuery(document).on(
+        'click',
+        '#bpolls-attach-video',
+        function (event) {
+            event.preventDefault();
+            var file_frame;
+            updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
+            imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+            jQuery(this).parent().find('#no').prop('checked', true);
+            jQuery(this).parent().find('#yes').prop('checked', false);
+            if (file_frame) {
+                file_frame.open();
+                return;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media(
+                {
+                    title: 'Choose video',
+                    button: {
+                        text: 'Choose video'
+                    },
+                    library: {
+                        type: ['video']
+                    },
+                    multiple: false,
+                    // library: {
+                    // 	author: bpolls_ajax_object.poll_user
+                    // }
+                }
+            );
+
+            file_frame.on(
+                'select',
+                function () {
+                    attachment = file_frame.state().get('selection').first().toJSON();
+
+                    if (attachment.url) {
+                        jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
+                        jQuery(updateurl).val(attachment.url);
+
+                    }
+                }
+            );
+            file_frame.open();
+        }
+    )
+
+});
+
+/*** edit video field ***/
+
+jQuery(document).on('click', 'a.add-field.extra-fields-video-edit', function (e) {
+    e.preventDefault();
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
+    jQuery('.extra-fields-video-edit').attr('data-id', clickCount);
+    jQuery('.video_records_edit').clone().appendTo('.video_records_dynamic_edit');
+    jQuery('.video_records_dynamic_edit .video_records_edit').addClass('single remove');
+    jQuery('.remove'+clickCount+' .extra-fields-video-edit').remove();
+    jQuery('.single').append('<a href="#" class="remove-field btn-remove-video">Remove Fields</a>');
+    jQuery('.video_records_dynamic_edit > .single').attr("class", 'remove remove'+clickCount);
+
+    jQuery('.video_records_dynamic_edit input').each(function () {
         var count = 0;
         var fieldname = jQuery(this).attr("name");
         jQuery(this).attr('name', fieldname);
@@ -425,6 +647,120 @@ jQuery(document).on('click', 'a.add-field.extra-fields-audio', function (e) {
 
 });
 
+/*** edit audio field ***/
+
+jQuery(document).on('click', 'a.add-field.extra-fields-audio-edit', function (e) {
+    e.preventDefault();
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+
+    jQuery('.extra-fields-audio-edit').attr('data-id', clickCount);
+    jQuery('.audio_records_edit').clone().appendTo('.audio_records_dynamic_edit');
+    jQuery('.audio_records_dynamic_edit .audio_records_edit').addClass('single remove');
+    jQuery('.remove'+clickCount+' .extra-fields-audio-edit').remove();
+    jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
+    jQuery('.audio_records_dynamic_edit > .single').attr("class", 'remove remove'+clickCount);
+
+    jQuery('.audio_records_dynamic_edit input').each(function () {
+        var count = 0;
+        var fieldname = jQuery(this).attr("name");
+        jQuery(this).attr('name', fieldname);
+        count++;
+    });
+
+    
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_audio_answer_url').val('');
+    jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
+    
+
+    jQuery('.wbpoll_audio_answer_url').on(
+        'keyup',
+        function (e) {
+            e.preventDefault();
+            var url = jQuery(this).val();
+            var suggestion = jQuery(this).parent().find('.hide_suggestion');
+            var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+            jQuery(imagclass).html('<audio src="' + url + '" controls="" preload="none"></audio>')
+            jQuery(suggestion).show();
+            jQuery(suggestion).find('#no').prop('checked', true);
+            jQuery(suggestion).find('#yes').prop('checked', false);
+            jQuery('.yes_audio').on('click', function () {
+                var url = jQuery(this).parent().parent().find('.wbpoll_audio_answer_url').val();
+                var imagclass = jQuery(this).parent().parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+                var title = jQuery(this).parent().parent().find('.wbpoll_answer');
+                var updateurl = jQuery(this).parent().parent().find('.wbpoll_audio_answer_url');
+                jQuery.getJSON('https://noembed.com/embed', {
+                    format: 'json',
+                    url: url,
+                }, function (response) {
+                    if (response.error) {
+                        jQuery(suggestion).find('#no').prop('checked', true);
+                        jQuery(suggestion).find('#yes').prop('checked', false);
+                    } else {
+                        jQuery(imagclass).html(response.html);
+                        jQuery(title).val(response.title);
+                        jQuery(suggestion).find('#no').prop('checked', false);
+                        var iframe = jQuery(response.html);
+                        var src = iframe.attr('src');
+                        jQuery(updateurl).val(src);
+                    }
+                });
+                jQuery(suggestion).hide();
+            });
+
+        });
+
+    jQuery(document).on(
+        'click',
+        '#bpolls-attach-audio',
+        function (event) {
+            event.preventDefault();
+            var file_frame;
+            updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
+            imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+            jQuery(this).parent().find('#no').prop('checked', true);
+            jQuery(this).parent().find('#yes').prop('checked', false);
+            if (file_frame) {
+                file_frame.open();
+                return;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media(
+                {
+                    title: 'Choose Audio',
+                    button: {
+                        text: 'Choose Audio'
+                    },
+                    library: {
+                        type: ['audio']
+                    },
+                    multiple: false,
+                    // library: {
+                    // 	author: bpolls_ajax_object.poll_user
+                    // }
+                }
+            );
+
+            file_frame.on(
+                'select',
+                function () {
+                    attachment = file_frame.state().get('selection').first().toJSON();
+
+                    if (attachment.url) {
+                        jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
+                        jQuery(updateurl).val(attachment.url);
+
+                    }
+                }
+            );
+            file_frame.open();
+        }
+    )
+
+});
+
 jQuery(document).on('click', 'a.add-field.extra-fields-html', function (e) {
     e.preventDefault();
     var currentId = jQuery(this).data('id');
@@ -439,6 +775,32 @@ jQuery(document).on('click', 'a.add-field.extra-fields-html', function (e) {
     jQuery('.html_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
     jQuery('.html_records_dynamic input').each(function () {
+        var count = 0;
+        var fieldname = jQuery(this).attr("name");
+        jQuery(this).attr('name', fieldname);
+        count++;
+    });
+
+    jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');
+    
+});
+
+/*** edit audio field ***/
+jQuery(document).on('click', 'a.add-field.extra-fields-html-edit', function (e) {
+    e.preventDefault();
+    var currentId = jQuery(this).data('id');
+    var clickCount = currentId + 1; // Increase the value by 1
+    jQuery(this).data('id', clickCount);
+   
+    jQuery('.extra-fields-html-edit').attr('data-id', clickCount);
+    jQuery('.html_records_edit').clone().appendTo('.html_records_dynamic_edit');
+    jQuery('.html_records_dynamic_edit .html_records_edit').addClass('single remove');
+    jQuery('.remove'+clickCount+' .extra-fields-html-edit').remove();
+    jQuery('.single').append('<a href="#" class="remove-field btn-remove-html">Remove Fields</a>');
+    jQuery('.html_records_dynamic_edit > .single').attr("class", 'remove remove'+clickCount);
+
+    jQuery('.html_records_dynamic_edit input').each(function () {
         var count = 0;
         var fieldname = jQuery(this).attr("name");
         jQuery(this).attr('name', fieldname);

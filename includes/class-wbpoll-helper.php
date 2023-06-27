@@ -902,7 +902,7 @@ class WBPollHelper {
 				}
 			}
 		
-		if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
+			if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 
 
 			$poll_is_voted_by_user = 0;
