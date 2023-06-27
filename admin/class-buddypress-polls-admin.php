@@ -624,7 +624,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							case 'pollstatus':
 								// Get number of images in gallery
 								if ($never_expire == 1) {
-									if ($start_date > current_time('Y-m-d H:i:s')) {
+									if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 										echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
 											'Yet to Start',
 											'buddypress-polls'
@@ -633,13 +633,13 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
 									}
 								} else {
-									if ($start_date > current_time('Y-m-d H:i:s')) {
+									if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 										echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
 									} else {
-										if ($start_date <= current_time('Y-m-d H:i:s') && $end_date > current_time('Y-m-d H:i:s')) {
+										if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 											echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
 										} else {
-											if ($end_date <= current_time('Y-m-d H:i:s')) {
+											if (new DateTime( $end_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 												echo '<span class="dashicons dashicons-lock"></span> ' . esc_html__('Expired', 'buddypress-polls');
 											}
 										}
