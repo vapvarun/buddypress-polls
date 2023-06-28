@@ -901,9 +901,8 @@ class WBPollHelper {
 					) . '</div>';
 				}
 			}
-		
-			if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 
+			if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 
 			$poll_is_voted_by_user = 0;
 
@@ -2214,7 +2213,7 @@ class WBPollHelper {
 		$poll_display_methods = self::wbpoll_display_options();
 		$poll_display_methods = self::wbpoll_display_options_linear( $poll_display_methods );
 
-		$start_date = new DateTime();
+		$start_date = date_i18n('Y-m-d H:i:s');
 		$timestamp  = time() - 86400;
 		$end_date   = strtotime( '+7 day', $timestamp );
 	
@@ -2229,7 +2228,7 @@ class WBPollHelper {
 				),
 				'id'      => '_wbpoll_start_date',
 				'type'    => 'date',
-				'default' => $start_date->format( 'Y-m-d H:i:s' ),
+				'default' => $start_date,
 			),
 			'_wbpoll_end_date'                  => array(
 				'label'   => esc_html__( 'End Date', 'buddypress-polls' ),
@@ -2239,7 +2238,7 @@ class WBPollHelper {
 				),
 				'id'      => '_wbpoll_end_date',
 				'type'    => 'date',
-				'default' => date( 'Y-m-d H:i:s', $end_date ),
+				'default' => date_i18n( 'Y-m-d H:i:s', $end_date ),
 			),
 			'_wbpoll_user_roles'                => array(
 				'label'    => esc_html__( 'Who Can Vote', 'buddypress-polls' ),

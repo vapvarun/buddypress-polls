@@ -340,7 +340,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 					<td class="log-status"><?php echo esc_html__($log->poll_status, 'buddypress-polls'); ?></td>
 						<td class="log-title"><?php echo esc_html__(get_the_title($log->poll_id), 'buddypress-polls'); ?></td>
 						<td class="log-user"><?php echo esc_html__($log->user_name, 'buddypress-polls'); ?></td>
-						<td class="log-data"><?php echo esc_html(date("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></td>
+						<td class="log-data"><?php echo esc_html(date_i18n("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></td>
 						<td class="log-action"><button class="button button-small action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Open', 'buddypress-polls'); ?></button><button class="button button-small action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Delete', 'buddypress-polls'); ?></button></td>
 					</tr>
 					<div class="wbpolls-log-modal opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
@@ -391,7 +391,7 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 										<strong><?php echo esc_html__('Date:', 'buddypress-polls'); ?></strong>
 									</div>
 									<div class="modal-body-group-content right">
-										<span><?php echo esc_html(date("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></span>
+										<span><?php echo esc_html(date_i18n("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></span>
 									</div>
 								</div>
 								<div class="modal-body-group">

@@ -543,15 +543,15 @@ if (isset($poll_type) && !empty($poll_type)) {
 								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php if (!empty($start_time)) {
 																																								echo $start_time;
 																																							} else {
-																																								echo date('Y-m-d H:i:s');
+																																								echo current_time('Y-m-d H:i:s');
 																																							}  ?>" size="30">
 									<span class="description"><?php esc_html_e('Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls'); ?></span>
 								</td>
 							</tr>
 							<tr>
 								<?php
-								$currentDate = date('Y-m-d H:i:s');
-								$nextSevenDays = date('Y-m-d H:i:s', strtotime($currentDate . ' +7 days'));
+								$currentDate = current_time('Y-m-d H:i:s');
+								$nextSevenDays = date_i18n('Y-m-d H:i:s', strtotime($currentDate . ' +7 days'));
 								?>
 								<th><label for="_wbpoll_end_date"><?php esc_html_e('End Date', 'buddypress-polls'); ?></label></th>
 								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php if (!empty($end_date)) {
