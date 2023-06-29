@@ -1,5 +1,6 @@
 jQuery('#poll_type').on('change', function (e) {
     e.preventDefault();
+    jQuery('#error_type').css('display', 'none');
     var type = jQuery(this).val();
     if (type == 'default') {
         jQuery('#addtitonal_option').show();
@@ -1053,6 +1054,10 @@ jQuery(document).ready(
         )
     }
 );
+jQuery(document).on('keyup', '.wbpoll_answer', function (e) {
+    e.preventDefault();
+    jQuery('#error_ans').css('display', 'none');
+});
 
 
 jQuery('#wbpolls-create').submit(function (event) {
@@ -1120,8 +1125,10 @@ jQuery('#wbpolls-create').submit(function (event) {
     }else if(poll_type == ""){
         jQuery('#error_type').text('Poll Type is required');
     }else if(answer == ",,,,"){
+        jQuery('#error_ans').show();
         jQuery('#error_ans').text('Poll options is required');
     }else if(hasDuplicates){
+        jQuery('#error_ans').show();
         jQuery('#error_ans').text("Poll options are duplicate's, Please add unique options");
     }else{
         const data = {

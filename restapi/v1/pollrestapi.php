@@ -388,7 +388,7 @@ class Pollrestapi {
                 $notification = get_option('wbpolls_notification_settings');
 
                 if(isset($notification['wppolls_enable_notification']) && $notification['wppolls_enable_notification'] == 'yes' && isset($notification['wppolls_admin_notification']) && $notification['wppolls_admin_notification'] == 'yes'){
-                    $send_admin_notification = self::send_admin_notifications();
+                    $send_admin_notification = self::send_admin_notifications($post_id);
                 }
 
                 $option_value = get_option('wbpolls_settings');
@@ -429,7 +429,7 @@ class Pollrestapi {
     }
 
 
-    public function send_admin_notifications() {
+    public function send_admin_notifications($post_id) {
 		
         $option_value = get_option('notification_setting_options');
         $option_admins = get_option('wbpolls_notification_settings');
@@ -443,13 +443,45 @@ class Pollrestapi {
 			//Add BuddyPress Notification First
 
 			foreach ( $admin_users as $admin_user ) {
-			    $content         =  isset($option_value['admin']['notification_content']) ? $option_value['admin']['notification_content'] : '';
+                
+			    $content         =  isset($option_value['admin']['notification_content']) ? self::bpmbp_get_notification_admin_content( $option_value['admin']['notification_content'], $post_id, $admin_user ) : '';
 				$admin_user_info = get_userdata( $admin_user );
 				wp_mail( $admin_user_info->user_email, $subject, $content, $headers );
 			}
 		}
 
 	}
+
+
+    public static function bpmbp_get_notification_admin_content( $notification_content, $blog_id, $user_id = null ) {
+       
+        $content = '';
+        if ( isset( $notification_content ) && ! empty( $notification_content ) ) {
+            $content = $notification_content;
+
+            if ( strpos( $content, '{site_name}' ) !== false ) {
+                $content = str_replace( '{site_name}', get_bloginfo( 'name' ), $content );
+            }
+
+            if ( strpos( $content, '{poll_name}' ) !== false ) {
+                $blog_post = get_post( $blog_id );
+                $blog_title = '<a href="' . get_the_permalink( $blog_post ) . '">' . $blog_post->post_title . '</a>';
+                $content    = str_replace( '{poll_name}', $blog_title, $content );
+            }
+
+            if ( strpos( $content, '{publisher_name}' ) !== false ) {
+                $user    = get_userdata( $blog_post->post_author );
+                $content = str_replace( '{publisher_name}', $user->display_name, $content );
+            }
+
+            if ( strpos( $content, '{site_admin}' ) !== false ) {
+                if ( ! empty( $user_id ) && null !== $user_id ) {
+                    $user    = get_userdata( $user_id );
+                    $content = str_replace( '{site_admin}', $user->display_name, $content );
+                }
+            }
+        }
+    }
     
 
 
