@@ -1,18 +1,3 @@
-
-
-jQuery(document).ready(function() {
- 
-    jQuery('#wb_poll_type').change(function() {
-      var selectval = jQuery(this).val();
-      alert(selectval);
-      if(selectval == 'all_voted_poll'){
-        jQuery('.default_seting').hide();
-      }else{
-        jQuery('.default_seting').show();
-      }
-    });
-  });
-
 jQuery(document).ready(function() {
     jQuery('#poll_seletect').change(function() {
       // Perform AJAX request here

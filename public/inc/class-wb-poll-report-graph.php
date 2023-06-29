@@ -10,9 +10,6 @@ class Wb_Poll_Report extends WP_Widget {
 			'WB Poll Report', // Widget name.
 			array( 'description' => 'A custom widget for your WordPress site' ) // Widget description.
 		);
-		if (is_admin()) {
-			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-		}
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 	function enqueue_scripts(){
@@ -74,8 +71,7 @@ class Wb_Poll_Report extends WP_Widget {
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 		<p>
 				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_poll_type' ) ); ?>"><?php esc_html_e( 'Poll Result Type :', 'buddypress-polls' ); ?></label>
-				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_poll_type' ) ); ?>" id="wb_poll_type">
-					<option value="">Select Type</option>	
+				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_poll_type' ) ); ?>" id="wb_poll_type">	
 					<option value="all_voted_poll" <?php selected( $wb_poll_type, 'all_voted_poll' ); ?>>All Voted Poll</option>	
 					<option value="single_poll" <?php selected( $wb_poll_type, 'single_poll' ); ?>>Single poll</option>			
 				</select>
@@ -83,7 +79,6 @@ class Wb_Poll_Report extends WP_Widget {
 		<p class="default_seting">
 				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress-polls' ); ?></label>
 				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>">
-				<option value="" <?php selected( $wb_activity_default, '' ); ?>><?php esc_html_e( 'Select poll', 'buddypress-polls' ); ?></option>
 					<?php
 
 					$args = array(
@@ -112,6 +107,25 @@ class Wb_Poll_Report extends WP_Widget {
 					<?php	} ?>
 				</select>
 		</p>
+		<script>
+			jQuery(document).ready(function() {
+				var selectval = jQuery('select#wb_poll_type').val();
+				if(selectval == 'all_voted_poll'){
+						jQuery('.default_seting').css('display', 'none');
+					}else{
+						jQuery('.default_seting').css('display', 'block');
+					}
+					jQuery('select#wb_poll_type').on('change', function() {
+					var selectval = jQuery(this).val();
+					if(selectval == 'all_voted_poll'){
+						jQuery('.default_seting').css('display', 'none');
+					}else{
+						jQuery('.default_seting').css('display', 'block');
+					}
+				});
+			});
+
+		</script>
 		<?php
 		// Restore the global.
 		$activities_template = $old_activities_template;
