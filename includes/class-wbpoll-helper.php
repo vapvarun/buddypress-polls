@@ -1201,7 +1201,7 @@ class WBPollHelper {
 
 		}//poll didn't start yet
 		else {
-			$poll_output .= esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' );
+			$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert">'.esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' ).'</p>';
 		}
 
 		$poll_output .= '</div>'; // end of wbpoll_wrapper
