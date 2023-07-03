@@ -265,7 +265,51 @@ jQuery(document).on('click', 'a.add-field.extra-fields-image-edit', function (e)
             jQuery(imagclass).html('<img width="266" height="266" src="' + url + '">');
 
         });
-   
+    jQuery(document).on(
+        'click',
+        '#bpolls-attach-image',
+        function (event) {
+            event.preventDefault();
+            var file_frame;
+            updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
+            imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+
+            if (file_frame) {
+                file_frame.open();
+                return;
+            }
+
+            file_frame = wp.media.frames.file_frame = wp.media(
+                {
+                    title: 'Choose Image',
+                    button: {
+                        text: 'Choose Image'
+                    },
+                    library: {
+                        type: ['image']
+                    },
+                    multiple: false,
+                    // library: {
+                    // 	author: bpolls_ajax_object.poll_user
+                    // }
+                }
+            );
+
+            file_frame.on(
+                'select',
+                function () {
+                    attachment = file_frame.state().get('selection').first().toJSON();
+
+                    if (attachment.url) {
+                        jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
+                        jQuery(updateurl).val(attachment.url);
+
+                    }
+                }
+            );
+            file_frame.open();
+        }
+    );
 
 });
 

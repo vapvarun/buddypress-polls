@@ -36,6 +36,19 @@ if ( class_exists( 'Buddypress' ) ) {
 		<div class="form-table polls-general-options">
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
+					<label for="blogname"><?php esc_html_e( 'Hide poll icon on activity page', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the poll icon on the BuddyPress activity page.', 'buddypress-polls' ); ?>
+					</p>
+				</div>
+				<div class="wbcom-settings-section-options">
+					<label class="wb-switch">
+						<input name='bpolls_settings[hide_poll_icon]' type='checkbox' value='yes' <?php ( isset( $bpolls_settings['hide_poll_icon'] ) ) ? checked( $bpolls_settings['hide_poll_icon'], 'yes' ) : ''; ?>/>
+						<div class="wb-slider wb-round"></div>
+					</label>
+				</div>
+			</div>
+			<div class="wbcom-settings-section-wrap">
+				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label>
 					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled/Disabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
 					</p>
