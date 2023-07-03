@@ -730,7 +730,7 @@ class Buddypress_Polls_Public {
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
 
 			$hidepoll = isset($bpolls_settings['hide_poll_icon']) ? $bpolls_settings['hide_poll_icon'] : '';
-			if($hidepoll == 'yes'){
+			if($hidepoll != 'yes'){
 			?>
 				<div class="post-elements-buttons-item bpolls-html-container">
 					<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>

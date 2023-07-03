@@ -345,6 +345,8 @@ function run_buddypress_polls()
 			update_option( 'notification_setting_options', $emai_content );
 		}
 
+		update_option('permalink_structure', '/%postname%/');
+
 		update_option('bpolls_update_3_8_2', 1);
 	}
 
