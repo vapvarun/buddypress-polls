@@ -76,7 +76,7 @@ class Wb_Poll_Report extends WP_Widget {
 					<option value="single_poll" <?php selected( $wb_poll_type, 'single_poll' ); ?>>Single poll</option>			
 				</select>
 		</p>
-		<p class="default_seting">
+		<p class="default_seting" style="<?php if($wb_poll_type == 'single_poll'){ echo 'display:block;';}else{ echo 'display:none;'; }?>">
 				<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress-polls' ); ?></label>
 				<select name="<?php echo esc_attr( $this->get_field_name( 'wb_activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>">
 					<?php
@@ -109,13 +109,7 @@ class Wb_Poll_Report extends WP_Widget {
 		</p>
 		<script>
 			jQuery(document).ready(function() {
-				var selectval = jQuery('select#wb_poll_type').val();
-					if(selectval == 'all_voted_poll'){
-						jQuery('.default_seting').css('display', 'none');
-					}
-					if(selectval == 'single_poll'){
-						jQuery('.default_seting').css('display', 'block');
-					}
+				
 					jQuery('select#wb_poll_type').on('change', function() {
 					var selectval = jQuery(this).val();
 					if(selectval == 'all_voted_poll'){
@@ -125,6 +119,8 @@ class Wb_Poll_Report extends WP_Widget {
 						jQuery('.default_seting').css('display', 'block');
 					}
 				});
+
+				
 				
 			});
 
