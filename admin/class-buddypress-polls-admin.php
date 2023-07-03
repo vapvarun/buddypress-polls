@@ -208,7 +208,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								'general'        => esc_html__('Community', 'buddypress-polls'),
 								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
 								'notifications' => esc_html__('Email Notifications', 'buddypress-polls'),
-								'email_notification_settings' => esc_html__('Email Notification Settings', 'buddypress-polls'),
+								'email_notification_settings' => esc_html__('Email Notification Text', 'buddypress-polls'),
 								'support'        => esc_html__('Support', 'buddypress-polls'),
 							);
 						}else{
@@ -216,7 +216,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
 								'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
 								'notifications' => esc_html__('Email Notifications', 'buddypress-polls'),
-								'email_notification_settings' => esc_html__('Email Notification Settings', 'buddypress-polls'),
+								'email_notification_settings' => esc_html__('Email Notification Text', 'buddypress-polls'),
 								'support'        => esc_html__('Support', 'buddypress-polls'),
 							);
 						}
