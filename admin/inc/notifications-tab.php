@@ -86,14 +86,15 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 									<?php esc_html_e( 'Select an admin to whom you want to get approval notifications.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
+							<?php 
+							$administrators = get_users(array(
+								'role' => 'administrator',
+							)); ?>
 							<div class="wbcom-settings-section-options">
 								<select class="multi-selectize" name="wbpolls_notification_settings[wppolls_admin_user][]" multiple>
 									<?php
-									$administrators = get_users(array(
-                                        'role' => 'administrator',
-                                    ));
 									foreach ( $administrators as $rname ) {
-										$selected = ( ! empty( $bpolls_settings['wppolls_admin_user'] ) && in_array( $rname->ID, $bpolls_settings['wppolls_admin_user'], true ) ) ? 'selected' : '';
+										$selected = ( ! empty( $bpolls_settings['wppolls_admin_user'] ) && in_array( $rname->ID, $bpolls_settings['wppolls_admin_user']) ) ? 'selected' : '';
 										?>
 									<option value="<?php echo esc_attr( $rname->ID ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname->user_login ); ?></option>
 									<?php } ?>
