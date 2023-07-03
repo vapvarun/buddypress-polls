@@ -220,6 +220,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-image', function (e) {
                     if (attachment.url) {
                         jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
                         jQuery(updateurl).val(attachment.url);
+                        jQuery('.media-modal-close').trigger('click');
 
                     }
                 }
@@ -303,6 +304,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-image-edit', function (e)
                     if (attachment.url) {
                         jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
                         jQuery(updateurl).val(attachment.url);
+                        jQuery('.media-modal-close').trigger('click');
 
                     }
                 }
@@ -413,6 +415,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-video', function (e) {
                     if (attachment.url) {
                         jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
                         jQuery(updateurl).val(attachment.url);
+                        jQuery('.media-modal-close').trigger('click');
 
                     }
                 }
@@ -525,7 +528,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-video-edit', function (e)
                     if (attachment.url) {
                         jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
                         jQuery(updateurl).val(attachment.url);
-
+                        jQuery('.media-modal-close').trigger('click');
                     }
                 }
             );
@@ -638,7 +641,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-audio', function (e) {
                     if (attachment.url) {
                         jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
                         jQuery(updateurl).val(attachment.url);
-
+                        jQuery('.media-modal-close').trigger('click');
                     }
                 }
             );
@@ -752,7 +755,7 @@ jQuery(document).on('click', 'a.add-field.extra-fields-audio-edit', function (e)
                     if (attachment.url) {
                         jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
                         jQuery(updateurl).val(attachment.url);
-
+                        jQuery('.media-modal-close').trigger('click');
                     }
                 }
             );
@@ -950,7 +953,7 @@ jQuery(document).ready(
                         if (attachment.url) {
                             jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
                             jQuery(updateurl).val(attachment.url);
-
+                            jQuery('.media-modal-close').trigger('click');
                         }
                     }
                 );
@@ -997,7 +1000,7 @@ jQuery(document).ready(
                         if (attachment.url) {
                             jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
                             jQuery(updateurl).val(attachment.url);
-
+                            jQuery('.media-modal-close').trigger('click');
                         }
                     }
                 );
@@ -1045,7 +1048,7 @@ jQuery(document).ready(
                         if (attachment.url) {
                             jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
                             jQuery(updateurl).val(attachment.url);
-
+                            jQuery('.media-modal-close').trigger('click');
                         }
                     }
                 );
