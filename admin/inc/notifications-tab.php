@@ -21,7 +21,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 		<form method="post" action="admin.php?action=update_network_options">
 			<div class="wbcom-wrapper-admin">
 				<div class="wbcom-admin-title-section">
-					<h3><?php esc_html_e( 'Notifications (WB)', 'buddypress-polls' ); ?></h3>
+					<h3><?php esc_html_e( 'Email Notifications (WB)', 'buddypress-polls' ); ?></h3>
 				</div>
 				<div class="wbcom-admin-option-wrap-bp-poll">
 					<input name='wbpolls_notification_settings[hidden]' type='hidden' value="" />

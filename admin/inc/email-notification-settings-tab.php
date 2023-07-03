@@ -21,7 +21,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 <div class="wbcom-tab-content woo-document-pro">
 	<div class="wbcom-wrapper-admin">
 		<div class="wbcom-admin-title-section">
-			<h3><?php esc_html_e( 'Notifications Setting Options', 'buddypress-polls' ); ?></h3>
+			<h3><?php esc_html_e( 'Email Notifications Setting Options', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view wbcom-notification-setting-options">
 			<form method="post" action="options.php">
