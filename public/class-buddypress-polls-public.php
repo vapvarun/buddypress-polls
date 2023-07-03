@@ -437,6 +437,7 @@ class Buddypress_Polls_Public {
 				'delete_polls_btn'   => __( 'Delete', 'buddypress-polls' ),
 				'poll_revoting'      => ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
 				'poll_user'          => get_current_user_id(),
+				'hide_poll_icon'     => ( isset( $bpolls_settings['hide_poll_icon'] ) ) ? $bpolls_settings['hide_poll_icon'] : '',
 			)
 		);
 
@@ -728,9 +729,6 @@ class Buddypress_Polls_Public {
 			$bpolls_settings   = get_site_option( 'bpolls_settings' );
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
 
-			?>
-			<?php
-			$bpolls_settings = get_site_option( 'bpolls_settings' );
 			$hidepoll = isset($bpolls_settings['hide_poll_icon']) ? $bpolls_settings['hide_poll_icon'] : '';
 			if($hidepoll == 'yes'){
 			?>
