@@ -110,14 +110,14 @@ if (isset($poll_type) && !empty($poll_type)) {
 																		} ?>">
 				<div class="form-group">
 					<label for="polltitle"><?php esc_html_e('Poll Title', 'buddypress-polls'); ?></label>
-					<input type="text" class="form-control" name="title" id="polltitle" value="<?php echo $post->post_title; ?>">
+					<input type="text" class="form-control" name="title" id="polltitle" value="<?php if(!empty($_GET['poll_id'])){ echo $post->post_title; } ?>">
 					<span id="error_title" style="color:red;"></span>
 				</div>
 				<div class="form-group">
 					<label for="polltitle"><?php esc_html_e('Poll Description', 'buddypress-polls'); ?></label>
 					<!-- <textarea class="form-control wp_editor" name="content" id="poll-content"></textarea> -->
 					<?php
-					$content = $post->post_content; // Set initial content if needed
+					$content = isset($_GET['poll_id']) ? $post->post_content: ''; // Set initial content if needed
 
 					// Output the Rich Textarea
 					wp_editor($content, 'poll-content', array(
