@@ -1927,7 +1927,7 @@ class WBPollHelper {
 		global $wpdb;
 		$current_user = wp_get_current_user();
 		$user_id      = $current_user->ID;
-		global $wpdb;
+		
 
 		ob_start();
 		$output = '';
@@ -1935,8 +1935,8 @@ class WBPollHelper {
 
 		if (is_user_logged_in()) {
 		$votes_name = self::wb_poll_table_name();
-
-		$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM $votes_name WHERE user_id = $user_id");
+		global $wpdb;
+		$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM {$votes_name} WHERE user_id = %d", $user_id);
 		$results = $wpdb->get_results( $sql, ARRAY_A );
 		$output .= "<option value=''>".esc_html__('Select poll', 'buddypress-polls')."</option>";
 		foreach($results as $res){
