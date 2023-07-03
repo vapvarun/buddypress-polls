@@ -21,6 +21,14 @@
     content: "\f185";
 }
 
+.nav-tab-wrapper ul li.notifications a.nav-tab:before {
+    content: "\f16d";
+}
+
+.nav-tab-wrapper ul li.email_notification_settings a.nav-tab:before {
+    content: "\f466";
+}
+
 .wb-plugins-license-tables-wrap {
     margin: 0 !important;
 }

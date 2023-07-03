@@ -21,7 +21,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 <div class="wbcom-tab-content woo-document-pro">
 	<div class="wbcom-wrapper-admin">
 		<div class="wbcom-admin-title-section">
-			<h3><?php esc_html_e( 'Notifications Setting Options', 'buddypress-member-blog-pro' ); ?></h3>
+			<h3><?php esc_html_e( 'Notifications Setting Options', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view wbcom-notification-setting-options">
 			<form method="post" action="options.php">
@@ -34,7 +34,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 						<div class="wbcom-settings-section-options-heading">
 							<a href="#" class="bpmbp-accordion">	
 								<label for="wcap-pro-tab">
-									<?php esc_html_e( 'Admin notification settings', 'buddypress-member-blog-pro' ); ?>
+									<?php esc_html_e( 'Admin notification settings', 'buddypress-polls' ); ?>
 								</label>
 							</a>
 						</div>
@@ -43,12 +43,12 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 							<div class="wbcom-settings-section-wrap">
 								<div class="wbcom-settings-section-options-heading">
 									<label for="wcap-pro-tab">
-										<?php esc_html_e( 'Subject', 'buddypress-member-blog-pro' ); ?>							
+										<?php esc_html_e( 'Subject', 'buddypress-polls' ); ?>							
 									</label>
 								</div>
 								<div class="wbcom-settings-section-options">
-									<input name='notification_setting_options[admin][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['admin']['notification_subject'] ) ) ? $bpmb_pronotify_option['admin']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-member-blog-pro' ); ?>" />
-									<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-member-blog-pro' ); ?></p>
+									<input name='notification_setting_options[admin][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['admin']['notification_subject'] ) ) ? $bpmb_pronotify_option['admin']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
+									<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-polls' ); ?></p>
 								</div>
 							</div>
 						</div>
@@ -56,7 +56,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 							<div class="wbcom-settings-section-wrap">
 								<div class="wbcom-settings-section-options-heading">
 									<label for="wcap-pro-tab">
-									<?php esc_html_e( 'Notification content', 'buddypress-member-blog-pro' ); ?>							
+									<?php esc_html_e( 'Notification content', 'buddypress-polls' ); ?>							
 									</label>
 								</div>
 								<div class="wbcom-settings-section-options">
@@ -71,11 +71,11 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 									);
 									?>
 								</div>
-								<p class="description"><?php esc_html_e( 'Text to admin for approve the blog.Personalize with HTML and {tag} markers.', 'buddypress-member-blog-pro' ); ?></p>
+								<p class="description"><?php esc_html_e( 'Text to admin for approve the blog.Personalize with HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
 								<code>
-									{site_name} - <?php esc_html_e( 'Site title', 'buddypress-member-blog-pro' ); ?> </br>
-									{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
-									{site_admin} - <?php esc_html_e( 'Selected admin first name', 'buddypress-member-blog-pro' ); ?>
+									{site_name} - <?php esc_html_e( 'Site title', 'buddypress-polls' ); ?> </br>
+									{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-polls' ); ?> </br>
+									{site_admin} - <?php esc_html_e( 'Selected admin first name', 'buddypress-polls' ); ?>
 								</code>
 							</div>
 						</div>
@@ -86,7 +86,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 						<div class="wbcom-settings-section-options-heading">
 							<a href="#" class="bpmbp-accordion">
 								<label for="wcap-pro-tab">
-									<?php esc_html_e( 'Member notification settings', 'buddypress-member-blog-pro' ); ?>							
+									<?php esc_html_e( 'Member notification settings', 'buddypress-polls' ); ?>							
 								</label>
 							</a>
 						</div>
@@ -95,12 +95,12 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wcap-pro-tab">
-											<?php esc_html_e( 'Subject', 'buddypress-member-blog-pro' ); ?>							
+											<?php esc_html_e( 'Subject', 'buddypress-polls' ); ?>							
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
-										<input name='notification_setting_options[member][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['member']['notification_subject'] ) ) ? $bpmb_pronotify_option['member']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-member-blog-pro' ); ?>" />
-										<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-member-blog-pro' ); ?></p>
+										<input name='notification_setting_options[member][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['member']['notification_subject'] ) ) ? $bpmb_pronotify_option['member']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
+										<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-polls' ); ?></p>
 									</div>
 								</div>
 							</div>
@@ -108,7 +108,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 								<div class="wbcom-settings-section-wrap">
 									<div class="wbcom-settings-section-options-heading">
 										<label for="wcap-pro-tab">
-										<?php esc_html_e( 'Notification content', 'buddypress-member-blog-pro' ); ?>							
+										<?php esc_html_e( 'Notification content', 'buddypress-polls' ); ?>							
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
@@ -122,11 +122,11 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 											)
 										);
 										?>
-										<p class="description"><?php esc_html_e( 'Text to member to notify them, the blog is approved. Personalize with HTML and {tag} markers.', 'buddypress-member-blog-pro' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Text to member to notify them, the blog is approved. Personalize with HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
 										<code>
-											{site_name} - <?php esc_html_e( 'Site title', 'buddypress-member-blog-pro' ); ?> </br>
-											{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-member-blog-pro' ); ?> </br>
-											{publisher_name} - <?php esc_html_e( 'Post autohr first name', 'buddypress-member-blog-pro' ); ?>
+											{site_name} - <?php esc_html_e( 'Site title', 'buddypress-polls' ); ?> </br>
+											{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-polls' ); ?> </br>
+											{publisher_name} - <?php esc_html_e( 'Post autohr first name', 'buddypress-polls' ); ?>
 										</code>
 									</div>
 								</div>
