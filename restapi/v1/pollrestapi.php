@@ -443,9 +443,8 @@ class Pollrestapi {
 			//Add BuddyPress Notification First
 
 			foreach ( $admin_users as $admin_user ) {
-                
+                $admin_user_info = get_userdata( $admin_user );
 			    $content         =  isset($option_value['admin']['notification_content']) ? self::bpmbp_get_notification_admin_content( $option_value['admin']['notification_content'], $post_id, $admin_user ) : '';
-				$admin_user_info = get_userdata( $admin_user );
 				wp_mail( $admin_user_info->user_email, $subject, $content, $headers );
 			}
 		}
@@ -481,6 +480,7 @@ class Pollrestapi {
                 }
             }
         }
+        return $content;
     }
     
 

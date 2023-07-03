@@ -160,8 +160,8 @@ function activate_buddypress_polls()
 
 	if (false === get_option('wbpolls_notification_settings')) {
 		global $wp_roles;
-		$bpolls_settings['wppolls_enable_notification']    = 'no';
-		$bpolls_settings['wppolls_admin_notification']    = 'no';
+		$bpolls_settings['wppolls_enable_notification']    = 'yes';
+		$bpolls_settings['wppolls_admin_notification']    = 'yes';
 		$bpolls_settings['wppolls_member_notification']    = 'no';
 		$administrators = get_users(array(
 			'role' => 'administrator',
@@ -174,7 +174,7 @@ function activate_buddypress_polls()
 
 	if ( false === get_option( 'notification_setting_options' ) ) {
 		$emai_content['admin'] = array(
-			'notification_subject' => 'You have a new blog to approve', 
+			'notification_subject' => 'You have a new Poll to approve', 
 			'notification_content' => '
 				Hi {site_admin},
 
@@ -187,11 +187,11 @@ function activate_buddypress_polls()
 		);
 
 		$emai_content['member'] = array(
-			'notification_subject' => 'Your blog is approved',
+			'notification_subject' => 'Your Poll is approved',
 			'notification_content' => '
 				Hi {publisher_name} ,
 
-				Your blog post {poll_name} is approved.
+				Your Poll post {poll_name} is approved.
 			',
 		);
 

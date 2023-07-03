@@ -110,19 +110,22 @@ class Wb_Poll_Report extends WP_Widget {
 		<script>
 			jQuery(document).ready(function() {
 				var selectval = jQuery('select#wb_poll_type').val();
-				if(selectval == 'all_voted_poll'){
+					if(selectval == 'all_voted_poll'){
 						jQuery('.default_seting').css('display', 'none');
-					}else{
+					}
+					if(selectval == 'single_poll'){
 						jQuery('.default_seting').css('display', 'block');
 					}
 					jQuery('select#wb_poll_type').on('change', function() {
 					var selectval = jQuery(this).val();
 					if(selectval == 'all_voted_poll'){
 						jQuery('.default_seting').css('display', 'none');
-					}else{
+					}
+					if(selectval == 'single_poll'){
 						jQuery('.default_seting').css('display', 'block');
 					}
 				});
+				
 			});
 
 		</script>
