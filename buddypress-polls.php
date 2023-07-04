@@ -220,9 +220,18 @@ register_activation_hook(__FILE__, 'activate_buddypress_polls');
 register_deactivation_hook(__FILE__, 'deactivate_buddypress_polls');
 
 
-function bppoll_plugin_update_function() {
-
-    /****** update wbpoll settings *****/
+/**
+ *  Check if buddypress activate.
+ */
+function bpolls_add_page_or_data_buddypress()
+{
+	
+	global $pagenow;
+	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
+	if (!get_option('bpolls_update_4_3_0') && (isset($admin_page) && 'buddypress-polls' === $admin_page || !get_option('bpolls_update_4_3_0') && 'plugins.php' === $pagenow)) {
+		WBPollHelper::install_table();
+		
+		/****** update wbpoll settings *****/
 
 		if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 			global $wp_roles;
@@ -246,28 +255,28 @@ function bppoll_plugin_update_function() {
 		}
 	
 		/**
-			 * create a page for frontend poll
-			 */
-			$page_title = 'Poll Dashboard';
-	
-			$dashboard_page_id = wp_insert_post(array(
-				'post_title'     => $page_title,
-				'post_status'    => 'publish',
-				'post_type'      => 'page',
-				'comment_status' => 'closed',
-			));
-	
-			/**
-			 * create a page for frontend poll
-			 */
-			$page_title = 'Create Poll';
-	
-			$create_page_id = wp_insert_post(array(
-				'post_title'     => $page_title,
-				'post_status'    => 'publish',
-				'post_type'      => 'page',
-				'comment_status' => 'closed',
-			));
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Poll Dashboard';
+
+		$dashboard_page_id = wp_insert_post(array(
+			'post_title'     => $page_title,
+			'post_status'    => 'publish',
+			'post_type'      => 'page',
+			'comment_status' => 'closed',
+		));
+
+		/**
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Create Poll';
+
+		$create_page_id = wp_insert_post(array(
+			'post_title'     => $page_title,
+			'post_status'    => 'publish',
+			'post_type'      => 'page',
+			'comment_status' => 'closed',
+		));
 	
 		if (false === get_option('wbpolls_settings')) {
 			global $wp_roles;
@@ -326,9 +335,11 @@ function bppoll_plugin_update_function() {
 		}
 
 		update_option('permalink_structure', '/%postname%/');
-}
 
-add_action('plugins_loaded', 'bppoll_plugin_update_function');
+		update_option('bpolls_update_4_3_0', 1);
+	}
+}
+add_action('admin_init', 'bpolls_add_page_or_data_buddypress');
 
 /**
  * Begins execution of the plugin.
@@ -341,7 +352,6 @@ add_action('plugins_loaded', 'bppoll_plugin_update_function');
  */
 function run_buddypress_polls()
 {
-	WBPollHelper::install_table();
 	global $pagenow;
 	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
 	if (!get_option('bpolls_update_3_8_2') && (isset($admin_page) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow)) {
@@ -353,11 +363,8 @@ function run_buddypress_polls()
 		$bpolls_settings['polls_background_color'] = '#4caf50';
 		update_option('bpolls_settings', $bpolls_settings);
 
-		
 		update_option('bpolls_update_3_8_2', 1);
 	}
-
-
 
 	$plugin = new Buddypress_Polls();
 	$plugin->run();

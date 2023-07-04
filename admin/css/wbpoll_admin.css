@@ -494,7 +494,7 @@ ul#wb_poll_answers_items li.placeholder:before {
     --balloon-move: 4px;
 }
 
-.cbxpoll_ctp[aria-label][data-balloon-pos] {
+.wbpollpoll_ctp[aria-label][data-balloon-pos] {
     overflow: visible;
 }
 
