@@ -152,6 +152,10 @@ button.bpolls-accordion.active::after {
     overflow: inherit;
 }
 
+.wbcom-settings-section-options select[name="wbpolls_settings[create_poll_page]"] {
+    margin-bottom: 20px;
+}
+
 .wb-plugins_page_wbcom-license-page .update-nag,
 .wb-plugins_page_wbcom-license-page .updated,
 .wb-plugins_page_wbcom-license-page .error,
