@@ -1004,7 +1004,7 @@ class WBPollHelper {
 								$answers_by_user_html
 							) . ' </p>';
 						} else {
-							$poll_output .= '<p class="wbpoll-voted-info 55
+							$poll_output .= '<p class="wbpoll-voted-info55
 							wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
 								__(
 									'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
@@ -1015,8 +1015,7 @@ class WBPollHelper {
 	
 						}
 					} else {
-						$poll_output .= '<p class="wbpoll-voted-info 55
-						wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
+						$poll_output .= '<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
 							'The Poll is out of date. You have not voted.',
 							'buddypress-polls'
 						) . '</p>';

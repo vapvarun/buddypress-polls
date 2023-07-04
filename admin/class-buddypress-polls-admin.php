@@ -331,12 +331,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							esc_html__('Poll Graph', 'buddypress-polls'), // Title.
 							array($this, 'bpolls_graph_dashboard_widget_function') // Display function.
 						);
-
-						wp_add_dashboard_widget(
-							'bpolls_graph_dashboard_widget', // Widget slug.
-							esc_html__('Wb Poll Result ', 'buddypress-polls'), // Title.
-							array($this, 'wbpolls_graph_widget_function') // Display function.
-						);
+					
 					}
 
 					/**
@@ -344,138 +339,124 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					 */
 					public function bpolls_stats_dashboard_widget_function()
 					{
-						$args          = array(
-							'show_hidden' => true,
-							'action'      => 'activity_poll',
-							'count_total' => true,
-						);
-						$polls_created = 0;
-						if (bp_has_activities($args)) {
-							global $activities_template;
-							$polls_created = $activities_template->total_activity_count;
-						}
-						global $wpdb;
-
-						$results = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc");
-
-						$max_votes_act_link = '#';
-						$title              = '';
-						if (isset($results->activity_id)) {
-							$max_votes          = $results->meta_value;
-							$max_votes_act_link = bp_activity_get_permalink($results->activity_id);
-							$activity_obj       = bp_activity_get(
-								array(
-									'in'     => $results->activity_id,
-									'max'    => 1,
-									'action' => 'activity_poll',
-									'type'   => 'activity_poll',
-								)
+						if ( class_exists( 'Buddypress' ) ) {
+							$args          = array(
+								'show_hidden' => true,
+								'action'      => 'activity_poll',
+								'count_total' => true,
 							);
-							$title              = $activity_content = $activity_obj['activities'][0]->content;
-							$length             = strlen($activity_content);
-							if ($length > 60) {
-								$title = bp_create_excerpt(
-									$activity_content,
-									'50',
+							$polls_created = 0;
+							if (bp_has_activities($args)) {
+								global $activities_template;
+								$polls_created = $activities_template->total_activity_count;
+							}
+							global $wpdb;
+
+							$results = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc");
+
+							$max_votes_act_link = '#';
+							$title              = '';
+							if (isset($results->activity_id)) {
+								$max_votes          = $results->meta_value;
+								$max_votes_act_link = bp_activity_get_permalink($results->activity_id);
+								$activity_obj       = bp_activity_get(
 									array(
-										'ending'            => '...',
-										'exact'             => false,
-										'html'              => true,
-										'filter_shortcodes' => '',
-										'strip_tags'        => false,
-										'remove_links'      => false,
+										'in'     => $results->activity_id,
+										'max'    => 1,
+										'action' => 'activity_poll',
+										'type'   => 'activity_poll',
 									)
 								);
+								$title              = $activity_content = $activity_obj['activities'][0]->content;
+								$length             = strlen($activity_content);
+								if ($length > 60) {
+									$title = bp_create_excerpt(
+										$activity_content,
+										'50',
+										array(
+											'ending'            => '...',
+											'exact'             => false,
+											'html'              => true,
+											'filter_shortcodes' => '',
+											'strip_tags'        => false,
+											'remove_links'      => false,
+										)
+									);
+								}
 							}
-						}
 
-						$recent_poll = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
+							$recent_poll = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
 
-						$recent_poll_link = '#';
-						if (isset($recent_poll->id)) {
-							$recent_poll_link = bp_activity_get_permalink($recent_poll->id);
-							$recent_title     = $r_activity_content = $recent_poll->content;
-							$length           = strlen($r_activity_content);
-							if ($length > 60) {
-								$recent_title = bp_create_excerpt(
-									$r_activity_content,
-									'50',
-									array(
-										'ending'            => '...',
-										'exact'             => false,
-										'html'              => true,
-										'filter_shortcodes' => '',
-										'strip_tags'        => false,
-										'remove_links'      => false,
-									)
-								);
+							$recent_poll_link = '#';
+							if (isset($recent_poll->id)) {
+								$recent_poll_link = bp_activity_get_permalink($recent_poll->id);
+								$recent_title     = $r_activity_content = $recent_poll->content;
+								$length           = strlen($r_activity_content);
+								if ($length > 60) {
+									$recent_title = bp_create_excerpt(
+										$r_activity_content,
+										'50',
+										array(
+											'ending'            => '...',
+											'exact'             => false,
+											'html'              => true,
+											'filter_shortcodes' => '',
+											'strip_tags'        => false,
+											'remove_links'      => false,
+										)
+									);
+								}
 							}
-						}
-						if ($polls_created) {
-						?>
-							<div class="bpolls_stats_wrapper">
-								<table class="form-table">
-									<tr>
-										<td><?php esc_html_e('Polls Created', 'buddypress-polls'); ?></td>
-										<td><?php echo esc_html($polls_created); ?></td>
-									</tr>
-									<tr>
-										<td><?php esc_html_e('Highest Voted Poll', 'buddypress-polls'); ?></td>
-										<td><a href="<?php echo esc_url($max_votes_act_link); ?>"><?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
-																									?><a></td>
-									</tr>
-									<tr>
-										<td><?php esc_html_e('Recent Poll', 'buddypress-polls'); ?></td>
-										<td><a href="<?php echo esc_url($recent_poll_link); ?>"><?php echo esc_html($recent_title, 'buddypress-polls'); ?><a></td>
-									</tr>
-								</table>
-							</div>
-						<?php
-						} else {
-						?>
-							<div class="bpolls-empty-messgae"><?php esc_html_e('No polls created.', 'buddypress-polls'); ?></div>
-						<?php
+							if ($polls_created) {
+							?>
+								<div class="bpolls_stats_wrapper">
+									<table class="form-table">
+										<tr>
+											<td><?php esc_html_e('Polls Created', 'buddypress-polls'); ?></td>
+											<td><?php echo esc_html($polls_created); ?></td>
+										</tr>
+										<tr>
+											<td><?php esc_html_e('Highest Voted Poll', 'buddypress-polls'); ?></td>
+											<td><a href="<?php echo esc_url($max_votes_act_link); ?>"><?php echo $title; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
+																										?><a></td>
+										</tr>
+										<tr>
+											<td><?php esc_html_e('Recent Poll', 'buddypress-polls'); ?></td>
+											<td><a href="<?php echo esc_url($recent_poll_link); ?>"><?php echo esc_html($recent_title, 'buddypress-polls'); ?><a></td>
+										</tr>
+									</table>
+								</div>
+							<?php
+							} else {
+							?>
+								<div class="bpolls-empty-messgae"><?php esc_html_e('No polls created.', 'buddypress-polls'); ?></div>
+							<?php
+							}
 						}
 					}
 
-					/**
-					 * Bpolls_graph_dashboard_widget_function
-					 */
-					public function wbpolls_graph_widget_function()
-					{
-
-						global $wpdb;
-
-						$results = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
-
-						$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
-						$poll_wdgt_stngs = $poll_wdgt->get_settings();
-						$instance        = array(
-							'title'            => esc_html__('Wb Poll Result', 'buddypress-polls'),
-							'max_activity'     => 50,
-							'activity_default' => (isset($results->id)) ? $results->id : '',
-						);
-						the_widget('BP_Poll_Activity_Graph_Widget', $instance);
-					}
+			
 
 					/**
 					 * Bpolls_graph_dashboard_widget_function
 					 */
 					public function bpolls_graph_dashboard_widget_function()
 					{
+						if ( class_exists( 'Buddypress' ) ) {
 
-						global $wpdb;
+							global $wpdb;
 
-						$results = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
+							$results = $wpdb->get_row("SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc");
 
-						$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
-						$poll_wdgt_stngs = $poll_wdgt->get_settings();
-						$instance        = array(
-							'title'            => esc_html__('Poll Graph', 'buddypress-polls'),
-							'max_activity'     => 50,
-							'activity_default' => (isset($results->id)) ? $results->id : '',
-						);
-						the_widget('BP_Poll_Activity_Graph_Widget', $instance);
+							$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
+							$poll_wdgt_stngs = $poll_wdgt->get_settings();
+							$instance        = array(
+								'title'            => esc_html__('Poll Graph', 'buddypress-polls'),
+								'max_activity'     => 50,
+								'activity_default' => (isset($results->id)) ? $results->id : '',
+							);
+							the_widget('BP_Poll_Activity_Graph_Widget', $instance);
+						}
 					}
 
 					/**
