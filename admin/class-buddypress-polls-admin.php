@@ -320,17 +320,19 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					 */
 					public function bpolls_add_dashboard_widgets()
 					{
-						wp_add_dashboard_widget(
-							'bpolls_stats_dashboard_widget', // Widget slug.
-							esc_html__('Site Polls Data', 'buddypress-polls'), // Title.
-							array($this, 'bpolls_stats_dashboard_widget_function') // Display function.
-						);
+						if ( class_exists( 'Buddypress' ) ) {
+							wp_add_dashboard_widget(
+								'bpolls_stats_dashboard_widget', // Widget slug.
+								esc_html__('Site Polls Data', 'buddypress-polls'), // Title.
+								array($this, 'bpolls_stats_dashboard_widget_function') // Display function.
+							);
 
-						wp_add_dashboard_widget(
-							'bpolls_graph_dashboard_widget', // Widget slug.
-							esc_html__('Poll Graph', 'buddypress-polls'), // Title.
-							array($this, 'bpolls_graph_dashboard_widget_function') // Display function.
-						);
+							wp_add_dashboard_widget(
+								'bpolls_graph_dashboard_widget', // Widget slug.
+								esc_html__('Poll Graph', 'buddypress-polls'), // Title.
+								array($this, 'bpolls_graph_dashboard_widget_function') // Display function.
+							);
+						}
 					
 					}
 
