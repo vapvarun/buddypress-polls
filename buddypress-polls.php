@@ -219,30 +219,10 @@ function deactivate_buddypress_polls()
 register_activation_hook(__FILE__, 'activate_buddypress_polls');
 register_deactivation_hook(__FILE__, 'deactivate_buddypress_polls');
 
-/**
- * Begins execution of the plugin.
- *
- * Since everything within the plugin is registered via hooks,
- * then kicking off the plugin from this point in the file does
- * not affect the page life cycle.
- *
- * @since    1.0.0
- */
-function run_buddypress_polls()
-{
-	WBPollHelper::install_table();
-	global $pagenow;
-	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
-	if (!get_option('bpolls_update_3_8_2') && (isset($admin_page) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow)) {
-		$bpolls_settings                           = get_option('bpolls_settings');
-		$bpolls_settings['options_limit']          = '5';
-		$bpolls_settings['poll_options_result']    = 'yes';
-		$bpolls_settings['poll_list_voters']       = 'yes';
-		$bpolls_settings['poll_limit_voters']      = '3';
-		$bpolls_settings['polls_background_color'] = '#4caf50';
-		update_option('bpolls_settings', $bpolls_settings);
 
-		/****** update wbpoll settings *****/
+function bppoll_plugin_update_function() {
+
+    /****** update wbpoll settings *****/
 
 		if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
 			global $wp_roles;
@@ -346,7 +326,34 @@ function run_buddypress_polls()
 		}
 
 		update_option('permalink_structure', '/%postname%/');
+}
 
+add_action('plugins_loaded', 'bppoll_plugin_update_function');
+
+/**
+ * Begins execution of the plugin.
+ *
+ * Since everything within the plugin is registered via hooks,
+ * then kicking off the plugin from this point in the file does
+ * not affect the page life cycle.
+ *
+ * @since    1.0.0
+ */
+function run_buddypress_polls()
+{
+	WBPollHelper::install_table();
+	global $pagenow;
+	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
+	if (!get_option('bpolls_update_3_8_2') && (isset($admin_page) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow)) {
+		$bpolls_settings                           = get_option('bpolls_settings');
+		$bpolls_settings['options_limit']          = '5';
+		$bpolls_settings['poll_options_result']    = 'yes';
+		$bpolls_settings['poll_list_voters']       = 'yes';
+		$bpolls_settings['poll_limit_voters']      = '3';
+		$bpolls_settings['polls_background_color'] = '#4caf50';
+		update_option('bpolls_settings', $bpolls_settings);
+
+		
 		update_option('bpolls_update_3_8_2', 1);
 	}
 
