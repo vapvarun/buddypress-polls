@@ -2262,7 +2262,7 @@ class WBPollHelper {
 			),
 			'_wbpoll_never_expire'              => array(
 				'label'   => esc_html__( 'Never Expire', 'buddypress-polls' ),
-				'desc'    => esc_html__('Select if you want your poll to never expire.(can be override from shortcode param', 'buddypress-polls' ),
+				'desc'    => esc_html__('Select if you want your poll to never expire.', 'buddypress-polls' ),
 				'id'      => '_wbpoll_never_expire',
 				'type'    => 'radio',
 				'default' => $default_never_expire,
@@ -2275,7 +2275,7 @@ class WBPollHelper {
 			'_wbpoll_show_result_before_expire' => array(
 				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),
 				'desc'    => esc_html__(
-					'Select if you want poll to show result After expires. After expires the result will be shown always. Please check it if poll never expires.',
+					'Select "Yes" if you want to show the poll results even After expiration. After expiration, the result will be shown always. Please make sure to select "Yes" in the poll never expires option.',
 					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',
