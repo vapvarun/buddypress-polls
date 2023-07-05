@@ -1569,7 +1569,7 @@ class WBPollHelper {
 			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 		}
 		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
-        if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) && $add_additional_fields == 1){
+        if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) || $add_additional_fields == 1){
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
 			$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
 			 if (isset($poll_type_backend['answercount'])) {

@@ -423,7 +423,6 @@ class Pollrestapi {
             
         }
         
-    
         update_option( 'permalink_structure', '/%postname%/' );
         return rest_ensure_response( $data );
     }
