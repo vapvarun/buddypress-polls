@@ -47,7 +47,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 									</label>
 								</div>
 								<div class="wbcom-settings-section-options">
-									<input name='notification_setting_options[admin][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['admin']['notification_subject'] ) ) ? $bpmb_pronotify_option['admin']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
+									<input name='notification_setting_options[admin][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['admin']['notification_subject'] ) ) ? esc_html($bpmb_pronotify_option['admin']['notification_subject'], 'buddypress-polls') : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
 									<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-polls' ); ?></p>
 								</div>
 							</div>
@@ -99,7 +99,7 @@ $bpmb_pronotify_option = get_option( 'notification_setting_options' );
 										</label>
 									</div>
 									<div class="wbcom-settings-section-options">
-										<input name='notification_setting_options[member][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['member']['notification_subject'] ) ) ? $bpmb_pronotify_option['member']['notification_subject'] : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
+										<input name='notification_setting_options[member][notification_subject]' id="bp-member-blog-pro-notification-subject" type='text' value='<?php echo ( isset( $bpmb_pronotify_option['member']['notification_subject'] ) ) ? esc_html($bpmb_pronotify_option['member']['notification_subject'], 'buddypress-polls') : ''; ?>' placeholder="<?php esc_html_e( 'Add notification subject', 'buddypress-polls' ); ?>" />
 										<p class="description"><?php esc_html_e( 'Enter the subject line for notification subject.', 'buddypress-polls' ); ?></p>
 									</div>
 								</div>

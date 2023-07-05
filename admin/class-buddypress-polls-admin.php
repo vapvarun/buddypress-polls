@@ -615,7 +615,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									}
 								} else {
 									if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
-										echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+										echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_('Yet to Start', 'buddypress-polls');
 									} else {
 										if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 											echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
@@ -628,16 +628,16 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								}
 								break;
 							case 'startdate':
-								echo $start_date;
+								echo esc_html($start_date, 'buddypress-polls');
 								break;
 							case 'enddate':
-								echo $end_date;
+								echo esc_html($end_date, 'buddypress-polls');
 								break;
 							case 'pollvotes':
 								echo apply_filters('wbpoll_admin_listing_votes', $total_votes, $post_id);
 								break;
 							case 'shortcode':
-								echo '<span id="wbpollshortcode-' . $post_id . '" class="wbpollshortcode wbpollshortcode-' . $post_id . '">[wbpoll id="' . $post_id . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
+								echo '<span id="wbpollshortcode-' .esc_html( $post_id , 'buddypress-polls'). '" class="wbpollshortcode wbpollshortcode-' . esc_html( $post_id , 'buddypress-polls'). '">[wbpoll id="' . esc_html( $post_id, 'buddypress-polls') . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
 									'Click to copy',
 									'buddypress-polls'
 								) . '" data-balloon-pos="down">&nbsp;</span>';
@@ -864,7 +864,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 						$poll_output = WBPollHelper::show_backend_single_poll_result($poll_postid, 'shortcode', 'text');
 
-						echo $poll_output;
+						echo esc_html($poll_output, 'buddypress-polls');
 					} //end metabox_result_display()
 
 					/**
@@ -972,12 +972,12 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 							wp_nonce_field('wbpoll_meta_box', 'wbpoll_meta_box_nonce');
 
-							echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="' . $poll_postid . '">';
+							echo '<div id="wbpoll_answer_wrap" class="wbpoll_answer_wrap" data-postid="' . esc_html($poll_postid, 'buddypress-polls') . '">';
 							echo '<h3>' . esc_html__('Poll Answers', 'buddypress-polls') . '</h3>';
 							
 							echo '<div class="wb-poll-answers-items-content-wrapper">';
 							echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>';
-							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . $post->ID . '">';
+							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . esc_html($post->ID , 'buddypress-polls');. '">';
 
 							if (sizeof($poll_answers) > 0) {
 								$i = 1;
@@ -1076,32 +1076,32 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							// if ( ! $is_voted ){
 							?>
 							<div class="wbpoll-buttons-horizontal">
-								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-									<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo $poll_postid; ?>">
+								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
+									<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
 										<i class="dashicons dashicons-editor-textcolor"></i> <?php echo esc_html__('Text Answer', 'buddypress-polls'); ?>
 									</a>
 									<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
 								</div>
-								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-									<a data-type="image" id="add-wb-poll-image-answer" class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo $poll_postid; ?>">
+								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-image-wrap" data-busy="0" data-postid="<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
+									<a data-type="image" id="add-wb-poll-image-answer" class="float-left button button-primary add-wb-poll-image-answer add-wb-poll-answer-image add-wb-poll-image-answer-<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
 										<i class="dashicons dashicons-format-image"></i> <?php echo esc_html__('Image Answer', 'buddypress-polls'); ?>
 									</a>
 									<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
 								</div>
-								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-									<a data-type="video" id="add-wb-poll-video-answer" class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo $poll_postid; ?>">
+								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-video-wrap" data-busy="0" data-postid="<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
+									<a data-type="video" id="add-wb-poll-video-answer" class="float-left button button-primary add-wb-poll-video-answer add-wb-poll-answer-video add-wb-poll-video-answer-<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
 										<i class="dashicons dashicons-format-video"></i> <?php echo esc_html__('Video Answer', 'buddypress-polls'); ?>
 									</a>
 									<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
 								</div>
-								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-									<a data-type="audio" id="add-wb-poll-audio-answer" class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo $poll_postid; ?>">
+								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-audio-wrap" data-busy="0" data-postid="<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
+									<a data-type="audio" id="add-wb-poll-audio-answer" class="float-left button button-primary add-wb-poll-audio-answer add-wb-poll-answer-audio add-wb-poll-audio-answer-<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
 										<i class="dashicons dashicons-format-audio"></i> <?php echo esc_html__('Audio Answer', 'buddypress-polls'); ?>
 									</a>
 									<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
 								</div>
-								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo $poll_postid; ?>">
-									<a data-type="html" id="add-wb-poll-html-answer" class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo $poll_postid; ?>">
+								<div class="add-wb-poll-answer-wrap add-wb-poll-answer-html-wrap" data-busy="0" data-postid="<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
+									<a data-type="html" id="add-wb-poll-html-answer" class="float-left button button-primary add-wb-poll-html-answer add-wb-poll-html-answer add-wb-poll-html-answer-<?php echo esc_html($poll_postid, 'buddypress-polls'); ?>">
 										<i class="dashicons dashicons-html"></i> <?php echo esc_html__('HTML Answer', 'buddypress-polls'); ?>
 									</a>
 									<?php do_action('wbpolladmin_add_answertype', $poll_postid, $new_index); ?>
@@ -1129,91 +1129,91 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								$label = isset($field['label']) ? $field['label'] : '';
 
 								echo '<tr>';
-								echo '<th><label for="' . $field['id'] . '">' . $label . '</label></th>';
+								echo '<th><label for="' . esc_html($field['id'] , 'buddypress-polls'). '">' . esc_html($label, 'buddypress-polls') . '</label></th>';
 								echo '<td>';
 
 								switch ($field['type']) {
 
 									case 'text':
-										echo '<input type="text" class="regular-text" name="' . $field['id'] . '" id="' . $field['id'] . '-text-' . $poll_postid . '" value="' . $meta . '" size="30" />
-								<span class="description">' . $field['desc'] . '</span>';
+										echo '<input type="text" class="regular-text" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' . esc_html($field['id'] , 'buddypress-polls'). '-text-' . esc_html($poll_postid, 'buddypress-polls') . '" value="' . esc_html($meta, 'buddypress-polls') . '" size="30" />
+								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 									case 'number':
-										echo '<input type="number" class="regular-text" name="' . $field['id'] . '" id="' . $field['id'] . '-number-' . $poll_postid . '" value="' . $meta . '" size="30" />
-								<span class="description">' . $field['desc'] . '</span>';
+										echo '<input type="number" class="regular-text" name="' .esc_html( $field['id'], 'buddypress-polls') . '" id="' . esc_html($field['id'], 'buddypress-polls') . '-number-' .esc_html( $poll_postid, 'buddypress-polls') . '" value="' . esc_html($meta, 'buddypress-polls') . '" size="30" />
+								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
 									case 'date':
-										echo '<input type="text" class="wbpollmetadatepicker" name="' . $field['id'] . '" id="' . $field['id'] . '-date-' . $poll_postid . '" value="' . $meta . '" size="30" />
-								<span class="description">' . $field['desc'] . '</span>';
+										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . $poll_postid . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
+								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
 									case 'colorpicker':
-										echo '<input type="text" class="wbpoll-colorpicker" name="' . $field['id'] . '" id="' . $field['id'] . '-date-' . $poll_postid . '" value="' . $meta . '" size="30" />
-								<span class="description">' . $field['desc'] . '</span>';
+										echo '<input type="text" class="wbpoll-colorpicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' . esc_html($field['id'], 'buddypress-polls') . '-date-' . esc_html($poll_postid, 'buddypress-polls') . '" value="' . esc_html($meta, 'buddypress-polls') . '" size="30" />
+								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
 									case 'multiselect':
-										echo '<select name="' . $field['id'] . '[]" id="' . $field['id'] . '-chosen-' . $poll_postid . '" class="selecttwo-select" multiple="multiple">';
+										echo '<select name="' . esc_html($field['id'], 'buddypress-polls') . '[]" id="' . esc_html($field['id'], 'buddypress-polls') . '-chosen-' . esc_html($poll_postid, 'buddypress-polls') . '" class="selecttwo-select" multiple="multiple">';
 										if (isset($field['optgroup']) && intval($field['optgroup'])) {
 
 											foreach ($field['options'] as $optlabel => $data) {
-												echo '<optgroup label="' . $optlabel . '">';
+												echo '<optgroup label="' . esc_html($optlabel, 'buddypress-polls') . '">';
 												foreach ($data as $key => $val) {
 													echo '<option value="' . $key . '"', is_array($meta) && in_array(
 														$key,
 														$meta
-													) ? ' selected="selected"' : '', ' >' . $val . '</option>';
+													) ? ' selected="selected"' : '', ' >' . esc_html($val, 'buddypress-polls') . '</option>';
 												}
 												echo '<optgroup>';
 											}
 										} else {
 											foreach ($field['options'] as $key => $val) {
-												echo '<option value="' . $key . '"', is_array($meta) && in_array(
+												echo '<option value="' . esc_html($key, 'buddypress-polls') . '"', is_array($meta) && in_array(
 													$key,
 													$meta
-												) ? ' selected="selected"' : '', ' >' . $val . '</option>';
+												) ? ' selected="selected"' : '', ' >' . esc_html($val, 'buddypress-polls') . '</option>';
 											}
 										}
 
-										echo '</select><span class="description">' . $field['desc'] . '</span>';
+										echo '</select><span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
 									case 'select':
-										echo '<select name="' . $field['id'] . '" id="' . $field['id'] . '-select-' . $poll_postid . '" class="cb-select select-' . $poll_postid . '">';
+										echo '<select name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' . esc_html($field['id'], 'buddypress-polls') . '-select-' . esc_html($poll_postid, 'buddypress-polls') . '" class="cb-select select-' . esc_html($poll_postid, 'buddypress-polls') . '">';
 
 										if (isset($field['optgroup']) && intval($field['optgroup'])) {
 
 											foreach ($field['options'] as $optlabel => $data) {
-												echo '<optgroup label="' . $optlabel . '">';
+												echo '<optgroup label="' . esc_html($optlabel, 'buddypress-polls') . '">';
 												foreach ($data as $index => $option) {
-													echo '<option ' . (($meta == $index) ? ' selected="selected"' : '') . ' value="' . $index . '">' . $option . '</option>';
+													echo '<option ' . (($meta == $index) ? ' selected="selected"' : '') . ' value="' . esc_html($index, 'buddypress-polls') . '">' . esc_html($option, 'buddypress-polls') . '</option>';
 												}
 											}
 										} else {
 											foreach ($field['options'] as $index => $option) {
-												echo '<option ' . (($meta == $index) ? ' selected="selected"' : '') . ' value="' . $index . '">' . $option . '</option>';
+												echo '<option ' . (($meta == $index) ? ' selected="selected"' : '') . ' value="' . esc_html($index, 'buddypress-polls') . '">' . esc_html($option, 'buddypress-polls') . '</option>';
 											}
 										}
 
-										echo '</select><br/><span class="description">' . $field['desc'] . '</span>';
+										echo '</select><br/><span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 									case 'radio':
 										echo '<fieldset class="radio_fields">
 										<legend class="screen-reader-text"><span>input type="radio"</span></legend>';
 										foreach ($field['options'] as $key => $value) {
-											echo '<label title="g:i a" for="' . $field['id'] . '-radio-' . $poll_postid . '-' . $key . '">
-												<input id="' . $field['id'] . '-radio-' . $poll_postid . '-' . $key . '" type="radio" name="' . $field['id'] . '" value="' . $key . '" ' . (($meta == $key) ? '  checked="checked" ' : '') . '  />
-												<span>' . $value . '</span>
+											echo '<label title="g:i a" for="' . esc_html($field['id'], 'buddypress-polls') . '-radio-' . esc_html($poll_postid, 'buddypress-polls') . '-' . esc_html($key, 'buddypress-polls') . '">
+												<input id="' . esc_html($field['id'], 'buddypress-polls') . '-radio-' . esc_html($poll_postid, 'buddypress-polls') . '-' . esc_html($key, 'buddypress-polls') . '" type="radio" name="' . esc_html($field['id'], 'buddypress-polls') . '" value="' . esc_html($key, 'buddypress-polls') . '" ' . (($meta == $key) ? '  checked="checked" ' : '') . '  />
+												<span>' . esc_html($value, 'buddypress-polls') . '</span>
 											</label>';
 										}
 										echo '</fieldset>';
-										echo '<span class="description">' . $field['desc'] . '</span>';
+										echo '<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
 									case 'checkbox':
-										echo '<input type="checkbox" name="' . $field['id'] . '" id="' . $field['id'] . '-checkbox-' . $poll_postid . '" class="cb-checkbox checkbox-' . $poll_postid . '" ', $meta ? ' checked="checked"' : '', '/>
-							<span for="' . $field['id'] . '">' . $field['desc'] . '</span>';
+										echo '<input type="checkbox" name="' .esc_html($field['id'], 'buddypress-polls')  . '" id="' . esc_html($field['id'], 'buddypress-polls')  . '-checkbox-' . esc_html($poll_postid, 'buddypress-polls')  . '" class="cb-checkbox checkbox-' . esc_html($poll_postid, 'buddypress-polls')  . '" ', esc_html($meta, 'buddypress-polls')  ? ' checked="checked"' : '', '/>
+							<span for="' . esc_html($field['id'], 'buddypress-polls')  . '">' . esc_html($field['desc'], 'buddypress-polls')  . '</span>';
 										break;
 									case 'checkbox_group':
 										if ($meta == '') {
@@ -1224,14 +1224,14 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										}
 
 										foreach ($field['options'] as $option) {
-											echo '<input type="checkbox" value="' . $option['value'] . '" name="' . $field['id'] . '[]" id="' . $option['value'] . '-mult-chk-' . $poll_postid . '-field-' . $field['id'] . '" class="cb-multi-check mult-check-' . $poll_postid . '"', $meta && in_array(
+											echo '<input type="checkbox" value="' . esc_html($option['value'], 'buddypress-polls') . '" name="' . esc_html($field['id'], 'buddypress-polls') . '[]" id="' . esc_html($option['value'], 'buddypress-polls') . '-mult-chk-' . esc_html($poll_postid, 'buddypress-polls') . '-field-' . esc_html($field['id'], 'buddypress-polls') . '" class="cb-multi-check mult-check-' . esc_html($poll_postid, 'buddypress-polls') . '"', esc_html($meta, 'buddypress-polls') && in_array(
 												$option['value'],
 												$meta
 											) ? ' checked="checked"' : '', ' />
-								<label for="' . $option['value'] . '">' . $option['label'] . '</label><br/>';
+								<label for="' . esc_html($option['value'], 'buddypress-polls') . '">' . esc_html($option['label'], 'buddypress-polls') . '</label><br/>';
 										}
 
-										echo '<span class="description">' . $field['desc'] . '</span>';
+										echo '<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 								}
 								echo '</td>';
@@ -1814,7 +1814,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$output = '<p>' . esc_html__('No approved vote yet', 'buddypress-polls') . '</p>';
 						}
 
-						echo $output;
+						echo esc_html($output, 'buddypress-polls');
 					} //end poll_display_methods_text_result()
 
 
@@ -1918,7 +1918,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$labels = $lablename;
 							$values = $persentangevalue;
 							$output = self::display_pie_chart($labels, $values);
-							echo $output;
+							echo esc_html($output, 'buddypress-polls');
 						} else {
 							$labels = array();
 							$values = array();
@@ -1942,12 +1942,12 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$chart_id = 'pie-chart-' . rand(1, 999);
 
 						// Output the canvas element for the chart
-						echo '<canvas id="' . $chart_id . '"></canvas>';
+						echo '<canvas id="' . esc_html($chart_id, 'buddypress-polls') . '"></canvas>';
 
 						// Output the JavaScript code to initialize the chart
 						echo '<script>
-							var ctx = document.getElementById("' . $chart_id . '").getContext("2d");
-							var chartData = ' . $chart_data_json . ';
+							var ctx = document.getElementById("' . esc_html($chart_id, 'buddypress-polls') . '").getContext("2d");
+							var chartData = ' . esc_html($chart_data_json, 'buddypress-polls') . ';
 							var chartColors = [];
 							for (var i = 0; i < chartData.length; i++) {
 								chartColors.push(getRandomColor());

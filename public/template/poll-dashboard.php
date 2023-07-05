@@ -45,7 +45,7 @@
 			<h3><?php esc_html_e( 'Publish Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
-			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
+			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls'); ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
 		</div>
 	</div>
 	<div class="poll-listing">
@@ -117,7 +117,7 @@
 								}
 							} else {
 								if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
-									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__('Yet to Start', 'buddypress-polls');
 								} else {
 									if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime($end_date) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
@@ -134,7 +134,7 @@
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls').'?poll_id='.esc_html($post_id, 'buddypress-polls'); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 							<?php } ?>
 								<button class="button btn pause_poll" data-value="
 								<?php
@@ -205,7 +205,7 @@
 			<h3><?php esc_html_e( 'Pending Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
-			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
+			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls'); ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
 		</div>
 	</div>
 	<div class="poll-listing">
@@ -276,7 +276,7 @@
 								}
 							} else {
 								if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
-									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__('Yet to Start', 'buddypress-polls');
 								} else {
 									if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
@@ -293,7 +293,7 @@
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls').'?poll_id='.esc_html($post_id, 'buddypress-polls'); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 							<?php } ?>
 							<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 						</tr>
@@ -328,7 +328,7 @@
 			<h3><?php esc_html_e( 'Draft Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
-			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug; ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
+			<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls'); ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>
 		</div>
 	</div>
 	<div class="poll-listing">
@@ -399,7 +399,7 @@
 								}
 							} else {
 								if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
-									echo '<span class="dashicons dashicons-calendar"></span> ' . __('Yet to Start', 'buddypress-polls');
+									echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__('Yet to Start', 'buddypress-polls');
 								} else {
 									if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && $end_date > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 										echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
@@ -416,7 +416,7 @@
 							<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 							<?php if($totalvote < 1){ ?>
-								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.$page_slug.'?poll_id='.$post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+								<a class="button btn" href="<?php echo esc_url( site_url() ) . '/'.esc_html($page_slug, 'buddypress-polls').'?poll_id='.esc_html($post_id, 'buddypress-polls'); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 							<?php } ?>
 							<?php if($post_stauts == 'draft'){ ?>
 								<button class="button btn publish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Publish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-all-results"></i></button>
