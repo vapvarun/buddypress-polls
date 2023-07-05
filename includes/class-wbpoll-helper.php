@@ -962,11 +962,12 @@ class WBPollHelper {
 				$cb_has_answer = $wpdb->get_var( $sql );
 
 				if ( $cb_has_answer != null ) {
-
-					$poll_output .= self::show_single_poll_result( $post_id, $reference, $result_chart_type );
+					if ( $poll_show_result_before_expire == 1 ) {
+						$poll_output .= self::show_single_poll_result( $post_id, $reference, $result_chart_type );
+					}
 				}
 
-				$sql             = $wpdb->prepare(
+				$sql = $wpdb->prepare(
 					"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
 					$post_id,
 					$user_id,
