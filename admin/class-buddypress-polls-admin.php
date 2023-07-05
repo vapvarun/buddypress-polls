@@ -615,7 +615,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									}
 								} else {
 									if (new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
-										echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_('Yet to Start', 'buddypress-polls');
+										echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__('Yet to Start', 'buddypress-polls');
 									} else {
 										if (new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) )) {
 											echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__('Active', 'buddypress-polls');
