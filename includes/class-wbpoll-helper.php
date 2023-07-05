@@ -996,7 +996,7 @@ class WBPollHelper {
 	
 						if ( $answers_by_user_html != '' ) {
 							$poll_output .= '<p class="wbpoll-voted-info55
-							 wbpoll-alert  wbpoll-voted-info-' . $post_id . '">' . sprintf(
+							 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '">' . sprintf(
 								__(
 									'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
 									'buddypress-polls'
@@ -1005,7 +1005,7 @@ class WBPollHelper {
 							) . ' </p>';
 						} else {
 							$poll_output .= '<p class="wbpoll-voted-info55
-							wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
+							wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
 								__(
 									'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
 									'buddypress-polls'
@@ -1015,7 +1015,7 @@ class WBPollHelper {
 	
 						}
 					} else {
-						$poll_output .= '<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info-' . $post_id . '"> ' . __(
+						$poll_output .= '<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . __(
 							'The Poll is out of date. You have not voted.',
 							'buddypress-polls'
 						) . '</p>';
@@ -2275,7 +2275,7 @@ class WBPollHelper {
 			'_wbpoll_show_result_before_expire' => array(
 				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),
 				'desc'    => esc_html__(
-					'Select "Yes" if you want to show the poll results even After expiration. After expiration, the result will be shown always. Please make sure to select "Yes" in the poll never expires option.',
+					'Select if you want poll to show result After expires. After expires the result will be shown always. Please check it if poll never expires.',
 					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',
