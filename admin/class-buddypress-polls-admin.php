@@ -861,10 +861,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					{
 						global $post;
 						$poll_postid = $post->ID;
-
 						$poll_output = WBPollHelper::show_backend_single_poll_result($poll_postid, 'shortcode', 'text');
-
-						echo esc_html($poll_output, 'buddypress-polls');
+						echo $poll_output;
 					} //end metabox_result_display()
 
 					/**
