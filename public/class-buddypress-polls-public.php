@@ -365,6 +365,7 @@ class Buddypress_Polls_Public {
 				'ajaxurl'         => admin_url( 'admin-ajax.php' ),
 				'no_answer_error' => esc_html__( 'Please select at least one answer', 'buddypress-polls' ),
 				'url'             => site_url(),
+				'ajax_nonce'         => wp_create_nonce( 'bpolls_ajax_security' ),
 			)
 		);
 
@@ -966,6 +967,7 @@ class Buddypress_Polls_Public {
 	 */
 	public function bpolls_update_poll_activity_meta( $content, $user_id, $activity_id, $g_activity_id = null ) {
 
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		if ( isset( $g_activity_id ) ) {
 			$activity_id = $g_activity_id;
 		}
@@ -2728,6 +2730,7 @@ class Buddypress_Polls_Public {
 	}
 
 	public function wbpoll_additional_field() {
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$post_id = $_POST['post_id'];
 
 		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
@@ -2781,6 +2784,7 @@ class Buddypress_Polls_Public {
 
 
 	public function wbpoll_additional_field_image() {
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$post_id = $_POST['post_id'];
 		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
 			$old_ans = get_post_meta( $post_id, '_wbpoll_answer', true );
@@ -2846,6 +2850,7 @@ class Buddypress_Polls_Public {
 	}
 
 	public function wbpoll_additional_field_video() {
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$post_id = $_POST['post_id'];
 
 		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
@@ -2933,6 +2938,7 @@ class Buddypress_Polls_Public {
 
 
 	public function wbpoll_additional_field_audio() {
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$post_id = $_POST['post_id'];
 
 		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {
@@ -3021,6 +3027,7 @@ class Buddypress_Polls_Public {
 
 
 	public function wbpoll_additional_field_html() {
+		check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );
 		$post_id = $_POST['post_id'];
 
 		if ( ! empty( $_POST['_wbpoll_answer'] ) && isset( $_POST['_wbpoll_answer'][0] ) && ! empty( $_POST['_wbpoll_answer'][0] ) ) {

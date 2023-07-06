@@ -189,6 +189,7 @@ jQuery( document ).ready(function ($) {
 				_wbpoll_answer: answer,
 				_wbpoll_answer_extra: answertype,
 				post_id: post_id,
+				ajax_nonce: wbpollpublic.ajax_nonce
 			},
 			success: function (response) {
 					location.reload();	
@@ -222,6 +223,7 @@ jQuery( document ).ready(function ($) {
 				_wbpoll_answer_extra: answertype,
 				_wbpoll_full_size_image_answer: full_size_image_answer,
 				post_id: post_id,
+				ajax_nonce: wbpollpublic.ajax_nonce,
 			},
 			success: function (response) {
 					location.reload();	
@@ -259,6 +261,7 @@ jQuery( document ).ready(function ($) {
 				_wbpoll_video_answer_url: video_answer_url,
 				_wbpoll_video_import_info:video_import_info,
 				post_id: post_id,
+				ajax_nonce: wbpollpublic.ajax_nonce,
 			},
 			success: function (response) {
 					location.reload();	
@@ -295,6 +298,7 @@ jQuery( document ).ready(function ($) {
 				_wbpoll_audio_answer_url: audio_answer_url,
 				_wbpoll_audio_import_info: audio_import_info,
 				post_id: post_id,
+				ajax_nonce: wbpollpublic.ajax_nonce,
 			},
 			success: function (response) {
 					location.reload();	
@@ -327,6 +331,7 @@ jQuery( document ).ready(function ($) {
 				_wbpoll_answer_extra: answertype,
 				_wbpoll_html_answer: html_answer,
 				post_id: post_id,
+				ajax_nonce: wbpollpublic.ajax_nonce,
 			},
 			success: function (response) {
 					location.reload();	

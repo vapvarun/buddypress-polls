@@ -977,7 +977,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							
 							echo '<div class="wb-poll-answers-items-content-wrapper">';
 							echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>';
-							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . esc_html($post->ID , 'buddypress-polls');. '">';
+							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . esc_html($post->ID , 'buddypress-polls'). '">';
 
 							if (sizeof($poll_answers) > 0) {
 								$i = 1;
@@ -1380,8 +1380,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						} else {
 							delete_post_meta($post_id, $prefix . 'html_answer');
 						}
-
-						$this->metabox_extra_save($post_id);
+						$field_data = $_POST;
+						$this->metabox_extra_save($post_id, $field_data);
 
 						//$this->send_admin_email_on_post_publish($post_id);
 						
@@ -1463,7 +1463,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					 *
 					 * @return bool|void
 					 */
-					function metabox_extra_save($post_id)
+					function metabox_extra_save($post_id, $field_data)
 					{
 						// global $post_meta_fields;
 						$post_meta_fields = WBPollHelper::get_meta_fields();
@@ -1474,7 +1474,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						foreach ($post_meta_fields as $field) {
 
 							$old = get_post_meta($post_id, $field['id'], true);
-							$new = $_POST[$field['id']];
+							$new = $field_data[$field['id']];
 
 							if (($prefix . 'start_date' == $field['id'] && $new == '') || ($prefix . 'end_date' == $field['id'] && $new == '')) {
 
@@ -1978,7 +1978,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					}
 
 
-					public function wbpoll_log_delete(){						
+					public function wbpoll_log_delete(){
+						check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );						
 						global $wpdb;
 						$table_name = $wpdb->prefix . 'wppoll_log'; 
 						$logid = $_POST['log_id'];

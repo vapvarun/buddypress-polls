@@ -19,6 +19,7 @@
                     data: {
                         action: 'wbpoll_log_delete',                        
                         log_id: log_id,
+                        ajax_nonce: wbpollpublic.ajax_nonce,
                     },
                     success: function (response) {
                             location.reload();	
