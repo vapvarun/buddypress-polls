@@ -1470,7 +1470,9 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 						$cb_date_array = array();
 						foreach ($post_meta_fields as $field) {
-
+							if ($field['id'] === '_wbpoll_user_roles') {
+								$field_data[$field['id']] = isset($field_data[$field['id']]) ? $field_data[$field['id']] : '';
+							}
 							$old = get_post_meta($post_id, $field['id'], true);
 							$new = $field_data[$field['id']];
 
