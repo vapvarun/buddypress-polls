@@ -634,7 +634,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 								echo esc_html($end_date, 'buddypress-polls');
 								break;
 							case 'pollvotes':
-								echo apply_filters('wbpoll_admin_listing_votes', $total_votes, $post_id);
+								echo esc_html(apply_filters('wbpoll_admin_listing_votes', $total_votes, $post_id));
 								break;
 							case 'shortcode':
 								echo '<span id="wbpollshortcode-' .esc_html( $post_id , 'buddypress-polls'). '" class="wbpollshortcode wbpollshortcode-' . esc_html( $post_id , 'buddypress-polls'). '">[wbpoll id="' . esc_html( $post_id, 'buddypress-polls') . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
@@ -861,6 +861,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					{
 						global $post;
 						$poll_postid = $post->ID;
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						$poll_output = WBPollHelper::show_backend_single_poll_result($poll_postid, 'shortcode', 'text');
 						echo $poll_output;
 					} //end metabox_result_display()
@@ -1001,8 +1002,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										// HTML
 										$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
 
-										echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index], $number, $iframe_video_url[$index], $iframe_audio_url[$index]);
-										
+										$result_output =  WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index], $number, $iframe_video_url[$index], $iframe_audio_url[$index]);
+										echo wp_kses_post($result_output);
 									}
 								}
 							}
@@ -1048,7 +1049,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 									// HTML
 									$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
 
-									echo WBPollHelper::wbpoll_answer_field_template(
+									$result_output = WBPollHelper::wbpoll_answer_field_template(
 										intval($index) + $new_index,
 										$default_answers_titles[$index],
 										$default_answers_colors[$index],
@@ -1063,7 +1064,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$audio_url[$index],
 										$audio_thumbnail_image[$index],
 									);
-									
+
+									echo wp_kses_post($result_output);
 								}
 
 								$new_index = intval($index) + $new_index + 1;
@@ -1144,7 +1146,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										break;
 
 									case 'date':
-										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . esc_html($reuslt_data, 'buddypress-polls') . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
+										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . $poll_postid . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
 								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
@@ -1814,7 +1816,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$output = '<p>' . esc_html__('No approved vote yet', 'buddypress-polls') . '</p>';
 						}
 
-						echo $output;
+						echo wp_kses_post($output);
 					} //end poll_display_methods_text_result()
 
 
@@ -1947,7 +1949,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						// Output the JavaScript code to initialize the chart
 						echo '<script>
 							var ctx = document.getElementById("' . esc_html($chart_id, 'buddypress-polls') . '").getContext("2d");
-							var chartData = ' . esc_html($chart_data_json, 'buddypress-polls') . ';
+							var chartData = ' . $chart_data_json . ';
 							var chartColors = [];
 							for (var i = 0; i < chartData.length; i++) {
 								chartColors.push(getRandomColor());
