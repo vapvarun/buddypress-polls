@@ -1004,6 +1004,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
 
 										echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index], $number, $iframe_video_url[$index], $iframe_audio_url[$index]);
+										
 									}
 								}
 							}
@@ -1064,6 +1065,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$audio_url[$index],
 										$audio_thumbnail_image[$index],
 									);
+									
 								}
 
 								$new_index = intval($index) + $new_index + 1;
@@ -1144,7 +1146,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										break;
 
 									case 'date':
-										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . $poll_postid . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
+										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . esc_html($reuslt_data, 'buddypress-polls') . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
 								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
@@ -1814,7 +1816,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							$output = '<p>' . esc_html__('No approved vote yet', 'buddypress-polls') . '</p>';
 						}
 
-						echo esc_html($output, 'buddypress-polls');
+						echo $output;
 					} //end poll_display_methods_text_result()
 
 
