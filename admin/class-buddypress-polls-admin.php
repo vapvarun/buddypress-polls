@@ -863,7 +863,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$poll_postid = $post->ID;
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						$poll_output = WBPollHelper::show_backend_single_poll_result($poll_postid, 'shortcode', 'text');
-						echo wp_kses_post($poll_output);
+						echo $poll_output;
 					} //end metabox_result_display()
 
 					/**
@@ -977,7 +977,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 							echo '<div class="wb-poll-answers-items-content-wrapper">';
 							echo '<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>';
 							echo '<ul id="wb_poll_answers_items" class="wb_poll_answers_items wb_poll_answers_items_' . esc_html($post->ID , 'buddypress-polls'). '">';
-
 							if (sizeof($poll_answers) > 0) {
 								$i = 1;
 								foreach ($poll_answers as $index => $poll_answer) {
@@ -1001,9 +1000,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$iframe_audio_url[$index]      = isset($iframe_audio_url[$index]) ? $iframe_audio_url[$index] : array();
 										// HTML
 										$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
-
-										$result_output =  WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index], $number, $iframe_video_url[$index], $iframe_audio_url[$index]);
-										echo wp_kses_post($result_output);
+										// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+										echo WBPollHelper::wbpoll_answer_field_template($index, $poll_answer, $poll_colors[$index], $is_voted, $poll_answers_extra[$index], $poll_postid, $full_size_image[$index], $thumbnail_size_image[$index], $video_url[$index], $video_thumbnail_image[$index], $html_code[$index], $audio_url[$index], $audio_thumbnail_image[$index], $number, $iframe_video_url[$index], $iframe_audio_url[$index]);
 									}
 								}
 							}
@@ -1048,8 +1046,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 
 									// HTML
 									$html_code[$index] = isset($html_code[$index]) ? $html_code[$index] : array();
-
-									$result_output = WBPollHelper::wbpoll_answer_field_template(
+									// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+									echo WBPollHelper::wbpoll_answer_field_template(
 										intval($index) + $new_index,
 										$default_answers_titles[$index],
 										$default_answers_colors[$index],
@@ -1064,8 +1062,6 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										$audio_url[$index],
 										$audio_thumbnail_image[$index],
 									);
-
-									echo wp_kses_post($result_output);
 								}
 
 								$new_index = intval($index) + $new_index + 1;
@@ -1815,8 +1811,8 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						} else {
 							$output = '<p>' . esc_html__('No approved vote yet', 'buddypress-polls') . '</p>';
 						}
-
-						echo wp_kses_post($output);
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						echo $output;
 					} //end poll_display_methods_text_result()
 
 
@@ -1981,11 +1977,11 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 					}
 
 
-					public function wbpoll_log_delete(){
+					public function wbpoll_log_delete(){						
 						check_ajax_referer( 'bpolls_ajax_security', 'ajax_nonce' );						
 						global $wpdb;
 						$table_name = $wpdb->prefix . 'wppoll_log'; 
-						$logid = $_POST['log_id'];
+						$logid = isset($_POST['log_id']) ? $_POST['log_id'] : '';
 						$query = "DELETE FROM $table_name WHERE id = $logid";
 						$result = $wpdb->query($query);
 					}

@@ -12,7 +12,7 @@
 
 
 if (!empty($_GET['poll_id'])) {
-	$post_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : '';
+	$post_id = isset($_GET['poll_id']) ? sanitize_text_field(wp_unslash($_GET['poll_id'])) : '';
 	$post = get_post($post_id);
 
 	$poll_type = get_post_meta($post_id, 'poll_type', true);
@@ -625,8 +625,8 @@ if (isset($poll_type) && !empty($poll_type)) {
 											<legend class="screen-reader-text"><span><?php esc_html_e('input type="radio"', 'buddypress-polls'); ?></span></legend>
 											<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
 												<?php
-												if(isset($_GET['poll_id']) && $_GET['poll_id']){
-													$post_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : '';
+												if(isset($_GET['poll_id']) && $_GET['poll_id'] || sanitize_text_field(wp_unslash($_GET['poll_id']))){
+													$post_id = isset($_GET['poll_id']) ? sanitize_text_field(wp_unslash($_GET['poll_id'])) : '';
 													$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
 												}
 												
