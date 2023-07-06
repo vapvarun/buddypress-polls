@@ -863,7 +863,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						$poll_postid = $post->ID;
 						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						$poll_output = WBPollHelper::show_backend_single_poll_result($poll_postid, 'shortcode', 'text');
-						echo $poll_output;
+						echo wp_kses_post($poll_output);
 					} //end metabox_result_display()
 
 					/**
@@ -1146,7 +1146,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 										break;
 
 									case 'date':
-										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . $poll_postid . '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
+										echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_html($field['id'], 'buddypress-polls') . '" id="' .esc_html( $field['id'], 'buddypress-polls') . '-date-' . esc_html($poll_postid, 'buddypress-polls'). '" value="' .esc_html( $meta, 'buddypress-polls') . '" size="30" />
 								<span class="description">' . esc_html($field['desc'], 'buddypress-polls') . '</span>';
 										break;
 
@@ -1947,6 +1947,7 @@ if (!class_exists('Buddypress_Polls_Admin')) {
 						echo '<canvas id="' . esc_html($chart_id, 'buddypress-polls') . '"></canvas>';
 
 						// Output the JavaScript code to initialize the chart
+						// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						echo '<script>
 							var ctx = document.getElementById("' . esc_html($chart_id, 'buddypress-polls') . '").getContext("2d");
 							var chartData = ' . $chart_data_json . ';
