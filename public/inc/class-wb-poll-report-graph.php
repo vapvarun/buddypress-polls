@@ -33,11 +33,9 @@ class Wb_Poll_Report extends WP_Widget {
 		echo '<h4 class="widget-title"><span>' . esc_html__($instance['title'], 'buddypress-polls') . '</span></h4>';
 		if($instance['wb_poll_type'] == 'all_voted_poll'){
 			
-			$result_output = WBPollHelper::show_backend_single_poll_widget_result_all_voted( esc_html($poll_id), 'shortcode', 'text' );
-			echo wp_kses_post($result_output);
+			echo WBPollHelper::show_backend_single_poll_widget_result_all_voted( esc_html($poll_id), 'shortcode', 'text' );
 		}else{
-			$result_output = WBPollHelper::show_backend_single_poll_widget_result( esc_html($poll_id), 'shortcode', 'text' );
-			echo wp_kses_post($result_output);
+			echo WBPollHelper::show_backend_single_poll_widget_result( esc_html($poll_id), 'shortcode', 'text' );
 		}?>
 		<script>
 			jQuery(document).ready(function() {

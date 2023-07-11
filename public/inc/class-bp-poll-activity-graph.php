@@ -179,7 +179,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		echo esc_html($args['before_widget'], 'buddypress-polls');
+		echo $args['before_widget'];
 
 		esc_html($before_title, 'buddypress-polls' ) . esc_html__($title, 'buddypress-polls' ) . esc_html($after_title, 'buddypress-polls' );
 
@@ -229,7 +229,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		<?php } ?>
 		<?php
 	
-		echo esc_html($args['after_widget'], 'buddypress-polls');
+		echo $args['after_widget'];
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}

@@ -55,8 +55,8 @@ class WBPollHelper {
 				$_COOKIE[ BPOLLS_COOKIE_NAME ] = $cookie_value;
 
 			} elseif ( isset( $_COOKIE[ BPOLLS_COOKIE_NAME ] ) ) {
-				$cookies = sanitize_text_field(wp_unslash($_COOKIE[ BPOLLS_COOKIE_NAME ]));
-				if ( substr( $cookies, 0, 5 ) != 'guest' ) {
+
+				if ( substr( $_COOKIE[ BPOLLS_COOKIE_NAME ], 0, 5 ) != 'guest' ) {
 					setcookie(
 						BPOLLS_COOKIE_NAME,
 						$cookie_value,
@@ -80,10 +80,10 @@ class WBPollHelper {
 
 		if ( empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 
-			$ip_address = isset($_SERVER['REMOTE_ADDR']) ? sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])) : '';
+			$ip_address = $_SERVER['REMOTE_ADDR'];
 		} else {
 
-			$ip_address = isset($_SERVER['HTTP_X_FORWARDED_FOR']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])) : '';
+			$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
 		}
 
 		if ( strpos( $ip_address, ',' ) !== false ) {
@@ -102,7 +102,7 @@ class WBPollHelper {
 	 */
 	public static function get_useragent() {
 
-		$user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])) : '';
+		$user_agent = $_SERVER['HTTP_USER_AGENT'];
        return esc_html($user_agent, 'buddypress-polls');
 	}
 
@@ -1569,17 +1569,13 @@ class WBPollHelper {
 			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 		}
 		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
-		$poll_type = get_post_meta( $post_id, 'poll_type', true );
-			
-        if($poll_type == 'default' && $wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) || $add_additional_fields == 1){
-			
-				$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
-				if (isset($poll_type_backend['answercount'])) {
-					unset($poll_type_backend['answercount']);
-				}
-				$add_additional_counts = self::add_additional_allValuesSame($poll_type_backend);
-			
-			
+        if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) || $add_additional_fields == 1){
+			$poll_type = get_post_meta( $post_id, 'poll_type', true );
+			$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
+			 if (isset($poll_type_backend['answercount'])) {
+				unset($poll_type_backend['answercount']);
+			 }
+			$add_additional_counts = self::add_additional_allValuesSame($poll_type_backend);
     		
 			if(!empty($poll_type) && isset($poll_type) || !empty($add_additional_counts) && isset($add_additional_counts)){
 					if($poll_type == 'default' || $add_additional_counts == true){
@@ -1645,10 +1641,9 @@ class WBPollHelper {
 	}
 
 	public static function add_additional_allValuesSame($arr) {
-			if (isset($arr) && count($arr) === 0) {
-				return true; // Empty array is considered to have all values the same
-			}
-		
+		if (count($arr) === 0) {
+			return true; // Empty array is considered to have all values the same
+		}
 		$firstValue = isset($arr[0]) ? $arr[0] : array();
 		foreach ($arr as $value) {
 			if ($value !== $firstValue) {

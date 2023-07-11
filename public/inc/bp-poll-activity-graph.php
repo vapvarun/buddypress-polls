@@ -25,7 +25,7 @@ add_action(
 function bpolls_activity_graph_ajax() {
 	if ( isset( $_POST['action'] ) && 'bpolls_activity_graph_ajax' === $_POST['action'] ) {
 		check_ajax_referer( 'bpolls_widget_security', 'ajax_nonce' );
-		$activity_id      = ( isset( $_POST['actid'] ) ) ? sanitize_text_field(wp_unslash($_POST['_wbpoll_answer'])) : '';
+		$activity_id      = ( isset( $_POST['actid'] ) ) ? wp_unslash( $_POST['actid'] ) : '';
 		$args             = array( 'activity_ids' => $activity_id );
 		$activity_details = bp_activity_get_specific( $args );
 

@@ -12,7 +12,7 @@
 
 
 if (!empty($_GET['poll_id'])) {
-	$post_id = isset($_GET['poll_id']) ? sanitize_text_field(wp_unslash($_GET['poll_id'])) : '';
+	$post_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : '';
 	$post = get_post($post_id);
 
 	$poll_type = get_post_meta($post_id, 'poll_type', true);
@@ -104,13 +104,13 @@ if (isset($poll_type) && !empty($poll_type)) {
 	<div class="poll-create">
 		<?php if (is_user_logged_in()) { ?>
 			<form id="wbpolls-create" class="wbpolls-create">
-				<input type="hidden" name="author_id" id="author_id" value="<?php echo esc_html(get_current_user_id(), 'buddypress-polls'); ?>">
+				<input type="hidden" name="author_id" id="author_id" value="<?php echo get_current_user_id(); ?>">
 				<input type="hidden" name="poll_id" id="poll_id" value="<?php if (isset($post_id) && !empty($post_id)) {
-																			echo esc_html($post_id, 'buddypress-polls');
+																			echo $post_id;
 																		} ?>">
 				<div class="form-group">
 					<label for="polltitle"><?php esc_html_e('Poll Title', 'buddypress-polls'); ?></label>
-					<input type="text" class="form-control" name="title" id="polltitle" value="<?php if(!empty($_GET['poll_id'])){ echo esc_html($post->post_title,'buddypress-polls'); } ?>">
+					<input type="text" class="form-control" name="title" id="polltitle" value="<?php if(!empty($_GET['poll_id'])){ echo $post->post_title; } ?>">
 					<span id="error_title" style="color:red;"></span>
 				</div>
 				<div class="form-group">
@@ -157,7 +157,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 							<div class="ans-records text_records-edit">
 								<div class="ans-records-wrap">
 									<label>Text Answer</label>
-									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($options[0], 'buddypress-polls'); ?>">
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]; ?>">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]">
 								</div>
 								<a class="add-field extra-fields-text-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
@@ -170,7 +170,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 										<div class="remove remove2">
 											<div class="ans-records-wrap">
 												<label>Text Answer</label>
-												<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($optn, 'buddypress-polls'); ?>">
+												<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $optn; ?>">
 												<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]">
 											</div>
 											<a class="add-field extra-fields-text-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
@@ -188,16 +188,16 @@ if (isset($poll_type) && !empty($poll_type)) {
 								<div class="ans-records-wrap">
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail">
-											<img width="266" height="266" src="<?php echo esc_html($options[0]['image'], 'buddypress-polls'); ?>">
+											<img width="266" height="266" src="<?php echo $options[0]['image']; ?>">
 										</div>
 
 									</div>
 									<div class="wbpoll-image-input-details">
 										<label>Image Answer</label>
-										<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo esc_html($options[0]['ans'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo $options[0]['ans']; ?>">
 										<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 										<label>Image URL</label>
-										<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url" type="url" value="<?php echo esc_html($options[0]['image'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url" type="url" value="<?php echo $options[0]['image']; ?>">
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 									</div>
 								</div>
@@ -210,14 +210,14 @@ if (isset($poll_type) && !empty($poll_type)) {
 										<div class="remove remove<?php echo count($options); ?>">
 											<div class="ans-records-wrap">
 												<div class="wbpoll-image-input-preview">
-													<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail"><img width="266" height="266" src="<?php echo esc_html($optn['image'], 'buddypress-polls'); ?>"></div>
+													<div class="wbpoll-image-input-preview-thumbnail" id="wbpoll-image-input-preview-thumbnail"><img width="266" height="266" src="<?php echo $optn['image']; ?>"></div>
 												</div>
 												<div class="wbpoll-image-input-details">
 													<label>Image Answer</label>
-													<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo esc_html($optn['ans'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo $optn['ans']; ?>">
 													<input type="hidden" id="wbpoll_answer_extra_type" value="image" name="_wbpoll_answer_extra[][type]">
 													<label>Image URL</label>
-													<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url" type="url" value="<?php echo esc_html($optn['image'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_full_size_image_answer[]" class="wbpoll_image_answer_url" id="wbpoll_image_answer_url" type="url" value="<?php echo $optn['image']; ?>">
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
 												</div>
 											</div>
@@ -238,18 +238,18 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail">
 											<?php if ($options[0]['suggestion'] == 'yes') { ?>
-												<iframe width="420" height="345" src="<?php echo esc_html($options[0]['video'], 'buddypress-polls'); ?>"></iframe>
+												<iframe width="420" height="345" src="<?php echo $options[0]['video']; ?>"></iframe>
 											<?php } else { ?>
-												<video src="<?php echo esc_html($options[0]['video'], 'buddypress-polls'); ?>" controls="" poster="" preload="none"></video>
+												<video src="<?php echo $options[0]['video']; ?>" controls="" poster="" preload="none"></video>
 											<?php } ?>
 										</div>
 									</div>
 									<div class="wbpoll-image-input-details">
 										<label>Video Answer</label>
-										<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo esc_html($options[0]['ans'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo $options[0]['ans']; ?>">
 										<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 										<label>Video URL</label>
-										<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url" type="url" value="<?php echo esc_html($options[0]['video'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url" type="url" value="<?php echo $options[0]['video']; ?>">
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 										<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 											<span>Import information from ?</span>
@@ -275,18 +275,18 @@ if (isset($poll_type) && !empty($poll_type)) {
 												<div class="wbpoll-image-input-preview">
 													<div class="wbpoll-image-input-preview-thumbnail">
 														<?php if ($optn['suggestion'] == 'yes') { ?>
-															<iframe width="420" height="345" src="<?php echo esc_html($optn['video'], 'buddypress-polls'); ?>"></iframe>
+															<iframe width="420" height="345" src="<?php echo $optn['video']; ?>"></iframe>
 														<?php } else { ?>
-															<video src="<?php echo esc_html($optn['video'], 'buddypress-polls'); ?>" controls="" poster="" preload="none"></video>
+															<video src="<?php echo $optn['video']; ?>" controls="" poster="" preload="none"></video>
 														<?php } ?>
 													</div>
 												</div>
 												<div class="wbpoll-image-input-details">
 													<label>Video Answer</label>
-													<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo esc_html($optn['ans'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_answer[]" id="wbpoll_answer" type="text" class="wbpoll_answer" value="<?php echo $optn['ans']; ?>">
 													<input type="hidden" id="wbpoll_answer_extra_type" value="video" name="_wbpoll_answer_extra[][type]">
 													<label>Video URL</label>
-													<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url" type="url" value="<?php echo esc_html($optn['video'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_video_answer_url[]" id="wbpoll_video_answer_url" class="wbpoll_video_answer_url" type="url" value="<?php echo $optn['video']; ?>">
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 														<span>Import information from ?</span>
@@ -318,18 +318,18 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail">
 											<?php if ($options[0]['suggestion'] == 'yes') { ?>
-												<iframe width="420" height="345" src="<?php echo esc_html($options[0]['audio'], 'buddypress-polls'); ?>"></iframe>
+												<iframe width="420" height="345" src="<?php echo $options[0]['audio']; ?>"></iframe>
 											<?php } else { ?>
-												<audio src="<?php echo esc_html($options[0]['audio'], 'buddypress-polls'); ?>" controls="" preload="none"></audio>
+												<audio src="<?php echo $options[0]['audio']; ?>" controls="" preload="none"></audio>
 											<?php } ?>
 										</div>
 									</div>
 									<div class="wbpoll-image-input-details">
 										<label>Audio Answer</label>
-										<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($options[0]['ans'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]['ans']; ?>">
 										<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 										<label>Audio URL</label>
-										<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo esc_html($options[0]['audio'], 'buddypress-polls'); ?>">
+										<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo $options[0]['audio']; ?>">
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 										<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
 											<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes" <?php if ($options[0]['suggestion'] == 'yes') {
@@ -354,18 +354,18 @@ if (isset($poll_type) && !empty($poll_type)) {
 												<div class="wbpoll-image-input-preview">
 													<div class="wbpoll-image-input-preview-thumbnail">
 														<?php if ($optn['suggestion'] == 'yes') { ?>
-															<iframe width="420" height="345" src="<?php echo esc_html($optn['audio'], 'buddypress-polls'); ?>"></iframe>
+															<iframe width="420" height="345" src="<?php echo $optn['audio']; ?>"></iframe>
 														<?php } else { ?>
-															<audio src="<?php echo esc_html($optn['audio'], 'buddypress-polls'); ?>" controls="" preload="none"></audio>
+															<audio src="<?php echo $optn['audio']; ?>" controls="" preload="none"></audio>
 														<?php } ?>
 													</div>
 												</div>
 												<div class="wbpoll-image-input-details">
 													<label>Audio Answer</label>
-													<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($optn['ans'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $optn['ans']; ?>">
 													<input type="hidden" id="wbpoll_answer_extra_type" value="audio" name="_wbpoll_answer_extra[][type]">
 													<label>Audio URL</label>
-													<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo esc_html($optn['audio'], 'buddypress-polls'); ?>">
+													<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo $optn['audio']; ?>">
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span>Import information from ?</span>
 														<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes" <?php if ($optn['suggestion'] == 'yes') {
@@ -394,9 +394,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 							<div class="ans-records html_records_edit">
 								<div class="ans-records-wrap">
 									<label>HTML Answer</label>
-									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($options[0]['ans'], 'buddypress-polls'); ?>">
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]['ans']; ?>">
 									<label>HTML Content</label>
-									<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo esc_html($options[0]['html'], 'buddypress-polls'); ?></textarea>
+									<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $options[0]['html']; ?></textarea>
 									<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 								</div>
 								<a class="add-field extra-fields-html-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
@@ -408,9 +408,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 										<div class="remove remove1">
 											<div class="ans-records-wrap">
 												<label>HTML Answer</label>
-												<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_html($optn['ans'], 'buddypress-polls'); ?>">
+												<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $optn['ans']; ?>">
 												<label>HTML Content</label>
-												<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo esc_html($optn['html'], 'buddypress-polls'); ?></textarea>
+												<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $optn['html']; ?></textarea>
 												<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 											</div>
 											<a class="add-field extra-fields-html-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
@@ -541,9 +541,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 							<tr>
 								<th><label for="_wbpoll_start_date"><?php esc_html_e('Start Date', 'buddypress-polls'); ?></label></th>
 								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php if (!empty($start_time)) {
-																																								echo esc_html($start_time, 'buddypress-polls');
+																																								echo $start_time;
 																																							} else {
-																																								echo esc_html(current_time('Y-m-d H:i:s'), 'buddypress-polls');
+																																								echo current_time('Y-m-d H:i:s');
 																																							}  ?>" size="30">
 									<span class="description"><?php esc_html_e('Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls'); ?></span>
 								</td>
@@ -555,9 +555,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 								?>
 								<th><label for="_wbpoll_end_date"><?php esc_html_e('End Date', 'buddypress-polls'); ?></label></th>
 								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php if (!empty($end_date)) {
-																																							echo esc_html($end_date, 'buddypress-polls');
+																																							echo $end_date;
 																																						} else {
-																																							echo esc_html($nextSevenDays, 'buddypress-polls');
+																																							echo $nextSevenDays;
 																																						} ?>" size="30">
 									<span class="description"><?php esc_html_e('Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls'); ?></span>
 								</td>
@@ -625,11 +625,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 											<legend class="screen-reader-text"><span><?php esc_html_e('input type="radio"', 'buddypress-polls'); ?></span></legend>
 											<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
 												<?php
-												if(isset($_GET['poll_id']) && $_GET['poll_id'] || sanitize_text_field(wp_unslash($_GET['poll_id']))){
-													$post_id = isset($_GET['poll_id']) ? sanitize_text_field(wp_unslash($_GET['poll_id'])) : '';
-													$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
-												}
-												
+												$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
 												if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) || $add_additional_fields == 1){
 												?>
 												<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="1" checked>
@@ -640,6 +636,7 @@ if (isset($poll_type) && !empty($poll_type)) {
 											</label>
 											<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
 											<?php
+												$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
 												if($wbpolls_user_add_extra_op == 'no' && !empty($add_additional_fields) || $add_additional_fields == 0){
 												?>
 												<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="0" checked>
