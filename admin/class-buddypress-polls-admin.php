@@ -95,6 +95,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
 
+			/**
+			 * Call wbpoll admin css.
+			 */
+			wp_enqueue_style( 'wbpoll-admin', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin.css', array(), $this->version, 'all' );
+
 		}
 
 		/**
@@ -182,12 +187,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<div class="wbcom-wrap buddyPress-polls-header">					
 				<div class="blpro-header">
 					<div class="wbcom_admin_header-wrapper">
-			            <div id="wb_admin_plugin_name">
+						<div id="wb_admin_plugin_name">
 							<?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?>
 							<span><?php printf( __( 'Version %s', 'buddypress-polls' ), BPOLLS_PLUGIN_VERSION ); ?></span>
 						</div>
-			            <?php echo do_shortcode('[wbcom_admin_setting_header]'); ?>
-			        </div>
+						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
+					</div>
 				</div>
 				<div class="wbcom-admin-settings-page">
 			<?php
