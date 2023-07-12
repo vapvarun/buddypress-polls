@@ -124,7 +124,7 @@ function run_buddypress_polls() {
 
 }
 
-add_action( 'bp_include', 'bpolls_plugin_init' );
+//add_action( 'bp_include', 'bpolls_plugin_init' );
 /**
  * Check plugin requirement on plugins loaded
  * this plugin requires BuddyPress to be installed and active
@@ -135,6 +135,7 @@ function bpolls_plugin_init() {
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'bpolls_plugin_links' );
 	}
 }
+bpolls_plugin_init();
 /**
  * Function to check configurations.
  */
@@ -146,14 +147,14 @@ function bp_polls_check_config() {
 		'network_active' => false,
 		'network_status' => true,
 	);
-	if ( get_current_blog_id() == bp_get_root_blog_id() ) {
+	if ( function_exists( 'bp_get_root_blog_id' ) && get_current_blog_id() == bp_get_root_blog_id() ) {
 		$config['blog_status'] = true;
 	}
 
 	$network_plugins = get_site_option( 'active_sitewide_plugins', array() );
 
 	// No Network plugins.
-	if ( empty( $network_plugins ) ) {
+	if ( class_exists('Buddypress') && empty( $network_plugins ) ) {
 
 		// Looking for BuddyPress and bp-activity plugin.
 		$check[] = $bp->basename;
@@ -174,7 +175,7 @@ function bp_polls_check_config() {
 	$config['network_active'] = isset( $network_plugins[ BPOLLS_PLUGIN_BASENAME ] );
 
 	// if BuddyPress config is different than bp-activity plugin.
-	if ( ! $config['blog_status'] || ! $config['network_status'] ) {
+	if ( class_exists('Buddypress') && ( ! $config['blog_status'] || ! $config['network_status'] ) ) {
 
 		$warnings = array();
 		if ( ! bp_core_do_network_admin() && ! $config['blog_status'] ) {
@@ -226,39 +227,7 @@ function bpolls_plugin_links( $links ) {
 	return array_merge( $links, $bpolls_links );
 }
 
-/**
- *  Check if buddypress activate.
- */
-function bpolls_requires_buddypress() {
-	if ( ! class_exists( 'Buddypress' ) ) {
-		deactivate_plugins( plugin_basename( __FILE__ ) );
-		add_action( 'admin_notices', 'bpolls_required_plugin_admin_notice' );
-		if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-			$activate = filter_input( INPUT_GET, 'activate' );
-			unset( $activate );
-		}
-	}
-}
-add_action( 'admin_init', 'bpolls_requires_buddypress' );
 
-/**
- * Throw an Alert to tell the Admin why it didn't activate.
- *
- * @author wbcomdesigns
- * @since  2.5.0
- */
-function bpolls_required_plugin_admin_notice() {
-	$bpquotes_plugin = esc_html__( 'BuddyPress Polls', 'buddypress-polls' );
-	$bp_plugin       = esc_html__( 'BuddyPress', 'buddypress-polls' );
-	echo '<div class="error"><p>';
-	/* translators: %s: */
-	echo sprintf( esc_html__( '%1$s is ineffective now as it requires %2$s to be installed and active.', 'buddypress-polls' ), '<strong>' . esc_html( $bpquotes_plugin ) . '</strong>', '<strong>' . esc_html( $bp_plugin ) . '</strong>' );
-	echo '</p></div>';
-	if ( null !== filter_input( INPUT_GET, 'activate' ) ) {
-		$activate = filter_input( INPUT_GET, 'activate' );
-		unset( $activate );
-	}
-}
 add_action( 'admin_init', 'buddypress_polls_migration', 20 );
 
 /**
@@ -325,7 +294,7 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 	if ( ! isset( $plugins ) ) {
 		return;
 	}
-	if ( plugin_basename( __FILE__ ) === $plugin && class_exists( 'Buddypress' ) ) {
+	if ( plugin_basename( __FILE__ ) === $plugin ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action']  == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin) {
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
 			exit;

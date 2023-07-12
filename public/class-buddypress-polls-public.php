@@ -94,7 +94,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( is_buddypress()
+		if ( function_exists('is_buddypress') && is_buddypress()
 			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
@@ -169,7 +169,7 @@ class Buddypress_Polls_Public {
 				'reign_polls'        => $body_polls_class,
 				'rt_poll_fix'        => $rt_poll_fix,
 				'nouveau'            => $nouveau,
-				'buddyboss'          => buddypress()->buddyboss,
+				'buddyboss'          => ( class_exists('buddypress'))? buddypress()->buddyboss : '' ,
 				'polls_option_lmit'  => ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5,
 				'poll_limit_voters'  => ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? $bpolls_settings['poll_limit_voters'] : 3,
 				/* translators: %d: Polls Max Options */
@@ -194,7 +194,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( is_buddypress()
+		if ( function_exists( 'is_buddypress' ) && is_buddypress()
 				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )

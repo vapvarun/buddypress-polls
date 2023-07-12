@@ -195,14 +195,16 @@ global $wp_roles;
 			</div>
 			<div class="wbcom-settings-section-options">
 				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='no' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'no' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'No Limit', 'buddypress-polls' ); ?>
+					<input name='bpolls_settings[limit_poll_activity]' type='radio' value='no' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'no' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'No Limit', 'buddypress-polls' ); ?>
 				</label>
 				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='user_role' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'user_role' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'Limit by User Role', 'buddypress-polls' ); ?>
+					<input name='bpolls_settings[limit_poll_activity]' type='radio' value='user_role' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'user_role' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'Limit by User Role', 'buddypress-polls' ); ?>
 				</label>
-				<label>
-				<input name='bpolls_settings[limit_poll_activity]' type='radio' value='member_type' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'member_type' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>
-				</label>				
+				<?php if ( function_exists('bp_get_member_types') ):?>
+					<label>
+					<input name='bpolls_settings[limit_poll_activity]' type='radio' value='member_type' <?php ( isset( $bpolls_settings['limit_poll_activity'] ) ) ? checked( $bpolls_settings['limit_poll_activity'], 'member_type' ) : ''; ?>/>&nbsp; <?php esc_html_e( 'Limit by Member Type', 'buddypress-polls' ); ?>
+					</label>				
+				<?php endif;?>
 			</div>
 		</div>
 
@@ -230,7 +232,7 @@ global $wp_roles;
 			</div>		
 		</div>
 		<?php
-		$types = bp_get_member_types( array(), 'objects' );
+		$types = (function_exists('bp_get_member_types'))? bp_get_member_types( array(), 'objects' ): [];
 		if ( $types ) {
 			?>
 		<div class="wbcom-settings-section-wrap" id="bpolls_member_type" 
