@@ -177,6 +177,29 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
+			
+			// init cookie and custom post types
+			
+			$this->loader->add_action('wp_before_admin_bar_render', $plugin_admin, 'change_admin_bar_edit_text');
+			$this->loader->add_filter('enter_title_here', $plugin_admin, 'change_post_title_placeholder');
+			$this->loader->add_action( 'init', $plugin_admin, 'init_wbpoll_type' );
+			
+			$this->loader->add_filter( 'manage_posts_columns', $plugin_admin, 'add_new_poll_columns' );
+			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );
+			$this->loader->add_filter( 'manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort' );
+
+			//adding shortcode
+			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
+			//$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
+			//$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
+			//$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
+
+			// add meta box and hook save meta box
+			$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'bpolls_metaboxes_display' );
+			$this->loader->add_action( 'save_post', $plugin_admin, 'bppolls_metabox_save' );
+			$this->loader->add_action( 'wp_ajax_wbpoll_get_answer_template', $plugin_admin, 'bpolls_get_answer_template' );
+			$this->loader->add_action( 'publish_wbpoll', $plugin_admin, 'bpolls_send_admin_email_on_post_publish' );
+			$this->loader->add_action( 'wp_ajax_wbpoll_log_delete', $plugin_admin, 'wbpolls_log_delete' );
 		}
 
 		/**
