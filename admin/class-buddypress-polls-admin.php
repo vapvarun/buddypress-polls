@@ -244,11 +244,24 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				</div>
 				<div class="wbcom-admin-settings-page">
 			<?php
-			$bpolls_tabs = array(
-				'welcome' => __( 'Welcome', 'buddypress-polls' ),
-				'general' => __( 'General', 'buddypress-polls' ),
-				'support' => __( 'Support', 'buddypress-polls' ),
-			);
+			if ( class_exists( 'Buddypress' ) ) {
+				$bpolls_tabs = array(
+					'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
+					'general'        => esc_html__('Community', 'buddypress-polls'),
+					'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+					'notifications' => esc_html__('Email Notifications', 'buddypress-polls'),
+					'email_notification_settings' => esc_html__('Email Notification Text', 'buddypress-polls'),
+					'support'        => esc_html__('Support', 'buddypress-polls'),
+				);
+			}else{
+				$bpolls_tabs = array(
+					'welcome'        => esc_html__('Welcome', 'buddypress-polls'),
+					'wbpoll_setting' => esc_html__('WB Polls Settings', 'buddypress-polls'),
+					'notifications' => esc_html__('Email Notifications', 'buddypress-polls'),
+					'email_notification_settings' => esc_html__('Email Notification Text', 'buddypress-polls'),
+					'support'        => esc_html__('Support', 'buddypress-polls'),
+				);
+			}
 
 			$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 			foreach ( $bpolls_tabs as $bpolls_tab => $bpolls_name ) {
