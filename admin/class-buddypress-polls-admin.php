@@ -1078,6 +1078,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							break;
 
 						case 'multiselect':
+							echo '<div class="wbpoll-multiselect-wrapper">';
 							echo '<select name="' . $field['id'] . '[]" id="' . $field['id'] . '-chosen-' . $poll_postid . '" class="selecttwo-select" multiple="multiple">';
 							if (isset($field['optgroup']) && intval($field['optgroup'])) {
 
@@ -1101,6 +1102,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							}
 
 							echo '</select><span class="description">' . $field['desc'] . '</span>';
+							echo '<div>';
 							break;
 
 						case 'select':
@@ -1137,7 +1139,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						case 'checkbox':
 							echo '<input type="checkbox" name="' . $field['id'] . '" id="' . $field['id'] . '-checkbox-' . $poll_postid . '" class="cb-checkbox checkbox-' . $poll_postid . '" ', $meta ? ' checked="checked"' : '', '/>
-				<span for="' . $field['id'] . '">' . $field['desc'] . '</span>';
+							<span for="' . $field['id'] . '">' . $field['desc'] . '</span>';
 							break;
 						case 'checkbox_group':
 							if ($meta == '') {
@@ -1152,7 +1154,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									$option['value'],
 									$meta
 								) ? ' checked="checked"' : '', ' />
-					<label for="' . $option['value'] . '">' . $option['label'] . '</label><br/>';
+								<label for="' . $option['value'] . '">' . $option['label'] . '</label><br/>';
 							}
 
 							echo '<span class="description">' . $field['desc'] . '</span>';
