@@ -428,43 +428,42 @@
 				if ($busy === 0) {
 					$answer_add_wrap.data( 'busy', 1 );
 
-					$.ajax(
-						{
-							type: 'post',
-							dataType: 'json',
-							url: wbpolladminsingleObj.ajaxurl,
-							data: {
-								action: 'wbpoll_get_answer_template',
-								answer_counter: $index,
-								answer_color: answer_color,
-								is_voted: 0,
-								poll_postid: $post_id,
-								answer_type: $type,
-								security: wbpolladminsingleObj.nonce
-							},
-							success: function (data, textStatus, XMLHttpRequest) {
-								$( '#wb_poll_answers_items' ).append( data );
-								$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
-								//$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
+					$.ajax({
+						type: 'post',
+						dataType: 'json',
+						url: wbpolladminsingleObj.ajaxurl,
+						data: {
+							action: 'wbpoll_get_answer_template',
+							answer_counter: $index,
+							answer_color: answer_color,
+							is_voted: 0,
+							poll_postid: $post_id,
+							answer_type: $type,
+							security: wbpolladminsingleObj.nonce
+						},
+						success: function (data, textStatus, XMLHttpRequest) {
+							$( '#wb_poll_answers_items' ).append( data );
+							$('.wbpoll-containable-list-item-toolbar.toolbar-'+$index).addClass('active');
+							//$answer_wrap.find( '.wbpoll_answer_color' ).last().wpColorPicker( colorOptions );
 
-								wp.wbpolljshooks.doAction( 'wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $ );
+							wp.wbpolljshooks.doAction( 'wbpoll_new_answer_template_render', $index, $type, answer_color, $post_id, $ );
 
-								$index++;
-								//$answer_add_wrap.data('answercount', $index);
-								$( '#wbpoll_answer_extra_answercount' ).val( $index );
-								$answer_add_wrap.data( 'busy', 0 );
-
-								$('textarea.tiny').tinymce({
-									menubar: false,
-									max_height: 500,
-									max_width: 800,
-									min_height: 200,
-									min_width: 800,
-									toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
-								});
-							}
-							}
-					);
+							$index++;
+							//$answer_add_wrap.data('answercount', $index);
+							$( '#wbpoll_answer_extra_answercount' ).val( $index );
+							$answer_add_wrap.data( 'busy', 0 );
+							
+							tinymce.init({
+								selector: 'textarea.tiny',
+								menubar: false,
+								max_height: 500,
+								max_width: 800,
+								min_height: 200,
+								min_width: 800,
+								toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+							});
+						}
+					});
 				}
 
 			}
