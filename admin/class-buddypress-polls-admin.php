@@ -212,6 +212,15 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				add_submenu_page( 'wbcomplugins', esc_html__( 'General', 'buddypress-polls' ), esc_html__( 'General', 'buddypress-polls' ), 'manage_options', 'wbcomplugins' );
 			}
 			add_submenu_page( 'wbcomplugins', esc_html__( 'Buddypress Polls Settings Page', 'buddypress-polls' ), esc_html__( 'BuddyPress Polls', 'buddypress-polls' ), 'manage_options', 'buddypress-polls', array( $this, 'bpolls_buddypress_polls_settings_page' ) );
+			
+			add_submenu_page(
+				'edit.php?post_type=wbpoll', // Parent menu slug (edit.php?post_type=custom_post_type)
+				esc_html__('Logs', 'buddypress-polls'),  // Page title
+				esc_html__('Logs', 'buddypress-polls'),   // Menu title
+				'manage_options',   // Capability required to access the submenu
+				'wbpoll_logs',
+				array($this, 'wbpoll_logs_page_callback'),
+			);
 
 		}
 
@@ -1438,8 +1447,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$content         =  isset($option_value['member']['notification_content']) ? self::bpmbp_get_notification_content( $option_value['member']['notification_content'], $post_id, $author_id ) : '';
 					
 					// Send the email to the poll author
-					wp_mail($author_email, $subject, $content, $headers);
-					
+					wp_mail($author_email, $subject, $content, $headers);					
 				}
 			}
 		}
@@ -1482,6 +1490,133 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$logid = $_POST['log_id'];
 			$query = "DELETE FROM $table_name WHERE id = $logid";
 			$result = $wpdb->query($query);
+		}
+		
+		public function wbpoll_logs_page_callback() {
+			// Code to display the "Log" submenu page content
+			global $wpdb;
+			$polls_logs_results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}wppoll_log order by created desc" );
+			?>
+			<h2><?php esc_html__( 'WB Poll Logs', 'buddypress-polls' ); ?></h2>
+			<table class="wbpolls-log-table widefat fixed striped posts">
+				<thead>
+					<tr>
+						<th><strong><?php echo esc_html__('Status', 'buddypress-polls'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Poll', 'buddypress-polls'); ?></strong></th>
+						<th><strong><?php echo esc_html__('User Name', 'buddypress-polls'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Date', 'buddypress-polls'); ?></strong></th>
+						<th><strong><?php echo esc_html__('Action', 'buddypress-polls'); ?></strong></th>
+					</tr>
+				</thead>				
+				<tbody>
+				<?php 
+				if ( ! empty( $polls_logs_results ) ) {	
+					foreach($polls_logs_results as $log){
+					?>
+					<tr>
+						<td class="log-status"><?php echo esc_html__($log->poll_status, 'buddypress-polls'); ?></td>
+						<td class="log-title"><?php echo esc_html__(get_the_title($log->poll_id), 'buddypress-polls'); ?></td>
+						<td class="log-user"><?php echo esc_html__($log->user_name, 'buddypress-polls'); ?></td>
+						<td class="log-data"><?php echo esc_html(date_i18n("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></td>
+						<td class="log-action"><button class="button button-small action open_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Open', 'buddypress-polls'); ?></button><button class="button button-small action delete_log" data-id="<?php echo $log->id; ?>"><?php echo esc_html__('Delete', 'buddypress-polls'); ?></button></td>
+					</tr>
+					<div class="wbpolls-log-modal opendetails-<?php echo $log->id; ?> openmodal" style="display:none;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h2><?php echo esc_html__( 'Log', 'buddypress-polls' ); ?></h2>
+								<span class="close"><?php echo esc_html__( 'close', 'buddypress-polls' ); ?></span>
+							</div>
+							<div class="modal-body">
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('Poll:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html__(get_the_title($log->poll_id), 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('Received choices:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<?php
+										$poll_id = $log->poll_id;
+										$user_answer_t = maybe_unserialize($log->details);
+										$poll_answers      = get_post_meta( $poll_id, '_wbpoll_answer', true );
+										foreach($user_answer_t as $ans){
+											if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
+												$poll_ans_id    = $ans;
+												$poll_ans_title = $poll_answers[ $poll_ans_id ];
+											} else {
+												$poll_ans_title = '';
+											}?>
+											<span><?php echo $poll_ans_title; ?></span>
+										<?php } ?>												
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('IP:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->user_ip, 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('Date:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html(date_i18n("Y-m-d H:i:s", $log->created), 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('Browser:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html__($log->useragent, 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('User Id:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->user_id, 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('User Login:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html($log->is_logged_in, 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+								<div class="modal-body-group">
+									<div class="modal-body-group-content left">
+										<strong><?php echo esc_html__('User Name:', 'buddypress-polls'); ?></strong>
+									</div>
+									<div class="modal-body-group-content right">
+										<span><?php echo esc_html__($log->user_name, 'buddypress-polls'); ?></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				<?php }
+				
+				}else{ ?>
+					<tr>
+						<td colspan="5"><?php echo esc_html__('Logs Not Found', 'buddypress-polls'); ?></td>
+					</tr><?php
+				}
+				?>
+				</tbody>
+			</table>
+			<?php
 		}
 
 	}
