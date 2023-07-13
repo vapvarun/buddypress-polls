@@ -18,7 +18,9 @@
 			// Remove temporary element
 			document.body.removeChild( el );
 		}
-		setTimeout(function() { document.getElementById("preloader").style.display = "none"; }, 3500);
+		if ( $('#preloader').length == 1) {
+			setTimeout(function() { document.getElementById("preloader").style.display = "none"; }, 3500);
+		}
 
 		$( '.selecttwo-select' ).select2(
 			{
