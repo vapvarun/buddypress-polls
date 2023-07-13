@@ -90,10 +90,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
 			}
-
+			wp_enqueue_style( 'select2', plugin_dir_url( __FILE__ ) . 'css/select2.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'wbpoll-ui-styles', plugin_dir_url( __FILE__ ) . 'css/ui-lightness/jquery-ui.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'wbpoll-ui-styles-timepicker', plugin_dir_url( __FILE__ ) . 'css/jquery-ui-timepicker-addon.min.css', array(), $this->version, 'all' );
 			/**
 			 * Call wbpoll admin css.
-			 */
+			 */			 
 			wp_enqueue_style( 'wbpoll-admin', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin.css', array(), $this->version, 'all' );
 
 		}
@@ -142,6 +144,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 			
 			
+			wp_register_script( 'select2', plugin_dir_url( __FILE__ )  . 'js/select2.min.js', array(), $this->version, false );
+			wp_register_script( 'wbpoll-jseventManager', plugin_dir_url( __FILE__ ) . 'js/wbpolljsactionandfilter.js', array(), $this->version, false );
+			wp_register_script( 'wbpoll-ui-time-script', plugin_dir_url( __FILE__ ) . 'js/jquery-ui-timepicker-addon.js', array(), $this->version, false );
+			wp_register_script( 'wbpoll-plyjs', plugin_dir_url( __FILE__ ) . 'js/ply.min.js', array(), $this->version, false );
+			wp_register_script( 'wbpoll-switcheryjs', plugin_dir_url( __FILE__ ) . 'js/switchery.min.js', array(), $this->version, false );
+			
 			// admin poll single edit
 			wp_enqueue_script(
 				'wbpolladminsingle',
@@ -152,11 +160,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'jquery-ui-core',
 					'jquery-ui-datepicker',
 					'jquery-ui-sortable',
-					//'select2',
-					//'wbpoll-jseventManager',
-					//'wbpoll-ui-time-script',
-					//'wbpoll-plyjs',
-					//'wbpoll-switcheryjs',
+					'select2',
+					'wp-tinymce',
+					'wbpoll-jseventManager',
+					'wbpoll-ui-time-script',
+					'wbpoll-plyjs',
+					'wbpoll-switcheryjs',
 				),
 				$this->version,
 				false
