@@ -9,12 +9,24 @@
     color: #000;
 }
 
-.nav-tab-wrapper ul li.Support a.nav-tab:before {
+.nav-tab-wrapper ul li.support a.nav-tab:before {
     content: "\f125";
 }
 
-.nav-tab-wrapper ul li.General a.nav-tab:before {
+.nav-tab-wrapper ul li.general a.nav-tab:before {
     content: "\f111";
+}
+
+.nav-tab-wrapper ul li.wbpoll_setting a.nav-tab:before {
+    content: "\f185";
+}
+
+.nav-tab-wrapper ul li.notifications a.nav-tab:before {
+    content: "\f16d";
+}
+
+.nav-tab-wrapper ul li.email_notification_settings a.nav-tab:before {
+    content: "\f466";
 }
 
 .wb-plugins-license-tables-wrap {
@@ -27,7 +39,7 @@
     padding: 0px 10px !important;
 }
 
-.wbcom-admin-option-wrap{
+.wbcom-admin-option-wrap {
     overflow: inherit;
 }
 
@@ -35,6 +47,7 @@
     height: auto;
     border-radius: 5px;
 }
+
 
 /*----------  General tab design  ----------*/
 @media screen and (max-width: 782px) {

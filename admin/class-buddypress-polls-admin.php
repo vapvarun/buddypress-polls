@@ -272,10 +272,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				);
 			}
 
-			$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html( 'Menu' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
+			$tab_html = '<div class="wbcom-tabs-section"><div class="nav-tab-wrapper"><div class="wb-responsive-menu"><span>' . esc_html__( 'Menu', 'buddypress-polls' ) . '</span><input class="wb-toggle-btn" type="checkbox" id="wb-toggle-btn"><label class="wb-toggle-icon" for="wb-toggle-btn"><span class="wb-icon-bars"></span></label></div><ul>';
 			foreach ( $bpolls_tabs as $bpolls_tab => $bpolls_name ) {
 				$class     = ( $bpolls_tab == $current ) ? 'nav-tab-active' : '';
-				$tab_html .= '<li class="' . $bpolls_name . '"><a class="nav-tab ' . $class . '" href="admin.php?page=buddypress-polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a></li>';
+				$tab_html .= '<li class="' . $bpolls_tab . '"><a class="nav-tab ' . $class . '" href="admin.php?page=buddypress-polls&tab=' . $bpolls_tab . '">' . $bpolls_name . '</a></li>';
 			}
 			$tab_html .= '</div></ul></div>';
 			echo wp_kses_post( $tab_html );
