@@ -1330,12 +1330,39 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				delete_post_meta($post_id, $prefix . 'html_answer');
 			}
 
-			$this->metabox_extra_save($post_id);
+			$this->bpolls_metabox_extra_save($post_id);
 
 			//$this->send_admin_email_on_post_publish($post_id);
 			
 			update_option( 'permalink_structure', '/%postname%/' );
 		} //end metabox_save()
+		
+		public function bpolls_metabox_extra_save($post_id){
+			// global $post_meta_fields;
+			$post_meta_fields = WBPollHelper::get_meta_fields();
+
+			$prefix = '_wbpoll_';
+
+			$cb_date_array = array();
+			foreach ($post_meta_fields as $field) {
+
+				$old = get_post_meta($post_id, $field['id'], true);
+				$new = $_POST[$field['id']];
+
+				if (($prefix . 'start_date' == $field['id'] && $new == '') || ($prefix . 'end_date' == $field['id'] && $new == '')) {
+
+					$cbpollerror = '<div class="notice notice-error inline"><p>' . esc_html__(
+						'Error:: Start or End date any one empty',
+						'buddypress-polls'
+					) . '</p></div>';
+
+					return false; // might stop processing here
+				} else {
+
+					update_post_meta($post_id, $field['id'], $new);
+				}
+			}
+		}
 		
 		/**
 		 * Get Text answer templte
