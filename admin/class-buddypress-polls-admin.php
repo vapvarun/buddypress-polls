@@ -1347,7 +1347,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			foreach ($post_meta_fields as $field) {
 
 				$old = get_post_meta($post_id, $field['id'], true);
-				$new = $_POST[$field['id']];
+				$new = ( isset($_POST[$field['id']]))? $_POST[$field['id']] : '';
 
 				if (($prefix . 'start_date' == $field['id'] && $new == '') || ($prefix . 'end_date' == $field['id'] && $new == '')) {
 
