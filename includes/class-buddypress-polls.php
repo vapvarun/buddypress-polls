@@ -170,29 +170,28 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 			$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
-			
-			
-			$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );			
+
+			$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
 			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
-			
+
 			// init cookie and custom post types
-			
-			$this->loader->add_action('wp_before_admin_bar_render', $plugin_admin, 'change_admin_bar_edit_text');
-			$this->loader->add_filter('enter_title_here', $plugin_admin, 'change_post_title_placeholder');
+
+			$this->loader->add_action( 'wp_before_admin_bar_render', $plugin_admin, 'change_admin_bar_edit_text' );
+			$this->loader->add_filter( 'enter_title_here', $plugin_admin, 'change_post_title_placeholder' );
 			$this->loader->add_action( 'init', $plugin_admin, 'init_wbpoll_type' );
-			
+
 			$this->loader->add_filter( 'manage_posts_columns', $plugin_admin, 'add_new_poll_columns' );
 			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );
 			$this->loader->add_filter( 'manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort' );
 
-			//adding shortcode
+			// adding shortcode
 			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
-			//$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
-			//$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
-			//$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
+			// $this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
+			// $this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
+			// $this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
 
 			// add meta box and hook save meta box
 			$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'bpolls_metaboxes_display' );
@@ -282,12 +281,12 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_shortcode( 'bp_polls', $plugin_public, 'bppolls_rest_api_shortcode' );
 			$this->loader->add_action( 'rest_api_init', $plugin_public, 'bppolls_register_user_meta' );
-			
+
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_add_user_option', $plugin_public, 'bpolls_activity_add_user_option' );
-			
+
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
-			
-			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer',999 );
+
+			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
 
 		}
 
