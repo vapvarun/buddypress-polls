@@ -327,7 +327,7 @@ function edd_wbcom_BPOLLS_admin_notices() {
 	$license 			= trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
 	
 	if ( isset( $license_activation ) && ! empty( $error_message ) || ( !empty($license_data) && $license_data->license == 'expired' )) {
-		if ( $license_activation === '' ) {
+		if ( $license_activation === '' && !empty($license_data) ) {
 			$license_activation = $license_data->license;
 		}
 		switch ( $license_activation ) {

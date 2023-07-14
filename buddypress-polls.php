@@ -60,6 +60,8 @@ if ( ! defined( 'BPOLLS_PLUGIN_BASENAME' ) ) {
 function activate_buddypress_polls() {
 
 	WBPollHelper::install_table();
+	
+	$wbpolls_settings = get_option( 'wbpolls_settings');
 
 	if ( false === get_option( 'bpolls_settings' ) || empty( get_option( 'bpolls_settings' ) ) ) {
 		global $wp_roles;
@@ -86,29 +88,32 @@ function activate_buddypress_polls() {
 	 * create a page for frontend poll
 	 */
 	$page_title = 'Poll Dashboard';
-
-	$dashboard_page_id = wp_insert_post(
-		array(
-			'post_title'     => $page_title,
-			'post_status'    => 'publish',
-			'post_type'      => 'page',
-			'comment_status' => 'closed',
-		)
-	);
-
+	$poll_dashboard_page = get_page_by_title( $page_title );
+	if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
+		$dashboard_page_id = wp_insert_post(
+			array(
+				'post_title'     => $page_title,
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'comment_status' => 'closed',
+			)
+		);
+	}
 	/**
 	 * create a page for frontend poll
 	 */
 	$page_title = 'Create Poll';
-
-	$create_page_id = wp_insert_post(
-		array(
-			'post_title'     => $page_title,
-			'post_status'    => 'publish',
-			'post_type'      => 'page',
-			'comment_status' => 'closed',
-		)
-	);
+	$create_poll_page = get_page_by_title( $page_title );	
+	if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
+		$create_page_id = wp_insert_post(
+			array(
+				'post_title'     => $page_title,
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'comment_status' => 'closed',
+			)
+		);
+	}
 
 	if ( false === get_option( 'wbpolls_settings' ) ) {
 		global $wp_roles;
@@ -197,6 +202,11 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/class-wbpoll-helper.php';
 require plugin_dir_path( __FILE__ ) . 'includes/class-buddypress-polls.php';
 
 require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
+
+/**
+ * Poll rest api
+ */
+require_once plugin_dir_path(__FILE__) . 'restapi/v1/pollrestapi.php';
 
 /**
  * Begins execution of the plugin.
