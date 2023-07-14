@@ -2112,9 +2112,9 @@ class WBPollHelper {
 		do_action( 'wbpoll_answer_html_before_question', $poll_id, $reference, $poll_result );
 
 		$poll_display_methods = self::wbpoll_display_options();
-		$poll_display_method  = $poll_display_methods[ $result_chart_type ];
+		$poll_display_method  = ( isset($poll_display_methods[ $result_chart_type ]))? $poll_display_methods[ $result_chart_type ] : '';
 
-		$method = $poll_display_method['method'];
+		$method = (isset($poll_display_method['method']))? $poll_display_method['method'] : '';
 
 		if ( $method != '' && is_callable( $method ) ) {
 			call_user_func_array( $method, array( $poll_id, $reference, $poll_result ) );

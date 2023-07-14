@@ -286,7 +286,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
-			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
+			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );			
 			
 			//attach template for plugin pages
 			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
@@ -304,7 +304,8 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_image', $plugin_public, 'wbpoll_additional_field_image' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
-			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );
+			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
+			$this->loader->add_action( 'init', $plugin_public, 'init_shortcodes' );
 
 		}
 

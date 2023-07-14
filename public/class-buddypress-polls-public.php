@@ -144,7 +144,10 @@ class Buddypress_Polls_Public {
 			}
 		}
 		
-		if ( ( is_page() && get_the_ID() == $poll_create_page ) || ( is_single() && get_post_type() == 'wbpoll' ) ) {
+		if ( ( is_page() && get_the_ID() == $poll_create_page ) 
+				|| ( is_single() && get_post_type() == 'wbpoll' ) 
+				|| ( has_shortcode( $post->post_content, 'wbpoll' ) )
+			) {
 			wp_enqueue_media();
 			wp_enqueue_style( 'buddypress-multi-polls' );		
 			wp_enqueue_style( 'wbpolls-create-poll' );			
@@ -273,7 +276,10 @@ class Buddypress_Polls_Public {
 			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
 		}
 		
-		if ( ( is_page() && get_the_ID() == $poll_create_page ) || ( is_single() && get_post_type() == 'wbpoll' ) ) {
+		if ( ( is_page() && get_the_ID() == $poll_create_page ) 
+				|| ( is_single() && get_post_type() == 'wbpoll' ) 
+				|| ( has_shortcode( $post->post_content, 'wbpoll' ) )			
+			) {
 			wp_enqueue_script( 'buddypress-multi-polls' );
 			wp_enqueue_script( $this->plugin_name . '-timejs' );
 			wp_enqueue_script( $this->plugin_name . '-timefulljs' );
@@ -2735,5 +2741,59 @@ class Buddypress_Polls_Public {
 
 		return ':root{' . $color_string . '}';
 	}
+	
+	
+	/**
+	 * Inits all shortcodes
+	 */
+	public function init_shortcodes() {
+		
+		add_shortcode('wbpoll', array($this, 'wbpoll_shortcode')); // single poll shortcode
+		
+	} //end init_shortcodes()
+	
+	
+	public function wbpoll_shortcode($atts, $content = null) {
+		// normalize attribute keys, lowercase
+		$atts = array_change_key_case((array) $atts, CASE_LOWER);		
+
+		$global_result_chart_type = 'text';
+		$global_answer_grid_list  = 1; // 0 = list 1 = grid
+
+		$options = shortcode_atts(
+			array(
+				'id'          => '',
+				'reference'   => 'shortcode',
+				'description' => '', // show poll description in shortcode
+				'chart_type'  => $global_result_chart_type,
+				'grid'        => $global_answer_grid_list,
+			),
+			$atts,
+			'wbpoll'
+		);
+
+		$reference   = esc_attr($options['reference']);
+		$chart_type  = esc_attr($options['chart_type']);
+		$description = esc_attr($options['description']);
+		$grid        = intval($options['grid']);
+
+		$poll_ids = array_map('trim', explode(',', $options['id']));
+	
+		$output = '';		
+		if (is_array($poll_ids) && sizeof($poll_ids) > 0) {
+
+			foreach ($poll_ids as $poll_id) {
+				$output .= wbpollHelper::wbpoll_single_display(
+					$poll_id,
+					$reference,
+					$chart_type,
+					$grid,
+					$description
+				);
+			}
+		}
+			
+		return $output;
+	} //end wbpoll_shortcode()
 
 }
