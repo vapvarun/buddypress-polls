@@ -137,6 +137,7 @@ class Buddypress_Polls_Public {
 		
 		
 		if ( is_page() && get_the_ID() == $poll_dashboard_page) {
+			wp_enqueue_style( 'buddypress-multi-polls' );
 			wp_enqueue_style( 'wbpolls-dashboard' );			
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) { 
 				
