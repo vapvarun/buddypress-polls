@@ -506,35 +506,35 @@ function bpolls_add_page_or_data_buddypress()
 		}
 	
 		/**
-	 * create a page for frontend poll
-	 */
-	$page_title = 'Poll Dashboard';
-	$poll_dashboard_page = get_page_by_title( $page_title );
-	if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
-		$dashboard_page_id = wp_insert_post(
-			array(
-				'post_title'     => $page_title,
-				'post_status'    => 'publish',
-				'post_type'      => 'page',
-				'comment_status' => 'closed',
-			)
-		);
-	}
-	/**
-	 * create a page for frontend poll
-	 */
-	$page_title = 'Create Poll';
-	$create_poll_page = get_page_by_title( $page_title );	
-	if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
-		$create_page_id = wp_insert_post(
-			array(
-				'post_title'     => $page_title,
-				'post_status'    => 'publish',
-				'post_type'      => 'page',
-				'comment_status' => 'closed',
-			)
-		);
-	}
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Poll Dashboard';
+		$poll_dashboard_page = get_page_by_title( $page_title );
+		if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
+			$dashboard_page_id = wp_insert_post(
+				array(
+					'post_title'     => $page_title,
+					'post_status'    => 'publish',
+					'post_type'      => 'page',
+					'comment_status' => 'closed',
+				)
+			);
+		}
+		/**
+		 * create a page for frontend poll
+		 */
+		$page_title = 'Create Poll';
+		$create_poll_page = get_page_by_title( $page_title );	
+		if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
+			$create_page_id = wp_insert_post(
+				array(
+					'post_title'     => $page_title,
+					'post_status'    => 'publish',
+					'post_type'      => 'page',
+					'comment_status' => 'closed',
+				)
+			);
+		}
 	
 		if (false === get_option('wbpolls_settings')) {
 			global $wp_roles;
