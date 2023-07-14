@@ -209,6 +209,7 @@ class Buddypress_Polls_Public {
 		}
 
 		$active_template = get_option( '_bp_theme_package_id' );
+		$nouveau = '';
 		if ( 'legacy' === $active_template ) {
 			$nouveau = false;
 		} elseif ( 'nouveau' === $active_template ) {

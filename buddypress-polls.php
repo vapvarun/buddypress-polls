@@ -468,3 +468,133 @@ function bpolls_add_quicktags() {
 	}
 }
 add_action( 'wp_footer', 'bpolls_add_quicktags', 99999 );
+
+
+
+/**
+ *  Check if buddypress activate.
+ */
+function bpolls_add_page_or_data_buddypress()
+{
+	
+	global $pagenow;
+	$admin_page = filter_input(INPUT_GET, 'page') ? filter_input(INPUT_GET, 'page') : 'buddypress-polls';
+	if (!get_option('bpolls_update_4_3_0') && (isset($admin_page) && 'buddypress-polls' === $admin_page || !get_option('bpolls_update_4_3_0') && 'plugins.php' === $pagenow)) {
+		WBPollHelper::install_table();
+		
+		/****** update wbpoll settings *****/
+
+		if (false === get_option('bpolls_settings') || empty(get_option('bpolls_settings'))) {
+			global $wp_roles;
+			$bpolls_settings['limit_poll_activity']    = 'no';
+			$bpolls_settings['options_limit']          = '5';
+			$bpolls_settings['poll_options_result']    = 'yes';
+			$bpolls_settings['poll_list_voters']       = 'yes';
+			$bpolls_settings['poll_limit_voters']      = '3';
+			$bpolls_settings['polls_background_color'] = '#4caf50';
+			$bpolls_settings['multiselect']    = 'no';
+			$bpolls_settings['user_additional_option']    = 'no';
+			$bpolls_settings['hide_results']    = 'no';
+			$bpolls_settings['close_date']    = 'no';
+			$bpolls_settings['enable_image']    = 'no';
+			$bpolls_settings['poll_revoting']    = 'no';
+			$roles                                     = $wp_roles->get_names();
+			foreach ($roles as $role => $role_name) {
+				$bpolls_settings['poll_user_role'][] = $role;
+			}
+			update_option('bpolls_settings', $bpolls_settings);
+		}
+	
+		/**
+	 * create a page for frontend poll
+	 */
+	$page_title = 'Poll Dashboard';
+	$poll_dashboard_page = get_page_by_title( $page_title );
+	if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
+		$dashboard_page_id = wp_insert_post(
+			array(
+				'post_title'     => $page_title,
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'comment_status' => 'closed',
+			)
+		);
+	}
+	/**
+	 * create a page for frontend poll
+	 */
+	$page_title = 'Create Poll';
+	$create_poll_page = get_page_by_title( $page_title );	
+	if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
+		$create_page_id = wp_insert_post(
+			array(
+				'post_title'     => $page_title,
+				'post_status'    => 'publish',
+				'post_type'      => 'page',
+				'comment_status' => 'closed',
+			)
+		);
+	}
+	
+		if (false === get_option('wbpolls_settings')) {
+			global $wp_roles;
+			$bpolls_settings['poll_dashboard_page']    = $dashboard_page_id;
+			$bpolls_settings['create_poll_page']    = $create_page_id;
+			$bpolls_settings['wbpolls_user_add_extra_op']    = 'no';
+			$bpolls_settings['wbpolls_submit_status']       = 'publish';
+			$bpolls_settings['wppolls_show_result']      = 'yes';
+			$bpolls_settings['wbpolls_logoutuser']      = 'no';
+			$bpolls_settings['wbpolls_background_color'] = '#4caf50';
+			$roles  = $wp_roles->get_names();
+			foreach ($roles as $role => $role_name) {
+				$bpolls_settings['wppolls_who_can_vote'][] = $role;
+			}
+			update_option('wbpolls_settings', $bpolls_settings);
+		}
+	
+		if (false === get_option('wbpolls_notification_settings')) {
+			global $wp_roles;
+			$bpolls_settings['wppolls_enable_notification']    = 'yes';
+			$bpolls_settings['wppolls_admin_notification']    = 'yes';
+			$bpolls_settings['wppolls_member_notification']    = 'no';
+			$administrators = get_users(array(
+				'role' => 'administrator',
+			));
+			foreach ($administrators as $role_name) {
+				$bpolls_settings['wppolls_admin_user'][] = $role_name->ID;
+			}
+			update_option('wbpolls_notification_settings', $bpolls_settings);
+		}
+	
+		if ( false === get_option( 'notification_setting_options' ) ) {
+			$emai_content['admin'] = array(
+				'notification_subject' => 'You have a new Poll to approve', 
+				'notification_content' => '
+					Hi {site_admin},
+	
+					You have a new post {poll_name} to approve.
+	
+					Have a look once.
+	
+					Thank You.
+				',
+			);
+	
+			$emai_content['member'] = array(
+				'notification_subject' => 'Your Poll is approved',
+				'notification_content' => '
+					Hi {publisher_name} ,
+	
+					Your Poll post {poll_name} is approved.
+				',
+			);
+	
+			update_option( 'notification_setting_options', $emai_content );
+		}
+
+		update_option('permalink_structure', '/%postname%/');
+
+		update_option('bpolls_update_4_3_0', 1);
+	}
+}
+add_action('admin_init', 'bpolls_add_page_or_data_buddypress');
