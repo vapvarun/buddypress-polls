@@ -273,7 +273,7 @@ class Buddypress_Polls_Public {
 			wp_enqueue_script( $this->plugin_name );
 
 		}
-		
+		wp_enqueue_script( 'wbpoll-publicjs' );
 		if ( is_page() && get_the_ID() == $poll_dashboard_page) {
 			wp_enqueue_script( 'wbpoll-publicjs' );
 			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
