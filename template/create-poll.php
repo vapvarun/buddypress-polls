@@ -17,7 +17,7 @@ if (!empty($_GET['poll_id'])) {
 
 	$poll_type = get_post_meta($post_id, 'poll_type', true);
 	$start_time = get_post_meta($post_id, '_wbpoll_start_date', true);
-	$end_date = get_post_meta($post_id, '_wbpoll_end_date', true);
+	$end_date = get_post_meta($post_id, '_wbpoll_end_date', true);	
 	$never_expire = get_post_meta($post_id, '_wbpoll_never_expire', true);
 	$show_result_after_expire = get_post_meta($post_id, '_wbpoll_show_result_before_expire', true);
 	$multivote = get_post_meta($post_id, '_wbpoll_multivote', true);
@@ -78,6 +78,10 @@ if (!empty($_GET['poll_id'])) {
 			);
 		}
 	}
+} else {
+	$never_expire = '0';
+	$show_result_after_expire = '1';
+	$multivote = '0';
 }
 
 if (isset($poll_type) && !empty($poll_type)) {
@@ -85,7 +89,6 @@ if (isset($poll_type) && !empty($poll_type)) {
 } else {
 	$poll_type = '';
 }
-
 ?>
 
 <div class="main-poll-create">
@@ -568,11 +571,11 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<fieldset class="radio_fields">
 										<legend class="screen-reader-text"><span><?php esc_html_e('input type="radio"', 'buddypress-polls'); ?></span></legend>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_never_expire-radio">
-											<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="1" <?php if (!empty($never_expire) && $never_expire == 1) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="1" <?php checked($never_expire, 1);?>>
 											<span><?php esc_html_e('Yes', 'buddypress-polls'); ?></span>
 										</label>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_never_expire-radio">
-											<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="0" <?php if (!empty($never_expire) && $never_expire == 0) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_never_expire-radio" type="radio" name="_wbpoll_never_expire" value="0" <?php checked($never_expire, 0);?>>
 											<span><?php esc_html_e('No', 'buddypress-polls'); ?></span>
 										</label>
 									</fieldset>
@@ -585,11 +588,11 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<fieldset class="radio_fields">
 										<legend class="screen-reader-text"><span><?php esc_html_e('input type="radio"', 'buddypress-polls'); ?></span></legend>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_show_result_before_expire-radio">
-											<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="1" <?php if (!empty($show_result_after_expire) && $show_result_after_expire == 1) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="1" <?php checked($show_result_after_expire, 1);?>>
 											<span><?php esc_html_e('Yes', 'buddypress-polls'); ?></span>
 										</label>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_show_result_before_expire-radio">
-											<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="0" <?php if (!empty($show_result_after_expire) && $show_result_after_expire == 0) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_show_result_before_expire-radio" type="radio" name="_wbpoll_show_result_before_expire" value="0" <?php checked($show_result_after_expire, 0);?>>
 											<span><?php esc_html_e('No', 'buddypress-polls'); ?></span>
 										</label>
 									</fieldset>
@@ -602,11 +605,11 @@ if (isset($poll_type) && !empty($poll_type)) {
 									<fieldset class="radio_fields">
 										<legend class="screen-reader-text"><span><?php esc_html_e('input type="radio"', 'buddypress-polls'); ?></span></legend>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
-											<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="1" <?php if (!empty($multivote) && $multivote == 1) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="1" <?php checked($multivote, 1);?>>
 											<span><?php esc_html_e('Yes', 'buddypress-polls'); ?></span>
 										</label>
 										<label class="wbpoll-answer-options-radio-field" title="g:i a" for="_wbpoll_multivote-radio">
-											<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="0" <?php if (!empty($multivote) && $multivote == 0) { ?> checked="checked" <?php } ?>>
+											<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_multivote" value="0" <?php checked($multivote, 0);?>>
 											<span><?php esc_html_e('No', 'buddypress-polls'); ?></span>
 										</label>
 									</fieldset>

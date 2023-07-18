@@ -275,6 +275,7 @@ class Buddypress_Polls_Public {
 		}
 		
 		if ( is_page() && get_the_ID() == $poll_dashboard_page) {
+			wp_enqueue_script( 'wbpoll-publicjs' );
 			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
 		}
 		
@@ -298,6 +299,8 @@ class Buddypress_Polls_Public {
 				'url'             => site_url(),
 			)
 		);
+		
+
 	}
 
 	/**
