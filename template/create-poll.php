@@ -397,9 +397,9 @@ if (isset($poll_type) && !empty($poll_type)) {
 							<div class="ans-records html_records_edit">
 								<div class="ans-records-wrap">
 									<label>HTML Answer</label>
-									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo $options[0]['ans']; ?>">
+									<input name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo (!empty($options))? $options[0]['ans']: ''; ?>">
 									<label>HTML Content</label>
-									<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo $options[0]['html']; ?></textarea>
+									<textarea name="_wbpoll_html_answer[]" id="wbpoll_html_answer_textarea" class="wbpoll_html_answer_textarea tiny"><?php echo (!empty($options))? $options[0]['html']:''; ?></textarea>
 									<input type="hidden" id="wbpoll_answer_extra_type" value="html" name="_wbpoll_answer_extra[][type]">
 								</div>
 								<a class="add-field extra-fields-html-edit" data-id="<?php echo count($options); ?>" href="#">Add More</a>
