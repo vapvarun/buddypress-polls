@@ -9,8 +9,8 @@
  * @package    Buddypress_Polls
  * @subpackage Buddypress_Polls/public
  */
-
-
+global $post;
+$temp_post = $post;
 if (!empty($_GET['poll_id'])) {
 	$post_id = isset($_GET['poll_id']) ? $_GET['poll_id'] : '';
 	$post = get_post($post_id);
@@ -657,14 +657,20 @@ if (isset($poll_type) && !empty($poll_type)) {
 						</tbody>
 					</table>
 				</div>
-				<button type="submit" class="btn btn-primary"><?php esc_html_e('Poll Create', 'buddypress-polls'); ?></button>
+				<?php if (isset($post_id) && !empty($post_id)) :?>
+					<button type="submit" class="btn btn-primary"><?php esc_html_e('Poll Update', 'buddypress-polls'); ?></button>
+				<?php else: ?>
+					<button type="submit" class="btn btn-primary"><?php esc_html_e('Poll Create', 'buddypress-polls'); ?></button>
+				<?php endif?>
 
 			</form>
 			<div class="wbpoll-voted-info wbpoll-success" id="pollsuccess" style="display:none;"></div>
 		<?php } else { ?>
-			<div class="wbpoll_wrapper wbpoll_wrapper-1324 wbpoll_wrapper-content_hook" data-reference="content_hook">
+			<div class="wbpoll_wrapper wbpoll_wrapper-content_hook" data-reference="content_hook">
 				<p class="wbpoll-voted-info wbpoll-alert"><?php esc_html_e('This page content only for login members.', 'buddypress-polls'); ?> </p>
 			</div>
 		<?php } ?>
 	</div>
 </div>
+<?php 
+$post = $temp_post;
