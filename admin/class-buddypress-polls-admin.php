@@ -97,6 +97,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 * Call wbpoll admin css.
 			 */
 			wp_enqueue_style( 'wbpoll-admin', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin.css', array(), $this->version, 'all' );
+			
+			if ( isset($_GET['page']) && $_GET['page'] == 'wbpoll_logs' ) {
+				wp_enqueue_style( 'wbpoll-admin-log', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin-log.css', array(), $this->version, 'all' );
+			}
 
 		}
 
@@ -194,6 +198,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			);
 
 			wp_localize_script( 'wbpolladminsingle', 'wbpolladminsingleObj', $admin_single_arr );
+			
+			
+			if ( isset($_GET['page']) && $_GET['page'] == 'wbpoll_logs' ) {
+				wp_enqueue_script( 'wbpoll-admin-log', plugin_dir_url( __FILE__ ) . 'js/wbpoll-admin-log.js', array(), $this->version, false );				
+			}
 
 		}
 
