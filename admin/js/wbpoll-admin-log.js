@@ -13,7 +13,7 @@
             $('.delete_log').on('click', function(){
                 var log_id = $(this).data('id');
                 $.ajax({
-                    url: wbpollpublic.ajaxurl,
+                    url: wbpolladminsingleObj.ajaxurl,
                     type: 'POST',
                     dataType: 'json',
                     data: {

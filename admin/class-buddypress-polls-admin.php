@@ -152,7 +152,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			wp_register_script( 'wbpoll-ui-time-script', plugin_dir_url( __FILE__ ) . 'js/jquery-ui-timepicker-addon.js', array(), $this->version, false );
 			wp_register_script( 'wbpoll-plyjs', plugin_dir_url( __FILE__ ) . 'js/ply.min.js', array(), $this->version, false );
 			wp_register_script( 'wbpoll-switcheryjs', plugin_dir_url( __FILE__ ) . 'js/switchery.min.js', array(), $this->version, false );
-
+			
+			
+			
+			
 			// admin poll single edit
 			wp_enqueue_script(
 				'wbpolladminsingle',
@@ -203,6 +206,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			if ( isset($_GET['page']) && $_GET['page'] == 'wbpoll_logs' ) {
 				wp_enqueue_script( 'wbpoll-admin-log', plugin_dir_url( __FILE__ ) . 'js/wbpoll-admin-log.js', array(), $this->version, false );				
 			}
+			
 
 		}
 
