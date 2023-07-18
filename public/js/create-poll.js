@@ -73,6 +73,16 @@ jQuery('#poll_type').on('change', function (e) {
         jQuery('#type_audio').hide();
         jQuery('div#type_audio input#wbpoll_answer').val('');
         jQuery('div#type_audio input#wbpoll_audio_answer_url').val('');
+		
+		tinymce.init({
+					selector: 'textarea.wbpoll_html_answer_textarea.tiny',
+					menubar: false,
+					max_height: 500,
+					max_width: 800,
+					min_height: 200,
+					min_width: 800,
+					toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+				});
 
     } else {
         jQuery('#addtitonal_option').hide();
@@ -787,6 +797,19 @@ jQuery(document).on('click', 'a.add-field.extra-fields-html', function (e) {
 
     jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
     jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');
+    jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').show();
+    jQuery('.remove'+clickCount+' .mce-tinymce.mce-container.mce-panel').remove();
+	tinymce.remove('textarea.tiny');
+	tinymce.init({
+				selector: 'textarea.tiny',
+				menubar: false,
+				max_height: 500,
+				max_width: 800,
+				min_height: 200,
+				min_width: 800,
+				toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
+			});	
+	
     
 });
 
