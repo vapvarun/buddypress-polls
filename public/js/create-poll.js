@@ -955,156 +955,149 @@
 			e.preventDefault();
 		});
 
-		jQuery(document).on('ready', function (e) {
-			e.preventDefault();
-			jQuery('.wbpollmetadatepicker').datetimepicker();
-		});
-
-		jQuery(document).ready(
-			function () {
+		
+		jQuery('.wbpollmetadatepicker').datetimepicker();
+		var file_frame;
+		jQuery(document).on(
+			'click',
+			'#bpolls-attach-image',
+			function (event) {
+				event.preventDefault();
 				var file_frame;
-				jQuery(document).on(
-					'click',
-					'#bpolls-attach-image',
-					function (event) {
-						event.preventDefault();
-						var file_frame;
-						updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
-						imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+				updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
+				imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 
-						if (file_frame) {
-							file_frame.open();
-							return;
-						}
+				if (file_frame) {
+					file_frame.open();
+					return;
+				}
 
-						file_frame = wp.media.frames.file_frame = wp.media(
-							{
-								title: 'Choose Image',
-								button: {
-									text: 'Choose Image'
-								},
-								library: {
-									type: ['image']
-								},
-								multiple: false,
-								// library: {
-								// 	author: bpolls_ajax_object.poll_user
-								// }
-							}
-						);
-
-						file_frame.on(
-							'select',
-							function () {
-								attachment = file_frame.state().get('selection').first().toJSON();
-
-								if (attachment.url) {
-									jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
-									jQuery(updateurl).val(attachment.url);
-									jQuery('.media-modal-close').trigger('click');
-								}
-							}
-						);
-						file_frame.open();
+				file_frame = wp.media.frames.file_frame = wp.media(
+					{
+						title: 'Choose Image',
+						button: {
+							text: 'Choose Image'
+						},
+						library: {
+							type: ['image']
+						},
+						multiple: false,
+						// library: {
+						// 	author: bpolls_ajax_object.poll_user
+						// }
 					}
 				);
 
-				jQuery(document).on(
-					'click',
-					'#bpolls-attach-video',
-					function (event) {
-						event.preventDefault();
-						var file_frame;
-						updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
-						imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
-						jQuery(this).parent().find('#no').prop('checked', true);
-						jQuery(this).parent().find('#yes').prop('checked', false);
-						if (file_frame) {
-							file_frame.open();
-							return;
+				file_frame.on(
+					'select',
+					function () {
+						attachment = file_frame.state().get('selection').first().toJSON();
+
+						if (attachment.url) {
+							jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
+							jQuery(updateurl).val(attachment.url);
+							jQuery('.media-modal-close').trigger('click');
 						}
-
-						file_frame = wp.media.frames.file_frame = wp.media(
-							{
-								title: 'Choose video',
-								button: {
-									text: 'Choose video'
-								},
-								library: {
-									type: ['video']
-								},
-								multiple: false,
-								// library: {
-								// 	author: bpolls_ajax_object.poll_user
-								// }
-							}
-						);
-
-						file_frame.on(
-							'select',
-							function () {
-								attachment = file_frame.state().get('selection').first().toJSON();
-
-								if (attachment.url) {
-									jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
-									jQuery(updateurl).val(attachment.url);
-									jQuery('.media-modal-close').trigger('click');
-								}
-							}
-						);
-						file_frame.open();
 					}
-				)
-
-
-				jQuery(document).on(
-					'click',
-					'#bpolls-attach-audio',
-					function (event) {
-						event.preventDefault();
-						var file_frame;
-						updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
-						imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
-						jQuery(this).parent().find('#no').prop('checked', true);
-						jQuery(this).parent().find('#yes').prop('checked', false);
-						if (file_frame) {
-							file_frame.open();
-							return;
-						}
-
-						file_frame = wp.media.frames.file_frame = wp.media(
-							{
-								title: 'Choose Audio',
-								button: {
-									text: 'Choose Audio'
-								},
-								library: {
-									type: ['audio']
-								},
-								multiple: false,
-								// library: {
-								// 	author: bpolls_ajax_object.poll_user
-								// }
-							}
-						);
-
-						file_frame.on(
-							'select',
-							function () {
-								attachment = file_frame.state().get('selection').first().toJSON();
-
-								if (attachment.url) {
-									jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
-									jQuery(updateurl).val(attachment.url);
-									jQuery('.media-modal-close').trigger('click');
-								}
-							}
-						);
-						file_frame.open();
-					}
-				)
+				);
+				file_frame.open();
 			}
 		);
+
+		jQuery(document).on(
+			'click',
+			'#bpolls-attach-video',
+			function (event) {
+				event.preventDefault();
+				var file_frame;
+				updateurl = jQuery(this).parent().find('.wbpoll_video_answer_url');
+				imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+				jQuery(this).parent().find('#no').prop('checked', true);
+				jQuery(this).parent().find('#yes').prop('checked', false);
+				if (file_frame) {
+					file_frame.open();
+					return;
+				}
+
+				file_frame = wp.media.frames.file_frame = wp.media(
+					{
+						title: 'Choose video',
+						button: {
+							text: 'Choose video'
+						},
+						library: {
+							type: ['video']
+						},
+						multiple: false,
+						// library: {
+						// 	author: bpolls_ajax_object.poll_user
+						// }
+					}
+				);
+
+				file_frame.on(
+					'select',
+					function () {
+						attachment = file_frame.state().get('selection').first().toJSON();
+
+						if (attachment.url) {
+							jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
+							jQuery(updateurl).val(attachment.url);
+							jQuery('.media-modal-close').trigger('click');
+						}
+					}
+				);
+				file_frame.open();
+			}
+		)
+
+
+		jQuery(document).on(
+			'click',
+			'#bpolls-attach-audio',
+			function (event) {
+				event.preventDefault();
+				var file_frame;
+				updateurl = jQuery(this).parent().find('.wbpoll_audio_answer_url');
+				imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
+				jQuery(this).parent().find('#no').prop('checked', true);
+				jQuery(this).parent().find('#yes').prop('checked', false);
+				if (file_frame) {
+					file_frame.open();
+					return;
+				}
+
+				file_frame = wp.media.frames.file_frame = wp.media(
+					{
+						title: 'Choose Audio',
+						button: {
+							text: 'Choose Audio'
+						},
+						library: {
+							type: ['audio']
+						},
+						multiple: false,
+						// library: {
+						// 	author: bpolls_ajax_object.poll_user
+						// }
+					}
+				);
+
+				file_frame.on(
+					'select',
+					function () {
+						attachment = file_frame.state().get('selection').first().toJSON();
+
+						if (attachment.url) {
+							jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
+							jQuery(updateurl).val(attachment.url);
+							jQuery('.media-modal-close').trigger('click');
+						}
+					}
+				);
+				file_frame.open();
+			});
+			
 		jQuery(document).on('keyup', '.wbpoll_answer', function (e) {
 			e.preventDefault();
 			jQuery('#error_ans').css('display', 'none');
