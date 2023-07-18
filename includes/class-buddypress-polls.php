@@ -189,9 +189,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			// adding shortcode
 			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
-			// $this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
-			// $this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
-			// $this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
+			$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
+			$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
+			$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
 
 			// add meta box and hook save meta box
 			$this->loader->add_action( 'add_meta_boxes', $plugin_admin, 'bpolls_metaboxes_display' );
