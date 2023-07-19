@@ -1,4 +1,6 @@
 
 *.cmd
+.DS_Store
 node_modules
 /nbproject/private/
+vendor

@@ -576,6 +576,10 @@
     margin: 0 0 10px;
 }
 
+.wbpoll-question-choices-item-content.poll-html-content {
+    display: block;
+}
+
 /*--------------------------------------------------------------
 # Single Poll After Result
 --------------------------------------------------------------*/

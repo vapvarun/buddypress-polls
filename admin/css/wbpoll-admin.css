@@ -767,6 +767,10 @@ div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
     display: none;
 }
 
+.wbcom-settings-section-options select[name="wbpolls_settings[create_poll_page]"] {
+    margin: 0 0 20px;    
+}
+
 /* loader */
 
 .preloaderBg {
