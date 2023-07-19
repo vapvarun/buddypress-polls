@@ -138,9 +138,13 @@ class Buddypress_Polls_Public {
 		
 		if ( is_page() && get_the_ID() == $poll_dashboard_page) {
 			wp_enqueue_style( 'buddypress-multi-polls' );
+
+			// Loads dynamic inline color style.
+			$wbpolls_color_css = $this->wbpolls_load_color_palette();
+			wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
+
 			wp_enqueue_style( 'wbpolls-dashboard' );			
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) { 
-				
 				wp_enqueue_style( 'wb-icons' );
 			}
 		}
@@ -150,7 +154,12 @@ class Buddypress_Polls_Public {
 				|| ( has_shortcode( $post->post_content, 'wbpoll' ) )
 			) {
 			wp_enqueue_media();
-			wp_enqueue_style( 'buddypress-multi-polls' );		
+			wp_enqueue_style( 'buddypress-multi-polls' );
+			
+			// Loads dynamic inline color style.
+			$wbpolls_color_css = $this->wbpolls_load_color_palette();
+			wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
+
 			wp_enqueue_style( 'wbpolls-create-poll' );			
 			wp_enqueue_style( $this->plugin_name . '-time' );
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
