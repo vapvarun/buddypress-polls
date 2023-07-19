@@ -63,6 +63,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @param hook $hook hook.
 		 */
 		public function enqueue_styles( $hook ) {
+		
 			$activity_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-activity';
 			if ( isset( $activity_page ) && 'bp-activity' === $activity_page ) {
 				wp_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css/buddypress-polls-public.css', array(), time(), 'all' );
@@ -137,6 +138,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 * between the defined hooks and the functions defined in this
 			 * class.
 			 */
+			global $pagenow;
+			
 			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
 			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) {
 				wp_enqueue_script( 'wp-color-picker' );
@@ -155,7 +158,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			wp_register_script( 'chart-js', plugin_dir_url( __FILE__ ) . 'js/Chart.min.js', array(), $this->version, false );
 			
 			
-			if ( isset($_GET['post_type']) && $_GET['post_type'] == 'wbpoll' ) {				
+			if ( ( isset($_GET['post_type']) && $_GET['post_type'] == 'wbpoll' ) || (get_post_type() == 'wbpoll' && $pagenow == 'post.php' )) {
+				
 				// admin poll single edit
 				wp_enqueue_script(
 					'wbpolladminsingle',
