@@ -188,8 +188,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );
 			$this->loader->add_filter( 'manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort' );
 
-			// adding shortcode
-			$this->loader->add_action( 'init', $plugin_admin, 'init_shortcodes' );
+			// adding shortcode			
 			$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
 			$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
 			$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );

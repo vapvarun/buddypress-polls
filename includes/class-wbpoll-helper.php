@@ -890,8 +890,11 @@ class WBPollHelper {
 					$poll_content = wpautop( $poll_content );
 					$poll_content = convert_smilies( $poll_content );
 					$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
+				}				
+				if ( has_post_thumbnail($post_id) ) {
+					$poll_output .= '<figure class="post-thumbnail">' . get_the_post_thumbnail($post_id,'large' ). '</div>';
 				}
-
+				
 				$poll_output .= '<div class="wbpoll-description">' . apply_filters(
 					'wbpoll_description',
 					$poll_content,
