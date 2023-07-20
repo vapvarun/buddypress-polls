@@ -219,8 +219,7 @@ require_once plugin_dir_path(__FILE__) . 'restapi/v1/pollrestapi.php';
  */
 function run_buddypress_polls() {
 	global $pagenow;
-
-	WBPollHelper::install_table();
+	
 	$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
 	if ( ! get_option( 'bpolls_update_3_8_2' ) && ( isset( $admin_page ) && 'buddypress-polls' === $admin_page || 'plugins.php' === $pagenow ) ) {
 		$bpolls_settings                           = get_option( 'bpolls_settings' );
