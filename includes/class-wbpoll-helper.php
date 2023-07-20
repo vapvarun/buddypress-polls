@@ -1560,19 +1560,21 @@ class WBPollHelper {
         if(!empty($option_value)){
 			$wbpolls_user_add_extra_op = isset($option_value['wbpolls_user_add_extra_op']) ? $option_value['wbpolls_user_add_extra_op'] : '';
 		}
-		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);
+		$add_additional_fields = get_post_meta($post_id, '_wbpoll_add_additional_fields', true);		
+		
         if($wbpolls_user_add_extra_op == 'yes' && !empty($add_additional_fields) || $add_additional_fields == 1){
+			
 			$poll_type = get_post_meta( $post_id, 'poll_type', true );
 			$poll_type_backend = get_post_meta($post_id, '_wbpoll_answer_extra', true);
 			 if (isset($poll_type_backend['answercount'])) {
 				unset($poll_type_backend['answercount']);
 			 }
-			$add_additional_counts = self::add_additional_allValuesSame($poll_type_backend);
-    		
-			if(!empty($poll_type) && isset($poll_type) || !empty($add_additional_counts) && isset($add_additional_counts)){
+			$add_additional_counts = self::add_additional_allValuesSame($poll_type_backend);			
+			
+			if(!empty($poll_type) && isset($poll_type) && $poll_type == 'default' && !empty($add_additional_counts) && isset($add_additional_counts)){
 					if($poll_type == 'default' || $add_additional_counts == true){
 						$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button text_field' id='text_field'> ".esc_html__('Add Option', 'buddypress-polls') ."</div>";
-						$poll_form_html .= '<div class="wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_text" style="display:none;">';
+						$poll_form_html .= '<div class="12121 wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_text" style="display:none;">';
 						$poll_form_html .= '<div class="ans-records text_records">';
 						$poll_form_html .= '<input type="hidden" name="post_id" id="post_id" value="'.$post_id.'">';
 						$poll_form_html .= '<div class="ans-records-wrap">';
