@@ -1654,7 +1654,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			if ($total > 0) {
 				$output  = '<p>' . sprintf(__('Total votes: %d', 'buddypress-polls'), number_format($total)) . '</p>';
-				$output .= '<div class="wbpolls-question-results ' . $class['class'] . '">';
+				$output .= '<div class="wbpolls-question-results ' . ( isset($class['class'])? $class['class'] : '' ) . '">';
 				
 				$total_percent = 0;
 				foreach ($poll_result['weighted_index'] as $index => $vote_count) {
