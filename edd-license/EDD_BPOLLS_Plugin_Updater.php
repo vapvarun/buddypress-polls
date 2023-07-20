@@ -63,6 +63,8 @@ class EDD_BPOLLS_Plugin_Updater {
 	 * @var Boolean
 	 */
 	private $wp_override = false;
+	
+	private $beta = false;
 
 	/**
 	 * Cache key.

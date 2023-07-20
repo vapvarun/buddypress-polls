@@ -2377,7 +2377,7 @@ class WBPollHelper {
 	) {
 
 		$input_type  = 'text';
-		$color_class = 'wbpoll_answer_color';
+		$color_class = 'wbpoll_answer_color';		
 		ob_start();
 		if ( isset( $answers_extra['type'] ) && $answers_extra['type'] == 'default' ) {
 			$answer_type        = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'default';
@@ -2410,8 +2410,9 @@ class WBPollHelper {
 			</li>
 			<?php
 		} elseif ( isset( $answers_extra['type'] ) && $answers_extra['type'] == 'image' ) {
-
+			
 			$answer_type        = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'image';
+			
 			?>
 			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr($index);?>">
 
@@ -2452,7 +2453,7 @@ class WBPollHelper {
 
 						</div>
 
-						<input type="hidden" id="wbpoll_answer_extra_type_<?php echo esc_attr($index);?>" value="' . $answer_type . '" name="_wbpoll_answer_extra[<?php echo esc_attr($index);?>][type]" />
+						<input type="hidden" id="wbpoll_answer_extra_type_<?php echo esc_attr($index);?>" value="<?php echo esc_attr($answer_type);?>" name="_wbpoll_answer_extra[<?php echo esc_attr($index);?>][type]" />
 						
 						<?php do_action( 'wbpoll_answer_extra_fields', $index, $answers_extra, $is_voted, $poll_postid );?>
 						
