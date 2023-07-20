@@ -42,6 +42,9 @@ if ( ! class_exists( 'Buddypress_Polls_Loader' ) ) {
 		 * @var      array    $filters    The filters registered with WordPress to fire when the plugin loads.
 		 */
 		protected $filters;
+		
+		
+		protected $shortcode;
 
 		/**
 		 * Initialize the collections used to maintain the actions and filters.
