@@ -135,9 +135,10 @@ if ( is_user_logged_in() ) {
 						</td>
 						<td class="poll-vote" data-title="<?php esc_attr_e( 'Vote', 'buddypress-polls' ); ?>"><?php echo esc_html( $totalvote ); ?></td>
 						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
-						<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
+							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
+							
 						<?php if ( $totalvote < 1 ) { ?>
-							<a class="button btn" href="<?php echo esc_url( site_url() ) . '/' . $page_slug . '?poll_id=' . $post_id; ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+							<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug . '?poll_id=' . $post_id.'&_wpnonce=' . wp_create_nonce('edit_poll_' . $post_id) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 						<?php } ?>
 							<button class="button btn pause_poll" data-value="
 						<?php
@@ -297,7 +298,7 @@ if ( is_user_logged_in() ) {
 						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 						<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 						<?php if ( $totalvote < 1 ) { ?>
-							<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug . '?poll_id=' . $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+							<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug . '?poll_id=' . $post_id.'&_wpnonce=' . wp_create_nonce('edit_poll_' . $post_id) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 						<?php } ?>
 						<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 					</tr>
@@ -421,7 +422,7 @@ if ( is_user_logged_in() ) {
 						<td class="poll-action" data-title="<?php esc_attr_e( 'Action', 'buddypress-polls' ); ?>">
 						<a class="button btn" href="<?php echo esc_url( site_url() ) . '/poll/' . esc_html( str_replace( ' ', '-', $post_name ) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'View', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-eye-small"></i></a>
 						<?php if ( $totalvote < 1 ) { ?>
-							<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug . '?poll_id=' . $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
+							<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug . '?poll_id=' . $post_id.'&_wpnonce=' . wp_create_nonce('edit_poll_' . $post_id) ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Edit', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-edit-thin"></i></a>
 						<?php } ?>
 						<?php if ( $post_stauts == 'draft' ) { ?>
 							<button class="button btn publish_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Publish', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-all-results"></i></button>

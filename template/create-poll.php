@@ -12,6 +12,15 @@
 global $post;
 $temp_post = $post;
 if ( ! empty( $_GET['poll_id'] ) ) {
+	
+	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'edit_poll_' . $_GET['poll_id'] ) ) {
+		
+		echo '<div class="main-poll-create">';
+		esc_html_e( 'You are not allow to edit the poll.', 'textdomain' ) ; 
+		echo '</div>';
+		
+		return;
+	}
 	$post_id = isset( $_GET['poll_id'] ) ? $_GET['poll_id'] : '';
 	$post    = get_post( $post_id );
 
