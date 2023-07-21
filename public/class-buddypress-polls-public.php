@@ -934,7 +934,7 @@ class Buddypress_Polls_Public {
 			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
 
 			parse_str( $_POST['poll_data'], $poll_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-			$poll_data = filter_var_array( $poll_data, FILTER_SANITIZE_STRING );
+			$poll_data = filter_var_array( $poll_data );
 
 			$activity_id = $poll_data['bpoll_activity_id'];
 
