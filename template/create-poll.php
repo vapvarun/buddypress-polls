@@ -16,7 +16,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'edit_poll_' . $_GET['poll_id'] ) ) {
 
 		echo '<div class="main-poll-create">';
-		esc_html_e( 'You are not allow to edit the poll.', 'textdomain' ) ;
+			esc_html__( 'You are not allow to edit the poll.', 'buddypress-polls' );
 		echo '</div>';
 
 		return;
