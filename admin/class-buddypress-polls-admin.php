@@ -338,17 +338,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function bpolls_add_dashboard_widgets() {
-			wp_add_dashboard_widget(
-				'bpolls_stats_dashboard_widget', // Widget slug.
-				__( 'Site Polls Data', 'buddypress-polls' ), // Title.
-				array( $this, 'bpolls_stats_dashboard_widget_function' ) // Display function.
-			);
+			
+			if ( class_exists('BuddyPress')) {
+				wp_add_dashboard_widget(
+					'bpolls_stats_dashboard_widget', // Widget slug.
+					__( 'Site Polls Data', 'buddypress-polls' ), // Title.
+					array( $this, 'bpolls_stats_dashboard_widget_function' ) // Display function.
+				);
 
-			wp_add_dashboard_widget(
-				'bpolls_graph_dashboard_widget', // Widget slug.
-				__( 'Poll Graph', 'buddypress-polls' ), // Title.
-				array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
-			);
+				wp_add_dashboard_widget(
+					'bpolls_graph_dashboard_widget', // Widget slug.
+					__( 'Poll Graph', 'buddypress-polls' ), // Title.
+					array( $this, 'bpolls_graph_dashboard_widget_function' ) // Display function.
+				);
+			
+			}
 		}
 
 		/**
@@ -361,7 +365,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'count_total' => true,
 			);
 			$polls_created = 0;
-			if ( bp_has_activities( $args ) ) {
+			if ( function_exists('bp_has_activities') && bp_has_activities( $args ) ) {
 				global $activities_template;
 				$polls_created = $activities_template->total_activity_count;
 			}
@@ -455,16 +459,19 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			global $wpdb;
 
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+			if ( class_exists( 'BuddyPress' ) ) {
+				$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
 
-			$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
-			$poll_wdgt_stngs = $poll_wdgt->get_settings();
-			$instance        = array(
-				'title'            => __( 'Poll Graph', 'buddypress-polls' ),
-				'max_activity'     => 50,
-				'activity_default' => ( isset( $results->id ) ) ? $results->id : '',
-			);
-			the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
+				$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
+				$poll_wdgt_stngs = $poll_wdgt->get_settings();
+				$instance        = array(
+					'title'            => __( 'Poll Graph', 'buddypress-polls' ),
+					'max_activity'     => 50,
+					'activity_default' => ( isset( $results->id ) ) ? $results->id : '',
+				);
+				the_widget( 'BP_Poll_Activity_Graph_Widget', $instance );
+			
+			}
 		}
 
 		/**

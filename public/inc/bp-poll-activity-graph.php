@@ -13,7 +13,9 @@ defined( 'ABSPATH' ) || exit;
 add_action(
 	'widgets_init',
 	function() {
+		if ( class_exists('BuddyPress') ) {
 			register_widget( 'BP_Poll_Activity_Graph_Widget' );
+		}
 	}
 );
 
