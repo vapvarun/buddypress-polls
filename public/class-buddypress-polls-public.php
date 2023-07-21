@@ -2803,6 +2803,7 @@ class Buddypress_Polls_Public {
 		if (is_array($poll_ids) && sizeof($poll_ids) > 0) {
 
 			foreach ($poll_ids as $poll_id) {
+				
 				$output .= wbpollHelper::wbpoll_single_display(
 					$poll_id,
 					$reference,

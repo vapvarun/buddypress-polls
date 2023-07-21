@@ -871,37 +871,37 @@ class WBPollHelper {
 		}
 
 		$nonce = wp_create_nonce( 'wbpolluservote' );
+		ob_start();
+		?>
+		
+		<div class="wbpoll_wrapper wbpoll_wrapper-<?php echo esc_attr($post_id);?> wbpoll_wrapper-<?php echo esc_attr($reference);?>" data-reference ="<?php echo esc_attr($reference);?>" > <?php // check if the poll started still ?>
 
-		$poll_output .= '<div class="wbpoll_wrapper wbpoll_wrapper-' . $post_id . ' wbpoll_wrapper-' . $reference . '" data-reference ="' . $reference . '" >';
-		// check if the poll started still
-
-		if ( $reference != 'content_hook' ) {
-			$poll_output .= '<h3>' . get_the_title( $post_id ) . '</h3>';
-		}
-
-		if ( $reference != 'content_hook' ) {
-			// if enabled from shortcode and enabled from post meta field
-			if ( intval( $show_description ) == 1 || $description == 'true' ) {
-				$poll_conobj  = get_post( $post_id );
-				$poll_content = '';
-				if ( is_object( $poll_conobj ) ) {
-					$poll_content = $poll_conobj->post_content;
-					$poll_content = strip_shortcodes( $poll_content );
-					$poll_content = wpautop( $poll_content );
-					$poll_content = convert_smilies( $poll_content );
-					$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
-				}				
-				if ( has_post_thumbnail($post_id) ) {
-					$poll_output .= '<figure class="post-thumbnail">' . get_the_post_thumbnail($post_id,'large' ). '</div>';
+			<?php if ( $reference != 'content_hook' ) { ?>
+				<h3><?php echo esc_html(get_the_title( $post_id ));?></h3>
+			<?php } 
+		
+			if ( $reference != 'content_hook' ) {
+				// if enabled from shortcode and enabled from post meta field
+				if ( intval( $show_description ) == 1 || $description == 'true' ) {
+					$poll_conobj  = get_post( $post_id );
+					$poll_content = '';
+					if ( is_object( $poll_conobj ) ) {
+						$poll_content = $poll_conobj->post_content;
+						$poll_content = strip_shortcodes( $poll_content );
+						$poll_content = wpautop( $poll_content );
+						$poll_content = convert_smilies( $poll_content );
+						$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
+					}				
+					if ( has_post_thumbnail($post_id) ) { ?>
+						<figure class="post-thumbnail"><?php the_post_thumbnail($post_id,'large' );?></figure>
+					<?php } ?>
+					
+					<div class="wbpoll-description">
+						<?php  echo apply_filters('wbpoll_description', $poll_content, $post_id );?>
+					</div>				
+					<?php
 				}
-				
-				$poll_output .= '<div class="wbpoll-description">' . apply_filters(
-					'wbpoll_description',
-					$poll_content,
-					$post_id
-				) . '</div>';
 			}
-		}
 
 		if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 
@@ -964,7 +964,7 @@ class WBPollHelper {
 
 				if ( $cb_has_answer != null ) {
 					if ( $poll_show_result_before_expire == 1 ) {
-						$poll_output .= self::show_single_poll_result( $post_id, $reference, $result_chart_type );
+						echo self::show_single_poll_result( $post_id, $reference, $result_chart_type );
 					}
 				}
 
@@ -996,34 +996,25 @@ class WBPollHelper {
 
 					}
 
-					if ( $answers_by_user_html != '' ) {
-						$poll_output .= '<p class="wbpoll-voted-info55
-							 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '">' . sprintf(
-							__(
-								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'buddypress-polls'
-							),
-							$answers_by_user_html
-						) . ' </p>';
-					} else {
-						$poll_output .= '<p class="wbpoll-voted-info55
-							wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . sprintf(
-							__(
-								'The Poll is out of date. You have already voted for <strong>"%s"</strong>',
-								'buddypress-polls'
-							),
-							$answers_by_user_html
-						) . ' </p>';
+					if ( $answers_by_user_html != '' ) { ?>
+						<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-<?php echo esc_attr($post_id);?>">
+							<?php echo sprintf( __( 'The Poll is out of date. You have already voted for <strong>"%s"</strong>','buddypress-polls' ), $answers_by_user_html) ;?>
+						</p>
+					<?php } else {  ?>
+					
+						<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-<?php echo esc_attr($post_id);?>">
+							<?php  echo sprintf( __('The Poll is out of date. You have already voted for <strong>"%s"</strong>','buddypress-polls'), $answers_by_user_html);?>
+						</p>
 
-					}
-				} else {
-					$poll_output .= '<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-' . $post_id . '"> ' . __(
-						'The Poll is out of date. You have not voted.',
-						'buddypress-polls'
-					) . '</p>';
+					<?php } 
+				} else { ?>
+					<p class="wbpoll-voted-info55 wbpoll-alert wbpoll-voted-info wbpoll-voted-info-<?php echo esc_attr($post_id);?>">
+
+						<?php esc_html_e( 'The Poll is out of date. You have not voted.', 'buddypress-polls' );?>
+					</p>
+				<?php
 				}
-			} // end of if poll expired
-			else {
+			} else {  // end of if poll expired
 
 				if ( is_user_logged_in() ) {
 					global $current_user;
@@ -1049,19 +1040,17 @@ class WBPollHelper {
 
 					// we know poll is not expired, and user is not allowed to vote
 					// now we check if the user i allowed to see result and result is allow to show before expire
-					// if ( $poll_show_result_all == '1' && $poll_show_result_before_expire == '1' ) {
+					
 					if ( $poll_show_result_before_expire == 1 ) {
 						if ( $poll_is_voted ) {
-							$poll_output .= self::show_single_poll_result(
-								$post_id,
-								$reference,
-								$result_chart_type
-							);
-						} else {
-							$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
-								'You are not able to vote for this poll',
-								'buddypress-polls'
-							) . ' </p>';
+							
+							echo self::show_single_poll_result( $post_id, $reference, $result_chart_type );
+							
+						} else { ?>
+							<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php echo esc_attr($post_id);?>">
+								<?php esc_html_e('You are not able to vote for this poll','buddypress-polls' );?>
+							</p>
+							<?php
 						}
 						// integrate user login for guest user
 
@@ -1075,26 +1064,30 @@ class WBPollHelper {
 								$login_url    = wp_login_url( home_url( add_query_arg( array(), $wp->request ) ) );
 								$redirect_url = home_url( add_query_arg( array(), $wp->request ) );
 							}
+							?>
+							
+							<div class="wbpoll-guest-wrap">
 
-							$guest_html = '<div class="wbpoll-guest-wrap">';
+								<p class="wbpoll-title-login"> 
+									<?php _e( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' );?> 
+								</p>
+								<?php 
+								$guest_login_html = wp_login_form(
+									array(
+										'redirect' => $redirect_url,
+										'echo'     => false,
+									)
+								);
 
-							$guest_html      .= '<p class="wbpoll-title-login">' . __( 'Do you have account and want to vote as registered user? Please <a  href="#">login</a>', 'buddypress-polls' ) . '</p>';
-							$guest_login_html = wp_login_form(
-								array(
-									'redirect' => $redirect_url,
-									'echo'     => false,
-								)
-							);
+								$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
 
-							$guest_login_html = apply_filters( 'wbpoll_login_html', $guest_login_html, $login_url, $redirect_url );
+								$guest_register_html = '';
+								?>
 
-							$guest_register_html = '';
+								<div class="wbpoll-guest-login-wrap"><?php echo $guest_login_html . $guest_register_html;?></div>';
 
-							$guest_html .= '<div class="wbpoll-guest-login-wrap">' . $guest_login_html . $guest_register_html . '</div>';
-
-							$guest_html .= '</div>';
-
-							$poll_output .= $guest_html;
+							</div>
+							<?php
 						endif;
 
 					}
@@ -1149,41 +1142,33 @@ class WBPollHelper {
 
 									}
 
-									if ( $answers_by_user_html != '' ) {
-										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . sprintf(
-											__(
-												'You have already voted for <strong>"%s"</strong>',
-												'buddypress-polls'
-											),
-											$answers_by_user_html
-										) . ' </p>';
+									if ( $answers_by_user_html != '' ) { ?>
+										<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr($post_id);?>">
+											<?php echo sprintf(__( 'You have already voted for <strong>"%s"</strong>', 'buddypress-polls'), $answers_by_user_html);?>
+										</p>
 
-										if ( $poll_show_result_before_expire == 1 ) {
+										<?php if ( $poll_show_result_before_expire == 1 ) {
 
-											$poll_output .= self::show_single_poll_result(
-												$post_id,
-												$reference,
-												$result_chart_type
-											);
+											echo self::show_single_poll_result( $post_id, $reference, $result_chart_type );
 										}
-									} else {
-										$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-' . $post_id . '">' . esc_html__(
-											'You have already voted ',
-											'buddypress-polls'
-										) . ' </p>';
-
+									} else { ?>
+										
+										<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr($post_id);?>">
+											<?php esc_html_e( 'You have already voted ', 'buddypress-polls');?>
+										</p>
+									<?php
 									}
 								}
-							} else {
-								$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert">' . esc_html__(
-									'Result hide by Admin',
-									'buddypress-polls'
-								) . ' </p>';
+							} else { ?>
+								<p class="wbpoll-voted-info wbpoll-alert">
+									<?php esc_html_e( 'Result hide by Admin', 'buddypress-polls');?>
+								</p>
+							<?php
 							}
 						}
 					} else {
 
-						$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
+						echo self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
 					}
 					// end of if voted
 				}
@@ -1191,14 +1176,18 @@ class WBPollHelper {
 			}
 			// end of pole expires
 
-		}//poll didn't start yet
-		else {
-			$poll_output .= '<p class="wbpoll-voted-info wbpoll-alert">' . esc_html__( 'Poll Status: Yet to start', 'buddypress-polls' ) . '</p>';
-		}
+		} else { //poll didn't start yet?>
+		
+			<p class="wbpoll-voted-info wbpoll-alert"><?php esc_html_e( 'Poll Status: Yet to start', 'buddypress-polls' );?></p>
+			
+		<?php } ?>
+		
+		</div><?php // end of wbpoll_wrapper ?>
 
-		$poll_output .= '</div>'; // end of wbpoll_wrapper
-
-		return $poll_output;
+		
+		<?php
+		//return $poll_output;
+		return ob_get_clean();
 	}//end wbpoll_single_display()
 
 
