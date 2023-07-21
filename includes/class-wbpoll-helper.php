@@ -905,8 +905,7 @@ class WBPollHelper {
 
 		if ( new DateTime( $poll_start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 
-			$poll_is_voted_by_user = 0;
-
+			$poll_is_voted_by_user = 0;			
 			if ( $log_method == 'cookie' ) {
 
 				$sql                   = $wpdb->prepare(
@@ -953,6 +952,8 @@ class WBPollHelper {
 			}
 
 			$poll_is_voted_by_user = apply_filters( 'wbpoll_is_user_voted', $poll_is_voted_by_user );
+			
+			
 
 			if ( $is_poll_expired ) { // if poll has expired
 
@@ -1035,7 +1036,7 @@ class WBPollHelper {
 				} else {
 					$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
 				}
-					// current user is not allowed
+				// current user is not allowed
 				if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
 
 					// we know poll is not expired, and user is not allowed to vote
@@ -1107,7 +1108,7 @@ class WBPollHelper {
 						$count = apply_filters( 'wbpoll_is_user_voted', $vote_count );
 
 						if ( $count < $poll_votes_per_session ) {
-							$poll_output .= self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
+							echo self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type );
 						} else {
 							$sql             = $wpdb->prepare(
 								"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
