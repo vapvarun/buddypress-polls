@@ -367,10 +367,13 @@ class Pollrestapi {
             update_post_meta( $post_id, $prefix . 'vote_per_session', $vote_per_session );
         } else {
             delete_post_meta( $post_id, $prefix . 'vote_per_session' );
-        }
-        if(empty($updatepost_id)){
+        }		
+		
+        if( empty(trim($updatepost_id)) || trim($updatepost_id) == ''  ){
             
             $type = $wbpolls_submit_status;
+			
+			
             //Return the response data
             if($type == "publish"){
                 $page = get_post($post_id);
@@ -386,7 +389,7 @@ class Pollrestapi {
             }else{
                 
                 $notification = get_option('wbpolls_notification_settings');
-
+				
                 if(isset($notification['wppolls_enable_notification']) && $notification['wppolls_enable_notification'] == 'yes' && isset($notification['wppolls_admin_notification']) && $notification['wppolls_admin_notification'] == 'yes'){
                     $send_admin_notification = self::send_admin_notifications($post_id);
                 }
@@ -444,7 +447,7 @@ class Pollrestapi {
 			foreach ( $admin_users as $admin_user ) {
                 $admin_user_info = get_userdata( $admin_user );
 			    $content         =  isset($option_value['admin']['notification_content']) ? self::bpmbp_get_notification_admin_content( $option_value['admin']['notification_content'], $post_id, $admin_user ) : '';
-				wp_mail( $admin_user_info->user_email, $subject, $content, $headers );
+				wp_mail( $admin_user_info->user_email, $subject, $content, $headers );				
 			}
 		}
 
