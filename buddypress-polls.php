@@ -147,7 +147,7 @@ function activate_buddypress_polls() {
 		update_option( 'wbpolls_notification_settings', $bpolls_settings );
 	}
 
-	if ( false === get_option( 'notification_setting_options' ) ) {
+	if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 		$emai_content['admin'] = array(
 			'notification_subject' => 'You have a new Poll to approve',
 			'notification_content' => '
@@ -170,7 +170,7 @@ function activate_buddypress_polls() {
 			',
 		);
 
-		update_option( 'notification_setting_options', $emai_content );
+		update_option( 'wbpolls_notification_setting_options', $emai_content );
 	}
 
 	update_option( 'permalink_structure', '/%postname%/' );
@@ -565,7 +565,7 @@ function bpolls_add_page_or_data_buddypress()
 			update_option('wbpolls_notification_settings', $bpolls_settings);
 		}
 	
-		if ( false === get_option( 'notification_setting_options' ) ) {
+		if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 			$emai_content['admin'] = array(
 				'notification_subject' => 'You have a new Poll to approve', 
 				'notification_content' => '
@@ -588,7 +588,7 @@ function bpolls_add_page_or_data_buddypress()
 				',
 			);
 	
-			update_option( 'notification_setting_options', $emai_content );
+			update_option( 'wbpolls_notification_setting_options', $emai_content );
 		}
 
 		update_option('permalink_structure', '/%postname%/');

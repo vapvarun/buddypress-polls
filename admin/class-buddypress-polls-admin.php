@@ -324,9 +324,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				exit();
 			}
-			if ( isset( $_POST['notification_setting_options'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				unset( $_POST['notification_setting_options']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'notification_setting_options', wp_unslash( $_POST['notification_setting_options'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			if ( isset( $_POST['wbpolls_notification_setting_options'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+				unset( $_POST['wbpolls_notification_setting_options']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+				update_site_option( 'wbpolls_notification_setting_options', wp_unslash( $_POST['wbpolls_notification_setting_options'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
 				exit();
 			}
@@ -1377,7 +1377,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					$author    = get_userdata( $author_id );
 
 					$author_email = $author->user_email;
-					$option_value = get_option( 'notification_setting_options' );
+					$option_value = get_option( 'wbpolls_notification_setting_options' );
 					$subject      = isset( $option_value['member']['notification_subject'] ) ? $option_value['member']['notification_subject'] : '';
 					$headers[]    = 'Content-Type: text/html; charset=UTF-8';
 					$content      = isset( $option_value['member']['notification_content'] ) ? self::bpmbp_get_notification_content( $option_value['member']['notification_content'], $post_id, $author_id ) : '';
@@ -1388,7 +1388,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 		}
 
-		public static function bpmbp_get_notification_content( $notification_content, $blog_id, $user_id = null ) {
+		public static function bpmbp_get_notification_content( $notification_content, $post_id, $user_id = null ) {
 
 			$content = '';
 			if ( isset( $notification_content ) && ! empty( $notification_content ) ) {
@@ -1399,13 +1399,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				}
 
 				if ( strpos( $content, '{poll_name}' ) !== false ) {
-					$blog_post  = get_post( $blog_id );
-					$blog_title = '<a href="' . get_the_permalink( $blog_post ) . '">' . $blog_post->post_title . '</a>';
-					$content    = str_replace( '{poll_name}', $blog_title, $content );
+					$poll_post  = get_post( $post_id );
+					$poll_title = '<a href="' . get_the_permalink( $poll_post ) . '">' . $poll_post->post_title . '</a>';
+					$content    = str_replace( '{poll_name}', $poll_title, $content );
 				}
 
 				if ( strpos( $content, '{publisher_name}' ) !== false ) {
-					$user    = get_userdata( $blog_post->post_author );
+					$user    = get_userdata( $poll_post->post_author );
 					$content = str_replace( '{publisher_name}', $user->display_name, $content );
 				}
 
@@ -1417,7 +1417,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				}
 			}
 
-			return apply_filters( 'bpmbp_notification_content', $content, $notification_content, $blog_post );
+			return apply_filters( 'bpmbp_notification_content', $content, $notification_content, $poll_post );
 		}
 
 		public function wbpolls_log_delete() {

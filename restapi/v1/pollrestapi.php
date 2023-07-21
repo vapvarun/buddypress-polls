@@ -433,7 +433,7 @@ class Pollrestapi {
 
     public function send_admin_notifications($post_id) {
 		
-        $option_value = get_option('notification_setting_options');
+        $option_value = get_option('wbpolls_notification_setting_options');
         $option_admins = get_option('wbpolls_notification_settings');
         
 		$admin_users        = $option_admins['wppolls_admin_user'] ;
@@ -454,7 +454,7 @@ class Pollrestapi {
 	}
 
 
-    public static function bpmbp_get_notification_admin_content( $notification_content, $blog_id, $user_id = null ) {
+    public static function bpmbp_get_notification_admin_content( $notification_content, $post_id, $user_id = null ) {
        
         $content = '';
         if ( isset( $notification_content ) && ! empty( $notification_content ) ) {
@@ -465,13 +465,13 @@ class Pollrestapi {
             }
 
             if ( strpos( $content, '{poll_name}' ) !== false ) {
-                $blog_post = get_post( $blog_id );
-                $blog_title = '<a href="' . get_the_permalink( $blog_post ) . '">' . $blog_post->post_title . '</a>';
-                $content    = str_replace( '{poll_name}', $blog_title, $content );
+                $poll_post = get_post( $post_id );
+                $poll_title = '<a href="' . get_the_permalink( $poll_post ) . '">' . $poll_post->post_title . '</a>';
+                $content    = str_replace( '{poll_name}', $poll_title, $content );
             }
 
             if ( strpos( $content, '{publisher_name}' ) !== false ) {
-                $user    = get_userdata( $blog_post->post_author );
+                $user    = get_userdata( $poll_post->post_author );
                 $content = str_replace( '{publisher_name}', $user->display_name, $content );
             }
 
