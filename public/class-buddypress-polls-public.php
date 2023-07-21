@@ -251,6 +251,7 @@ class Buddypress_Polls_Public {
 				'poll_revoting'      => ( isset( $bpolls_settings['poll_revoting'] ) ) ? $bpolls_settings['poll_revoting'] : '',
 				'poll_user'          => get_current_user_id(),
 				'allowed_polls'      => $this->bpolls_is_user_allowed_polls(),
+				'hide_poll_icon'     => ( isset( $bpolls_settings['hide_poll_icon'] ) ) ? $bpolls_settings['hide_poll_icon'] : '',
 			)
 		);
 
@@ -359,11 +360,14 @@ class Buddypress_Polls_Public {
 			$bpolls_settings   = get_site_option( 'bpolls_settings' );
 			$polls_option_lmit = ( isset( $bpolls_settings['options_limit'] ) ) ? $bpolls_settings['options_limit'] : 5;
 
+			$hidepoll = isset($bpolls_settings['hide_poll_icon']) ? $bpolls_settings['hide_poll_icon'] : '';
+			if($hidepoll != 'yes'){
 			?>
-			<div class="post-elements-buttons-item bpolls-html-container">
-				<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
-			</div>
+				<div class="post-elements-buttons-item bpolls-html-container">
+					<span class="bpolls-icon bp-tooltip" data-bp-tooltip-pos="up" data-bp-tooltip="<?php esc_attr_e( 'Add a poll', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-bar-chart"></i></span>
+				</div>
 			<?php
+			}
 		}
 	}
 
