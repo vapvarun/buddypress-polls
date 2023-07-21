@@ -1,5 +1,4 @@
 <?php
-
 /**
  * The create poll page.
  *
@@ -9,16 +8,17 @@
  * @package    Buddypress_Polls
  * @subpackage Buddypress_Polls/public
  */
+
 global $post;
 $temp_post = $post;
 if ( ! empty( $_GET['poll_id'] ) ) {
-	
+
 	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'edit_poll_' . $_GET['poll_id'] ) ) {
-		
+
 		echo '<div class="main-poll-create">';
-		esc_html_e( 'You are not allow to edit the poll.', 'textdomain' ) ; 
+		esc_html_e( 'You are not allow to edit the poll.', 'textdomain' ) ;
 		echo '</div>';
-		
+
 		return;
 	}
 	$post_id = isset( $_GET['poll_id'] ) ? $_GET['poll_id'] : '';
@@ -153,42 +153,42 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 				<div class="form-group">
 					<label for="polltitle"><?php esc_html_e( 'Poll Type', 'buddypress-polls' ); ?></label>
 					<select class="form-control" name="poll_type" id="poll_type">
-						<option value="" 
+						<option value=""
 						<?php
 						if ( $poll_type == '' ) {
 							echo 'selected';
 						}
 						?>
 						><?php esc_html_e( 'Select Poll Type', 'buddypress-polls' ); ?></option>
-						<option value="default" 
+						<option value="default"
 						<?php
 						if ( $poll_type == 'default' ) {
 							echo 'selected';
 						}
 						?>
 						><?php esc_html_e( 'Text', 'buddypress-polls' ); ?></option>
-						<option value="image" 
+						<option value="image"
 						<?php
 						if ( $poll_type == 'image' ) {
 							echo 'selected';
 						}
 						?>
 						><?php esc_html_e( 'Image', 'buddypress-polls' ); ?></option>
-						<option value="video" 
+						<option value="video"
 						<?php
 						if ( $poll_type == 'video' ) {
 							echo 'selected';
 						}
 						?>
 						><?php esc_html_e( 'Video', 'buddypress-polls' ); ?></option>
-						<option value="audio" 
+						<option value="audio"
 						<?php
 						if ( $poll_type == 'audio' ) {
 							echo 'selected';
 						}
 						?>
 						><?php esc_html_e( 'Audio', 'buddypress-polls' ); ?></option>
-						<option value="html" 
+						<option value="html"
 						<?php
 						if ( $poll_type == 'html' ) {
 							echo 'selected';
@@ -306,7 +306,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 										<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 											<span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-											<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes" 
+											<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes"
 											<?php
 											if ( $options[0]['suggestion'] == 'yes' ) {
 												echo 'checked';
@@ -314,7 +314,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 											?>
 											>
 											<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-											<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no" 
+											<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no"
 											<?php
 											if ( $options[0]['suggestion'] == 'no' ) {
 												echo 'checked';
@@ -352,7 +352,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 														<span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-														<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes" 
+														<input type="checkbox" class="yes_video" id="yes" name="_wbpoll_video_import_info[]" value="yes"
 														<?php
 														if ( $optn['suggestion'] == 'yes' ) {
 															echo 'checked';
@@ -360,7 +360,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 														?>
 														>
 														<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-														<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no" 
+														<input type="checkbox" id="no" name="_wbpoll_video_import_info[]" value="no"
 														<?php
 														if ( $optn['suggestion'] == 'no' ) {
 															echo 'checked';
@@ -404,7 +404,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 										<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo esc_attr( $options[0]['audio'] ); ?>">
 										<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 										<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-											<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes" 
+											<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes"
 											<?php
 											if ( $options[0]['suggestion'] == 'yes' ) {
 												echo 'checked';
@@ -412,7 +412,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 											?>
 											>
 											<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-											<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no" 
+											<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no"
 											<?php
 											if ( $options[0]['suggestion'] == 'no' ) {
 												echo 'checked';
@@ -449,7 +449,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 													<input name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo esc_attr( $optn['audio'] ); ?>">
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-														<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes" 
+														<input type="checkbox" class="yes_audio" id="yes" name="_wbpoll_audio_import_info[]" value="yes"
 														<?php
 														if ( $optn['suggestion'] == 'yes' ) {
 															echo 'checked';
@@ -457,7 +457,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 														?>
 														>
 														<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-														<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no" 
+														<input type="checkbox" id="no" name="_wbpoll_audio_import_info[]" value="no"
 														<?php
 														if ( $optn['suggestion'] == 'no' ) {
 															echo 'checked';
@@ -721,7 +721,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 												if ( $wbpolls_user_add_extra_op == 'yes' && ! empty( $add_additional_fields ) || $add_additional_fields == 1 ) {
 													?>
 												<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="1" checked>
-												<?php } else { ?> 
+												<?php } else { ?>
 													<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="1">
 												<?php } ?>
 												<span><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></span>
@@ -732,7 +732,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 											if ( $wbpolls_user_add_extra_op == 'no' && ! empty( $add_additional_fields ) || $add_additional_fields == 0 ) {
 												?>
 												<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="0" checked>
-												<?php } else { ?> 
+												<?php } else { ?>
 													<input id="_wbpoll_multivote-radio" type="radio" name="_wbpoll_add_additional_fields" value="0">
 												<?php } ?>
 												<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>

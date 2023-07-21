@@ -238,7 +238,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
@@ -322,7 +322,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
@@ -433,7 +433,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
@@ -546,7 +546,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
@@ -659,7 +659,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
@@ -773,7 +773,7 @@
 					file_frame.on(
 						'select',
 						function () {
-							attachment = file_frame.state().get('selection').first().toJSON();
+							let attachment = file_frame.state().get('selection').first().toJSON();
 
 							if (attachment.url) {
 								jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
@@ -965,8 +965,7 @@
 				event.preventDefault();
 				var file_frame;
 				var updateurl = jQuery(this).parent().find('.wbpoll_image_answer_url');
-				var imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
-
+				var imageclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');				
 				if (file_frame) {
 					file_frame.open();
 					return;
@@ -991,7 +990,7 @@
 				file_frame.on(
 					'select',
 					function () {
-						attachment = file_frame.state().get('selection').first().toJSON();
+						let attachment = file_frame.state().get('selection').first().toJSON();
 
 						if (attachment.url) {
 							jQuery(imageclass).html('<img width="266" height="266" src="' + attachment.url + '">');
@@ -1038,7 +1037,7 @@
 				file_frame.on(
 					'select',
 					function () {
-						attachment = file_frame.state().get('selection').first().toJSON();
+						let attachment = file_frame.state().get('selection').first().toJSON();
 
 						if (attachment.url) {
 							jQuery(imageclass).html('<video src="' + attachment.url + '" controls="" poster="" preload="none"></video>');
@@ -1086,7 +1085,7 @@
 				file_frame.on(
 					'select',
 					function () {
-						attachment = file_frame.state().get('selection').first().toJSON();
+						let attachment = file_frame.state().get('selection').first().toJSON();
 
 						if (attachment.url) {
 							jQuery(imageclass).html('<audio src="' + attachment.url + '" controls="" preload="none"></audio>');
