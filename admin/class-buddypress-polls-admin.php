@@ -1483,7 +1483,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 										foreach ( $user_answer_t as $ans ) {
 											if ( isset( $poll_answers ) && ! empty( $poll_answers ) ) {
 												$poll_ans_id    = $ans;
-												$poll_ans_title = $poll_answers[ $poll_ans_id ];
+												$poll_ans_title = ( isset($poll_answers[ $poll_ans_id ]))? $poll_answers[ $poll_ans_id ] : '';
 											} else {
 												$poll_ans_title = '';
 											}
