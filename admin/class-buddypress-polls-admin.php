@@ -684,7 +684,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					echo esc_html( $end_date );
 					break;
 				case 'pollvotes':
-					echo esc_html( apply_filters( 'wbpoll_admin_listing_votes', $total_votes, $post_id ) );
+					echo apply_filters( 'wbpoll_admin_listing_votes', $total_votes, $post_id ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					break;
 				case 'shortcode':
 					echo '<span id="wbpollshortcode-' . esc_attr( $post_id ) . '" class="wbpollshortcode wbpollshortcode-' . esc_attr( $post_id ) . '">[wbpoll id="' . esc_attr( $post_id ) . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_attr__( 'Click to copy', 'buddypress-polls' ) . '" data-balloon-pos="down">&nbsp;</span>';
