@@ -1,12 +1,12 @@
 (function( $ ) {
 	'use strict';
-	$( document ).ready( function() {
-		if ( $('textarea.wbpoll_html_answer_textarea.tiny').length == 1 ) {
+	$( document ).ready( function() {		
+		if ( $('textarea.wbpoll_html_answer_textarea.tiny').length >= 1 ) {
 			tinymce.init({
 				selector: 'textarea.wbpoll_html_answer_textarea.tiny',
 				menubar: false,
 				max_height: 500,
-				max_width: 800,
+				max_width: 800, 
 				min_height: 200,
 				min_width: 800,
 				toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
