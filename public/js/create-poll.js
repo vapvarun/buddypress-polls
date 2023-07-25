@@ -353,13 +353,14 @@
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-video">Remove Fields</a>');
 			jQuery('.video_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
-			jQuery('.video_records_dynamic input').each(function () {
-				var count = 0;
-				var fieldname = jQuery(this).attr("name");
-				jQuery(this).attr('name', fieldname);
-				count++;
+			var count = 0;
+			jQuery('.ans-video-records-wrap').each(function () {				
+				jQuery(this).find('input').each(function () {					
+					var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
+					jQuery(this).attr('name', fieldname);					
+				});
+				count++;				
 			});
-
 			jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
 			jQuery('.remove'+clickCount+' .wbpoll_video_answer_url').val('');
 			jQuery('.remove'+clickCount+' .wbpoll-image-input-preview .wbpoll-image-input-preview-thumbnail').html('');
@@ -455,7 +456,7 @@
 		var count = 0;
 		jQuery('.ans-video-records-wrap').each(function () {				
 			jQuery(this).find('input').each(function () {					
-				var fieldname = jQuery(this).attr("name").replace("[]", "[" + count +"]" );
+				var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
 				jQuery(this).attr('name', fieldname);					
 			});
 			count++;				
@@ -476,7 +477,7 @@
 			var count = 0;
 			jQuery('.ans-video-records-wrap').each(function () {				
 				jQuery(this).find('input').each(function () {					
-					var fieldname = jQuery(this).attr("name").replace("[]", "[" + count +"]" );
+					var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
 					jQuery(this).attr('name', fieldname);					
 				});
 				count++;				
@@ -593,10 +594,11 @@
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
 			jQuery('.audio_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
 
-			jQuery('.audio_records_dynamic input').each(function () {
-				var count = 0;
-				var fieldname = jQuery(this).attr("name");
-				jQuery(this).attr('name', fieldname);
+			jQuery('.ans-audio-records-wrap').each(function () {				
+				jQuery(this).find('input').each(function () {					
+					var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
+					jQuery(this).attr('name', fieldname);					
+				});
 				count++;
 			});
 
@@ -693,7 +695,14 @@
 		});
 
 		/*** edit audio field ***/
-
+		var count = 0;
+		jQuery('.ans-audio-records-wrap').each(function () {				
+			jQuery(this).find('input').each(function () {					
+				var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
+				jQuery(this).attr('name', fieldname);					
+			});
+			count++;
+		});
 		jQuery(document).on('click', 'a.add-field.extra-fields-audio-edit', function (e) {
 			e.preventDefault();
 			var currentId = jQuery(this).data('id');
@@ -706,11 +715,12 @@
 			jQuery('.remove'+clickCount+' .extra-fields-audio-edit').remove();
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
 			jQuery('.audio_records_dynamic_edit > .single').attr("class", 'remove remove'+clickCount);
-
-			jQuery('.audio_records_dynamic_edit input').each(function () {
-				var count = 0;
-				var fieldname = jQuery(this).attr("name");
-				jQuery(this).attr('name', fieldname);
+			var count = 0;
+			jQuery('.ans-audio-records-wrap').each(function () {				
+				jQuery(this).find('input').each(function () {					
+					var fieldname = jQuery(this).data("name").replace("[]", "[" + count +"]" );
+					jQuery(this).attr('name', fieldname);					
+				});
 				count++;
 			});
 
@@ -1165,7 +1175,7 @@
 			const _wbpoll_vote_per_session = jQuery('#_wbpoll_vote_per_session-number').val();
 			const _wbpoll_add_additional_fields = jQuery('input[name="_wbpoll_add_additional_fields"]:checked').val();
 
-			var answerarray = jQuery('[name="_wbpoll_answer[]"]').map(function () {
+			var answerarray = jQuery('input.wbpoll_answer').map(function () {
 				return jQuery(this).val();
 			}).get();
 		   

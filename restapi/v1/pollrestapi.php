@@ -104,7 +104,8 @@ class Pollrestapi {
     // Callback function
     public function create_wbpoll($request) {
      
-        $parameters = $request->get_params();		
+        $parameters = $request->get_params();
+		
         $prefix = '_wbpoll_';
         // Retrieve the post data from the request body
         $post_title = sanitize_text_field( $parameters['title'] );
