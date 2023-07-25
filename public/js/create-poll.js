@@ -345,7 +345,9 @@
 			jQuery(this).data('id', clickCount);
 
 			jQuery('.extra-fields-video').attr('data-id', clickCount);
-			jQuery('.video_records').clone().appendTo('.video_records_dynamic');
+			jQuery('.video_records').clone().html(function(i, oldHTML) {
+							return oldHTML.replace(/\ name="/g, ' ');
+						}).appendTo('.video_records_dynamic');
 			jQuery('.video_records_dynamic .video_records').addClass('single remove');
 			jQuery('.remove'+clickCount+' .extra-fields-video').remove();
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-video">Remove Fields</a>');
@@ -588,8 +590,10 @@
 			var clickCount = currentId + 1; // Increase the value by 1
 			jQuery(this).data('id', clickCount);
 
-			jQuery('.extra-fields-audio').attr('data-id', clickCount);
-			jQuery('.audio_records').clone().appendTo('.audio_records_dynamic');
+			jQuery('.extra-fields-audio').attr('data-id', clickCount);			
+			jQuery('.audio_records').clone().html(function(i, oldHTML) {
+							return oldHTML.replace(/\ name="/g, ' ');
+						}).appendTo('.audio_records_dynamic');
 			jQuery('.audio_records_dynamic .audio_records').addClass('single remove');
 			jQuery('.remove'+clickCount+' .extra-fields-audio').remove();
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-audio">Remove Fields</a>');
