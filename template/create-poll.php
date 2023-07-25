@@ -68,7 +68,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 			$options[ $key ] = array(
 				'ans'        => $ans,
 				'video'      => $video_answer_url[ $key ],
-				'suggestion' => $video_import_info[ $key ],
+				'suggestion' => (isset($video_import_info[ $key ]))? $video_import_info[ $key ]: 'no',
 			);
 		}
 	} elseif ( $poll_type == 'audio' ) {
@@ -76,7 +76,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 			$options[ $key ] = array(
 				'ans'        => $ans,
 				'audio'      => $audio_answer_url[ $key ],
-				'suggestion' => $audio_import_info[ $key ],
+				'suggestion' => (isset($audio_import_info[ $key ])) ? $audio_import_info[ $key ] : 'no',
 			);
 		}
 	} elseif ( $poll_type == 'html' ) {
