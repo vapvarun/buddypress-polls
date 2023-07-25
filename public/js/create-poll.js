@@ -374,7 +374,7 @@
 					var suggestion = jQuery(this).parent().find('.hide_suggestion');
 					var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 					jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
-					jQuery(suggestion).show();
+					jQuery(suggestion).show();					
 					jQuery(suggestion).find('#no').prop('checked', true);
 					jQuery(suggestion).find('#yes').prop('checked', false);					
 					jQuery('.yes_video').on('click', function () {
@@ -385,7 +385,7 @@
 						jQuery.getJSON('https://noembed.com/embed', {
 							format: 'json',
 							url: url,
-						}, function (response) {
+						}, function (response) {							
 							if (response.error) {
 								jQuery(suggestion).find('#no').prop('checked', true);
 								jQuery(suggestion).find('#yes').prop('checked', false);								
@@ -393,7 +393,7 @@
 								jQuery(imagclass).html(response.html);
 								jQuery(title).val(response.title);
 								var iframe = jQuery(response.html);
-								jQuery(suggestion).find('#no').prop('checked', true);
+								jQuery(suggestion).find('#no').prop('checked', false);
 								var src = iframe.attr('src');
 								jQuery(updateurl).val(src);
 							}
@@ -507,6 +507,7 @@
 					var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 					jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
 					jQuery(suggestion).show();
+					console.log(12121);
 					jQuery(suggestion).find('#no').prop('checked', true);
 					jQuery(suggestion).find('#yes').prop('checked', false);					
 					jQuery('.yes_video').on('click', function () {
@@ -520,12 +521,12 @@
 						}, function (response) {
 							if (response.error) {
 								jQuery(suggestion).find('#no').prop('checked', true);
-								jQuery(suggestion).find('#yes').prop('checked', false);								
+								jQuery(suggestion).find('#yes').prop('checked', false);
 							} else {
 								jQuery(imagclass).html(response.html);
 								jQuery(title).val(response.title);
 								var iframe = jQuery(response.html);
-								jQuery(suggestion).find('#no').prop('checked', true);
+								jQuery(suggestion).find('#no').prop('checked', false);
 								var src = iframe.attr('src');
 								jQuery(updateurl).val(src);
 							}
@@ -922,7 +923,7 @@
 				var suggestion = jQuery(this).parent().find('.hide_suggestion');
 				var imagclass = jQuery(this).parent().parent().find('.wbpoll-image-input-preview-thumbnail');
 				jQuery(imagclass).html('<video src="' + url + '" controls="" poster="" preload="none"></video>');
-				jQuery(suggestion).show();
+				jQuery(suggestion).show();				
 				jQuery(suggestion).find('#no').prop('checked', true);
 				jQuery(suggestion).find('#yes').prop('checked', false);				
 				jQuery('.yes_video').on('click', function () {
@@ -933,7 +934,7 @@
 					jQuery.getJSON('https://noembed.com/embed', {
 						format: 'json',
 						url: url,
-					}, function (response) {
+					}, function (response) {						
 						if (response.error) {
 							jQuery(suggestion).find('#no').prop('checked', true);
 							jQuery(suggestion).find('#yes').prop('checked', false);							
