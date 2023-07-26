@@ -849,10 +849,10 @@
 			});
 
 			jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
-			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');
+			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');			
+			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').remove();			
+			//tinymce.remove('textarea.tiny');
 			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').show();			
-			jQuery('.remove'+clickCount+' .mce-tinymce.mce-container.mce-panel').remove();
-			tinymce.remove('textarea.tiny');
 			tinymce.init({
 						selector: 'textarea.tiny',
 						menubar: false,
@@ -862,7 +862,7 @@
 						min_width: 800,
 						toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
 					});	
-			
+			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').show();
 			
 		});
 
