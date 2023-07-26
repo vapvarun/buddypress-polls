@@ -840,21 +840,26 @@
 			//jQuery('.remove'+clickCount+' .extra-fields-html').remove();
 			jQuery('.single').append('<a href="#" class="remove-field btn-remove-html">Remove Fields</a>');
 			jQuery('.html_records_dynamic > .single').attr("class", 'remove remove'+clickCount);
-
+			
+			var count = 0;
 			jQuery('.html_records_dynamic input').each(function () {
-				var count = 0;
+				
 				var fieldname = jQuery(this).attr("name");
+				var fieldid = jQuery(this).attr("id");
 				jQuery(this).attr('name', fieldname);
+				jQuery(this).attr('id', fieldid + '_' + count);
 				count++;
 			});
 
 			jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
-			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');			
-			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').remove();			
-			//tinymce.remove('textarea.tiny');
-			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').show();			
-			tinymce.init({
-						selector: 'textarea.tiny',
+			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').attr('id','wbpoll_html_answer_textarea_' + clickCount).val('');			
+			jQuery('#type_html .remove'+clickCount+' .mce-tinymce.mce-container.mce-panel').remove();
+			
+			jQuery('#type_html .ans-records-wrap .wbpoll_html_answer_textarea').each(function () {
+				var tiny_id = jQuery(this).attr( 'id' );
+				tinymce.remove('textarea.tiny#'+ tiny_id);
+				tinymce.init({
+						selector: 'textarea.tiny#'+ tiny_id,
 						menubar: false,
 						max_height: 500,
 						max_width: 800,
@@ -862,8 +867,8 @@
 						min_width: 800,
 						toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
 					});	
+			});
 			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').show();
-			
 		});
 
 		/*** edit audio field ***/
@@ -888,12 +893,14 @@
 			});
 
 			jQuery('.remove'+clickCount+' .wbpoll_answer').val('');
-			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').val('');			
-			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').remove();			
-			//tinymce.remove('textarea.tiny');
-			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').show();			
-			tinymce.init({
-						selector: 'textarea.tiny',
+			jQuery('.remove'+clickCount+' .wbpoll_html_answer_textarea').attr('id','wbpoll_html_answer_textarea_' + clickCount).val('');			
+			jQuery('#type_html .remove'+clickCount+' .mce-tinymce.mce-container.mce-panel').remove();
+			
+			jQuery('#type_html .ans-records-wrap .wbpoll_html_answer_textarea').each(function () {
+				var tiny_id = jQuery(this).attr( 'id' );
+				tinymce.remove('textarea.tiny#'+ tiny_id);
+				tinymce.init({
+						selector: 'textarea.tiny#'+ tiny_id,
 						menubar: false,
 						max_height: 500,
 						max_width: 800,
@@ -901,6 +908,7 @@
 						min_width: 800,
 						toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
 					});	
+			});
 			jQuery('#type_html .mce-tinymce.mce-container.mce-panel').show();
 			
 		});
