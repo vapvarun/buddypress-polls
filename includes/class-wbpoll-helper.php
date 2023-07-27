@@ -886,9 +886,10 @@ class WBPollHelper {
 						$poll_content = convert_smilies( $poll_content );
 						$poll_content = str_replace( ']]>', ']]&gt;', $poll_content );
 					}
+					
 					if ( has_post_thumbnail( $post_id ) ) {
 						?>
-						<figure class="post-thumbnail"><?php the_post_thumbnail( $post_id, 'large' ); ?></figure>
+						<figure class="post-thumbnail"><?php echo get_the_post_thumbnail( $post_id, 'large' ); ?></figure>
 					<?php } ?>
 
 					<div class="wbpoll-description">
