@@ -1516,7 +1516,7 @@ class WBPollHelper {
 
 			if ( isset( $poll_answers_html[ $index ] ) && ! empty( $poll_answers_html[ $index ] ) ) {
 				$poll_form_html .= '<div class="wbpoll-question-choices-item-content-container">';
-				$poll_form_html .= '<div class="wbpoll-question-choices-item-content">';
+				$poll_form_html .= '<div class="wbpoll-question-choices-item-content poll-html-content">';
 				$poll_form_html .= '<div class="poll-html">' . $poll_answers_html[ $index ] . '</div>';
 				$poll_form_html .= '</div>';
 				$poll_form_html .= '</div>';
