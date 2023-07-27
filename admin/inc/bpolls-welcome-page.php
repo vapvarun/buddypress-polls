@@ -10,6 +10,8 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+global $wp_rewrite;
+$wp_rewrite->flush_rules();
 ?>
 <div class="wbcom-tab-content">
 	<div class="wbcom-welcome-main-wrapper">
