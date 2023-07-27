@@ -129,7 +129,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'ajax_nonce' => wp_create_nonce( 'bpolls_widget_security' ),
-				'votes'      => json_encode( $uptd_votes ),
+				'votes'      => wp_json_encode( $uptd_votes ),
 			)
 		);
 
@@ -245,9 +245,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']            = strip_tags( $new_instance['title'] );
-		$instance['max_activity']     = strip_tags( $new_instance['max_activity'] );
-		$instance['activity_default'] = strip_tags( $new_instance['activity_default'] );
+		$instance['title']            = wp_strip_all_tags( $new_instance['title'] );
+		$instance['max_activity']     = wp_strip_all_tags( $new_instance['max_activity'] );
+		$instance['activity_default'] = wp_strip_all_tags( $new_instance['activity_default'] );
 
 		return $instance;
 	}
@@ -285,9 +285,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$title            = strip_tags( $instance['title'] );
-		$max_activity     = strip_tags( $instance['max_activity'] );
-		$activity_default = strip_tags( $instance['activity_default'] );
+		$title            = wp_strip_all_tags( $instance['title'] );
+		$max_activity     = wp_strip_all_tags( $instance['max_activity'] );
+		$activity_default = wp_strip_all_tags( $instance['activity_default'] );
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
