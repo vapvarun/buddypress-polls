@@ -353,6 +353,10 @@ add_action( 'admin_init', 'buddypress_polls_migration', 20 );
  */
 function buddypress_polls_migration() {
 	global $wpdb, $pagenow;
+	
+	if ( !class_exists( 'Buddypress' ) ) {
+		return;
+	}
 
 	$buddypress_polls_migration_3_2_1 = get_option( 'buddypress_polls_migration_3_2_1' );
 	if ( ( 'plugins.php' === $pagenow || 'update-core.php' === $pagenow ) && 'update' !== $buddypress_polls_migration_3_2_1 ) {
