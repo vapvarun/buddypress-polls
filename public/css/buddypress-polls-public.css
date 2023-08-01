@@ -16,6 +16,7 @@
     # Beehive
     # Aardvark
     # Gwangi
+    # SocialV
 # Hide Media Library Tab
 # Youzify
 # BB Platform
@@ -385,6 +386,7 @@ body:not(.logged-in) .bpolls-vote-submit {
 .bpolls-item .bpolls-result-votes .bpolls-post-voted .bp-polls-view-all {
     margin: 0;
     padding: 0;
+    min-width: 25px;
     width: 25px;
     height: 25px;
     cursor: pointer;
@@ -555,6 +557,7 @@ select.bpolls-activities-list {
     margin-top: 10px;
 }
 
+#buddypress .bpolls-option-actions-wrap button#bpolls-attach-image,
 #bpolls-attach-image {
     margin: 10px 10px 0 0;
     padding: 0;
@@ -1188,6 +1191,19 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     display: block;
 }
 
+/*--------------------------------------------------------------
+## SocialV
+--------------------------------------------------------------*/
+.socialv-bp-default-main #buddypress a.bpolls-add-option.button {
+    color: var(--color-theme-white);
+    background-color: var(--color-theme-primary);
+    border-radius: var(--border-radius);
+}
+
+.socialv-bp-default-main #buddypress a.bpolls-add-option.button:hover {
+    background: var(--color-theme-primary-dark);
+    color: var(--color-theme-white);
+}
 
 /*--------------------------------------------------------------
 # Youzify
