@@ -18,9 +18,10 @@
 		}
 		$('input[name="_wbpoll_never_expire"]').on('change', function (e) {			
 			if ($(this).val() == 1) {
-				$('.wbpoll_show_date').hide();
+				$('.wbpoll_show_date, .wbpoll_result_after_expires').hide();				
+				$("input[name=_wbpoll_show_result_before_expire][value='0']").prop("checked",true);
 			} else {
-				$('.wbpoll_show_date').show();
+				$('.wbpoll_show_date, .wbpoll_result_after_expires').show();
 			}
 		});
 						

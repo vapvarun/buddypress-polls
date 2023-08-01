@@ -852,10 +852,12 @@ class WBPollHelper {
 		$poll_colors  = get_post_meta( $post_id, '_wbpoll_answer_color', true );
 
 		$log_method = 'both';
-
-		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ); // check if poll expired from it's end data.
+		$current_datetime = current_datetime()->format('Y-m-d H:i:s');
+		
+		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( $current_datetime ); // check if poll expired from it's end data.		
 		$is_poll_expired = ( $poll_never_expire == 1 ) ? false : $is_poll_expired; // override expired status based on the meta information.
-
+		
+		
 		$poll_allowed_user_group = $poll_user_roles;
 
 		$cb_question_list_to_find_ans = array();
@@ -958,7 +960,8 @@ class WBPollHelper {
 					$cb_has_answer = $wpdb->get_var( $sql );
 
 					if ( $cb_has_answer != null ) {
-						if ( $poll_show_result_before_expire == 0 ) {
+						
+						if ( $poll_show_result_before_expire == 1 ) {
 							echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 					}

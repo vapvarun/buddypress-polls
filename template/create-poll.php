@@ -655,7 +655,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
-							<tr  class="wbpoll_show_date">
+							<tr class="wbpoll_show_date">
 								<?php
 								$current_date   = current_time( 'Y-m-d H:i:s' );
 								$next_seven_days = date_i18n( 'Y-m-d H:i:s', strtotime( $current_date . ' +7 days' ) );
@@ -666,7 +666,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 								</td>
 							</tr>
 							
-							<tr>
+							<tr class="wbpoll_result_after_expires">
 								<th><label for="_wbpoll_show_result_before_expire"><?php esc_html_e( 'Show Result After Expires', 'buddypress-polls' ); ?></label></th>
 								<td>
 									<fieldset class="radio_fields">
