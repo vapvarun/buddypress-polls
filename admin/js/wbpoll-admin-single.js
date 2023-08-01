@@ -2,6 +2,18 @@
 (function( $ ) {
 	'use strict';
 	$( document ).ready( function() {
+		
+		if ( $('input[name="_wbpoll_never_expire"]:checked').val() == 1 ) {
+			$('._wbpoll_start_date,._wbpoll_end_date').hide();
+		}
+		$('input[name="_wbpoll_never_expire"]').on('change', function (e) {			
+			if ($(this).val() == 1) {
+				$('._wbpoll_start_date,._wbpoll_end_date').hide();
+			} else {
+				$('._wbpoll_start_date,._wbpoll_end_date').show();
+			}
+		});
+		
 		function wbpoll_copyStringToClipboard (str) {
 			// Create new element
 			var el = document.createElement( 'textarea' );

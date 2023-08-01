@@ -1005,7 +1005,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 					$label = isset( $field['label'] ) ? $field['label'] : '';
 
-					echo '<tr>';
+					echo '<tr class="' . esc_attr( $field['id'] ) . '">';
 					echo '<th><label for="' . esc_attr( $field['id'] ) . '">' . esc_html( $label ) . '</label></th>';
 					echo '<td>';
 

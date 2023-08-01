@@ -633,22 +633,6 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 					<table class="form-table wbpoll-answer-options">
 						<tbody>
 							<tr>
-								<th><label for="_wbpoll_start_date"><?php esc_html_e( 'Start Date', 'buddypress-polls' ); ?></label></th>
-								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php if ( ! empty( $start_time ) ) { echo esc_attr( $start_time ); } else { echo esc_attr( current_time( 'Y-m-d H:i:s' ) ); } ?>" size="30">
-									<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
-								</td>
-							</tr>
-							<tr>
-								<?php
-								$current_date   = current_time( 'Y-m-d H:i:s' );
-								$next_seven_days = date_i18n( 'Y-m-d H:i:s', strtotime( $current_date . ' +7 days' ) );
-								?>
-								<th><label for="_wbpoll_end_date"><?php esc_html_e( 'End Date', 'buddypress-polls' ); ?></label></th>
-								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php if ( ! empty( $end_date ) ) { echo esc_attr( $end_date ); } else { echo esc_attr( $next_seven_days ); } ?>" size="30">
-									<span class="description"><?php esc_html_e( 'Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls' ); ?></span>
-								</td>
-							</tr>
-							<tr>
 								<th><label for="_wbpoll_never_expire"><?php esc_html_e( 'Never Expire', 'buddypress-polls' ); ?></label></th>
 								<td>
 									<fieldset class="radio_fields">
@@ -665,6 +649,23 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									<span class="description"><?php esc_html_e( 'Select if you want your poll to never expire.(can be override from shortcode param)', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
+							<tr class="wbpoll_show_date">
+								<th><label for="_wbpoll_start_date"><?php esc_html_e( 'Start Date', 'buddypress-polls' ); ?></label></th>
+								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php if ( ! empty( $start_time ) ) { echo esc_attr( $start_time ); } else { echo esc_attr( current_time( 'Y-m-d H:i:s' ) ); } ?>" size="30">
+									<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
+								</td>
+							</tr>
+							<tr  class="wbpoll_show_date">
+								<?php
+								$current_date   = current_time( 'Y-m-d H:i:s' );
+								$next_seven_days = date_i18n( 'Y-m-d H:i:s', strtotime( $current_date . ' +7 days' ) );
+								?>
+								<th><label for="_wbpoll_end_date"><?php esc_html_e( 'End Date', 'buddypress-polls' ); ?></label></th>
+								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php if ( ! empty( $end_date ) ) { echo esc_attr( $end_date ); } else { echo esc_attr( $next_seven_days ); } ?>" size="30">
+									<span class="description"><?php esc_html_e( 'Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls' ); ?></span>
+								</td>
+							</tr>
+							
 							<tr>
 								<th><label for="_wbpoll_show_result_before_expire"><?php esc_html_e( 'Show Result After Expires', 'buddypress-polls' ); ?></label></th>
 								<td>

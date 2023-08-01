@@ -2207,7 +2207,17 @@ class WBPollHelper {
 		$end_date   = strtotime( '+7 day', $timestamp );
 
 		$post_meta_fields = array(
-
+			'_wbpoll_never_expire'              => array(
+				'label'   => esc_html__( 'Never Expire', 'buddypress-polls' ),
+				'desc'    => esc_html__( 'Select if you want your poll to never expire.', 'buddypress-polls' ),
+				'id'      => '_wbpoll_never_expire',
+				'type'    => 'radio',
+				'default' => $default_never_expire,
+				'options' => array(
+					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
+					'0' => esc_html__( 'No', 'buddypress-polls' ),
+				),
+			),
 			'_wbpoll_start_date'                => array(
 				'label'   => esc_html__( 'Start Date', 'buddypress-polls' ),
 				'desc'    => __(
@@ -2249,17 +2259,7 @@ class WBPollHelper {
 				),
 
 			),
-			'_wbpoll_never_expire'              => array(
-				'label'   => esc_html__( 'Never Expire', 'buddypress-polls' ),
-				'desc'    => esc_html__( 'Select if you want your poll to never expire.', 'buddypress-polls' ),
-				'id'      => '_wbpoll_never_expire',
-				'type'    => 'radio',
-				'default' => $default_never_expire,
-				'options' => array(
-					'1' => esc_html__( 'Yes', 'buddypress-polls' ),
-					'0' => esc_html__( 'No', 'buddypress-polls' ),
-				),
-			),
+			
 
 			'_wbpoll_show_result_before_expire' => array(
 				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),

@@ -12,6 +12,17 @@
 				toolbar: 'undo redo | formatselect | bold italic backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help'
 			});
 		}
+		
+		if ( $('input[name="_wbpoll_never_expire"]:checked').val() == 1 ) {
+			$('.wbpoll_show_date').hide();
+		}
+		$('input[name="_wbpoll_never_expire"]').on('change', function (e) {			
+			if ($(this).val() == 1) {
+				$('.wbpoll_show_date').hide();
+			} else {
+				$('.wbpoll_show_date').show();
+			}
+		});
 						
 		jQuery('#poll_type').on('change', function (e) {
 			e.preventDefault();
