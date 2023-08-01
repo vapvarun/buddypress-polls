@@ -88,7 +88,7 @@ function activate_buddypress_polls() {
 	 * create a page for frontend poll
 	 */
 	$page_title = 'Poll Dashboard';
-	$poll_dashboard_page = get_page_by_title( $page_title );
+	$poll_dashboard_page = bpolls_get_page_by_title( $page_title );
 	if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
 		$dashboard_page_id = wp_insert_post(
 			array(
@@ -103,7 +103,7 @@ function activate_buddypress_polls() {
 	 * create a page for frontend poll
 	 */
 	$page_title = 'Create Poll';
-	$create_poll_page = get_page_by_title( $page_title );	
+	$create_poll_page = bpolls_get_page_by_title( $page_title );	
 	if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
 		$create_page_id = wp_insert_post(
 			array(
@@ -508,7 +508,7 @@ function bpolls_add_page_or_data_buddypress()
 		 * create a page for frontend poll
 		 */
 		$page_title = 'Poll Dashboard';
-		$poll_dashboard_page = get_page_by_title( $page_title );
+		$poll_dashboard_page = bpolls_get_page_by_title( $page_title );
 		if ( empty($poll_dashboard_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['poll_dashboard_page'])) ) {
 			$dashboard_page_id = wp_insert_post(
 				array(
@@ -523,7 +523,7 @@ function bpolls_add_page_or_data_buddypress()
 		 * create a page for frontend poll
 		 */
 		$page_title = 'Create Poll';
-		$create_poll_page = get_page_by_title( $page_title );	
+		$create_poll_page = bpolls_get_page_by_title( $page_title );	
 		if ( empty($create_poll_page) && (empty($wbpolls_settings) || !isset($wbpolls_settings['create_poll_page'])) ) {
 			$create_page_id = wp_insert_post(
 				array(
@@ -597,3 +597,42 @@ function bpolls_add_page_or_data_buddypress()
 	}
 }
 add_action('admin_init', 'bpolls_add_page_or_data_buddypress');
+
+
+
+function bpolls_get_page_by_title( $page_title, $output = OBJECT, $post_type = 'page' ) {	
+	global $wpdb;
+
+	if ( is_array( $post_type ) ) {
+		$post_type           = esc_sql( $post_type );
+		$post_type_in_string = "'" . implode( "','", $post_type ) . "'";
+		$sql                 = $wpdb->prepare(
+			"
+			SELECT ID
+			FROM $wpdb->posts
+			WHERE post_title = %s
+			AND post_type IN ($post_type_in_string)
+		",
+			$page_title
+		);
+	} else {
+		$sql = $wpdb->prepare(
+			"
+			SELECT ID
+			FROM $wpdb->posts
+			WHERE post_title = %s
+			AND post_type = %s
+		",
+			$page_title,
+			$post_type
+		);
+	}
+
+	$page = $wpdb->get_var( $sql );
+
+	if ( $page ) {
+		return get_post( $page, $output );
+	}
+
+	return null;
+}
