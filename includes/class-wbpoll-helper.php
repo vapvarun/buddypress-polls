@@ -822,8 +822,8 @@ class WBPollHelper {
 				'_wbpoll_show_result_before_expire',
 				true
 			)
-		); // poll never epire.
-
+		); // poll never epire.		
+		
 		$poll_votes_per_session = intval(
 			get_post_meta(
 				$post_id,
@@ -1039,16 +1039,16 @@ class WBPollHelper {
 						// we know poll is not expired, and user is not allowed to vote
 						// now we check if the user i allowed to see result and result is allow to show before expire.
 
-						if ( $poll_show_result_before_expire == 1 ) {
+						if ( $poll_show_result_before_expire == 0 ) {
 							if ( $poll_is_voted ) {
 
 								echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 							} else {
 								?>
-							<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php echo esc_attr( $post_id ); ?>">
-									<?php esc_html_e( 'You are not able to vote for this poll', 'buddypress-polls' ); ?>
-							</p>
+								<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php echo esc_attr( $post_id ); ?>">
+										<?php esc_html_e( 'You are not able to vote for this poll', 'buddypress-polls' ); ?>
+								</p>
 								<?php
 							}
 							// integrate user login for guest user.
@@ -1150,7 +1150,7 @@ class WBPollHelper {
 										</p>
 
 											<?php
-											if ( $poll_show_result_before_expire == 1 ) {
+											if ( $poll_show_result_before_expire == 0 ) {
 
 												echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 											}
