@@ -2264,7 +2264,7 @@ class WBPollHelper {
 			'_wbpoll_show_result_before_expire' => array(
 				'label'   => esc_html__( 'Show Result After Expires', 'buddypress-polls' ),
 				'desc'    => esc_html__(
-					'Select if you want poll to show result After expires. After expires the result will be shown always. Please check it if poll never expires.',
+					'Select if you want poll to show result After expires. After expires the result will be shown always.',
 					'buddypress-polls'
 				),
 				'id'      => '_wbpoll_show_result_before_expire',

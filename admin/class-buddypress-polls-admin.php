@@ -1013,22 +1013,22 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						case 'text':
 							echo '<input type="text" class="regular-text" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-text-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							<span class="description">' .  $field['desc'] . '</span>';
 							break;
 
 						case 'number':
 							echo '<input type="number" class="regular-text" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-number-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							<span class="description">' .  $field['desc']  . '</span>';
 							break;
 
 						case 'date':
 							echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-date-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							<span class="description">' . $field['desc'] . '</span>';
 							break;
 
 						case 'colorpicker':
 							echo '<input type="text" class="wbpoll-colorpicker" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-date-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							<span class="description">' . $field['desc']  . '</span>';
 							break;
 
 						case 'multiselect':
@@ -1047,7 +1047,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									echo '<option value="' . esc_attr( $key ) . '" ' . ( is_array( $meta ) && in_array( $key, $meta ) ? ' selected="selected"' : '' ) . '>' . esc_html( $val ) . '</option>';
 								}
 							}
-							echo '</select><span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							echo '</select><span class="description">' . $field['desc'] . '</span>';
 							echo '<div>';
 							break;
 
@@ -1065,7 +1065,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									echo '<option ' . ( ( $meta == $index ) ? ' selected="selected"' : '' ) . ' value="' . esc_attr( $index ) . '">' . esc_html( $option ) . '</option>';
 								}
 							}
-							echo '</select><br/><span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							echo '</select><br/><span class="description">' . $field['desc'] . '</span>';
 							break;
 
 						case 'radio':
@@ -1078,12 +1078,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								</label>';
 							}
 							echo '</fieldset>';
-							echo '<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							echo '<span class="description">' . $field['desc'] . '</span>';
 							break;
 
 						case 'checkbox':
 							echo '<input type="checkbox" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-checkbox-' . esc_attr( $poll_postid ) . '" class="cb-checkbox checkbox-' . esc_attr( $poll_postid ) . '" ' . ( $meta ? ' checked="checked"' : '' ) . '/>
-								<span for="' . esc_attr( $field['id'] ) . '">' . esc_html( $field['desc'] ) . '</span>';
+								<span for="' . esc_attr( $field['id'] ) . '">' . $field['desc'] . '</span>';
 							break;
 
 						case 'checkbox_group':
@@ -1098,7 +1098,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								echo '<input type="checkbox" value="' . esc_attr( $option['value'] ) . '" name="' . esc_attr( $field['id'] ) . '[]" id="' . esc_attr( $option['value'] ) . '-mult-chk-' . esc_attr( $poll_postid ) . '-field-' . esc_attr( $field['id'] ) . '" class="cb-multi-check mult-check-' . esc_attr( $poll_postid ) . '" ' . ( $meta && in_array( $option['value'], $meta ) ? ' checked="checked"' : '' ) . ' />
 									<label for="' . esc_attr( $option['value'] ) . '">' . esc_html( $option['label'] ) . '</label><br/>';
 							}
-							echo '<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							echo '<span class="description">' .  $field['desc'] . '</span>';
 							break;
 					}
 					echo '</td>';
