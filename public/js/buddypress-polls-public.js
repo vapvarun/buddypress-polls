@@ -310,11 +310,11 @@
 
 			$( document ).on(
 				'change',
-				'input[name=bpolls_input_options]',
+				'input.bpolls_input_options',
 				function() {
 
 					var poll_option = [];
-					$( "input[name='bpolls_input_options']" ).each(
+					$( "input.bpolls_input_options" ).each(
 						function() {
 							if ($( this ).val()) {
 								poll_option.push( $( this ).val() );
