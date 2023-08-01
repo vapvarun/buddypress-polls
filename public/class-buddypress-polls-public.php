@@ -2094,8 +2094,9 @@ class Buddypress_Polls_Public {
 		$poll_colors  = get_post_meta( $poll_id, '_wbpoll_answer_color', true );
 
 		$log_method = 'both';
-
-		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ); // check if poll expired from it's end data
+		$current_datetime = current_datetime()->format('Y-m-d H:i:s');
+		
+		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( $current_datetime ); // check if poll expired from it's end data
 		$is_poll_expired = ( $poll_never_expire == 1 ) ? false : $is_poll_expired; // override expired status based on the meta information
 
 		$poll_allowed_user_group = $poll_user_roles;
@@ -2103,8 +2104,8 @@ class Buddypress_Polls_Public {
 		$allowed_user_groups = array_intersect( $poll_allowed_user_group, $this_user_role );
 		
 		
-
-		if ( new DateTime( $poll_start_date ) > new DateTime() ) {
+				
+		if ( new DateTime( $poll_start_date ) > new DateTime($current_datetime) ) {
 			$poll_result['error'] = 1;
 			$poll_result['text']  = esc_html__( 'Sorry, poll didn\'t start yet.', 'buddypress-polls' );
 
