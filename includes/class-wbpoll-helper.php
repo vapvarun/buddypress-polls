@@ -958,7 +958,7 @@ class WBPollHelper {
 					$cb_has_answer = $wpdb->get_var( $sql );
 
 					if ( $cb_has_answer != null ) {
-						if ( $poll_show_result_before_expire == 1 ) {
+						if ( $poll_show_result_before_expire == 0 ) {
 							echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 					}
