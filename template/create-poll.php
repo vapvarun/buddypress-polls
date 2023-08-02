@@ -9,14 +9,28 @@
  * @subpackage Buddypress_Polls/public
  */
 
-global $post;
+global $post, $current_user;
 $temp_post = $post;
+$option_value = get_option( 'wbpolls_settings' );
+$wppolls_create_poll = ( isset($option_value['wppolls_create_poll'])) ? $option_value['wppolls_create_poll']: '';
+if ( !empty($wppolls_create_poll)  ) {
+	$roles = $current_user->roles;
+	$result = array_intersect($wppolls_create_poll,$roles);
+	
+	if ( empty($result)) {
+		echo '<div class="main-poll-create">';
+		echo esc_html__( 'You are not allow to create the poll.', 'buddypress-polls' );
+		echo '</div>';
+
+		return;
+	}
+}
 if ( ! empty( $_GET['poll_id'] ) ) {
 
 	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'edit_poll_' . $_GET['poll_id'] ) ) {
 
 		echo '<div class="main-poll-create">';
-			esc_html__( 'You are not allow to edit the poll.', 'buddypress-polls' );
+		echo esc_html__( 'You are not allow to edit the poll.', 'buddypress-polls' );
 		echo '</div>';
 
 		return;
@@ -91,7 +105,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 	$add_additional_fields = get_post_meta( $post_id, '_wbpoll_add_additional_fields', true );
 } else {
 	$never_expire             = '0';
-	$show_result_after_expire = '1';
+	$show_result_after_expire = '0';
 	$multivote                = '0';
 	$add_additional_fields    = '0';
 }
@@ -700,8 +714,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
-							<?php
-							$option_value = get_option( 'wbpolls_settings' );
+							<?php							
 							if ( ! empty( $option_value ) ) {
 								$wbpolls_user_add_extra_op = isset( $option_value['wbpolls_user_add_extra_op'] ) ? $option_value['wbpolls_user_add_extra_op'] : '';
 							}

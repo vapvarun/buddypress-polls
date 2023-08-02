@@ -2204,7 +2204,7 @@ class WBPollHelper {
 		$default_content                   = isset( $global_settings['content'] ) ? $global_settings['content'] : 1;
 		$default_result_chart              = isset( $global_settings['result_chart_type'] ) ? $global_settings['result_chart_type'] : 'text';
 		$default_poll_multivote            = isset( $global_settings['poll_multivote'] ) ? intval( $global_settings['poll_multivote'] ) : 0;
-		$default_show_result_before_expire = isset( $global_settings['show_result_before_expire'] ) ? intval( $global_settings['show_result_before_expire'] ) : 1;
+		$default_show_result_before_expire = isset( $global_settings['show_result_before_expire'] ) ? intval( $global_settings['show_result_before_expire'] ) : 0;
 
 		// Field Array.
 		$prefix = '_wbpoll_';

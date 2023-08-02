@@ -14,7 +14,6 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 } else {
 	$bpolls_settings = get_site_option( 'wbpolls_settings' );
 }
-
 global $wp_roles;
 ?>
 <div class="wbcom-tab-content">
@@ -51,6 +50,27 @@ global $wp_roles;
 								</select>				
 							</div>
 						</div>
+						
+						<div class="wbcom-settings-section-wrap" id="bpolls_user_role" >
+							<div class="wbcom-settings-section-options-heading">
+								<label><?php esc_html_e( 'Who can create a poll?', 'buddypress-polls' ); ?></label>
+								<p class="description">
+									<?php esc_html_e( 'Select the user roles who can create a polls.', 'buddypress-polls' ); ?>
+								</p>
+							</div>
+							<div class="wbcom-settings-section-options">
+								<select class="multi-selectize" name="wbpolls_settings[wppolls_create_poll][]" multiple>
+									<?php
+									$roles = $wp_roles->get_names();
+									foreach ( $roles as $role => $rname ) {
+										$selected = ( ! empty( $bpolls_settings['wppolls_create_poll'] ) && in_array( $role, $bpolls_settings['wppolls_create_poll'], true ) ) ? 'selected' : '';
+										?>
+									<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
+									<?php } ?>
+								</select>				
+							</div>		
+						</div>
+						
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label for="blogname"><?php esc_html_e( 'Add Poll Page Mapping', 'buddypress-polls' ); ?></label>
