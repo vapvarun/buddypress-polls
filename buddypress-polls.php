@@ -127,6 +127,7 @@ function activate_buddypress_polls() {
 		$roles                                        = $wp_roles->get_names();
 		foreach ( $roles as $role => $role_name ) {
 			$bpolls_settings['wppolls_who_can_vote'][] = $role;
+			$bpolls_settings['wppolls_create_poll'][] = $role;
 		}
 		update_option( 'wbpolls_settings', $bpolls_settings );
 	}
@@ -551,6 +552,7 @@ function bpolls_add_page_or_data_buddypress()
 			$roles  = $wp_roles->get_names();
 			foreach ($roles as $role => $role_name) {
 				$bpolls_settings['wppolls_who_can_vote'][] = $role;
+				$bpolls_settings['wppolls_create_poll'][] = $role;
 			}
 			update_option('wbpolls_settings', $bpolls_settings);
 		}
