@@ -1923,19 +1923,25 @@ class WBPollHelper {
 
 		ob_start();
 		$output  = '';
-		$output .= "<select id='poll_seletect'>";
+		
 
 		if ( is_user_logged_in() ) {
 			$votes_name = self::wb_poll_table_name();
 			global $wpdb;
 			$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM {$votes_name} WHERE user_id = %d", $user_id );
-			$results = $wpdb->get_results( $sql, ARRAY_A );
-			$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
-			foreach ( $results as $res ) {
-				$output .= "<option value='" . $res['poll_id'] . "'>" . $res['poll_title'] . '</option>';
-			}
+			$results = $wpdb->get_results( $sql, ARRAY_A );			
+			if ( !empty($results)) {
+				$output .= "<select id='poll_seletect'>";
+				$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
+				foreach ( $results as $res ) {
+					$output .= "<option value='" . $res['poll_id'] . "'>" . $res['poll_title'] . '</option>';
+				}
 
-			$output .= '</select>';
+				$output .= '</select>';
+			
+			} else {
+				$output .= '<p>' . esc_html__( 'Please submit your vote in the poll to access the poll results.', 'buddypress-polls') .'</p>';
+			}
 
 		} else {
 			$args = array(
@@ -1945,6 +1951,7 @@ class WBPollHelper {
 			);
 
 			$results = get_posts( $args );
+			$output .= "<select id='poll_seletect'>";
 			$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
 			foreach ( $results as $res ) {
 				$output .= "<option value='" . $res->ID . "'>" . $res->post_title . '</option>';
