@@ -81,6 +81,7 @@ global $wp_roles;
 								</div>
 								
 								<select name="wbpolls_settings[create_poll_page]">
+									<option value=""><?php esc_html_e( '- None -', 'buddypress-polls' )?></option>
 									<?php
 									$pages = get_pages();
 									foreach ( $pages as $page ) {
@@ -88,11 +89,21 @@ global $wp_roles;
 									<option value="<?php echo esc_attr( $page->ID ); ?>" <?php if(isset($bpolls_settings['create_poll_page']) && $bpolls_settings['create_poll_page'] == $page->ID){ echo "selected"; } ?>><?php echo esc_attr( $page->post_title ); ?></option>
 									<?php } ?>
 								</select>
+								
+								<?php if ( isset($bpolls_settings['create_poll_page']) && get_post( $bpolls_settings['create_poll_page'] ) ) : ?>
+
+									<a href="<?php echo esc_url( get_permalink( $bpolls_settings['create_poll_page'] ) ); ?>" class="button-secondary" target="_bp">
+										<?php esc_html_e( 'View', 'buddypress-polls' ); ?> <span class="dashicons dashicons-external" aria-hidden="true"></span>
+										<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'buddypress-polls' ); ?></span>
+									</a>
+
+								<?php endif; ?>
 
 								<div class="wbcom-settings-section-options-heading">
 									<label for="blogname"><?php esc_html_e( 'Poll Dashboard Page', 'buddypress-polls' ); ?></label>
 								</div>
 								<select name="wbpolls_settings[poll_dashboard_page]">
+									<option value=""><?php esc_html_e( '- None -', 'buddypress-polls' )?></option>
 									<?php
 									$pages = get_pages();
 									foreach ( $pages as $dpage ) {										
@@ -100,6 +111,15 @@ global $wp_roles;
 									<option value="<?php echo esc_attr( $dpage->ID ); ?>" <?php if(isset($bpolls_settings['poll_dashboard_page']) && $bpolls_settings['poll_dashboard_page'] == $dpage->ID){ echo "selected"; } ?>><?php echo esc_attr( $dpage->post_title ); ?></option>
 									<?php } ?>
 								</select>
+								
+								<?php if ( isset($bpolls_settings['poll_dashboard_page']) && get_post( $bpolls_settings['poll_dashboard_page'] ) ) : ?>
+
+									<a href="<?php echo esc_url( get_permalink( $bpolls_settings['poll_dashboard_page'] ) ); ?>" class="button-secondary" target="_bp">
+										<?php esc_html_e( 'View', 'buddypress-polls' ); ?> <span class="dashicons dashicons-external" aria-hidden="true"></span>
+										<span class="screen-reader-text"><?php esc_html_e( '(opens in a new tab)', 'buddypress-polls' ); ?></span>
+									</a>
+
+								<?php endif; ?>
 							</div>
 						</div>
 
