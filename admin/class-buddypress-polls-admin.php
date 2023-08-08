@@ -1749,7 +1749,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							foreach ( $results as $res ) {
 								$vote_ans = maybe_unserialize( $res['answer_title'] );
 								if ( in_array( $answer_title, $vote_ans ) ) {
-									$image = get_avatar( $res['user_id'], 150, '', 'User Avatar', array( 'class' => 'avatar-image' ) );
+									if ( $res['user_id'] == 0) {
+										$default_avatar_url = apply_filters('wbpoll_default_avatar', BPOLLS_PLUGIN_URL . 'public/images/default-avatar.svg' );
+										$image = '<img alt="User Avatar" src="' . $default_avatar_url . '" class="avatar avatar-150 photo avatar-default avatar-image" height="150" width="150" loading="lazy" decoding="async">';
+									} else {
+										$image = get_avatar( $res['user_id'], 150, '', 'User Avatar', array( 'class' => 'avatar-image' ) );
+									}
 
 									$args  = array(
 										'include' => $res['user_id'], // ID of users you want to get
