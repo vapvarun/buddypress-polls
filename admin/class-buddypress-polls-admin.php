@@ -1752,15 +1752,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									if ( $res['user_id'] == 0) {
 										$default_avatar_url = apply_filters('wbpoll_default_avatar', BPOLLS_PLUGIN_URL . 'public/images/default-avatar.svg' );
 										$image = '<img alt="User Avatar" src="' . $default_avatar_url . '" class="avatar avatar-150 photo avatar-default avatar-image" height="150" width="150" loading="lazy" decoding="async">';
+										$users = [ esc_html__('Guest User', 'buddypress-polls')];
 									} else {
 										$image = get_avatar( $res['user_id'], 150, '', 'User Avatar', array( 'class' => 'avatar-image' ) );
-									}
-
-									$args  = array(
-										'include' => $res['user_id'], // ID of users you want to get
-										'fields'  => 'display_name',
-									);
-									$users = get_users( $args );
+										
+										$args  = array(
+											'include' => $res['user_id'], // ID of users you want to get
+											'fields'  => 'display_name',
+										);
+										$users = get_users( $args );
+									}									
 
 									$output_result .= '<div class="user-profile">';
 									$output_result .= '<div class="user-profile-image" data-polls-tooltip="' . $users[0] . '">' . $image . '</div>';
@@ -1784,12 +1785,20 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								foreach ( $result_data as $result ) {
 									$vote_ans = maybe_unserialize( $res['answer_title'] );
 									if ( in_array( $answer_title, $vote_ans ) ) {
-										$image          = get_avatar( $result['user_id'], 150, '', 'User Avatar', array( 'class' => 'avatar-image' ) );
-										$args           = array(
-											'include' => $result['user_id'], // ID of users you want to get
-											'fields'  => 'display_name',
-										);
-										$users          = get_users( $args );
+										
+										if ( $result['user_id'] == 0) {
+											$default_avatar_url = apply_filters('wbpoll_default_avatar', BPOLLS_PLUGIN_URL . 'public/images/default-avatar.svg' );
+											$image = '<img alt="User Avatar" src="' . $default_avatar_url . '" class="avatar avatar-150 photo avatar-default avatar-image" height="150" width="150" loading="lazy" decoding="async">';
+											$users = [ esc_html__('Guest User', 'buddypress-polls')];
+										} else {
+											$image          = get_avatar( $result['user_id'], 150, '', 'User Avatar', array( 'class' => 'avatar-image' ) );
+											$args           = array(
+												'include' => $result['user_id'], // ID of users you want to get
+												'fields'  => 'display_name',
+											);
+											$users          = get_users( $args );
+										}
+										
 										$output_result .= '<div class="wbpoll-user-profile-details">';
 										if ( ! empty( $image ) && isset( $image ) || ! empty( $users[0] ) && isset( $users[0] ) ) {
 											$output_result .= '<div class="user-profile-images">' . $image . '</div>';
