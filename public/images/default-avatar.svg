@@ -1,13 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg fill="#c5c5c5" width="50px" height="50px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: none;
-      }
-    </style>
-  </defs>
-  <path d="M16,8a5,5,0,1,0,5,5A5,5,0,0,0,16,8Z" transform="translate(0 0)"/>
-  <path d="M16,2A14,14,0,1,0,30,16,14.0158,14.0158,0,0,0,16,2Zm7.9925,22.9258A5.0016,5.0016,0,0,0,19,20H13a5.0016,5.0016,0,0,0-4.9925,4.9258,12,12,0,1,1,15.985,0Z" transform="translate(0 0)"/>
-  <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"/>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="150px" height="150px" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g><path style="opacity:1" fill="#c5c5c5" d="M -0.5,-0.5 C 49.5,-0.5 99.5,-0.5 149.5,-0.5C 149.5,49.5 149.5,99.5 149.5,149.5C 143.167,149.5 136.833,149.5 130.5,149.5C 128.827,121.687 115.494,101.854 90.5,90C 101.846,83.3219 107.846,73.3219 108.5,60C 105.969,39.3015 94.3023,28.4682 73.5,27.5C 49.5833,30.6099 39.0833,44.2766 42,68.5C 44.2548,78.1845 49.7548,85.3512 58.5,90C 33.4747,101.877 20.1414,121.71 18.5,149.5C 12.1667,149.5 5.83333,149.5 -0.5,149.5C -0.5,99.5 -0.5,49.5 -0.5,-0.5 Z"/></g>
+<g><path style="opacity:1" fill="#fefefe" d="M 130.5,149.5 C 93.1667,149.5 55.8333,149.5 18.5,149.5C 20.1414,121.71 33.4747,101.877 58.5,90C 49.7548,85.3512 44.2548,78.1845 42,68.5C 39.0833,44.2766 49.5833,30.6099 73.5,27.5C 94.3023,28.4682 105.969,39.3015 108.5,60C 107.846,73.3219 101.846,83.3219 90.5,90C 115.494,101.854 128.827,121.687 130.5,149.5 Z"/></g>
 </svg>
