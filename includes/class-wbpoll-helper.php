@@ -169,11 +169,11 @@ class WBPollHelper {
                   id mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
                   poll_id int(13) NOT NULL,
                   poll_title text NOT NULL,
-                  user_name varchar(255) NOT NULL,
-                  is_logged_in tinyint(1) NOT NULL,
-                  user_cookie varchar(1000) NOT NULL,
+                  user_name varchar(255) NULL,
+                  is_logged_in tinyint(1) NULL,
+                  user_cookie varchar(1000) NULL,
                   user_ip varchar(45) NOT NULL,
-                  user_id bigint(20) unsigned NOT NULL,
+                  user_id bigint(20) unsigned NULL,
                   user_answer text NOT NULL,
 				  answer_title text NOT NULL,
                   published tinyint(3) NOT NULL DEFAULT '1',
@@ -254,8 +254,7 @@ class WBPollHelper {
 					'%s',
 					'%d',
 				)
-			);
-
+			);			
 			return ( $success ) ? $wpdb->insert_id : false;
 		}
 
@@ -854,9 +853,8 @@ class WBPollHelper {
 		$log_method = 'both';
 		$current_datetime = current_datetime()->format('Y-m-d H:i:s');
 		
-		$is_poll_expired = new DateTime( $poll_end_date ) < new DateTime( $current_datetime ); // check if poll expired from it's end data.		
+		$is_poll_expired = (new DateTime( $poll_end_date ) < new DateTime( $current_datetime ) ) ? true: false; // check if poll expired from it's end data.			
 		$is_poll_expired = ( $poll_never_expire == 1 ) ? false : $is_poll_expired; // override expired status based on the meta information.
-		
 		
 		$poll_allowed_user_group = $poll_user_roles;
 
@@ -949,8 +947,7 @@ class WBPollHelper {
 					}
 				}
 
-				$poll_is_voted_by_user = apply_filters( 'wbpoll_is_user_voted', $poll_is_voted_by_user );
-
+				$poll_is_voted_by_user = apply_filters( 'wbpoll_is_user_voted', $poll_is_voted_by_user );				
 				if ( $is_poll_expired ) { // if poll has expired.
 
 					$sql           = $wpdb->prepare(
@@ -974,6 +971,8 @@ class WBPollHelper {
 						$user_session
 					);
 					$answers_by_user = $wpdb->get_var( $sql );
+
+
 
 					$answers_by_user_html = '';
 					if ( $answers_by_user !== null ) {
@@ -1113,13 +1112,22 @@ class WBPollHelper {
 							if ( $count < $poll_votes_per_session ) {
 								echo self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 							} else {
-								$sql             = $wpdb->prepare(
-									"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
-									$post_id,
-									$user_id,
-									$user_ip,
-									$user_session
-								);
+								if ( $user_id != 0 && $user_id != '') {
+									$sql             = $wpdb->prepare(
+										"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d",
+										$post_id,
+										$user_id,										
+									);
+									
+								} else {
+									$sql             = $wpdb->prepare(
+										"SELECT ur.user_answer AS answer FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s AND ur.user_cookie = %s ",
+										$post_id,
+										$user_id,
+										$user_ip,
+										$user_session
+									);
+								}
 								$answers_by_user = $wpdb->get_var( $sql );
 
 								$option_value = get_option( 'wbpolls_settings' );
@@ -1146,24 +1154,27 @@ class WBPollHelper {
 
 										}
 
-										if ( $answers_by_user_html != '' ) {
-											?>
-										<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr( $post_id ); ?>">
+										if ( $answers_by_user_html != '' ) { ?>
+											<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr( $post_id ); ?>">
 												<?php echo sprintf( __( 'You have already voted for <strong>"%s"</strong>', 'buddypress-polls' ), $answers_by_user_html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
-										</p>
+											</p>
 
 											<?php
 											if ( $poll_show_result_before_expire == 0 ) {
 
 												echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 											}
-										} else {
-											?>
+										} else { ?>
 
-										<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr( $post_id ); ?>">
+											<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php esc_attr( $post_id ); ?>">
 												<?php esc_html_e( 'You have already voted ', 'buddypress-polls' ); ?>
-										</p>
+											</p>
 											<?php
+										}
+									} else {										
+										if ( $poll_show_result_before_expire == 0 ) {
+
+											echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										}
 									}
 								} else {
