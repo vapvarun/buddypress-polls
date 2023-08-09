@@ -44,7 +44,7 @@ if ( is_user_logged_in() ) {
 	?>
 	<div class="deshboard-top">
 		<div class="main-title">
-			<h3><?php esc_html_e( 'Publish Poll Listing', 'buddypress-polls' ); ?></h3>
+			<h3><?php esc_html_e( 'Published Poll Listing', 'buddypress-polls' ); ?></h3>
 		</div>
 		<div class="add-poll-button">
 			<a class="button btn" href="<?php echo esc_url( site_url() . '/' . $page_slug ); ?>"><?php esc_html_e( 'Create new poll', 'buddypress-polls' ); ?></a>

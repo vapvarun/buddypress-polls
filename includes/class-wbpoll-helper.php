@@ -135,6 +135,7 @@ class WBPollHelper {
 					'editor',
 					'author',
 					'thumbnail',
+					'comments',
 				)
 			),
 			'rewrite'         => array( 'slug' => 'poll' ),
