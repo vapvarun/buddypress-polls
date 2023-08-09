@@ -1932,6 +1932,7 @@ class WBPollHelper {
 		global $wpdb;
 		$current_user = wp_get_current_user();
 		$user_id      = $current_user->ID;
+		$user_ip      = self::get_ipaddress();
 
 		ob_start();
 		$output  = '';
@@ -1956,20 +1957,23 @@ class WBPollHelper {
 			}
 
 		} else {
-			$args = array(
-				'post_type'      => 'wbpoll', // Set the post type to 'post' to fetch regular posts.
-				'posts_per_page' => -1,
-				'post_status'    => 'publish', // Retrieve all posts (-1 means no limit).
-			);
+					
+			$votes_name = self::wb_poll_table_name();
+			global $wpdb;
+			$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM {$votes_name} WHERE user_id = %d AND user_ip = %s", $user_id, $user_ip );
+			$results = $wpdb->get_results( $sql, ARRAY_A );			
+			if ( !empty($results)) {
+				$output .= "<select id='poll_seletect'>";
+				$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
+				foreach ( $results as $res ) {
+					$output .= "<option value='" . $res['poll_id'] . "'>" . $res['poll_title'] . '</option>';
+				}
 
-			$results = get_posts( $args );
-			$output .= "<select id='poll_seletect'>";
-			$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
-			foreach ( $results as $res ) {
-				$output .= "<option value='" . $res->ID . "'>" . $res->post_title . '</option>';
+				$output .= '</select>';
+			
+			} else {
+				$output .= '<p>' . esc_html__( 'Please submit your vote in the poll to access the poll results.', 'buddypress-polls') .'</p>';
 			}
-
-			$output .= '</select>';
 		}
 
 		$output .= "<div class='all_polll_result'>";
