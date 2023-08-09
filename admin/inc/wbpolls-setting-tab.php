@@ -42,6 +42,7 @@ global $wp_roles;
 								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_who_can_vote][]" multiple>
 									<?php
 									$roles = $wp_roles->get_names();
+									$roles['guest'] = esc_html__( 'Guest', 'buddypress-polls' );									
 									foreach ( $roles as $role => $rname ) {
 										$selected = ( ! empty( $bpolls_settings['wppolls_who_can_vote'] ) && in_array( $role, $bpolls_settings['wppolls_who_can_vote'], true ) ) ? 'selected' : '';
 										?>

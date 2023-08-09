@@ -1036,6 +1036,7 @@ class WBPollHelper {
 						$allowed_user_group = array_intersect( $wp_allowed_user_group, $this_user_role );
 					}
 					// current user is not allowed.
+					
 					if ( ( sizeof( $allowed_user_group ) ) < 1 ) {
 
 						// we know poll is not expired, and user is not allowed to vote
@@ -1049,7 +1050,7 @@ class WBPollHelper {
 							} else {
 								?>
 								<p class="wbpoll-voted-info wbpoll-alert wbpoll-voted-info-<?php echo esc_attr( $post_id ); ?>">
-										<?php esc_html_e( 'You are not able to vote for this poll', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'You are not able to vote for this poll', 'buddypress-polls' ); ?>
 								</p>
 								<?php
 							}
@@ -1172,8 +1173,7 @@ class WBPollHelper {
 											<?php
 										}
 									} else {										
-										if ( $poll_show_result_before_expire == 0 ) {
-
+										if ( $poll_show_result_before_expire == 0 ) {											
 											echo self::show_single_poll_result( $post_id, $reference, $result_chart_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 										}
 									}
@@ -1185,8 +1185,7 @@ class WBPollHelper {
 									<?php
 								}
 							}
-						} else {
-
+						} else {							
 							echo self::wbpoll_single_votting_display( $post_id, $poll_answers, $grid_class, $reference, $result_chart_type, $nonce, $poll_output, $poll_multivote, $vote_input_type ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 						}
 						// end of if voted.
@@ -1266,9 +1265,11 @@ class WBPollHelper {
 
 			$guest_html .= '</div>';
 
-			$poll_form_html .= $guest_html;
-			endif;
-			$class = 'wbpoll-default';
+			//$poll_form_html .= $guest_html;
+		endif;
+		
+		$class = 'wbpoll-default';
+		
 		foreach ( $poll_answers as $index => $answer ) {
 			if ( ! empty( $poll_ans_image[ $index ] ) || ! empty( $thumbnail_poll_ans_image[ $index ] ) ) {
 				$class = 'wbpoll-image';
