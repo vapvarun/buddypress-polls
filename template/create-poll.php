@@ -218,7 +218,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 							<div class="ans-records text_records-edit">
 								<div class="ans-records-wrap">
 									<label><?php esc_html_e( 'Text Answer', 'buddypress-polls' ); ?></label>
-									<input name="_wbpoll_answer[]" data-name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo esc_attr( $options[0] ); ?>">
+									<input name="_wbpoll_answer[]" data-name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo (isset($options[0])) ? esc_attr( $options[0] ) : ''; ?>">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]" data-name="_wbpoll_answer_extra[][type]" class="wbpoll_answer_extra" />
 								</div>
 								<a class="add-field extra-fields-text-edit" data-id="<?php echo count( $options ); ?>" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
