@@ -4,7 +4,8 @@
 	$( document ).ready( function() {
 		
 		if ( $('input[name="_wbpoll_never_expire"]:checked').val() == 1 ) {
-			$('._wbpoll_start_date,._wbpoll_end_date').hide();
+			$('._wbpoll_start_date,._wbpoll_end_date,._wbpoll_show_result_before_expire').hide();
+			$("input[name=_wbpoll_show_result_before_expire][value='0']").prop("checked",true);
 		}
 		$('input[name="_wbpoll_never_expire"]').on('change', function (e) {			
 			if ($(this).val() == 1) {
