@@ -913,6 +913,7 @@
 --------------------------------------------------------------*/
 .widget_wb_poll_report select {
     width: 100%;
+    margin: 0 0 15px;
 }
 
 .widget_wb_poll_report table {
@@ -930,7 +931,7 @@
 --------------------------------------------------------------*/
 .wbpoll-guest-wrap {
     background: #fff;
-    margin: 0;
+    margin: 0 0 15px;
     padding: 15px;
     height: 100%;
     display: -webkit-box;
