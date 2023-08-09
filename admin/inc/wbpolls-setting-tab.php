@@ -39,7 +39,7 @@ global $wp_roles;
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
-								<select class="multi-selectize" name="wbpolls_settings[wppolls_who_can_vote][]" multiple>
+								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_who_can_vote][]" multiple>
 									<?php
 									$roles = $wp_roles->get_names();
 									foreach ( $roles as $role => $rname ) {
@@ -59,7 +59,7 @@ global $wp_roles;
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
-								<select class="multi-selectize" name="wbpolls_settings[wppolls_create_poll][]" multiple>
+								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_create_poll][]" multiple>
 									<?php
 									$roles = $wp_roles->get_names();
 									foreach ( $roles as $role => $rname ) {

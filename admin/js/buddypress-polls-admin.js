@@ -49,7 +49,7 @@
 			}
 		}
 
-		$('.multi-selectize').selectize({
+		$('.polls-multi-selectize').selectize({
 			plugins			: ['remove_button']
 		});
 		$('input[name="bpolls_settings[limit_poll_activity]"]').on('change', function(){

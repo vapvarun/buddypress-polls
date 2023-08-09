@@ -85,8 +85,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 				wp_enqueue_style( 'wp-color-picker' );
 
-				if ( ! wp_style_is( 'polls-selectize-css', 'enqueued' ) ) {
-					wp_enqueue_style( 'polls-selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
+				if ( ! wp_style_is( 'selectize-css', 'enqueued' ) ) {
+					wp_enqueue_style( 'selectize-css', plugin_dir_url( __FILE__ ) . 'css/selectize.css', array(), $this->version, 'all' );
 				}
 
 				wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/buddypress-polls-admin.css', array(), $this->version, 'all' );
@@ -144,8 +144,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) {
 				wp_enqueue_script( 'wp-color-picker' );
 
-				if ( ! wp_script_is( 'polls-selectize-js', 'enqueued' ) ) {
-					wp_enqueue_script( 'polls-selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
+				if ( ! wp_script_is( 'selectize-js', 'enqueued' ) ) {
+					wp_enqueue_script( 'selectize-js', plugin_dir_url( __FILE__ ) . 'js/selectize.min.js', array( 'jquery' ), $this->version, false );
 				}
 				wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-admin.js', array( 'jquery' ), $this->version, false );
 			}

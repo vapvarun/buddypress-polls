@@ -232,7 +232,7 @@ if ( class_exists( 'Buddypress' ) ) {
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
-					<select class="multi-selectize" name="bpolls_settings[poll_user_role][]" multiple>
+					<select class="polls-multi-selectize" name="bpolls_settings[poll_user_role][]" multiple>
 						<?php
 						$roles = $wp_roles->get_names();
 						foreach ( $roles as $role => $rname ) {
@@ -259,7 +259,7 @@ if ( class_exists( 'Buddypress' ) ) {
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
-						<select class="multi-selectize" name="bpolls_settings[poll_member_type][]" multiple>
+						<select class="polls-multi-selectize" name="bpolls_settings[poll_member_type][]" multiple>
 
 						<?php
 						foreach ( $types as $typ ) {

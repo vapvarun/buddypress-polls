@@ -91,7 +91,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 								'role' => 'administrator',
 							)); ?>
 							<div class="wbcom-settings-section-options">
-								<select class="multi-selectize" name="wbpolls_notification_settings[wppolls_admin_user][]" multiple>
+								<select class="polls-multi-selectize" name="wbpolls_notification_settings[wppolls_admin_user][]" multiple>
 									<?php
 									foreach ( $administrators as $rname ) {
 										$selected = ( ! empty( $bpolls_settings['wppolls_admin_user'] ) && in_array( $rname->ID, $bpolls_settings['wppolls_admin_user']) ) ? 'selected' : '';
