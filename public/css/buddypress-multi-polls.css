@@ -4,6 +4,7 @@
 # Variables
 # Tooltip
 # Info Message
+# Archive Page
 # Light Box
 # Simple Poll
 # Single Poll Before Result
@@ -169,6 +170,103 @@
 .wbpoll-voted-info.wbpoll-error p,
 .wbpoll-qresponse-alert p {
     margin: 0;
+}
+
+/*--------------------------------------------------------------
+# Archive Page
+--------------------------------------------------------------*/
+.wbpoll-archive-listing article.wbpoll {
+    margin: 0 0 1.5rem !important;
+    padding: 1rem !important;
+    border: 0 !important;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
+}
+
+.wbpoll-archive-listing article.wbpoll .entry-thumbnail {
+    margin: -1rem;
+    margin-bottom: 1rem;
+}
+
+.wbpoll-archive-listing article.wbpoll .wbpoll-thumbnail-wrapper {
+    position: relative;
+    overflow: hidden;
+    padding-top: 52.56%;
+    display: block;
+    border-radius: 8px 8px 0 0;
+}
+
+.wbpoll-archive-listing article.wbpoll .wbpoll-thumbnail-wrapper img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    z-index: 0;
+    min-height: 100%;
+    width: auto;
+    min-width: 100%;
+    object-fit: cover;
+}
+
+.wbpoll-archive-listing article.wbpoll header.entry-header {
+    margin: 0 0 1rem;
+}
+
+.wbpoll-archive-listing article.wbpoll header.entry-header .entry-meta {
+    margin: 10px 0 0;
+}
+
+.wbpoll-archive-listing article.wbpoll header.entry-header .entry-meta img.avatar {
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+    border: 0;
+    border-radius: 100%;
+    vertical-align: middle;
+    float: left;
+    box-shadow: 0 0 0 6px #f5f6f7;
+}
+
+.wbpoll-archive-listing article.wbpoll header.entry-header .entry-meta span.byline {
+    min-width: 200px;
+    line-height: 1.5;
+    text-align: left;
+}
+
+.wbpoll-archive-listing article.wbpoll header.entry-header .entry-meta span.posted-on {
+    display: block;
+    text-align: left;
+    font-style: italic;
+    font-size: 12px;
+    padding-left: 56px;
+}
+
+.wbpoll-archive-listing article.wbpoll .wbpoll-view-poll-link {
+    margin: 1rem 0 0;
+}
+
+/* Pagination */
+
+nav.navigation.wbpoll-archive-navigation {
+    margin: 1rem 0;
+    border: 0;
+}
+
+.wbpoll-archive-navigation .page-numbers {
+    border-left-width: 0;
+    display: inline-block;
+    padding: 0.3342343017em 0.875em;
+    background-color: rgba(0, 0, 0, 0.025);
+    color: #43454b;
+    border-radius: 0;
+}
+
+.wbpoll-archive-navigation .page-numbers:hover,
+.wbpoll-archive-navigation .page-numbers.current {
+    background-color: #e6e6e6;
+    color: #636363;
 }
 
 /*--------------------------------------------------------------

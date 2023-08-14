@@ -27,44 +27,50 @@ do_action( 'buddypress_polls_before_main_content' );
 		<div id="buddypress-polls" class="buddypress-polls-listing" >
 			<?php if ( have_posts() ) : ?>
 
-					<header class="page-header">
+				<header class="page-header">
+				<?php
+				the_archive_title( '<h1 class="page-title">', '</h1>' );
+				the_archive_description( '<div class="archive-description">', '</div>' );
+				?>
+				</header><!-- .page-header -->
+				<div id="wbpoll-archive-listing" class="wbpoll-archive-listing">
 					<?php
-					the_archive_title( '<h1 class="page-title">', '</h1>' );
-					the_archive_description( '<div class="archive-description">', '</div>' );
-					?>
-					</header><!-- .page-header -->
-					<div class="wb-lists-view-wrap wb-post-listing">
-					<?php while ( have_posts() ) : the_post(); ?>
+					while ( have_posts() ) :
+						the_post();
+						?>
 
 						<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-							<div class="bp-poll-post-content">
+							<?php if ( has_post_thumbnail() ) : ?>
+								<div class="entry-thumbnail">
+									<div class="wbpoll-thumbnail-wrapper">
+										<?php the_post_thumbnail(); ?>
+									</div><!-- .wbpoll-thumbnail-wrapper -->
+								</div><!-- .entry-thumbnail -->
+							<?php endif; ?>
 								
-								<header class="entry-header">
-									<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
-									<div class="entry-meta"><?php buddypress_polls_meta(); ?></div>
-								</header><!-- .entry-header -->
-								
+							<header class="entry-header">
+								<?php the_title( sprintf( '<h2 class="entry-title"><a href="%s" rel="bookmark">', esc_url( get_permalink() ) ), '</a></h2>' ); ?>
+								<div class="entry-meta"><?php buddypress_polls_meta(); ?></div>
+							</header><!-- .entry-header -->
 
-								<div class="entry-content">
-									<?php the_excerpt();  ?>
+							<div class="entry-content">
+								<?php the_excerpt(); ?>
 
-									<?php if ( ! is_singular() ) { ?>
-										<p class="no-margin"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'buddypress-polls' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'View poll', 'buddypress-polls' ); ?></a></p>
-									<?php } ?>
+								<?php if ( ! is_singular() ) { ?>
+									<p class="wbpoll-view-poll-link"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'buddypress-polls' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'View poll', 'buddypress-polls' ); ?></a></p>
+								<?php } ?>
 
-								</div><!-- .entry-content -->
-							</div>
+							</div><!-- .entry-content -->
+
 						</article><!-- #post-## -->
 
 
 					<?php endwhile; ?>
-
-					</div>
-				
-					<?php
-					buddypress_polls_navigation();
-
+				</div>
+			
+				<?php
+				buddypress_polls_navigation();
 			endif;
 			?>
 
@@ -77,12 +83,11 @@ do_action( 'buddypress_polls_before_main_content' );
 </div>
 <?php if ( is_active_sidebar( 'buddypress-poll-right' ) ) : ?>
 	<aside id="primary-sidebar" class="widget-area default" role="complementary">
-		<div class="widget-area-inner-left">
+		<div class="widget-area-inner">
 			<?php dynamic_sidebar( 'buddypress-poll-right' ); ?>
 		</div>
 	</aside>
-
-<?php
+	<?php
 endif;
 
 /**

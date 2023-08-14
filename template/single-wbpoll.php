@@ -29,15 +29,16 @@ do_action( 'buddypress_polls_before_main_content' );
 			
 			<?php
 			while ( have_posts() ) :
-				the_post(); ?>
+				the_post();
+				?>
 				<header class="entry-header">
-					<?php the_title('<h1 class="entry-title">', '</h1>' ); ?>
+					<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
 				</header><!-- .entry-header -->
 				<div class="entry-content">
 					<?php
 					the_content();
-					
-					$post_id  = intval( get_the_ID() );
+
+					$post_id = intval( get_the_ID() );
 					echo WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
 					?>
 				</div>
@@ -52,12 +53,11 @@ do_action( 'buddypress_polls_before_main_content' );
 </div>
 <?php if ( is_active_sidebar( 'buddypress-poll-right' ) ) : ?>
 	<aside id="primary-sidebar" class="widget-area default" role="complementary">
-		<div class="widget-area-inner-left">
+		<div class="widget-area-inner">
 			<?php dynamic_sidebar( 'buddypress-poll-right' ); ?>
 		</div>
 	</aside>
-
-<?php
+	<?php
 endif;
 
 /**

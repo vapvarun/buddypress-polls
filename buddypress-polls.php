@@ -695,12 +695,9 @@ function buddypress_polls_navigation() {
 
 		// Set up paginated links.
 		$links            = paginate_links( $args );
-		$blog_list_layout = get_theme_mod( 'reign_blog_list_pagination' );
-
-	
 
 		if ( $links ) {
-			echo '<nav class="navigation posts-navigation rg-posts-navigation" role="navigation">';
+			echo '<nav class="navigation posts-navigation wbpoll-archive-navigation" role="navigation">';
 			echo '<h2 class="screen-reader-text">Posts navigation</h2>';
 			echo '<div class="nav-links">' . $links . '</div>';
 			echo '</nav>';
