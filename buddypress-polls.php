@@ -752,11 +752,6 @@ if ( ! function_exists( 'buddypress_polls_meta' ) ) {
 
 		echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // WPCS: XSS OK
 
-		
-		echo apply_filters( 'reign_post_categories', $output );
-
-			
-
 	}
 }
 
