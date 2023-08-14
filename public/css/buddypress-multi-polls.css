@@ -212,6 +212,7 @@
 
 .wbpoll-archive-listing article.wbpoll header.entry-header {
     margin: 0 0 1rem;
+    border: 0;
 }
 
 .wbpoll-archive-listing article.wbpoll header.entry-header .entry-meta {

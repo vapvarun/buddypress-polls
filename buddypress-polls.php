@@ -763,7 +763,7 @@ function buddypress_polls_widgets_init() {
 
 	register_sidebar(
 		array(
-			'name'          => esc_html__( 'BuddyPress polls Right Widget Area', 'buddypress-polls' ),
+			'name'          => esc_html__( 'BuddyPress Polls Sidebar', 'buddypress-polls' ),
 			'id'            => 'buddypress-poll-right',
 			'before_widget' => '<section id="%1$s" class="widget %2$s">',
 			'after_widget'  => '</section>',
