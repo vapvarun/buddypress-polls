@@ -658,3 +658,127 @@ function bpolls_get_page_by_title( $page_title, $output = OBJECT, $post_type = '
 
 	return null;
 }
+
+
+/**
+ * Custom template tags for this theme
+ *
+ * Eventually, some of the functionality here could be replaced by core features.
+ *
+ * @package BuddyPress Polls
+ */
+function buddypress_polls_navigation() {
+
+	global $wp_query;
+
+	// Don't print empty markup if there's only one page.
+	if ( $wp_query->max_num_pages > 1 ) {
+		// Make sure the nav element has an aria-label attribute: fallback to the screen reader text.
+		if ( ! empty( $args['screen_reader_text'] ) && empty( $args['aria_label'] ) ) {
+			$args['aria_label'] = $args['screen_reader_text'];
+		}
+
+		$args = wp_parse_args(
+			array(
+				'mid_size'           => 1,
+				'prev_text'          => esc_html__( 'Previous', 'buddypress-polls' ),
+				'next_text'          => esc_html__( 'Next', 'buddypress-polls' ),
+				'screen_reader_text' => esc_html__( 'Posts navigation', 'buddypress-polls' ),
+				'aria_label'         => esc_html__( 'Posts', 'buddypress-polls' ),
+			)
+		);
+
+		// Make sure we get a string back. Plain is the next best thing.
+		if ( isset( $args['type'] ) && 'array' == $args['type'] ) {
+			$args['type'] = 'plain';
+		}
+
+		// Set up paginated links.
+		$links            = paginate_links( $args );
+		$blog_list_layout = get_theme_mod( 'reign_blog_list_pagination' );
+
+	
+
+		if ( $links ) {
+			echo '<nav class="navigation posts-navigation rg-posts-navigation" role="navigation">';
+			echo '<h2 class="screen-reader-text">Posts navigation</h2>';
+			echo '<div class="nav-links">' . $links . '</div>';
+			echo '</nav>';
+		}
+		
+	}
+}
+
+
+if ( ! function_exists( 'buddypress_polls_meta' ) ) {
+	/**
+	 * Prints HTML with meta information.
+	 */
+	function buddypress_polls_meta() {
+		
+
+		$time_string = '<time class="entry-date published updated" datetime="%1$s">%2$s</time>';
+		if ( get_the_time( 'U' ) !== get_the_modified_time( 'U' ) ) {
+			$time_string = '<time class="entry-date published" datetime="%1$s">%2$s</time>';
+		}
+
+		$time_string = sprintf(
+			$time_string,
+			esc_attr( get_the_date( 'c' ) ),
+			esc_html( get_the_date() ),
+			esc_attr( get_the_modified_date( 'c' ) ),
+			esc_html( get_the_modified_date() )
+		);
+
+		$posted_on = sprintf(
+			esc_html_x( '%s', 'post date', 'buddypress-polls' ),
+			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
+		);
+	
+
+		$avatar = '<i class="fa fa-user-circle"></i>';
+		if ( function_exists( 'get_avatar' ) ) {
+			$avatar = sprintf(
+				'<a href="%1$s" rel="bookmark">%2$s</a>',
+				esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ),
+				get_avatar( get_the_author_meta( 'email' ), 55 )
+			);
+		}
+
+		$byline = sprintf(
+			esc_html_x( '%s', 'post author', 'buddypress-polls' ),
+			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
+		);
+
+		echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // WPCS: XSS OK
+
+		
+		echo apply_filters( 'reign_post_categories', $output );
+
+			
+
+	}
+}
+
+
+
+/**
+ * Register widget area.
+ *
+ * @link https://developer.wordpress.org/themes/functionality/sidebars/#registering-a-sidebar
+ */
+function buddypress_polls_widgets_init() {	
+
+	register_sidebar(
+		array(
+			'name'          => esc_html__( 'BuddyPress polls Right Widget Area', 'buddypress-polls' ),
+			'id'            => 'buddypress-poll-right',
+			'before_widget' => '<section id="%1$s" class="widget %2$s">',
+			'after_widget'  => '</section>',
+			'before_title'  => '<h4 class="widget-title"><span>',
+			'after_title'   => '</span></h4>',
+		)
+	);
+}
+
+add_action( 'widgets_init', 'buddypress_polls_widgets_init' );

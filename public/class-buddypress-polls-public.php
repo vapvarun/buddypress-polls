@@ -2817,5 +2817,66 @@ class Buddypress_Polls_Public {
 			
 		return $output;
 	} //end wbpoll_shortcode()
+	
+	
+	/**
+	 * The function will return the archive page template.
+	 *
+	 * @param string $archive_template                  Archive page template path.
+	 * @since    4.3.2
+	 */
+	public function wbpoll_archive_template( $archive_template, $type, $templates ) {
+		global $wpdb, $wp_query, $post;
+
+		if ( is_archive() && ( get_post_type() === 'wbpoll' || $wp_query->query_vars['post_type'] === 'wbpoll' ) ) {
+
+			$template = '/buddypress-polls/archive-' . $wp_query->query_vars['post_type'] . '.php';
+
+			if ( file_exists( STYLESHEETPATH . $template ) ) {
+
+				$archive_template = STYLESHEETPATH . $template;
+
+			} elseif ( file_exists( TEMPLATEPATH . $template ) ) {
+
+				$archive_template = TEMPLATEPATH . $template;
+
+			} else {
+
+				$archive_template = BPOLLS_PLUGIN_PATH . 'template/archive-wbpoll.php';
+
+			}
+		}
+		return $archive_template;
+	}
+	
+	/**
+	 * The function will return the single business template.
+	 *
+	 * @param string $archive_template                  single page template path.
+	 * @since    1.0.0
+	 */
+	public function wbpoll_profile_single_template( $single_template, $type, $templates ) {
+		global $wpdb, $wp_query, $post;
+
+		if ( is_single() && ( get_post_type() === 'wbpoll' || $wp_query->query_vars['post_type'] === 'wbpoll' ) ) {
+
+			$template = '/buddypress-polls/single-' . $wp_query->query_vars['post_type'] . '.php';
+
+			if ( file_exists( STYLESHEETPATH . $template ) ) {
+
+				$single_template = STYLESHEETPATH . $template;
+
+			} elseif ( file_exists( TEMPLATEPATH . $template ) ) {
+
+				$single_template = TEMPLATEPATH . $template;
+
+			} else {
+
+				$single_template = BPOLLS_PLUGIN_PATH . 'template/single-wbpoll.php';
+
+			}
+		}
+		return $single_template;
+	}
 
 }

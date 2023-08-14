@@ -292,8 +292,8 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
 			
 			if ( ! is_admin() ) {
-				$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
-				$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wbpoll_the_excerpt' );
+				//$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
+				//$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wbpoll_the_excerpt' );
 			}
 			
 			// ajax for voting
@@ -306,6 +306,10 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
 			$this->loader->add_action( 'init', $plugin_public, 'init_shortcodes' );
+			
+			
+			$this->loader->add_filter( 'archive_template', $plugin_public, 'wbpoll_archive_template', 10, 3 );
+			$this->loader->add_filter( 'single_template', $plugin_public, 'wbpoll_profile_single_template', 99, 3 );
 
 		}
 
