@@ -151,6 +151,7 @@ class Buddypress_Polls_Public {
 		
 		if ( ( is_page() && get_the_ID() == $poll_create_page ) 
 				|| ( is_single() && get_post_type() == 'wbpoll' ) 
+				|| ( is_archive() && get_post_type() == 'wbpoll' ) 
 				|| ( isset( $post->post_content ) && has_shortcode( $post->post_content, 'wbpoll' ) )
 			) {
 			wp_enqueue_media();
