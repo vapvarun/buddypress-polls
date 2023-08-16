@@ -182,7 +182,25 @@ global $wp_roles;
 									<div class="wb-slider wb-round"></div>
 								</label>
 							</div>
-						</div>						
+						</div>
+
+						<div class="wbcom-settings-section-wrap">
+							<div class="wbcom-settings-section-options-heading">
+								<label
+									for="blogname"><?php esc_html_e( 'Enable Poll Comment', 'buddypress-polls' ); ?></label>
+								<p class="description" id="tagline-description">
+									<?php esc_html_e( 'Enable this option to show the poll comment.', 'buddypress-polls' ); ?>
+								</p>
+							</div>
+							<div class="wbcom-settings-section-options">
+								<label class="wb-switch">
+									<input name='wbpolls_settings[wppolls_show_comment]' type='checkbox' value='yes'
+										<?php ( isset( $bpolls_settings['wppolls_show_comment'] ) ) ? checked( $bpolls_settings['wppolls_show_comment'], 'yes' ) : ''; ?> />
+									<div class="wb-slider wb-round"></div>
+								</label>
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>

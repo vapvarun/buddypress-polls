@@ -17,6 +17,7 @@ get_header(); /*Header Portion*/
  */
 do_action( 'buddypress_polls_before_main_content' );
 
+$bpolls_settings = get_option( 'wbpolls_settings' );
 ?>
 
 <div id="primary" class="content-area">
@@ -42,7 +43,13 @@ do_action( 'buddypress_polls_before_main_content' );
 					echo WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
 					?>
 				</div>
-			<?php endwhile; ?>
+			<?php 
+			// If comments are open or we have at least one comment, load up the comment template.
+				if ( ( comments_open() || get_comments_number() ) && ( isset($bpolls_settings['wppolls_show_comment']) && $bpolls_settings['wppolls_show_comment'] == 'yes' )) :
+					comments_template();
+				endif;
+			
+			endwhile; ?>
 			
 		</div>
 		
