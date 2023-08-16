@@ -765,6 +765,26 @@
 			}
 		);
 		
+		//click to copy shortcode
+		$( '.wbpoll_embed' ).on(
+			'click',
+			function (e) {
+				e.preventDefault();
+
+				var $this = $( this );
+				wbpoll_copyStringToClipboard( $this.prev( '.wbpollemded' ).text() );
+
+				$this.attr( 'aria-label', wbpolladminsingleObj.copied );
+
+				window.setTimeout(
+					function () {
+						$this.attr( 'aria-label', wbpolladminsingleObj.copy );
+					},
+					1000
+				);
+			}
+		);
+		
 		$('.hidetab').hide();		
 		$('.wbpoll-containable-list-item-toolbar').on('click', function(){			
 			var dataid = $(this).data('id');

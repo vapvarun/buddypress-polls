@@ -213,7 +213,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$plugin_public = new Buddypress_Polls_Public( $this->get_plugin_name(), $this->get_version() );
 
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+			$this->loader->add_action( 'enqueue_embed_scripts', $plugin_public, 'enqueue_styles' );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+			$this->loader->add_action( 'enqueue_embed_scripts', $plugin_public, 'enqueue_scripts' );
 
 			$this->loader->add_action( 'wp_ajax_bpolls_set_poll_type_true', $plugin_public, 'bpolls_set_poll_type_true' );
 
@@ -310,6 +312,9 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			
 			$this->loader->add_filter( 'archive_template', $plugin_public, 'wbpoll_archive_template', 10, 3 );
 			$this->loader->add_filter( 'single_template', $plugin_public, 'wbpoll_profile_single_template', 99, 3 );
+			
+			$this->loader->add_filter( 'wp', $plugin_public, 'prepareWBPoll'  );
+			//$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_embed_scripts', 20 );
 
 		}
 

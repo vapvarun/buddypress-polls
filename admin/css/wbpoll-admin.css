@@ -339,6 +339,16 @@ ul#wb_poll_answers_items li.placeholder:before {
     max-width: 125px;
 }
 
+
+.wbpollemded,
+.wbpollemded-text {
+    background: #f7f7f7;
+    border: 1px solid #ccc !important;
+    padding: 3px 6px !important;
+    float: left;
+    display: inline-block;    
+}
+
 .wbpollshortcode-single,
 .wbpollshortcode-single-text {
     box-sizing: border-box;
@@ -459,7 +469,7 @@ ul#wb_poll_answers_items li.placeholder:before {
 .form-table td fieldset.radio_fields label:last-child {
     margin-right: 0px !important;
 }
-
+.wbpoll_embed,
 .wbpoll_ctp {
     background-image: url("../images/clippy.svg");
     background-repeat: no-repeat;

@@ -743,6 +743,16 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				'side',
 				'low'
 			);
+			
+			// add meta box in right col to show the result
+			add_meta_box(
+				'pollsembed_meta_box',
+				esc_html__( 'Embed', 'buddypress-polls' ),
+				array( $this, 'bpolls_metabox_embed_display' ),
+				'wbpoll',
+				'side',
+				'low'
+			);
 		} //end metaboxes_display()
 
 		/**
@@ -1137,7 +1147,17 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			) . '" data-balloon-pos="down">&nbsp;</span>';
 			echo '<div class="wbpollclear"></div>';
 		} //end metabox_shortcode_display()
-
+		
+		function bpolls_metabox_embed_display() {
+			global $post;
+			$post_id = $post->ID;
+			$iframe = esc_attr( sprintf( '<iframe id="%s" src="%s" frameborder="0" allowtransparency="true" width="100%%" height="400"></iframe>', 'wbpollemded-iframe-' . $post_id, add_query_arg( [ 'embed' => true ], get_permalink($post_id) ) ) );
+			echo '<span  id="wbpollemded-' . intval( $post_id ) . '" class="wbpollemded wbpollemded-single wbpollemded-' . intval( $post_id ) . '">' . $iframe. '</span><span class="wbpoll_embed" aria-label="' . esc_html__(
+				'Click to copy',
+				'buddypress-polls'
+			) . '" data-balloon-pos="down">&nbsp;</span>';
+			echo '<div class="wbpollclear"></div>';
+		}
 
 		/**
 		 * Save wbpoll metabox

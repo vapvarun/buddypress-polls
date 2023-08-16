@@ -166,7 +166,8 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}			
-		}
+		}		
+		
 	}
 
 	/**
@@ -2878,6 +2879,34 @@ class Buddypress_Polls_Public {
 			}
 		}
 		return $single_template;
+	}
+	
+	public function prepareWBPoll() {
+		// Check whether is an archive page, search or singular.
+		
+		if ( is_single() || is_archive() || is_search() ):			
+			// Get current post type.
+			$currentPostType = get_post_type();
+
+			// Check current post type is poll
+			if ( $currentPostType === 'wbpoll' ):
+
+				// We need to take care of the output when It's embedded
+				if ( function_exists( 'is_embed' ) && is_embed() ):				
+					add_action( 'embed_content', [$this, 'showEmbededPoll'], 99 );
+					remove_all_filters( 'get_the_excerpt' );
+					add_filter( 'the_excerpt_embed', '__return_empty_string' );
+					add_filter( 'embed_site_title_html', '__return_empty_string' );
+					remove_all_actions( 'embed_content_meta' );
+				endif;
+			endif;
+		endif;
+	}
+	
+	function showEmbededPoll() {
+		the_content();
+		$post_id = intval( get_the_ID() );
+		echo WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
 	}
 
 }
