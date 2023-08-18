@@ -303,10 +303,15 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 			
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field', $plugin_public, 'wbpoll_additional_field' );
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field', $plugin_public, 'wbpoll_additional_field' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_image', $plugin_public, 'wbpoll_additional_field_image' );
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_image', $plugin_public, 'wbpoll_additional_field_image' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
 			$this->loader->add_action( 'init', $plugin_public, 'init_shortcodes' );
 			
 			
