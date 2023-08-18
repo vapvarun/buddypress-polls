@@ -128,6 +128,11 @@
     width: 100%;
 }
 
+.wp-embed .wbpolls-answer-wrap .ans-records-wrap input {
+    min-height: 34px;
+    padding: 0 15px;
+}
+
 .wbpolls-answer-wrap .ans-records-wrap textarea {
     min-height: 80px;
     padding: 10px;

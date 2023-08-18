@@ -387,6 +387,7 @@ nav.navigation.wbpoll-archive-navigation {
     box-shadow: unset;
     cursor: pointer;
     border: 1px solid var(--wbpoll-global-primary-color);
+    border-radius: 4px;
 }
 
 .wbpoll-question-choices-item-content-container {
@@ -545,6 +546,10 @@ nav.navigation.wbpoll-archive-navigation {
 /* Image/Video/Audio options */
 .wp-embed p>img.alignnone {
     width: auto;
+}
+
+.wp-embed .wbpoll_wrapper {
+    margin-top: 20px;
 }
 
 .wbpolls-question-results.wbpoll-image,
