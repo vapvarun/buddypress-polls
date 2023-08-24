@@ -567,8 +567,13 @@ class Buddypress_Polls_Public {
 		$_check_type = get_option( 'temp_poll_type' );
 
 		if ( $_check_type && 'yes' === $_check_type ) {
-			/* translators: %s: */
-			$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
+			if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+				/* translators: %s: */
+				$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_url( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
+			} else {
+				/* translators: %s: */
+				$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
+			}
 		}
 		return $activity_action;
 	}
@@ -847,14 +852,25 @@ class Buddypress_Polls_Public {
 							// How Much User Visible.
 							if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-								// Get User Image Code.
-								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
-									array(
-										'html'    => true,
-										'type'    => 'thumb',
-										'item_id' => $user_id,
-									)
-								) . '</a>';
+								if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+									// Get User Image Code.
+									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
+										array(
+											'html'    => true,
+											'type'    => 'thumb',
+											'item_id' => $user_id,
+										)
+									) . '</a>';
+								} else {
+									// Get User Image Code.
+									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
+										array(
+											'html'    => true,
+											'type'    => 'thumb',
+											'item_id' => $user_id,
+										)
+									) . '</a>';
+								}
 							}
 						}
 
@@ -1123,14 +1139,25 @@ class Buddypress_Polls_Public {
 						// How Much User Visible.
 						if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-							// Get User Image Code.
-							$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
-								array(
-									'html'    => true,
-									'type'    => 'thumb',
-									'item_id' => $user_id,
-								)
-							) . '</a>';
+							if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+								// Get User Image Code.
+								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
+									array(
+										'html'    => true,
+										'type'    => 'thumb',
+										'item_id' => $user_id,
+									)
+								) . '</a>';
+							} else {
+								// Get User Image Code.
+								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
+									array(
+										'html'    => true,
+										'type'    => 'thumb',
+										'item_id' => $user_id,
+									)
+								) . '</a>';
+							}
 						}
 					}
 
@@ -1377,19 +1404,27 @@ class Buddypress_Polls_Public {
 					?>
 
 					<div class="bpolls-list-item">
-						<a href="<?php echo esc_url( bp_core_get_user_domain( $user_id ) ); ?>" class="bpolls-item-avatar">
-											<?php
-											echo bp_core_fetch_avatar( // phpcs:ignore WordPress.Security.EscapeOutput
-												array(
-													'type' => 'thumb',
-													'item_id' => $user_id,
-												)
-											);
-											?>
-									</a>
+						<?php if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) : ?>
+							<a href="<?php echo esc_url( bp_members_get_user_url( $user_id ) ); ?>" class="bpolls-item-avatar">
+						<?php else : ?>
+							<a href="<?php echo esc_url( bp_core_get_user_domain( $user_id ) ); ?>" class="bpolls-item-avatar">
+						<?php endif; ?>
+							<?php
+							echo bp_core_fetch_avatar( // phpcs:ignore WordPress.Security.EscapeOutput
+								array(
+									'type' => 'thumb',
+									'item_id' => $user_id,
+								)
+							);
+							?>
+						</a>
 						<div class="bpolls-item-data">
 							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ) ; ?></div>
-							<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
+							<?php if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) : ?>
+								<div class="bpolls-item-meta">@<?php echo esc_html( bp_members_get_user_slug( $user_id ) ); ?></div>
+							<?php else : ?>
+								<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
+							<?php endif; ?>
 						</div>
 					</div>
 
@@ -1619,14 +1654,25 @@ class Buddypress_Polls_Public {
 								// How Much User Visible.
 								if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-									// Get User Image Code.
-									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
-										array(
-											'html'    => true,
-											'type'    => 'thumb',
-											'item_id' => $user_id,
-										)
-									) . '</a>';
+									if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+										// Get User Image Code.
+										$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
+											array(
+												'html'    => true,
+												'type'    => 'thumb',
+												'item_id' => $user_id,
+											)
+										) . '</a>';
+									} else {
+										// Get User Image Code.
+										$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
+											array(
+												'html'    => true,
+												'type'    => 'thumb',
+												'item_id' => $user_id,
+											)
+										) . '</a>';
+									}
 								}
 							}
 
