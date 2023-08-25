@@ -320,7 +320,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_filter( 'wp', $plugin_public, 'prepareWBPoll' );
 			//$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_embed_scripts', 20 );
 
-			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+			if ( ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) || in_array( 'buddypress-search/buddypress-search.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				$this->loader->add_filter( 'bp_activity_search_where_conditions', $plugin_public, 'wbpoll_buddyboss_polls_search', 10, 2 );
 			}
 
