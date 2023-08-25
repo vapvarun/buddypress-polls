@@ -122,8 +122,8 @@ class Buddypress_Polls_Public {
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 			|| ( is_single() && get_post_type() == 'business' )
 			|| 'activity' === $current_component
+			|| function_exists( 'bp_search_is_search' ) && bp_search_is_search()
 			) {
-
 			wp_enqueue_style( $this->plugin_name );
 			wp_enqueue_style( $this->plugin_name . '-time' );
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {

@@ -20,6 +20,7 @@
 # Hide Media Library Tab
 # Youzify
 # BB Platform
+# Search Results
 --------------------------------------------------------------*/
 
 
@@ -1308,5 +1309,21 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     width: -webkit-calc(100% - 30px);
     width: calc(100% - 30px);
     margin: 15px;
+}
+
+/*--------------------------------------------------------------
+# Search Results
+--------------------------------------------------------------*/
+body.bp-search .bp-search-ac>li.bbls-cpt-wbpoll-type>.bp-search-ajax-item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+li.bbls-cpt-wbpoll-type .bp-search-ajax-item .item>a {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
 }
 /*# sourceMappingURL=buddypress-polls-public.css.map */
