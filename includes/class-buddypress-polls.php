@@ -188,7 +188,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'manage_posts_custom_column', $plugin_admin, 'manage_poll_columns', 10, 2 );
 			$this->loader->add_filter( 'manage_edit-wppolls_sortable_columns', $plugin_admin, 'wbpoll_columnsort' );
 
-			// adding shortcode			
+			// adding shortcode
 			$this->loader->add_filter( 'wbpoll_display_options', $plugin_admin, 'poll_display_methods_text' );/* Will Do It */
 			$this->loader->add_filter( 'wbpoll_display_options_backend', $plugin_admin, 'poll_display_methods_text_backend' );
 			$this->loader->add_filter( 'wbpoll_display_options_widget_result', $plugin_admin, 'poll_display_methods_text_widget_result' );
@@ -288,20 +288,20 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 
 			$this->loader->add_action( 'wp_ajax_bpolls_activity_delete_user_option', $plugin_public, 'bpolls_activity_delete_user_option' );
 
-			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );			
-			
+			$this->loader->add_action( 'wp_footer', $plugin_public, 'bpolls_wp_footer', 999 );
+
 			//attach template for plugin pages
 			$this->loader->add_filter( 'the_content', $plugin_public, 'wb_poll_add_new_content' );
-			
+
 			if ( ! is_admin() ) {
 				//$this->loader->add_filter( 'the_content', $plugin_public, 'wbpoll_the_content' );
 				//$this->loader->add_filter( 'the_excerpt', $plugin_public, 'wbpoll_the_excerpt' );
 			}
-			
+
 			// ajax for voting
 			$this->loader->add_action( 'wp_ajax_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_user_vote', $plugin_public, 'wbpoll_user_vote' );
-			
+
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field', $plugin_public, 'wbpoll_additional_field' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field', $plugin_public, 'wbpoll_additional_field' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_image', $plugin_public, 'wbpoll_additional_field_image' );
@@ -310,16 +310,19 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_video', $plugin_public, 'wbpoll_additional_field_video' );
 			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
 			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_audio', $plugin_public, 'wbpoll_additional_field_audio' );
-			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
-			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );			
+			$this->loader->add_action( 'wp_ajax_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );
+			$this->loader->add_action( 'wp_ajax_nopriv_wbpoll_additional_field_html', $plugin_public, 'wbpoll_additional_field_html' );
 			$this->loader->add_action( 'init', $plugin_public, 'init_shortcodes' );
-			
-			
+
 			$this->loader->add_filter( 'archive_template', $plugin_public, 'wbpoll_archive_template', 10, 3 );
 			$this->loader->add_filter( 'single_template', $plugin_public, 'wbpoll_profile_single_template', 99, 3 );
-			
-			$this->loader->add_filter( 'wp', $plugin_public, 'prepareWBPoll'  );
+
+			$this->loader->add_filter( 'wp', $plugin_public, 'prepareWBPoll' );
 			//$this->loader->add_action( 'embed_head', $plugin_public, 'bpolls_embed_scripts', 20 );
+
+			if ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) {
+				$this->loader->add_filter( 'bp_activity_search_where_conditions', $plugin_public, 'wbpoll_buddyboss_polls_search', 10, 2 );
+			}
 
 		}
 
