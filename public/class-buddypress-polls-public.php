@@ -1043,6 +1043,8 @@ class Buddypress_Polls_Public {
 
 			$updated_votes = $this->bpolls_ajax_calculate_votes( $activity_id );
 
+			do_action( 'bp_polls_after_submit_polls', $user_id, $activity_id );
+
 			echo wp_json_encode( $updated_votes );
 			die;
 		}
@@ -1399,9 +1401,7 @@ class Buddypress_Polls_Public {
 				echo '</div>';
 
 			} 
-
-            do_action( 'bp_polls_after_submit_polls', $user_id, $activity_id );
-
+			
 			$result_html = ob_get_contents();
 
 			ob_end_clean();
