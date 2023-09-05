@@ -1398,7 +1398,9 @@ class Buddypress_Polls_Public {
 				echo '</div>';
 				echo '</div>';
 
-			}
+			} 
+
+            do_action( 'bp_polls_after_submit_polls', $user_id, $activity_id );
 
 			$result_html = ob_get_contents();
 
