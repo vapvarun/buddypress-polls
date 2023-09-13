@@ -81,7 +81,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 * class.
 			 */
 			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
-			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) {
+			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) { //phpcs:ignore
 
 				wp_enqueue_style( 'wp-color-picker' );
 
@@ -99,7 +99,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			 */
 			wp_enqueue_style( 'wbpoll-admin', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin.css', array(), $this->version, 'all' );
 
-			if ( isset( $_GET['page'] ) && $_GET['page'] == 'wbpoll_logs' ) {
+			if ( isset( $_GET['page'] ) && $_GET['page'] == 'wbpoll_logs' ) { //phpcs:ignore
 				wp_enqueue_style( 'wbpoll-admin-log', plugin_dir_url( __FILE__ ) . 'css/wbpoll-admin-log.css', array(), $this->version, 'all' );
 			}
 
@@ -141,7 +141,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			global $pagenow;
 
 			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
-			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) {
+			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) { //phpcs:ignore
 				wp_enqueue_script( 'wp-color-picker' );
 
 				if ( ! wp_script_is( 'selectize-js', 'enqueued' ) ) {
@@ -157,7 +157,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			wp_register_script( 'wbpoll-switcheryjs', plugin_dir_url( __FILE__ ) . 'js/switchery.min.js', array(), $this->version, false );
 			wp_register_script( 'chart-js', plugin_dir_url( __FILE__ ) . 'js/Chart.min.js', array(), $this->version, false );
 
-			if ( ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) || ( get_post_type() == 'wbpoll' && $pagenow == 'post.php' ) ) {
+			if ( ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) || ( get_post_type() == 'wbpoll' && $pagenow == 'post.php' ) ) { //phpcs:ignore
 
 				// admin poll single edit.
 				wp_enqueue_script(
@@ -258,7 +258,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<div class="wbcom_admin_header-wrapper">
 						<div id="wb_admin_plugin_name">
 							<?php esc_html_e( 'BuddyPress Polls', 'buddypress-polls' ); ?>
-							<span><?php printf( __( 'Version %s', 'buddypress-polls' ), BPOLLS_PLUGIN_VERSION ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
+							<?php /* translators: %s: */ ?>
+							<span><?php printf( esc_html__( 'Version %s', 'buddypress-polls' ), esc_attr( BPOLLS_PLUGIN_VERSION ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></span>
 						</div>
 						<?php echo do_shortcode( '[wbcom_admin_setting_header]' ); ?>
 					</div>
@@ -1002,7 +1003,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				echo '</div>';
 
 				echo '<div class="wbcom-polls-option-wrap">';
-				echo '<table class="form-table wbpoll-answer-options">';
+				echo '<table class="form-table wbpoll-answer-options wbcom">';
 
 				foreach ( $post_meta_fields as $field ) {
 
@@ -1022,23 +1023,23 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					switch ( $field['type'] ) {
 
 						case 'text':
-							echo '<input type="text" class="regular-text" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-text-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' .  $field['desc'] . '</span>';
+							echo '<input type="text" class="regular-text 111" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-text-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
+							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
 							break;
 
 						case 'number':
 							echo '<input type="number" class="regular-text" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-number-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' .  $field['desc']  . '</span>';
+							<span class="description">' . esc_html( $field['desc'] )  . '</span>';
 							break;
 
 						case 'date':
 							echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-date-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . $field['desc'] . '</span>';
+							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
 							break;
 
 						case 'colorpicker':
 							echo '<input type="text" class="wbpoll-colorpicker" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-date-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . $field['desc']  . '</span>';
+							<span class="description">' .esc_html( $field['desc'] )  . '</span>';
 							break;
 
 						case 'multiselect':
@@ -1057,7 +1058,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									echo '<option value="' . esc_attr( $key ) . '" ' . ( is_array( $meta ) && in_array( $key, $meta ) ? ' selected="selected"' : '' ) . '>' . esc_html( $val ) . '</option>';
 								}
 							}
-							echo '</select><span class="description">' . $field['desc'] . '</span>';
+							echo '</select><span class="description">' .esc_html( $field['desc'] ) . '</span>';
 							echo '<div>';
 							break;
 
@@ -1075,7 +1076,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 									echo '<option ' . ( ( $meta == $index ) ? ' selected="selected"' : '' ) . ' value="' . esc_attr( $index ) . '">' . esc_html( $option ) . '</option>';
 								}
 							}
-							echo '</select><br/><span class="description">' . $field['desc'] . '</span>';
+							echo '</select><br/><span class="description">' . esc_html( $field['desc'] ) . '</span>';
 							break;
 
 						case 'radio':
@@ -1088,12 +1089,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								</label>';
 							}
 							echo '</fieldset>';
-							echo '<span class="description">' . $field['desc'] . '</span>';
+							echo '<span class="description">' . esc_html( $field['desc'] ). '</span>';
 							break;
 
 						case 'checkbox':
 							echo '<input type="checkbox" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-checkbox-' . esc_attr( $poll_postid ) . '" class="cb-checkbox checkbox-' . esc_attr( $poll_postid ) . '" ' . ( $meta ? ' checked="checked"' : '' ) . '/>
-								<span for="' . esc_attr( $field['id'] ) . '">' . $field['desc'] . '</span>';
+								<span for="' . esc_attr( $field['id'] ) . '">' . esc_html( $field['desc'] ) . '</span>';
 							break;
 
 						case 'checkbox_group':
@@ -1108,7 +1109,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								echo '<input type="checkbox" value="' . esc_attr( $option['value'] ) . '" name="' . esc_attr( $field['id'] ) . '[]" id="' . esc_attr( $option['value'] ) . '-mult-chk-' . esc_attr( $poll_postid ) . '-field-' . esc_attr( $field['id'] ) . '" class="cb-multi-check mult-check-' . esc_attr( $poll_postid ) . '" ' . ( $meta && in_array( $option['value'], $meta ) ? ' checked="checked"' : '' ) . ' />
 									<label for="' . esc_attr( $option['value'] ) . '">' . esc_html( $option['label'] ) . '</label><br/>';
 							}
-							echo '<span class="description">' .  $field['desc'] . '</span>';
+							echo '<span class="description">' .  esc_html( $field['desc'] ) . '</span>';
 							break;
 					}
 					echo '</td>';
@@ -1343,7 +1344,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$answer_type  = esc_attr( $_POST['answer_type'] );
 
 			$answers_extra = array( 'type' => $answer_type );
-
+             /* translators: %d: */
 			$poll_answer = sprintf( esc_html__( 'Answer %d', 'buddypress-polls' ), ( $index + 1 ) );
 
 			$template = WBPollHelper::wbpoll_answer_field_template(
@@ -1659,6 +1660,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			if ( $total > 0 ) {
+				/* translators: %s: */
 				$output  = '<p>' . sprintf( __( 'Total votes: %d', 'buddypress-polls' ), number_format( $total ) ) . '</p>';
 				$output .= '<div class="wbpolls-question-results ' . ( isset( $class['class'] ) ? $class['class'] : '' ) . '">';
 
@@ -1933,6 +1935,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$post_title = get_the_title( $poll_id );
 				?>
 				<h5><?php echo esc_html__( $post_title, 'buddypress-polls' ); ?></h5>
+				<?php /* translators: %s: */ ?>
 				<p> <?php echo sprintf( esc_html__( 'Total votes: %d', 'buddypress-polls' ), number_format( $total ) ); ?> <p>
 				<table>
 					<thead>

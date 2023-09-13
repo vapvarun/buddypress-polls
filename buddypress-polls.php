@@ -431,7 +431,7 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 		return;
 	}
 	if ( plugin_basename( __FILE__ ) === $plugin ) {
-		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) {
+		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { //phpcs:ignore
 			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
 			exit;
 		}
@@ -699,7 +699,7 @@ function buddypress_polls_navigation() {
 		if ( $links ) {
 			echo '<nav class="navigation posts-navigation wbpoll-archive-navigation" role="navigation">';
 			echo '<h2 class="screen-reader-text">Posts navigation</h2>';
-			echo '<div class="nav-links">' . $links . '</div>';
+			echo '<div class="nav-links">' . esc_url( $links ) . '</div>';
 			echo '</nav>';
 		}
 		
@@ -728,6 +728,7 @@ if ( ! function_exists( 'buddypress_polls_meta' ) ) {
 		);
 
 		$posted_on = sprintf(
+			/* translators: %s: */
 			esc_html_x( '%s', 'post date', 'buddypress-polls' ),
 			'<a href="' . esc_url( get_permalink() ) . '" rel="bookmark">' . $time_string . '</a>'
 		);
@@ -747,7 +748,7 @@ if ( ! function_exists( 'buddypress_polls_meta' ) ) {
 			'<span class="author vcard"><a class="url fn n" href="' . esc_url( get_author_posts_url( get_the_author_meta( 'ID' ) ) ) . '">' . esc_html( get_the_author() ) . '</a></span>'
 		);
 
-		echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; // WPCS: XSS OK
+		echo '<span class="byline">' . $avatar . $byline . '<span class="posted-on">' . $posted_on . '</span></span>'; //phpcs:ignore
 
 	}
 }

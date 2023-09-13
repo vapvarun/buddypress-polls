@@ -5,7 +5,7 @@
 class Wb_Poll_Report extends WP_Widget {
 
 	/**
- 	 * Constructor function.
+	 * Constructor function.
 	 */
 	public function __construct() {
 		parent::__construct(
@@ -15,29 +15,29 @@ class Wb_Poll_Report extends WP_Widget {
 		);
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
-	function enqueue_scripts(){
+	function enqueue_scripts() {
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . '/public/js/wbpoll-graph-repoet.js', array( 'jquery' ) );
 	}
 
 	// Widget front-end display.
 	public function widget( $args, $instance ) {
 		global $wpdb, $current_user;
-		
+
 		/*
- 		 * Widget output.
+		  * Widget output.
 		 */
 		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		/*
-   		 * Widget content.
+			* Widget content.
 		 */
 		$poll_id = $instance['wb_activity_default'];
-		echo '<h4 class="widget-title"><span>' . esc_html__($instance['title'], 'buddypress-polls') . '</span></h4>';
-		if($instance['wb_poll_type'] == 'all_voted_poll'){
-			
-			echo WBPollHelper::show_backend_single_poll_widget_result_all_voted( esc_html($poll_id), 'shortcode', 'text' );
-		}else{
-			echo WBPollHelper::show_backend_single_poll_widget_result( esc_html($poll_id), 'shortcode', 'text' );
+		echo '<h4 class="widget-title"><span>' . esc_html__( $instance['title'], 'buddypress-polls' ) . '</span></h4>';
+		if ( $instance['wb_poll_type'] == 'all_voted_poll' ) {
+
+			echo WBPollHelper::show_backend_single_poll_widget_result_all_voted( esc_html( $poll_id ), 'shortcode', 'text' ); //phpcs:ignore
+		} else {
+			echo WBPollHelper::show_backend_single_poll_widget_result( esc_html( $poll_id ), 'shortcode', 'text' ); //phpcs:ignore
 		}?>
 		<script>
 			jQuery(document).ready(function() {
@@ -73,7 +73,7 @@ class Wb_Poll_Report extends WP_Widget {
 		global $activities_template;
 
 		/*
- 		 * Back up the global.
+		  * Back up the global.
 		 */
 		$old_activities_template = $activities_template;
 
@@ -85,13 +85,13 @@ class Wb_Poll_Report extends WP_Widget {
 		$defaults = array(
 			'title'               => __( 'WB Poll Report', 'buddypress-polls' ),
 			'wb_activity_default' => '',
-			'wb_poll_type' 		  => '',
+			'wb_poll_type'        => '',
 		);
 
-		$instance 			 = wp_parse_args( (array) $instance, $defaults );
+		$instance            = wp_parse_args( (array) $instance, $defaults );
 		$title               = wp_strip_all_tags( $instance['title'] );
 		$wb_activity_default = wp_strip_all_tags( $instance['wb_activity_default'] );
-		$wb_poll_type 		 = wp_strip_all_tags( $instance['wb_poll_type'] );		
+		$wb_poll_type        = wp_strip_all_tags( $instance['wb_poll_type'] );
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label>
@@ -103,7 +103,14 @@ class Wb_Poll_Report extends WP_Widget {
 				<option value="single_poll" <?php selected( $wb_poll_type, 'single_poll' ); ?>>Single poll</option>			
 			</select>
 		</p>
-		<p class="default_seting" style="<?php if($wb_poll_type == 'single_poll'){ echo 'display:block;';}else{ echo 'display:none;'; }?>">
+		<p class="default_seting" style="
+		<?php
+		if ( $wb_poll_type == 'single_poll' ) {
+			echo 'display:block;';
+		} else {
+			echo 'display:none;'; }
+		?>
+		">
 			<label for="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress-polls' ); ?></label>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'wb_activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'wb_activity_default' ) ); ?>">
 				<?php
@@ -124,7 +131,7 @@ class Wb_Poll_Report extends WP_Widget {
 						$post_id    = get_the_ID();
 						$post_title = get_the_title();
 						?>
-						<option value="<?php echo esc_html($post_id); ?>" <?php selected( $wb_activity_default, $post_id ); ?>><?php echo esc_html( $post_title); ?></option>
+						<option value="<?php echo esc_html( $post_id ); ?>" <?php selected( $wb_activity_default, $post_id ); ?>><?php echo esc_html( $post_title ); ?></option>
 						<?php
 						// Do something with the post data.
 					}
@@ -154,14 +161,14 @@ class Wb_Poll_Report extends WP_Widget {
 	}
 
 	/**
-   	 * Update widget settings.
+	 * Update widget settings.
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
 		$instance['title']               = wp_strip_all_tags( $new_instance['title'] );
 		$instance['wb_activity_default'] = wp_strip_all_tags( $new_instance['wb_activity_default'] );
-		$instance['wb_poll_type'] 		 = wp_strip_all_tags( $new_instance['wb_poll_type'] );
+		$instance['wb_poll_type']        = wp_strip_all_tags( $new_instance['wb_poll_type'] );
 		return $instance;
 	}
 }

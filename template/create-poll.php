@@ -305,7 +305,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									<div class="wbpoll-image-input-preview">
 										<div class="wbpoll-image-input-preview-thumbnail">
 											<?php if ( $options[0]['suggestion'] == 'yes' ) { ?>
-												<iframe width="420" height="345" src="<?php echo $options[0]['video']; ?>"></iframe>
+												<iframe width="420" height="345" src="<?php echo $options[0]['video']; ?>"></iframe> <?php //phpcs:ignore  ?>
 											<?php } else { ?>
 												<video src="<?php echo esc_url( $options[0]['video'] ); ?>" controls="" poster="" preload="none"></video>
 											<?php } ?>

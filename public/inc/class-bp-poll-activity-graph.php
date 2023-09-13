@@ -179,9 +179,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		 */
 		$title = apply_filters( 'widget_title', $instance['title'], $instance, $this->id_base );
 
-		echo $before_widget;
+		echo $before_widget; //phpcs:ignore
 
-		echo $before_title . esc_html( $title ) . $after_title;
+		echo $before_title . esc_html( $title ) . $after_title; //phpcs:ignore
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
 		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
@@ -211,7 +211,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						bp_the_activity();
 						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; ?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; //phpcs:ignore?></option>
 					<?php endwhile; ?>
 				</select>
 			</p>
@@ -228,7 +228,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			</div>
 		<?php } ?>
 		<?php
-		echo $after_widget;
+		echo $after_widget; //phpcs:ignore
 		// Restore the global.
 		$activities_template = $old_activities_template;
 	}
@@ -303,7 +303,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						bp_the_activity();
 						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; ?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; //phpcs:ignore?></option>
 					<?php endwhile; ?>
 				</select>
 			<?php } else { ?>

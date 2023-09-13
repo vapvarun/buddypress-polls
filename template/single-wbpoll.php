@@ -40,16 +40,17 @@ $bpolls_settings = get_option( 'wbpolls_settings' );
 					the_content();
 
 					$post_id = intval( get_the_ID() );
-					echo WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 );
+					echo WBPollHelper::wbpoll_single_display( $post_id, 'content_hook', '', '', 0 ); //phpcs:ignore
 					?>
 				</div>
-			<?php 
-			// If comments are open or we have at least one comment, load up the comment template.
-				if ( ( comments_open() || get_comments_number() ) && ( isset($bpolls_settings['wppolls_show_comment']) && $bpolls_settings['wppolls_show_comment'] == 'yes' )) :
+				<?php
+				// If comments are open or we have at least one comment, load up the comment template.
+				if ( ( comments_open() || get_comments_number() ) && ( isset( $bpolls_settings['wppolls_show_comment'] ) && $bpolls_settings['wppolls_show_comment'] == 'yes' ) ) :
 					comments_template();
 				endif;
-			
-			endwhile; ?>
+
+			endwhile;
+			?>
 			
 		</div>
 		

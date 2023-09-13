@@ -58,6 +58,7 @@ do_action( 'buddypress_polls_before_main_content' );
 								<?php the_excerpt(); ?>
 
 								<?php if ( ! is_singular() ) { ?>
+									<?php	/* translators: %s: */ ?>
 									<p class="wbpoll-view-poll-link"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( sprintf( __( 'Permalink to %s', 'buddypress-polls' ), the_title_attribute( 'echo=0' ) ) ); ?>" class="read-more button"><?php esc_html_e( 'View poll', 'buddypress-polls' ); ?></a></p>
 								<?php } ?>
 
