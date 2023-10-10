@@ -567,7 +567,7 @@ class Buddypress_Polls_Public {
 		$_check_type = get_option( 'temp_poll_type' );
 
 		if ( $_check_type && 'yes' === $_check_type ) {
-			if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+			if ( buddypress_polls_is_buddypress_supported() ) {
 				/* translators: %s: */
 				$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_url( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
 			} else {
@@ -852,7 +852,7 @@ class Buddypress_Polls_Public {
 							// How Much User Visible.
 							if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-								if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+								if ( buddypress_polls_is_buddypress_supported() ) {
 									// Get User Image Code.
 									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 										array(
@@ -1139,7 +1139,7 @@ class Buddypress_Polls_Public {
 						// How Much User Visible.
 						if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-							if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+							if ( buddypress_polls_is_buddypress_supported() ) {
 								// Get User Image Code.
 								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 									array(
@@ -1404,7 +1404,7 @@ class Buddypress_Polls_Public {
 					?>
 
 					<div class="bpolls-list-item">
-						<?php if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) : ?>
+						<?php if ( buddypress_polls_is_buddypress_supported() ) : ?>
 							<a href="<?php echo esc_url( bp_members_get_user_url( $user_id ) ); ?>" class="bpolls-item-avatar">
 						<?php else : ?>
 							<a href="<?php echo esc_url( bp_core_get_user_domain( $user_id ) ); ?>" class="bpolls-item-avatar">
@@ -1420,7 +1420,7 @@ class Buddypress_Polls_Public {
 						</a>
 						<div class="bpolls-item-data">
 							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ) ; ?></div>
-							<?php if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) : ?>
+							<?php if ( buddypress_polls_is_buddypress_supported() ) : ?>
 								<div class="bpolls-item-meta">@<?php echo esc_html( bp_members_get_user_slug( $user_id ) ); ?></div>
 							<?php else : ?>
 								<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
@@ -1654,7 +1654,7 @@ class Buddypress_Polls_Public {
 								// How Much User Visible.
 								if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-									if ( function_exists( 'buddypress' ) && version_compare( buddypress()->version, '12.0', '>=' ) ) {
+									if ( buddypress_polls_is_buddypress_supported() ) {
 										// Get User Image Code.
 										$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 											array(
