@@ -225,6 +225,9 @@ require plugin_dir_path( __FILE__ ) . 'edd-license/edd-plugin-license.php';
  */
 require_once plugin_dir_path(__FILE__) . 'restapi/v1/pollrestapi.php';
 
+require_once __DIR__ . '/vendor/autoload.php';
+HardG\BuddyPress120URLPolyfills\Loader::init();
+
 /**
  * Begins execution of the plugin.
  *
