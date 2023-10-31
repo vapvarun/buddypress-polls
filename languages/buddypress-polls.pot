@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-19 07:42:05+00:00\n"
+"POT-Creation-Date: 2023-10-31 14:36:25+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -130,7 +130,7 @@ msgstr ""
 #: admin/class-buddypress-polls-admin.php:284
 #: admin/wbcom/wbcom-admin-settings.php:296
 #: admin/wbcom/wbcom-admin-settings.php:297
-#: admin/wbcom/wbcom-admin-settings.php:375 buddypress-polls.php:357
+#: admin/wbcom/wbcom-admin-settings.php:375 buddypress-polls.php:360
 msgid "Support"
 msgstr ""
 
@@ -185,7 +185,7 @@ msgstr ""
 #: admin/class-buddypress-polls-admin.php:1444
 #: admin/wbcom/templates/wbcom-license-page.php:28
 #: admin/wbcom/templates/wbcom-license-page.php:40
-#: edd-license/edd-plugin-license.php:408 template/poll-dashboard.php:58
+#: edd-license/edd-plugin-license.php:412 template/poll-dashboard.php:58
 #: template/poll-dashboard.php:108 template/poll-dashboard.php:219
 #: template/poll-dashboard.php:268 template/poll-dashboard.php:342
 #: template/poll-dashboard.php:390
@@ -344,7 +344,7 @@ msgstr ""
 #: admin/class-buddypress-polls-admin.php:1448
 #: admin/wbcom/templates/wbcom-license-page.php:29
 #: admin/wbcom/templates/wbcom-license-page.php:41
-#: edd-license/edd-plugin-license.php:409 template/poll-dashboard.php:61
+#: edd-license/edd-plugin-license.php:413 template/poll-dashboard.php:61
 #: template/poll-dashboard.php:137 template/poll-dashboard.php:222
 #: template/poll-dashboard.php:297 template/poll-dashboard.php:345
 #: template/poll-dashboard.php:420
@@ -982,19 +982,19 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:25
 #: admin/wbcom/templates/wbcom-license-page.php:37
-#: edd-license/edd-plugin-license.php:405
+#: edd-license/edd-plugin-license.php:409
 msgid "Product"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:26
 #: admin/wbcom/templates/wbcom-license-page.php:38
-#: edd-license/edd-plugin-license.php:406
+#: edd-license/edd-plugin-license.php:410
 msgid "Version"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-license-page.php:27
 #: admin/wbcom/templates/wbcom-license-page.php:39
-#: edd-license/edd-plugin-license.php:407
+#: edd-license/edd-plugin-license.php:411
 msgid "Key"
 msgstr ""
 
@@ -1585,39 +1585,39 @@ msgstr ""
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:363 buddypress-polls.php:356
+#: admin/wbcom/wbcom-admin-settings.php:363 buddypress-polls.php:359
 msgid "Settings"
 msgstr ""
 
-#: buddypress-polls.php:315 buddypress-polls.php:336
+#: buddypress-polls.php:318 buddypress-polls.php:339
 msgid ""
 "BuddyPress Polls requires to be activated on the blog where BuddyPress is "
 "activated."
 msgstr ""
 
-#: buddypress-polls.php:320 buddypress-polls.php:345
+#: buddypress-polls.php:323 buddypress-polls.php:348
 msgid ""
 "BuddyPress Polls and BuddyPress need to share the same network "
 "configuration."
 msgstr ""
 
-#: buddypress-polls.php:684
+#: buddypress-polls.php:687
 msgid "Previous"
 msgstr ""
 
-#: buddypress-polls.php:685
+#: buddypress-polls.php:688
 msgid "Next"
 msgstr ""
 
-#: buddypress-polls.php:686
+#: buddypress-polls.php:689
 msgid "Posts navigation"
 msgstr ""
 
-#: buddypress-polls.php:687
+#: buddypress-polls.php:690
 msgid "Posts"
 msgstr ""
 
-#: buddypress-polls.php:767
+#: buddypress-polls.php:770
 msgid "BuddyPress Polls Sidebar"
 msgstr ""
 
@@ -1646,6 +1646,7 @@ msgstr ""
 #: edd-license/edd-plugin-license.php:119
 #: edd-license/edd-plugin-license.php:156
 #: edd-license/edd-plugin-license.php:232
+#: edd-license/edd-plugin-license.php:493
 msgid "An error occurred, please try again."
 msgstr ""
 
@@ -1675,21 +1676,29 @@ msgstr ""
 msgid "Your license key has reached its activation limit."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:341
+#: edd-license/edd-plugin-license.php:340
 #. translators: %1$s: Expire Time
 msgid "Your BuddyPress Polls plugin license key expired on %s."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:371
+#: edd-license/edd-plugin-license.php:370
 msgid "Please activate your BuddyPress Polls plugin license key."
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:426
+#: edd-license/edd-plugin-license.php:433
 msgid "Deactivate License"
 msgstr ""
 
-#: edd-license/edd-plugin-license.php:432
+#: edd-license/edd-plugin-license.php:439
 msgid "Activate License"
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:511
+msgid " Expires %s."
+msgstr ""
+
+#: edd-license/edd-plugin-license.php:514
+msgid "You have %1$s/%2$s-sites activated."
 msgstr ""
 
 #: includes/class-wbpoll-helper.php:115
@@ -2331,13 +2340,13 @@ msgstr ""
 msgid "Draft Poll Listing"
 msgstr ""
 
-#: buddypress-polls.php:732
+#: buddypress-polls.php:735
 #. translators: %s:
 msgctxt "post date"
 msgid "%s"
 msgstr ""
 
-#: buddypress-polls.php:747
+#: buddypress-polls.php:750
 msgctxt "post author"
 msgid "%s"
 msgstr ""
