@@ -37,8 +37,12 @@ Yes, needs you to have BuddyPress installed and activated.
 Once you activate the plugin, a poll icon will appear in the post box on the activity stream, user profiles, and groups. This feature enables you to create polls and ask questions for others to vote on. With the BuddyPress Polls plugin, both you and your community can easily create and place polls in the main activity stream, user profiles, and group pages.
 
 == Changelog ==
+= 4.3.5 =
+* Fix: BP v12
+* Fix: License issue
+
 = 4.3.4 =
-*Fix: PHPCS fixes
+* Fix: PHPCS fixes
 
 = 4.3.3 =
 * Added: Hookable position after poll submit
