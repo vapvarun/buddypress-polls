@@ -508,10 +508,10 @@ function edd_wbcom_BPOLLS_active_license_message() {
 					$license_limit = $license_data->license_limit;
 					$message = 'License key is active.';
 					if ( isset( $expires ) && 'lifetime' != $expires ) {
-						$message .= sprintf( __( ' Expires %s.' ), $expires ) . ' ';
+						$message .= sprintf( __( ' Expires %s.', 'buddypress-polls' ), $expires ) . ' ';
 					}
 					if ( $license_limit ) {
-						$message .= sprintf( __( 'You have %1$s/%2$s-sites activated.' ), $site_count, $license_limit );
+						$message .= sprintf( __( 'You have %1$s/%2$s-sites activated.', 'buddypress-polls' ), $site_count, $license_limit );
 					}
 				}
 			}
