@@ -23,7 +23,8 @@ if ( class_exists( 'Buddypress' ) ) {
 	?>
 	<div class="wbcom-tab-content">
 	<div class="wbcom-wrapper-admin">
-	<div class="wbcom-admin-title-section"><h3><?php esc_html_e( 'Polls General Settings', 'buddypress-polls' ); ?></h3>
+	<div class="wbcom-admin-title-section"><h3 style="margin: 0 0 5px"><?php esc_html_e( 'Activity Polls Setting', 'buddypress-polls' ); ?></h3>
+	<p class="description"><?php esc_html_e( 'Activity polls are a BuddyPress and BuddyBoss Platform specific feature that allows members to create polls as activities. These polls are visible on their newsfeed, and can be added from the "Whats new" area.', 'buddypress-polls' ); ?></p>
 	</div>
 	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 	<form method="post" action="admin.php?action=update_network_options">
@@ -36,8 +37,8 @@ if ( class_exists( 'Buddypress' ) ) {
 		<div class="form-table polls-general-options">
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Hide poll icon on activity page', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the poll icon on the BuddyPress activity page.', 'buddypress-polls' ); ?>
+					<label for="blogname"><?php esc_html_e( 'Turn off the Add Poll feature for BuddyPress.', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the add poll icon on the What new activity section.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -49,8 +50,8 @@ if ( class_exists( 'Buddypress' ) ) {
 			</div>
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Multi select polls', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled/Disabled: users can vote for multiple options in each poll.', 'buddypress-polls' ); ?>
+					<label for="blogname"><?php esc_html_e( 'Multi-select Polls', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'In the polls, users can vote for multiple options, together or separately.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -63,7 +64,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Allow members to add poll options.', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: It will allow other members to all poll options to a poll which are created by others like Facebook.', 'buddypress-polls' ); ?>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Members can contribute their options to the poll that already exists.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -76,8 +77,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Hide results', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: results are hidden from users who have not voted yet.', 'buddypress-polls' ); ?> <?php esc_html_e( '/ Disabled: users can see poll results before voting.', 'buddypress-polls' ); ?>
+					<label for="blogname"><?php esc_html_e( 'Hide Poll results', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Users can only see the poll results after voting.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -91,7 +92,7 @@ if ( class_exists( 'Buddypress' ) ) {
 				<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set poll closing date and time.', 'buddypress-polls' ); ?> <?php esc_html_e( '/ Disabled: polls will always remain open for voting', 'buddypress-polls' ); ?>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Users can now set the closing date and time for polls.', 'buddypress-polls' ); ?>
 				</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -105,7 +106,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Enable image attachment', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can set a image attachment with the poll.', 'buddypress-polls' ); ?>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Users are now able to attach an image when creating a poll.', 'buddypress-polls' ); ?>
 				</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -119,7 +120,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="options_limit"><?php esc_html_e( 'Poll Options Limit', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Set the limit of the poll options.', 'buddypress-polls' ); ?></p>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Please indicate the maximum number of options for the poll.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? esc_attr( $bpolls_settings['options_limit'] ) : '5'; ?>'/>			
@@ -128,8 +129,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="poll_options_result"><?php esc_html_e( 'Enable Poll Result', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to view poll results.', 'buddypress-polls' ); ?></p>
+					<label for="poll_options_result"><?php esc_html_e( 'Display Poll Result %', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'After the poll, you can see the results in percentage format.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">
@@ -142,7 +143,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="poll_revoting"><?php esc_html_e( 'Enable Revoting', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to change their votes after voting.', 'buddypress-polls' ); ?></p>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Allow members to modify their vote after submitting it.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">
@@ -154,8 +155,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="poll_list_voters"><?php esc_html_e( 'Show Voters List', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: Allow users to view list of voters.', 'buddypress-polls' ); ?></p>
+					<label for="poll_list_voters"><?php esc_html_e( 'Display Voters list', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'The feature is enabled to allow members to view the list of voters.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">
@@ -167,8 +168,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="poll_limit_voters"><?php esc_html_e( 'Max Voters Number', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Max voters to show.', 'buddypress-polls' ); ?></p>
+					<label for="poll_limit_voters"><?php esc_html_e( 'How many voters will be visible?', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'The maximum number of voters to be displayed on the poll choices after votes are cast.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<input id="poll_limit_voters" name='bpolls_settings[poll_limit_voters]' type='number' value='<?php echo ( isset( $bpolls_settings['poll_limit_voters'] ) ) ? esc_attr( $bpolls_settings['poll_limit_voters'] ) : '3'; ?>'/>
@@ -178,7 +179,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Allow users to set color scheme for progress bar and submit button.', 'buddypress-polls' ); ?></p>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Please specify the color scheme for the progress bar in the poll choices and the submit button.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label for>
@@ -189,8 +190,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Enable after poll message', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enabled: users can add thank you message with the poll.', 'buddypress-polls' ); ?></p>
+					<label for="blogname"><?php esc_html_e( 'Enable after-poll message', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Users can now include a personalized thank you message in their poll.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">
@@ -202,9 +203,9 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label><?php esc_html_e( 'Limit Poll Activities', 'buddypress-polls' ); ?></label>
+					<label><?php esc_html_e( 'Add Poll Restrictions', 'buddypress-polls' ); ?></label>
 					<p class="description">
-						<?php esc_html_e( 'Limit by user role or member type to publish poll type activities', 'buddypress-polls' ); ?>
+						<?php esc_html_e( 'Enable specific user roles or member types to create new polls.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">

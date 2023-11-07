@@ -147,6 +147,10 @@ button.bpolls-accordion.active::after {
 
 }
 
+.wbcom-settings-section-options-heading-poll span {
+    font-weight: 500;
+}
+
 .wbcom-settings-section-wrap {
     overflow: inherit;
 }

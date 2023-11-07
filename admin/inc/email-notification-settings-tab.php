@@ -21,7 +21,8 @@ $bpmb_pronotify_option = get_option( 'wbpolls_notification_setting_options' );
 <div class="wbcom-tab-content woo-document-pro">
 	<div class="wbcom-wrapper-admin">
 		<div class="wbcom-admin-title-section">
-			<h3><?php esc_html_e( 'Email Notifications Text', 'buddypress-polls' ); ?></h3>
+			<h3 style="margin: 0 0 5px"><?php esc_html_e( 'Notifications Setting Options', 'buddypress-polls' ); ?></h3>
+		<p class="description"><?php esc_html_e( 'This feature is available only for Polls as Posts, and is not applicable to BuddyBoss or BuddyPress Activity Polls.', 'buddypress-polls' ); ?></p>
 		</div>
 		<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view wbcom-notification-setting-options">
 			<form method="post" action="options.php">

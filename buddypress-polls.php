@@ -166,24 +166,33 @@ function activate_buddypress_polls() {
 
 	if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 		$emai_content['admin'] = array(
-			'notification_subject' => 'You have a new Poll to approve',
+			'notification_subject' => '{site_name}: A new Poll needs your approval',
 			'notification_content' => '
 				Hi {site_admin},
 
-				You have a new post {poll_name} to approve.
+				<br/>
+				Greetings! I want to inform you that there is a new blog post {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
 
-				Have a look once.
-
+				<br/>
 				Thank You.
+
+				<br/>
+				{site_name}
 			',
 		);
 
 		$emai_content['member'] = array(
-			'notification_subject' => 'Your Poll is approved',
+			'notification_subject' => '{site_name}: Poll approval notification',
 			'notification_content' => '
 				Hi {publisher_name} ,
 
-				Your Poll post {poll_name} is approved.
+				<br/>
+				I am pleased to inform you that your blog post, titled {poll_name}, has been approved.
+				<br/>
+
+				Thank You.
+				<br/>
+				{site_name}
 			',
 		);
 
@@ -592,24 +601,30 @@ function bpolls_add_page_or_data_buddypress()
 	
 		if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 			$emai_content['admin'] = array(
-				'notification_subject' => 'You have a new Poll to approve', 
+				'notification_subject' => '{site_name}: A new Poll needs your approval', 
 				'notification_content' => '
 					Hi {site_admin},
-	
-					You have a new post {poll_name} to approve.
-	
-					Have a look once.
-	
+
+					<br/>
+					Greetings! I want to inform you that there is a new blog post {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
+					<br/>
 					Thank You.
+					<br/>
+					{site_name}
 				',
 			);
 	
 			$emai_content['member'] = array(
-				'notification_subject' => 'Your Poll is approved',
+				'notification_subject' => '{site_name}: Poll approval notification',
 				'notification_content' => '
 					Hi {publisher_name} ,
-	
-					Your Poll post {poll_name} is approved.
+
+					<br/>
+					I am pleased to inform you that your blog post, titled {poll_name}, has been approved.
+					<br/>
+					Thank You.
+					<br/>
+					{site_name}
 				',
 			);
 	

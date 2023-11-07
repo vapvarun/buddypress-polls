@@ -248,7 +248,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			<div class="wrap">
 				<div class="wbcom-bb-plugins-offer-wrapper">
 					<div id="wb_admin_logo">
-						<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/" target="_blank">
+						<a href="https://wbcomdesigns.com/downloads/buddypress-community-bundle/?utm_source=pluginoffernotice&utm_medium=community_banner" target="_blank">
 							<img src="<?php echo esc_url( BPOLLS_PLUGIN_URL ) . 'admin/wbcom/assets/imgs/wbcom-offer-notice.png'; ?>">
 						</a>
 					</div>

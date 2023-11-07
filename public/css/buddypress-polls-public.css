@@ -256,15 +256,27 @@ a.bpolls-delete-user-option .wb-icon-x {
     border-radius: 50px !important;
 }
 
+.activity-list .activity-item .bpolls-item .bpolls-result-votes p{
+    display: flex;
+    align-items: center;
+    margin: 0 0 !important;
+    padding-right: 0;
+    padding-left: 5px;
+    gap: 10px;
+}
+
 .bpolls-percent {
-    margin-top: 4px;
+    margin-top: 0;
     font-style: normal;
     font-weight: bold;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 13px;
+    line-height: 18px;
     color: #3a3a3a;
     text-align: right;
     display: block;
+    background: #eef2ee;
+    padding: 1px 10px;
+    border-radius: 30px;
 }
 
 .bpolls-votes {

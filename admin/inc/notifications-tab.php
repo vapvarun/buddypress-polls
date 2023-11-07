@@ -17,12 +17,13 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 
 ?>
 <div class="wbcom-tab-content">
+	<div class="wbcom-admin-title-section">
+		<h3 style="margin: 0 0 5px"><?php esc_html_e( 'Notifications Settings', 'buddypress-polls' ); ?></h3>
+		<p class="description"><?php esc_html_e( 'This feature is available only for Polls as Posts, and is not applicable to BuddyBoss or BuddyPress Activity Polls.', 'buddypress-polls' ); ?></p>
+	</div>
 	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 		<form method="post" action="admin.php?action=update_network_options">
-			<div class="wbcom-wrapper-admin">
-				<div class="wbcom-admin-title-section">
-					<h3><?php esc_html_e( 'Email Notifications (WB)', 'buddypress-polls' ); ?></h3>
-				</div>
+			<div class="wbcom-wrapper-admin">				
 				<div class="wbcom-admin-option-wrap-bp-poll">
 					<input name='wbpolls_notification_settings[hidden]' type='hidden' value="" />
 					<?php
@@ -50,7 +51,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label
-									for="blogname"><?php esc_html_e( 'Admin notifications', 'buddypress-polls' ); ?></label>
+									for="blogname"><?php esc_html_e( 'Admin Notifications', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
 									<?php esc_html_e( 'The admin will get a notification for review the poll created by a user. This option will work if "Enable user publishing" is disable.', 'buddypress-polls' ); ?>
 								</p>
