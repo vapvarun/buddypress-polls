@@ -191,7 +191,7 @@ input.bpolls-input.bpolls-input {
 .bpolls-item {
     width: 100%;
     position: relative;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;

@@ -38,7 +38,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Turn off the Add Poll feature for BuddyPress.', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the add poll icon on the What new activity section.', 'buddypress-polls' ); ?>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the add poll icon on the Whats new activity section.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
