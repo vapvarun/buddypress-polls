@@ -1382,7 +1382,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 					$author_email = $author->user_email;
 					$option_value = get_option( 'wbpolls_notification_setting_options' );
-					$subject      = isset( $option_value['member']['notification_subject'] ) ? $option_value['member']['notification_subject'] : '';
+					$subject      = isset( $option_value['member']['notification_subject'] ) ? self::bpmbp_get_notification_subject( $option_value['member']['notification_subject'] ) : '';
 					$headers[]    = 'Content-Type: text/html; charset=UTF-8';
 					$content      = isset( $option_value['member']['notification_content'] ) ? self::bpmbp_get_notification_content( $option_value['member']['notification_content'], $post_id, $author_id ) : '';
 
@@ -1422,6 +1422,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			return apply_filters( 'bpmbp_notification_content', $content, $notification_content, $poll_post );
+		}
+
+		public static function bpmbp_get_notification_subject( $notification_subject, $post_id, $user_id = null ) {
+
+			$content = '';
+			if ( isset( $notification_subject ) && ! empty( $notification_subject ) ) {
+				$content = $notification_subject;
+
+				if ( strpos( $content, '{site_name}' ) !== false ) {
+					$content = str_replace( '{site_name}', get_bloginfo( 'name' ), $content );
+				}
+
+			}
+
+			return apply_filters( 'bpmbp_notification_subject', $content, $notification_subject, $poll_post );
 		}
 
 		public function wbpolls_log_delete() {

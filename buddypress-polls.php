@@ -171,7 +171,7 @@ function activate_buddypress_polls() {
 				Hi {site_admin},
 
 				<br/>
-				Greetings! I want to inform you that there is a new blog post {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
+				Greetings! I want to inform you that there is a new Poll {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
 
 				<br/>
 				Thank You.
@@ -606,7 +606,7 @@ function bpolls_add_page_or_data_buddypress()
 					Hi {site_admin},
 
 					<br/>
-					Greetings! I want to inform you that there is a new blog post {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
+					Greetings! I want to inform you that there is a new Poll {poll_name} that awaits your approval. Would you like to review it at your earliest convenience?
 					<br/>
 					Thank You.
 					<br/>
