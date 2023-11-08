@@ -34,7 +34,7 @@ global $wp_roles;
 
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Add Poll Page Mapping', 'buddypress-polls' ); ?></label>
+								<label for="blogname"><?php esc_html_e( 'Poll Page Mapping', 'buddypress-polls' ); ?></label>
 							</div>
 							<div class="wbcom-settings-section-options">
 								<div class="wbcom-settings-section-options-heading-poll">
@@ -210,9 +210,9 @@ global $wp_roles;
 				<div class="wbcom-admin-option-wrap-bp-poll">
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Set Color Scheme', 'buddypress-polls' ); ?></label>
+								<label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Choose the color for progress bar and submit button.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Please specify the color scheme for the progress bar in the poll choices and the submit button.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">

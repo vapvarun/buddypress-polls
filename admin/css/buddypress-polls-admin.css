@@ -151,6 +151,17 @@ button.bpolls-accordion.active::after {
     font-weight: 500;
 }
 
+.wbcom-settings-section-wrap .wbcom-settings-section-options a.button-secondary {
+    background: #2a5fef;
+    border-radius: 8px;
+    padding: 5px 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: #ffff;
+    border-color: #2a5fef;
+}
+
 .wbcom-settings-section-wrap {
     overflow: inherit;
 }

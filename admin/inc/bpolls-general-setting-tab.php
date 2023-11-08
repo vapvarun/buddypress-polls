@@ -37,7 +37,7 @@ if ( class_exists( 'Buddypress' ) ) {
 		<div class="form-table polls-general-options">
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Turn off the Add Poll feature for BuddyPress.', 'buddypress-polls' ); ?></label>
+					<label for="blogname"><?php esc_html_e( 'Turn off the Add Poll feature for BuddyPress', 'buddypress-polls' ); ?></label>
 					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the add poll icon on the Whats new activity section.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
@@ -63,7 +63,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			</div>
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="blogname"><?php esc_html_e( 'Allow members to add poll options.', 'buddypress-polls' ); ?></label>
+					<label for="blogname"><?php esc_html_e( 'Allow members to add poll options', 'buddypress-polls' ); ?></label>
 					<p class="description" id="tagline-description"><?php esc_html_e( 'Members can contribute their options to the poll that already exists.', 'buddypress-polls' ); ?>
 					</p>
 				</div>
@@ -166,7 +166,7 @@ if ( class_exists( 'Buddypress' ) ) {
 				</div>
 			</div>
 
-			<div class="wbcom-settings-section-wrap">
+			<div class="wbcom-settings-section-wrap" id="poll_limit_voters_options" <?php echo ! isset( $bpolls_settings['poll_list_voters'] )  ? 'style="display:none"' : '';?>>
 				<div class="wbcom-settings-section-options-heading">
 					<label for="poll_limit_voters"><?php esc_html_e( 'How many voters will be visible?', 'buddypress-polls' ); ?></label>
 					<p class="description" id="tagline-description"><?php esc_html_e( 'The maximum number of voters to be displayed on the poll choices after votes are cast.', 'buddypress-polls' ); ?></p>
