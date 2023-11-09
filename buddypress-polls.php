@@ -166,7 +166,7 @@ function activate_buddypress_polls() {
 
 	if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 		$emai_content['admin'] = array(
-			'notification_subject' => '{site_name}: A new Poll needs your approval',
+			'notification_subject' => '{site_name} : A new Poll needs your approval',
 			'notification_content' => '
 				Hi {site_admin},
 
@@ -177,20 +177,22 @@ function activate_buddypress_polls() {
 				Thank You.
 
 				<br/>
+				<br/>
 				{site_name}
 			',
 		);
 
 		$emai_content['member'] = array(
-			'notification_subject' => '{site_name}: Poll approval notification',
+			'notification_subject' => '{site_name} : Poll approval notification',
 			'notification_content' => '
 				Hi {publisher_name} ,
 
 				<br/>
-				I am pleased to inform you that your blog post, titled {poll_name}, has been approved.
+				I am pleased to inform you that your Poll, titled {poll_name}, has been approved.
 				<br/>
 
 				Thank You.
+				<br/>
 				<br/>
 				{site_name}
 			',
@@ -601,7 +603,7 @@ function bpolls_add_page_or_data_buddypress()
 	
 		if ( false === get_option( 'wbpolls_notification_setting_options' ) ) {
 			$emai_content['admin'] = array(
-				'notification_subject' => '{site_name}: A new Poll needs your approval', 
+				'notification_subject' => '{site_name} : A new Poll needs your approval', 
 				'notification_content' => '
 					Hi {site_admin},
 
@@ -615,12 +617,12 @@ function bpolls_add_page_or_data_buddypress()
 			);
 	
 			$emai_content['member'] = array(
-				'notification_subject' => '{site_name}: Poll approval notification',
+				'notification_subject' => '{site_name} : Poll approval notification',
 				'notification_content' => '
 					Hi {publisher_name} ,
 
 					<br/>
-					I am pleased to inform you that your blog post, titled {poll_name}, has been approved.
+					I am pleased to inform you that your Poll, titled {poll_name}, has been approved.
 					<br/>
 					Thank You.
 					<br/>

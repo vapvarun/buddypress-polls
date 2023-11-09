@@ -273,7 +273,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'wbpoll_setting'              => esc_html__( 'WB Polls Settings', 'buddypress-polls' ),
 					'notifications'               => esc_html__( 'Email Notifications', 'buddypress-polls' ),
 					'email_notification_settings' => esc_html__( 'Email Notification Text', 'buddypress-polls' ),
-					'support'                     => esc_html__( 'Support', 'buddypress-polls' ),
+					'support'                     => esc_html__( 'FAQ', 'buddypress-polls' ),
 				);
 			} else {
 				$bpolls_tabs = array(
@@ -281,7 +281,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'wbpoll_setting'              => esc_html__( 'WB Polls Settings', 'buddypress-polls' ),
 					'notifications'               => esc_html__( 'Email Notifications', 'buddypress-polls' ),
 					'email_notification_settings' => esc_html__( 'Email Notification Text', 'buddypress-polls' ),
-					'support'                     => esc_html__( 'Support', 'buddypress-polls' ),
+					'support'                     => esc_html__( 'FAQ', 'buddypress-polls' ),
 				);
 			}
 
@@ -1382,7 +1382,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 					$author_email = $author->user_email;
 					$option_value = get_option( 'wbpolls_notification_setting_options' );
-					$subject      = isset( $option_value['member']['notification_subject'] ) ? self::bpmbp_get_notification_subject( $option_value['member']['notification_subject'] ) : '';
+					$subject      = isset( $option_value['member']['notification_subject'] ) ? self::bpmbp_get_notification_subject( $option_value['member']['notification_subject'], $post_id, $author_id ) : '';
 					$headers[]    = 'Content-Type: text/html; charset=UTF-8';
 					$content      = isset( $option_value['member']['notification_content'] ) ? self::bpmbp_get_notification_content( $option_value['member']['notification_content'], $post_id, $author_id ) : '';
 
@@ -1426,17 +1426,17 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 		public static function bpmbp_get_notification_subject( $notification_subject, $post_id, $user_id = null ) {
 
-			$content = '';
+			$subject = '';
 			if ( isset( $notification_subject ) && ! empty( $notification_subject ) ) {
-				$content = $notification_subject;
+				$subject = $notification_subject;
 
-				if ( strpos( $content, '{site_name}' ) !== false ) {
-					$content = str_replace( '{site_name}', get_bloginfo( 'name' ), $content );
+				if ( strpos( $subject, '{site_name}' ) !== false ) {
+					$subject = str_replace( '{site_name}', get_bloginfo( 'name' ), $subject );
 				}
 
 			}
 
-			return apply_filters( 'bpmbp_notification_subject', $content, $notification_subject, $poll_post );
+			return apply_filters( 'bpmbp_notification_subject', $subject, $notification_subject, $poll_post );
 		}
 
 		public function wbpolls_log_delete() {
