@@ -10,14 +10,14 @@
  */
 
 global $post, $current_user;
-$temp_post = $post;
-$option_value = get_option( 'wbpolls_settings' );
-$wppolls_create_poll = ( isset($option_value['wppolls_create_poll'])) ? $option_value['wppolls_create_poll']: '';
-if ( !empty($wppolls_create_poll)  ) {
-	$roles = $current_user->roles;
-	$result = array_intersect($wppolls_create_poll,$roles);
-	
-	if ( empty($result)) {
+$temp_post           = $post;
+$option_value        = get_option( 'wbpolls_settings' );
+$wppolls_create_poll = ( isset( $option_value['wppolls_create_poll'] ) ) ? $option_value['wppolls_create_poll'] : '';
+if ( ! empty( $wppolls_create_poll ) ) {
+	$roles  = $current_user->roles;
+	$result = array_intersect( $wppolls_create_poll, $roles );
+
+	if ( empty( $result ) ) {
 		echo '<div class="main-poll-create">';
 		echo esc_html__( 'You are not allow to create the poll.', 'buddypress-polls' );
 		echo '</div>';
@@ -82,7 +82,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 			$options[ $key ] = array(
 				'ans'        => $ans,
 				'video'      => $video_answer_url[ $key ],
-				'suggestion' => (isset($video_import_info[ $key ]))? $video_import_info[ $key ]: 'no',
+				'suggestion' => ( isset( $video_import_info[ $key ] ) ) ? $video_import_info[ $key ] : 'no',
 			);
 		}
 	} elseif ( $poll_type == 'audio' ) {
@@ -90,7 +90,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 			$options[ $key ] = array(
 				'ans'        => $ans,
 				'audio'      => $audio_answer_url[ $key ],
-				'suggestion' => (isset($audio_import_info[ $key ])) ? $audio_import_info[ $key ] : 'no',
+				'suggestion' => ( isset( $audio_import_info[ $key ] ) ) ? $audio_import_info[ $key ] : 'no',
 			);
 		}
 	} elseif ( $poll_type == 'html' ) {
@@ -143,7 +143,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 				">
 				<div class="form-group">
 					<label for="polltitle"><?php esc_html_e( 'Poll Title', 'buddypress-polls' ); ?></label>
-					<input type="text" class="form-control" name="title" id="polltitle" value="<?php if ( ! empty( $_GET['poll_id'] ) ) { echo esc_attr( $post->post_title ); } ?>">
+					<input type="text" class="form-control" name="title" id="polltitle" value="<?php echo ! empty( $_GET['poll_id'] ) ? esc_attr( $post->post_title ) : ''; ?>">
 					<span id="error_title" style="color:red;"></span>
 				</div>
 				<div class="form-group">
@@ -218,7 +218,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 							<div class="ans-records text_records-edit">
 								<div class="ans-records-wrap">
 									<label><?php esc_html_e( 'Text Answer', 'buddypress-polls' ); ?></label>
-									<input name="_wbpoll_answer[]" data-name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo (isset($options[0])) ? esc_attr( $options[0] ) : ''; ?>">
+									<input name="_wbpoll_answer[]" data-name="_wbpoll_answer[]" id="wbpoll_answer" class="wbpoll_answer" type="text" value="<?php echo ( isset( $options[0] ) ) ? esc_attr( $options[0] ) : ''; ?>">
 									<input type="hidden" id="wbpoll_answer_extra_type" value="default" name="_wbpoll_answer_extra[][type]" data-name="_wbpoll_answer_extra[][type]" class="wbpoll_answer_extra" />
 								</div>
 								<a class="add-field extra-fields-text-edit" data-id="<?php echo count( $options ); ?>" href="#"><?php esc_html_e( 'Add More', 'buddypress-polls' ); ?></a>
@@ -366,7 +366,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-video"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;">
 														<span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-														<input type="radio" class="yes_video wbpoll_video_import_info" id="yes" name="_wbpoll_video_import_info[<?php echo esc_attr($key);?>]" data-name="_wbpoll_video_import_info[]" value="yes"
+														<input type="radio" class="yes_video wbpoll_video_import_info" id="yes" name="_wbpoll_video_import_info[<?php echo esc_attr( $key ); ?>]" data-name="_wbpoll_video_import_info[]" value="yes"
 														<?php
 														if ( $optn['suggestion'] == 'yes' ) {
 															echo 'checked="checked"';
@@ -374,7 +374,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 														?>
 														>
 														<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-														<input type="radio" id="no" name="_wbpoll_video_import_info[<?php echo esc_attr($key);?>]" data-name="_wbpoll_video_import_info[]" value="no" class="wbpoll_video_import_info"
+														<input type="radio" id="no" name="_wbpoll_video_import_info[<?php echo esc_attr( $key ); ?>]" data-name="_wbpoll_video_import_info[]" value="no" class="wbpoll_video_import_info"
 														<?php
 														if ( $optn['suggestion'] == 'no' ) {
 															echo 'checked="checked"';
@@ -463,7 +463,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 													<input name="_wbpoll_audio_answer_url[]" data-name="_wbpoll_audio_answer_url[]" id="wbpoll_audio_answer_url" class="wbpoll_audio_answer_url" type="url" value="<?php echo esc_attr( $optn['audio'] ); ?>">
 													<button type="button" class="bpolls-attach dashicons dashicons-admin-media" id="bpolls-attach-audio"></button>
 													<div class="wbpoll-input-group-suggestions hide_suggestion" style="display:none;"><span><?php esc_html_e( 'Import information from ?', 'buddypress-polls' ); ?></span>
-														<input type="radio" class="yes_audio wbpoll_audio_import_info" id="yes" name="_wbpoll_audio_import_info[<?php echo esc_attr($key);?>]" data-name="_wbpoll_audio_import_info[]" value="yes" 
+														<input type="radio" class="yes_audio wbpoll_audio_import_info" id="yes" name="_wbpoll_audio_import_info[<?php echo esc_attr( $key ); ?>]" data-name="_wbpoll_audio_import_info[]" value="yes" 
 														<?php
 														if ( $optn['suggestion'] == 'yes' ) {
 															echo 'checked="checked"';
@@ -471,7 +471,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 														?>
 														>
 														<label for="yes"><?php esc_html_e( 'Yes', 'buddypress-polls' ); ?></label>
-														<input type="radio" id="no" name="_wbpoll_audio_import_info[<?php echo esc_attr($key);?>]" data-name="_wbpoll_audio_import_info[]" value="no" class="wbpoll_audio_import_info"
+														<input type="radio" id="no" name="_wbpoll_audio_import_info[<?php echo esc_attr( $key ); ?>]" data-name="_wbpoll_audio_import_info[]" value="no" class="wbpoll_audio_import_info"
 														<?php
 														if ( $optn['suggestion'] == 'no' ) {
 															echo 'checked="checked"';
@@ -665,21 +665,20 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 							</tr>
 							<tr class="wbpoll_show_date">
 								<th><label for="_wbpoll_start_date"><?php esc_html_e( 'Start Date', 'buddypress-polls' ); ?></label></th>
-								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php if ( ! empty( $start_time ) ) { echo esc_attr( $start_time ); } else { echo esc_attr( current_time( 'Y-m-d H:i:s' ) ); } ?>" size="30">
+								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_start_date" id="_wbpoll_start_date" value="<?php echo ! empty( $start_time ) ? esc_attr( $start_time ) : esc_attr( current_time( 'Y-m-d H:i:s' ) ); ?>" size="30">
 									<span class="description"><?php esc_html_e( 'Poll Start Date. [Note: Field required. Default is today]', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
 							<tr class="wbpoll_show_date">
 								<?php
-								$current_date   = current_time( 'Y-m-d H:i:s' );
+								$current_date    = current_time( 'Y-m-d H:i:s' );
 								$next_seven_days = date_i18n( 'Y-m-d H:i:s', strtotime( $current_date . ' +7 days' ) );
 								?>
 								<th><label for="_wbpoll_end_date"><?php esc_html_e( 'End Date', 'buddypress-polls' ); ?></label></th>
-								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php if ( ! empty( $end_date ) ) { echo esc_attr( $end_date ); } else { echo esc_attr( $next_seven_days ); } ?>" size="30">
+								<td><input type="text" class="wbpollmetadatepicker hasDatepicker" name="_wbpoll_end_date" id="_wbpoll_end_date" value="<?php echo ! empty( $end_date ) ? esc_attr( $end_date ) : esc_attr( $next_seven_days ); ?>" size="30">
 									<span class="description"><?php esc_html_e( 'Poll End Date. [Note: Field required. Default is next seven days.]', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
-							
 							<tr class="wbpoll_result_after_expires">
 								<th><label for="_wbpoll_show_result_before_expire"><?php esc_html_e( 'Show Result After Expires', 'buddypress-polls' ); ?></label></th>
 								<td>
@@ -714,7 +713,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									<span class="description"><?php esc_html_e( 'Can user vote multiple option', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
-							<?php							
+							<?php
 							if ( ! empty( $option_value ) ) {
 								$wbpolls_user_add_extra_op = isset( $option_value['wbpolls_user_add_extra_op'] ) ? $option_value['wbpolls_user_add_extra_op'] : '';
 							}
@@ -726,7 +725,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 									echo 'display:none;'; }
 								?>
 								">
-									<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional fields', 'buddypress-polls' ); ?></label></th>
+									<th><label for="_wbpoll_multivote"><?php esc_html_e( 'Add Additional poll option', 'buddypress-polls' ); ?></label></th>
 									<td>
 										<fieldset class="radio_fields">
 											<legend class="screen-reader-text"><span><?php esc_html_e( 'input type="radio"', 'buddypress-polls' ); ?></span></legend>
@@ -752,7 +751,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 												<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 											</label>
 										</fieldset>
-										<span class="description"><?php esc_html_e( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ); ?></span>
+										<span class="description"><?php esc_html_e( 'Add Additional poll option only for text poll.', 'buddypress-polls' ); ?></span>
 									</td>
 								</tr>
 							<?php } ?>
