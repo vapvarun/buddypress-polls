@@ -17,12 +17,13 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 global $wp_roles;
 ?>
 <div class="wbcom-tab-content">
-	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
+	<div class="wbcom-admin-title-section">
+		<h3 style="margin: 0 0 5px"><?php esc_html_e( 'Poll Setting', 'buddypress-polls' ); ?></h3>
+		<p class="description"><?php esc_html_e( 'This feature lets you create polls as a post type that works independently of BuddyPress Activity Polls. You can easily list and use the polls as a shortcode on any content section.', 'buddypress-polls' ); ?></p>
+	</div>
+	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">		
 		<form method="post" action="admin.php?action=update_network_options">
-			<div class="wbcom-wrapper-admin">
-				<div class="wbcom-admin-title-section">
-					<h3><?php esc_html_e( 'General (WB)', 'buddypress-polls' ); ?></h3>
-				</div>
+			<div class="wbcom-wrapper-admin">				
 				<div class="wbcom-admin-option-wrap-bp-poll">
 					<input name='wbpolls_settings[hidden]' type='hidden' value="" />
 					<?php
@@ -30,55 +31,14 @@ global $wp_roles;
 						do_settings_sections( 'buddypress_wbpolls' );
 					?>
 					<div class="form-table polls-general-options">
-						
+
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Who can vote?', 'buddypress-polls' ); ?></label>
-								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Select the user roles who can vote on polls.', 'buddypress-polls' ); ?>
-								</p>
+								<label for="blogname"><?php esc_html_e( 'Poll Page Mapping', 'buddypress-polls' ); ?></label>
 							</div>
 							<div class="wbcom-settings-section-options">
-								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_who_can_vote][]" multiple>
-									<?php
-									$roles = $wp_roles->get_names();
-									$roles['guest'] = esc_html__( 'Guest', 'buddypress-polls' );									
-									foreach ( $roles as $role => $rname ) {
-										$selected = ( ! empty( $bpolls_settings['wppolls_who_can_vote'] ) && in_array( $role, $bpolls_settings['wppolls_who_can_vote'], true ) ) ? 'selected' : '';
-										?>
-									<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
-									<?php } ?>
-								</select>				
-							</div>
-						</div>
-						
-						<div class="wbcom-settings-section-wrap" id="bpolls_user_role" >
-							<div class="wbcom-settings-section-options-heading">
-								<label><?php esc_html_e( 'Who can create a poll?', 'buddypress-polls' ); ?></label>
-								<p class="description">
-									<?php esc_html_e( 'Select the user roles who can create a polls.', 'buddypress-polls' ); ?>
-								</p>
-							</div>
-							<div class="wbcom-settings-section-options">
-								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_create_poll][]" multiple>
-									<?php
-									$roles = $wp_roles->get_names();
-									foreach ( $roles as $role => $rname ) {
-										$selected = ( ! empty( $bpolls_settings['wppolls_create_poll'] ) && in_array( $role, $bpolls_settings['wppolls_create_poll'], true ) ) ? 'selected' : '';
-										?>
-									<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
-									<?php } ?>
-								</select>				
-							</div>		
-						</div>
-						
-						<div class="wbcom-settings-section-wrap">
-							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Add Poll Page Mapping', 'buddypress-polls' ); ?></label>
-							</div>
-							<div class="wbcom-settings-section-options">
-								<div class="wbcom-settings-section-options-heading">
-									<label for="blogname"><?php esc_html_e( 'Create Poll Page', 'buddypress-polls' ); ?></label>
+								<div class="wbcom-settings-section-options-heading-poll">
+									<span><?php esc_html_e( 'Create Poll Page', 'buddypress-polls' ); ?></span>
 								</div>
 								
 								<select name="wbpolls_settings[create_poll_page]">
@@ -100,8 +60,8 @@ global $wp_roles;
 
 								<?php endif; ?>
 
-								<div class="wbcom-settings-section-options-heading">
-									<label for="blogname"><?php esc_html_e( 'Poll Dashboard Page', 'buddypress-polls' ); ?></label>
+								<div class="wbcom-settings-section-options-heading-poll">
+									<span><?php esc_html_e( 'Poll Dashboard Page', 'buddypress-polls' ); ?></span>
 								</div>
 								<select name="wbpolls_settings[poll_dashboard_page]">
 									<option value=""><?php esc_html_e( '- None -', 'buddypress-polls' )?></option>
@@ -122,8 +82,28 @@ global $wp_roles;
 
 								<?php endif; ?>
 							</div>
-						</div>
-
+						</div>		
+						
+						<div class="wbcom-settings-section-wrap" id="bpolls_user_role" >
+							<div class="wbcom-settings-section-options-heading">
+								<label><?php esc_html_e( 'Who can create a poll?', 'buddypress-polls' ); ?></label>
+								<p class="description">
+									<?php esc_html_e( 'Select the user roles that can create polls.', 'buddypress-polls' ); ?>
+								</p>
+							</div>
+							<div class="wbcom-settings-section-options">
+								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_create_poll][]" multiple>
+									<?php
+									$roles = $wp_roles->get_names();
+									foreach ( $roles as $role => $rname ) {
+										$selected = ( ! empty( $bpolls_settings['wppolls_create_poll'] ) && in_array( $role, $bpolls_settings['wppolls_create_poll'], true ) ) ? 'selected' : '';
+										?>
+									<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
+									<?php } ?>
+								</select>				
+							</div>		
+						</div>						
+						
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label
@@ -172,7 +152,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Show/Hide Poll Results', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Enable this option to show or hide the poll results.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Users can only see the poll results after voting.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -189,7 +169,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Enable Poll Comment', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Enable this option to show the poll comment.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'To enable the comment feature on the polls, please select this option.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -201,20 +181,38 @@ global $wp_roles;
 							</div>
 						</div>
 						
+						<div class="wbcom-settings-section-wrap">
+							<div class="wbcom-settings-section-options-heading">
+								<label for="blogname"><?php esc_html_e( 'Who can vote?', 'buddypress-polls' ); ?></label>
+								<p class="description" id="tagline-description">
+									<?php esc_html_e( 'Select the user roles who can cast votes on polls.', 'buddypress-polls' ); ?>
+								</p>
+							</div>
+							<div class="wbcom-settings-section-options">
+								<select class="polls-multi-selectize" name="wbpolls_settings[wppolls_who_can_vote][]" multiple>
+									<?php
+									$roles = $wp_roles->get_names();
+									$roles['guest'] = esc_html__( 'Guest', 'buddypress-polls' );									
+									foreach ( $roles as $role => $rname ) {
+										$selected = ( ! empty( $bpolls_settings['wppolls_who_can_vote'] ) && in_array( $role, $bpolls_settings['wppolls_who_can_vote'], true ) ) ? 'selected' : '';
+										?>
+									<option value="<?php echo esc_attr( $role ); ?>" <?php echo esc_attr( $selected ); ?>><?php echo esc_attr( $rname ); ?></option>
+									<?php } ?>
+								</select>				
+							</div>
+						</div>
+						
 					</div>
 				</div>
 			</div>
 
 			<div class="wbcom-wrapper-admin">
-				<div class="wbcom-admin-title-section">
-					<h3><?php esc_html_e( 'Design (WB)', 'buddypress-polls' ); ?></h3>
-				</div>
 				<div class="wbcom-admin-option-wrap-bp-poll">
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Set Color Scheme', 'buddypress-polls' ); ?></label>
+								<label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Choose the color for progress bar and submit button.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Please specify the color scheme for the progress bar in the poll choices and the submit button.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">

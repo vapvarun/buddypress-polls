@@ -1568,16 +1568,15 @@ class WBPollHelper {
 		}
 		$add_additional_fields = get_post_meta( $post_id, '_wbpoll_add_additional_fields', true );
 
-		if ( $wbpolls_user_add_extra_op == 'yes' && ! empty( $add_additional_fields ) || $add_additional_fields == 1 ) {
+		if ( 'yes' === $wbpolls_user_add_extra_op && ! empty( $add_additional_fields ) && '1' === $add_additional_fields ) {
 
-			$poll_type         = get_post_meta( $post_id, 'poll_type', true );
-			$poll_type_backend = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
-			if ( isset( $poll_type_backend['answercount'] ) ) {
-				unset( $poll_type_backend['answercount'] );
-			}
-			$add_additional_counts = self::add_additional_allValuesSame( $poll_type_backend );
+			$poll_type = get_post_meta( $post_id, 'poll_type', true );
+			// $poll_type_backend = get_post_meta( $post_id, '_wbpoll_answer_extra', true );
+			// if ( isset( $poll_type_backend['answercount'] ) ) {
+			// 	unset( $poll_type_backend['answercount'] );
+			// }
 
-			if ( ! empty( $poll_type ) && isset( $poll_type ) && $poll_type == 'default' && ! empty( $add_additional_counts ) && isset( $add_additional_counts ) ) {
+			if (  isset( $poll_type ) && ! empty( $poll_type ) && 'default' === $poll_type ) {
 				if ( $poll_type == 'default' || $add_additional_counts == true ) {
 					$poll_form_html .= "<div class='btn btn-primary button wbpolls-add-option-button text_field' id='text_field'> " . esc_html__( 'Add Option', 'buddypress-polls' ) . '</div>';
 					$poll_form_html .= '<div class="12121 wbpolls-answer-wrap"><div class="row wbpoll-list-item" id="type_text" style="display:none;">';
@@ -2321,8 +2320,8 @@ class WBPollHelper {
 
 			if ( $wbpolls_user_add_extra_op == 'yes' ) {
 				$post_meta_fields['_wbpoll_add_additional_fields'] = array(
-					'label'   => esc_html__( 'Add Additional fields', 'buddypress-polls' ),
-					'desc'    => esc_html__( 'Add Additional fields functionality only for text poll.', 'buddypress-polls' ),
+					'label'   => esc_html__( 'Add Additional poll option', 'buddypress-polls' ),
+					'desc'    => esc_html__( 'Add Additional poll option only for text poll.', 'buddypress-polls' ),
 					'id'      => '_wbpoll_add_additional_fields',
 					'type'    => 'radio',
 					'default' => $default_content,
@@ -2398,7 +2397,7 @@ class WBPollHelper {
 		if ( isset( $answers_extra['type'] ) && $answers_extra['type'] == 'default' ) {
 			$answer_type = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'default';
 			?>
-			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>">
+			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>" data-type="default">
 				<div class="wbpoll-containable-list-item-toolbar toolbar-<?php echo esc_attr( $index ); ?>"  data-id="<?php echo esc_attr( $index ); ?>">
 					<div class="wb_pollmove"><i title="<?php esc_html_e( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ); ?>" class="cbpollmoveicon"><?php esc_html_e( 'Move', 'buddypress-polls' ); ?></i></div>
 
@@ -2430,7 +2429,7 @@ class WBPollHelper {
 			$answer_type = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'image';
 
 			?>
-			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>">
+			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>" data-type="image">
 
 				<div class="wbpoll-containable-list-item-toolbar toolbar-<?php echo esc_attr( $index ); ?>" data-id="<?php echo esc_attr( $index ); ?>">
 					<div class="wb_pollmove"><i title="<?php esc_html_e( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ); ?>" class="cbpollmoveicon"><?php esc_html_e( 'Move', 'buddypress-polls' ); ?></i></div>
@@ -2483,7 +2482,7 @@ class WBPollHelper {
 
 			$answer_type = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'video';
 			?>
-			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>">
+			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>" data-type="video">
 
 				<div class="wbpoll-containable-list-item-toolbar toolbar-<?php echo esc_attr( $index ); ?>" data-id="<?php echo esc_attr( $index ); ?>">
 					<div class="wb_pollmove"><i title="<?php esc_html_e( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ); ?>" class="cbpollmoveicon"><?php esc_html_e( 'Move', 'buddypress-polls' ); ?></i></div>
@@ -2566,7 +2565,7 @@ class WBPollHelper {
 
 			$answer_type = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'audio';
 			?>
-			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>">
+			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>" data-type="audio">
 
 				<div class="wbpoll-containable-list-item-toolbar toolbar-<?php echo esc_attr( $index ); ?>"  data-id="<?php echo esc_attr( $index ); ?>">
 					<div class="wb_pollmove"><i title="<?php esc_html_e( 'Drag and Drop to reorder poll answers', 'buddypress-polls' ); ?>" class="cbpollmoveicon"><?php esc_html_e( 'Move', 'buddypress-polls' ); ?></i></div>
@@ -2646,7 +2645,7 @@ class WBPollHelper {
 
 			$answer_type = isset( $answers_extra['type'] ) ? $answers_extra['type'] : 'html';
 			?>
-			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>">
+			<li class="wb_poll_items" id="wb-poll-answer-<?php echo esc_attr( $index ); ?>" data-type="html">
 
 				<div class="wbpoll-containable-list-item-toolbar toolbar-<?php echo esc_attr( $index ); ?>"  data-id="<?php echo esc_attr( $index ); ?>">
 					<div class="wb_pollmove">

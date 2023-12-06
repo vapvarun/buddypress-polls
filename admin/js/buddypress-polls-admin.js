@@ -49,6 +49,14 @@
 			}
 		}
 
+		$('input[name="bpolls_settings[poll_list_voters]"]').on('change', function(){
+			if ($(this).is(":checked")) {
+				$( '#poll_limit_voters_options' ).show();				
+			}else {
+				$( '#poll_limit_voters_options' ).hide();				
+			}
+		});
+
 		$('.polls-multi-selectize').selectize({
 			plugins			: ['remove_button']
 		});

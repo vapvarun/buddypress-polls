@@ -867,6 +867,11 @@ class Buddypress_Polls_Public {
 						}
 					}
 
+					if ( $poll_options_result ) {
+						$activity_votes_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
+					}
+
+
 					$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
 					$activity_content .= '<div class="bpolls-check-radio-wrap">';
@@ -881,10 +886,7 @@ class Buddypress_Polls_Public {
 					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . $polls_bg_style . ";'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'></div>";
 					$activity_content .= '</div>';
-					if ( $poll_options_result ) {
-						$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
-					}
-
+					
 					$activity_content .= '</div>';
 					if ( isset( $user_polls_option[ 'activity-id-' . $activity_id . '-' . $key ] ) ) {
 						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "' data-user-id='" . $user_id . "'><i class='wb-icons wb-icon-x'></i></a>";
@@ -1641,6 +1643,10 @@ class Buddypress_Polls_Public {
 							}
 						}
 
+						if ( $poll_options_result ) {
+							$activity_votes_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
+						}
+
 						$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
 						$activity_content .= '<div class="bpolls-check-radio-wrap">';
@@ -1655,9 +1661,6 @@ class Buddypress_Polls_Public {
 						$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . $polls_bg_style . ";'></div>";
 						$activity_content .= "<div class='bpolls-check-radio-div'></div>";
 						$activity_content .= '</div>';
-						if ( $poll_options_result ) {
-							$activity_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
-						}
 						$activity_content .= '</div>';
 					}
 					$activity_content .= "<input type='hidden' name='bpoll_activity_id' value='" . $activity_id . "'>";
@@ -1774,7 +1777,7 @@ class Buddypress_Polls_Public {
 		?>
 		<div class="bpolls-item">
 			<div class='bpolls-item-inner'>
-				<div id="activity-id-<?php echo esc_attr( $activity_id ); ?>-<?php echo esc_attr( $poll_key ); ?>" class="bpolls-result-votes"></div>
+				<div id="activity-id-<?php echo esc_attr( $activity_id ); ?>-<?php echo esc_attr( $poll_key ); ?>" class="bpolls-result-votes"><span class="bpolls-percent"></span></div>
 				<div class="bpolls-check-radio-wrap">
 					<input id="<?php echo esc_attr( $poll_key ); ?>" name="bpolls_vote_optn[]" value="<?php echo esc_attr( $poll_key ); ?>" type="<?php echo esc_attr( $optn_typ ); ?>" checked>
 					<label for="option-2" class="bpolls-option-lbl"><?php echo esc_html( $user_option ); ?></label>
@@ -1782,8 +1785,7 @@ class Buddypress_Polls_Public {
 				<div class="bpolls-item-width-wrapper">
 					<div class="bpolls-item-width"></div>
 					<div class="bpolls-check-radio-div"></div>
-				</div>
-				<span class="bpolls-percent"></span>
+				</div>				
 			</div>
 			<a href="javascript:void(0);" class="bpolls-delete-user-option" data-activity-id="<?php echo esc_attr( $activity_id ); ?>" data-option="<?php echo esc_attr( $poll_key ); ?>" data-user-id="<?php echo esc_attr( $user_id ); ?>"><i class="wb-icons wb-icon-x"></i></a>
 		</div>
