@@ -567,10 +567,13 @@ class Buddypress_Polls_Public {
 		$_check_type = get_option( 'temp_poll_type' );
 
 		if ( $_check_type && 'yes' === $_check_type ) {
-			if ( buddypress_polls_is_buddypress_supported() ) {
+			// Check BuddyPress version and use the appropriate function
+			if ( function_exists( 'bp_get_version' ) && version_compare( bp_get_version(), '12.0.0', '>=' ) ) {
+				// Use bp_get_group_url() for BuddyPress v12.0.0 and above
 				/* translators: %s: */
 				$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_url( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
 			} else {
+				// Use bp_get_group_permalink() for older versions
 				/* translators: %s: */
 				$activity_action = sprintf( __( '%1$s created a poll in the group %2$s', 'buddypress-polls' ), bp_core_get_userlink( $user_id ), '<a href="' . bp_get_group_permalink( $bp->groups->current_group ) . '">' . esc_attr( $bp->groups->current_group->name ) . '</a>' );
 			}
@@ -852,7 +855,9 @@ class Buddypress_Polls_Public {
 							// How Much User Visible.
 							if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-								if ( buddypress_polls_is_buddypress_supported() ) {
+								// Check BuddyPress version and use the appropriate function
+								if ( function_exists( 'bp_get_version' ) && version_compare( bp_get_version(), '12.0.0', '>=' ) ) {
+									// Use bp_members_get_user_url() for BuddyPress v12.0.0 and above
 									// Get User Image Code.
 									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 										array(
@@ -862,6 +867,7 @@ class Buddypress_Polls_Public {
 										)
 									) . '</a>';
 								} else {
+									// Use bp_core_get_user_domain() for older versions
 									// Get User Image Code.
 									$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
 										array(
@@ -1139,7 +1145,9 @@ class Buddypress_Polls_Public {
 						// How Much User Visible.
 						if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
 
-							if ( buddypress_polls_is_buddypress_supported() ) {
+							// Check BuddyPress version and use the appropriate function
+								if ( function_exists( 'bp_get_version' ) && version_compare( bp_get_version(), '12.0.0', '>=' ) ) {
+									// Use bp_members_get_user_url() for BuddyPress v12.0.0 and above
 								// Get User Image Code.
 								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 									array(
@@ -1149,6 +1157,7 @@ class Buddypress_Polls_Public {
 									)
 								) . '</a>';
 							} else {
+								// Use bp_core_get_user_domain() for older versions
 								// Get User Image Code.
 								$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
 									array(
@@ -1404,9 +1413,12 @@ class Buddypress_Polls_Public {
 					?>
 
 					<div class="bpolls-list-item">
-						<?php if ( buddypress_polls_is_buddypress_supported() ) : ?>
+						<!-- // Check BuddyPress version and use the appropriate function -->
+						<?php if ( function_exists('bp_get_version') && version_compare(bp_get_version(), '12.0.0', '>=') ) : ?>
+							<!-- Use bp_members_get_user_url() for BuddyPress v12.0.0 and above -->
 							<a href="<?php echo esc_url( bp_members_get_user_url( $user_id ) ); ?>" class="bpolls-item-avatar">
 						<?php else : ?>
+							<!-- Use bp_core_get_user_domain() for older versions -->
 							<a href="<?php echo esc_url( bp_core_get_user_domain( $user_id ) ); ?>" class="bpolls-item-avatar">
 						<?php endif; ?>
 							<?php
@@ -1419,10 +1431,13 @@ class Buddypress_Polls_Public {
 							?>
 						</a>
 						<div class="bpolls-item-data">
+							<!-- // Check BuddyPress version and use the appropriate function -->
 							<div class="bpolls-item-name"><?php echo bp_core_get_userlink( $user_id ) ; ?></div>
-							<?php if ( buddypress_polls_is_buddypress_supported() ) : ?>
+							<?php if ( function_exists('bp_get_version') && version_compare( bp_get_version(), '12.0.0', '>=' ) ) : ?>
+								<!-- Use bp_members_get_user_slug() for BuddyPress v12.0.0 and above -->
 								<div class="bpolls-item-meta">@<?php echo esc_html( bp_members_get_user_slug( $user_id ) ); ?></div>
 							<?php else : ?>
+								<!-- Use bp_core_get_username() for older versions -->
 								<div class="bpolls-item-meta">@<?php echo esc_html( bp_core_get_username( $user_id ) ); ?></div>
 							<?php endif; ?>
 						</div>
@@ -1653,8 +1668,9 @@ class Buddypress_Polls_Public {
 								);
 								// How Much User Visible.
 								if ( $userkey < $bpolls_settings['poll_limit_voters'] ) {
-
-									if ( buddypress_polls_is_buddypress_supported() ) {
+									// Check BuddyPress version and use the appropriate function
+									if ( function_exists( 'bp_get_version' ) && version_compare( bp_get_version(), '12.0.0', '>=' ) ) {
+										// Use bp_members_get_user_url() for BuddyPress v12.0.0 and above
 										// Get User Image Code.
 										$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_members_get_user_url( $user_id ) . '">' . bp_core_fetch_avatar(
 											array(
@@ -1664,6 +1680,7 @@ class Buddypress_Polls_Public {
 											)
 										) . '</a>';
 									} else {
+										// Use bp_core_get_user_domain() for older versions
 										// Get User Image Code.
 										$output .= '<a data-polls-tooltip="' . bp_core_get_user_displayname( $user_id ) . '" href="' . bp_core_get_user_domain( $user_id ) . '">' . bp_core_fetch_avatar(
 											array(
