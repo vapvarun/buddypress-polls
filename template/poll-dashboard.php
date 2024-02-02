@@ -63,23 +63,16 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$url    = site_url() . '/wp-json/wbpoll/v1/listpoll/user/id?id=' . $userid . '&status=publish';
-			$curl   = curl_init();
-			curl_setopt_array(
-				$curl,
-				array(
-					CURLOPT_URL            => $url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CUSTOMREQUEST  => 'POST',
-				)
+			$args      = array(
+				'author'         => $userid,
+				'post_type'      => 'wbpoll',
+				'posts_per_page' => -1,
+				'post_status'    => 'publish',
 			);
-			$response = curl_exec( $curl );
-
-			curl_close( $curl );
-
-			// Parse the JSON response.
-			$data = json_decode( $response );
-			if ( isset( $data->code ) && $data->code == '404' ) {
+	
+			$query = new WP_Query( $args );
+			$posts = $query->get_posts();
+			if ( ! isset( $posts ) || empty( $posts ) ) {
 				?>
 					<tr>
 						<td colspan="4">
@@ -89,18 +82,18 @@ if ( is_user_logged_in() ) {
 					<?php
 			} else {
 
-				foreach ( $data as $post ) {
+				foreach ( $posts as $post ) {
 
 					// Access post information.
-					$post_id      = $post->id;
-					$post_title   = $post->title;
-					$post_name    = $post->slug;
-					$post_stauts  = $post->status;
-					$totalvote    = $post->totalvote;
-					$pause        = $post->pausetype;
-					$start_date   = $post->start_time;
-					$end_date     = $post->end_date;
-					$never_expire = $post->never_expire;
+					$post_id      = $post->ID;
+					$post_title   = $post->post_title;
+					$post_name    = $post->post_name;
+					$post_stauts  = $post->post_status;
+					$totalvote    = WBPollHelper::getVoteCount( $post_id );
+					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
 
 					?>
 					<tr>
@@ -224,23 +217,16 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$url    = site_url() . '/wp-json/wbpoll/v1/listpoll/user/id?id=' . $userid . '&status=pending';
-			$curl   = curl_init();
-			curl_setopt_array(
-				$curl,
-				array(
-					CURLOPT_URL            => $url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CUSTOMREQUEST  => 'POST',
-				)
+			$args      = array(
+				'author'         => $userid,
+				'post_type'      => 'wbpoll',
+				'posts_per_page' => -1,
+				'post_status'    => 'pending',
 			);
-			$response = curl_exec( $curl );
-
-			curl_close( $curl );
-
-			// Parse the JSON response.
-			$data = json_decode( $response );
-			if ( isset( $data->code ) && $data->code == '404' ) {
+	
+			$query = new WP_Query( $args );
+			$posts = $query->get_posts();
+			if ( ! isset( $posts ) || empty( $posts) ) {
 				?>
 
 					<tr>
@@ -251,17 +237,17 @@ if ( is_user_logged_in() ) {
 					<?php
 			} else {
 
-				foreach ( $data as $post ) {
+				foreach ( $posts as $post ) {
 					// Access post information.
-					$post_id      = $post->id;
-					$post_title   = $post->title;
-					$post_name    = $post->slug;
-					$post_stauts  = $post->status;
-					$totalvote    = $post->totalvote;
-					$pause        = $post->pausetype;
-					$start_date   = $post->start_time;
-					$end_date     = $post->end_date;
-					$never_expire = $post->never_expire;
+					$post_id      = $post->ID;
+					$post_title   = $post->post_title;
+					$post_name    = $post->post_name;
+					$post_stauts  = $post->post_status;
+					$totalvote    = WBPollHelper::getVoteCount( $post_id );
+					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
 					?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
@@ -347,23 +333,16 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$url    = site_url() . '/wp-json/wbpoll/v1/listpoll/user/id?id=' . $userid . '&status=draft';
-			$curl   = curl_init();
-			curl_setopt_array(
-				$curl,
-				array(
-					CURLOPT_URL            => $url,
-					CURLOPT_RETURNTRANSFER => true,
-					CURLOPT_CUSTOMREQUEST  => 'POST',
-				)
+			$args      = array(
+				'author'         => $userid,
+				'post_type'      => 'wbpoll',
+				'posts_per_page' => -1,
+				'post_status'    => 'draft',
 			);
-			$response = curl_exec( $curl );
 
-			curl_close( $curl );
-
-			// Parse the JSON response.
-			$data = json_decode( $response );
-			if ( isset( $data->code ) && $data->code == '404' ) {
+			$query = new WP_Query( $args );
+			$posts = $query->get_posts();
+			if ( ! isset($posts) || empty( $posts ) ) {
 				?>
 				<tr>
 					<td colspan="4">
@@ -373,17 +352,17 @@ if ( is_user_logged_in() ) {
 				<?php
 			} else {
 
-				foreach ( $data as $post ) {
+				foreach ( $posts as $post ) {
 					// Access post information.
-					$post_id      = $post->id;
-					$post_title   = $post->title;
-					$post_name    = $post->slug;
-					$post_stauts  = $post->status;
-					$totalvote    = $post->totalvote;
-					$pause        = $post->pausetype;
-					$start_date   = $post->start_time;
-					$end_date     = $post->end_date;
-					$never_expire = $post->never_expire;
+					$post_id      = $post->ID;
+					$post_title   = $post->post_title;
+					$post_name    = $post->post_name;
+					$post_stauts  = $post->post_status;
+					$totalvote    = WBPollHelper::getVoteCount( $post_id );
+					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
 					?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
