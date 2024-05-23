@@ -117,7 +117,7 @@ class Buddypress_Polls_Public {
 		if ( function_exists( 'is_buddypress' ) && is_buddypress()
 			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+			|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 			|| ( is_single() && get_post_type() == 'business' )
@@ -267,7 +267,7 @@ class Buddypress_Polls_Public {
 		if ( function_exists( 'is_buddypress' ) && is_buddypress()
 				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
+				|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 				|| ( is_single() && get_post_type() == 'business' )
@@ -607,7 +607,7 @@ class Buddypress_Polls_Public {
 
 		/* Edit activity then return */
 		if ( isset( $_REQUEST['edit_activity'] ) && $_REQUEST['edit_activity'] == 'true' ) { //phpcs:ignore
-			return; 
+			return;
 		}
 		global $wpdb;
 
@@ -871,7 +871,6 @@ class Buddypress_Polls_Public {
 						$activity_votes_content .= "<span class='bpolls-percent'>" . $vote_percent . '</span>';
 					}
 
-
 					$activity_content .= '<div id="activity-id-' . $activity_id . '-' . $key . '" class="bpolls-result-votes">' . $activity_votes_content . '</div>';
 
 					$activity_content .= '<div class="bpolls-check-radio-wrap">';
@@ -886,7 +885,7 @@ class Buddypress_Polls_Public {
 					$activity_content .= "<div class='bpolls-item-width' style='width:" . $vote_percent . $polls_bg_style . ";'></div>";
 					$activity_content .= "<div class='bpolls-check-radio-div'></div>";
 					$activity_content .= '</div>';
-					
+
 					$activity_content .= '</div>';
 					if ( isset( $user_polls_option[ 'activity-id-' . $activity_id . '-' . $key ] ) ) {
 						$activity_content .= "<a href='javascript:void(0);' class='bpolls-delete-user-option' data-activity-id='" . $activity_id . "' data-option='" . $key . "' data-user-id='" . $user_id . "'><i class='wb-icons wb-icon-x'></i></a>";
@@ -1402,8 +1401,8 @@ class Buddypress_Polls_Public {
 				echo '</div>';
 				echo '</div>';
 
-			} 
-			
+			}
+
 			$result_html = ob_get_contents();
 
 			ob_end_clean();
