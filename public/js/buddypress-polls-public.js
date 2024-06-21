@@ -100,8 +100,10 @@
 					}
 				}
 			);
+
+			console.log(bpolls_ajax_object);
 			
-			if (bpolls_ajax_object.buddyboss && bpolls_ajax_object.hide_poll_icon != 'yes') {
+			if (bpolls_ajax_object.buddyboss && bpolls_ajax_object.hide_poll_icon != 'yes' && bpolls_ajax_object.allowed_polls) {
 				var bb_polls_Interval;
 
 				function bb_pools_icon_push() {
