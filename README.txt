@@ -4,7 +4,7 @@ Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
 Tested up to: 6.4.1
-Stable tag: 4.3.6
+Stable tag: 4.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,13 @@ Yes, needs you to have BuddyPress installed and activated.
 Once you activate the plugin, a poll icon will appear in the post box on the activity stream, user profiles, and groups. This feature enables you to create polls and ask questions for others to vote on. With the BuddyPress Polls plugin, both you and your community can easily create and place polls in the main activity stream, user profiles, and group pages.
 
 == Changelog ==
+
+= 4.3.7 =
+* Fix: Poll icon visible to restricted users also
+* Added: Compatibility with BuddyPress Shortcode Pro
+* Fix: The issue license is not deactivated if the response is failed
+* Fix: (#349) Issue with poll dashboard
+
 = 4.3.6 =
 * Updated: Admin label, description, and frontend percent poll UI
 * Updated: (#348) Backend poll answers spacing
