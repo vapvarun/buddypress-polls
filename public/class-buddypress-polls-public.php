@@ -118,6 +118,7 @@ class Buddypress_Polls_Public {
 			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 			|| ( is_single() && get_post_type() == 'business' )
@@ -257,7 +258,7 @@ class Buddypress_Polls_Public {
 
 		$current_component = '';
 		if ( isset( $post->ID ) && '' !== $post->ID && '0' !== $post->ID ) {
-			//$_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
+			// $_elementor_controls_usage = get_post_meta( $post->ID, '_elementor_controls_usage', true );
 			$_elementor_data = get_post_meta( $post->ID, '_elementor_data', true );
 			if ( $_elementor_data != '' && str_contains( $_elementor_data, 'bp_newsfeed_element_widget' ) || str_contains( $_elementor_data, 'buddypress_shortcode_activity_widget' ) || str_contains( $_elementor_data, 'bbp-activity' ) ) {
 				$current_component = 'activity';
@@ -268,6 +269,7 @@ class Buddypress_Polls_Public {
 				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 				|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
+				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
 				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
 				|| ( is_single() && get_post_type() == 'business' )
@@ -647,7 +649,7 @@ class Buddypress_Polls_Public {
 			}
 
 			$bpolls_thankyou_feedback = '';
-			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) { //pcs:ignore
+			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) { // pcs:ignore
 				$bpolls_thankyou_feedback = isset( $_POST['bpolls_thankyou_feedback'] ) ? $_POST['bpolls_thankyou_feedback'] : ''; // phpcs:ignore 
 			}
 			$poll_meta = array(
@@ -2027,8 +2029,8 @@ class Buddypress_Polls_Public {
 			foreach ( $user_answer as $answer ) {
 				$poll_ans_title[] = isset( $poll_answers[ $answer ] ) ? $poll_answers[ $answer ] : '';
 			}
-			//$poll_ans_id    = isset($user_answer['wbpoll_user_answer']) ? $user_answer['wbpoll_user_answer'] : "";
-			//$poll_ans_title = isset($poll_answers[ $poll_ans_id ]) ? $poll_answers[ $poll_ans_id ] : "";
+			// $poll_ans_id    = isset($user_answer['wbpoll_user_answer']) ? $user_answer['wbpoll_user_answer'] : "";
+			// $poll_ans_title = isset($poll_answers[ $poll_ans_id ]) ? $poll_answers[ $poll_ans_id ] : "";
 		}
 		$chart_type = esc_attr( sanitize_text_field( $_POST['chart_type'] ) );
 		$reference  = esc_attr( sanitize_text_field( $_POST['reference'] ) );
@@ -2770,7 +2772,7 @@ class Buddypress_Polls_Public {
 
 		add_shortcode( 'wbpoll', array( $this, 'wbpoll_shortcode' ) ); // single poll shortcode
 
-	} //end init_shortcodes()
+	}//end init_shortcodes()
 
 
 	public function wbpoll_shortcode( $atts, $content = null ) {
@@ -2815,7 +2817,7 @@ class Buddypress_Polls_Public {
 		}
 
 		return $output;
-	} //end wbpoll_shortcode()
+	}//end wbpoll_shortcode()
 
 
 	/**
@@ -2909,7 +2911,7 @@ class Buddypress_Polls_Public {
 	/**
 	 * Allwed Polls activity to serch in BuddyBoss Search
 	 *
-	 * @param array $where_conditions
+	 * @param array  $where_conditions
 	 * @param string $search_term
 	 * @return array $where_conditions
 	 */
