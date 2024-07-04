@@ -135,8 +135,10 @@ class Buddypress_Polls_Public {
 			}
 		}
 
+		// Enqueue multi polls style.
+		wp_enqueue_style( 'buddypress-multi-polls' );
+
 		if ( is_page() && get_the_ID() == $poll_dashboard_page ) {
-			wp_enqueue_style( 'buddypress-multi-polls' );
 
 			// Loads dynamic inline color style.
 			$wbpolls_color_css = $this->wbpolls_load_color_palette();
@@ -154,7 +156,6 @@ class Buddypress_Polls_Public {
 				|| ( isset( $post->post_content ) && has_shortcode( $post->post_content, 'wbpoll' ) )
 			) {
 			wp_enqueue_media();
-			wp_enqueue_style( 'buddypress-multi-polls' );
 
 			// Loads dynamic inline color style.
 			$wbpolls_color_css = $this->wbpolls_load_color_palette();
