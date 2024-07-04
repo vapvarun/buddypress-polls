@@ -1055,6 +1055,10 @@ nav.navigation.wbpoll-archive-navigation {
     margin: 0 0 15px;
 }
 
+.widget_wb_poll_report .wbpoll_result_wrap {
+    overflow-x: auto;
+}
+
 .widget_wb_poll_report table {
     margin: 0;
 }
