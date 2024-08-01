@@ -1145,6 +1145,7 @@ class Buddypress_Polls_Public {
 						}
 						/* translators: %s: Vote Count */
 						$vote_content = '<div class="bpolls-post-voted">' . $output . '</div><span class="bp-polls-voters">' . sprintf( _n( '%s Vote', '%s Votes', $count, 'buddypress-polls' ), $count ) . '</span>';
+						$vote_content .= '<span class="bpolls-percent">'. $vote_percent .'</span>';
 
 					}
 				}
