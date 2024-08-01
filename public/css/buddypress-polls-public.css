@@ -279,7 +279,6 @@ a.bpolls-delete-user-option .wb-icon-x {
     margin: 0 0 !important;
     padding-right: 0;
     padding-left: 5px;
-    gap: 10px;
 }
 
 .bpolls-percent {
@@ -293,6 +292,7 @@ a.bpolls-delete-user-option .wb-icon-x {
     display: block;
     background: #eef2ee;
     padding: 1px 10px;
+    margin-left: 10px;
     border-radius: 30px;
 }
 
