@@ -404,7 +404,7 @@
 
 							var res = JSON.parse( response );
 							if (res.bpolls_thankyou_feedback != '' ) {
-								submit_event.after( '<p class="bpolls-feedback-message">' + res.bpolls_thankyou_feedback + '</p>' );
+								submit_event.after( '<span class="bpolls-feedback-message">' + res.bpolls_thankyou_feedback + '</span>' );
 							}
 
 							$.each(

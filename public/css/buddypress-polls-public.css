@@ -149,10 +149,6 @@ input.bpolls-input.bpolls-input {
     margin: 10px 0 0;
 }
 
-.bpolls-checkbox.bpolls-feedback span {
-    font-size: 14px;
-}
-
 .bpolls-option-action .bpolls-checkbox {
     display: inline-block;
     margin-top: 3px;
@@ -161,17 +157,38 @@ input.bpolls-input.bpolls-input {
     line-height: 22px;
 }
 
+
+.bpolls-checkbox.bpolls-feedback span {
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.bpolls-option-actions-wrap .bpolls-checkbox.bpolls-feedback {
+    margin: 10px 0 0;
+    display: block;
+}
+
+.bpolls-checkbox.bpolls-feedback input#bpolls-thankyou-feedback {
+    width: 100%;
+}
+
+.bpolls-option-actions-wrap .bpolls-checkbox {
+    margin: 8px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .bpolls-checkbox label {
     padding-left: 0;
     display: inline;
     margin: 0;
     clear: none;
-    padding-top: 5px;
-    padding-bottom: 5px;
     cursor: pointer;
     font-weight: 400;
     color: #7E7E7E;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .bpolls-polls-option-html {
@@ -448,25 +465,8 @@ body:not(.logged-in) .bpolls-vote-submit {
 }
 
 .bpolls-check-radio-wrap input {
-    display: inline-block;
-    margin: 3px 1% 0 0 !important;
-    outline: 0;
-    position: relative;
-    border-radius: 100px;
-    width: 3% !important;
-    height: 16px !important;
-    background: #fff;
-    border: 1px solid #a0a0a0;
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 auto;
-    flex: 0 0 auto;
-    cursor: pointer;
-    -webkit-transition: all .15s ease-out 0s;
-    transition: all .15s ease-out 0s;
-}
-
-.bpolls-check-radio-wrap input:after {
-    content: none !important;
+    border-radius:5px;
+    margin-right: 10px !important;
 }
 
 .bpolls-check-radio-wrap .bpolls-option-lbl {
@@ -477,24 +477,26 @@ body:not(.logged-in) .bpolls-vote-submit {
     font-style: normal;
     font-weight: 600;
     font-size: 16px;
-    line-height: 22px;
+    line-height: 1.2;
     /*white-space: nowrap;*/
     width: 94%;
 }
 
 a.bpolls-cancel {
     display: inline-block;
-    border: 1px solid;
-    padding: 1px 6px;
+    padding: 8px 15px;
     font-size: 12px;
-    border-radius: 3px;
-    margin-bottom: 12px;
+    line-height: 1;
+    border-radius: 6px;
+    margin-bottom: 10px;
     text-decoration: none;
+    border: none !important;
+    background: #ef5455;
+    color: #fff !important;
 }
 
 a.bpolls-cancel:hover {
-    border: 1px solid red;
-    color: red;
+    background: red;
 }
 
 .bpolls-option-action {
@@ -518,6 +520,142 @@ input#bpolls-datetimepicker {
     input#bpolls-datetimepicker {
         margin-left: 0;
     }
+}
+
+span.bpolls-feedback-message {
+    border-left: 3px solid #c6ead0 !important;
+    background: #f6fcf6;
+    color: #078b39;
+    padding: 8px 10px;
+    display: block;
+    line-height: 1;
+    border: 1px solid #c6ead0;
+    border-radius: 8px;
+}
+
+/* Checkbox Design */
+.bpolls-checkbox input[type="checkbox"],
+.bpolls-check-radio-wrap input[type="checkbox"] {
+    --active: #275efe;
+    --active-inner: #fff;
+    --focus: 2px rgba(39, 94, 254, 0.3);
+    --border: #bbc1e1;
+    --border-hover: #275efe;
+    --background: #fff;
+    --disabled: #f6f8ff;
+    --disabled-inner: #e1e6f9;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    height: 21px;
+    outline: none;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+    border: 1px solid var(--bc, var(--border));
+    background: var(--b, var(--background));
+    transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+
+.bpolls-checkbox input[type="checkbox"]:after,
+.bpolls-check-radio-wrap input[type="checkbox"]:after {
+    content: "";
+    display: block;
+    left: 0;
+    top: 0;
+    position: absolute;
+    transition: transform var(--d-t, 0.3s) var(--d-t-e, ease), opacity var(--d-o, 0.2s);
+}
+
+.bpolls-checkbox input[type="checkbox"]:checked,
+.bpolls-check-radio-wrap input[type="checkbox"]:checked {
+    --b: var(--active);
+    --bc: var(--active);
+    --d-o: 0.3s;
+    --d-t: 0.6s;
+    --d-t-e: cubic-bezier(0.2, 0.85, 0.32, 1.2);
+}
+
+.bpolls-checkbox input[type="checkbox"]:disabled,
+.bpolls-check-radio-wrap input[type="checkbox"]:disabled {
+    --b: var(--disabled);
+    cursor: not-allowed;
+    opacity: 0.9;
+}
+
+.bpolls-checkbox input[type="checkbox"]:disabled:checked,
+.bpolls-check-radio-wrap input[type="checkbox"]:disabled:checked{
+    --b: var(--disabled-inner);
+    --bc: var(--border);
+}
+
+.bpolls-checkbox input[type="checkbox"]:disabled + label,
+.bpolls-check-radio-wrap input[type="checkbox"]:disabled + label {
+    cursor: not-allowed;
+}
+
+.bpolls-checkbox input[type="checkbox"]:hover:not(:checked):not(:disabled),
+.bpolls-check-radio-wrap input[type="checkbox"]:hover:not(:checked):not(:disabled) {
+    --bc: var(--border-hover);
+}
+
+.bpolls-checkbox input[type="checkbox"]:focus,
+.bpolls-check-radio-wrap input[type="checkbox"]:focus {
+    box-shadow: 0 0 0 var(--focus);
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch),
+.bpolls-check-radio-wrap input[type="checkbox"]:not(.switch) {
+    width: 21px;
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch):after,
+.bpolls-check-radio-wrap input[type="checkbox"]:not(.switch):after {
+    opacity: var(--o, 0);
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch):checked,
+.bpolls-check-radio-wrap input[type="checkbox"]:not(.switch):checked {
+    --o: 1;
+}
+
+.bpolls-checkbox input[type="checkbox"] + label,
+.bpolls-check-radio-wrap input[type="checkbox"] + label {
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch),
+.bpolls-check-radio-wrapinput[type="checkbox"]:not(.switch) {
+    border-radius: 5px;
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch):after,
+.bpolls-check-radio-wrap input[type="checkbox"]:not(.switch):after {
+    width: 5px;
+    height: 9px;
+    border: 2px solid var(--active-inner);
+    border-top: 0;
+    border-left: 0;
+    left: 7px;
+    top: 4px;
+    transform: rotate(var(--r, 20deg));
+}
+
+.bpolls-checkbox input[type="checkbox"]:not(.switch):checked,
+.bpolls-check-radio-wrap input[type="checkbox"]:not(.switch):checked {
+    --r: 43deg;
+}
+
+.bpolls-checkbox * {
+    box-sizing: inherit;
+}
+
+.bpolls-checkbox *:before,
+.bpolls-checkbox *:after {
+    box-sizing: inherit;
 }
 
 
@@ -572,15 +710,21 @@ select.bpolls-activities-list {
 
 #buddypress .bpolls-option-actions-wrap button#bpolls-attach-image,
 #bpolls-attach-image {
-    margin: 10px 10px 0 0;
+    margin: -35px 0 0;
     padding: 0;
-    width: 34px;
-    height: 34px;
+    width: 42px;
+    height: 40px;
     font-size: 18px;
-    background: #44b0fb;
+    background: #4496fb;
     color: #fff;
     border: 0;
-    border-radius: 4px;
+    border-radius: 8px;
+}
+
+button#bpolls-attach-image[data-bp-tooltip]:after {
+    top: -35px;
+    left: -18px;
+    line-height: 1.2;
 }
 
 img#bpolls-image-preview {
@@ -1008,6 +1152,9 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     .directory.activity #panels .bpolls-polls-option-html {
         clear: both;
     }
+    .bpolls-option-actions-wrap .bpolls-checkbox {
+        align-items: flex-start;
+    }
 }
 
 
@@ -1075,8 +1222,12 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 
 .site-wrapper input#bpolls-datetimepicker {
     height: 38px;
+    border: 1px solid #dbd8d8;
 }
 
+.site-wrapper form.bpolls-vote-submit-form p {
+    padding: 0;
+}
 
 /*--------------------------------------------------------------
 ## BuddyBoss
@@ -1085,6 +1236,14 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
 #bpolls-attach-image.dashicons-admin-media:before {
     content: "\f104";
     font-family: dashicons;
+    left: 11px;
+    opacity: 1;
+    background: none;
+    top: 11px;
+}
+
+#buddypress .bpolls-option-actions-wrap button#bpolls-attach-image, #bpolls-attach-image {
+    margin: -35px 0 10px;
 }
 
 .buddyboss-theme .bpolls-item .bpolls-check-radio-wrap .bpolls-option-lbl {

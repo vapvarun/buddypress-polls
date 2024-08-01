@@ -415,6 +415,9 @@ class Buddypress_Polls_Public {
 			</div>
 			<div class="polls-option-image-div">
 				<div class="bpolls-option-actions-wrap">
+					<?php if ( $image_attachment ) { ?>
+						<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image" data-bp-tooltip="Add a Media"></button>
+					<?php } ?>
 					<div class="bpolls-sortable">
 						<div class="bpolls-option">
 							<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
@@ -464,10 +467,7 @@ class Buddypress_Polls_Public {
 							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e( 'Enter Message', 'buddypress-polls' ); ?>">
 
 						</div>
-					<?php } ?>
-					<?php if ( $image_attachment ) { ?>
-						<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image"></button>
-					<?php } ?>
+					<?php } ?>					
 				</div>
 				<?php if ( $image_attachment ) { ?>
 					<div class="bpolls-image-upload">
