@@ -63,39 +63,40 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$args      = array(
+			$args   = array(
 				'author'         => $userid,
 				'post_type'      => 'wbpoll',
 				'posts_per_page' => -1,
 				'post_status'    => 'publish',
 			);
-	
+
 			$query = new WP_Query( $args );
-			$posts = $query->get_posts();
-			if ( ! isset( $posts ) || empty( $posts ) ) {
-				?>
+			if ( $query->have_posts() ) {
+				$posts = $query->get_posts();
+				if ( empty( $posts ) ) {
+					?>
 					<tr>
 						<td colspan="4">
 							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
 						</td>
 					</tr>
 					<?php
-			} else {
+				} else {
 
-				foreach ( $posts as $post ) {
+					foreach ( $posts as $post ) {
 
-					// Access post information.
-					$post_id      = $post->ID;
-					$post_title   = $post->post_title;
-					$post_name    = $post->post_name;
-					$post_stauts  = $post->post_status;
-					$totalvote    = WBPollHelper::getVoteCount( $post_id );
-					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
-					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
-					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
-					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
+						// Access post information.
+						$post_id      = $post->ID;
+						$post_title   = $post->post_title;
+						$post_name    = $post->post_name;
+						$post_stauts  = $post->post_status;
+						$totalvote    = WBPollHelper::getVoteCount( $post_id );
+						$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+						$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+						$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+						$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
 
-					?>
+						?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_title, 'buddypress-polls' ); ?></td>
 						<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html__( $post_stauts, 'buddypress-polls' ); ?></td>
@@ -169,11 +170,11 @@ if ( is_user_logged_in() ) {
 						<?php } ?>
 						<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 					</tr>
-					<?php
+						<?php
+					}
 				}
-				wp_reset_postdata();
 			}
-
+			wp_reset_postdata();
 			?>
 		</table>
 	</div>
@@ -217,17 +218,18 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$args      = array(
+			$args   = array(
 				'author'         => $userid,
 				'post_type'      => 'wbpoll',
 				'posts_per_page' => -1,
 				'post_status'    => 'pending',
 			);
-	
+
 			$query = new WP_Query( $args );
-			$posts = $query->get_posts();
-			if ( ! isset( $posts ) || empty( $posts) ) {
-				?>
+			if ( $query->have_posts() ) {
+				$posts = $query->get_posts();
+				if ( empty( $posts ) ) {
+					?>
 
 					<tr>
 						<td colspan="4">
@@ -235,20 +237,20 @@ if ( is_user_logged_in() ) {
 						</td>
 					</tr>
 					<?php
-			} else {
+				} else {
 
-				foreach ( $posts as $post ) {
-					// Access post information.
-					$post_id      = $post->ID;
-					$post_title   = $post->post_title;
-					$post_name    = $post->post_name;
-					$post_stauts  = $post->post_status;
-					$totalvote    = WBPollHelper::getVoteCount( $post_id );
-					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
-					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
-					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
-					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
-					?>
+					foreach ( $posts as $post ) {
+						// Access post information.
+						$post_id      = $post->ID;
+						$post_title   = $post->post_title;
+						$post_name    = $post->post_name;
+						$post_stauts  = $post->post_status;
+						$totalvote    = WBPollHelper::getVoteCount( $post_id );
+						$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+						$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+						$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+						$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
+						?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
 						<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_stauts ); ?></td>
@@ -286,10 +288,11 @@ if ( is_user_logged_in() ) {
 						<?php } ?>
 						<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 					</tr>
-					<?php
+						<?php
+					}
 				}
-				wp_reset_postdata();
 			}
+			wp_reset_postdata();
 
 			?>
 		</table>
@@ -333,7 +336,7 @@ if ( is_user_logged_in() ) {
 			</thead>
 			<?php
 			$userid = get_current_user_id();
-			$args      = array(
+			$args   = array(
 				'author'         => $userid,
 				'post_type'      => 'wbpoll',
 				'posts_per_page' => -1,
@@ -341,29 +344,30 @@ if ( is_user_logged_in() ) {
 			);
 
 			$query = new WP_Query( $args );
-			$posts = $query->get_posts();
-			if ( ! isset($posts) || empty( $posts ) ) {
-				?>
+			if ( $query->have_posts() ) {
+				$posts = $query->get_posts();
+				if ( empty( $posts ) ) {
+					?>
 				<tr>
 					<td colspan="4">
 						<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
 					</td>
 				</tr>
-				<?php
-			} else {
+					<?php
+				} else {
 
-				foreach ( $posts as $post ) {
-					// Access post information.
-					$post_id      = $post->ID;
-					$post_title   = $post->post_title;
-					$post_name    = $post->post_name;
-					$post_stauts  = $post->post_status;
-					$totalvote    = WBPollHelper::getVoteCount( $post_id );
-					$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
-					$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
-					$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
-					$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
-					?>
+					foreach ( $posts as $post ) {
+						// Access post information.
+						$post_id      = $post->ID;
+						$post_title   = $post->post_title;
+						$post_name    = $post->post_name;
+						$post_stauts  = $post->post_status;
+						$totalvote    = WBPollHelper::getVoteCount( $post_id );
+						$pause        = get_post_meta( $post_id, '_wbpoll_pause_poll', true );
+						$start_date   = get_post_meta( $post_id, '_wbpoll_start_date', true );
+						$end_date     = get_post_meta( $post_id, '_wbpoll_end_date', true );
+						$never_expire = get_post_meta( $post_id, '_wbpoll_never_expire', true );
+						?>
 					<tr>
 						<td class="poll-title" data-title="<?php esc_attr_e( 'Title', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_title ); ?></td>
 						<td class="poll-status" data-title="<?php esc_attr_e( 'Status', 'buddypress-polls' ); ?>"><?php echo esc_html( $post_stauts ); ?></td>
@@ -405,11 +409,11 @@ if ( is_user_logged_in() ) {
 						<?php } ?>
 						<button class="button btn delete_poll" data-id="<?php echo esc_html( $post_id ); ?>" data-polls-tooltip="<?php esc_attr_e( 'Delete', 'buddypress-polls' ); ?>"><i class="wb-icons wb-icon-trash"></i></button></td>
 					</tr>
-					<?php
+						<?php
+					}
 				}
-				wp_reset_postdata();
 			}
-
+			wp_reset_postdata();
 			?>
 		</table>
 	</div>
