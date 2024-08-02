@@ -1542,7 +1542,7 @@ class WBPollHelper {
 				$index,
 				$poll_answers_extra_single
 			) . '</span>';
-				$poll_form_html                             .= '</div></div></label></div></div>';
+				$poll_form_html                             .= '</div></div></div></label></div>';
 				$wbpoll_form_answer_listitem_inside_html_end = '';
 				$poll_form_html                             .= apply_filters(
 					'wbpoll_form_answer_listitem_inside_html_end',
