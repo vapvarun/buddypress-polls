@@ -39,6 +39,10 @@
     padding: 0px 10px !important;
 }
 
+.form-table.polls-general-options label.restrictions-option {
+    margin: 0 15px 15px 0;
+}
+
 .wbcom-admin-option-wrap {
     overflow: inherit;
 }
@@ -51,9 +55,15 @@
 
 /*----------  General tab design  ----------*/
 @media screen and (max-width: 782px) {
-    .form-table.polls-general-options label {
+    .form-table.polls-general-options label.restrictions-option {
         font-size: 14px;
         display: inline-block;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .form-table.polls-general-options label.restrictions-option {
+        display: block;
         margin: 0.35em 0 0.5em !important;
     }
 }
