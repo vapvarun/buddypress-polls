@@ -1434,7 +1434,19 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 }
 
 .youzify-wall-actions .post-elements-buttons-item.bpolls-html-container {
-    float: right;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    color: #9f9f9f;
+    cursor: pointer;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 100%;
+}
+
+.youzify-wall-actions .post-elements-buttons-item.bpolls-html-container:hover {
+    background-color: var(--yzfy-card-secondary-bg-color);
 }
 
 @media screen and (max-width: 475px) {

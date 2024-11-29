@@ -223,6 +223,23 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bpolls_polls_update_html', 10 );
 			$this->loader->add_action( 'bp_activity_post_form_options', $plugin_public, 'bppolls_polls_options_container', 50 );
 
+			// Conditionally remove and reassign actions if Youzify is active.
+			add_action(
+				'plugins_loaded',
+				function () use ( $plugin_public ) {
+					if ( class_exists( 'Youzify' ) ) {
+						// Remove existing actions from the 'bp_activity_post_form_options' hook.
+						remove_action( 'bp_activity_post_form_options', array( $plugin_public, 'bpolls_polls_update_html' ), 10 );
+						remove_action( 'bp_activity_post_form_options', array( $plugin_public, 'bppolls_polls_options_container' ), 50 );
+
+						// Add actions to new hooks as per requirements.
+						add_action( 'bp_activity_post_form_tools', array( $plugin_public, 'bpolls_polls_update_html' ), 10 );
+						add_action( 'bp_activity_post_form_after_actions', array( $plugin_public, 'bppolls_polls_options_container' ), 50 );
+					}
+				},
+				20
+			);
+
 			/* adds new activity type poll */
 			$this->loader->add_filter( 'bp_activity_check_activity_types', $plugin_public, 'bpolls_add_polls_type_activity', 10, 1 );
 
