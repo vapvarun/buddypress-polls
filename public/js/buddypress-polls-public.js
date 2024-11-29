@@ -370,7 +370,8 @@
 			$( document ).on(
 				'click',
 				'.bpolls-vote-submit',
-				function() {
+				function( e ) {
+					e.preventDefault();
 					var submit_event      = $( this );
 					var submit_event_text = $( this ).html();
 					var s_array           = $( this ).closest( '.bpolls-vote-submit-form' ).serializeArray();
