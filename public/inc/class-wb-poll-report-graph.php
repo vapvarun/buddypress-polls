@@ -16,7 +16,17 @@ class Wb_Poll_Report extends WP_Widget {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 	function enqueue_scripts() {
-		wp_enqueue_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . '/public/js/wbpoll-graph-repoet.js', array( 'jquery' ) );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+			$extension = '.js';
+			$path      = '';
+		} else {
+			$extension = '.min.js';
+			$path      = '/min';
+		}	
+		wp_register_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . '/public/js' . $path . '/wbpoll-graph-repoet' .$extension, array( 'jquery' ) );
+
+		wp_enqueue_script( 'bpolls-poll-activity-graph-js' );
+		wp_set_script_translations( 'bpolls-poll-activity-graph-js', 'buddypress-polls' );
 	}
 
 	// Widget front-end display.

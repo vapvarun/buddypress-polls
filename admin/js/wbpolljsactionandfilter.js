@@ -1,3 +1,7 @@
+if (typeof wp !== 'undefined' && wp.i18n) {
+	const { __ } = wp.i18n;
+}
+
 (function (window, undefined) {
 	'use strict';
 

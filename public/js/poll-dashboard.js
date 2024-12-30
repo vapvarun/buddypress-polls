@@ -1,3 +1,6 @@
+if (typeof wp !== 'undefined' && wp.i18n) {
+    const { __ } = wp.i18n;
+}
 jQuery('.pause_poll').on('click', function () {
     var pollid = jQuery(this).data('id');
     var pause_poll = jQuery(this).data('value');
@@ -23,7 +26,7 @@ jQuery('.pause_poll').on('click', function () {
             if (response.success) {
                 location.reload();
             } else {
-                alert('Failed to create post.');
+                alert( __( 'Failed to create post.', 'buddypress-polls' ) );
             }
         }
     });
@@ -46,7 +49,7 @@ jQuery('.delete_poll').on('click', function () {
             if (response.success) {
                 location.reload();
             } else {
-                alert('Failed to delete poll.');
+                alert( __( 'Failed to delete poll.', 'buddypress-polls' ) );
             }
         }
     });
@@ -70,7 +73,7 @@ jQuery('.unpublish_poll').on('click', function () {
             if (response.success) {
                 location.reload();
             } else {
-                alert('Failed to unpublish poll.');
+                alert( __( 'Failed to unpublish poll.', 'buddypress-polls' ) );
             }
         }
     });
@@ -93,7 +96,7 @@ jQuery('.publish_poll').on('click', function () {
             if (response.success) {
                 location.reload();
             } else {
-                alert('Failed to unpublish poll.');
+                alert( __( 'Failed to unpublish poll.', 'buddypress-polls' ) );
             }
         }
     });

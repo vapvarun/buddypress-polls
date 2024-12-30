@@ -1,3 +1,6 @@
+if (typeof wp !== 'undefined' && wp.i18n) {
+    const { __ } = wp.i18n;
+}
 jQuery(document).ready(function() {
     jQuery('#poll_seletect').change(function() {
       // Perform AJAX request here
@@ -16,7 +19,7 @@ jQuery(document).ready(function() {
             if (response.success) {
                 jQuery('.all_polll_result').html(response.result);
             } else {
-                alert('Failed to unpublish poll.');
+                alert( __( 'Failed to unpublish poll.' , 'buddypress-polls') );
             }
         }
     });

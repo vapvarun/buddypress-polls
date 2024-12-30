@@ -1,3 +1,7 @@
+if (typeof wp !== 'undefined' && wp.i18n) {
+	const { __ } = wp.i18n;
+}
+
 (function( $ ) {
 	'use strict';
 
@@ -29,6 +33,7 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
 
+	
 	$( document ).ready( function() {
 		
 		$('#polls_background_color').wpColorPicker();

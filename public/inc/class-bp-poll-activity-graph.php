@@ -121,7 +121,19 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 				}
 			}
 		}
-		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph.js', array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+			$extension = '.js';
+			$path      = '';
+		} else {
+			$extension = '.min.js';
+			$path      = '/min';
+		}	
+
+		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js' . $path . '/poll-activity-graph' . $extension, array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
+
+		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook );
+
+		wp_set_script_translations( 'bpolls-poll-activity-graph-js' . $hook, 'buddypress-polls' );
 
 		wp_localize_script(
 			'bpolls-poll-activity-graph-js' . $hook,
@@ -133,7 +145,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			)
 		);
 
-		wp_enqueue_script( 'bpolls-poll-activity-chart-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/Chart.min.js', array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
+		wp_enqueue_script( 'bpolls-poll-activity-chart-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/vendor/Chart.min.js', array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
 	}
 
 	/**
@@ -290,13 +302,13 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		$activity_default = wp_strip_all_tags( $instance['activity_default'] );
 		?>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>"><?php esc_html_e( 'Max Poll to show:', 'buddypress' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_activity' ) ); ?>" type="text" value="<?php echo esc_attr( $max_activity ); ?>" style="width: 30%" /></label></p>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>"><?php esc_html_e( 'Max Poll to show:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_activity' ) ); ?>" type="text" value="<?php echo esc_attr( $max_activity ); ?>" style="width: 30%" /></label></p>
 
 		<p>
 			<?php if ( bp_has_activities( $act_args ) ) { ?>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress-polls' ); ?></label>
 				<select name="<?php echo esc_attr( $this->get_field_name( 'activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>">
 					<?php
 					while ( bp_activities() ) :
@@ -307,7 +319,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					<?php endwhile; ?>
 				</select>
 			<?php } else { ?>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress-polls' ); ?></label>
 			<?php	} ?>
 		</p>
 		<?php

@@ -1,3 +1,6 @@
+if (typeof wp !== 'undefined' && wp.i18n) {
+	const { __ } = wp.i18n;
+}
 (function( $ ) {
 	'use strict';
 	$( document ).ready( function() {		
