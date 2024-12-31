@@ -442,8 +442,8 @@ class Buddypress_Polls_Public {
 			$multiselect    = ( isset($activity_meta['multiselect']) ) ? $activity_meta['multiselect'] : 'no';
 			$user_additional_option    = ( isset($activity_meta['user_additional_option']) ) ? $activity_meta['user_additional_option'] : 'no';
 			$user_hide_results    = ( isset($activity_meta['user_hide_results']) ) ? $activity_meta['user_hide_results'] : 'no';
-			$bpolls_thankyou_feedback    = ( isset($activity_meta['bpolls_thankyou_feedback']) ) ? $activity_meta['bpolls_thankyou_feedback'] : '';
-			$close_date    = ( isset($activity_meta['close_date']) && $close_date != 0 ) ? $activity_meta['close_date'] : '';
+			$bpolls_thankyou_feedback    = ( isset($activity_meta['bpolls_thankyou_feedback']) ) ? $activity_meta['bpolls_thankyou_feedback'] : '';			
+			$close_date    = ( isset($activity_meta['close_date']) && $activity_meta['close_date'] != '0' ) ? $activity_meta['close_date'] : '';
 		}
 		?>
 		<div class="bpolls-polls-option-html">
