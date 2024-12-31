@@ -178,7 +178,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 				'.bpolls-add-option',
 				function() {
 					var max_options = bpolls_ajax_object.polls_option_lmit;
-					if ( $( '.bpolls-option' ).length >= max_options ) {
+					if ( $(this).parents('.bpolls-polls-option-html').find( '.bpolls-option' ).length >= max_options ) {
 						  $( '.bpolls-icon-dialog' ).addClass( 'is-visible' );
 
 					} else {
@@ -193,7 +193,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 						);
 
 						if (clonedObj.length == 0 ) {
-							$( '.bpolls-sortable' ).html( '<div class="bpolls-option">' + option_html + '</div>' );
+							$(this).parents('.bpolls-polls-option-html').find( '.bpolls-sortable' ).html( '<div class="bpolls-option">' + option_html + '</div>' );
 						}
 					}
 				}
@@ -265,7 +265,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 
 					$( '.bpolls-polls-option-html' ).slideToggle( 500 );
 
-					$( '#bpolls-datetimepicker' ).datetimepicker();
+					$( '.bpolls-datetimepicker' ).datetimepicker();
 					var poll_html   = $( '.bpolls-polls-option-html' ).html();
 					var option_html = $( '.bpolls-option' ).html();
 

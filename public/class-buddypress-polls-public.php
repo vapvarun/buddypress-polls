@@ -403,7 +403,7 @@ class Buddypress_Polls_Public {
 	 *
 	 * @since 3.7.3
 	 */
-	public function bppolls_polls_options_container() {
+	public function bppolls_polls_options_container( $activity = [] ) {
 
 		if ( ! $this->bpolls_is_user_allowed_polls() ) {
 			return false;
@@ -433,6 +433,17 @@ class Buddypress_Polls_Public {
 		if ( isset( $bpolls_settings['enable_image'] ) ) {
 			$image_attachment = true;
 		}
+		$activity_meta = $poll_image = $multiselect = $user_hide_results = $user_additional_option = $bpolls_thankyou_feedback = '';
+		if( !empty( $activity ) ) {
+			$activity_id 	= $activity->id;			
+			$activity_meta 	= bp_activity_get_meta( $activity_id, 'bpolls_meta', true );			
+			$poll_image    	= bp_activity_get_meta( $activity_id, 'bpolls_image', true );
+			$multiselect    = ( isset($activity_meta['multiselect']) ) ? $activity_meta['multiselect'] : 'no';
+			$user_additional_option    = ( isset($activity_meta['user_additional_option']) ) ? $activity_meta['user_additional_option'] : 'no';
+			$user_hide_results    = ( isset($activity_meta['user_hide_results']) ) ? $activity_meta['user_hide_results'] : 'no';
+			$bpolls_thankyou_feedback    = ( isset($activity_meta['bpolls_thankyou_feedback']) ) ? $activity_meta['bpolls_thankyou_feedback'] : '';
+			$close_date    = ( isset($activity_meta['close_date']) && $close_date != 0 ) ? $activity_meta['close_date'] : '';
+		}
 		?>
 		<div class="bpolls-polls-option-html">
 			<div class="bpolls-cancel-div">
@@ -444,44 +455,54 @@ class Buddypress_Polls_Public {
 						<button type='button' class="dashicons dashicons-admin-media" id="bpolls-attach-image" data-bp-tooltip="Add a Media"></button>
 					<?php } ?>
 					<div class="bpolls-sortable">
-						<div class="bpolls-option">
-							<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
-							<input name="bpolls_input_options[]" class="bpolls-input bpolls_input_options" placeholder="<?php esc_html_e( 'Option 1', 'buddypress-polls' ); ?>" type="text">
-							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
-						</div>
-						<?php if ( isset( $bpolls_settings['options_limit'] ) && $bpolls_settings['options_limit'] > 1 ) : ?>
-						<div class="bpolls-option">
-							<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
-							<input name="bpolls_input_options[]" class="bpolls-input bpolls_input_options" placeholder="<?php esc_html_e( 'Option 2', 'buddypress-polls' ); ?>" type="text">
-							<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
-						</div>
-						<?php endif; ?>
+						<?php if( !empty($activity_meta) ) : ?>
+							<?php foreach( $activity_meta['poll_option'] as $poll_key=>$poll_value):?>
+								<div class="bpolls-option">
+									<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
+									<input name="bpolls_input_options[]" class="bpolls-input bpolls_input_options" placeholder="<?php esc_html_e( 'Option 1', 'buddypress-polls' ); ?>" type="text" value="<?php echo esc_attr($poll_value);?>">
+									<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+								</div>
+							<?php endforeach;?>
+						<?php else: ?>
+							<div class="bpolls-option">
+								<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
+								<input name="bpolls_input_options[]" class="bpolls-input bpolls_input_options" placeholder="<?php esc_html_e( 'Option 1', 'buddypress-polls' ); ?>" type="text">
+								<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							</div>
+							<?php if ( isset( $bpolls_settings['options_limit'] ) && $bpolls_settings['options_limit'] > 1 ) : ?>
+							<div class="bpolls-option">
+								<a class="bpolls-sortable-handle" title="Move" href="#"><i class="fa fa-arrows-alt"></i></a>
+								<input name="bpolls_input_options[]" class="bpolls-input bpolls_input_options" placeholder="<?php esc_html_e( 'Option 2', 'buddypress-polls' ); ?>" type="text">
+								<a class="bpolls-option-delete" title="Delete" href="JavaScript:void(0);"><i class="fa fa-trash" aria-hidden="true"></i></a>
+							</div>
+							<?php endif; ?>
+						<?php endif;?>
 					</div>
 					<div class="bpolls-option-action">
 						<a href="JavaScript:void(0);" class="bpolls-add-option button"><?php esc_html_e( 'Add new option', 'buddypress-polls' ); ?></a>
 						<?php if ( $poll_cdate ) { ?>
 							<div class="bpolls-date-time">
-								<input id="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="" placeholder="<?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?>">
+								<input class="bpolls-datetimepicker" name="bpolls-close-date" type="textbox" value="<?php echo esc_attr($close_date);?>" placeholder="<?php esc_html_e( 'Poll closing date & time', 'buddypress-polls' ); ?>">
 							</div>
 						<?php } ?>
 					</div>
 					<?php if ( $multi_true ) { ?>
 						<div class="bpolls-checkbox">
-							<input id="bpolls-alw-multi" name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes">
+							<input id="bpolls-alw-multi" name="bpolls_multiselect" class="bpolls-allow-multiple" type="checkbox" value="yes" <?php checked($multiselect, 'yes')?>>
 							<label class="lbl" for="bpolls-alw-multi"><?php esc_html_e( 'Allow members to choose multiple poll options.', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
 
 					<?php if ( $add_option_true ) { ?>
 						<div class="bpolls-checkbox">
-							<input id="bpolls-alw-user-additional-option" name="bpolls_user_additional_option" class="bpolls-allow-user-additional-option" type="checkbox" value="yes">
+							<input id="bpolls-alw-user-additional-option" name="bpolls_user_additional_option" class="bpolls-allow-user-additional-option" type="checkbox" value="yes" <?php checked($user_additional_option, 'yes')?>>
 							<label class="lbl" for="bpolls-alw-user-additional-option"><?php esc_html_e( 'Allow members to add their poll options.', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
 
 					<?php if ( $hide_results ) { ?>
 						<div class="bpolls-checkbox">
-							<input id="bpolls-alw-user-hide-results" name="bpolls_user_hide_results" class="bpolls-allow-user-hide-results" type="checkbox" value="yes">
+							<input id="bpolls-alw-user-hide-results" name="bpolls_user_hide_results" class="bpolls-allow-user-hide-results" type="checkbox" value="yes" <?php checked($user_hide_results, 'yes')?>>
 							<label class="lbl" for="bpolls-alw-user-hide-results"><?php esc_html_e( 'Hide poll results from members who have not voted yet. ', 'buddypress-polls' ); ?></label>
 						</div>
 					<?php } ?>
@@ -489,7 +510,7 @@ class Buddypress_Polls_Public {
 					<?php if ( isset( $bpolls_settings['enable_thank_you_message'] ) ) { ?>
 						<div class="bpolls-checkbox bpolls-feedback">
 							<span><?php esc_html_e( 'Follow-up', 'buddypress-polls' ); ?></span>
-							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="" placeholder="<?php esc_html_e( 'Enter Message', 'buddypress-polls' ); ?>">
+							<input type="text" id="bpolls-thankyou-feedback" name="bpolls_thankyou_feedback" class="bpolls-thankyou-feedback"  value="<?php echo esc_attr($bpolls_thankyou_feedback)?>" placeholder="<?php esc_html_e( 'Enter Message', 'buddypress-polls' ); ?>">
 
 						</div>
 					<?php } ?>					
@@ -2996,6 +3017,25 @@ class Buddypress_Polls_Public {
 
 		return $where_conditions;
 
+	}
+	
+	public function wbpoll_get_poll_activity_content( $activity ) {
+		if( $activity->type != 'activity_poll') {
+			return;
+		}
+		
+		$this->bppolls_polls_options_container( $activity );
+		?>
+		<script>
+			(function($) {
+			'use strict';
+				$(document).ready(function($){	
+					$( '.bpolls-datetimepicker' ).datetimepicker();
+				});
+			})( jQuery );
+		</script>
+		<?php
+		
 	}
 
 

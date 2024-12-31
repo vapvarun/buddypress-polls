@@ -510,14 +510,14 @@ a.bpolls-cancel:hover {
     flex-flow: row wrap;
 }
 
-input#bpolls-datetimepicker {
+input.bpolls-datetimepicker {
     height: 32px;
     margin: 0 10px 10px 0;
     padding: 0 10px;
 }
 
 @media(max-width: 479px) {
-    input#bpolls-datetimepicker {
+    input.bpolls-datetimepicker {
         margin-left: 0;
     }
 }
@@ -1220,7 +1220,7 @@ ul.bpolls-icon-dialog-buttons a.bpolls-icon-dialog-cancel {
     margin: 0;
 }
 
-.site-wrapper input#bpolls-datetimepicker {
+.site-wrapper input.bpolls-datetimepicker {
     height: 38px;
     border: 1px solid #dbd8d8;
 }
@@ -1418,7 +1418,7 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
     display: inline-block;
 }
 
-.youzify .bpolls-date-time input#bpolls-datetimepicker {
+.youzify .bpolls-date-time input.bpolls-datetimepicker {
     border: 1px solid #ccc;
     font-size: 13px;
 }
@@ -1508,4 +1508,16 @@ li.bbls-cpt-wbpoll-type .bp-search-ajax-item .item>a {
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
+}
+
+.bp_edit_additiona_activity_content .bpolls-polls-option-html{
+	display: block;
+	margin-left: unset;
+	width: unset;
+}
+.bp_edit_additiona_activity_content .bpolls-polls-option-html .bpolls-cancel-div{
+	height: 40px;
+}
+.bp_edit_additiona_activity_content .bpolls-polls-option-html .bpolls-cancel{
+	display: none;
 }

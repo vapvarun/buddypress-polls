@@ -340,7 +340,10 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			if ( ( function_exists( 'buddypress' ) && isset( buddypress()->buddyboss ) ) || in_array( 'buddypress-search/buddypress-search.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ) ) ) {
 				$this->loader->add_filter( 'bp_activity_search_where_conditions', $plugin_public, 'wbpoll_buddyboss_polls_search', 10, 2 );
 			}
-
+			
+			add_filter( 'bp_editable_types_activity', function( $args){ $args[] = 'activity_poll'; return $args;} );			
+			
+			$this->loader->add_action( 'bp_get_addition_activity_content', $plugin_public, 'wbpoll_get_poll_activity_content' );
 		}
 
 		/**
