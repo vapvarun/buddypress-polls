@@ -434,6 +434,7 @@ class Buddypress_Polls_Public {
 			$image_attachment = true;
 		}
 		$activity_meta = $poll_image = $multiselect = $user_hide_results = $user_additional_option = $bpolls_thankyou_feedback = '';
+		$close_date = '';
 		if( !empty( $activity ) ) {
 			$activity_id 	= $activity->id;			
 			$activity_meta 	= bp_activity_get_meta( $activity_id, 'bpolls_meta', true );			
