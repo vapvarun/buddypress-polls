@@ -62,9 +62,11 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 			}
 		});
 
-		$('.polls-multi-selectize').selectize({
-			plugins			: ['remove_button']
-		});
+		if (typeof $.fn.selectize !== 'undefined') {
+			$('.polls-multi-selectize').selectize({
+				plugins			: ['remove_button']
+			});
+		}
 		$('input[name="bpolls_settings[limit_poll_activity]"]').on('change', function(){
 			var $val = $(this).val();
 			if ($val == 'user_role') {

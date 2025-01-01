@@ -1172,8 +1172,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 			const author_id = jQuery('#author_id').val();
 			const title = jQuery('#polltitle').val();
 			var editor = tinyMCE.get('poll-content');
-			var content = editor.getContent();
-			//const content = jQuery('#poll-content').val();
+			var content = editor ? editor.getContent() : jQuery('#poll-content').val();
 			const poll_type = jQuery('#poll_type').val();
 			const answer = jQuery('input.wbpoll_answer').map(function () {
 				return jQuery(this).val();
