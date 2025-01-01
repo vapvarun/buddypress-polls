@@ -70,20 +70,20 @@ class Buddypress_Polls_Public {
 		 */
 		global $wp_styles, $post;
 
+		$rtl_css = is_rtl() ? '-rtl' : '';
+
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			$extension = '.css';
-			$path      = is_rtl() ? '/rtl' : '';
+			$css_extension = '.css';
 		} else {
-			$extension = is_rtl() ? '.rtl.css' : '.min.css';
-			$path      = is_rtl() ? '/rtl' : '/min';
-		}	
+			$css_extension = '.min.css';
+		}
 
 		$option_value        = get_option( 'wbpolls_settings' );
 		$poll_dashboard_page = isset( $option_value['poll_dashboard_page'] ) ? $option_value['poll_dashboard_page'] : '';
 		$poll_create_page    = isset( $option_value['create_poll_page'] ) ? $option_value['create_poll_page'] : '';
 
-		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $path . '/buddypress-polls-public' . $extension , array(), time(), 'all' );
-		wp_register_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/vendor/jquery.datetimepicker.css', array(), time(), 'all' );
+		wp_register_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-polls-public' . $css_extension , array(), $this->version, 'all' );
+		wp_register_style( $this->plugin_name . '-time', plugin_dir_url( __FILE__ ) . 'css/vendor/jquery.datetimepicker.css', array(), $this->version, 'all' );
 
 		if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
 			wp_register_style( 'wb-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' );
@@ -91,25 +91,25 @@ class Buddypress_Polls_Public {
 
 		wp_register_style(
 			$handle = 'wb-icons',
-			$src    = plugin_dir_url( __FILE__ ) . 'css' . $path . '/wb-icons' .$extension,
+			$src    = plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/wb-icons' . $css_extension,
 			$deps   = array(),
-			$ver    = time(),
+			$ver    = $this->version,
 			$media  = 'all'
 		);
 
-		wp_register_style( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'css' . $path . '/buddypress-multi-polls' . $extension , array(), $this->version );
+		wp_register_style( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/buddypress-multi-polls' . $css_extension , array(), $this->version );
 
 		// Create Poll CSS file.
 		wp_register_style(
 			'wbpolls-create-poll',
-			plugin_dir_url( __FILE__ ) . 'css' . $path . '/create-poll' . $extension,
+			plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/create-poll' . $css_extension,
 			array(),
 			$this->version
 		);
 
 		wp_register_style(
 			'wbpolls-dashboard',
-			plugin_dir_url( __FILE__ ) . 'css' . $path . '/polls-dashboard' . $extension,
+			plugin_dir_url( __FILE__ ) . 'css' . $rtl_css . '/polls-dashboard' . $css_extension,
 			array(),
 			$this->version
 		);
@@ -199,33 +199,31 @@ class Buddypress_Polls_Public {
 		global  $post;
 
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			$extension = '.js';
-			$path      = '';
+			$js_extension = '.js';
 		} else {
-			$extension = '.min.js';
-			$path      = '/min';
-		}	
+			$js_extension = '.min.js';
+		}
 
 		$option_value        = get_option( 'wbpolls_settings' );
 		$poll_dashboard_page = isset( $option_value['poll_dashboard_page'] ) ? $option_value['poll_dashboard_page'] : '';
 		$poll_create_page    = isset( $option_value['create_poll_page'] ) ? $option_value['create_poll_page'] : '';
 
-		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/vendor/jquery.datetimepicker.js', array( 'jquery' ), time(), false );
-		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/vendor/jquery.datetimepicker.full.js', array( 'jquery' ), time(), false );
-		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js' . $path . '/buddypress-multi-polls' . $extension, array( 'jquery' ), time(), false );
+		wp_register_script( $this->plugin_name . '-timejs', plugin_dir_url( __FILE__ ) . 'js/vendor/jquery.datetimepicker.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( $this->plugin_name . '-timefulljs', plugin_dir_url( __FILE__ ) . 'js/vendor/jquery.datetimepicker.full.js', array( 'jquery' ), $this->version, false );
+		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls' . $js_extension, array( 'jquery' ), $this->version, false );
 
 		wp_register_script( 'wbpoll-base64', plugin_dir_url( __FILE__ ) . 'js/vendor/jquery.base64.js', array( 'jquery' ), $this->version, true );
 		wp_register_script( 'pristine', plugin_dir_url( __FILE__ ) . 'js/vendor/pristine.min.js', array(), $this->version, true );
-		wp_register_script( 'wbpoll-publicjs', plugin_dir_url( __FILE__ ) . 'js' . $path . '/wbpoll-public' . $extension, array( 'jquery', 'wbpoll-base64', 'pristine' ), $this->version, true );
+		wp_register_script( 'wbpoll-publicjs', plugin_dir_url( __FILE__ ) . 'js/wbpoll-public' . $js_extension, array( 'jquery', 'wbpoll-base64', 'pristine' ), $this->version, true );
 
-		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js' . $path . '/buddypress-multi-polls' . $extension, array( 'jquery', 'ebpoll-base64', 'pristine' ), $this->version, true );
+		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls' . $js_extension, array( 'jquery', 'ebpoll-base64', 'pristine' ), $this->version, true );
 
 		// Create poll JS file.
-		wp_register_script( 'wbpolls-create-poll', plugin_dir_url( __FILE__ ) . 'js' . $path . '/create-poll' . $extension, array( 'jquery' ), $this->version, true );
+		wp_register_script( 'wbpolls-create-poll', plugin_dir_url( __FILE__ ) . 'js/create-poll' . $js_extension, array( 'jquery' ), $this->version, true );
 
-		wp_register_script( 'wbpolls-poll-dashboard-js', plugin_dir_url( __FILE__ ) . 'js' . $path . '/poll-dashboard' . $extension, array( 'jquery' ), $this->version, true );
+		wp_register_script( 'wbpolls-poll-dashboard-js', plugin_dir_url( __FILE__ ) . 'js/poll-dashboard' . $js_extension, array( 'jquery' ), $this->version, true );
 
-		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js' . $path . '/buddypress-polls-public' . $extension, array( 'jquery' ), time(), false );
+		wp_register_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/buddypress-polls-public' . $js_extension, array( 'jquery' ), $this->version, false );
 
 		if ( 'REIGN' === wp_get_theme() || 'REIGN Child' === wp_get_theme() ) {
 			$body_polls_class = true;

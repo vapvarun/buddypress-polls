@@ -46,8 +46,15 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'public/css/', // Source directory for frontend CSS files
                     src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all frontend CSS files except already minified ones
-                    dest: 'public/css/min', // Destination directory for minified frontend CSS
+                    dest: 'public/css/', // Destination directory for minified frontend CSS
                     ext: '.min.css', // Extension for minified files
+                },
+                {
+                    expand: true,
+                    cwd: 'public/css-rtl/', // Source directory for RTL CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all .css files except already minified ones
+                    dest: 'public/css-rtl/', // Destination directory for minified CSS
+                    ext: '.min.css' // Output file extension
                 }],
             },
             admin: {
@@ -55,8 +62,15 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'admin/css/', // Source directory for admin CSS files
                     src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all admin CSS files except already minified ones
-                    dest: 'admin/css/min/', // Destination directory for minified admin CSS
+                    dest: 'admin/css/', // Destination directory for minified admin CSS
                     ext: '.min.css', // Extension for minified files
+                },
+                {
+                    expand: true,
+                    cwd: 'admin/css-rtl/', // Source directory for RTL CSS files
+                    src: ['*.css', '!*.min.css', '!vendor/*.css'], // Minify all .css files except already minified ones
+                    dest: 'admin/css-rtl/', // Destination directory for minified CSS
+                    ext: '.min.css' // Output file extension
                 }],
             },
         },
@@ -71,7 +85,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'public/js/', // Source directory for frontend JS files
                     src: ['*.js', '!*.min.js', '!vendor/*.js'], // Minify all frontend JS files except already minified ones
-                    dest: 'public/js/min/', // Destination directory for minified frontend JS
+                    dest: 'public/js/', // Destination directory for minified frontend JS
                     ext: '.min.js', // Extension for minified files
                 }],
             },
@@ -83,7 +97,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'admin/js/', // Source directory for admin JS files
                     src: ['*.js', '!*.min.js', '!vendor/*.js'], // Minify all admin JS files except already minified ones
-                    dest: 'admin/js/min/', // Destination directory for minified admin JS
+                    dest: 'admin/js/', // Destination directory for minified admin JS
                     ext: '.min.js', // Extension for minified files
                 }],
             },
@@ -131,18 +145,16 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'public/css/', // Source directory for public CSS
-                        src: ['**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
-                        dest: 'public/css/rtl/', // Destination directory for public RTL CSS
-                        ext: '.rtl.css', // Extension for RTL files
+                        cwd: 'public/css', // Source directory for public CSS
+                        src: ['**/*.css', '!**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
+                        dest: 'public/css-rtl', // Destination directory for public RTL CSS
                         flatten: true // Prevents creating subdirectories
                     },
                     {
                         expand: true,
-                        cwd: 'admin/css/', // Source directory for admin CSS
-                        src: ['**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
-                        dest: 'admin/css/rtl/', // Destination directory for admin RTL CSS
-                        ext: '.rtl.css', // Extension for RTL files
+                        cwd: 'admin/css', // Source directory for public CSS
+                        src: ['**/*.css', '!**/*.min.css', '!vendor/**/*.css'], // Source files, excluding vendor CSS
+                        dest: 'admin/css-rtl', // Destination directory for public RTL CSS
                         flatten: true // Prevents creating subdirectories
                     }
                 ]

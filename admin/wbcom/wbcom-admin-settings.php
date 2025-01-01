@@ -261,30 +261,29 @@ if ( ! class_exists( 'Wbcom_Admin_Settings' ) ) {
 						wp_enqueue_style( 'wp-color-picker' );
 					}
 					if ( ! wp_script_is( 'buddypress-polls', 'enqueued' ) ) {
+
 						if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-							$extension = '.js';
-							$path      = '';
+							$js_extension = '.js';
 						} else {
-							$extension = '.min.js';
-							$path      = '/min';
+							$js_extension = '.min.js';
 						}
 
-						wp_register_script( 'buddypress-polls', BPOLLS_PLUGIN_URL . 'admin/js' . $path . '/buddypress-polls-admin' . $extension, array( 'jquery' ) );
+						wp_register_script( 'buddypress-polls', BPOLLS_PLUGIN_URL . 'admin/js/buddypress-polls-admin' . $js_extension, array( 'jquery' ) );
 
 						wp_enqueue_script( 'buddypress-polls' );
 						wp_set_script_translations( 'buddypress-polls', 'buddypress-polls' );
 					}
 					if ( ! wp_style_is( 'buddypress-polls', 'enqueued' ) ) {
-						
+
+						$rtl_css = is_rtl() ? '-rtl' : '';
+
 						if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-							$extension = '.css';
-							$path      = is_rtl() ? '/rtl' : '';
+							$css_extension = '.css';
 						} else {
-							$extension = is_rtl() ? '.rtl.css' : '.min.css';
-							$path      = is_rtl() ? '/rtl' : '/min';
+							$css_extension = '.min.css';
 						}
-						
-						wp_enqueue_style( 'buddypress-polls', BPOLLS_PLUGIN_URL . 'admin/css' . $path . '/buddypress-polls-admin' .$extension, array(), time(), 'all' );
+
+						wp_enqueue_style( 'buddypress-polls', BPOLLS_PLUGIN_URL . 'admin/css' . $rtl_css . '/buddypress-polls-admin' . $css_extension, array(), time(), 'all' ); 
 					}
 				}
 			}

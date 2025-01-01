@@ -121,15 +121,14 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 				}
 			}
 		}
-		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
-			$extension = '.js';
-			$path      = '';
-		} else {
-			$extension = '.min.js';
-			$path      = '/min';
-		}	
 
-		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js' . $path . '/poll-activity-graph' . $extension, array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+			$js_extension = '.js';
+		} else {
+			$js_extension = '.min.js';
+		}
+
+		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph' . $js_extension, array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
 
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook );
 
