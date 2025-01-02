@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-01-01T09:41:45+00:00\n"
+"POT-Creation-Date: 2025-01-02T05:47:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: buddypress-polls\n"
@@ -1020,7 +1020,7 @@ msgid "Key"
 msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:12
-#: admin/wbcom/wbcom-admin-settings.php:390
+#: admin/wbcom/wbcom-admin-settings.php:404
 msgid "Themes & Extension"
 msgstr ""
 
@@ -1039,8 +1039,8 @@ msgstr ""
 
 #: admin/wbcom/templates/wbcom-plugins-page.php:23
 #: admin/wbcom/templates/wbcom-plugins-page.php:362
-#: admin/wbcom/wbcom-admin-settings.php:309
-#: admin/wbcom/wbcom-admin-settings.php:310
+#: admin/wbcom/wbcom-admin-settings.php:323
+#: admin/wbcom/wbcom-admin-settings.php:324
 msgid "Our Themes"
 msgstr ""
 
@@ -1500,27 +1500,27 @@ msgstr ""
 msgid "Create a new thread on our plugin page, participation is open to anyone from all around the world. We'll be there to help as well but can't guarantee any delay."
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:236
+#: admin/wbcom/wbcom-admin-settings.php:242
 msgid "Activate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:237
+#: admin/wbcom/wbcom-admin-settings.php:243
 msgid "Deactivate"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:301
-#: admin/wbcom/wbcom-admin-settings.php:302
+#: admin/wbcom/wbcom-admin-settings.php:315
+#: admin/wbcom/wbcom-admin-settings.php:316
 msgid "Our Plugins"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:317
-#: admin/wbcom/wbcom-admin-settings.php:318
-#: admin/wbcom/wbcom-admin-settings.php:396
+#: admin/wbcom/wbcom-admin-settings.php:331
+#: admin/wbcom/wbcom-admin-settings.php:332
+#: admin/wbcom/wbcom-admin-settings.php:410
 #: buddypress-polls.php:368
 msgid "Support"
 msgstr ""
 
-#: admin/wbcom/wbcom-admin-settings.php:384
+#: admin/wbcom/wbcom-admin-settings.php:398
 #: buddypress-polls.php:367
 msgid "Settings"
 msgstr ""
