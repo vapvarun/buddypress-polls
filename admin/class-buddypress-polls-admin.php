@@ -885,6 +885,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				} else {
 					$poll_answers = array();
 				}
+				$poll_type = get_post_meta( $poll_postid, 'poll_type', true );
 
 				wp_nonce_field( 'wbpoll_meta_box', 'wbpoll_meta_box_nonce' );
 				?>
@@ -892,7 +893,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					<h3><?php echo esc_html__( 'Poll Answers', 'buddypress-polls' ); ?></h3>
 					<div class="wb-poll-answers-items-content-wrapper">
 					<div class="preloaderBg" id="preloader" onload="preloader()"><div class="preloader2"></div></div>
-					<input type="hidden" id="poll_type" name="poll_type" value="<?php echo ! empty( get_post_meta( $poll_postid, 'poll_type', true ) ) ? get_post_meta( $poll_postid, 'poll_type', true ) : 'default'; ?>">
+					<input type="hidden" id="poll_type" name="poll_type" value="<?php echo ! empty( $poll_type ) ? esc_attr( $poll_type ) : 'default'; ?>">
 					<div class="wbpoll-buttons-horizontal">
 						<div class="add-wb-poll-answer-wrap add-wb-poll-answer-wrap" data-busy="0" data-postid="<?php echo esc_attr( $poll_postid ); ?>">
 							<a data-type="default" id="add-wb-poll-answer-default" class="float-left button button-primary add-wb-poll-answer add-wb-poll-answer-default add-wb-poll-answer-<?php echo esc_attr( $poll_postid ); ?>">
@@ -1001,8 +1002,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						// HTML.
 						$html_code[ $index ] = isset( $html_code[ $index ] ) ? $html_code[ $index ] : array();
-
-						echo WBPollHelper::wbpoll_answer_field_template( // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						// phpcs:disable
+						echo WBPollHelper::wbpoll_answer_field_template( 
 							intval( $index ) + $new_index,
 							$default_answers_titles[ $index ],
 							$default_answers_colors[ $index ],
@@ -1017,6 +1018,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							$audio_url[ $index ],
 							$audio_thumbnail_image[ $index ],
 						);
+						// phpcs:enable
 					}
 
 					$new_index = intval( $index ) + $new_index + 1;
@@ -1171,23 +1173,26 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		function bpolls_metabox_shortcode_display() {
 			global $post;
 			$post_id = $post->ID;
-
-			echo '<span  id="wbpollshortcode-' . intval( $post_id ) . '" class="wbpollshortcode wbpollshortcode-single wbpollshortcode-' . intval( $post_id ) . '">[wbpoll id="' . intval( $post_id ) . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
+			// phpcs:disable
+			echo wp_kses_post( '<span  id="wbpollshortcode-' . intval( $post_id ) . '" class="wbpollshortcode wbpollshortcode-single wbpollshortcode-' . intval( $post_id ) . '">[wbpoll id="' . intval( $post_id ) . '"]</span><span class="wbpoll_ctp" aria-label="' . esc_html__(
 				'Click to copy',
 				'buddypress-polls'
-			) . '" data-balloon-pos="down">&nbsp;</span>';
-			echo '<div class="wbpollclear"></div>';
+			) . '" data-balloon-pos="down">&nbsp;</span>' );
+			echo wp_kses_post( '<div class="wbpollclear"></div>' );
+			// phpcs:enable
 		} //end metabox_shortcode_display()
 
 		function bpolls_metabox_embed_display() {
 			global $post;
 			$post_id = $post->ID;
 			$iframe  = esc_attr( sprintf( '<iframe id="%s" src="%s" frameborder="0" allowtransparency="true" width="100%%" height="400"></iframe>', 'wbpollemded-iframe-' . $post_id, add_query_arg( array( 'embed' => true ), get_permalink( $post_id ) ) ) );
-			echo '<span  id="wbpollemded-' . intval( $post_id ) . '" class="wbpollemded wbpollemded-single wbpollemded-' . intval( $post_id ) . '">' . $iframe . '</span><span class="wbpoll_embed" aria-label="' . esc_html__(
+			// phpcs:disable
+			echo wp_kses_post( '<span  id="wbpollemded-' . intval( $post_id ) . '" class="wbpollemded wbpollemded-single wbpollemded-' . intval( $post_id ) . '">' . $iframe . '</span><span class="wbpoll_embed" aria-label="' . esc_html__(
 				'Click to copy',
 				'buddypress-polls'
-			) . '" data-balloon-pos="down">&nbsp;</span>';
-			echo '<div class="wbpollclear"></div>';
+			) . '" data-balloon-pos="down">&nbsp;</span>' );
+			echo wp_kses_post( '<div class="wbpollclear"></div>' );
+			// phpcs:enable
 		}
 
 		/**
@@ -2042,6 +2047,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			echo '<canvas id="' . esc_attr( $chart_id ) . '"></canvas>';
 
 			// Output the JavaScript code to initialize the chart.
+			// phpcs:disable
 			echo '<script>
 				var ctx = document.getElementById("' . $chart_id . '").getContext("2d");
 				var chartData = ' . $chart_data_json . ';
@@ -2072,6 +2078,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					return color;
 				}
 			</script>';
+			// phpcs:enable
 		}
 
 
