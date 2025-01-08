@@ -1437,13 +1437,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			$content = '';
 			if ( isset( $notification_content ) && ! empty( $notification_content ) ) {
 				$content = $notification_content;
+				$poll_post  = get_post( $post_id );
 
 				if ( strpos( $content, '{site_name}' ) !== false ) {
 					$content = str_replace( '{site_name}', get_bloginfo( 'name' ), $content );
 				}
 
 				if ( strpos( $content, '{poll_name}' ) !== false ) {
-					$poll_post  = get_post( $post_id );
 					$poll_title = '<a href="' . get_the_permalink( $poll_post ) . '">' . $poll_post->post_title . '</a>';
 					$content    = str_replace( '{poll_name}', $poll_title, $content );
 				}
