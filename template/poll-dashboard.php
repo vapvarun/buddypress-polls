@@ -173,6 +173,14 @@ if ( is_user_logged_in() ) {
 						<?php
 					}
 				}
+			}else{
+				?>
+					<tr>
+						<td colspan="4">
+							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
+						</td>
+					</tr>
+				<?php
 			}
 			wp_reset_postdata();
 			?>
@@ -291,6 +299,14 @@ if ( is_user_logged_in() ) {
 						<?php
 					}
 				}
+			}else{
+				?>
+					<tr>
+						<td colspan="4">
+							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
+						</td>
+					</tr>
+				<?php
 			}
 			wp_reset_postdata();
 
@@ -412,6 +428,14 @@ if ( is_user_logged_in() ) {
 						<?php
 					}
 				}
+			}else{
+				?>
+					<tr>
+						<td colspan="4">
+							<?php echo esc_html_e( 'Polls Not Found', 'buddypress-polls' ); ?>
+						</td>
+					</tr>
+				<?php
 			}
 			wp_reset_postdata();
 			?>
