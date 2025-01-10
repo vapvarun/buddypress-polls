@@ -298,7 +298,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$bpolls_tabs = array(
 					'welcome'                     => esc_html__( 'Welcome', 'buddypress-polls' ),
 					'general'                     => esc_html__( 'Community', 'buddypress-polls' ),
-					'wbpoll_setting'              => esc_html__( 'WB Polls Settings', 'buddypress-polls' ),
+					'wbpoll_setting'              => esc_html__( 'Polls Settings', 'buddypress-polls' ),
 					'notifications'               => esc_html__( 'Email Notifications', 'buddypress-polls' ),
 					'email_notification_settings' => esc_html__( 'Email Notification Text', 'buddypress-polls' ),
 					'support'                     => esc_html__( 'FAQ', 'buddypress-polls' ),
@@ -306,7 +306,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			} else {
 				$bpolls_tabs = array(
 					'welcome'                     => esc_html__( 'Welcome', 'buddypress-polls' ),
-					'wbpoll_setting'              => esc_html__( 'WB Polls Settings', 'buddypress-polls' ),
+					'wbpoll_setting'              => esc_html__( 'Polls Settings', 'buddypress-polls' ),
 					'notifications'               => esc_html__( 'Email Notifications', 'buddypress-polls' ),
 					'email_notification_settings' => esc_html__( 'Email Notification Text', 'buddypress-polls' ),
 					'support'                     => esc_html__( 'FAQ', 'buddypress-polls' ),

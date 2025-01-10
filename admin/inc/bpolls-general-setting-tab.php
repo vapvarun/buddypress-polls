@@ -24,7 +24,7 @@ if ( class_exists( 'Buddypress' ) ) {
 	<div class="wbcom-tab-content">
 	<div class="wbcom-wrapper-admin">
 	<div class="wbcom-admin-title-section"><h3 style="margin: 0 0 5px"><?php esc_html_e( 'Activity Polls Setting', 'buddypress-polls' ); ?></h3>
-	<p class="description"><?php esc_html_e( 'Activity polls are a BuddyPress and BuddyBoss Platform specific feature that allows members to create polls as activities. These polls are visible on their newsfeed, and can be added from the "Whats new" area.', 'buddypress-polls' ); ?></p>
+	<p class="description"><?php esc_html_e( "Activity polls are a BuddyPress and BuddyBoss Platform specific feature that allows members to create polls as activities. These polls are visible on their newsfeed, and can be added from the 'What's new' area.", 'buddypress-polls' ); ?></p>
 	</div>
 	<div class="wbcom-admin-option-wrap wbcom-admin-option-wrap-view">
 	<form method="post" action="admin.php?action=update_network_options">
@@ -38,7 +38,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="blogname"><?php esc_html_e( 'Turn off the Add Poll feature for BuddyPress', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'Enable this setting to hide the add poll icon on the Whats new activity section.', 'buddypress-polls' ); ?>
+					<p class="description" id="tagline-description"><?php esc_html_e( "Enable this setting to hide the add poll icon on the What's new activity section.", 'buddypress-polls' ); ?>
 					</p>
 				</div>
 				<div class="wbcom-settings-section-options">
@@ -129,8 +129,8 @@ if ( class_exists( 'Buddypress' ) ) {
 
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
-					<label for="poll_options_result"><?php esc_html_e( 'Display Poll Result %', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'After the poll, you can see the results in percentage format.', 'buddypress-polls' ); ?></p>
+					<label for="poll_options_result"><?php esc_html_e( 'Display Poll Results in %', 'buddypress-polls' ); ?></label>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'After the poll, you can view the results in percentage format.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">
@@ -156,7 +156,7 @@ if ( class_exists( 'Buddypress' ) ) {
 			<div class="wbcom-settings-section-wrap">
 				<div class="wbcom-settings-section-options-heading">
 					<label for="poll_list_voters"><?php esc_html_e( 'Display Voters list', 'buddypress-polls' ); ?></label>
-					<p class="description" id="tagline-description"><?php esc_html_e( 'The feature is enabled to allow members to view the list of voters.', 'buddypress-polls' ); ?></p>
+					<p class="description" id="tagline-description"><?php esc_html_e( 'This feature allows members to view the list of voters.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
 				<label class="wb-switch">

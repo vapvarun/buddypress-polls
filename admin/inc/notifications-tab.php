@@ -53,7 +53,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 								<label
 									for="blogname"><?php esc_html_e( 'Admin Notifications', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'The admin will get a notification for review the poll created by a user. This option will work if "Enable user publishing" is disable.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'The admin receive a notification for review the poll created by a user. This option will work if "Enable user publishing" is disable.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -69,7 +69,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 								<label
 									for="blogname"><?php esc_html_e( 'Member Notification', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'The members will get a notification when admin approved their poll.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'The members receive a notification when admin approved their poll.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
