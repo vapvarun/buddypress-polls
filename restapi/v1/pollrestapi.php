@@ -443,7 +443,7 @@ class Pollrestapi {
 
 
 	public function send_admin_notifications( $post_id ) {
-
+		$post  = get_post( $post_id );
 		$option_value  = get_option( 'wbpolls_notification_setting_options' );
 		$option_admins = get_option( 'wbpolls_notification_settings' );
 		$author_id     = $post->post_author;
@@ -465,7 +465,7 @@ class Pollrestapi {
 
 
 	public static function bpmbp_get_admin_notification_subject( $notification_subject, $post_id, $user_id = null ) {
-
+		$poll_post  = get_post( $post_id );
 		$subject = '';
 		if ( isset( $notification_subject ) && ! empty( $notification_subject ) ) {
 			$subject = $notification_subject;

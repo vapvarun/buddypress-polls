@@ -1465,7 +1465,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		}
 
 		public static function bpmbp_get_notification_subject( $notification_subject, $post_id, $user_id = null ) {
-
+			$poll_post  = get_post( $post_id );
 			$subject = '';
 			if ( isset( $notification_subject ) && ! empty( $notification_subject ) ) {
 				$subject = $notification_subject;
