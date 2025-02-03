@@ -3,8 +3,8 @@ Contributors: wbcomdesigns
 Donate link: https://wbcomdesigns.com
 Tags: comments, spam, polls, buddypress polls
 Requires at least: 3.0.1
-Tested up to: 6.6.1
-Stable tag: 4.3.8
+Tested up to: 6.7.2
+Stable tag: 4.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -37,6 +37,26 @@ Yes, needs you to have BuddyPress installed and activated.
 Once you activate the plugin, a poll icon will appear in the post box on the activity stream, user profiles, and groups. This feature enables you to create polls and ask questions for others to vote on. With the BuddyPress Polls plugin, both you and your community can easily create and place polls in the main activity stream, user profiles, and group pages.
 
 == Changelog ==
+= 4.4.0 =
+* Update: Updated strings for better translations.  
+* Fix: Resolved warnings in debug log.  
+* Enhancement: Made radio string clickable.  
+* Enhancement: Added notice when no polls are posted.  
+* Fix: Fixed pending post issue.  
+* Fix: Fixed PHPCS issues in `edd-plugin-license.php` and `class-buddypress-polls-admin.php`.  
+* Enhancement: Managed RTL and minified CSS/JS files.  
+* Fix: Fixed JavaScript warnings.  
+* Fix: Fixed minified scripts and styles.  
+* Fix: Fixed date issue when editing polls.  
+* Fix: Fixed undefined warning in the system.  
+* Enhancement: Updated polls compatibility with BP Edit Activity plugin.  
+* Enhancement: Minified scripts and styles, updated enqueueing logic, and generated `.pot` file for JavaScript strings.  
+* Enhancement: Removed unnecessary HardG code.  
+* Update: Removed `console.log(bpolls_ajax_object)` for cleaner debugging.  
+* Fix: Resolved poll submission issues with Youzify.  
+* Enhancement: Managed UI issue with Youzify.  
+* Enhancement: Improved backend options with responsive fixes.
+
 = 4.3.8 =
 * Enhancement: Managed shortcode UI in forum.
 * Fix: Resolved BP function deprecated issue.
