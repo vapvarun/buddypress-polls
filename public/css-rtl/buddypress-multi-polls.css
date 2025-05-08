@@ -552,6 +552,10 @@ nav.navigation.wbpoll-archive-navigation {
     margin-top: 20px;
 }
 
+.wbpoll-form-insidewrap {
+    clear: both;
+}
+
 .wbpolls-question-results.wbpoll-image,
 .wbpolls-question-results.wbpoll-video,
 .wbpolls-question-results.wbpoll-audio {
