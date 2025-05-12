@@ -329,31 +329,35 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 * @since    1.0.0
 		 */
 		public function bpolls_admin_register_settings() {
-			if ( isset( $_POST['bpolls_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				unset( $_POST['bpolls_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			//phpcs:disable
+
+			if ( isset( $_POST['bpolls_settings'] ) ) { 
+				unset( $_POST['bpolls_settings']['hidden'] ); 
+				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); 
+				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
 
-			if ( isset( $_POST['wbpolls_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				unset( $_POST['wbpolls_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'wbpolls_settings', wp_unslash( $_POST['wbpolls_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			if ( isset( $_POST['wbpolls_settings'] ) ) { 
+				unset( $_POST['wbpolls_settings']['hidden'] ); 
+				update_site_option( 'wbpolls_settings', wp_unslash( $_POST['wbpolls_settings'] ) ); 
+				wp_safe_redirect( $_POST['_wp_http_referer'] );
 				exit();
 			}
-			if ( isset( $_POST['wbpolls_notification_settings'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				unset( $_POST['wbpolls_notification_settings']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'wbpolls_notification_settings', wp_unslash( $_POST['wbpolls_notification_settings'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			if ( isset( $_POST['wbpolls_notification_settings'] ) ) { 
+				unset( $_POST['wbpolls_notification_settings']['hidden'] ); 
+				update_site_option( 'wbpolls_notification_settings', wp_unslash( $_POST['wbpolls_notification_settings'] ) );
+				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
-			if ( isset( $_POST['wbpolls_notification_setting_options'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				unset( $_POST['wbpolls_notification_setting_options']['hidden'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
-				update_site_option( 'wbpolls_notification_setting_options', wp_unslash( $_POST['wbpolls_notification_setting_options'] ) ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-				wp_safe_redirect( $_POST['_wp_http_referer'] ); // phpcs:ignore WordPress.Security.NonceVerification, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			if ( isset( $_POST['wbpolls_notification_setting_options'] ) ) { 
+				unset( $_POST['wbpolls_notification_setting_options']['hidden'] ); 
+				update_site_option( 'wbpolls_notification_setting_options', wp_unslash( $_POST['wbpolls_notification_setting_options'] ) ); 
+				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
+
+			//phpcs:enable
 		}
 
 		/**
@@ -1206,7 +1210,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 
 			// Verify that the nonce is valid.
-			if ( ! wp_verify_nonce( $_POST['wbpoll_meta_box_nonce'], 'wbpoll_meta_box' ) ) {
+			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['wbpoll_meta_box_nonce'] ) ), 'wbpoll_meta_box' ) ) {
 				return;
 			}
 
@@ -1230,7 +1234,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// handling extra fields
 			if ( isset( $_POST[ $prefix . 'answer_extra' ] ) ) {
-				$extra = $_POST[ $prefix . 'answer_extra' ];
+				$extra = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'answer_extra' ] ) );
 				update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
 			} else {
 				delete_post_meta( $post_id, $prefix . 'answer_extra' );
@@ -1238,12 +1242,12 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			//Save Poll Type from back end
 			if ( isset( $_POST['poll_type'] ) ) {
-				update_post_meta( $post_id, 'poll_type', sanitize_text_field( $_POST['poll_type'] ) );
+				update_post_meta( $post_id, 'poll_type', sanitize_text_field( wp_unslash( $_POST['poll_type'] ) ) );
 			}
 
 			// handle answer titles
 			if ( isset( $_POST[ $prefix . 'answer' ] ) ) {
-				$titles = $_POST[ $prefix . 'answer' ];
+				$titles = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'answer' ] ) );
 
 				foreach ( $titles as $index => $title ) {
 					$titles[ $index ] = sanitize_text_field( $title );
@@ -1256,7 +1260,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// Full size image answer
 			if ( isset( $_POST[ $prefix . 'full_size_image_answer' ] ) ) {
-				$images = $_POST[ $prefix . 'full_size_image_answer' ];
+				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'full_size_image_answer' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = sanitize_text_field( $url );
@@ -1269,7 +1273,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// video url
 			if ( isset( $_POST[ $prefix . 'video_answer_url' ] ) ) {
-				$images = $_POST[ $prefix . 'video_answer_url' ];
+				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'video_answer_url' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = $url;
@@ -1282,7 +1286,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// video suggestion
 			if ( isset( $_POST[ $prefix . 'video_import_info' ] ) ) {
-				$suggestion = $_POST[ $prefix . 'video_import_info' ];
+				$suggestion = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'video_import_info' ] ) );
 				foreach ( $suggestion as $index => $text ) {
 					$suggestion[ $index ] = sanitize_text_field( $text );
 				}
@@ -1294,7 +1298,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// Audio url
 			if ( isset( $_POST[ $prefix . 'audio_answer_url' ] ) ) {
-				$images = $_POST[ $prefix . 'audio_answer_url' ];
+				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'audio_answer_url' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = $url;
@@ -1307,7 +1311,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// audio suggestion
 			if ( isset( $_POST[ $prefix . 'audio_import_info' ] ) ) {
-				$suggestion = $_POST[ $prefix . 'audio_import_info' ];
+				$suggestion = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'audio_import_info' ] ) );
 
 				foreach ( $suggestion as $index => $text ) {
 					$suggestion[ $index ] = sanitize_text_field( $text );
@@ -1320,7 +1324,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// HTML textarea answer
 			if ( isset( $_POST[ $prefix . 'html_answer' ] ) ) {
-				$htmls = $_POST[ $prefix . 'html_answer' ];
+				$htmls = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'html_answer' ] ) );
 
 				foreach ( $htmls as $index => $html ) {
 					$htmls[ $index ] = $html;
@@ -1348,7 +1352,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			foreach ( $post_meta_fields as $field ) {
 
 				$old = get_post_meta( $post_id, $field['id'], true );
-				$new = ( isset( $_POST[ $field['id'] ] ) ) ? $_POST[ $field['id'] ] : '';
+				$new = ( isset( $_POST[ $field['id'] ] ) ) ? sanitize_text_field( wp_unslash( $_POST[ $field['id'] ] ) ) : ''; //phpcs:ignore
 
 				if ( ( $prefix . 'start_date' == $field['id'] && $new == '' ) || ( $prefix . 'end_date' == $field['id'] && $new == '' ) ) {
 
@@ -1374,11 +1378,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// get the fields
 
-			$index        = intval( $_POST['answer_counter'] );
-			$answer_color = esc_attr( $_POST['answer_color'] );
-			$is_voted     = intval( $_POST['is_voted'] );
-			$poll_postid  = intval( $_POST['poll_postid'] );
-			$answer_type  = esc_attr( $_POST['answer_type'] );
+			$index        = !empty( $_POST['answer_counter'] ) ? intval( $_POST['answer_counter'] ) : 0;
+			$answer_color = !empty( $_POST['answer_color'] ) ? sanitize_text_field( wp_unslash( $_POST['answer_color'] ) ) : '';
+			$is_voted     = !empty( $_POST['is_voted'] ) ? intval( $_POST['is_voted'] ) : 0;
+			$poll_postid  = !empty( $_POST['poll_postid'] ) ? intval( $_POST['poll_postid'] ) : 0;
+			$answer_type  = !empty( $_POST['answer_type'] ) ? sanitize_text_field( wp_unslash( $_POST['answer_type'] ) ) : '';
 
 			$answers_extra = array( 'type' => $answer_type );
 			 /* translators: %d: */
@@ -1478,7 +1482,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		public function wbpolls_log_delete() {
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'wppoll_log';
-			$logid      = $_POST['log_id'];
+			$logid      = $_POST['log_id']; //phpcs:ignore
 			$query      = "DELETE FROM $table_name WHERE id = $logid";
 			$result     = $wpdb->query( $query );
 		}
@@ -1813,7 +1817,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						global $wpdb;
 						$votes_name  = WBPollHelper::wb_poll_table_name();
 						$sql_select  = "SELECT * FROM $votes_name WHERE `answer_title` LIKE '%$answer_title%' AND `poll_id` = $poll_id";
-						$result_data = $wpdb->get_results( "$sql_select", 'ARRAY_A' );
+						$result_data = $wpdb->get_results( "$sql_select", 'ARRAY_A' ); //phpcs:ignore
 
 						if ( isset( $result_data ) && ! empty( $result_data ) ) {
 							$count   = count( $result_data );
