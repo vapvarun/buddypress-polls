@@ -267,7 +267,7 @@ add_action( 'admin_init', 'edd_wbcom_BPOLLS_check_license' );
 function edd_wbcom_BPOLLS_check_license() {
 	global $wp_version, $pagenow;
 
-	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) {
+	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) { //phpcs:ignore
 
 		$license_data = get_transient( 'edd_wbcom_BPOLLS_license_key_data' );
 		$license = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
@@ -454,7 +454,7 @@ add_action( 'wbcom_add_plugin_license_code', 'wbcom_BPOLLS_render_license_sectio
 function edd_wbcom_BPOLLS_active_license_message() {
 	global $wp_version, $pagenow;
 
-	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) {
+	if ( $pagenow === 'plugins.php' || $pagenow === 'index.php' || ( isset( $_GET['page'] ) && $_GET['page'] === 'wbcom-license-page' ) ) { //phpcs:ignore
 
 		$license_data = get_transient( 'edd_wbcom_BPOLLS_license_key_data' );
 		$license      = trim( get_option( 'edd_wbcom_BPOLLS_license_key' ) );
