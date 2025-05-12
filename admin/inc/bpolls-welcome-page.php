@@ -29,7 +29,7 @@ $wp_rewrite->flush_rules();
 						<div class="wbcom-support-inner">
 						<h3><span class="dashicons dashicons-book"></span><?php esc_html_e( 'Documentation', 'buddypress-polls' ); ?></h3>
 						<p><?php esc_html_e( 'We have prepared an extensive guide on BuddyPress Poll to learn all aspects of the plugin. You will find most of your answers here.', 'buddypress-polls' ); ?></p>
-						<a href="<?php echo esc_url( 'https://wbcomdesigns.com/docs/buddypress-paid-addons/buddypress-polls/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'buddypress-polls' ); ?></a>
+						<a href="<?php echo esc_url( 'https://docs.wbcomdesigns.com/doc_category/buddypress-polls/' ); ?>" class="button button-primary button-welcome-support" target="_blank"><?php esc_html_e( 'Read Documentation', 'buddypress-polls' ); ?></a>
 						</div>
 					</div>
 
