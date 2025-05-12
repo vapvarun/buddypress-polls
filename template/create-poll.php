@@ -27,7 +27,7 @@ if ( ! empty( $wppolls_create_poll ) ) {
 }
 if ( ! empty( $_GET['poll_id'] ) ) {
 
-	if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'edit_poll_' . $_GET['poll_id'] ) ) {
+	if ( !isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'edit_poll_' . sanitize_text_field( wp_unslash( $_GET['poll_id'] ) ) ) ) {
 
 		echo '<div class="main-poll-create">';
 		echo esc_html__( 'You are not allow to edit the poll.', 'buddypress-polls' );
@@ -35,7 +35,7 @@ if ( ! empty( $_GET['poll_id'] ) ) {
 
 		return;
 	}
-	$post_id = isset( $_GET['poll_id'] ) ? $_GET['poll_id'] : '';
+	$post_id = isset( $_GET['poll_id'] ) ? sanitize_text_field( wp_unslash( $_GET['poll_id'] ) ) : '';
 	$post    = get_post( $post_id );
 
 	$poll_type                = get_post_meta( $post_id, 'poll_type', true );

@@ -695,7 +695,7 @@ class Buddypress_Polls_Public {
 			}
 
 			$bpolls_thankyou_feedback = '';
-			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) { // pcs:ignore
+			if ( isset( $_POST['bpolls_thankyou_feedback'] ) && ! empty( $_POST['bpolls_thankyou_feedback'] ) ) { //phpcs:ignore
 				$bpolls_thankyou_feedback = isset( $_POST['bpolls_thankyou_feedback'] ) ? $_POST['bpolls_thankyou_feedback'] : ''; // phpcs:ignore 
 			}
 			$poll_meta = array(
@@ -991,7 +991,7 @@ class Buddypress_Polls_Public {
 			$user_id         = get_current_user_id();
 			$bpoll_user_vote = get_user_meta( $user_id, 'bpoll_user_vote', true );
 
-			parse_str( $_POST['poll_data'], $poll_data ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized, WordPress.Security.ValidatedSanitizedInput.MissingUnslash
+			parse_str( $_POST['poll_data'], $poll_data ); //phpcs:ignore
 			$poll_data = filter_var_array( $poll_data );
 
 			$activity_id = $poll_data['bpoll_activity_id'];
@@ -2102,10 +2102,9 @@ class Buddypress_Polls_Public {
 		$current_user = wp_get_current_user();
 		$user_id      = $current_user->ID;
 
-		$poll_id = intval( $_POST['poll_id'] );
+		$poll_id      = !empty( $_POST['poll_id'] ) ? intval( $_POST['poll_id'] ) : 0;
 
-		$user_answer_t = base64_decode( $_POST['user_answer'] );
-
+		$user_answer_t = !empty( $_POST['user_answer'] ) ? base64_decode( sanitize_text_field( wp_unslash( $_POST['user_answer'] ) )  ) : '';
 		$user_answer_t = maybe_unserialize( $user_answer_t ); // why maybe
 		parse_str( $user_answer_t, $user_answer );
 
@@ -2124,8 +2123,8 @@ class Buddypress_Polls_Public {
 			// $poll_ans_id    = isset($user_answer['wbpoll_user_answer']) ? $user_answer['wbpoll_user_answer'] : "";
 			// $poll_ans_title = isset($poll_answers[ $poll_ans_id ]) ? $poll_answers[ $poll_ans_id ] : "";
 		}
-		$chart_type = esc_attr( sanitize_text_field( $_POST['chart_type'] ) );
-		$reference  = esc_attr( sanitize_text_field( $_POST['reference'] ) );
+		$chart_type = !empty( $_POST['chart_type'] ) ? sanitize_text_field( wp_unslash( $_POST['chart_type'] ) ) : '';
+		$reference  = !empty( $_POST['reference'] ) ? sanitize_text_field( wp_unslash( $_POST['reference'] ) ) : '';
 
 		$poll_info = get_post( $poll_id );
 
@@ -2245,7 +2244,7 @@ class Buddypress_Polls_Public {
 		$insertArray['poll_title']   = $poll_info->post_title;
 		$insertArray['user_name']    = ( $user_id == 0 ) ? 'guest' : $current_user->user_login;
 		$insertArray['is_logged_in'] = ( $user_id == 0 ) ? 0 : 1;
-		$insertArray['user_cookie']  = ( $user_id != 0 ) ? 'user-' . $user_id : $_COOKIE[ BPOLLS_COOKIE_NAME ];
+		$insertArray['user_cookie']  = ( $user_id != 0 ) ? 'user-' . $user_id : $_COOKIE[ BPOLLS_COOKIE_NAME ]; //phpcs:ignore
 		$insertArray['user_ip']      = WBPollHelper::get_ipaddress();
 		$insertArray['user_id']      = $user_id;
 
