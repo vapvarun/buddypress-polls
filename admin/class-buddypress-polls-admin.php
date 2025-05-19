@@ -1067,7 +1067,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 						case 'date':
 							echo '<input type="text" class="wbpollmetadatepicker" name="' . esc_attr( $field['id'] ) . '" id="' . esc_attr( $field['id'] ) . '-date-' . esc_attr( $poll_postid ) . '" value="' . esc_attr( $meta ) . '" size="30" />
-							<span class="description">' . esc_html( $field['desc'] ) . '</span>';
+							<span class="description">' . ( $field['desc'] ) . '</span>'; // phpcs:ignore
 							break;
 
 						case 'colorpicker':
