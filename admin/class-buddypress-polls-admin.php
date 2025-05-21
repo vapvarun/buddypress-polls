@@ -818,6 +818,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$poll_answers       = get_post_meta( $poll_postid, '_wbpoll_answer', true );
 				$poll_answers_extra = get_post_meta( $poll_postid, '_wbpoll_answer_extra', true );
 
+				if ( ! is_array( $poll_answers_extra ) ) {
+					$poll_answers_extra = array();
+				}
 				$poll_color = get_post_meta( $poll_postid, '_wbpoll_answer_color', true );
 				if ( isset( $poll_color ) && ! empty( $poll_color ) ) {
 					$poll_colors = $poll_color;
@@ -1234,7 +1237,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// handling extra fields
 			if ( isset( $_POST[ $prefix . 'answer_extra' ] ) ) {
-				$extra = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'answer_extra' ] ) );
+				$extra = map_deep(wp_unslash( $_POST[ $prefix . 'answer_extra' ] ),'sanitize_text_field');
 				update_post_meta( $post_id, $prefix . 'answer_extra', $extra );
 			} else {
 				delete_post_meta( $post_id, $prefix . 'answer_extra' );
@@ -1247,7 +1250,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// handle answer titles
 			if ( isset( $_POST[ $prefix . 'answer' ] ) ) {
-				$titles = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'answer' ] ) );
+				$titles = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'answer' ] ) );
 
 				foreach ( $titles as $index => $title ) {
 					$titles[ $index ] = sanitize_text_field( $title );
@@ -1260,7 +1263,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// Full size image answer
 			if ( isset( $_POST[ $prefix . 'full_size_image_answer' ] ) ) {
-				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'full_size_image_answer' ] ) );
+				$images = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'full_size_image_answer' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = sanitize_text_field( $url );
@@ -1273,7 +1276,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// video url
 			if ( isset( $_POST[ $prefix . 'video_answer_url' ] ) ) {
-				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'video_answer_url' ] ) );
+				$images = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'video_answer_url' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = $url;
@@ -1286,7 +1289,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// video suggestion
 			if ( isset( $_POST[ $prefix . 'video_import_info' ] ) ) {
-				$suggestion = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'video_import_info' ] ) );
+				$suggestion = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'video_import_info' ] ) );
 				foreach ( $suggestion as $index => $text ) {
 					$suggestion[ $index ] = sanitize_text_field( $text );
 				}
@@ -1298,7 +1301,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// Audio url
 			if ( isset( $_POST[ $prefix . 'audio_answer_url' ] ) ) {
-				$images = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'audio_answer_url' ] ) );
+				$images = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'audio_answer_url' ] ) );
 
 				foreach ( $images as $index => $url ) {
 					$images[ $index ] = $url;
@@ -1311,7 +1314,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// audio suggestion
 			if ( isset( $_POST[ $prefix . 'audio_import_info' ] ) ) {
-				$suggestion = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'audio_import_info' ] ) );
+				$suggestion = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'audio_import_info' ] ) );
 
 				foreach ( $suggestion as $index => $text ) {
 					$suggestion[ $index ] = sanitize_text_field( $text );
@@ -1324,7 +1327,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			// HTML textarea answer
 			if ( isset( $_POST[ $prefix . 'html_answer' ] ) ) {
-				$htmls = sanitize_text_field( wp_unslash( $_POST[ $prefix . 'html_answer' ] ) );
+				$htmls = array_map('sanitize_text_field', wp_unslash( $_POST[ $prefix . 'html_answer' ] ) );
 
 				foreach ( $htmls as $index => $html ) {
 					$htmls[ $index ] = $html;
