@@ -2499,12 +2499,15 @@ class WBPollHelper {
 					<div class="wbpoll-options-input-container">
 						<div class="left video-section wbpoll-image-input-preview">
 							<?php
+							
 							if ( isset( $video_url ) && ! empty( $video_url ) ) {
-
+								
 								if ( isset( $iframe_video_url ) && $iframe_video_url == 'yes' ) {
 									?>
 									<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-<?php echo esc_attr( $index ); ?>"><iframe width="420" height="345" src="<?php echo esc_url( $video_url ); ?>"></iframe></div>
+									<?php
 								} else {
+									?>
 									<div class="wbpoll-image-input-preview-thumbnail video_wbpoll_video_answer_url-<?php echo esc_attr( $index ); ?>"><video src="<?php echo esc_url( $video_url ); ?>" controls="" poster="" preload="none"></video></div>
 									<?php
 								}
