@@ -1486,8 +1486,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'wppoll_log';
 			$logid      = $_POST['log_id']; //phpcs:ignore
-			$query      = "DELETE FROM $table_name WHERE id = $logid";
-			$result     = $wpdb->query( $query );
+			// $query      = "DELETE FROM $table_name WHERE id = $logid";
+			// $result     = $wpdb->query( $query ); 
+			$query  = $wpdb->prepare( "DELETE FROM $table_name WHERE id = %d", $logid );
+			$result = $wpdb->query( $query ); //phpcs:ignore
+
 		}
 
 		public function wbpoll_logs_page_callback() {
@@ -1819,7 +1822,8 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						$output_result .= '<div class="wbpoll-user-profile-data">';
 						global $wpdb;
 						$votes_name  = WBPollHelper::wb_poll_table_name();
-						$sql_select  = "SELECT * FROM $votes_name WHERE `answer_title` LIKE '%$answer_title%' AND `poll_id` = $poll_id";
+						$sql_select  = $wpdb->prepare("SELECT * FROM $votes_name WHERE `answer_title` LIKE %s AND `poll_id` = %d",'%'.$answer_title.'%',$poll_id
+							);
 						$result_data = $wpdb->get_results( "$sql_select", 'ARRAY_A' ); //phpcs:ignore
 
 						if ( isset( $result_data ) && ! empty( $result_data ) ) {
