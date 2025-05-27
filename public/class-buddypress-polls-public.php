@@ -1012,7 +1012,13 @@ class Buddypress_Polls_Public {
 						}
 					}
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
-						$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
+						if (!isset($activity_meta['poll_optn_votes'][$key])) {
+							$activity_meta['poll_optn_votes'][$key] = 0;
+							// 
+							$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
+						}else{
+							$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
+						}
 					}
 				}
 			} else {
@@ -1132,7 +1138,8 @@ class Buddypress_Polls_Public {
 				} else {
 					$total_votes = 0;
 				}
-
+				$total_vote_sum = array_sum($activity_meta['poll_optn_votes']);
+				
 				if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
 					$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
 				} else {
@@ -1140,13 +1147,13 @@ class Buddypress_Polls_Public {
 				}
 
 				if ( $total_votes != 0 ) {
-					$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
+					$vote_percent = round( $this_optn_vote / $total_vote_sum * 100, 2 ) . '%';
 				} else {
 					$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
 				}
 
 				if ( 0 != $total_votes ) {
-					$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
+					$vote_percent = round( $this_optn_vote / $total_vote_sum * 100, 2 ) . '%';
 				} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
 					$vote_percent = '100%';
 				} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && ! in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
