@@ -591,7 +591,8 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 							$( '#activity-' + bpoll_activity_id + ' .bpoll-add-user-option' ).val();
 						}
 					} else {
-						 $( '#activity-' + bpoll_activity_id + ' .bpolls-add-option-error' ).show();
+						//  $( '#activity-' + bpoll_activity_id + ' .bpolls-add-option-error' ).show();
+						$('#activity-' + bpoll_activity_id + ' .bpolls-add-option-error').attr('style', 'background-color: transparent !important; color: red !important;').show();
 						setTimeout(
 							function() {
 								$( '#activity-' + bpoll_activity_id + ' .bpolls-add-option-error' ).hide( 500 );
