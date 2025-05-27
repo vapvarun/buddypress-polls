@@ -1011,7 +1011,6 @@ class Buddypress_Polls_Public {
 							$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] - 1;
 						}
 					}
-
 					if ( in_array( $key, $poll_data['bpolls_vote_optn'] ) ) {
 						$activity_meta['poll_optn_votes'][ $key ] = $activity_meta['poll_optn_votes'][ $key ] + 1;
 					}
@@ -2275,7 +2274,7 @@ class Buddypress_Polls_Public {
 				$user_id,
 				$user_session
 			);
-			$count = $wpdb->get_var( $sql );
+			$count = $wpdb->get_var( $sql ); //phpcs:ignore
 
 		} elseif ( $log_method == 'ip' ) {
 
@@ -2285,7 +2284,7 @@ class Buddypress_Polls_Public {
 				$user_id,
 				$user_ip
 			);
-			$count = $wpdb->get_var( $sql );
+			$count = $wpdb->get_var( $sql ); //phpcs:ignore
 
 		} else {
 			if ( $log_method == 'both' ) {
@@ -2297,7 +2296,7 @@ class Buddypress_Polls_Public {
 					$user_id,
 					$user_session
 				);
-				$vote_count_cookie = $wpdb->get_var( $sql );
+				$vote_count_cookie = $wpdb->get_var( $sql ); //phpcs:ignore
 
 				// find ip count
 				$sql           = $wpdb->prepare(
@@ -2306,7 +2305,7 @@ class Buddypress_Polls_Public {
 					$user_id,
 					$user_ip
 				);
-				$vote_count_ip = $wpdb->get_var( $sql );
+				$vote_count_ip = $wpdb->get_var( $sql ); //phpcs:ignore
 
 				if ( $vote_count_cookie >= 1 || $vote_count_ip >= 1 ) {
 					$count = 1;
