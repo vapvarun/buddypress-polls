@@ -667,7 +667,7 @@ function bpolls_get_page_by_title( $page_title, $output = OBJECT, $post_type = '
 		);
 	}
 
-	$page = $wpdb->get_var( $sql );
+	$page = $wpdb->get_var( $sql ); // phpcs:ignore
 
 	if ( $page ) {
 		return get_post( $page, $output );
