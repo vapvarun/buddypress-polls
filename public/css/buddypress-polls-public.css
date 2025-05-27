@@ -496,7 +496,7 @@ a.bpolls-cancel {
 }
 
 a.bpolls-cancel:hover {
-    background: red;
+    background: #ff0000;
 }
 
 .bpolls-option-action {
@@ -1399,14 +1399,6 @@ body.bp-nouveau.thrive-inline .bpolls-html-container {
 .youzify-active .bpolls-polls-option-html {
     margin: 10px 25px;
     width: auto;
-}
-
-.youzify .bpolls-cancel-div a.bpolls-cancel {
-    background: #ef5455;
-    color: #fff;
-    border-color: #ef5455;
-    padding: 4px 12px;
-    font-size: 11px;
 }
 
 .youzify .bpolls-option-action a.bpolls-add-option.button {
