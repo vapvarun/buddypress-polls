@@ -46,15 +46,32 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @param hook $hook hook.
 	 */
 	public function enqueue_scripts( $hook ) {
+		global $wpdb;
 		$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
 		$poll_wdgt_stngs = $poll_wdgt->get_settings();
-
+		$table = $wpdb->prefix . 'bp_activity';
 		global $wpdb,$current_user;
 
 		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
-			$results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
+			// $results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
+			$user_id = get_current_user_id();
+				
+
+				$query = $wpdb->prepare(
+					"
+					SELECT * FROM $table
+					WHERE type = %s AND user_id = %d
+					ORDER BY date_recorded DESC
+					",
+					'activity_poll',
+					$user_id
+				);
+
+				$results = $wpdb->get_results($query);
+
 		} else {
-			$results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+			$results = $wpdb->prepare( "SELECT * from $table  where type = %s ORDER BY date_recorded DESC",'activity_poll' );
+			$results = $wpdb->get_results($results);
 		}
 
 		$activity_ids = array();
@@ -157,17 +174,33 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		global $wpdb, $current_user;
+		$table = $wpdb->prefix . 'bp_activity';
 
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
 
 		if ( ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
-		} else {
+			$user_id = get_current_user_id();
+				
 
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+				$query = $wpdb->prepare(
+					"
+					SELECT * FROM $table
+					WHERE type = %s AND user_id = %d
+					ORDER BY date_recorded DESC
+					",
+					'activity_poll',
+					$user_id
+				);
+
+				$results = $wpdb->get_results($query);
+
+		} else {
+			$results = $wpdb->prepare( "SELECT * from $table  where type = %s ORDER BY date_recorded DESC",'activity_poll' );
+			$results = $wpdb->get_results($results);
 		}
+
 
 		extract( $args );
 
