@@ -55,7 +55,8 @@ class WBPollHelper {
 
 			} elseif ( isset( $_COOKIE[ BPOLLS_COOKIE_NAME ] ) ) {
 
-				if ( substr( $_COOKIE[ BPOLLS_COOKIE_NAME ], 0, 5 ) != 'guest' ) {
+				// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+				if ( substr( wp_unslash($_COOKIE[ BPOLLS_COOKIE_NAME ]), 0, 5 ) != 'guest' ) { // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 					setcookie(
 						BPOLLS_COOKIE_NAME,
 						$cookie_value,
@@ -79,10 +80,10 @@ class WBPollHelper {
 
 		if ( empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 
-			$ip_address = $_SERVER['REMOTE_ADDR'];
+			$ip_address = sanitize_text_field(wp_unslash($_SERVER['REMOTE_ADDR'])); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		} else {
 
-			$ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+			$ip_address = sanitize_text_field(wp_unslash($_SERVER['HTTP_X_FORWARDED_FOR'])); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
 		}
 
 		if ( strpos( $ip_address, ',' ) !== false ) {
@@ -101,7 +102,7 @@ class WBPollHelper {
 	 */
 	public static function get_useragent() {
 
-		$user_agent = $_SERVER['HTTP_USER_AGENT'];
+		$user_agent = sanitize_text_field(wp_unslash($_SERVER['HTTP_USER_AGENT'])); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotValidated
 		return esc_html( $user_agent, 'buddypress-polls' );
 	}
 
@@ -309,7 +310,7 @@ class WBPollHelper {
 		$votes_name = self::wb_poll_table_name();
 
 		$sql     = $wpdb->prepare( "SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval( $poll_id ) );
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore
 
 		return $results;
 	}//end get_pollResult()
@@ -319,7 +320,7 @@ class WBPollHelper {
 		$votes_name = self::wb_poll_table_name();
 
 		$sql     = $wpdb->prepare( "SELECT * FROM $votes_name WHERE poll_id=%d AND published = 1", intval( $poll_id ) );
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore
 		$total   = 0;
 		foreach ( $results as $res ) {
 			$total += count( maybe_unserialize( $res['user_answer'] ) );
@@ -342,7 +343,7 @@ class WBPollHelper {
 			"SELECT COUNT(*) AS total_count FROM $votes_name WHERE poll_id=%d",
 			intval( $poll_id )
 		);
-		$total_count = intval( $wpdb->get_var( $sql ) );
+		$total_count = intval( $wpdb->get_var( $sql ) ); //phpcs:ignore
 
 		return ( $total_count > 0 ) ? 1 : 0;
 	}//end is_poll_voted()
@@ -360,7 +361,7 @@ class WBPollHelper {
 		$votes_name = self::wb_poll_table_name();
 
 		$sql     = $wpdb->prepare( "SELECT * FROM $votes_name WHERE id=%d", $vote_id );
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore
 
 		return $results;
 	}//end get_voteResult()
@@ -910,7 +911,7 @@ class WBPollHelper {
 						$user_id,
 						$user_session
 					);
-					$poll_is_voted_by_user = $wpdb->get_var( $sql );
+					$poll_is_voted_by_user = $wpdb->get_var( $sql ); //phpcs:ignore
 
 				} elseif ( $log_method == 'ip' ) {
 
@@ -920,7 +921,7 @@ class WBPollHelper {
 						$user_id,
 						$user_ip
 					);
-					$poll_is_voted_by_user = $wpdb->get_var( $sql );
+					$poll_is_voted_by_user = $wpdb->get_var( $sql ); //phpcs:ignore
 
 				} else {
 					if ( $log_method == 'both' ) {
@@ -931,7 +932,7 @@ class WBPollHelper {
 							$user_id,
 							$user_session
 						);
-						$vote_count_cookie = $wpdb->get_var( $sql );
+						$vote_count_cookie = $wpdb->get_var( $sql ); //phpcs:ignore
 
 						$sql           = $wpdb->prepare(
 							"SELECT COUNT(ur.id) AS count FROM $votes_name ur WHERE  ur.poll_id=%d AND ur.user_id=%d AND ur.user_ip = %s",
@@ -939,7 +940,7 @@ class WBPollHelper {
 							$user_id,
 							$user_ip
 						);
-						$vote_count_ip = $wpdb->get_var( $sql );
+						$vote_count_ip = $wpdb->get_var( $sql ); //phpcs:ignore
 
 						if ( $vote_count_cookie >= 1 || $vote_count_ip >= 1 ) {
 							$poll_is_voted_by_user = 1;
@@ -954,7 +955,7 @@ class WBPollHelper {
 						"SELECT ur.id AS answer FROM $votes_name ur WHERE  ur.poll_id=%d  ",
 						$post_id
 					);
-					$cb_has_answer = $wpdb->get_var( $sql );
+					$cb_has_answer = $wpdb->get_var( $sql ); //phpcs:ignore
 
 					if ( $cb_has_answer != null ) {
 
@@ -1103,7 +1104,7 @@ class WBPollHelper {
 								$post_id,
 								$user_id
 							);
-							$vote_count = $wpdb->get_var( $sql );
+							$vote_count = $wpdb->get_var( $sql ); //phpcs:ignore
 
 							$count = apply_filters( 'wbpoll_is_user_voted', $vote_count );
 
@@ -1126,7 +1127,7 @@ class WBPollHelper {
 										$user_session
 									);
 								}
-								$answers_by_user = $wpdb->get_var( $sql );
+								$answers_by_user = $wpdb->get_var( $sql ); //phpcs:ignore
 
 								$option_value = get_option( 'wbpolls_settings' );
 								if ( ! empty( $option_value ) ) {
@@ -1937,7 +1938,7 @@ class WBPollHelper {
 			$votes_name = self::wb_poll_table_name();
 			global $wpdb;
 			$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM {$votes_name} WHERE user_id = %d", $user_id );
-			$results = $wpdb->get_results( $sql, ARRAY_A );
+			$results = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore
 			if ( ! empty( $results ) ) {
 				$output .= "<select id='poll_seletect'>";
 				$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
@@ -1955,7 +1956,7 @@ class WBPollHelper {
 			$votes_name = self::wb_poll_table_name();
 			global $wpdb;
 			$sql     = $wpdb->prepare( "SELECT DISTINCT poll_id, poll_title FROM {$votes_name} WHERE user_id = %d AND user_ip = %s", $user_id, $user_ip );
-			$results = $wpdb->get_results( $sql, ARRAY_A );
+			$results = $wpdb->get_results( $sql, ARRAY_A ); //phpcs:ignore
 			if ( ! empty( $results ) ) {
 				$output .= "<select id='poll_seletect'>";
 				$output .= "<option value=''>" . esc_html__( 'Select poll', 'buddypress-polls' ) . '</option>';
@@ -2892,7 +2893,7 @@ class WBPollHelper {
 
 		$votes_name = self::wb_poll_table_name();
 		$sql        = $wpdb->prepare( "SELECT * FROM $votes_name WHERE id=%d ", intval( $vote_id ) );
-		$log_info   = $wpdb->get_row( $sql, ARRAY_A );
+		$log_info   = $wpdb->get_row( $sql, ARRAY_A ); //phpcs:ignore
 
 		return $log_info;
 	}//end getVoteInfo()
