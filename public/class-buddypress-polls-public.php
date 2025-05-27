@@ -1875,7 +1875,7 @@ class Buddypress_Polls_Public {
 					<label for="option-2" class="bpolls-option-lbl"><?php echo esc_html( $user_option ); ?></label>
 				</div>
 				<div class="bpolls-item-width-wrapper">
-					<div class="bpolls-item-width"></div>
+					<div class="bpolls-item-width" style="<?php echo esc_attr( $polls_bg_style ); ?>"></div>
 					<div class="bpolls-check-radio-div"></div>
 				</div>				
 			</div>
