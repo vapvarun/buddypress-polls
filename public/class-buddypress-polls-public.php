@@ -836,6 +836,7 @@ class Buddypress_Polls_Public {
 					} else {
 						$total_votes = 0;
 					}
+					$total_vote_sum = array_sum($activity_meta['poll_optn_votes']);
 
 					if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
 						$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
@@ -843,8 +844,8 @@ class Buddypress_Polls_Public {
 						$this_optn_vote = 0;
 					}
 
-					if ( 0 != $total_votes ) {
-						$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 ) . '%';
+					if ( 0 != $total_vote_sum ) {
+						$vote_percent = round( $this_optn_vote / $total_vote_sum * 100, 2 ) . '%';
 					} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
 						$vote_percent = '100%';
 					} elseif ( isset( $activity_meta['poll_optn_user_votes'][ $key ] ) && ! in_array( $user_id, $activity_meta['poll_optn_user_votes'][ $key ] ) ) {
