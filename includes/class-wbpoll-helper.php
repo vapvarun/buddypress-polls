@@ -971,7 +971,7 @@ class WBPollHelper {
 						$user_ip,
 						$user_session
 					);
-					$answers_by_user = $wpdb->get_var( $sql );
+					$answers_by_user = $wpdb->get_var( $sql ); //phpcs:ignore
 
 					$answers_by_user_html = '';
 					if ( $answers_by_user !== null ) {
