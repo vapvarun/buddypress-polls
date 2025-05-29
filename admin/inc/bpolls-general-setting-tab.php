@@ -123,7 +123,7 @@ if ( class_exists( 'Buddypress' ) ) {
 					<p class="description" id="tagline-description"><?php esc_html_e( 'Please indicate the maximum number of options for the poll.', 'buddypress-polls' ); ?></p>
 				</div>
 				<div class="wbcom-settings-section-options">
-				<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? esc_attr( $bpolls_settings['options_limit'] ) : '5'; ?>'/>			
+				<input id="options_limit" name='bpolls_settings[options_limit]' type='number' value='<?php echo ( isset( $bpolls_settings['options_limit'] ) ) ? esc_attr( $bpolls_settings['options_limit'] ) : '5'; ?>' min="1"/>			
 				</div>
 			</div>
 
