@@ -1143,7 +1143,11 @@ class Buddypress_Polls_Public {
 				} else {
 					$total_votes = 0;
 				}
-				$total_vote_sum = array_sum($activity_meta['poll_optn_votes']);
+				if ( isset( $activity_meta['poll_total_votes'] ) ) {
+					$total_vote_sum = array_sum($activity_meta['poll_optn_votes']);
+				} else {
+					$total_vote_sum = 0;
+				}
 				
 				if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
 					$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];

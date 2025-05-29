@@ -620,7 +620,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 								'ajax_nonce': bpolls_ajax_object.ajax_nonce
 						};
 						  var submit_event      = $( '#activity-' + bpoll_activity_id + ' .bpolls-vote-submit' );
-						  $( this ).parent().remove();
+						  $( this ).closest('.bpolls-item').remove();
 						$.post(
 							bpolls_ajax_object.ajax_url,
 							data,
