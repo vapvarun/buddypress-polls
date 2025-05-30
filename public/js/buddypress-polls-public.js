@@ -588,7 +588,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 									}
 								}
 							);
-							$( '#activity-' + bpoll_activity_id + ' .bpoll-add-user-option' ).val();
+							$( '#activity-' + bpoll_activity_id + ' .bpoll-add-user-option' ).val('');
 						}
 					} else {
 						//  $( '#activity-' + bpoll_activity_id + ' .bpolls-add-option-error' ).show();
