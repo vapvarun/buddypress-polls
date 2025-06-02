@@ -268,7 +268,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		} else {
 			?>
 			<div class="bpolls-empty-messgae">
-				<?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?>
+				<?php esc_html_e( 'No polls have been created.', 'buddypress-polls' ); ?>
 			</div>
 		<?php } ?>
 		<?php

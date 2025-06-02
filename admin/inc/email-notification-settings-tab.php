@@ -72,7 +72,7 @@ $bpmb_pronotify_option = get_option( 'wbpolls_notification_setting_options' );
 									);
 									?>
 								</div>
-								<p class="description"><?php esc_html_e( 'Text to admin for approve the blog.Personalize with HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
+								<p class="description"><?php esc_html_e( 'Customize the message sent to the admin for poll approval. You can personalize it using HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
 								<code>
 									{site_name} - <?php esc_html_e( 'Site title', 'buddypress-polls' ); ?> </br>
 									{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-polls' ); ?> </br>
@@ -123,7 +123,7 @@ $bpmb_pronotify_option = get_option( 'wbpolls_notification_setting_options' );
 											)
 										);
 										?>
-										<p class="description"><?php esc_html_e( 'Text to member to notify them, the blog is approved. Personalize with HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
+										<p class="description"><?php esc_html_e( 'Customize the message sent to members when their poll is approved. You can personalize it using HTML and {tag} markers.', 'buddypress-polls' ); ?></p>
 										<code>
 											{site_name} - <?php esc_html_e( 'Site title', 'buddypress-polls' ); ?> </br>
 											{poll_name} - <?php esc_html_e( 'Published post title', 'buddypress-polls' ); ?> </br>

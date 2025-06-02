@@ -213,9 +213,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					'move_label'            => esc_html__( 'Move', 'buddypress-polls' ),
 					'move_title'            => esc_html__( 'Drag and Drop to reorder answers', 'buddypress-polls' ),
 					'answer_label'          => esc_html__( 'Answer', 'buddypress-polls' ),
-					'deleteconfirm'         => esc_html__( 'Are you sure about deleting this answer?', 'buddypress-polls' ),
-					'deleteconfirmok'       => esc_html__( 'Sure', 'buddypress-polls' ),
-					'deleteconfirmcancel'   => esc_html__( 'Oh! No', 'buddypress-polls' ),
+					'deleteconfirm'         => esc_html__( 'Are you sure you want to delete this answer?', 'buddypress-polls' ),
+					'deleteconfirmok'       => esc_html__( 'Yes', 'buddypress-polls' ),
+					'deleteconfirmcancel'   => esc_html__( 'No', 'buddypress-polls' ),
 					'ajaxurl'               => admin_url( 'admin-ajax.php' ),
 					'nonce'                 => wp_create_nonce( 'wbpoll' ),
 					'teeny_editor_settings' => array(
@@ -475,7 +475,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<?php
 			} else {
 				?>
-				<div class="bpolls-empty-messgae"><?php esc_html_e( 'No polls created.', 'buddypress-polls' ); ?></div>
+				<div class="bpolls-empty-messgae"><?php esc_html_e( 'No polls have been created.', 'buddypress-polls' ); ?></div>
 				<?php
 			}
 		}
@@ -687,7 +687,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 					if ( $never_expire == 1 ) {
 						if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 							echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
-								'Yet to Start',
+								'Not started yet.',
 								'buddypress-polls'
 							);
 						} else {
@@ -695,7 +695,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 						}
 					} else {
 						if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
-							echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__( 'Yet to Start', 'buddypress-polls' );
+							echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__( 'Not started yet.', 'buddypress-polls' );
 						} else {
 							if ( new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 								echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Active', 'buddypress-polls' );
@@ -1155,7 +1155,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				echo '</div>';
 
 			else :
-				echo esc_html__( 'Please save the post once to enter poll answers.', 'buddypress-polls' );
+				echo esc_html__( 'Please save the post before entering poll answers.', 'buddypress-polls' );
 			endif;
 		} //end metabox_setting_display()
 
@@ -1360,7 +1360,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				if ( ( $prefix . 'start_date' == $field['id'] && $new == '' ) || ( $prefix . 'end_date' == $field['id'] && $new == '' ) ) {
 
 					$cbpollerror = '<div class="notice notice-error inline"><p>' . esc_html__(
-						'Error:: Start or End date any one empty',
+						'Error: Start date or end date is missing. ',
 						'buddypress-polls'
 					) . '</p></div>';
 
@@ -1613,7 +1613,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				} else {
 					?>
 					<tr>
-						<td colspan="5"><?php echo esc_html__( 'Logs Not Found', 'buddypress-polls' ); ?></td>
+						<td colspan="5"><?php echo esc_html__( 'No logs found.', 'buddypress-polls' ); ?></td>
 					</tr>
 					<?php
 				}
@@ -1861,7 +1861,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 								$output_result .= '<div class="wbpoll-profile-modal-content">';
 								$output_result .= '<div class="wbpoll-profile-modal-header">';
 								$output_result .= '<div class="wbpoll-profile-modal-title">';
-								$output_result .= '<h4>' . esc_html__( 'People who voted for this option', 'buddypress-polls' ) . '</h4>';
+								$output_result .= '<h4>' . esc_html__( 'Users who voted for this option', 'buddypress-polls' ) . '</h4>';
 								$output_result .= '</div>';
 								$output_result .= '<div class="close-profiles" data-id="' . $index . '"><svg class="pswp__icn" aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M11.53 1.53A.75.75 0 0 0 10.47.47L6 4.94 1.53.47A.75.75 0 1 0 .47 1.53L4.94 6 .47 10.47a.75.75 0 1 0 1.06 1.06L6 7.06l4.47 4.47a.75.75 0 1 0 1.06-1.06L7.06 6l4.47-4.47Z"></path></svg></div>';
 								$output_result .= '</div>';

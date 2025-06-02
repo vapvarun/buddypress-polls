@@ -106,7 +106,7 @@ if ( is_user_logged_in() ) {
 						if ( $never_expire == 1 ) {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
-									'Yet to Start',
+									'Not started yet.',
 									'buddypress-polls'
 								);
 							} else {
@@ -114,7 +114,7 @@ if ( is_user_logged_in() ) {
 							}
 						} else {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
-								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Yet to Start', 'buddypress-polls' );
+								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Not started yet.', 'buddypress-polls' );
 							} else {
 								if ( new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Active', 'buddypress-polls' );
@@ -267,7 +267,7 @@ if ( is_user_logged_in() ) {
 						if ( $never_expire == 1 ) {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
-									'Yet to Start',
+									'Not started yet',
 									'buddypress-polls'
 								);
 							} else {
@@ -275,7 +275,7 @@ if ( is_user_logged_in() ) {
 							}
 						} else {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
-								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Yet to Start', 'buddypress-polls' );
+								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Not started yet', 'buddypress-polls' );
 							} else {
 								if ( new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && new DateTime( $end_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Active', 'buddypress-polls' );
@@ -393,7 +393,7 @@ if ( is_user_logged_in() ) {
 						if ( $never_expire == 1 ) {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html__(
-									'Yet to Start',
+									'Not started yet',
 									'buddypress-polls'
 								);
 							} else {
@@ -401,7 +401,7 @@ if ( is_user_logged_in() ) {
 							}
 						} else {
 							if ( new DateTime( $start_date ) > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
-								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Yet to Start', 'buddypress-polls' );
+								echo '<span class="dashicons dashicons-calendar"></span> ' . esc_html_e( 'Not started yet', 'buddypress-polls' );
 							} else {
 								if ( new DateTime( $start_date ) <= new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) && $end_date > new DateTime( date( 'Y-m-d H:i:s', current_time( 'timestamp', 0 ) ) ) ) {
 									echo '<span class="dashicons dashicons-yes"></span> ' . esc_html__( 'Active', 'buddypress-polls' );

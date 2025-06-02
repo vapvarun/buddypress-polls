@@ -86,9 +86,9 @@ global $wp_roles;
 						
 						<div class="wbcom-settings-section-wrap" id="bpolls_user_role" >
 							<div class="wbcom-settings-section-options-heading">
-								<label><?php esc_html_e( 'Who can create a poll?', 'buddypress-polls' ); ?></label>
+								<label><?php esc_html_e( 'Who Can Create Polls', 'buddypress-polls' ); ?></label>
 								<p class="description">
-									<?php esc_html_e( 'Select the user roles that can create polls.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Select the user roles that are allowed to create polls.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -107,9 +107,9 @@ global $wp_roles;
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label
-									for="blogname"><?php esc_html_e( 'Allow users to create poll options.', 'buddypress-polls' ); ?></label>
+									for="blogname"><?php esc_html_e( 'Allow Users to Add Poll Options', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'This option will allow the users to create poll options. (Valid only for Text Poll type)', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Enable this option to allow users to add new poll options. (Valid only for Text Poll type.)', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -124,9 +124,9 @@ global $wp_roles;
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
 								<label
-									for="blogname"><?php esc_html_e( 'Status of submitted poll', 'buddypress-polls' ); ?></label>
+									for="blogname"><?php esc_html_e( 'Submitted Poll Status', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Set the status of the newly submitted poll.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Set the default status for newly submitted polls.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -152,7 +152,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Show/Hide Poll Results', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Users can only see the poll results after voting.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Poll results will be visible to users only after they have voted.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -169,7 +169,7 @@ global $wp_roles;
 								<label
 									for="blogname"><?php esc_html_e( 'Enable Poll Comment', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'To enable the comment feature on the polls, please select this option.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Enable this option to allow users to comment on polls.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -183,9 +183,9 @@ global $wp_roles;
 						
 						<div class="wbcom-settings-section-wrap">
 							<div class="wbcom-settings-section-options-heading">
-								<label for="blogname"><?php esc_html_e( 'Who can vote?', 'buddypress-polls' ); ?></label>
+								<label for="blogname"><?php esc_html_e( 'Who Can Vote', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Select the user roles who can cast votes on polls.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Select the user roles that are allowed to vote in polls.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
@@ -212,7 +212,7 @@ global $wp_roles;
 							<div class="wbcom-settings-section-options-heading">
 								<label for="blogname"><?php esc_html_e( 'Color Scheme', 'buddypress-polls' ); ?></label>
 								<p class="description" id="tagline-description">
-									<?php esc_html_e( 'Please specify the color scheme for the progress bar in the poll choices and the submit button.', 'buddypress-polls' ); ?>
+									<?php esc_html_e( 'Choose the color scheme for the poll’s progress bar and submit button.', 'buddypress-polls' ); ?>
 								</p>
 							</div>
 							<div class="wbcom-settings-section-options">
