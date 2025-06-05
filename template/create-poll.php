@@ -693,7 +693,7 @@ if ( isset( $poll_type ) && ! empty( $poll_type ) ) {
 											<span><?php esc_html_e( 'No', 'buddypress-polls' ); ?></span>
 										</label>
 									</fieldset>
-									<span class="description"><?php esc_html_e( 'Select if you want poll to show result After expires. After expires the result will be shown always.', 'buddypress-polls' ); ?></span>
+									<span class="description"><?php esc_html_e( 'Show results only after the poll expires. Results will always be visible once expired.', 'buddypress-polls' ); ?></span>
 								</td>
 							</tr>
 							<tr>
