@@ -53,7 +53,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		global $wpdb,$current_user;
 
 		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
-			// $results = $wpdb->get_results( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' AND user_id=" . $current_user->ID . ' group by id having date_recorded=max(date_recorded) order by date_recorded desc' );
+
 			$user_id = get_current_user_id();
 				
 
