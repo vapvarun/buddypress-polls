@@ -1486,8 +1486,6 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'wppoll_log';
 			$logid      = $_POST['log_id']; //phpcs:ignore
-			// $query      = "DELETE FROM $table_name WHERE id = $logid";
-			// $result     = $wpdb->query( $query ); 
 			$query  = $wpdb->prepare( "DELETE FROM $table_name WHERE id = %d", $logid );
 			$result = $wpdb->query( $query ); //phpcs:ignore
 
