@@ -28,7 +28,7 @@ global $wp_roles;
 					<input name='wbpolls_settings[hidden]' type='hidden' value="" />
 					<?php
 					settings_fields( 'buddypress_wbpolls' );
-						do_settings_sections( 'buddypress_wbpolls' );
+					do_settings_sections( 'buddypress_wbpolls' );
 					?>
 					<div class="form-table polls-general-options">
 
@@ -225,7 +225,10 @@ global $wp_roles;
 						</div>
 				</div>
 			</div>
-				<?php submit_button(); ?>
+				<?php 
+					submit_button(); 
+					wp_nonce_field( 'bp_polls_settings_nonce_action', 'bp_polls_settings_nonce' );				
+				?>
 		</form>
 	</div>
 </div>

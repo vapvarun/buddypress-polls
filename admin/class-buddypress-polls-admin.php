@@ -330,29 +330,37 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		 */
 		public function bpolls_admin_register_settings() {
 			//phpcs:disable
-
+			
 			if ( isset( $_POST['bpolls_settings'] ) ) { 
-				unset( $_POST['bpolls_settings']['hidden'] ); 
-				update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); 
+				if( isset( $_POST['bp_polls_general_settings_nonce'] ) && wp_verify_nonce( $_POST['bp_polls_general_settings_nonce'], 'bp_polls_general_settings_nonce_action' ) ) {
+					unset( $_POST['bpolls_settings']['hidden'] ); 
+					update_site_option( 'bpolls_settings', wp_unslash( $_POST['bpolls_settings'] ) ); 
+				} 
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
 
 			if ( isset( $_POST['wbpolls_settings'] ) ) { 
-				unset( $_POST['wbpolls_settings']['hidden'] ); 
-				update_site_option( 'wbpolls_settings', wp_unslash( $_POST['wbpolls_settings'] ) ); 
+				if( isset( $_POST['bp_polls_settings_nonce'] ) && wp_verify_nonce( $_POST['bp_polls_settings_nonce'], 'bp_polls_settings_nonce_action' ) ) {
+					unset( $_POST['wbpolls_settings']['hidden'] ); 
+					update_site_option( 'wbpolls_settings', wp_unslash( $_POST['wbpolls_settings'] ) ); 
+				}
 				wp_safe_redirect( $_POST['_wp_http_referer'] );
 				exit();
 			}
 			if ( isset( $_POST['wbpolls_notification_settings'] ) ) { 
-				unset( $_POST['wbpolls_notification_settings']['hidden'] ); 
-				update_site_option( 'wbpolls_notification_settings', wp_unslash( $_POST['wbpolls_notification_settings'] ) );
+				if( isset( $_POST['bp_polls_notification_settings_nonce'] ) && wp_verify_nonce( $_POST['bp_polls_notification_settings_nonce'], 'bp_polls_notification_settings_nonce_action' ) ) {
+					unset( $_POST['wbpolls_notification_settings']['hidden'] ); 
+					update_site_option( 'wbpolls_notification_settings', wp_unslash( $_POST['wbpolls_notification_settings'] ) );
+				}
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
 			if ( isset( $_POST['wbpolls_notification_setting_options'] ) ) { 
-				unset( $_POST['wbpolls_notification_setting_options']['hidden'] ); 
-				update_site_option( 'wbpolls_notification_setting_options', wp_unslash( $_POST['wbpolls_notification_setting_options'] ) ); 
+				if( isset( $_POST['bp_polls_notification_text_settings_nonce'] ) && wp_verify_nonce( $_POST['bp_polls_notification_text_settings_nonce'], 'bp_polls_notification_text_settings_nonce_action' ) ) {
+					unset( $_POST['wbpolls_notification_setting_options']['hidden'] ); 
+					update_site_option( 'wbpolls_notification_setting_options', wp_unslash( $_POST['wbpolls_notification_setting_options'] ) ); 
+				}
 				wp_safe_redirect( $_POST['_wp_http_referer'] ); 
 				exit();
 			}
@@ -399,7 +407,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			}
 			global $wpdb;
 
-			$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = 'bpolls_total_votes' group by activity_id having meta_value=max(meta_value) order by meta_value desc" );
+			$sql_query = $wpdb->prepare( "SELECT * from {$wpdb->prefix}bp_activity_meta where meta_key = %s group by activity_id having meta_value=max(meta_value) order by meta_value desc", 'bpolls_total_votes' );
+
+			$results = $wpdb->get_row( $sql_query );
 
 			$max_votes_act_link = '#';
 			$title              = '';
@@ -488,7 +498,9 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			global $wpdb;
 
 			if ( class_exists( 'BuddyPress' ) ) {
-				$results = $wpdb->get_row( "SELECT * from {$wpdb->prefix}bp_activity where type = 'activity_poll' group by id having date_recorded=max(date_recorded) order by date_recorded desc" );
+
+				$sql_query = $wpdb->prepare( "SELECT * from {$wpdb->prefix}bp_activity where type = %s group by id having date_recorded=max(date_recorded) order by date_recorded desc", 'activity_poll' ); 
+				$results   = $wpdb->get_row( $sql_query );
 
 				$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
 				$poll_wdgt_stngs = $poll_wdgt->get_settings();
@@ -517,9 +529,10 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 			if ( ! empty( $subscriber ) ) {
 				$subscriber->add_cap( 'upload_files' );
 			}
-
-			if ( isset( $_REQUEST['export_csv'] ) && 1 == $_REQUEST['export_csv'] && isset( $_REQUEST['buddypress_poll'] ) && 1 == $_REQUEST['buddypress_poll'] && isset( $_REQUEST['activity_id'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-				$activity_id   = isset( $_REQUEST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['activity_id'] ) ) : 0; // phpcs:ignore WordPress.Security.NonceVerification
+			
+			if ( isset( $_REQUEST['export_csv'] ) && 1 == $_REQUEST['export_csv'] && isset( $_REQUEST['buddypress_poll'] ) && 1 == $_REQUEST['buddypress_poll'] && isset( $_REQUEST['activity_id'] ) && isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'bp_polls_export_csv_nonce' ) ) { 
+				
+				$activity_id   = isset( $_REQUEST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['activity_id'] ) ) : 0; 
 				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
 				$file         = 'buddypress-activity-poll-info.csv';

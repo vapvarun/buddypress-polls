@@ -29,7 +29,7 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 					<input name='wbpolls_notification_settings[hidden]' type='hidden' value="" />
 					<?php
 					settings_fields( 'buddypress_wbpolls' );
-						do_settings_sections( 'buddypress_wbpolls' );
+					do_settings_sections( 'buddypress_wbpolls' );
 					?>
 					<div class="form-table polls-general-options">
 						<div class="wbcom-settings-section-wrap">
@@ -107,7 +107,10 @@ if ( is_multisite() && is_plugin_active_for_network( plugin_basename( __FILE__ )
 					</div>
 				</div>
 			</div>
-            <?php submit_button(); ?>
+            <?php 
+				submit_button(); 
+				wp_nonce_field( 'bp_polls_notification_settings_nonce_action', 'bp_polls_notification_settings_nonce' );
+			?>
 		</form>
 	</div>
 </div>

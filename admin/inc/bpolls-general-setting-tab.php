@@ -274,7 +274,10 @@ if ( class_exists( 'Buddypress' ) ) {
 				<?php } ?>
 		</div>
 	</div>
-		<?php submit_button(); ?>
+		<?php 
+			submit_button();
+			wp_nonce_field( 'bp_polls_general_settings_nonce_action', 'bp_polls_general_settings_nonce' );
+		?>
 	</form>
 	</div>
 	</div>

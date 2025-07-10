@@ -135,7 +135,10 @@ $bpmb_pronotify_option = get_option( 'wbpolls_notification_setting_options' );
 						</div>
 					</div>
 				</div>
-				<?php submit_button(); ?>
+				<?php 
+					submit_button(); 
+				    wp_nonce_field( 'bp_polls_notification_text_settings_nonce_action', 'bp_polls_notification_text_settings_nonce' );
+				?>
 			</form>
 		</div>
 	</div>
