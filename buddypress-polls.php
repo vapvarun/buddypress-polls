@@ -417,8 +417,8 @@ function buddypress_polls_migration() {
 							}
 						}
 						/* saved User id in activity meta */
-						$existing_useid              = isset( $activity_meta['poll_users'] ) ? $activity_meta['poll_users'] : array();
-						$activity_meta['poll_users'] = array_unique( array_merge( $existing_useid, array( $user_id ) ) );
+						$existing_user_id              = isset( $activity_meta['poll_users'] ) ? $activity_meta['poll_users'] : array();
+						$activity_meta['poll_users'] = array_unique( array_merge( $existing_user_id, array( $user_id ) ) );
 
 						bp_activity_update_meta( $activity_id, 'bpolls_meta', $activity_meta );
 					}
