@@ -16,7 +16,7 @@ class Wb_Poll_Report extends WP_Widget {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
-	private function enqueue_scripts() {
+	public function enqueue_scripts() {
 
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			$js_extension = '.js';

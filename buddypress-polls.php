@@ -443,8 +443,10 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 	}
 	if ( plugin_basename( __FILE__ ) === $plugin ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { //phpcs:ignore
-			wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
-			exit;
+			if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'activate-plugin_' . $plugin ) ) {
+				wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
+				exit;
+			}
 		}
 	}
 }
@@ -715,8 +717,8 @@ function buddypress_polls_navigation() {
 
 		if ( $links ) {
 			echo '<nav class="navigation posts-navigation wbpoll-archive-navigation" role="navigation">';
-			echo '<h2 class="screen-reader-text">Posts navigation</h2>';
-			echo '<div class="nav-links">' . esc_url( $links ) . '</div>';
+			echo '<h2 class="screen-reader-text">' . esc_html__( 'Posts navigation', 'buddypress-polls' ) . '</h2>'; // Ensure screen reader text is escaped
+			echo '<div class="nav-links">' . wp_kses_post( $links ) . '</div>'; // Use wp_kses_post for HTML output
 			echo '</nav>';
 		}
 		
