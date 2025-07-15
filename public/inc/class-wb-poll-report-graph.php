@@ -15,7 +15,8 @@ class Wb_Poll_Report extends WP_Widget {
 		);
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
-	function enqueue_scripts() {
+
+	private function enqueue_scripts() {
 
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			$js_extension = '.js';
@@ -31,33 +32,30 @@ class Wb_Poll_Report extends WP_Widget {
 
 	// Widget front-end display.
 	public function widget( $args, $instance ) {
-		global $wpdb, $current_user;
-
 		/*
-		  * Widget output.
+		 * Widget output.
 		 */
-		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $args['before_widget'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 
 		/*
-			* Widget content.
+		 * Widget content.
 		 */
 		$poll_id = $instance['wb_activity_default'];
 		echo '<h4 class="widget-title"><span>' . esc_html__( $instance['title'], 'buddypress-polls' ) . '</span></h4>';
 		if ( $instance['wb_poll_type'] == 'all_voted_poll' ) {
-
-			echo WBPollHelper::show_backend_single_poll_widget_result_all_voted( esc_html( $poll_id ), 'shortcode', 'text' ); //phpcs:ignore
+			echo WBPollHelper::show_backend_single_poll_widget_result_all_voted(); //phpcs:ignore
 		} else {
 			echo WBPollHelper::show_backend_single_poll_widget_result( esc_html( $poll_id ), 'shortcode', 'text' ); //phpcs:ignore
 		}?>
 		<script>
 			jQuery(document).ready(function() {
 			jQuery('#poll_seletect').change(function() {
-			  // Perform AJAX request here
-			  var pollid = jQuery(this).val();
+			// Perform AJAX request here
+			var pollid = jQuery(this).val();
 			const data = {
 				pollid: pollid,
 			};
-			var siteUrl =wbpollpublic.url;
+			var siteUrl = wbpollpublic.url;
 			jQuery.ajax({
 				url: siteUrl + '/wp-json/wbpoll/v1/listpoll/result/poll',
 				type: 'POST',
@@ -75,7 +73,7 @@ class Wb_Poll_Report extends WP_Widget {
 		  });
 		</script>
 		<?php
-		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		echo wp_kses_post( $args['after_widget'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 	}
 
 	// Widget form back-end display.
@@ -94,14 +92,15 @@ class Wb_Poll_Report extends WP_Widget {
 
 		$defaults = array(
 			'title'               => __( 'WB Poll Report', 'buddypress-polls' ),
-			'wb_activity_default' => '',
+			'wb_activity_default' => 0,
 			'wb_poll_type'        => '',
 		);
 
 		$instance            = wp_parse_args( (array) $instance, $defaults );
-		$title               = wp_strip_all_tags( $instance['title'] );
-		$wb_activity_default = wp_strip_all_tags( $instance['wb_activity_default'] );
-		$wb_poll_type        = wp_strip_all_tags( $instance['wb_poll_type'] );
+
+		$title               = sanitize_text_field( $instance['title'] );
+		$wb_activity_default = absint( $instance['wb_activity_default'] );
+		$wb_poll_type        = sanitize_text_field( $instance['wb_poll_type'] );
 		?>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label>
@@ -109,8 +108,8 @@ class Wb_Poll_Report extends WP_Widget {
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'wb_poll_type' ) ); ?>"><?php esc_html_e( 'Poll Result Type :', 'buddypress-polls' ); ?></label>
 			<select name="<?php echo esc_attr( $this->get_field_name( 'wb_poll_type' ) ); ?>" id="wb_poll_type">	
-				<option value="all_voted_poll" <?php selected( $wb_poll_type, 'all_voted_poll' ); ?>>All Voted Poll</option>	
-				<option value="single_poll" <?php selected( $wb_poll_type, 'single_poll' ); ?>>Single poll</option>			
+				<option value="all_voted_poll" <?php selected( $wb_poll_type, 'all_voted_poll' ); ?>><?php esc_html_e( 'All Voted Poll', 'buddypress-polls' )?></option>	
+				<option value="single_poll" <?php selected( $wb_poll_type, 'single_poll' ); ?>><?php esc_html_e( 'Single poll', 'buddypress-polls' ); ?></option>			
 			</select>
 		</p>
 		<p class="default_seting" style="
@@ -175,10 +174,9 @@ class Wb_Poll_Report extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-
-		$instance['title']               = wp_strip_all_tags( $new_instance['title'] );
-		$instance['wb_activity_default'] = wp_strip_all_tags( $new_instance['wb_activity_default'] );
-		$instance['wb_poll_type']        = wp_strip_all_tags( $new_instance['wb_poll_type'] );
+		$instance['title']               = sanitize_text_field( $new_instance['title'] );
+		$instance['wb_activity_default'] = absint( $new_instance['wb_activity_default'] );
+		$instance['wb_poll_type']        = sanitize_text_field( $new_instance['wb_poll_type'] );
 		return $instance;
 	}
 }
