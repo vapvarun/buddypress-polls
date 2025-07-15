@@ -46,106 +46,16 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	 * @param hook $hook hook.
 	 */
 	public function enqueue_scripts( $hook ) {
-		global $wpdb;
-		$poll_wdgt       = new BP_Poll_Activity_Graph_Widget();
-		$poll_wdgt_stngs = $poll_wdgt->get_settings();
-		$table = $wpdb->prefix . 'bp_activity';
-		global $wpdb,$current_user;
-
-		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
-
-			$user_id = get_current_user_id();
-				
-
-				$query = $wpdb->prepare(
-					"
-					SELECT * FROM $table
-					WHERE type = %s AND user_id = %d
-					ORDER BY date_recorded DESC
-					",
-					'activity_poll',
-					$user_id
-				);
-
-				$results = $wpdb->get_results($query);
-
-		} else {
-			$results = $wpdb->prepare( "SELECT * from $table  where type = %s ORDER BY date_recorded DESC",'activity_poll' );
-			$results = $wpdb->get_results($results);
-		}
-
-		$activity_ids = array();
-		if ( ! empty( $results ) ) {
-			foreach ( $results as  $result ) {
-				$activity_ids[]['activity_default'] = $result->id;
-			}
-		}
-
-		$_instance                = array(
-			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
-			'max_activity'     => 5,
-			'activity_default' => ( ! empty( $activity_ids ) ) ? $activity_ids : array(),
-		);
-		$time                     = time();
-		$poll_wdgt_stngs[ $time ] = $_instance;
-		$uptd_votes               = array();
-		if ( is_array( $poll_wdgt_stngs ) ) {
-			foreach ( $poll_wdgt_stngs[ $time ]['activity_default'] as $key => $value ) {
-				if ( isset( $value['activity_default'] ) ) {
-					$activity_id      = $value['activity_default'];
-					$args             = array( 'activity_ids' => $activity_id );
-					$activity_details = bp_activity_get_specific( $args );
-					if ( is_array( $activity_details ) ) {
-						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words( $activity_details['activities'][0]->content, 10, '...' ) : '';
-					} else {
-						$poll_title = '';
-					}
-					$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
-					$poll_options  = isset( $activity_meta['poll_option'] ) ? $activity_meta['poll_option'] : '';
-
-					if ( ! array_key_exists( $activity_id, $uptd_votes ) ) {
-						if ( ! empty( $poll_options ) && is_array( $poll_options ) ) {
-							foreach ( $poll_options as $key => $value ) {
-								if ( isset( $activity_meta['poll_total_votes'] ) ) {
-									$total_votes = $activity_meta['poll_total_votes'];
-								} else {
-									$total_votes = 0;
-								}
-								if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
-									$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
-								} else {
-									$this_optn_vote = 0;
-								}
-
-								if ( 0 != $total_votes ) {
-									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
-								} else {
-									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
-								}
-
-								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
-
-								$uptd_votes[ $activity_id ][] = array(
-									'poll_title' => $poll_title,
-									'label'      => $value,
-									'y'          => $vote_percent,
-									'color'      => bpolls_color(),
-
-								);
-							}
-						}
-					}
-				}
-			}
-		}
-
+		
 		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
 			$js_extension = '.js';
 		} else {
 			$js_extension = '.min.js';
 		}
 
-		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph' . $js_extension, array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
+		$updated_user_votes = $this->buddypress_polls_fetch_updated_user_votes();
+
+		wp_register_script( 'bpolls-poll-activity-graph-js' . $hook, BPOLLS_PLUGIN_URL . '/public/js/poll-activity-graph' . $js_extension, array( 'jquery' ), BPOLLS_PLUGIN_VERSION );
 
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js' . $hook );
 
@@ -157,7 +67,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			array(
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'ajax_nonce' => wp_create_nonce( 'bpolls_widget_security' ),
-				'votes'      => wp_json_encode( $uptd_votes ),
+				'votes'      => wp_json_encode( $updated_user_votes ),
 			)
 		);
 
@@ -183,13 +93,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		if ( ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
 			$user_id = get_current_user_id();
 				
-
-				$query = $wpdb->prepare(
-					"
-					SELECT * FROM $table
-					WHERE type = %s AND user_id = %d
-					ORDER BY date_recorded DESC
-					",
+				$query = $wpdb->prepare( " SELECT * FROM $table WHERE type = %s AND user_id = %d ORDER BY date_recorded DESC ",
 					'activity_poll',
 					$user_id
 				);
@@ -255,7 +159,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						bp_the_activity();
 						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; //phpcs:ignore?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo esc_html( $activities_template->activity->content ); ?></option>
 					<?php endwhile; ?>
 				</select>
 			</p>
@@ -292,9 +196,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']            = wp_strip_all_tags( $new_instance['title'] );
-		$instance['max_activity']     = wp_strip_all_tags( $new_instance['max_activity'] );
-		$instance['activity_default'] = wp_strip_all_tags( $new_instance['activity_default'] );
+		$instance['title']            = sanitize_text_field( $new_instance['title'] );
+		$instance['max_activity']     = absint( $new_instance['max_activity'] );
+		$instance['activity_default'] = absint( $new_instance['activity_default'] );
 
 		return $instance;
 	}
@@ -321,7 +225,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		if ( bp_has_activities( $act_args ) ) {
 			$act_default = $activities_template->activities[0]->id;
 		} else {
-			$act_default = '';
+			$act_default = 0;
 		}
 
 		$defaults = array(
@@ -332,9 +236,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		$title            = wp_strip_all_tags( $instance['title'] );
-		$max_activity     = wp_strip_all_tags( $instance['max_activity'] );
-		$activity_default = wp_strip_all_tags( $instance['activity_default'] );
+		$title            = sanitize_text_field( $instance['title'] );
+		$max_activity     = absint( $instance['max_activity'] );
+		$activity_default = absint( $instance['activity_default'] );
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
@@ -350,7 +254,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						bp_the_activity();
 						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo $activities_template->activity->content; //phpcs:ignore?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo esc_html( $activities_template->activity->content ); ?></option>
 					<?php endwhile; ?>
 				</select>
 			<?php } else { ?>
@@ -360,5 +264,108 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		<?php
 		// Restore the global.
 		$activities_template = $old_activities_template;
+	}
+
+	/**
+	 * Function to fetch updated user votes on the polls.
+	 * 
+	 * @return array $updated_votes Array of user votes related to poll.
+	 * @since 4.4.1
+	 */
+	private function buddypress_polls_fetch_updated_user_votes() {
+
+		global $wpdb,$current_user;
+
+		$poll_wdgt_stngs = $this->get_settings();
+		$table = $wpdb->prefix . 'bp_activity';
+
+		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
+
+			$user_id = get_current_user_id();
+				
+			$query = $wpdb->prepare(
+				"
+				SELECT * FROM {$table}
+				WHERE type = %s AND user_id = %d
+				ORDER BY date_recorded DESC
+				",
+				'activity_poll',
+				$user_id
+			);
+
+			$results = $wpdb->get_results($query);
+
+		} else {
+			$results = $wpdb->prepare( "SELECT * FROM {$table} WHERE type = %s ORDER BY date_recorded DESC", 'activity_poll' );
+			$results = $wpdb->get_results($results);
+		}
+
+		$activity_ids = array();
+		if ( ! empty( $results ) ) {
+			foreach ( $results as  $result ) {
+				$activity_ids[]['activity_default'] = $result->id;
+			}
+		}
+
+		$_instance                = array(
+			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
+			'max_activity'     => 5,
+			'activity_default' => ( ! empty( $activity_ids ) ) ? $activity_ids : array(),
+		);
+
+		$time                     = time();
+		$poll_wdgt_stngs[ $time ] = $_instance;
+		$updated_votes               = array();
+		if ( is_array( $poll_wdgt_stngs ) ) {
+			foreach ( $poll_wdgt_stngs[ $time ]['activity_default'] as $key => $value ) {
+				if ( isset( $value['activity_default'] ) ) {
+					$activity_id      = $value['activity_default'];
+					$args             = array( 'activity_ids' => $activity_id );
+					$activity_details = bp_activity_get_specific( $args );
+					if ( is_array( $activity_details ) ) {
+						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words( $activity_details['activities'][0]->content, 10, '...' ) : '';
+					} else {
+						$poll_title = '';
+					}
+					$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+					$poll_options  = isset( $activity_meta['poll_option'] ) ? $activity_meta['poll_option'] : '';
+
+					if ( ! array_key_exists( $activity_id, $updated_votes ) ) {
+						if ( ! empty( $poll_options ) && is_array( $poll_options ) ) {
+							foreach ( $poll_options as $key => $value ) {
+								if ( isset( $activity_meta['poll_total_votes'] ) ) {
+									$total_votes = $activity_meta['poll_total_votes'];
+								} else {
+									$total_votes = 0;
+								}
+								if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
+									$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
+								} else {
+									$this_optn_vote = 0;
+								}
+
+								if ( 0 != $total_votes ) {
+									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
+								} else {
+									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
+								}
+
+								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
+
+								$updated_votes[ $activity_id ][] = array(
+									'poll_title' => $poll_title,
+									'label'      => $value,
+									'y'          => $vote_percent,
+									'color'      => bpolls_color(),
+
+								);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return $updated_votes;
 	}
 }

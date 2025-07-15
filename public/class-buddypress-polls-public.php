@@ -215,7 +215,7 @@ class Buddypress_Polls_Public {
 		wp_register_script( 'pristine', plugin_dir_url( __FILE__ ) . 'js/vendor/pristine.min.js', array(), $this->version, true );
 		wp_register_script( 'wbpoll-publicjs', plugin_dir_url( __FILE__ ) . 'js/wbpoll-public' . $js_extension, array( 'jquery', 'wbpoll-base64', 'pristine' ), $this->version, true );
 
-		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls' . $js_extension, array( 'jquery', 'ebpoll-base64', 'pristine' ), $this->version, true );
+		wp_register_script( 'buddypress-multi-polls', plugin_dir_url( __FILE__ ) . 'js/buddypress-multi-polls' . $js_extension, array( 'jquery', 'wbpoll-base64', 'pristine' ), $this->version, true );
 
 		// Create poll JS file.
 		wp_register_script( 'wbpolls-create-poll', plugin_dir_url( __FILE__ ) . 'js/create-poll' . $js_extension, array( 'jquery' ), $this->version, true );
