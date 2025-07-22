@@ -84,12 +84,13 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$css_extension = '.min.css';
 			}
 
-			$activity_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'bp-activity';
-			if ( isset( $activity_page ) && 'bp-activity' === $activity_page ) {
+			$activity_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+			if ( isset( $activity_page ) && ('bp-activity' === $activity_page) ) {
 				wp_enqueue_style( $this->plugin_name, BPOLLS_PLUGIN_URL . 'public/css' . $rtl_css . '/buddypress-polls-public' . $css_extension, array(), $this->version, 'all' );
 			}
 
-			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
+			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
+			
 			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) { //phpcs:ignore
 
 				wp_enqueue_style( 'wp-color-picker' );
@@ -156,7 +157,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 
 			global $pagenow;
 
-			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : 'buddypress-polls';
+			$admin_page = filter_input( INPUT_GET, 'page' ) ? filter_input( INPUT_GET, 'page' ) : '';
 			if ( ( isset( $admin_page ) && 'buddypress-polls' === $admin_page ) || ( isset( $_GET['post_type'] ) && $_GET['post_type'] == 'wbpoll' ) ) { //phpcs:ignore
 				wp_enqueue_script( 'wp-color-picker' );
 

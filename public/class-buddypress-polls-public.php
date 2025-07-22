@@ -122,17 +122,15 @@ class Buddypress_Polls_Public {
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( function_exists( 'is_buddypress' ) && is_buddypress()
-			|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
+		if ( function_exists( 'is_buddypress' ) && ( is_buddypress() || is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
 			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
 			|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
 			|| ( function_exists( 'buddypress_shortcodes_body_classes' ) && buddypress_shortcodes_body_classes() )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
 			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
-			|| ( is_single() && get_post_type() == 'business' )
-			|| 'activity' === $current_component
-			|| function_exists( 'bp_search_is_search' ) && bp_search_is_search()
+			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) ) 
+			|| ( is_single() && get_post_type() == 'business' ) || ( 'activity' === $current_component )
+			|| function_exists( 'bp_search_is_search' ) && bp_search_is_search() )
 			) {
 			wp_enqueue_style( $this->plugin_name );
 			wp_enqueue_style( $this->plugin_name . '-time' );
@@ -143,9 +141,6 @@ class Buddypress_Polls_Public {
 				wp_enqueue_style( 'wb-icons' );
 			}
 		}
-
-		// Enqueue multi polls style.
-		wp_enqueue_style( 'buddypress-multi-polls' );
 
 		if ( is_page() && get_the_ID() == $poll_dashboard_page ) {
 
@@ -175,6 +170,9 @@ class Buddypress_Polls_Public {
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
 				wp_enqueue_style( 'wb-icons' );
 			}
+
+			// Enqueue multi polls style.
+			wp_enqueue_style( 'buddypress-multi-polls' );
 		}
 
 	}
@@ -301,7 +299,6 @@ class Buddypress_Polls_Public {
 			wp_enqueue_script( $this->plugin_name );
 
 		}
-		wp_enqueue_script( 'wbpoll-publicjs' );
 		if ( is_page() && get_the_ID() == $poll_dashboard_page ) {
 			wp_enqueue_script( 'wbpoll-publicjs' );
 			wp_enqueue_script( 'wbpolls-poll-dashboard-js' );
