@@ -93,12 +93,23 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		if ( ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
 			$user_id = get_current_user_id();
 				
-				$query = $wpdb->prepare( " SELECT * FROM $table WHERE type = %s AND user_id = %d ORDER BY date_recorded DESC ",
-					'activity_poll',
-					$user_id
-				);
+			$query = $wpdb->prepare( "SELECT * FROM $table WHERE type = %s AND user_id = %d ORDER BY date_recorded DESC ",
+				'activity_poll',
+				$user_id
+			);
 
-				$results = $wpdb->get_results($query);
+			$results = $wpdb->get_results($query);
+			$user_default_activity = false;
+			if( !empty( $results ) ) {
+				foreach( $results as $result_index ) {
+					if( $result_index->id == $instance['activity_default'] ) {
+						$user_default_activity = true;
+					} 
+				}
+			} 
+			if( ! $user_default_activity ) { 
+				$instance['activity_default'] = $results[0]->id;
+			}
 
 		} else {
 			$results = $wpdb->prepare( "SELECT * from $table  where type = %s ORDER BY date_recorded DESC",'activity_poll' );
