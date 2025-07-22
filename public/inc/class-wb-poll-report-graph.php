@@ -27,6 +27,13 @@ class Wb_Poll_Report extends WP_Widget {
 		wp_register_script( 'bpolls-poll-activity-graph-js', BPOLLS_PLUGIN_URL . '/public/js/wbpoll-graph-repoet' . $js_extension, array( 'jquery' ) );
 
 		wp_enqueue_script( 'bpolls-poll-activity-graph-js' );
+		wp_localize_script( 
+			'bpolls-poll-activity-graph-js', 
+			'bppolls_activity_graph',
+			array(
+				'url' => site_url()
+			) 
+		);
 		wp_set_script_translations( 'bpolls-poll-activity-graph-js', 'buddypress-polls' );
 	}
 
@@ -55,7 +62,7 @@ class Wb_Poll_Report extends WP_Widget {
 			const data = {
 				pollid: pollid,
 			};
-			var siteUrl = wbpollpublic.url;
+			var siteUrl = bppolls_activity_graph.url;
 			jQuery.ajax({
 				url: siteUrl + '/wp-json/wbpoll/v1/listpoll/result/poll',
 				type: 'POST',

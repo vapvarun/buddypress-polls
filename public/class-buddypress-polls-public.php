@@ -663,9 +663,13 @@ class Buddypress_Polls_Public {
 			$user_additional_option = $_POST['bpolls_user_additional_option'] ?? 'no';
 			
 			$user_hide_results =  $_POST['bpolls_user_hide_results'] ?? 'no';
+
+			if ( isset( $_POST['bpolls-close-date'] ) && ! empty( $_POST['bpolls-close-date'] ) ) { //phpcs:ignore
+				$close_date = isset( $_POST['bpolls-close-date'] ) ? $_POST['bpolls-close-date'] : ''; // phpcs:ignore 
+			} else {
+				$close_date = 0;
+			}
 			
-			$close_date = $_POST['bpolls-close-date'] ?? 0; // phpcs:ignore 
-						
 			$poll_optn_arr = array();
 			foreach ( (array) map_deep( $_POST['bpolls_input_options'], 'sanitize_text_field' ) as $key => $value ) { // phpcs:ignore
 				if ( '' !== $value ) {
@@ -684,6 +688,8 @@ class Buddypress_Polls_Public {
 				'close_date'               => $close_date,
 				'bpolls_thankyou_feedback' => $bpolls_thankyou_feedback,
 			);
+
+
 			bp_activity_update_meta( $activity_id, 'bpolls_meta', $poll_meta );
 
 			$poll_image = get_option( 'temp_poll_image' );
