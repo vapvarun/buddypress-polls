@@ -176,7 +176,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			</p>
 			<canvas class="poll-bar-chart" data-id="<?php echo esc_attr( $instance['activity_default'] ); ?>" id="bpolls-activity-chart-<?php echo esc_attr( $instance['activity_default'] ); ?>" width="800" height="450"></canvas>
 			<?php if ( is_admin() ) : 
-				$url = admin_url() . '?export_csv=1&buddypress_poll=1&activity_id=' . esc_attr( $activity_default );
+				$url = admin_url() . '?export_csv=1&buddypress_poll=1&activity_id=' . $activity_default; //phpcs:ignore
 				$url = wp_nonce_url( $url, 'bp_polls_export_csv_nonce' );
 				?> 
 				<a href="<?php echo esc_url( $url ); ?>" target="_blank" id="export-poll-data" class="button button-primary" ><?php esc_html_e( 'Export CSV', 'buddypress-polls' ); ?></a>

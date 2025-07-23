@@ -175,7 +175,7 @@ if ( ! class_exists( 'Buddypress_Polls' ) ) {
 			$this->loader->add_action( 'admin_menu', $plugin_admin, 'bpolls_add_menu_buddypress_polls' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'bpolls_admin_register_settings' );
 			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_add_dashboard_widgets' );
-			$this->loader->add_action( 'init', $plugin_admin, 'bpolls_activity_polls_data_export' );
+			$this->loader->add_action( 'wp_dashboard_setup', $plugin_admin, 'bpolls_activity_polls_data_export' );
 			$this->loader->add_action( 'admin_init', $plugin_admin, 'wbcom_hide_all_admin_notices_from_setting_page' );
 
 			// init cookie and custom post types
