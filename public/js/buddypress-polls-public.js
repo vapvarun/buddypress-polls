@@ -265,7 +265,9 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 
 					$( '.bpolls-polls-option-html' ).slideToggle( 500 );
 
-					$( '.bpolls-datetimepicker' ).datetimepicker();
+					$( '.bpolls-datetimepicker' ).datetimepicker({
+						minDate: 0
+					});
 					var poll_html   = $( '.bpolls-polls-option-html' ).html();
 					var option_html = $( '.bpolls-option' ).html();
 

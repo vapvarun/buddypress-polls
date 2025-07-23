@@ -50,6 +50,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 		// style the radio yes no
 		$('.wbpollmetadatepicker').datetimepicker(
 			{
+				minDate: 0,
 				dateFormat: 'yy-mm-dd',
 				timeFormat: 'HH:mm:ss'
 			}

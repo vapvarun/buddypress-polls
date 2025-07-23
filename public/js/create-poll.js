@@ -1019,7 +1019,10 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 		});
 
 		
-		jQuery('.wbpollmetadatepicker').datetimepicker();
+		jQuery('#_wbpoll_end_date').datetimepicker({
+			minDate: 0
+		});
+		jQuery('#_wbpoll_start_date').datetimepicker();
 		var file_frame;
 		jQuery(document).on(
 			'click',
