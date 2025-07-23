@@ -251,7 +251,7 @@
 /* Pagination */
 
 nav.navigation.wbpoll-archive-navigation {
-    margin: 1rem 0;
+    margin: 1rem 0 !important;
     border: 0;
 }
 

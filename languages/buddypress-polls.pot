@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-03T17:04:51+05:30\n"
+"POT-Creation-Date: 2025-07-23T04:46:49+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: buddypress-polls\n"
 
 #. Plugin Name of the plugin
@@ -39,18 +39,18 @@ msgstr ""
 msgid "https://wbcomdesigns.com"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:210
-#: admin/class-buddypress-polls-admin.php:720
-#: admin/class-buddypress-polls-admin.php:1181
-#: admin/class-buddypress-polls-admin.php:1194
+#: admin/class-buddypress-polls-admin.php:211
+#: admin/class-buddypress-polls-admin.php:734
+#: admin/class-buddypress-polls-admin.php:1195
+#: admin/class-buddypress-polls-admin.php:1208
 msgid "Click to copy"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:211
+#: admin/class-buddypress-polls-admin.php:212
 msgid "Copied to clipboard"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:212
+#: admin/class-buddypress-polls-admin.php:213
 #: includes/class-wbpoll-helper.php:2411
 #: includes/class-wbpoll-helper.php:2442
 #: includes/class-wbpoll-helper.php:2495
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Remove"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:213
+#: admin/class-buddypress-polls-admin.php:214
 #: includes/class-wbpoll-helper.php:2403
 #: includes/class-wbpoll-helper.php:2436
 #: includes/class-wbpoll-helper.php:2489
@@ -68,20 +68,20 @@ msgstr ""
 msgid "Move"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:214
+#: admin/class-buddypress-polls-admin.php:215
 msgid "Drag and Drop to reorder answers"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:215
+#: admin/class-buddypress-polls-admin.php:216
 msgid "Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:216
+#: admin/class-buddypress-polls-admin.php:217
 msgid "Are you sure you want to delete this answer?"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:217
-#: admin/class-buddypress-polls-admin.php:972
+#: admin/class-buddypress-polls-admin.php:218
+#: admin/class-buddypress-polls-admin.php:986
 #: includes/class-wbpoll-helper.php:2238
 #: includes/class-wbpoll-helper.php:2278
 #: includes/class-wbpoll-helper.php:2294
@@ -105,8 +105,8 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:218
-#: admin/class-buddypress-polls-admin.php:973
+#: admin/class-buddypress-polls-admin.php:219
+#: admin/class-buddypress-polls-admin.php:987
 #: includes/class-wbpoll-helper.php:2239
 #: includes/class-wbpoll-helper.php:2279
 #: includes/class-wbpoll-helper.php:2295
@@ -130,119 +130,120 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:228
+#: admin/class-buddypress-polls-admin.php:229
 msgid "Please select"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:251
+#: admin/class-buddypress-polls-admin.php:252
 msgid "WB Plugins"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:252
+#: admin/class-buddypress-polls-admin.php:253
 msgid "General"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:254
+#: admin/class-buddypress-polls-admin.php:255
 msgid "Buddypress Polls Settings Page"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:254
-#: admin/class-buddypress-polls-admin.php:285
+#: admin/class-buddypress-polls-admin.php:255
+#: admin/class-buddypress-polls-admin.php:286
 #: admin/wbcom/templates/wbcom-plugins-page.php:121
 msgid "BuddyPress Polls"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:258
 #: admin/class-buddypress-polls-admin.php:259
+#: admin/class-buddypress-polls-admin.php:260
 msgid "Logs"
 msgstr ""
 
 #. translators: %s:
-#: admin/class-buddypress-polls-admin.php:287
+#: admin/class-buddypress-polls-admin.php:288
 #: admin/wbcom/templates/wbcom-license-page.php:11
+#, php-format
 msgid "Version %s"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:296
-#: admin/class-buddypress-polls-admin.php:305
+#: admin/class-buddypress-polls-admin.php:297
+#: admin/class-buddypress-polls-admin.php:306
 msgid "Welcome"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:297
-msgid "Community"
-msgstr ""
-
 #: admin/class-buddypress-polls-admin.php:298
-#: admin/class-buddypress-polls-admin.php:306
-msgid "Polls Settings"
+msgid "Community"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:299
 #: admin/class-buddypress-polls-admin.php:307
-msgid "Email Notifications"
+msgid "Polls Settings"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:300
 #: admin/class-buddypress-polls-admin.php:308
-msgid "Email Notification Text"
+msgid "Email Notifications"
 msgstr ""
 
 #: admin/class-buddypress-polls-admin.php:301
 #: admin/class-buddypress-polls-admin.php:309
+msgid "Email Notification Text"
+msgstr ""
+
+#: admin/class-buddypress-polls-admin.php:302
+#: admin/class-buddypress-polls-admin.php:310
 msgid "FAQ"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:313
+#: admin/class-buddypress-polls-admin.php:314
 msgid "Menu"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:373
+#: admin/class-buddypress-polls-admin.php:382
 msgid "Site Polls Data"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:379
-#: admin/class-buddypress-polls-admin.php:496
-#: public/inc/class-bp-poll-activity-graph.php:85
-#: public/inc/class-bp-poll-activity-graph.php:212
-#: public/inc/class-bp-poll-activity-graph.php:325
+#: admin/class-buddypress-polls-admin.php:388
+#: admin/class-buddypress-polls-admin.php:509
+#: public/inc/class-bp-poll-activity-graph.php:127
+#: public/inc/class-bp-poll-activity-graph.php:243
+#: public/inc/class-bp-poll-activity-graph.php:322
 msgid "Poll Graph"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:462
+#: admin/class-buddypress-polls-admin.php:473
 msgid "Polls Created"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:466
+#: admin/class-buddypress-polls-admin.php:477
 msgid "Highest Voted Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:470
+#: admin/class-buddypress-polls-admin.php:481
 msgid "Recent Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:478
-#: public/inc/class-bp-poll-activity-graph.php:271
+#: admin/class-buddypress-polls-admin.php:489
+#: public/inc/class-bp-poll-activity-graph.php:189
 msgid "No polls have been created."
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:609
+#: admin/class-buddypress-polls-admin.php:623
 #: includes/class-wbpoll-helper.php:119
 #: template/create-poll.php:124
 msgid "Edit Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:616
+#: admin/class-buddypress-polls-admin.php:630
 #: includes/class-wbpoll-helper.php:121
 msgid "View Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:655
+#: admin/class-buddypress-polls-admin.php:669
 #: template/create-poll.php:145
 msgid "Poll Title"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:656
-#: admin/class-buddypress-polls-admin.php:1505
+#: admin/class-buddypress-polls-admin.php:670
+#: admin/class-buddypress-polls-admin.php:1517
 #: admin/wbcom/templates/wbcom-license-page.php:25
 #: admin/wbcom/templates/wbcom-license-page.php:37
 #: edd-license/edd-plugin-license.php:412
@@ -255,41 +256,41 @@ msgstr ""
 msgid "Status"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:657
+#: admin/class-buddypress-polls-admin.php:671
 #: includes/class-wbpoll-helper.php:2243
 #: template/create-poll.php:667
 msgid "Start Date"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:658
+#: admin/class-buddypress-polls-admin.php:672
 #: includes/class-wbpoll-helper.php:2253
 #: template/create-poll.php:677
 msgid "End Date"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:659
+#: admin/class-buddypress-polls-admin.php:673
 msgid "Created"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:660
-#: admin/class-buddypress-polls-admin.php:1903
+#: admin/class-buddypress-polls-admin.php:674
+#: admin/class-buddypress-polls-admin.php:1915
 msgid "Votes"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:661
-#: admin/class-buddypress-polls-admin.php:770
+#: admin/class-buddypress-polls-admin.php:675
+#: admin/class-buddypress-polls-admin.php:784
 msgid "Shortcode"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:689
-#: admin/class-buddypress-polls-admin.php:698
+#: admin/class-buddypress-polls-admin.php:703
+#: admin/class-buddypress-polls-admin.php:712
 #: template/poll-dashboard.php:108
 #: template/poll-dashboard.php:117
 msgid "Not started yet."
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:694
-#: admin/class-buddypress-polls-admin.php:701
+#: admin/class-buddypress-polls-admin.php:708
+#: admin/class-buddypress-polls-admin.php:715
 #: template/poll-dashboard.php:113
 #: template/poll-dashboard.php:120
 #: template/poll-dashboard.php:274
@@ -299,30 +300,30 @@ msgstr ""
 msgid "Active"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:704
+#: admin/class-buddypress-polls-admin.php:718
 #: template/poll-dashboard.php:123
 #: template/poll-dashboard.php:284
 #: template/poll-dashboard.php:410
 msgid "Expired"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:750
+#: admin/class-buddypress-polls-admin.php:764
 msgid "Poll Options"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:760
+#: admin/class-buddypress-polls-admin.php:774
 msgid "Poll Result"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:780
+#: admin/class-buddypress-polls-admin.php:794
 msgid "Embed"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:897
+#: admin/class-buddypress-polls-admin.php:911
 msgid "Poll Answers"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:904
+#: admin/class-buddypress-polls-admin.php:918
 #: includes/class-wbpoll-helper.php:1587
 #: template/create-poll.php:220
 #: template/create-poll.php:234
@@ -330,69 +331,70 @@ msgstr ""
 msgid "Text Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:910
+#: admin/class-buddypress-polls-admin.php:924
 #: template/create-poll.php:260
 #: template/create-poll.php:281
 #: template/create-poll.php:558
 msgid "Image Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:916
+#: admin/class-buddypress-polls-admin.php:930
 #: template/create-poll.php:315
 #: template/create-poll.php:361
 #: template/create-poll.php:580
 msgid "Video Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:922
+#: admin/class-buddypress-polls-admin.php:936
 #: template/create-poll.php:414
 #: template/create-poll.php:459
 #: template/create-poll.php:609
 msgid "Audio Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:928
+#: admin/class-buddypress-polls-admin.php:942
 #: template/create-poll.php:501
 #: template/create-poll.php:516
 #: template/create-poll.php:633
 msgid "HTML Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:974
+#: admin/class-buddypress-polls-admin.php:988
 msgid "No comments"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1158
+#: admin/class-buddypress-polls-admin.php:1172
 msgid "Please save the post before entering poll answers."
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1362
+#: admin/class-buddypress-polls-admin.php:1376
 msgid "Error: Start date or end date is missing. "
 msgstr ""
 
 #. translators: %d:
-#: admin/class-buddypress-polls-admin.php:1392
+#: admin/class-buddypress-polls-admin.php:1406
+#, php-format
 msgid "Answer %d"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1501
+#: admin/class-buddypress-polls-admin.php:1513
 msgid "WB Poll Logs"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1506
-#: public/class-buddypress-polls-public.php:552
+#: admin/class-buddypress-polls-admin.php:1518
+#: public/class-buddypress-polls-public.php:550
 msgid "Poll"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1507
+#: admin/class-buddypress-polls-admin.php:1519
 msgid "User Name"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1508
+#: admin/class-buddypress-polls-admin.php:1520
 msgid "Date"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1509
+#: admin/class-buddypress-polls-admin.php:1521
 #: admin/wbcom/templates/wbcom-license-page.php:26
 #: admin/wbcom/templates/wbcom-license-page.php:38
 #: edd-license/edd-plugin-license.php:413
@@ -405,96 +407,97 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1522
+#: admin/class-buddypress-polls-admin.php:1534
 msgid "Open"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1522
-#: public/class-buddypress-polls-public.php:268
+#: admin/class-buddypress-polls-admin.php:1534
+#: public/class-buddypress-polls-public.php:265
 #: template/poll-dashboard.php:171
 #: template/poll-dashboard.php:297
 #: template/poll-dashboard.php:426
 msgid "Delete"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1527
+#: admin/class-buddypress-polls-admin.php:1539
 msgid "Log"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1528
+#: admin/class-buddypress-polls-admin.php:1540
 msgid "close"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1533
+#: admin/class-buddypress-polls-admin.php:1545
 msgid "Poll:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1541
+#: admin/class-buddypress-polls-admin.php:1553
 msgid "Received choices:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1562
+#: admin/class-buddypress-polls-admin.php:1574
 msgid "IP:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1570
+#: admin/class-buddypress-polls-admin.php:1582
 msgid "Date:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1578
+#: admin/class-buddypress-polls-admin.php:1590
 msgid "Browser:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1586
+#: admin/class-buddypress-polls-admin.php:1598
 msgid "User Id:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1594
+#: admin/class-buddypress-polls-admin.php:1606
 msgid "User Login:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1602
+#: admin/class-buddypress-polls-admin.php:1614
 msgid "User Name:"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1616
+#: admin/class-buddypress-polls-admin.php:1628
 msgid "No logs found."
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1635
-#: admin/class-buddypress-polls-admin.php:1651
-#: admin/class-buddypress-polls-admin.php:1667
+#: admin/class-buddypress-polls-admin.php:1647
+#: admin/class-buddypress-polls-admin.php:1663
+#: admin/class-buddypress-polls-admin.php:1679
 #: includes/class-wbpoll-helper.php:2408
 #: template/create-poll.php:183
 msgid "Text"
 msgstr ""
 
 #. translators: %s:
-#: admin/class-buddypress-polls-admin.php:1725
-#: admin/class-buddypress-polls-admin.php:2001
+#: admin/class-buddypress-polls-admin.php:1737
+#: admin/class-buddypress-polls-admin.php:2013
+#, php-format
 msgid "Total votes: %d"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1730
-#: admin/class-buddypress-polls-admin.php:1752
-#: admin/class-buddypress-polls-admin.php:1942
-#: admin/class-buddypress-polls-admin.php:1955
-#: admin/class-buddypress-polls-admin.php:1987
-#: admin/class-buddypress-polls-admin.php:2013
+#: admin/class-buddypress-polls-admin.php:1742
+#: admin/class-buddypress-polls-admin.php:1764
+#: admin/class-buddypress-polls-admin.php:1954
+#: admin/class-buddypress-polls-admin.php:1967
+#: admin/class-buddypress-polls-admin.php:1999
+#: admin/class-buddypress-polls-admin.php:2025
 msgid "Unknown Answer"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1839
-#: admin/class-buddypress-polls-admin.php:1876
+#: admin/class-buddypress-polls-admin.php:1851
+#: admin/class-buddypress-polls-admin.php:1888
 msgid "Guest User"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1864
-#: public/class-buddypress-polls-public.php:1456
+#: admin/class-buddypress-polls-admin.php:1876
+#: public/class-buddypress-polls-public.php:1431
 msgid "Users who voted for this option"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1905
+#: admin/class-buddypress-polls-admin.php:1917
 #: includes/class-wbpoll-helper.php:1608
 #: template/poll-dashboard.php:60
 #: template/poll-dashboard.php:130
@@ -505,20 +508,20 @@ msgstr ""
 msgid "Vote"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:1925
-#: admin/class-buddypress-polls-admin.php:2035
+#: admin/class-buddypress-polls-admin.php:1937
+#: admin/class-buddypress-polls-admin.php:2047
 msgid "No approved vote yet"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:2005
+#: admin/class-buddypress-polls-admin.php:2017
 msgid "Options"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:2006
+#: admin/class-buddypress-polls-admin.php:2018
 msgid "Vote %"
 msgstr ""
 
-#: admin/class-buddypress-polls-admin.php:2007
+#: admin/class-buddypress-polls-admin.php:2019
 msgid "vote"
 msgstr ""
 
@@ -1698,34 +1701,37 @@ msgstr ""
 msgid "BuddyPress Polls and BuddyPress need to share the same network configuration."
 msgstr ""
 
-#: buddypress-polls.php:701
+#: buddypress-polls.php:703
 msgid "Previous"
 msgstr ""
 
-#: buddypress-polls.php:702
+#: buddypress-polls.php:704
 msgid "Next"
 msgstr ""
 
-#: buddypress-polls.php:703
+#: buddypress-polls.php:705
+#: buddypress-polls.php:720
 msgid "Posts navigation"
 msgstr ""
 
-#: buddypress-polls.php:704
+#: buddypress-polls.php:706
 msgid "Posts"
 msgstr ""
 
 #. translators: %s:
-#: buddypress-polls.php:749
+#: buddypress-polls.php:751
+#, php-format
 msgctxt "post date"
 msgid "%s"
 msgstr ""
 
-#: buddypress-polls.php:764
+#: buddypress-polls.php:766
+#, php-format
 msgctxt "post author"
 msgid "%s"
 msgstr ""
 
-#: buddypress-polls.php:784
+#: buddypress-polls.php:786
 msgid "BuddyPress Polls Sidebar"
 msgstr ""
 
@@ -1738,6 +1744,7 @@ msgstr ""
 
 #. translators: %1$s: Expire Time
 #: edd-license/edd-plugin-license.php:128
+#, php-format
 msgid "Your license key expired on %s."
 msgstr ""
 
@@ -1755,6 +1762,7 @@ msgstr ""
 
 #. translators: %1$s: Item Name
 #: edd-license/edd-plugin-license.php:148
+#, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
@@ -1764,6 +1772,7 @@ msgstr ""
 
 #. translators: %1$s: Expire Time
 #: edd-license/edd-plugin-license.php:339
+#, php-format
 msgid "Your BuddyPress Polls plugin license key expired on %s."
 msgstr ""
 
@@ -1780,20 +1789,24 @@ msgid "Activate License"
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:510
+#, php-format
 msgid " Expires %s."
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:513
+#, php-format
 msgid "You have %1$s/%2$s-sites activated."
 msgstr ""
 
 #. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version Info
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:254
+#, php-format
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
 #. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version Info
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:263
+#, php-format
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
 msgstr ""
 
@@ -1861,6 +1874,7 @@ msgstr ""
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:999
 #: includes/class-wbpoll-helper.php:1005
+#, php-format
 msgid "The Poll is out of date. You have already voted for <strong>\"%s\"</strong>"
 msgstr ""
 
@@ -1882,6 +1896,7 @@ msgstr ""
 
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:1160
+#, php-format
 msgid "You have already voted for <strong>\"%s\"</strong>"
 msgstr ""
 
@@ -1903,6 +1918,7 @@ msgstr ""
 
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:1261
+#, php-format
 msgid "No account yet? <a href=\"%s\">Register</a>"
 msgstr ""
 
@@ -1983,7 +1999,7 @@ msgstr ""
 
 #: includes/class-wbpoll-helper.php:2286
 #: template/create-poll.php:696
-msgid "Select if you want poll to show result After expires. After expires the result will be shown always."
+msgid "Show results only after the poll expires. Results will always be visible once expired."
 msgstr ""
 
 #: includes/class-wbpoll-helper.php:2299
@@ -2106,184 +2122,188 @@ msgstr ""
 msgid "WordPress Core Login Form"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:254
+#: public/class-buddypress-polls-public.php:251
 msgid "Submitting vote"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:255
+#: public/class-buddypress-polls-public.php:252
 msgid "Please select your choice."
 msgstr ""
 
 #. translators: %d: Polls Max Options
-#: public/class-buddypress-polls-public.php:263
+#: public/class-buddypress-polls-public.php:260
+#, php-format
 msgid "The max number of allowed options is %d."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:264
-#: public/class-buddypress-polls-public.php:392
+#: public/class-buddypress-polls-public.php:261
+#: public/class-buddypress-polls-public.php:388
 msgid "Add a poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:265
+#: public/class-buddypress-polls-public.php:262
 msgid "Delete option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:266
+#: public/class-buddypress-polls-public.php:263
 msgid "Are you sure that you want to delete this option from the poll?"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:267
+#: public/class-buddypress-polls-public.php:264
 msgid "Cancel"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:329
+#: public/class-buddypress-polls-public.php:325
 msgid "Please select at least one answer"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:449
+#: public/class-buddypress-polls-public.php:445
 msgid "Cancel Poll"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:461
-#: public/class-buddypress-polls-public.php:468
+#: public/class-buddypress-polls-public.php:457
+#: public/class-buddypress-polls-public.php:464
 msgid "Option 1"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:474
+#: public/class-buddypress-polls-public.php:470
 msgid "Option 2"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:481
+#: public/class-buddypress-polls-public.php:477
 msgid "Add new option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:484
+#: public/class-buddypress-polls-public.php:480
 msgid "Poll closing date & time"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:491
+#: public/class-buddypress-polls-public.php:487
 msgid "Allow members to choose multiple poll options."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:498
+#: public/class-buddypress-polls-public.php:494
 msgid "Allow members to add their poll options."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:505
+#: public/class-buddypress-polls-public.php:501
 msgid "Hide poll results from members who have not voted yet. "
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:511
+#: public/class-buddypress-polls-public.php:507
 msgid "Follow-up"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:512
+#: public/class-buddypress-polls-public.php:508
 msgid "Enter Message"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:550
+#: public/class-buddypress-polls-public.php:548
 msgid "Polls Update"
 msgstr ""
 
 #. translators: %s:
-#: public/class-buddypress-polls-public.php:584
+#: public/class-buddypress-polls-public.php:582
+#, php-format
 msgid "%s created a poll"
 msgstr ""
 
 #. translators: %s:
-#: public/class-buddypress-polls-public.php:616
+#: public/class-buddypress-polls-public.php:610
+#, php-format
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:858
-#: public/class-buddypress-polls-public.php:1161
-#: public/class-buddypress-polls-public.php:1171
-#: public/class-buddypress-polls-public.php:1680
+#: public/class-buddypress-polls-public.php:838
+#: public/class-buddypress-polls-public.php:1137
+#: public/class-buddypress-polls-public.php:1147
+#: public/class-buddypress-polls-public.php:1655
 #: public/inc/bp-poll-activity-graph.php:62
-#: public/inc/class-bp-poll-activity-graph.php:123
+#: public/inc/class-bp-poll-activity-graph.php:361
 msgid "(no votes yet)"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:861
-#: public/class-buddypress-polls-public.php:1174
-#: public/class-buddypress-polls-public.php:1683
+#: public/class-buddypress-polls-public.php:841
+#: public/class-buddypress-polls-public.php:1150
+#: public/class-buddypress-polls-public.php:1658
 msgctxt "Poll Activity"
 msgid "of"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:925
-#: public/class-buddypress-polls-public.php:1226
-#: public/class-buddypress-polls-public.php:1746
+#: public/class-buddypress-polls-public.php:904
+#: public/class-buddypress-polls-public.php:1201
+#: public/class-buddypress-polls-public.php:1721
 msgid "View All"
 msgstr ""
 
 #. translators: %s: Vote Count
-#: public/class-buddypress-polls-public.php:928
-#: public/class-buddypress-polls-public.php:1229
-#: public/class-buddypress-polls-public.php:1749
+#: public/class-buddypress-polls-public.php:907
+#: public/class-buddypress-polls-public.php:1204
+#: public/class-buddypress-polls-public.php:1724
+#, php-format
 msgid "%s Vote"
 msgid_plural "%s Votes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: public/class-buddypress-polls-public.php:963
+#: public/class-buddypress-polls-public.php:942
 msgid "Add poll option..."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:964
+#: public/class-buddypress-polls-public.php:943
 msgid "Add option"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:966
+#: public/class-buddypress-polls-public.php:945
 msgid "Poll option field is empty."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:975
-#: public/class-buddypress-polls-public.php:1779
+#: public/class-buddypress-polls-public.php:954
+#: public/class-buddypress-polls-public.php:1754
 msgid "Submit"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:1981
+#: public/class-buddypress-polls-public.php:1956
 msgid "Oops!"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:1984
+#: public/class-buddypress-polls-public.php:1959
 msgid "You are not allowed to enter more than "
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:1984
+#: public/class-buddypress-polls-public.php:1959
 msgid " options."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:1991
+#: public/class-buddypress-polls-public.php:1966
 msgid "Got it!"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2217
+#: public/class-buddypress-polls-public.php:2191
 msgid "Sorry, poll didn't start yet."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2226
+#: public/class-buddypress-polls-public.php:2200
 msgid "Sorry, you can not vote. Poll has already expired."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2250
+#: public/class-buddypress-polls-public.php:2224
 msgid "Sorry, you are not allowed to vote."
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2345
+#: public/class-buddypress-polls-public.php:2319
 msgid "You already voted this poll !"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2366
+#: public/class-buddypress-polls-public.php:2340
 msgid "Sorry, something wrong while voting, please refresh this page"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2453
+#: public/class-buddypress-polls-public.php:2427
 msgid "Thanks for voting!"
 msgstr ""
 
-#: public/class-buddypress-polls-public.php:2460
+#: public/class-buddypress-polls-public.php:2434
 msgid "Thanks for the voting. Results are hidden by the admin for this poll"
 msgstr ""
 
@@ -2301,44 +2321,52 @@ msgctxt "widget name"
 msgid "(BuddyPress) Poll Graph"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:126
+#: public/inc/class-bp-poll-activity-graph.php:166
+msgid "Select activity to view poll results:"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:182
+msgid "Export CSV"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:255
+#: public/inc/class-wb-poll-report-graph.php:113
+msgid "Title:"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:257
+msgid "Max Poll to show:"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:261
+#: public/inc/class-wb-poll-report-graph.php:130
+msgid "Default Poll to display:"
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:272
+#: public/inc/class-wb-poll-report-graph.php:156
+msgid "No polls are created yet."
+msgstr ""
+
+#: public/inc/class-bp-poll-activity-graph.php:364
 msgctxt "Poll Graph"
 msgid "of"
 msgstr ""
 
-#: public/inc/class-bp-poll-activity-graph.php:251
-msgid "Select activity to view poll results:"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:264
-msgid "Export CSV"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:337
-#: public/inc/class-wb-poll-report-graph.php:107
-msgid "Title:"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:339
-msgid "Max Poll to show:"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:343
-#: public/inc/class-wb-poll-report-graph.php:124
-msgid "Default Poll to display:"
-msgstr ""
-
-#: public/inc/class-bp-poll-activity-graph.php:354
-#: public/inc/class-wb-poll-report-graph.php:150
-msgid "No polls are created yet."
-msgstr ""
-
-#: public/inc/class-wb-poll-report-graph.php:96
+#: public/inc/class-wb-poll-report-graph.php:101
 msgid "WB Poll Report"
 msgstr ""
 
-#: public/inc/class-wb-poll-report-graph.php:110
+#: public/inc/class-wb-poll-report-graph.php:116
 msgid "Poll Result Type :"
+msgstr ""
+
+#: public/inc/class-wb-poll-report-graph.php:118
+msgid "All Voted Poll"
+msgstr ""
+
+#: public/inc/class-wb-poll-report-graph.php:119
+msgid "Single poll"
 msgstr ""
 
 #: restapi/v1/pollrestapi.php:396
@@ -2375,6 +2403,7 @@ msgstr ""
 
 #. translators: %s:
 #: template/archive-wbpoll.php:62
+#, php-format
 msgid "Permalink to %s"
 msgstr ""
 
