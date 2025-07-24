@@ -158,7 +158,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 				'.bpolls-activities-list',
 				function(e) {
 					e.preventDefault();
-					$( '#export-poll-data' ).attr( 'href', '?export_csv=1&buddypress_poll=1&activity_id=' + $( this ).val() );
+					$('#export-poll-data').attr('href', '?export_csv=1&buddypress_poll=1&activity_id=' + $(this).val() + '&_wpnonce='+bpolls_wiget_obj.export_csv_nonce );
 				}
 			);
 		}

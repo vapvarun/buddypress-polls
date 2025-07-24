@@ -536,22 +536,21 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				$activity_id   = isset( $_REQUEST['activity_id'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['activity_id'] ) ) : 0; 
 				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
 
-				$file         = 'buddypress-activity-poll-info.csv';
+				$file         = 'buddypress-activity-poll-info-'.$activity_id.'.csv';
 				$uploads_path = ABSPATH . 'wp-content/uploads/';
 				$fp           = fopen( $uploads_path . $file, 'a' ) or die( "Error Couldn't open $file for writing!" ); // phpcs:ignore WordPress.Security.EscapeOutput
-
+				
 				$csv_header = array( 'User ID', 'UserName' );
 				foreach ( $activity_meta['poll_option'] as $key => $value ) {
 					$csv_header[ $key ] = $value;
 				}
 				fputs( $fp, $bom = ( chr( 0xEF ) . chr( 0xBB ) . chr( 0xBF ) ) );
-				fputcsv( $fp, $csv_header );
-				$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
+				fputcsv( $fp, $csv_header, ',', '"', '\\' );
 				$users         = $activity_meta['poll_users'];
 				$args          = array(
 					'include' => $users,
 				);
-
+				
 				$users       = new WP_User_Query( $args );
 				$users_found = $users->get_results();
 				foreach ( $users_found as $user ) {
@@ -571,8 +570,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 							$fields[] = '-';
 						}
 					}
-					$fields = array_map( 'utf8_decode', $fields );
-					fputcsv( $fp, $fields );
+					$fields = array_map(function($field) {
+						return iconv('UTF-8', 'ISO-8859-1', $field);
+					}, $fields);
+
+					fputcsv( $fp, $fields, ',', '"', '\\' );
 
 				}
 
@@ -584,7 +586,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				// change the path to fit your websites document structure.
 				$dl_file = preg_replace( '([^\w\s\d\-_~,;:\[\]\(\].]|[\.]{2,})', '', $file ); // simple file name validation.
 				$dl_file = filter_var( $dl_file, FILTER_SANITIZE_URL ); // Remove (more) invalid characters.
-
+				
 				$uploads_path = ABSPATH . 'wp-content/uploads/'; // change the path to fit your websites document structure.
 				$full_path    = $uploads_path . $dl_file;
 

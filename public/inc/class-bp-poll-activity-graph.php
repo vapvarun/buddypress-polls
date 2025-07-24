@@ -68,6 +68,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 				'ajax_url'   => admin_url( 'admin-ajax.php' ),
 				'ajax_nonce' => wp_create_nonce( 'bpolls_widget_security' ),
 				'votes'      => wp_json_encode( $updated_user_votes ),
+				'export_csv_nonce' => wp_create_nonce( 'bp_polls_export_csv_nonce' )
 			)
 		);
 
@@ -170,7 +171,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 						bp_the_activity();
 						global $activities_template;
 						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo esc_html( $activities_template->activity->content ); ?></option>
+						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo wp_kses_post( $activities_template->activity->content ); ?></option>
 					<?php endwhile; ?>
 				</select>
 			</p>
