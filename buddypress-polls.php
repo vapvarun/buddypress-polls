@@ -443,7 +443,7 @@ function buddypress_polls_activation_redirect_settings( $plugin ) {
 	}
 	if ( plugin_basename( __FILE__ ) === $plugin ) {
 		if ( isset( $_REQUEST['action'] ) && $_REQUEST['action'] == 'activate' && isset( $_REQUEST['plugin'] ) && $_REQUEST['plugin'] == $plugin ) { //phpcs:ignore
-			if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'activate-plugin_' . $plugin ) ) {
+			if ( isset( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'activate-plugin_' . $plugin ) ) {
 				wp_safe_redirect( admin_url( 'admin.php?page=buddypress-polls' ) );
 				exit;
 			}

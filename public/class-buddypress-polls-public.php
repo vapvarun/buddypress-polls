@@ -651,7 +651,7 @@ class Buddypress_Polls_Public {
 		}
 		
 		
-		if( isset( $_POST['buddypress_polls_save_activity_nonce'] ) && ! wp_verify_nonce( $_POST['buddypress_polls_save_activity_nonce'], 'buddypress_polls_save_activity_nonce_action' ) ) {
+		if( isset( $_POST['buddypress_polls_save_activity_nonce'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['buddypress_polls_save_activity_nonce'] ) ), 'buddypress_polls_save_activity_nonce_action' ) ) {
 			return;
 		}
 		
