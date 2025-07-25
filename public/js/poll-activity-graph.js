@@ -69,22 +69,8 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 		});
 	}
 
-	window.onload = function () {
-		var res = JSON.parse(bpolls_wiget_obj.votes);
-
-		$('.poll-bar-chart, .poll-activity-chart').each(function () {
-			var $canvas = $(this);
-			var act_id = $canvas.data('id');
-			var id = $canvas.attr('id');
-
-			if (res[act_id]) {
-				renderPollChart(id, res[act_id], res[act_id][0].poll_title);
-			}
-		});
-	};
-
-	$(document).on('change', '.bpolls-activities-list', function () {
-		var $select = $(this);
+	function loadPollChart(element) {
+		var $select = $(element);
 		var actid = $select.val();
 
 		if (!actid) return;
@@ -107,7 +93,23 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 
 			renderPollChart(canvasId, resp[actid], resp[actid][0].poll_title);
 		});
-	});
+	}
+
+	window.onload = function () {
+		var res = JSON.parse(bpolls_wiget_obj.votes);
+
+		$('.poll-bar-chart, .poll-activity-chart').each(function () {
+			var $canvas = $(this);
+			var act_id = $canvas.data('id');
+			var id = $canvas.attr('id');
+
+			if (res[act_id]) {
+				renderPollChart(id, res[act_id], res[act_id][0].poll_title);
+			}
+		});
+
+		
+	};
 
 	$(document).ready(function () {
 		$(document).on('change', '.bpolls-activities-list', function (e) {
@@ -119,6 +121,16 @@ if (typeof wp !== 'undefined' && wp.i18n) {
 				);
 			}
 		});
+
+		if ($(".bpolls-activities-list option:selected").val() != '') {
+			loadPollChart( '.bpolls-activities-list' );
+		}
+
+
+		$(document).on('change', '.bpolls-activities-list', function () {
+			loadPollChart( '.bpolls-activities-list' );
+		});
+		
 	});
 
 })(jQuery);

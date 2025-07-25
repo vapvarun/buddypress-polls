@@ -86,7 +86,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 	public function widget( $args, $instance ) {
 		global $wpdb, $current_user;
 		$table = $wpdb->prefix . 'bp_activity';
-
+		
 		if ( ! is_user_logged_in() ) {
 			return;
 		}
@@ -100,18 +100,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			);
 
 			$results = $wpdb->get_results($query);
-			$user_default_activity = false;
-			if( !empty( $results ) ) {
-				foreach( $results as $result_index ) {
-					if( $result_index->id == $instance['activity_default'] ) {
-						$user_default_activity = true;
-					} 
-				}
-			} 
-			// Set to first result only if default not found and results exist.
-			if ( ! $user_default_activity && isset( $results[0] ) ) {
-				$instance['activity_default'] = $results[0]->id;
-			}
+			
 		} else {
 			// Admin case
 			$query = $wpdb->prepare( 
@@ -121,11 +110,20 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			$results = $wpdb->get_results( $query );
 		}
 
-		extract( $args );
-
-		if ( empty( $instance['activity_default'] ) ) {
-			$instance['activity_default'] = ( isset( $results->id ) ) ? $results->id : '';
+		// Set to first result only if default not found and results exist.
+		if ( ! empty( $results ) && is_array($results) ) {
+			$activity_default = $results[0]->id;
+			foreach( $results as $key => $value ){
+				$act_id        = $value->id;
+				$activity_meta = bp_activity_get_meta( $act_id, 'bpolls_meta' );
+				if( isset( $activity_meta['poll_total_votes'] ) && ! empty( $activity_meta['poll_total_votes'] ) ) {
+					$activity_default = $act_id;
+				}
+				
+			}
+			
 		}
+		extract( $args );
 
 		if ( empty( $instance['title'] ) ) {
 			$instance['title'] = __( 'Poll Graph', 'buddypress-polls' );
@@ -147,8 +145,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		echo wp_kses_post( $before_title . $title . $after_title ); 
 
 		$max_activity     = ! empty( $instance['max_activity'] ) ? (int) $instance['max_activity'] : '';
-		$activity_default = ! empty( $instance['activity_default'] ) ? (int) $instance['activity_default'] : '';
-
+		
 		global $activities_template, $current_user;
 
 		// Back up the global.
@@ -164,7 +161,9 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		if ( ! in_array( 'administrator', (array) $current_user->roles, true ) ) {
 			$act_args['user_id'] = $current_user->ID;
 		}
-		if ( bp_has_activities( $act_args ) ) { ?>
+		if ( bp_has_activities( $act_args ) ) {
+			
+			?>
 
 			<p class="bpolls-activity-select">
 				<label for="bpolls-activities-list"><?php esc_html_e( 'Select activity to view poll results:', 'buddypress-polls' ); ?></label>
@@ -178,7 +177,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					<?php endwhile; ?>
 				</select>
 			</p>
-			<canvas class="poll-bar-chart" data-id="<?php echo esc_attr( $instance['activity_default'] ); ?>" id="bpolls-activity-chart-<?php echo esc_attr( $instance['activity_default'] ); ?>" width="800" height="450"></canvas>
+			<canvas class="poll-bar-chart" data-id="<?php echo esc_attr( $activity_default ); ?>" id="bpolls-activity-chart-<?php echo esc_attr( $activity_default ); ?>" width="800" height="450"></canvas>
 			<?php if ( is_admin() ) : 
 				$url = admin_url() . '?export_csv=1&buddypress_poll=1&activity_id=' . $activity_default; //phpcs:ignore
 				$url = wp_nonce_url( $url, 'bp_polls_export_csv_nonce' );
@@ -213,7 +212,6 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		$instance['title']            = sanitize_text_field( $new_instance['title'] );
 		$instance['max_activity']     = absint( $new_instance['max_activity'] );
-		$instance['activity_default'] = absint( $new_instance['activity_default'] );
 
 		return $instance;
 	}
@@ -232,50 +230,21 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 		// Back up the global.
 		$old_activities_template = $activities_template;
 
-		$act_args = array(
-			'action' => 'activity_poll',
-			'type'   => 'activity_poll',
-		);
-
-		if ( bp_has_activities( $act_args ) ) {
-			$act_default = $activities_template->activities[0]->id;
-		} else {
-			$act_default = 0;
-		}
-
 		$defaults = array(
 			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
-			'max_activity'     => 5,
-			'activity_default' => $act_default,
+			'max_activity'     => 5
 		);
 
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
 		$title            = sanitize_text_field( $instance['title'] );
 		$max_activity     = absint( $instance['max_activity'] );
-		$activity_default = absint( $instance['activity_default'] );
 		?>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" style="width: 100%" /></label></p>
 
 		<p><label for="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>"><?php esc_html_e( 'Max Poll to show:', 'buddypress-polls' ); ?> <input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'max_activity' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'max_activity' ) ); ?>" type="text" value="<?php echo esc_attr( $max_activity ); ?>" style="width: 30%" /></label></p>
 
-		<p>
-			<?php if ( bp_has_activities( $act_args ) ) { ?>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'Default Poll to display:', 'buddypress-polls' ); ?></label>
-				<select name="<?php echo esc_attr( $this->get_field_name( 'activity_default' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>">
-					<?php
-					while ( bp_activities() ) :
-						bp_the_activity();
-						global $activities_template;
-						?>
-						<option value="<?php bp_activity_id(); ?>" <?php selected( $activity_default, bp_get_activity_id() ); ?>><?php echo esc_html( $activities_template->activity->content ); ?></option>
-					<?php endwhile; ?>
-				</select>
-			<?php } else { ?>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'activity_default' ) ); ?>"><?php esc_html_e( 'No polls are created yet.', 'buddypress-polls' ); ?></label>
-			<?php	} ?>
-		</p>
 		<?php
 		// Restore the global.
 		$activities_template = $old_activities_template;
@@ -293,7 +262,7 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 
 		$poll_wdgt_stngs = $this->get_settings();
 		$table = $wpdb->prefix . 'bp_activity';
-
+		
 		if ( ! in_array( 'administrator', (array) $current_user->roles ) ) {
 
 			$user_id = get_current_user_id();
@@ -315,67 +284,63 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 			$results = $wpdb->get_results($results);
 		}
 
-		$activity_ids = array();
-		if ( ! empty( $results ) ) {
-			foreach ( $results as  $result ) {
-				$activity_ids[]['activity_default'] = $result->id;
-			}
-		}
-
+		
 		$_instance                = array(
 			'title'            => __( 'Poll Graph', 'buddypress-polls' ),
-			'max_activity'     => 5,
-			'activity_default' => ( ! empty( $activity_ids ) ) ? $activity_ids : array(),
+			'max_activity'     => 5
 		);
 
-		$time                     = time();
-		$poll_wdgt_stngs[ $time ] = $_instance;
-		$updated_votes               = array();
-		if ( is_array( $poll_wdgt_stngs ) ) {
-			foreach ( $poll_wdgt_stngs[ $time ]['activity_default'] as $key => $value ) {
-				if ( isset( $value['activity_default'] ) ) {
-					$activity_id      = $value['activity_default'];
-					$args             = array( 'activity_ids' => $activity_id );
-					$activity_details = bp_activity_get_specific( $args );
-					if ( is_array( $activity_details ) ) {
-						$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words( $activity_details['activities'][0]->content, 10, '...' ) : '';
-					} else {
-						$poll_title = '';
-					}
-					$activity_meta = bp_activity_get_meta( $activity_id, 'bpolls_meta' );
-					$poll_options  = isset( $activity_meta['poll_option'] ) ? $activity_meta['poll_option'] : '';
-
-					if ( ! array_key_exists( $activity_id, $updated_votes ) ) {
-						if ( ! empty( $poll_options ) && is_array( $poll_options ) ) {
-							foreach ( $poll_options as $key => $value ) {
-								if ( isset( $activity_meta['poll_total_votes'] ) ) {
-									$total_votes = $activity_meta['poll_total_votes'];
-								} else {
-									$total_votes = 0;
-								}
-								if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
-									$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
-								} else {
-									$this_optn_vote = 0;
-								}
-
-								if ( 0 != $total_votes ) {
-									$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
-								} else {
-									$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
-								}
-
-								$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
-
-								$updated_votes[ $activity_id ][] = array(
-									'poll_title' => $poll_title,
-									'label'      => $value,
-									'y'          => $vote_percent,
-									'color'      => bpolls_color(),
-
-								);
-							}
+		$updated_votes = array();
+		if ( is_array( $results ) && ! empty( $results ) ) {
+			$activity_id   = $results[0]->id;        
+			foreach( $results as $key => $value ){
+				$act_id        = $value->id;
+				$activity_meta = bp_activity_get_meta( $act_id, 'bpolls_meta' );
+				if( isset( $activity_meta['poll_total_votes'] ) && ! empty( $activity_meta['poll_total_votes'] ) ) {
+					$activity_id = $act_id;
+				}
+				
+			}	
+			
+			$args             = array( 'activity_ids' => $activity_id );
+			$activity_details = bp_activity_get_specific( $args );
+			if ( is_array( $activity_details ) ) {
+				$poll_title = isset( $activity_details['activities'][0]->content ) ? wp_trim_words( $activity_details['activities'][0]->content, 10, '...' ) : '';
+			} else {
+				$poll_title = '';
+			}
+			
+			$poll_options  = isset( $activity_meta['poll_option'] ) ? $activity_meta['poll_option'] : '';
+		
+			if ( ! array_key_exists( $activity_id, $updated_votes ) ) {
+				if ( ! empty( $poll_options ) && is_array( $poll_options ) ) {
+					foreach ( $poll_options as $key => $value ) {
+						if ( isset( $activity_meta['poll_total_votes'] ) ) {
+							$total_votes = $activity_meta['poll_total_votes'];
+						} else {
+							$total_votes = 0;
 						}
+						if ( isset( $activity_meta['poll_optn_votes'] ) && array_key_exists( $key, $activity_meta['poll_optn_votes'] ) ) {
+							$this_optn_vote = $activity_meta['poll_optn_votes'][ $key ];
+						} else {
+							$this_optn_vote = 0;
+						}
+
+						if ( 0 != $total_votes ) {
+							$vote_percent = round( $this_optn_vote / $total_votes * 100, 2 );
+						} else {
+							$vote_percent = __( '(no votes yet)', 'buddypress-polls' );
+						}
+
+						$bpolls_votes_txt = '(&nbsp;' . $this_optn_vote . '&nbsp;' . _x( 'of', 'Poll Graph', 'buddypress-polls' ) . '&nbsp;' . $total_votes . '&nbsp;)';
+
+						$updated_votes[ $activity_id ][] = array(
+							'poll_title' => $poll_title,
+							'label'      => $value,
+							'y'          => $vote_percent,
+							'color'      => bpolls_color(),
+
+						);
 					}
 				}
 			}
