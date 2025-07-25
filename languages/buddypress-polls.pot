@@ -9,9 +9,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-25T15:44:01+05:30\n"
+"POT-Creation-Date: 2025-07-25T10:56:20+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.11.0\n"
+"X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: buddypress-polls\n"
 
 #. Plugin Name of the plugin
@@ -160,6 +160,7 @@ msgstr ""
 #. translators: %s:
 #: admin/class-buddypress-polls-admin.php:288
 #: admin/wbcom/templates/wbcom-license-page.php:11
+#, php-format
 msgid "Version %s"
 msgstr ""
 
@@ -372,6 +373,7 @@ msgstr ""
 
 #. translators: %d:
 #: admin/class-buddypress-polls-admin.php:1408
+#, php-format
 msgid "Answer %d"
 msgstr ""
 
@@ -472,6 +474,7 @@ msgstr ""
 #. translators: %s:
 #: admin/class-buddypress-polls-admin.php:1739
 #: admin/class-buddypress-polls-admin.php:2015
+#, php-format
 msgid "Total votes: %d"
 msgstr ""
 
@@ -1717,11 +1720,13 @@ msgstr ""
 
 #. translators: %s:
 #: buddypress-polls.php:751
+#, php-format
 msgctxt "post date"
 msgid "%s"
 msgstr ""
 
 #: buddypress-polls.php:766
+#, php-format
 msgctxt "post author"
 msgid "%s"
 msgstr ""
@@ -1739,6 +1744,7 @@ msgstr ""
 
 #. translators: %1$s: Expire Time
 #: edd-license/edd-plugin-license.php:128
+#, php-format
 msgid "Your license key expired on %s."
 msgstr ""
 
@@ -1756,6 +1762,7 @@ msgstr ""
 
 #. translators: %1$s: Item Name
 #: edd-license/edd-plugin-license.php:148
+#, php-format
 msgid "This appears to be an invalid license key for %s."
 msgstr ""
 
@@ -1765,6 +1772,7 @@ msgstr ""
 
 #. translators: %1$s: Expire Time
 #: edd-license/edd-plugin-license.php:339
+#, php-format
 msgid "Your BuddyPress Polls plugin license key expired on %s."
 msgstr ""
 
@@ -1781,20 +1789,24 @@ msgid "Activate License"
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:510
+#, php-format
 msgid " Expires %s."
 msgstr ""
 
 #: edd-license/edd-plugin-license.php:513
+#, php-format
 msgid "You have %1$s/%2$s-sites activated."
 msgstr ""
 
 #. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version Info
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:254
+#, php-format
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s."
 msgstr ""
 
 #. translators: %1$s: Version Info ; %2$s: changelog link ; %3$s: New Version Info
 #: edd-license/EDD_BPOLLS_Plugin_Updater.php:263
+#, php-format
 msgid "There is a new version of %1$s available. %2$sView version %3$s details%4$s or %5$supdate now%6$s."
 msgstr ""
 
@@ -1862,6 +1874,7 @@ msgstr ""
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:999
 #: includes/class-wbpoll-helper.php:1005
+#, php-format
 msgid "The Poll is out of date. You have already voted for <strong>\"%s\"</strong>"
 msgstr ""
 
@@ -1883,6 +1896,7 @@ msgstr ""
 
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:1160
+#, php-format
 msgid "You have already voted for <strong>\"%s\"</strong>"
 msgstr ""
 
@@ -1904,6 +1918,7 @@ msgstr ""
 
 #. translators: %s:
 #: includes/class-wbpoll-helper.php:1261
+#, php-format
 msgid "No account yet? <a href=\"%s\">Register</a>"
 msgstr ""
 
@@ -2117,6 +2132,7 @@ msgstr ""
 
 #. translators: %d: Polls Max Options
 #: public/class-buddypress-polls-public.php:261
+#, php-format
 msgid "The max number of allowed options is %d."
 msgstr ""
 
@@ -2188,11 +2204,13 @@ msgstr ""
 
 #. translators: %s:
 #: public/class-buddypress-polls-public.php:583
+#, php-format
 msgid "%s created a poll"
 msgstr ""
 
 #. translators: %s:
 #: public/class-buddypress-polls-public.php:611
+#, php-format
 msgid "%1$s created a poll in the group %2$s"
 msgstr ""
 
@@ -2223,6 +2241,7 @@ msgstr ""
 #: public/class-buddypress-polls-public.php:908
 #: public/class-buddypress-polls-public.php:1205
 #: public/class-buddypress-polls-public.php:1725
+#, php-format
 msgid "%s Vote"
 msgid_plural "%s Votes"
 msgstr[0] ""
@@ -2404,6 +2423,7 @@ msgstr ""
 
 #. translators: %s:
 #: template/archive-wbpoll.php:62
+#, php-format
 msgid "Permalink to %s"
 msgstr ""
 

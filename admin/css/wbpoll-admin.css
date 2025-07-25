@@ -1098,3 +1098,12 @@ div#pollresult_meta_box .inside .poll-thumb-image.poll-image {
         background-position: 60px;
     }
 }
+
+.widget_bp_poll_graph_widget .poll-bar-chart {
+	display: block;
+	width: 100% !important;
+	max-width: 600px;
+	height: 300px !important;
+	max-height: 300px;
+	margin: 20px auto;
+}
