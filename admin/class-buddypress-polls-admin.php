@@ -486,7 +486,7 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 				<?php
 			} else {
 				?>
-				<div class="bpolls-empty-messgae"><?php esc_html_e( 'No polls have been created.', 'buddypress-polls' ); ?></div>
+				<div class="bpolls-empty-message"><?php esc_html_e( 'No polls have been created.', 'buddypress-polls' ); ?></div>
 				<?php
 			}
 		}
