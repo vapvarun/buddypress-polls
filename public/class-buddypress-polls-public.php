@@ -122,16 +122,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 		$srcs = array_map( 'basename', (array) wp_list_pluck( $wp_styles->registered, 'src' ) );
-		if ( function_exists( 'is_buddypress' ) && ( is_buddypress() || is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
-			|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
-			|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
-			|| ( function_exists( 'buddypress_shortcodes_body_classes' ) && buddypress_shortcodes_body_classes() )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-			|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) ) 
-			|| ( is_single() && get_post_type() == 'business' ) || ( 'activity' === $current_component )
-			|| function_exists( 'bp_search_is_search' ) && bp_search_is_search() )
-			) {
+		if ( $this->bppolls_enqueue_assets_condition() ) {
 			wp_enqueue_style( $this->plugin_name );
 			wp_enqueue_style( $this->plugin_name . '-time' );
 			if ( ! wp_style_is( 'wb-font-awesome', 'enqueued' ) ) {
@@ -155,10 +146,7 @@ class Buddypress_Polls_Public {
 			}
 		}
 
-		if ( ( is_page() && get_the_ID() == $poll_create_page )
-				|| ( is_single() && get_post_type() == 'wbpoll' )
-				|| ( is_archive() && get_post_type() == 'wbpoll' )
-				|| ( isset( $post->post_content ) && has_shortcode( $post->post_content, 'wbpoll' ) )
+		if ( ( is_page() && get_the_ID() == $poll_create_page ) || ( is_single() && get_post_type() == 'wbpoll' ) || ( is_archive() && get_post_type() == 'wbpoll' ) || ( isset( $post->post_content ) && has_shortcode( $post->post_content, 'wbpoll' ) )
 			) {
 			wp_enqueue_media();
 
@@ -279,17 +267,9 @@ class Buddypress_Polls_Public {
 				$current_component = 'activity';
 			}
 		}
+		
+		if ( $this->bppolls_enqueue_assets_condition() ) {
 
-		if ( function_exists( 'is_buddypress' ) && is_buddypress()
-				|| is_active_widget( false, false, 'bp_poll_activity_graph_widget', true )
-				|| is_active_widget( false, false, 'bp_poll_create_poll_widget', true )
-				|| ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'activity-listing' ) ) )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bppfa_postform' ) ) )
-				|| ( isset( $post->post_content ) && ( has_shortcode( $post->post_content, 'bp_polls' ) ) )
-				|| ( is_single() && get_post_type() == 'business' )
-				|| 'activity' === $current_component
-				) {
 			if ( ! wp_script_is( 'jquery-ui-sortable', 'enqueued' ) ) {
 				wp_enqueue_script( 'jquery-ui-sortable' );
 			}
@@ -3024,6 +3004,51 @@ class Buddypress_Polls_Public {
 		</script>
 		<?php
 		
+	}
+
+	/**
+	 * Function to check conditions to enqueue scripts and styles and return boolean.
+	 * @since 4.4.1
+	 * @return boolean $should_enqueue
+	 */
+	public function bppolls_enqueue_assets_condition() {
+		
+		global $post, $current_component;	
+		$should_enqueue = false;	
+		
+		// 1. Basic BuddyPress checks.
+		if ( function_exists( 'is_buddypress' ) && is_buddypress() ) {
+			$should_enqueue = true;
+		}	
+		// 2. Active widgets.
+		$should_enqueue = $should_enqueue || is_active_widget( false, false, 'bp_poll_activity_graph_widget', true );
+		$should_enqueue = $should_enqueue || is_active_widget( false, false, 'bp_poll_create_poll_widget', true );	
+		// 3. Shortcode-based pages.
+		if ( function_exists( 'bp_shortcode_pro_is_shortcode_page' ) && bp_shortcode_pro_is_shortcode_page() ) {
+			$should_enqueue = true;
+		}	if ( function_exists( 'buddypress_shortcodes_body_classes' ) && buddypress_shortcodes_body_classes() ) {
+			$should_enqueue = true;
+		}	
+		// 4. Post content shortcodes.
+		if ( isset( $post->post_content ) ) {
+			$should_enqueue = $should_enqueue || has_shortcode( $post->post_content, 'activity-listing' );
+			$should_enqueue = $should_enqueue || has_shortcode( $post->post_content, 'bppfa_postform' );
+			$should_enqueue = $should_enqueue || has_shortcode( $post->post_content, 'bp_polls' );
+		}
+		// 5. Business post type.
+		if ( is_single() && get_post_type() === 'business' ) {
+			$should_enqueue = true;
+		}
+		// 6. BuddyPress component check.
+		if ( isset( $current_component ) && $current_component === 'activity' ) {
+			$should_enqueue = true;
+		}
+		// 7. BP Search page.
+		if ( function_exists( 'bp_search_is_search' ) && bp_search_is_search() ) {
+			$should_enqueue = true;
+		}
+		return apply_filters( 'bppolls_enqueue_assets_condition', $should_enqueue );
+
 	}
 
 
