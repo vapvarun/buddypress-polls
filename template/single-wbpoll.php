@@ -74,4 +74,18 @@ endif;
 do_action( 'buddypress_polls_after_main_content' );
 
 
-get_footer();
+get_footer(); ?>
+
+<style>
+	.content-area{
+		width:70%;
+		float:left;
+	}
+	#primary-sidebar{
+		width: 30%;
+		float:right;
+		padding: 30px;
+	}
+</style>
+
+
