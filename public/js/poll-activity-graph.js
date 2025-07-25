@@ -1,166 +1,124 @@
 if (typeof wp !== 'undefined' && wp.i18n) {
 	const { __ } = wp.i18n;
 }
-(function($) {
+
+(function ($) {
 	'use strict';
-	var load_Chart;
-	var ajax_Chart;
-	window.onload = function() {
-		$( '.poll-bar-chart' ).each(
-			function() {
-				var act_id = $( this ).data( 'id' );
-				var id     = $( this ).attr( 'id' );
-				var res    = JSON.parse( bpolls_wiget_obj.votes );
 
-				if (res[act_id]) {
-					var arr_label = [];
-					var arr_per   = [];
-					var arr_color = [];
-					$.each(
-						res[act_id],
-						function(i, item) {
-							arr_label.push( item.label.toString() );
-							arr_per.push( item.y.toString() );
-							arr_color.push( item.color );
-						}
-					);
+	var bpollsChartInstances = {};
 
-					load_Chart = new Chart(
-						$( "#" + id ),
-						{
-							type: 'pie',
-							data: {
-								labels: arr_label,
-								datasets: [{
-									label: "Poll Activity Graph (%)",
-									backgroundColor: arr_color,
-									data: arr_per
-								}]
-							},
-							options: {
-								title: {
-									display: true,
-									text: res[act_id][0].poll_title
-								}
+	function renderPollChart(canvasId, dataItems, title) {
+		var ctx = document.getElementById(canvasId);
+		var arr_label = [];
+		var arr_per = [];
+		var arr_color = [];
+		var maxLabelLength = 20;
+
+		$.each(dataItems, function (i, item) {
+			var truncatedLabel = item.label.length > maxLabelLength
+				? item.label.substring(0, maxLabelLength) + '…'
+				: item.label;
+
+			arr_label.push(truncatedLabel);
+			arr_per.push(item.y.toString());
+			arr_color.push(item.color);
+		});
+
+		if (bpollsChartInstances[canvasId]) {
+			bpollsChartInstances[canvasId].destroy();
+		}
+
+		bpollsChartInstances[canvasId] = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				labels: arr_label,
+				datasets: [{
+					label: "Poll Activity Graph (%)",
+					backgroundColor: arr_color,
+					data: arr_per
+				}]
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				animation: {
+					animateScale: true,
+					animateRotate: true
+				},
+				plugins: {
+					title: {
+						display: true,
+						text: title
+					},
+					tooltip: {
+						callbacks: {
+							label: function (context) {
+								var index = context.dataIndex;
+								return dataItems[index].label + ': ' + context.formattedValue + '%';
 							}
 						}
-					);
-				}
-
-			}
-		);
-
-		$( '.poll-activity-chart' ).each(
-			function() {
-				var act_id = $( this ).data( 'id' );
-				var id     = $( this ).attr( 'id' );
-				var res    = JSON.parse( bpolls_wiget_obj.votes );
-
-				if (res[act_id]) {
-					var arr_label = [];
-					var arr_per   = [];
-					var arr_color = [];
-					$.each(
-						res[act_id],
-						function(i, item) {
-							arr_label.push( item.label.toString() );
-							arr_per.push( item.y.toString() );
-							arr_color.push( item.color );
+					},
+					legend: {
+						position: 'bottom',
+						labels: {
+							boxWidth: 12
 						}
-					);
-
-					load_Chart = new Chart(
-						$( "#" + id ),
-						{
-							type: 'pie',
-							data: {
-								labels: arr_label,
-								datasets: [{
-									label: "Poll Activity Graph (%)",
-									backgroundColor: arr_color,
-									data: arr_per
-								}]
-							},
-						}
-					);
+					}
 				}
-
 			}
-		);
+		});
 	}
 
-	if ( $( ".bpolls-activities-list option:selected" ).val() != '' ) {
-		$( '.bpolls-activities-list' ).trigger( "change" );
-	}
-	$( document ).on(
-		'change',
-		'.bpolls-activities-list',
-		function() {
-			var actid      = $( this ).find( ":selected" ).val();
-			var clickd_obj = $( this );
-			var data       = {
-				'action': 'bpolls_activity_graph_ajax',
-				'actid': actid,
-				'ajax_nonce': bpolls_wiget_obj.ajax_nonce
-			};
+	window.onload = function () {
+		var res = JSON.parse(bpolls_wiget_obj.votes);
 
-			$.post(
-				bpolls_wiget_obj.ajax_url,
-				data,
-				function(response) {
-					clickd_obj.parents().siblings( '.poll-bar-chart' ).remove();
-					$( '<canvas class="poll-bar-chart" data-id="' + actid + '" id="bpolls-activity-chart-' + actid + '"></canvas>' ).insertAfter( clickd_obj.parents( '.bpolls-activity-select' ) );
-					var resp       = JSON.parse( response );
-					var arr2_label = [];
-					var arr2_per   = [];
-					var arr2_color = [];
-					var arr2_title = [];
-					var title      = '';
-					$.each(
-						resp[actid],
-						function(i, item) {
-							arr2_label.push( item.label.toString() );
-							arr2_per.push( item.y.toString() );
-							arr2_color.push( item.color );
-							title = item.poll_title;
-						}
-					);
+		$('.poll-bar-chart, .poll-activity-chart').each(function () {
+			var $canvas = $(this);
+			var act_id = $canvas.data('id');
+			var id = $canvas.attr('id');
 
-					ajax_Chart = new Chart(
-						clickd_obj.parents().siblings( '.poll-bar-chart' ),
-						{
-							type: 'pie',
-							data: {
-								labels: arr2_label,
-								datasets: [{
-									label: "Poll Activity Graph (%)",
-									backgroundColor: arr2_color,
-									data: arr2_per
-								}]
-							},
-							options: {
-								title: {
-									display: true,
-									text: title
-								}
-							}
-						}
-					);
-				}
-			);
-		}
-	);
+			if (res[act_id]) {
+				renderPollChart(id, res[act_id], res[act_id][0].poll_title);
+			}
+		});
+	};
 
-	$( document ).ready(
-		function(){
-			$( document ).on(
-				'change',
-				'.bpolls-activities-list',
-				function(e) {
-					e.preventDefault();
-					$('#export-poll-data').attr('href', '?export_csv=1&buddypress_poll=1&activity_id=' + $(this).val() + '&_wpnonce='+bpolls_wiget_obj.export_csv_nonce );
-				}
-			);
-		}
-	);
-})( jQuery );
+	$(document).on('change', '.bpolls-activities-list', function () {
+		var $select = $(this);
+		var actid = $select.val();
+
+		if (!actid) return;
+
+		var data = {
+			action: 'bpolls_activity_graph_ajax',
+			actid: actid,
+			ajax_nonce: bpolls_wiget_obj.ajax_nonce
+		};
+
+		$.post(bpolls_wiget_obj.ajax_url, data, function (response) {
+			var resp = JSON.parse(response);
+			if (!resp[actid]) return;
+
+			$select.parents().siblings('.poll-bar-chart').remove();
+
+			var canvasId = 'bpolls-activity-chart-' + actid;
+			$('<canvas class="poll-bar-chart" data-id="' + actid + '" id="' + canvasId + '"></canvas>')
+				.insertAfter($select.parents('.bpolls-activity-select'));
+
+			renderPollChart(canvasId, resp[actid], resp[actid][0].poll_title);
+		});
+	});
+
+	$(document).ready(function () {
+		$(document).on('change', '.bpolls-activities-list', function (e) {
+			e.preventDefault();
+			var activityId = $(this).val();
+			if (activityId) {
+				$('#export-poll-data').attr('href',
+					'?export_csv=1&buddypress_poll=1&activity_id=' + activityId + '&_wpnonce=' + bpolls_wiget_obj.export_csv_nonce
+				);
+			}
+		});
+	});
+
+})(jQuery);

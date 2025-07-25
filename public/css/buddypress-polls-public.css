@@ -677,6 +677,14 @@ select.bpolls-activities-list {
     height: 38px;
 }
 
+.widget_bp_poll_graph_widget .poll-bar-chart {
+	display: block;
+	width: 100% !important;
+	max-width: 600px;
+	height: 300px !important;
+	max-height: 300px;
+	margin: 20px auto;
+}
 
 /*--------------------------------------------------------------
 # Bpolls Image Upload
