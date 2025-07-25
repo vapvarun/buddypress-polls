@@ -108,15 +108,18 @@ class BP_Poll_Activity_Graph_Widget extends WP_Widget {
 					} 
 				}
 			} 
-			if( ! $user_default_activity ) { 
+			// Set to first result only if default not found and results exist.
+			if ( ! $user_default_activity && isset( $results[0] ) ) {
 				$instance['activity_default'] = $results[0]->id;
 			}
-
 		} else {
-			$results = $wpdb->prepare( "SELECT * from $table  where type = %s ORDER BY date_recorded DESC",'activity_poll' );
-			$results = $wpdb->get_results($results);
+			// Admin case
+			$query = $wpdb->prepare( 
+				"SELECT * FROM $table WHERE type = %s ORDER BY date_recorded DESC", 
+				'activity_poll' 
+			);
+			$results = $wpdb->get_results( $query );
 		}
-
 
 		extract( $args );
 
