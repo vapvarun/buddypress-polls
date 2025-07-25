@@ -1499,6 +1499,11 @@ if ( ! class_exists( 'Buddypress_Polls_Admin' ) ) {
 		}
 
 		public function wbpolls_log_delete() {
+				
+			if( ! isset( $_POST['ajax_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ), 'wbpoll' ) ) {
+				return;
+			}
+			
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'wppoll_log';
 			$logid      = $_POST['log_id']; //phpcs:ignore

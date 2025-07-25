@@ -23,6 +23,7 @@ if (typeof wp !== 'undefined' && wp.i18n) {
                     data: {
                         action: 'wbpoll_log_delete',                        
                         log_id: log_id,
+                        ajax_nonce: wbpolladminsingleObj.nonce
                     },
                     success: function (response) {
                             location.reload();	
