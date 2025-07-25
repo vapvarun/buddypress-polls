@@ -147,6 +147,7 @@ class Buddypress_Polls_Public {
 			// Loads dynamic inline color style.
 			$wbpolls_color_css = $this->wbpolls_load_color_palette();
 			wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
+			wp_add_inline_style( 'wbpolls-dashboard', $wbpolls_color_css );
 
 			wp_enqueue_style( 'wbpolls-dashboard' );
 			if ( ! wp_style_is( 'wb-icons', 'enqueued' ) ) {
@@ -163,7 +164,7 @@ class Buddypress_Polls_Public {
 
 			// Loads dynamic inline color style.
 			$wbpolls_color_css = $this->wbpolls_load_color_palette();
-			wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css );
+			wp_add_inline_style( 'buddypress-multi-polls', $wbpolls_color_css ); 
 
 			wp_enqueue_style( 'wbpolls-create-poll' );
 			wp_enqueue_style( $this->plugin_name . '-time' );
